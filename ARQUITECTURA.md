@@ -180,7 +180,8 @@ lo decide la profesora.
 **Después**
 - Motor de contenido con IA (generar al escribir la palabra) y revisión por
   idioma.
-- Autoestudio del alumno: práctica con pista, pinyin ocultable y 4 botones;
+- Autoestudio del alumno: práctica con pista, pinyin revelable frase por
+  frase (botón junto al audio), 4 botones;
   enlace personal y `Review` individual ("quién repasó").
 - Elegir palabras de listas HSK con selección múltiple.
 - Repetición espaciada (intervalos por botón).

@@ -106,6 +106,9 @@ profesora podría añadir frases sin cambiar de herramienta.
 1. **Pista = frase de ejemplo ya escrita**, no la primera letra de la
    traducción. Ej.: 我 ___ 他。我们是朋友。
 2. **Mostrar / ocultar pinyin** a voluntad, en la palabra y en las frases.
+   En **modo alumno**, el pinyin de cada frase va oculto y se revela **frase
+   por frase** con un botón junto al audio (no un interruptor global): el
+   alumno intenta leer primero y solo pide ayuda donde la necesita.
 3. **Frases incluidas de serie**: la profesora no tiene que escribirlas.
 4. **Frases del mismo nivel que la palabra**: si la palabra es HSK 1, la
    frase solo usa vocabulario HSK 1 (o ya visto en clase); si es más
