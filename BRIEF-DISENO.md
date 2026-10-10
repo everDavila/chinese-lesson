@@ -36,7 +36,12 @@ genérica.
 ## Plataforma
 - **Web, escritorio primero** (se usa compartiendo pantalla en clase).
   Responsive para móvil más adelante, y posiblemente PWA.
-- **Stack:** Next.js, Tailwind y shadcn/ui. Supabase para datos y login.
+- **Stack:** Next.js, Tailwind CSS v4 y shadcn/ui (sobre Radix), iconos
+  lucide. Supabase para datos y login.
+- **Para que el diseño se pueda implementar:** definir la paleta como
+  **tokens** (fondo, texto, acento, radical, parte fonética, 4 tonos,
+  semáforo), cada uno en modo claro y oscuro, y partir de componentes tipo
+  shadcn/ui (botones, tarjetas, diálogos, pestañas, tablas).
 
 ## Pantallas del MVP
 **Profesora (con login)**

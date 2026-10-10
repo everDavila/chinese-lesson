@@ -132,6 +132,21 @@ de valoraciones + % de aciertos). Los umbrales son configurables.
 - Cuentas reales, varias clases, responsive para móvil.
 - TTS de mejor calidad.
 
+## 6.1 Capa de interfaz (propuesta, por confirmar)
+
+| Pieza | Propuesta | Por qué |
+|---|---|---|
+| CSS | **Tailwind CSS v4** | Estándar con Next.js; los tokens de diseño viven en CSS |
+| Componentes | **shadcn/ui** (sobre Radix) | Accesibles; el código queda en el repo y se adapta al estilo |
+| Iconos | **lucide-react** | Viene con shadcn/ui |
+| Tokens de diseño | Variables CSS: colores base, acento, radical / parte fonética, 4 tonos, semáforo; modo claro y oscuro | Una sola fuente de verdad para el estilo |
+| Fuentes | **next/font** con Noto Serif SC (hanzi), Noto Sans SC (UI) e Inter (latín y pinyin) | Carga optimizada; las fuentes CJK son pesadas |
+| Modo oscuro | **next-themes** | Claro/oscuro sin parpadeo |
+| Idiomas de la UI | **next-intl** (es, en, zh) | Alumno en español, profesora en inglés o chino |
+| Trazos | **Hanzi Writer** | Animación y práctica de escritura |
+| Animaciones de UI | CSS / Tailwind; **Motion** solo si hace falta (giro de tarjeta) | Ligero |
+| Gráficas del panel | **Charts de shadcn/ui** (Recharts) | Solo si el semáforo necesita gráficas |
+
 ## 7. Decisiones abiertas
 - **Stack.** Next.js + TypeScript (decidido), desplegado en Vercel.
   **Base de datos y login: Supabase** (propuesta, por confirmar):
