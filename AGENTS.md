@@ -29,7 +29,7 @@
 - **Servidor de desarrollo:**
 - **Tests:**
 - **Lint / formateo:**
-- **Build / despliegue:**
+- **Build / despliegue:** Vercel, despliegue automático al hacer push a GitHub; ramas con URL de previsualización. Dominio: `hanzi.davila.uno` (CNAME a Vercel, pendiente de configurar).
 
 ## Convenciones
 - Commits en español, mensajes claros y concisos (Conventional Commits opcional).
@@ -78,3 +78,4 @@ _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-10 - Se elige Next.js (React) como framework - el owner ya trabaja con Next.js; sirve también para PWA o webview más adelante, sin necesidad de Vue.
 - 2026-10-10 - Contenido trilingüe (chino, español, inglés) y base curada propia con origen y estado de revisión por dato - la profesora es china y habla inglés; los alumnos son hispanohablantes.
 - 2026-10-10 - Se elige Supabase (Auth + Postgres + RLS) con keep-alive en GitHub Actions - hace falta login para profesoras; Ever prefiere explorar un stack nuevo en vez de repetir Vue + Firebase de Nimbus.
+- 2026-10-10 - Despliegue en Vercel (git push → deploy automático) con subdominio propio `hanzi.davila.uno` - Next.js necesita servidor Node; un subdominio por proyecto evita proxy y no comparte origen con Nimbus (`lab.davila.uno`).

@@ -3,6 +3,9 @@
 > Lecciones verificadas en **Nimbus** (`appclima`: Vue 3 + Firebase +
 > Capacitor), traducidas a este proyecto (Next.js + Supabase). Las que no
 > aplican se descartan al final.
+>
+> Cuando pase de ~20 lecciones: partir en `docs/lecciones/` (un archivo por
+> lección + `README.md` como índice).
 
 ## CSS y animación
 - **`filter: blur()` sobre algo pequeño o semitransparente lo vuelve
