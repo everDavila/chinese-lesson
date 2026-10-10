@@ -120,8 +120,8 @@ de valoraciones + % de aciertos). Los umbrales son configurables.
 - Práctica con trazos animados, pista con frase, mostrar/ocultar pinyin,
   audio nativo y 4 botones.
 - Panel con semáforo.
-- Acceso sencillo: enlace de la lección + nombre del alumno, sin cuentas
-  completas.
+- Login para la profesora. Alumnos: enlace personal por alumno (sin
+  contraseña), que ya registra quién repasó.
 
 **Después**
 - Elegir palabras de listas HSK con selección múltiple.
@@ -133,8 +133,18 @@ de valoraciones + % de aciertos). Los umbrales son configurables.
 - TTS de mejor calidad.
 
 ## 7. Decisiones abiertas
-- **Stack.** Propuesta: Next.js + TypeScript (web, despliegue fácil en
-  Vercel) y Supabase (Postgres + autenticación). Por confirmar.
+- **Stack.** Next.js + TypeScript (decidido), desplegado en Vercel.
+  **Base de datos y login: Supabase** (propuesta, por confirmar):
+  - Login para profesoras desde el MVP; login de alumnos más adelante para
+    ver quién repasó. Supabase trae Auth + Postgres + Row Level Security
+    (cada profesora solo ve sus clases y alumnos).
+  - Plan gratis: se pausa tras 7 días sin peticiones a la base o a la API
+    (alumnos o profesora). Se evita con un **keep-alive** en GitHub Actions
+    que hace una consulta cada 3 días.
+  - Paso intermedio para alumnos sin contraseña: **enlace personal por
+    alumno** (token único) que ya permite saber quién repasó.
+  - Alternativa descartada por ahora: Neon (no se pausa, pero no trae login;
+    habría que sumar Better Auth o similar).
 - **Proveedor de IA** y presupuesto por palabra generada.
 - **Licencias:** confirmar las de Make Me a Hanzi y los datos de Hanzi Writer
   si algún día deja de ser una demo (Arphic podría limitar el uso comercial).

@@ -24,7 +24,7 @@
 
 ## Stack y comandos
 - **Runtime / lenguaje:** TypeScript (Node.js)
-- **Framework / librerías:** Next.js (decidido). Base de datos: Supabase (propuesta, por confirmar). Estilos y fuentes: por decidir.
+- **Framework / librerías:** Next.js (decidido). Base de datos y login: Supabase con keep-alive en GitHub Actions (propuesta, por confirmar). Estilos y fuentes: por decidir.
 - **Instalar dependencias:**
 - **Servidor de desarrollo:**
 - **Tests:**
