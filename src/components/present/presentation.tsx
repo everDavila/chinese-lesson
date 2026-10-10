@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import {
-  ChevronLeft,
-  ChevronRight,
+  ArrowLeft,
+  ArrowRight,
   Expand,
   Languages,
   Moon,
@@ -32,8 +32,6 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
   const [runId, setRunId] = useState(0);
   const [showPinyin, setShowPinyin] = useState(false);
   const [showTranslations, setShowTranslations] = useState(false);
-  const [controlsVisible, setControlsVisible] = useState(true);
-  const hideTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const { resolvedTheme, setTheme } = useTheme();
 
   const item = lesson.items[index];
@@ -122,27 +120,9 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [goTo, index, side, ratings, itemKey, setRating]);
 
-  // Los controles se ocultan solos para no distraer al compartir pantalla.
-  const pokeControls = useCallback(() => {
-    setControlsVisible(true);
-    clearTimeout(hideTimer.current);
-    hideTimer.current = setTimeout(() => setControlsVisible(false), 3000);
-  }, []);
-  useEffect(() => {
-    hideTimer.current = setTimeout(() => setControlsVisible(false), 3000);
-    window.addEventListener("mousemove", pokeControls);
-    return () => {
-      clearTimeout(hideTimer.current);
-      window.removeEventListener("mousemove", pokeControls);
-    };
-  }, [pokeControls]);
-
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
-      <main className="relative flex min-h-0 flex-1 items-center justify-center px-[3vw] py-[3vh]">
-        <div className="absolute top-4 left-6 text-lg text-muted-foreground tabular-nums">
-          {index + 1} / {count}
-        </div>
+      <main className="relative flex min-h-0 flex-1 items-center justify-center px-[3vw] pt-[3vh] pb-2">
         {/* Una tarjeta con dos caras: clic en cualquier zona libre la gira.
             Las dos caras siguen montadas para no perder la animación ni lo revelado. */}
         <div className="h-full w-full max-w-[min(1400px,160vh)] perspective-[2400px]">
@@ -191,101 +171,110 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
         </div>
       </main>
 
+      {/* Controles al estilo Quizlet: ← n / total → al centro, siempre visibles. */}
       <nav
         aria-label="Controles de la presentación"
-        className={cn(
-          "flex flex-wrap items-center justify-center gap-2 border-t border-border bg-card/80 px-4 py-2 backdrop-blur transition-opacity duration-300",
-          controlsVisible ? "opacity-100" : "opacity-0 focus-within:opacity-100",
-        )}
+        className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-[3vw] pt-1 pb-4"
       >
-        <Button variant="ghost" size="icon-lg" aria-label="Anterior (←)" onClick={() => goTo(index - 1)} disabled={index === 0}>
-          <ChevronLeft />
-        </Button>
-        <select
-          aria-label="Ir a la palabra"
-          value={index}
-          onChange={(e) => goTo(Number(e.target.value))}
-          className="h-9 rounded-lg border border-border bg-background px-2 font-hanzi"
-        >
-          {lesson.items.map((it, i) => (
-            <option key={i} value={i}>
-              {i + 1}. {it.word.hanzi} · {it.word.senses[it.senseIndex].pinyin}
-            </option>
-          ))}
-        </select>
-        <Button variant="ghost" size="icon-lg" aria-label="Siguiente (→)" onClick={() => goTo(index + 1)} disabled={index === count - 1}>
-          <ChevronRight />
-        </Button>
-
-        <div className="mx-2 h-6 w-px bg-border" />
-
-        <div className="flex rounded-lg border border-border p-0.5" role="tablist" aria-label="Cara de la tarjeta (Espacio)">
-          {(["front", "back"] as const).map((s) => (
-            <button
-              key={s}
-              role="tab"
-              aria-selected={side === s}
-              onClick={() => setSide(s)}
-              className={cn("rounded-md px-3 py-1 text-sm", side === s ? "bg-primary text-primary-foreground" : "text-muted-foreground")}
-            >
-              {s === "front" ? "Anverso" : "Reverso"}
-            </button>
-          ))}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex rounded-lg border border-border p-0.5" role="tablist" aria-label="Cara de la tarjeta (Espacio)">
+            {(["front", "back"] as const).map((s) => (
+              <button
+                key={s}
+                role="tab"
+                aria-selected={side === s}
+                onClick={() => setSide(s)}
+                className={cn("rounded-md px-3 py-1 text-sm", side === s ? "bg-primary text-primary-foreground" : "text-muted-foreground")}
+              >
+                {s === "front" ? "Anverso" : "Reverso"}
+              </button>
+            ))}
+          </div>
+          <Button variant={showPinyin ? "secondary" : "ghost"} onClick={() => setShowPinyin((v) => !v)} aria-pressed={showPinyin} aria-label="Pinyin (Y)">
+            <Type /> Pinyin
+          </Button>
+          {side === "back" && (
+            <Button variant={showTranslations ? "secondary" : "ghost"} onClick={() => setShowTranslations((v) => !v)} aria-pressed={showTranslations} aria-label="Traducciones (T)">
+              <Languages /> Traducciones
+            </Button>
+          )}
         </div>
 
-        {side === "front" && (
-          <>
-            <Button variant="ghost" size="lg" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pausar (P)" : "Reproducir (P)"}>
-              {playing ? <Pause /> : <Play />}
-              {playing ? "Pausar" : "Reproducir"}
-            </Button>
-            <Button variant="ghost" size="lg" onClick={replay} aria-label="Repetir (R)">
-              <RotateCcw /> Repetir
-            </Button>
-            <label className="flex items-center gap-2 text-sm text-muted-foreground">
-              Velocidad
+        <div className="flex items-center gap-3">
+          <Button
+            variant="secondary"
+            aria-label="Palabra anterior (←)"
+            onClick={() => goTo(index - 1)}
+            disabled={index === 0}
+            className="h-12 w-20 rounded-full [&_svg:not([class*='size-'])]:size-6"
+          >
+            <ArrowLeft />
+          </Button>
+          {/* El contador también sirve para saltar a cualquier palabra. */}
+          <select
+            aria-label="Ir a la palabra"
+            value={index}
+            onChange={(e) => goTo(Number(e.target.value))}
+            className="h-12 cursor-pointer appearance-none rounded-full bg-transparent px-3 text-center text-lg tabular-nums hover:bg-muted"
+          >
+            {lesson.items.map((it, i) => (
+              <option key={i} value={i}>
+                {i + 1} / {count} · {it.word.hanzi}
+              </option>
+            ))}
+          </select>
+          <Button
+            variant="secondary"
+            aria-label="Palabra siguiente (→)"
+            onClick={() => goTo(index + 1)}
+            disabled={index === count - 1}
+            className="h-12 w-20 rounded-full [&_svg:not([class*='size-'])]:size-6"
+          >
+            <ArrowRight />
+          </Button>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-end gap-1">
+          {side === "front" && (
+            <>
+              <Button variant="ghost" size="icon-lg" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pausar trazos (P)" : "Reproducir trazos (P)"}>
+                {playing ? <Pause /> : <Play />}
+              </Button>
+              <Button variant="ghost" size="icon-lg" onClick={replay} aria-label="Repetir trazos (R)">
+                <RotateCcw />
+              </Button>
               <input
                 type="range"
                 min={0.5}
                 max={2}
                 step={0.25}
                 value={speed}
+                aria-label="Velocidad de los trazos"
                 onChange={(e) => {
                   setSpeed(Number(e.target.value));
                   setRunId((r) => r + 1);
                 }}
-                className="w-24 accent-foreground"
+                className="mx-1 w-20 accent-foreground"
               />
-            </label>
-          </>
-        )}
-
-        <div className="mx-2 h-6 w-px bg-border" />
-
-        <Button variant={showPinyin ? "secondary" : "ghost"} size="lg" onClick={() => setShowPinyin((v) => !v)} aria-pressed={showPinyin} aria-label="Pinyin (Y)">
-          <Type /> Pinyin
-        </Button>
-        {side === "back" && (
-          <Button variant={showTranslations ? "secondary" : "ghost"} size="lg" onClick={() => setShowTranslations((v) => !v)} aria-pressed={showTranslations} aria-label="Traducciones (T)">
-            <Languages /> Traducciones
+            </>
+          )}
+          <Button
+            variant="ghost"
+            size="icon-lg"
+            aria-label="Cambiar tema"
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+          >
+            {/* Los dos iconos y CSS decide: el tema no se conoce en el servidor. */}
+            <Sun className="hidden dark:block" />
+            <Moon className="dark:hidden" />
           </Button>
-        )}
-        <Button
-          variant="ghost"
-          size="icon-lg"
-          aria-label="Cambiar tema"
-          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-        >
-          {/* Los dos iconos y CSS decide: el tema no se conoce en el servidor. */}
-          <Sun className="hidden dark:block" />
-          <Moon className="dark:hidden" />
-        </Button>
-        <Button variant="ghost" size="icon-lg" aria-label="Pantalla completa (F)" onClick={toggleFullscreen}>
-          <Expand />
-        </Button>
-        <Link href="/" aria-label="Salir" className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted">
-          <X className="size-4" />
-        </Link>
+          <Button variant="ghost" size="icon-lg" aria-label="Pantalla completa (F)" onClick={toggleFullscreen}>
+            <Expand />
+          </Button>
+          <Link href="/" aria-label="Salir" className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted">
+            <X className="size-4" />
+          </Link>
+        </div>
       </nav>
     </div>
   );
