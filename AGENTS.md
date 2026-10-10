@@ -21,7 +21,8 @@
 - La demo es para la profesora de Ever (mostrarle la propuesta).
 - Arquitectura propuesta en `ARQUITECTURA.md`; framework: Next.js.
 - MVP centrado en la enseñanza en clase (fases 0–3 en `ARQUITECTURA.md` §6).
-- **Fase 0 en curso:** andamiaje listo (Next.js 16, Tailwind v4, shadcn/ui sobre Base UI, next-themes, tokens de color, fuentes Noto + Inter). Falta: Supabase, esquema de datos, contenido de la lección de demo, importar radicales. **Pendiente:** cerrar el estilo visual. Lección de demo en `contenido/LECCION-DEMO.md`.
+- **Fase 0 casi completa:** andamiaje (Next.js 16, Tailwind v4, shadcn/ui sobre Base UI, next-themes, tokens, fuentes), contenido validado de la lección de demo (`contenido/leccion-demo.json`), datos de caracteres y trazos, esquema y seed de Supabase (`supabase/`, sin aplicar). Falta: crear el proyecto Supabase (Ever) y aplicar migración + seed.
+- **Fase 1 empezada:** `/present` funciona con datos locales (anverso animado, reverso, valoración en localStorage). Falta: login de la profesora, sesiones y valoraciones en Supabase, pantalla de preparación de la lección. **Pendiente:** cerrar el estilo visual. Lección de demo en `contenido/LECCION-DEMO.md`.
 
 ## Stack y comandos
 - **Runtime / lenguaje:** TypeScript, Node.js ≥ 20.9 (probado con 22.14). Next.js 16.4 + React 19.3.
