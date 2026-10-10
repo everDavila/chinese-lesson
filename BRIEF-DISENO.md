@@ -158,3 +158,26 @@ presenta). Hacen falta dos modos:
    pantalla comprimida se vuelve ruido.
 6. **Corazón de favorito:** no está en los requisitos. Decidir si se queda
    (¿para quién: alumno o profesora?) o se quita.
+
+## Revisión de la segunda propuesta (认识, botones, modo oscuro)
+
+Se queda: radical y componente fonético separados con leyenda debajo
+(讠 habla/lenguaje · 人 rén), etiqueta HSK, migas "HSK 1 · Lección 3 ·
+Conociendo personas", 4 botones de valoración con **atajos de teclado
+1–4** (muy bien para escritorio) y nota "sonido aproximado" en 只.
+
+**Para la siguiente iteración:**
+1. **Colores inconsistentes entre modos.** Claro: radical rojo, fonético
+   gris. Oscuro: radical dorado, fonético verde. Un token = un significado
+   en los dos modos (cambia el tono, no el papel).
+2. **Coloreado incompleto:** en claro, 人 de 认 no tiene color de fonético y
+   en 识 solo se colorea un trazo de 只. Colorear el componente entero,
+   siempre.
+3. **El rojo vuelve a chocar:** radical rojo y botón "No la sé" rojo. El
+   radical necesita un color sin carga semántica de error (p. ej. azul tinta
+   u ocre); el rojo/ámbar/verde queda para valoración y semáforo, con el
+   mismo mapeo en ambos.
+4. **Fondo del modo oscuro** (pagoda, luna, montañas): demasiado protagonista
+   para compartir pantalla. Mismo criterio que el paisaje del modo claro.
+5. **"Camino al Chino" y el logo 中** son inventados. El nombre está por
+   decidir (dominio: `hanzi.davila.uno`).
