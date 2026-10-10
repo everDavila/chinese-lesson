@@ -20,11 +20,11 @@
 - Idea discutida y documentada en `IDEA.md` (2026-10-10).
 - La demo es para la profesora de Ever (mostrarle la propuesta).
 - Arquitectura propuesta en `ARQUITECTURA.md`; framework: Next.js.
-- **Pendiente:** confirmar Supabase, elegir estilo visual, librería CSS y fuentes, y definir el MVP.
+- **Pendiente:** confirmar capa de interfaz, elegir estilo visual, librería CSS y fuentes, y definir el MVP.
 
 ## Stack y comandos
 - **Runtime / lenguaje:** TypeScript (Node.js)
-- **Framework / librerías:** Next.js (decidido). Base de datos y login: Supabase con keep-alive en GitHub Actions (propuesta, por confirmar). Interfaz: Tailwind v4 + shadcn/ui, next-intl, next-themes, Hanzi Writer (propuesta, ver ARQUITECTURA.md §6.1). Estilo visual: por decidir.
+- **Framework / librerías:** Next.js (decidido). Base de datos y login: Supabase con keep-alive en GitHub Actions (decidido). Interfaz: Tailwind v4 + shadcn/ui, next-intl, next-themes, Hanzi Writer (propuesta, ver ARQUITECTURA.md §6.1). Estilo visual: por decidir.
 - **Instalar dependencias:**
 - **Servidor de desarrollo:**
 - **Tests:**
@@ -50,3 +50,4 @@ _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-10 - Se documenta la idea en `IDEA.md`; formato previsto: plataforma web demostrativa - las clases son online y no se busca una app nativa.
 - 2026-10-10 - Se elige Next.js (React) como framework - el owner ya trabaja con Next.js; sirve también para PWA o webview más adelante, sin necesidad de Vue.
 - 2026-10-10 - Contenido trilingüe (chino, español, inglés) y base curada propia con origen y estado de revisión por dato - la profesora es china y habla inglés; los alumnos son hispanohablantes.
+- 2026-10-10 - Se elige Supabase (Auth + Postgres + RLS) con keep-alive en GitHub Actions - hace falta login para profesoras; Ever prefiere explorar un stack nuevo en vez de repetir Vue + Firebase de Nimbus.

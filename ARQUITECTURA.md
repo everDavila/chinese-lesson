@@ -149,7 +149,7 @@ de valoraciones + % de aciertos). Los umbrales son configurables.
 
 ## 7. Decisiones abiertas
 - **Stack.** Next.js + TypeScript (decidido), desplegado en Vercel.
-  **Base de datos y login: Supabase** (propuesta, por confirmar):
+  **Base de datos y login: Supabase** (decidido 2026-10-10):
   - Login para profesoras desde el MVP; login de alumnos más adelante para
     ver quién repasó. Supabase trae Auth + Postgres + Row Level Security
     (cada profesora solo ve sus clases y alumnos).
