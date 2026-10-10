@@ -20,7 +20,8 @@
 - Idea discutida y documentada en `IDEA.md` (2026-10-10).
 - La demo es para la profesora de Ever (mostrarle la propuesta).
 - Arquitectura propuesta en `ARQUITECTURA.md`; framework: Next.js.
-- **Pendiente:** confirmar capa de interfaz, elegir estilo visual, librería CSS y fuentes, y definir el MVP.
+- MVP centrado en la enseñanza en clase (fases 0–3 en `ARQUITECTURA.md` §6).
+- **Siguiente paso:** fase 0 (andamiaje + una lección real con contenido). **Pendiente:** confirmar capa de interfaz y cerrar el estilo visual.
 
 ## Stack y comandos
 - **Runtime / lenguaje:** TypeScript (Node.js)
@@ -79,3 +80,4 @@ _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-10 - Contenido trilingüe (chino, español, inglés) y base curada propia con origen y estado de revisión por dato - la profesora es china y habla inglés; los alumnos son hispanohablantes.
 - 2026-10-10 - Se elige Supabase (Auth + Postgres + RLS) con keep-alive en GitHub Actions - hace falta login para profesoras; Ever prefiere explorar un stack nuevo en vez de repetir Vue + Firebase de Nimbus.
 - 2026-10-10 - Despliegue en Vercel (git push → deploy automático) con subdominio propio `hanzi.davila.uno` - Next.js necesita servidor Node; un subdominio por proyecto evita proxy y no comparte origen con Nimbus (`lab.davila.uno`).
+- 2026-10-10 - El MVP se centra en la enseñanza en clase (modo presentación, valoración de la profesora y votación anónima), no en el autoestudio - la demo es para mostrarle a la profesora cómo podría enseñar mejor. Se añade una fase 0: sin una lección real no hay nada que presentar.

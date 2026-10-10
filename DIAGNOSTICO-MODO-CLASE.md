@@ -1,6 +1,6 @@
 # Diagnóstico: modo clase y evaluación grupal
 
-> 2026-10-10. Respuesta al documento "Evaluación arquitectónica: Modo clase y
+> **Aprobado** el 2026-10-10 (foco del MVP en la enseñanza en clase). Respuesta al documento "Evaluación arquitectónica: Modo clase y
 > evaluación grupal". Sin implementación: solo diagnóstico y decisiones
 > recomendadas. Base: [IDEA.md](IDEA.md) y [ARQUITECTURA.md](ARQUITECTURA.md).
 

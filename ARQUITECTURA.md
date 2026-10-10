@@ -129,23 +129,43 @@ lo decide la profesora.
 
 ## 6. Fases
 
-**MVP (demo para la profesora)**
-- Crear lección escribiendo palabras.
-- Motor de contenido (datos fijos + IA + validación de nivel) con revisión.
-- Práctica con trazos animados, pista con frase, mostrar/ocultar pinyin,
-  audio nativo y 4 botones.
-- Panel con semáforo.
-- Login para la profesora. Alumnos: enlace personal por alumno (sin
-  contraseña), que ya registra quién repasó.
+> **Foco del MVP (decidido 2026-10-10): la enseñanza en clase.** El objetivo
+> es mostrarle a la profesora cómo podría enseñar mejor. El autoestudio del
+> alumno es secundario. Detalle técnico en
+> [DIAGNOSTICO-MODO-CLASE.md](DIAGNOSTICO-MODO-CLASE.md).
+
+**Fase 0: base**
+- Andamiaje (Next.js, Tailwind, shadcn/ui, Supabase) y login de la profesora.
+- Tablas `Word`, `Sense`, `Sentence`, `Lesson`.
+- Una lección real de la profesora con contenido generado en sesión y
+  revisado (sin coste de API).
+
+**Fase 1: presentar y valorar (el corazón de la demo)**
+- Modo presentación para compartir pantalla en Zoom: anverso con trazos
+  animados y radicales en color; reverso con significados, frases con la
+  palabra resaltada y traducciones ocultas; atajos de teclado.
+- Sesión de clase y valoración manual de la profesora por sentido.
+- Semáforo simple a partir de esa valoración.
+
+**Fase 2: votación anónima**
+- Código o enlace de sesión, página de voto móvil, votos anónimos, polling y
+  semáforo combinado.
+
+**Fase 3: histórico**
+- Evolución por sesión, Realtime si hace falta, vista de presentadora en dos
+  ventanas, funcionamiento sin conexión completo.
 
 **Después**
+- Motor de contenido con IA (generar al escribir la palabra) y revisión por
+  idioma.
+- Autoestudio del alumno: práctica con pista, pinyin ocultable y 4 botones;
+  enlace personal y `Review` individual ("quién repasó").
 - Elegir palabras de listas HSK con selección múltiple.
 - Repetición espaciada (intervalos por botón).
 - Modo "escribe tú" con Hanzi Writer.
 - Habilidades separadas: reconocer, usar, oír, escribir.
 - Modo lectura (textos con vocabulario conocido).
-- Cuentas reales, varias clases, responsive para móvil.
-- TTS de mejor calidad.
+- Varias clases, responsive para móvil, TTS de mejor calidad.
 
 ## 6.1 Capa de interfaz (propuesta, por confirmar)
 
