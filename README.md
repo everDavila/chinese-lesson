@@ -47,3 +47,4 @@ la profesora.
 | [BRIEF-DISENO.md](BRIEF-DISENO.md) | Brief para el diseño visual (listo para pasar a otro modelo o diseñador) |
 | [AGENTS.md](AGENTS.md) | Contexto, reglas y bitácora para agentes de IA |
 | [LECCIONES.md](LECCIONES.md) | Lecciones técnicas heredadas de otros proyectos |
+| [DIAGNOSTICO-MODO-CLASE.md](DIAGNOSTICO-MODO-CLASE.md) | Diagnóstico del modo clase, evaluación grupal y votación anónima |
