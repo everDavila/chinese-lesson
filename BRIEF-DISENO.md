@@ -199,3 +199,37 @@ Conociendo personas", 4 botones de valoración con **atajos de teclado
   los no vistos. Diseñar ese bloque.
 - **Nombre:** se mantiene "hanzi" (`hanzi.davila.uno`); "Camino al Chino"
   queda descartado.
+
+## Revisión de la tercera propuesta: modo profesora completo (6 paneles)
+
+**Se adopta casi todo:** preparación con pasos (Palabras → Revisar contenido →
+Lista final), anverso a pantalla completa con "Voltear tarjeta (Espacio)",
+reverso con interruptores globales de pinyin y traducciones + nota cultural,
+"Comprensión del grupo" al pie del reverso con 4 botones + "Abrir
+votación", pantalla de QR + enlace, resultados con barras y porcentajes, y
+barra de navegación inferior con selector de palabra y Anverso/Reverso.
+
+**Para la siguiente iteración:**
+1. **Preparación: falta elegir el sentido.** Cada fila necesita un selector
+   de sentido (家 ① casa / ② clasificador), el nivel HSK y el estado del
+   contenido (generado sin revisar / revisado). Es la pantalla donde se
+   decide qué se enseña.
+2. **El rojo sigue fuera de su sitio:** trazo actual en la animación, iconos
+   de audio, papeleras, sello 家 decorativo y slider. Solo la palabra en
+   contexto va en rojo. Papeleras en neutro (rojo solo al confirmar).
+3. **Radical verde ausente** en el anverso (家 → 宀) y el verde de "Fácil"
+   compite con él.
+4. **Traducciones duplicadas:** interruptor global + botón por frase. Basta
+   el interruptor global y clic en la frase para revelar una sola.
+5. **Resultados:** añadir "12 respuestas / N alumnos esperados", el color del
+   semáforo resultante con la regla aplicada y la etiqueta "dominio
+   aparente".
+6. **Votación:** mostrar el **código grande** además del QR (el alumno puede
+   estar en Zoom desde su único móvil). Dominio real: `hanzi.davila.uno/v/…`.
+   Falta diseñar la **pantalla del alumno** (móvil).
+7. **Fondo de paisaje y sello:** siguen siendo ruido al compartir pantalla.
+8. **Barra de navegación:** que se oculte sola en modo presentación y
+   reaparezca al mover el ratón.
+
+**Bien visto en el contenido:** 我家有三口人 es HSK 1 y de paso enseña 口
+como clasificador de miembros de la familia.
