@@ -8,11 +8,13 @@
     "components": [
       {
         "char": "宀",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "gài"
       },
       {
         "char": "豕",
-        "role": "phonetic"
+        "role": "phonetic",
+        "pinyin": "shǐ"
       }
     ],
     "etymology": {
@@ -43,11 +45,13 @@
     "components": [
       {
         "char": "讠",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "yán"
       },
       {
         "char": "人",
-        "role": "phonetic"
+        "role": "phonetic",
+        "pinyin": "rén"
       }
     ],
     "etymology": {
@@ -72,11 +76,13 @@
     "components": [
       {
         "char": "讠",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "yán"
       },
       {
         "char": "只",
-        "role": "phonetic"
+        "role": "phonetic",
+        "pinyin": "zhī"
       }
     ],
     "etymology": {
@@ -104,11 +110,13 @@
     "components": [
       {
         "char": "七",
-        "role": "other"
+        "role": "other",
+        "pinyin": "qī"
       },
       {
         "char": "小",
-        "role": "other"
+        "role": "other",
+        "pinyin": "xiǎo"
       }
     ],
     "etymology": {
@@ -132,11 +140,13 @@
     "components": [
       {
         "char": "兀",
-        "role": "other"
+        "role": "other",
+        "pinyin": "wù"
       },
       {
         "char": "囗",
-        "role": "other"
+        "role": "other",
+        "pinyin": "wéi"
       }
     ],
     "etymology": {
@@ -161,11 +171,13 @@
     "components": [
       {
         "char": "矢",
-        "role": "phonetic"
+        "role": "phonetic",
+        "pinyin": "shǐ"
       },
       {
         "char": "口",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "kǒu"
       }
     ],
     "etymology": {
@@ -194,11 +206,13 @@
     "components": [
       {
         "char": "辶",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "chuò"
       },
       {
         "char": "首",
-        "role": "phonetic"
+        "role": "phonetic",
+        "pinyin": "shǒu"
       }
     ],
     "etymology": {
@@ -231,11 +245,13 @@
     "components": [
       {
         "char": "音",
-        "role": "phonetic"
+        "role": "phonetic",
+        "pinyin": "yīn"
       },
       {
         "char": "心",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "xīn"
       }
     ],
     "etymology": {
@@ -269,11 +285,13 @@
     "components": [
       {
         "char": "田",
-        "role": "other"
+        "role": "other",
+        "pinyin": "tián"
       },
       {
         "char": "心",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "xīn"
       }
     ],
     "etymology": {
@@ -301,15 +319,18 @@
     "components": [
       {
         "char": "⺍",
-        "role": "phonetic"
+        "role": "phonetic",
+        "pinyin": null
       },
       {
         "char": "冖",
-        "role": "other"
+        "role": "other",
+        "pinyin": "mì"
       },
       {
         "char": "见",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "jiàn"
       }
     ],
     "etymology": {
@@ -339,11 +360,13 @@
     "components": [
       {
         "char": "彳",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "chì"
       },
       {
         "char": "⿱旦寸",
-        "role": "other"
+        "role": "other",
+        "pinyin": null
       }
     ],
     "etymology": {
@@ -374,11 +397,13 @@
     "components": [
       {
         "char": "乛",
-        "role": "other"
+        "role": "other",
+        "pinyin": "ya"
       },
       {
         "char": "亅",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "jué"
       }
     ],
     "etymology": {
@@ -399,11 +424,13 @@
     "components": [
       {
         "char": "角",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "jiǎo"
       },
       {
         "char": "⿱刀牛",
-        "role": "other"
+        "role": "other",
+        "pinyin": null
       }
     ],
     "etymology": {
@@ -435,11 +462,13 @@
     "components": [
       {
         "char": "丷",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "ha"
       },
       {
         "char": "天",
-        "role": "other"
+        "role": "other",
+        "pinyin": "tiān"
       }
     ],
     "etymology": null,
@@ -461,7 +490,8 @@
     "components": [
       {
         "char": "？",
-        "role": "other"
+        "role": "other",
+        "pinyin": null
       }
     ],
     "etymology": {
@@ -484,11 +514,13 @@
     "components": [
       {
         "char": "？",
-        "role": "other"
+        "role": "other",
+        "pinyin": null
       },
       {
         "char": "冫",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "bīng"
       }
     ],
     "etymology": null,
@@ -507,11 +539,13 @@
     "components": [
       {
         "char": "忄",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "xīn"
       },
       {
         "char": "贯",
-        "role": "phonetic"
+        "role": "phonetic",
+        "pinyin": "guàn"
       }
     ],
     "etymology": {
@@ -543,11 +577,13 @@
     "components": [
       {
         "char": "亠",
-        "role": "other"
+        "role": "other",
+        "pinyin": "tóu"
       },
       {
         "char": "乂",
-        "role": "other"
+        "role": "other",
+        "pinyin": "yì"
       }
     ],
     "etymology": {
@@ -570,11 +606,13 @@
     "components": [
       {
         "char": "亻",
-        "role": "other"
+        "role": "other",
+        "pinyin": "rén"
       },
       {
         "char": "匕",
-        "role": "semantic"
+        "role": "semantic",
+        "pinyin": "bǐ"
       }
     ],
     "etymology": null,

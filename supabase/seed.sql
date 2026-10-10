@@ -2,61 +2,61 @@
 begin;
 
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('家', array['jiā']::text[], '宀', '⿱宀豕', '[{"char":"宀","role":"semantic"},{"char":"豕","role":"phonetic"}]'::jsonb, '{"type":"pictophonetic","semantic":"宀","phonetic":"豕","hint":"roof"}'::jsonb, array['semantic', 'semantic', 'semantic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic']::text[])
+values ('家', array['jiā']::text[], '宀', '⿱宀豕', '[{"char":"宀","role":"semantic","pinyin":"gài"},{"char":"豕","role":"phonetic","pinyin":"shǐ"}]'::jsonb, '{"type":"pictophonetic","semantic":"宀","phonetic":"豕","hint":"roof"}'::jsonb, array['semantic', 'semantic', 'semantic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('认', array['rèn']::text[], '讠', '⿰讠人', '[{"char":"讠","role":"semantic"},{"char":"人","role":"phonetic"}]'::jsonb, '{"type":"pictophonetic","semantic":"讠","phonetic":"人","hint":"speech"}'::jsonb, array['semantic', 'semantic', 'phonetic', 'phonetic']::text[])
+values ('认', array['rèn']::text[], '讠', '⿰讠人', '[{"char":"讠","role":"semantic","pinyin":"yán"},{"char":"人","role":"phonetic","pinyin":"rén"}]'::jsonb, '{"type":"pictophonetic","semantic":"讠","phonetic":"人","hint":"speech"}'::jsonb, array['semantic', 'semantic', 'phonetic', 'phonetic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('识', array['shí']::text[], '讠', '⿰讠只', '[{"char":"讠","role":"semantic"},{"char":"只","role":"phonetic"}]'::jsonb, '{"type":"pictophonetic","semantic":"讠","phonetic":"只","hint":"speech"}'::jsonb, array['semantic', 'semantic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic']::text[])
+values ('识', array['shí']::text[], '讠', '⿰讠只', '[{"char":"讠","role":"semantic","pinyin":"yán"},{"char":"只","role":"phonetic","pinyin":"zhī"}]'::jsonb, '{"type":"pictophonetic","semantic":"讠","phonetic":"只","hint":"speech"}'::jsonb, array['semantic', 'semantic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('东', array['dōng']::text[], '一', '⿻七小', '[{"char":"七","role":"other"},{"char":"小","role":"other"}]'::jsonb, '{"type":"pictographic","hint":"Simplified form of 東, the sun 日 rising behind a tree 木"}'::jsonb, array['other', 'other', 'other', 'other', 'other']::text[])
+values ('东', array['dōng']::text[], '一', '⿻七小', '[{"char":"七","role":"other","pinyin":"qī"},{"char":"小","role":"other","pinyin":"xiǎo"}]'::jsonb, '{"type":"pictographic","hint":"Simplified form of 東, the sun 日 rising behind a tree 木"}'::jsonb, array['other', 'other', 'other', 'other', 'other']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('西', array['xī']::text[], '西', '⿻兀囗', '[{"char":"兀","role":"other"},{"char":"囗","role":"other"}]'::jsonb, '{"type":"pictographic","hint":"A bird settling into its nest, representing sunset; compare 東"}'::jsonb, array['other', 'other', 'other', 'other', 'other', 'other']::text[])
+values ('西', array['xī']::text[], '西', '⿻兀囗', '[{"char":"兀","role":"other","pinyin":"wù"},{"char":"囗","role":"other","pinyin":"wéi"}]'::jsonb, '{"type":"pictographic","hint":"A bird settling into its nest, representing sunset; compare 東"}'::jsonb, array['other', 'other', 'other', 'other', 'other', 'other']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('知', array['zhī']::text[], '矢', '⿰矢口', '[{"char":"矢","role":"phonetic"},{"char":"口","role":"semantic"}]'::jsonb, '{"type":"pictophonetic","semantic":"口","phonetic":"矢","hint":"mouth"}'::jsonb, array['phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'semantic', 'semantic', 'semantic']::text[])
+values ('知', array['zhī']::text[], '矢', '⿰矢口', '[{"char":"矢","role":"phonetic","pinyin":"shǐ"},{"char":"口","role":"semantic","pinyin":"kǒu"}]'::jsonb, '{"type":"pictophonetic","semantic":"口","phonetic":"矢","hint":"mouth"}'::jsonb, array['phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'semantic', 'semantic', 'semantic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('道', array['dào']::text[], '辶', '⿺辶首', '[{"char":"辶","role":"semantic"},{"char":"首","role":"phonetic"}]'::jsonb, '{"type":"pictophonetic","semantic":"辶","phonetic":"首","hint":"walk"}'::jsonb, array['phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'semantic', 'semantic', 'semantic']::text[])
+values ('道', array['dào']::text[], '辶', '⿺辶首', '[{"char":"辶","role":"semantic","pinyin":"chuò"},{"char":"首","role":"phonetic","pinyin":"shǒu"}]'::jsonb, '{"type":"pictophonetic","semantic":"辶","phonetic":"首","hint":"walk"}'::jsonb, array['phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'semantic', 'semantic', 'semantic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('意', array['yì']::text[], '心', '⿱音心', '[{"char":"音","role":"phonetic"},{"char":"心","role":"semantic"}]'::jsonb, '{"type":"pictophonetic","semantic":"心","phonetic":"音","hint":"heart"}'::jsonb, array['phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'semantic', 'semantic', 'semantic', 'semantic']::text[])
+values ('意', array['yì']::text[], '心', '⿱音心', '[{"char":"音","role":"phonetic","pinyin":"yīn"},{"char":"心","role":"semantic","pinyin":"xīn"}]'::jsonb, '{"type":"pictophonetic","semantic":"心","phonetic":"音","hint":"heart"}'::jsonb, array['phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'semantic', 'semantic', 'semantic', 'semantic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('思', array['sī']::text[], '心', '⿱田心', '[{"char":"田","role":"other"},{"char":"心","role":"semantic"}]'::jsonb, '{"type":"ideographic","hint":"Weighing something with your mind 囟 (altered) and heart 心"}'::jsonb, array['other', 'other', 'other', 'other', 'other', 'semantic', 'semantic', 'semantic', 'semantic']::text[])
+values ('思', array['sī']::text[], '心', '⿱田心', '[{"char":"田","role":"other","pinyin":"tián"},{"char":"心","role":"semantic","pinyin":"xīn"}]'::jsonb, '{"type":"ideographic","hint":"Weighing something with your mind 囟 (altered) and heart 心"}'::jsonb, array['other', 'other', 'other', 'other', 'other', 'semantic', 'semantic', 'semantic', 'semantic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('觉', array['jué']::text[], '见', '⿳⺍冖见', '[{"char":"⺍","role":"phonetic"},{"char":"冖","role":"other"},{"char":"见","role":"semantic"}]'::jsonb, '{"type":"pictophonetic","semantic":"见","phonetic":"⺍","hint":"see"}'::jsonb, array['phonetic', 'phonetic', 'phonetic', 'other', 'other', 'semantic', 'semantic', 'semantic', 'semantic']::text[])
+values ('觉', array['jué']::text[], '见', '⿳⺍冖见', '[{"char":"⺍","role":"phonetic","pinyin":null},{"char":"冖","role":"other","pinyin":"mì"},{"char":"见","role":"semantic","pinyin":"jiàn"}]'::jsonb, '{"type":"pictophonetic","semantic":"见","phonetic":"⺍","hint":"see"}'::jsonb, array['phonetic', 'phonetic', 'phonetic', 'other', 'other', 'semantic', 'semantic', 'semantic', 'semantic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('得', array['dé']::text[], '彳', '⿰彳⿱旦寸', '[{"char":"彳","role":"semantic"},{"char":"⿱旦寸","role":"other"}]'::jsonb, '{"type":"ideographic","hint":"A hand 寸 grabbing a shell 旦"}'::jsonb, array['semantic', 'semantic', 'semantic', 'other', 'other', 'other', 'other', 'other', 'other', 'other', 'other']::text[])
+values ('得', array['dé']::text[], '彳', '⿰彳⿱旦寸', '[{"char":"彳","role":"semantic","pinyin":"chì"},{"char":"⿱旦寸","role":"other","pinyin":null}]'::jsonb, '{"type":"ideographic","hint":"A hand 寸 grabbing a shell 旦"}'::jsonb, array['semantic', 'semantic', 'semantic', 'other', 'other', 'other', 'other', 'other', 'other', 'other', 'other']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('了', array['le', 'liǎo']::text[], '亅', '⿱乛亅', '[{"char":"乛","role":"other"},{"char":"亅","role":"semantic"}]'::jsonb, '{"type":"pictographic","hint":"A child swaddled in blanklets; compare 子"}'::jsonb, array['other', 'semantic']::text[])
+values ('了', array['le', 'liǎo']::text[], '亅', '⿱乛亅', '[{"char":"乛","role":"other","pinyin":"ya"},{"char":"亅","role":"semantic","pinyin":"jué"}]'::jsonb, '{"type":"pictographic","hint":"A child swaddled in blanklets; compare 子"}'::jsonb, array['other', 'semantic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('解', array['jiě']::text[], '角', '⿰角⿱刀牛', '[{"char":"角","role":"semantic"},{"char":"⿱刀牛","role":"other"}]'::jsonb, '{"type":"ideographic","hint":"To cut 刀 the horns 角 off of an ox 牛; 角 also provides the pronunciation"}'::jsonb, array['semantic', 'semantic', 'semantic', 'semantic', 'semantic', 'semantic', 'semantic', 'other', 'other', 'other', 'other', 'other', 'other']::text[])
+values ('解', array['jiě']::text[], '角', '⿰角⿱刀牛', '[{"char":"角","role":"semantic","pinyin":"jiǎo"},{"char":"⿱刀牛","role":"other","pinyin":null}]'::jsonb, '{"type":"ideographic","hint":"To cut 刀 the horns 角 off of an ox 牛; 角 also provides the pronunciation"}'::jsonb, array['semantic', 'semantic', 'semantic', 'semantic', 'semantic', 'semantic', 'semantic', 'other', 'other', 'other', 'other', 'other', 'other']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('关', array['guān']::text[], '丷', '⿱丷天', '[{"char":"丷","role":"semantic"},{"char":"天","role":"other"}]'::jsonb, null, array['semantic', 'semantic', 'other', 'other', 'other', 'other']::text[])
+values ('关', array['guān']::text[], '丷', '⿱丷天', '[{"char":"丷","role":"semantic","pinyin":"ha"},{"char":"天","role":"other","pinyin":"tiān"}]'::jsonb, null, array['semantic', 'semantic', 'other', 'other', 'other', 'other']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('心', array['xīn']::text[], '心', '？', '[{"char":"？","role":"other"}]'::jsonb, '{"type":"pictographic","hint":"A heart"}'::jsonb, array['other', 'other', 'other', 'other']::text[])
+values ('心', array['xīn']::text[], '心', '？', '[{"char":"？","role":"other","pinyin":null}]'::jsonb, '{"type":"pictographic","hint":"A heart"}'::jsonb, array['other', 'other', 'other', 'other']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('习', array['xí']::text[], '冫', '⿹？冫', '[{"char":"？","role":"other"},{"char":"冫","role":"semantic"}]'::jsonb, null, array['other', 'semantic', 'semantic']::text[])
+values ('习', array['xí']::text[], '冫', '⿹？冫', '[{"char":"？","role":"other","pinyin":null},{"char":"冫","role":"semantic","pinyin":"bīng"}]'::jsonb, null, array['other', 'semantic', 'semantic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('惯', array['guàn']::text[], '忄', '⿰忄贯', '[{"char":"忄","role":"semantic"},{"char":"贯","role":"phonetic"}]'::jsonb, '{"type":"pictophonetic","semantic":"忄","phonetic":"贯","hint":"heart"}'::jsonb, array['semantic', 'semantic', 'semantic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic']::text[])
+values ('惯', array['guàn']::text[], '忄', '⿰忄贯', '[{"char":"忄","role":"semantic","pinyin":"xīn"},{"char":"贯","role":"phonetic","pinyin":"guàn"}]'::jsonb, '{"type":"pictophonetic","semantic":"忄","phonetic":"贯","hint":"heart"}'::jsonb, array['semantic', 'semantic', 'semantic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic', 'phonetic']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('文', array['wén']::text[], '文', '⿱亠乂', '[{"char":"亠","role":"other"},{"char":"乂","role":"other"}]'::jsonb, '{"type":"pictographic","hint":"A tattooed chest, representing writing"}'::jsonb, array['other', 'other', 'other', 'other']::text[])
+values ('文', array['wén']::text[], '文', '⿱亠乂', '[{"char":"亠","role":"other","pinyin":"tóu"},{"char":"乂","role":"other","pinyin":"yì"}]'::jsonb, '{"type":"pictographic","hint":"A tattooed chest, representing writing"}'::jsonb, array['other', 'other', 'other', 'other']::text[])
 on conflict (char) do nothing;
 insert into characters (char, pinyin, radical, decomposition, components, etymology, stroke_roles)
-values ('化', array['huà']::text[], '匕', '⿰亻匕', '[{"char":"亻","role":"other"},{"char":"匕","role":"semantic"}]'::jsonb, null, array['other', 'other', 'semantic', 'semantic']::text[])
+values ('化', array['huà']::text[], '匕', '⿰亻匕', '[{"char":"亻","role":"other","pinyin":"rén"},{"char":"匕","role":"semantic","pinyin":"bǐ"}]'::jsonb, null, array['other', 'other', 'semantic', 'semantic']::text[])
 on conflict (char) do nothing;
 
 with w as (

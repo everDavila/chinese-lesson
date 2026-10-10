@@ -61,7 +61,12 @@ for (const ch of chars) {
     pinyin: entry.pinyin,
     radical: entry.radical,
     decomposition: entry.decomposition,
-    components: components.map((c) => ({ char: c, role: roleOf(c) })),
+    // pinyin del componente: sirve para la etiqueta del fonético (人 → rén).
+    components: components.map((c) => ({
+      char: c,
+      role: roleOf(c),
+      pinyin: dict.get(c)?.pinyin?.[0] ?? null,
+    })),
     etymology: ety.type
       ? { type: ety.type, semantic: ety.semantic, phonetic: ety.phonetic, hint: ety.hint }
       : null,
