@@ -99,7 +99,7 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
   const otherSenses = word.senses.filter((_, i) => i !== senseIndex);
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-6xl flex-col gap-4 overflow-y-auto px-2">
+    <div className="mx-auto flex h-full w-full max-w-6xl flex-col gap-4 overflow-y-auto">
       <header className="flex items-center gap-6">
         <div className="flex shrink-0 gap-1">
           {item.characters.map((c) =>
@@ -132,7 +132,7 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
         </div>
       </header>
 
-      <ol className="rounded-xl border border-border bg-card px-5">
+      <ol className="rounded-xl border border-border bg-background/60 px-5">
         {sense.sentences.map((s, i) => (
           <SentenceRow
             key={`${word.hanzi}-${senseIndex}-${i}`}
@@ -145,7 +145,7 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
         ))}
       </ol>
 
-      <section className="rounded-xl border border-border bg-card">
+      <section className="rounded-xl border border-border bg-background/60">
         <button
           type="button"
           className="flex w-full items-center justify-between px-5 py-3 text-left"

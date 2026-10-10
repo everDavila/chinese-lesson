@@ -3,7 +3,8 @@
 import { CalligraphyGrid } from "@/components/hanzi/calligraphy-grid";
 import { StrokeArt, strokeTimings } from "@/components/hanzi/stroke-art";
 import type { Bilingual, LessonItem } from "@/lib/lesson-types";
-import { splitPinyin, toneless } from "@/lib/pinyin";
+import { toneless } from "@/lib/pinyin";
+import { cn } from "@/lib/utils";
 
 type CardFrontProps = {
   item: LessonItem;
@@ -16,7 +17,6 @@ type CardFrontProps = {
 
 export function CardFront({ item, playing, speed, runId, showPinyin, componentMeanings }: CardFrontProps) {
   const sense = item.word.senses[item.senseIndex];
-  const syllables = splitPinyin(sense.pinyin);
 
   // Los caracteres se animan uno tras otro: cada uno empieza donde acaba el anterior.
   const starts = item.characters.map((_, i) =>
@@ -25,61 +25,68 @@ export function CardFront({ item, playing, speed, runId, showPinyin, componentMe
       .reduce((t, prev) => t + (prev.strokes ? strokeTimings(prev.strokes, speed).end + 0.2 : 0), 0),
   );
 
+  // Las casillas van pegadas, como en un cuaderno 田字格: la palabra se lee
+  // como una unidad y cada carácter conserva su retícula y su animación.
+  const size = `min(48vh, ${Math.floor(70 / item.characters.length)}vw, 30rem)`;
+
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-6">
-      <div className="flex items-start justify-center gap-[min(4vw,3rem)]">
-        {item.characters.map((c, i) => {
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4">
+      <div className="flex">
+        {item.characters.map((c, i) => (
+          <CalligraphyGrid key={`${c.char}-${runId}`} className={cn("bg-background/60", i > 0 && "-ml-px")}>
+            <div style={{ width: size, height: size }} className="p-[6%]">
+              {c.strokes ? (
+                <StrokeArt
+                  strokes={c.strokes}
+                  roles={c.info?.strokeRoles ?? []}
+                  mode="animate"
+                  playing={playing}
+                  speed={speed}
+                  startDelay={starts[i]}
+                  className="size-full"
+                  title={c.char}
+                />
+              ) : (
+                <span className="font-hanzi flex size-full items-center justify-center text-[min(40vh,24rem)] leading-none">
+                  {c.char}
+                </span>
+              )}
+            </div>
+          </CalligraphyGrid>
+        ))}
+      </div>
+
+      {/* Pinyin de la palabra entera, no sílaba por casilla. */}
+      <p className={cn("text-[clamp(1.75rem,3vw,2.5rem)] text-muted-foreground", !showPinyin && "invisible")}>
+        {sense.pinyin}
+      </p>
+
+      {/* Leyenda de componentes, secundaria, alineada bajo cada carácter. */}
+      <div className="flex">
+        {item.characters.map((c) => {
           const semantic = c.info?.components.find((x) => x.role === "semantic");
           const phonetic = c.info?.components.find((x) => x.role === "phonetic");
           const charSyllable = c.info?.pinyin[0];
           const approximate =
             phonetic?.pinyin && charSyllable && toneless(phonetic.pinyin) !== toneless(charSyllable);
-          const size = `min(52vh, ${Math.floor(78 / item.characters.length)}vw, 30rem)`;
           return (
-            <div key={`${c.char}-${runId}`} className="flex flex-col items-center gap-3">
-              <CalligraphyGrid className="bg-card">
-                <div style={{ width: size, height: size }} className="p-[6%]">
-                  {c.strokes ? (
-                    <StrokeArt
-                      strokes={c.strokes}
-                      roles={c.info?.strokeRoles ?? []}
-                      mode="animate"
-                      playing={playing}
-                      speed={speed}
-                      startDelay={starts[i]}
-                      className="size-full"
-                      title={c.char}
-                    />
-                  ) : (
-                    <span className="font-hanzi flex size-full items-center justify-center text-[min(40vh,24rem)] leading-none">
-                      {c.char}
-                    </span>
-                  )}
+            <dl key={c.char} style={{ width: size }} className="flex flex-col items-center gap-1 text-[clamp(0.95rem,1.3vw,1.25rem)]">
+              {semantic && (
+                <div className="flex items-baseline gap-2">
+                  <dt className="font-hanzi text-[clamp(1.5rem,2.2vw,2rem)] text-radical">{semantic.char}</dt>
+                  <dd className="text-muted-foreground">{componentMeanings[semantic.char]?.es ?? "radical"}</dd>
                 </div>
-              </CalligraphyGrid>
-              {showPinyin && (
-                <p className="text-3xl text-muted-foreground">{syllables[i] ?? ""}</p>
               )}
-              <dl className="flex min-h-12 gap-6 text-base">
-                {semantic && (
-                  <div className="flex items-baseline gap-2">
-                    <dt className="font-hanzi text-3xl text-radical">{semantic.char}</dt>
-                    <dd className="text-muted-foreground">
-                      {componentMeanings[semantic.char]?.es ?? "radical"}
-                    </dd>
-                  </div>
-                )}
-                {phonetic && (
-                  <div className="flex items-baseline gap-2">
-                    <dt className="font-hanzi text-3xl text-phonetic">{phonetic.char}</dt>
-                    <dd className="text-muted-foreground">
-                      {phonetic.pinyin}
-                      {approximate ? " · sonido aproximado" : " · da el sonido"}
-                    </dd>
-                  </div>
-                )}
-              </dl>
-            </div>
+              {phonetic && (
+                <div className="flex items-baseline gap-2">
+                  <dt className="font-hanzi text-[clamp(1.5rem,2.2vw,2rem)] text-phonetic">{phonetic.char}</dt>
+                  <dd className="text-muted-foreground">
+                    {phonetic.pinyin}
+                    {approximate ? " · sonido aproximado" : " · da el sonido"}
+                  </dd>
+                </div>
+              )}
+            </dl>
           );
         })}
       </div>

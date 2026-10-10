@@ -27,7 +27,7 @@ export function GroupRating({
   onChange: (rating: Rating | undefined) => void;
 }) {
   return (
-    <section className="rounded-xl border border-border bg-card px-5 py-3" aria-label="Comprensión del grupo">
+    <section className="rounded-xl border border-border bg-background/60 px-5 py-3" aria-label="Comprensión del grupo">
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
         <div>
           <h2 className="font-medium">Comprensión del grupo</h2>

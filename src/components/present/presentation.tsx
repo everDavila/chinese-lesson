@@ -60,6 +60,8 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
     [count],
   );
 
+  const flip = () => setSide((s) => (s === "front" ? "back" : "front"));
+
   const replay = () => {
     setPlaying(true);
     setRunId((r) => r + 1);
@@ -83,7 +85,7 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
           break;
         case " ":
           e.preventDefault();
-          setSide((s) => (s === "front" ? "back" : "front"));
+          flip();
           break;
         case "p":
         case "P":
@@ -137,29 +139,56 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
-      <main className="relative min-h-0 flex-1 px-[3vw] pt-[3vh] pb-2">
+      <main className="relative flex min-h-0 flex-1 items-center justify-center px-[3vw] py-[3vh]">
         <div className="absolute top-4 left-6 text-lg text-muted-foreground tabular-nums">
           {index + 1} / {count}
         </div>
-        {side === "front" ? (
-          <CardFront
-            item={item}
-            playing={playing}
-            speed={speed}
-            runId={runId}
-            showPinyin={showPinyin}
-            componentMeanings={lesson.componentMeanings}
-          />
-        ) : (
-          <CardBack
-            key={itemKey}
-            item={item}
-            showPinyin={showPinyin}
-            showTranslations={showTranslations}
-            componentMeanings={lesson.componentMeanings}
-            footer={<GroupRating value={ratings[itemKey]} onChange={setRating} />}
-          />
-        )}
+        {/* Una tarjeta con dos caras: clic en cualquier zona libre la gira.
+            Las dos caras siguen montadas para no perder la animación ni lo revelado. */}
+        <div className="h-full w-full max-w-[min(1400px,160vh)] perspective-[2400px]">
+          <div
+            role="button"
+            tabIndex={-1}
+            aria-label={side === "front" ? "Girar la tarjeta (Espacio)" : "Volver al anverso (Espacio)"}
+            onClick={(e) => {
+              const target = e.target as HTMLElement;
+              if (target.closest("button, a, select, input, label, summary, [data-no-flip]")) return;
+              flip();
+            }}
+            className={cn(
+              "relative h-full w-full cursor-pointer transition-transform duration-500 ease-out transform-3d motion-reduce:transition-none",
+              side === "back" && "rotate-y-180",
+            )}
+          >
+            <section
+              aria-hidden={side !== "front"}
+              className="absolute inset-0 flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-xl backface-hidden"
+            >
+              <CardFront
+                item={item}
+                playing={playing && side === "front"}
+                speed={speed}
+                runId={runId}
+                showPinyin={showPinyin}
+                componentMeanings={lesson.componentMeanings}
+              />
+              <p className="pb-3 text-center text-sm text-muted-foreground">Clic o Espacio para girar</p>
+            </section>
+            <section
+              aria-hidden={side !== "back"}
+              className="absolute inset-0 overflow-hidden rounded-3xl border border-border bg-card p-[clamp(1rem,2.5vw,2.5rem)] shadow-xl backface-hidden rotate-y-180"
+            >
+              <CardBack
+                key={itemKey}
+                item={item}
+                showPinyin={showPinyin}
+                showTranslations={showTranslations}
+                componentMeanings={lesson.componentMeanings}
+                footer={<GroupRating value={ratings[itemKey]} onChange={setRating} />}
+              />
+            </section>
+          </div>
+        </div>
       </main>
 
       <nav
