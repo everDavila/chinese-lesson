@@ -123,3 +123,38 @@ Propuestas visuales para las pantallas anteriores, empezando por la
 **tarjeta de práctica** (anverso y reverso) y el **panel de la profesora**.
 Explorar las dos direcciones de estilo, A y B, con paleta, tipografía y
 componentes.
+
+## Revisión de la primera propuesta (2026-10-10, tarjeta de 家)
+
+Dirección A (papel de arroz, tinta, acento rojo). Se queda la base:
+retícula 米字格, trazo actual en rojo y el siguiente en gris fantasma,
+controles Pausar / velocidad / Repetir, significado en español e inglés,
+palabra resaltada en las frases, audio por frase, "Más detalles" plegable.
+
+**Idea nueva que se adopta:** traducciones de las frases ocultas por defecto;
+se revelan cuando la profesora quiere.
+
+**Hallazgo:** el diseño es en realidad un **modo clase** (la profesora
+presenta). Hacen falta dos modos:
+- **Modo clase:** la profesora controla los trazos, el giro y las
+  traducciones. Sin valoración.
+- **Modo práctica:** el alumno solo, con pista, pinyin ocultable y los 4
+  botones de valoración.
+
+**Para la siguiente iteración:**
+1. **El rojo está sobrecargado:** trazo actual, palabra resaltada, iconos de
+   audio y slider. Además chocará con el radical y con el rojo del semáforo.
+   Reservar el rojo para una sola función; audio y slider en neutro;
+   resaltado con otro token.
+2. **Faltan:** radical en color y descomposición (家 = 宀 techo + 豕 cerdo),
+   nivel HSK, mostrar/ocultar pinyin y audio en el anverso, botón de pista.
+3. **Botones "Mostrar traducción" demasiado pesados:** dos bloques grises que
+   ocupan media tarjeta. Mejor un enlace discreto por frase o un único
+   interruptor "Traducciones".
+4. **Contenido de ejemplo:** 我有一个幸福的家 usa 幸福 (no es HSK 1) y rompe
+   la regla de nivel. Y las dos frases muestran el mismo uso; falta el de
+   clasificador (一家公司), que era el argumento original del proyecto.
+5. **Fondo de paisaje a tinta:** dejarlo muy sutil o quitarlo; al compartir
+   pantalla comprimida se vuelve ruido.
+6. **Corazón de favorito:** no está en los requisitos. Decidir si se queda
+   (¿para quién: alumno o profesora?) o se quita.
