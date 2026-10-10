@@ -138,6 +138,12 @@ profesora podría añadir frases sin cambiar de herramienta.
    carácter y la nota cultural. **La parte cultural es prioritaria para
    Ever**: hace que el alumno conecte con el idioma de otra manera.
 
+10. **Una palabra, varios sentidos, en distintas lecciones.** 家 se aprende
+    primero como casa/familia y más adelante como clasificador (一家公司).
+    El sistema lista los sentidos de cada palabra y la profesora elige cuál
+    enseña en cada lección. Lo ya visto aparece como repaso; lo que aún no
+    se ha visto queda oculto. El semáforo se mide por sentido.
+
 ### Para la profesora (feedback)
 6. **Panel de resultados** con semáforo por palabra (verde: ya la saben · amarillo: repasar · rojo: reforzar mucho), por grupo y por alumno. Muestra qué palabras le cuestan más al grupo y a cada
    alumno, para centrar la próxima clase en reforzarlas.

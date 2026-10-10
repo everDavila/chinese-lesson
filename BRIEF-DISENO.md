@@ -181,3 +181,21 @@ Conociendo personas", 4 botones de valoración con **atajos de teclado
    para compartir pantalla. Mismo criterio que el paisaje del modo claro.
 5. **"Camino al Chino" y el logo 中** son inventados. El nombre está por
    decidir (dominio: `hanzi.davila.uno`).
+
+## Decisiones de estilo (2026-10-10)
+- **Base:** la del modo claro (papel de arroz, tinta) y la estructura del modo
+  oscuro (migas de lección, cabecera). Ambos modos se mantienen.
+- **Un color, un significado,** idéntico en claro y oscuro (solo cambia el
+  tono):
+  - **Radical: verde** suave.
+  - **Palabra en contexto (resaltada en la frase): rojo / color fuerte.** Es
+    el único uso del acento fuerte.
+  - Componente fonético: color propio, por definir (ni verde ni rojo).
+  - Valoración y semáforo: rojo / ámbar / verde / azul con el mismo mapeo.
+    Ojo: el verde del radical y el verde de "Bien" no deben confundirse
+    (tono distinto o usar el azul/otro para uno de los dos).
+- **Sentidos múltiples** (ver IDEA.md, requisito 10): la tarjeta muestra el
+  sentido de la lección destacado, los ya vistos como repaso breve y oculta
+  los no vistos. Diseñar ese bloque.
+- **Nombre:** se mantiene "hanzi" (`hanzi.davila.uno`); "Camino al Chino"
+  queda descartado.

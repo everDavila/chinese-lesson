@@ -81,21 +81,36 @@ corrección se guarda y la base propia crece con el uso:
 
 - `User`: id, nombre, rol (profesora / alumno / revisor), idiomas que revisa.
 - `Class`: grupo de alumnos de una profesora.
-- `Word`: hanzi, pinyin, significado (es, en), nivel HSK, caracteres[],
-  nota de matiz, nota cultural.
-- `Reading`: palabra, pinyin, significado (es, en). Para palabras con varias
-  lecturas.
-- `Sentence`: palabra, texto, pinyin, traducción (es, en), nivel calculado.
-- `Lesson`: profesora, clase, título, fecha, palabras[].
-- `Review`: alumno, palabra, valoración (1–4), acierto, usó pista, fecha.
+- `Word`: hanzi, nivel HSK, caracteres[], nota cultural.
+- `Sense` (**sentido o uso**): palabra, pinyin, significado (es, en),
+  categoría (sustantivo, clasificador, verbo…), nota de matiz, orden
+  sugerido. Ej. 家 → ① casa/hogar/familia · ② clasificador de empresas y
+  tiendas (一家公司). Las lecturas distintas (的 de/dí/dì) también son
+  sentidos, cada uno con su pinyin.
+- `Sentence`: **sentido**, texto, pinyin, traducción (es, en), nivel
+  calculado.
+- `Lesson`: profesora, clase, título, fecha, sentidos[] (la profesora elige
+  qué sentido de cada palabra se enseña en esa clase).
+- `Review`: alumno, **sentido**, valoración (1–4), acierto, usó pista, fecha.
 - `Revision`: entidad, campo, valor anterior, valor nuevo, origen, autor,
   fecha. Historial de correcciones para la base curada.
 
 Cada campo traducible o corregible lleva además: origen, estado de revisión
 y revisor.
 
-**Semáforo:** se calcula por palabra a partir de los `Review` del grupo (media
-de valoraciones + % de aciertos). Los umbrales son configurables.
+**Semáforo:** se calcula por **sentido** a partir de los `Review` del grupo
+(media de valoraciones + % de aciertos). Los umbrales son configurables. Así
+se distingue "dominan 家 = casa" de "no dominan 家 como clasificador".
+
+**Qué sentidos ve el alumno en una tarjeta:**
+- El sentido de la lección actual, destacado.
+- Los sentidos ya vistos en lecciones anteriores de su clase, como repaso
+  breve ("Ya lo viste: casa, hogar").
+- Los sentidos aún no vistos, ocultos, para no saturar a un principiante.
+
+El nivel HSK es de la palabra, no del sentido (las listas oficiales no
+separan sentidos), así que el orden de los sentidos lo sugiere el sistema y
+lo decide la profesora.
 
 ## 5. Pantallas
 
