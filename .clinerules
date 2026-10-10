@@ -1,0 +1,25 @@
+# Reglas de Cline para chinese-lesson
+
+> Complementa `AGENTS.md`. Cline lee este archivo automáticamente en cada tarea.
+> También vive en el repo, por lo que se aplica en cualquier PC donde lo clones.
+
+## Contexto
+- Proyecto de lecciones de chino. Repo: https://github.com/everDavila/chinese-lesson
+- Owner: Ever Dávila (`everDavila`).
+
+## Antes de actuar
+- Trata `AGENTS.md` como la fuente de verdad compartida.
+- Si el stack aún no está definido, **propón opciones** en lugar de asumir una tecnología.
+
+## Estilo de trabajo
+- Responde en español (el usuario se comunica en español).
+- Código e identificadores en inglés.
+- Commits en español, concisos.
+
+## Seguridad
+- Nunca subas secretos ni archivos `.env`. Usa `.env.example`.
+- Pide confirmación antes de operaciones destructivas o de hacer push a `master`/`main`.
+
+## Al terminar una tarea relevante
+- Actualiza `AGENTS.md` (Estado actual / Bitácora de decisiones) para que otras PCs
+  y otros agentes hereden el contexto al clonar el repo.
