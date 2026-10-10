@@ -233,3 +233,20 @@ barra de navegación inferior con selector de palabra y Anverso/Reverso.
 
 **Bien visto en el contenido:** 我家有三口人 es HSK 1 y de paso enseña 口
 como clasificador de miembros de la familia.
+
+## Decisiones tras la tercera revisión (Ever, 2026-10-10)
+1. **Sentidos:** se implementa la lógica de sentidos (selector en la
+   preparación).
+2. **Rojo:** solo para la **palabra clave**, en el anverso y dentro de las
+   frases, y en un **rojo suave**, no saturado. Nada más va en rojo.
+3. **Radicales:** verde; con lista de radicales propia (ver ARQUITECTURA.md).
+4. **Traducciones:** se quitan los botones por frase. Queda un interruptor
+   global "Traducciones" y, con él apagado, clic en una frase revela solo
+   esa.
+5. **Veredicto en resultados:** bajo las barras, una línea con
+   participación y semáforo, p. ej. "12 de 14 alumnos · 🟡 Necesita repaso ·
+   solo el 59 % dijo Bien o Fácil". Si hay pocos votos: "⚪ Pocos datos".
+6. **Votación tipo Kahoot:** la pantalla compartida muestra la URL corta y
+   un **código grande**; el alumno entra a la URL, escribe el código y ve
+   en su móvil **el hanzi actual y los 4 botones**, que cambian solos
+   cuando la profesora pasa de palabra. QR opcional.

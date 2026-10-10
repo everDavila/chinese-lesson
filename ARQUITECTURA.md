@@ -77,6 +77,27 @@ corrección se guarda y la base propia crece con el uso:
 - Ojo: lo derivado de CC-CEDICT hereda su licencia **CC BY-SA** (si se
   publica, debe compartirse con la misma licencia).
 
+## 3.2 Radicales y datos de caracteres (sin API)
+
+No se consume ninguna API en tiempo real. Los datos abiertos se **importan
+una vez** a la base propia con un script y desde ahí se curan:
+
+- `Radical`: carácter, variantes (言 → 讠), número Kangxi, trazos, nombre y
+  significado (es, en), nota, ejemplos frecuentes. Unos 214 (Kangxi); se
+  curan primero los ~50 más frecuentes en HSK 1–3.
+- `Character`: carácter, pinyin, radical, componentes con su papel
+  (semántico / fonético), pista etimológica (de Make Me a Hanzi).
+- Los trazos de Hanzi Writer se sirven como JSON autoalojado.
+
+## 3.3 Uso de la IA
+
+La IA solo **arranca** la biblioteca: genera frases, español y notas
+culturales para palabras que aún no existen. Lo generado se revisa y queda
+en la base curada; reutilizar una palabra no vuelve a llamar a la IA. En el
+MVP no hay IA en vivo: el contenido inicial se genera en sesión de
+desarrollo (gratis) y una palabra nueva sin biblioteca se rellena con datos
+abiertos y queda "pendiente de ejemplos".
+
 ## 4. Modelo de datos
 
 - `User`: id, nombre, rol (profesora / alumno / revisor), idiomas que revisa.
@@ -147,8 +168,9 @@ lo decide la profesora.
 - Sesión de clase y valoración manual de la profesora por sentido.
 - Semáforo simple a partir de esa valoración.
 
-**Fase 2: votación anónima**
-- Código o enlace de sesión, página de voto móvil, votos anónimos, polling y
+**Fase 2: votación anónima (tipo Kahoot)**
+- URL corta + código grande (QR opcional); el móvil del alumno muestra el
+  hanzi actual y los 4 botones y sigue a la profesora. Votos anónimos, polling y
   semáforo combinado.
 
 **Fase 3: histórico**
@@ -167,7 +189,7 @@ lo decide la profesora.
 - Modo lectura (textos con vocabulario conocido).
 - Varias clases, responsive para móvil, TTS de mejor calidad.
 
-## 6.1 Capa de interfaz (propuesta, por confirmar)
+## 6.1 Capa de interfaz (decidida 2026-10-10)
 
 | Pieza | Propuesta | Por qué |
 |---|---|---|
