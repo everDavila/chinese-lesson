@@ -15,7 +15,8 @@ const CATEGORY_ES: Record<string, string> = {
   "set phrase": "expresión",
 };
 
-// Resalta la palabra clave dentro de la frase (rojo suave, único uso del rojo).
+// Resalta la palabra clave (rojo suave, único uso del rojo) en frases, matices
+// y notas culturales.
 function Highlighted({ text, keyword }: { text: string; keyword: string }) {
   const parts = text.split(keyword);
   return (
@@ -160,13 +161,13 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
             {sense.nuance && (
               <div>
                 <h3 className="mb-1 text-sm font-medium text-muted-foreground">Matiz</h3>
-                <p>{sense.nuance.es}</p>
+                <p><Highlighted text={sense.nuance.es} keyword={word.hanzi} /></p>
               </div>
             )}
             {word.culturalNote && (
               <div>
                 <h3 className="mb-1 text-sm font-medium text-muted-foreground">Nota cultural</h3>
-                <p>{word.culturalNote.es}</p>
+                <p><Highlighted text={word.culturalNote.es} keyword={word.hanzi} /></p>
               </div>
             )}
             <div>
@@ -207,7 +208,7 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
                     <li key={i}>
                       {s.meaning.es}
                       {s.sentences[0] && (
-                        <span className="font-hanzi text-muted-foreground"> · {s.sentences[0].zh}</span>
+                        <span className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} /></span>
                       )}
                     </li>
                   ))}
