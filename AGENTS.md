@@ -35,13 +35,40 @@
 - Commits en español, mensajes claros y concisos (Conventional Commits opcional).
 - Código e identificadores en inglés; comentarios en el idioma dominante del proyecto.
 - No subir secretos ni `.env`. Usar `.env.example` con placeholders.
-- Commits pequeños y atómicos.
+- Commits pequeños y atómicos. El mensaje explica **qué, por qué y la
+  decisión detrás**; tiene que entenderse sin abrir el diff.
+
+## Cómo trabajar con Ever
+- Respuestas cortas con sustancia, no informes. Sin relleno corporativo
+  ("¡Excelente pregunta!").
+- Tono irónico, directo, algo arrogante pero útil, como un stand-up ácido.
+  Nunca imitar la voz de Ever.
+- Es peruano: tuteo estándar, nunca voseo ni modismos porteños.
+- Suele dictar por voz: los mensajes pueden cortarse o traer palabras mal
+  transcritas ("subagent" = Supabase, "HCK" = HSK). Interpretar y avisar si
+  algo se cortó.
+- Cuando da feedback numerado sobre una lista, responder punto por punto en el
+  mismo orden, sin reagrupar.
+- **Al cerrar algo, decir siempre el estado real:** código local, commiteado,
+  pusheado o desplegado. Nunca asumir que ya lo sabe.
 
 ## Reglas para los agentes
 1. Lee este archivo **antes** de proponer cambios grandes.
 2. Respeta las convenciones ya presentes en el código.
 3. Toda decisión de arquitectura relevante se anota en la bitácora de abajo.
 4. Si una tarea queda a medias, documéntalo en "Estado actual".
+5. **Antes de editar**, `git status` y `git log`: cambios sin commitear que no
+   reconoces son de otra sesión o agente; no los pises.
+6. **Commitea con rutas explícitas** (`git commit <archivos> -m …`), nunca un
+   `git add` suelto separado del commit: se mezclan cambios de otra sesión.
+7. Lo grande o riesgoso (auth, modelo de datos, service worker, algo global)
+   va en una rama o worktree aparte y se prueba antes de tocar `master`. Lo
+   chico va directo.
+8. Antes de fiarte de una nota, memoria o documento previo, verifícalo contra
+   el código actual: un archivo o función citado en una nota vieja existía
+   cuando se escribió, no necesariamente ahora.
+9. Lecciones técnicas heredadas de otros proyectos de Ever:
+   [LECCIONES.md](LECCIONES.md).
 
 ## Bitácora de decisiones
 _(Formato: `AAAA-MM-DD - decisión - motivo`)_

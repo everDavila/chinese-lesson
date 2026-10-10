@@ -45,4 +45,5 @@ la profesora.
 | [IDEA.md](IDEA.md) | Origen de la idea, argumentos, referencias y requisitos |
 | [ARQUITECTURA.md](ARQUITECTURA.md) | Recursos externos, motor de contenido, modelo de datos, pantallas y fases |
 | [BRIEF-DISENO.md](BRIEF-DISENO.md) | Brief para el diseño visual (listo para pasar a otro modelo o diseñador) |
-| [AGENTS.md](AGENTS.md) | Contexto y bitácora para agentes de IA |
+| [AGENTS.md](AGENTS.md) | Contexto, reglas y bitácora para agentes de IA |
+| [LECCIONES.md](LECCIONES.md) | Lecciones técnicas heredadas de otros proyectos |
