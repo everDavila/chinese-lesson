@@ -7,3 +7,23 @@
 Los archivos se generan una vez a partir de la fuente y no se editan a mano.
 Lo curado (frases, español, notas) vive en `contenido/` y, más adelante, en
 la base de datos.
+
+| Archivo | Origen | Licencia | Contenido |
+|---|---|---|---|
+| `characters.json` | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) (`dictionary.txt`) | LGPL v3 o posterior | Descomposición, radical, etimología y papel de cada trazo (semántico / fonético / otro) de los caracteres de la lección |
+| `../public/hanzi-writer/*.json` | [hanzi-writer-data](https://github.com/chanind/hanzi-writer-data) (derivado de Make Me a Hanzi y fuentes Arphic) | Arphic Public License (`ARPHICPL.TXT` en la misma carpeta) | Trazos para la animación, solo de los caracteres de la lección |
+
+Regenerar tras cambiar la lección:
+
+```
+node scripts/build-characters.mjs <ruta/a/dictionary.txt> [contenido/leccion.json]
+```
+
+`dictionary.txt` se descarga de
+`https://raw.githubusercontent.com/skishore/makemeahanzi/master/dictionary.txt`
+(no se guarda en el repo: ~10 MB). Los trazos salen del paquete de
+desarrollo `hanzi-writer-data`.
+
+Si la etimología no marca parte semántica, se colorea el radical en su
+lugar. Los datos tienen rarezas (化 da como radical 匕, no 亻); se curarán en
+la base propia.

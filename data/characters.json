@@ -1,0 +1,588 @@
+{
+  "家": {
+    "pinyin": [
+      "jiā"
+    ],
+    "radical": "宀",
+    "decomposition": "⿱宀豕",
+    "components": [
+      {
+        "char": "宀",
+        "role": "semantic"
+      },
+      {
+        "char": "豕",
+        "role": "phonetic"
+      }
+    ],
+    "etymology": {
+      "type": "pictophonetic",
+      "semantic": "宀",
+      "phonetic": "豕",
+      "hint": "roof"
+    },
+    "strokeRoles": [
+      "semantic",
+      "semantic",
+      "semantic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic"
+    ]
+  },
+  "认": {
+    "pinyin": [
+      "rèn"
+    ],
+    "radical": "讠",
+    "decomposition": "⿰讠人",
+    "components": [
+      {
+        "char": "讠",
+        "role": "semantic"
+      },
+      {
+        "char": "人",
+        "role": "phonetic"
+      }
+    ],
+    "etymology": {
+      "type": "pictophonetic",
+      "semantic": "讠",
+      "phonetic": "人",
+      "hint": "speech"
+    },
+    "strokeRoles": [
+      "semantic",
+      "semantic",
+      "phonetic",
+      "phonetic"
+    ]
+  },
+  "识": {
+    "pinyin": [
+      "shí"
+    ],
+    "radical": "讠",
+    "decomposition": "⿰讠只",
+    "components": [
+      {
+        "char": "讠",
+        "role": "semantic"
+      },
+      {
+        "char": "只",
+        "role": "phonetic"
+      }
+    ],
+    "etymology": {
+      "type": "pictophonetic",
+      "semantic": "讠",
+      "phonetic": "只",
+      "hint": "speech"
+    },
+    "strokeRoles": [
+      "semantic",
+      "semantic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic"
+    ]
+  },
+  "东": {
+    "pinyin": [
+      "dōng"
+    ],
+    "radical": "一",
+    "decomposition": "⿻七小",
+    "components": [
+      {
+        "char": "七",
+        "role": "other"
+      },
+      {
+        "char": "小",
+        "role": "other"
+      }
+    ],
+    "etymology": {
+      "type": "pictographic",
+      "hint": "Simplified form of 東, the sun 日 rising behind a tree 木"
+    },
+    "strokeRoles": [
+      "other",
+      "other",
+      "other",
+      "other",
+      "other"
+    ]
+  },
+  "西": {
+    "pinyin": [
+      "xī"
+    ],
+    "radical": "西",
+    "decomposition": "⿻兀囗",
+    "components": [
+      {
+        "char": "兀",
+        "role": "other"
+      },
+      {
+        "char": "囗",
+        "role": "other"
+      }
+    ],
+    "etymology": {
+      "type": "pictographic",
+      "hint": "A bird settling into its nest, representing sunset; compare 東"
+    },
+    "strokeRoles": [
+      "other",
+      "other",
+      "other",
+      "other",
+      "other",
+      "other"
+    ]
+  },
+  "知": {
+    "pinyin": [
+      "zhī"
+    ],
+    "radical": "矢",
+    "decomposition": "⿰矢口",
+    "components": [
+      {
+        "char": "矢",
+        "role": "phonetic"
+      },
+      {
+        "char": "口",
+        "role": "semantic"
+      }
+    ],
+    "etymology": {
+      "type": "pictophonetic",
+      "semantic": "口",
+      "phonetic": "矢",
+      "hint": "mouth"
+    },
+    "strokeRoles": [
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "semantic",
+      "semantic",
+      "semantic"
+    ]
+  },
+  "道": {
+    "pinyin": [
+      "dào"
+    ],
+    "radical": "辶",
+    "decomposition": "⿺辶首",
+    "components": [
+      {
+        "char": "辶",
+        "role": "semantic"
+      },
+      {
+        "char": "首",
+        "role": "phonetic"
+      }
+    ],
+    "etymology": {
+      "type": "pictophonetic",
+      "semantic": "辶",
+      "phonetic": "首",
+      "hint": "walk"
+    },
+    "strokeRoles": [
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "semantic",
+      "semantic",
+      "semantic"
+    ]
+  },
+  "意": {
+    "pinyin": [
+      "yì"
+    ],
+    "radical": "心",
+    "decomposition": "⿱音心",
+    "components": [
+      {
+        "char": "音",
+        "role": "phonetic"
+      },
+      {
+        "char": "心",
+        "role": "semantic"
+      }
+    ],
+    "etymology": {
+      "type": "pictophonetic",
+      "semantic": "心",
+      "phonetic": "音",
+      "hint": "heart"
+    },
+    "strokeRoles": [
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "semantic",
+      "semantic",
+      "semantic",
+      "semantic"
+    ]
+  },
+  "思": {
+    "pinyin": [
+      "sī"
+    ],
+    "radical": "心",
+    "decomposition": "⿱田心",
+    "components": [
+      {
+        "char": "田",
+        "role": "other"
+      },
+      {
+        "char": "心",
+        "role": "semantic"
+      }
+    ],
+    "etymology": {
+      "type": "ideographic",
+      "hint": "Weighing something with your mind 囟 (altered) and heart 心"
+    },
+    "strokeRoles": [
+      "other",
+      "other",
+      "other",
+      "other",
+      "other",
+      "semantic",
+      "semantic",
+      "semantic",
+      "semantic"
+    ]
+  },
+  "觉": {
+    "pinyin": [
+      "jué"
+    ],
+    "radical": "见",
+    "decomposition": "⿳⺍冖见",
+    "components": [
+      {
+        "char": "⺍",
+        "role": "phonetic"
+      },
+      {
+        "char": "冖",
+        "role": "other"
+      },
+      {
+        "char": "见",
+        "role": "semantic"
+      }
+    ],
+    "etymology": {
+      "type": "pictophonetic",
+      "semantic": "见",
+      "phonetic": "⺍",
+      "hint": "see"
+    },
+    "strokeRoles": [
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "other",
+      "other",
+      "semantic",
+      "semantic",
+      "semantic",
+      "semantic"
+    ]
+  },
+  "得": {
+    "pinyin": [
+      "dé"
+    ],
+    "radical": "彳",
+    "decomposition": "⿰彳⿱旦寸",
+    "components": [
+      {
+        "char": "彳",
+        "role": "semantic"
+      },
+      {
+        "char": "⿱旦寸",
+        "role": "other"
+      }
+    ],
+    "etymology": {
+      "type": "ideographic",
+      "hint": "A hand 寸 grabbing a shell 旦"
+    },
+    "strokeRoles": [
+      "semantic",
+      "semantic",
+      "semantic",
+      "other",
+      "other",
+      "other",
+      "other",
+      "other",
+      "other",
+      "other",
+      "other"
+    ]
+  },
+  "了": {
+    "pinyin": [
+      "le",
+      "liǎo"
+    ],
+    "radical": "亅",
+    "decomposition": "⿱乛亅",
+    "components": [
+      {
+        "char": "乛",
+        "role": "other"
+      },
+      {
+        "char": "亅",
+        "role": "semantic"
+      }
+    ],
+    "etymology": {
+      "type": "pictographic",
+      "hint": "A child swaddled in blanklets; compare 子"
+    },
+    "strokeRoles": [
+      "other",
+      "semantic"
+    ]
+  },
+  "解": {
+    "pinyin": [
+      "jiě"
+    ],
+    "radical": "角",
+    "decomposition": "⿰角⿱刀牛",
+    "components": [
+      {
+        "char": "角",
+        "role": "semantic"
+      },
+      {
+        "char": "⿱刀牛",
+        "role": "other"
+      }
+    ],
+    "etymology": {
+      "type": "ideographic",
+      "hint": "To cut 刀 the horns 角 off of an ox 牛; 角 also provides the pronunciation"
+    },
+    "strokeRoles": [
+      "semantic",
+      "semantic",
+      "semantic",
+      "semantic",
+      "semantic",
+      "semantic",
+      "semantic",
+      "other",
+      "other",
+      "other",
+      "other",
+      "other",
+      "other"
+    ]
+  },
+  "关": {
+    "pinyin": [
+      "guān"
+    ],
+    "radical": "丷",
+    "decomposition": "⿱丷天",
+    "components": [
+      {
+        "char": "丷",
+        "role": "semantic"
+      },
+      {
+        "char": "天",
+        "role": "other"
+      }
+    ],
+    "etymology": null,
+    "strokeRoles": [
+      "semantic",
+      "semantic",
+      "other",
+      "other",
+      "other",
+      "other"
+    ]
+  },
+  "心": {
+    "pinyin": [
+      "xīn"
+    ],
+    "radical": "心",
+    "decomposition": "？",
+    "components": [
+      {
+        "char": "？",
+        "role": "other"
+      }
+    ],
+    "etymology": {
+      "type": "pictographic",
+      "hint": "A heart"
+    },
+    "strokeRoles": [
+      "other",
+      "other",
+      "other",
+      "other"
+    ]
+  },
+  "习": {
+    "pinyin": [
+      "xí"
+    ],
+    "radical": "冫",
+    "decomposition": "⿹？冫",
+    "components": [
+      {
+        "char": "？",
+        "role": "other"
+      },
+      {
+        "char": "冫",
+        "role": "semantic"
+      }
+    ],
+    "etymology": null,
+    "strokeRoles": [
+      "other",
+      "semantic",
+      "semantic"
+    ]
+  },
+  "惯": {
+    "pinyin": [
+      "guàn"
+    ],
+    "radical": "忄",
+    "decomposition": "⿰忄贯",
+    "components": [
+      {
+        "char": "忄",
+        "role": "semantic"
+      },
+      {
+        "char": "贯",
+        "role": "phonetic"
+      }
+    ],
+    "etymology": {
+      "type": "pictophonetic",
+      "semantic": "忄",
+      "phonetic": "贯",
+      "hint": "heart"
+    },
+    "strokeRoles": [
+      "semantic",
+      "semantic",
+      "semantic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic",
+      "phonetic"
+    ]
+  },
+  "文": {
+    "pinyin": [
+      "wén"
+    ],
+    "radical": "文",
+    "decomposition": "⿱亠乂",
+    "components": [
+      {
+        "char": "亠",
+        "role": "other"
+      },
+      {
+        "char": "乂",
+        "role": "other"
+      }
+    ],
+    "etymology": {
+      "type": "pictographic",
+      "hint": "A tattooed chest, representing writing"
+    },
+    "strokeRoles": [
+      "other",
+      "other",
+      "other",
+      "other"
+    ]
+  },
+  "化": {
+    "pinyin": [
+      "huà"
+    ],
+    "radical": "匕",
+    "decomposition": "⿰亻匕",
+    "components": [
+      {
+        "char": "亻",
+        "role": "other"
+      },
+      {
+        "char": "匕",
+        "role": "semantic"
+      }
+    ],
+    "etymology": null,
+    "strokeRoles": [
+      "other",
+      "other",
+      "semantic",
+      "semantic"
+    ]
+  }
+}
