@@ -100,10 +100,11 @@
   --keyword: oklch(0.6 0.13 25); /* rojo suave: solo la palabra clave */
   --radical: oklch(0.58 0.09 155); /* verde: radical / parte semántica */
   --phonetic: oklch(0.6 0.08 250); /* azul pizarra: componente fonético */
-  /* Versión sutil para el anverso: tinta con un matiz, el carácter se lee
-     entero. Valores explícitos: Lightning CSS descarta color-mix() con var(). */
-  --radical-subtle: oklch(0.34 0.045 155);
-  --phonetic-subtle: oklch(0.34 0.04 250);
+  /* Anverso monocromático: todo el carácter en el tono de la tinta (h 60) y
+     los componentes solo cambian de saturación y luminosidad, nunca de tono.
+     Radical: tinta sepia más saturada; fonético: paso intermedio. */
+  --radical-subtle: oklch(0.42 0.09 55);
+  --phonetic-subtle: oklch(0.31 0.045 58);
   --stroke-ghost: oklch(0.8 0.015 70); /* trazos pendientes de la animación */
   --grid-line: oklch(0.78 0.03 40); /* retícula 米字格 */
 
@@ -151,8 +152,8 @@
   --keyword: oklch(0.72 0.12 25);
   --radical: oklch(0.72 0.09 155);
   --phonetic: oklch(0.72 0.07 250);
-  --radical-subtle: oklch(0.86 0.045 155);
-  --phonetic-subtle: oklch(0.86 0.04 250);
+  --radical-subtle: oklch(0.8 0.1 70);
+  --phonetic-subtle: oklch(0.87 0.05 80);
   --stroke-ghost: oklch(0.35 0.01 60);
   --grid-line: oklch(0.32 0.015 40);
 
