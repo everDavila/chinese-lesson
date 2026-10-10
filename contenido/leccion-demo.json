@@ -1,0 +1,436 @@
+{
+  "lesson": {
+    "title": "Lección de demo",
+    "hskVersion": "2.0"
+  },
+  "words": [
+    {
+      "hanzi": "家",
+      "hsk": 1,
+      "culturalNote": {
+        "es": "家 se escribe con 宀 (techo) y 豕 (cerdo). En la China antigua los cerdos se criaban junto a la casa: un cerdo bajo techo era señal de un hogar con sustento.",
+        "en": "家 combines 宀 (roof) and 豕 (pig). In ancient China pigs were raised next to the house: a pig under a roof meant a household that could feed itself."
+      },
+      "senses": [
+        {
+          "pinyin": "jiā",
+          "category": "noun",
+          "meaning": { "es": "casa; hogar; familia", "en": "home; family" },
+          "nuance": {
+            "es": "家 es el hogar o la familia. La casa como edificio o propiedad es 房子.",
+            "en": "家 is home or family. A house as a building or property is 房子."
+          },
+          "sentences": [
+            {
+              "zh": "我家有四个人。",
+              "pinyin": "Wǒ jiā yǒu sì gè rén.",
+              "es": "En mi familia somos cuatro.",
+              "en": "There are four people in my family."
+            },
+            {
+              "zh": "我想回家。",
+              "pinyin": "Wǒ xiǎng huí jiā.",
+              "es": "Quiero volver a casa.",
+              "en": "I want to go home."
+            }
+          ]
+        },
+        {
+          "pinyin": "jiā",
+          "category": "measure word",
+          "meaning": {
+            "es": "clasificador de empresas, tiendas y restaurantes",
+            "en": "measure word for businesses, shops and restaurants"
+          },
+          "nuance": {
+            "es": "Va entre el número o 这/那 y el sustantivo: 一家商店, 这家饭店.",
+            "en": "It goes between the number or 这/那 and the noun: 一家商店, 这家饭店."
+          },
+          "sentences": [
+            {
+              "zh": "这家饭店很好。",
+              "pinyin": "Zhè jiā fàndiàn hěn hǎo.",
+              "es": "Este restaurante es muy bueno.",
+              "en": "This restaurant is very good."
+            },
+            {
+              "zh": "我去一家商店买东西。",
+              "pinyin": "Wǒ qù yì jiā shāngdiàn mǎi dōngxi.",
+              "es": "Voy a una tienda a comprar cosas.",
+              "en": "I'm going to a shop to buy some things."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "认识",
+      "hsk": 1,
+      "culturalNote": {
+        "es": "Al conocer a alguien se dice 认识你很高兴. Hoy, lo siguiente suele ser intercambiar WeChat: 加个微信吧 (\"agreguémonos en WeChat\").",
+        "en": "When meeting someone you say 认识你很高兴. Nowadays the next step is usually swapping WeChat: 加个微信吧 (\"let's add each other on WeChat\")."
+      },
+      "senses": [
+        {
+          "pinyin": "rènshi",
+          "category": "verb",
+          "meaning": { "es": "conocer (a una persona)", "en": "to know (someone); to meet" },
+          "nuance": {
+            "es": "Solo para personas o cosas que reconoces. \"Conocer un lugar\" (haber estado) es 去过, y \"saber un dato\" es 知道.",
+            "en": "Only for people or things you recognize. \"Having been to a place\" is 去过, and \"knowing a fact\" is 知道."
+          },
+          "sentences": [
+            {
+              "zh": "我认识他。",
+              "pinyin": "Wǒ rènshi tā.",
+              "es": "Lo conozco.",
+              "en": "I know him."
+            },
+            {
+              "zh": "认识你很高兴。",
+              "pinyin": "Rènshi nǐ hěn gāoxìng.",
+              "es": "Encantado de conocerte.",
+              "en": "Nice to meet you."
+            }
+          ]
+        },
+        {
+          "pinyin": "rènshi",
+          "category": "verb",
+          "meaning": {
+            "es": "reconocer; saber leer (caracteres)",
+            "en": "to recognize; to be able to read (characters)"
+          },
+          "nuance": {
+            "es": "Con caracteres, 认识 es saber leerlos; escribirlos es 会写.",
+            "en": "With characters, 认识 means being able to read them; writing them is 会写."
+          },
+          "sentences": [
+            {
+              "zh": "这个字你认识吗？",
+              "pinyin": "Zhège zì nǐ rènshi ma?",
+              "es": "¿Reconoces este carácter?",
+              "en": "Do you recognize this character?"
+            },
+            {
+              "zh": "这些字我都认识。",
+              "pinyin": "Zhèxiē zì wǒ dōu rènshi.",
+              "es": "Conozco todos estos caracteres.",
+              "en": "I know all of these characters."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "东西",
+      "hsk": 1,
+      "culturalNote": {
+        "es": "Una explicación popular: en la antigua Chang'an había un mercado del este (东市) y otro del oeste (西市). \"Ir al este y al oeste\" era ir de compras, y lo que se compraba acabó siendo \"东西\". Es una etimología tradicional, no la única propuesta.",
+        "en": "A popular explanation: ancient Chang'an had an eastern market (东市) and a western market (西市). \"Going east and west\" meant shopping, and what you bought became \"东西\". It is a traditional etymology, not the only one proposed."
+      },
+      "senses": [
+        {
+          "pinyin": "dōngxi",
+          "category": "noun",
+          "meaning": { "es": "cosa; objeto", "en": "thing; stuff" },
+          "nuance": {
+            "es": "Con 西 en tono neutro (dōngxi) es \"cosa\". Con primer tono (dōngxī) significa \"este y oeste\".",
+            "en": "With 西 in the neutral tone (dōngxi) it means \"thing\". With the first tone (dōngxī) it means \"east and west\"."
+          },
+          "sentences": [
+            {
+              "zh": "你想买什么东西？",
+              "pinyin": "Nǐ xiǎng mǎi shénme dōngxi?",
+              "es": "¿Qué cosas quieres comprar?",
+              "en": "What do you want to buy?"
+            },
+            {
+              "zh": "这个东西很好。",
+              "pinyin": "Zhège dōngxi hěn hǎo.",
+              "es": "Esta cosa es muy buena.",
+              "en": "This thing is really good."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "知道",
+      "hsk": 2,
+      "senses": [
+        {
+          "pinyin": "zhīdào",
+          "category": "verb",
+          "meaning": { "es": "saber (un dato); estar enterado", "en": "to know (a fact); to be aware of" },
+          "nuance": {
+            "es": "El \"saber\" del español se reparte en tres: 知道 (saber un dato), 会 (saber hacer algo) y 认识 (conocer a alguien).",
+            "en": "Spanish \"saber\" splits into three: 知道 (to know a fact), 会 (to know how to do something) and 认识 (to know someone)."
+          },
+          "sentences": [
+            {
+              "zh": "我知道他的名字。",
+              "pinyin": "Wǒ zhīdào tā de míngzi.",
+              "es": "Sé cómo se llama.",
+              "en": "I know his name."
+            },
+            {
+              "zh": "你知道他在哪儿吗？",
+              "pinyin": "Nǐ zhīdào tā zài nǎr ma?",
+              "es": "¿Sabes dónde está?",
+              "en": "Do you know where he is?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "意思",
+      "hsk": 2,
+      "culturalNote": {
+        "es": "不好意思 se usa muchísimo: para pedir perdón por algo pequeño, para llamar la atención de alguien o para mostrar vergüenza. Es más suave y cotidiano que 对不起.",
+        "en": "不好意思 is used constantly: to apologize for something small, to get someone's attention or to show embarrassment. It is softer and more everyday than 对不起."
+      },
+      "senses": [
+        {
+          "pinyin": "yìsi",
+          "category": "noun",
+          "meaning": { "es": "significado; lo que alguien quiere decir", "en": "meaning; what someone means" },
+          "sentences": [
+            {
+              "zh": "这个字是什么意思？",
+              "pinyin": "Zhège zì shì shénme yìsi?",
+              "es": "¿Qué significa este carácter?",
+              "en": "What does this character mean?"
+            },
+            {
+              "zh": "你是什么意思？",
+              "pinyin": "Nǐ shì shénme yìsi?",
+              "es": "¿Qué quieres decir?",
+              "en": "What do you mean?"
+            }
+          ]
+        },
+        {
+          "pinyin": "yìsi",
+          "category": "set phrase",
+          "meaning": { "es": "有意思: interesante, divertido", "en": "有意思: interesting, fun" },
+          "nuance": {
+            "es": "Literalmente \"tener significado\". Lo contrario es 没意思 (aburrido).",
+            "en": "Literally \"to have meaning\". The opposite is 没意思 (boring)."
+          },
+          "sentences": [
+            {
+              "zh": "这本书很有意思。",
+              "pinyin": "Zhè běn shū hěn yǒu yìsi.",
+              "es": "Este libro es muy interesante.",
+              "en": "This book is very interesting."
+            },
+            {
+              "zh": "学汉语很有意思。",
+              "pinyin": "Xué Hànyǔ hěn yǒu yìsi.",
+              "es": "Aprender chino es muy divertido.",
+              "en": "Learning Chinese is a lot of fun."
+            }
+          ]
+        },
+        {
+          "pinyin": "yìsi",
+          "category": "set phrase",
+          "meaning": {
+            "es": "不好意思: perdón; con permiso; qué vergüenza",
+            "en": "不好意思: sorry; excuse me; how embarrassing"
+          },
+          "sentences": [
+            {
+              "zh": "不好意思，我来晚了。",
+              "pinyin": "Bù hǎoyìsi, wǒ lái wǎn le.",
+              "es": "Perdón, llegué tarde.",
+              "en": "Sorry, I'm late."
+            },
+            {
+              "zh": "不好意思，请问现在几点？",
+              "pinyin": "Bù hǎoyìsi, qǐngwèn xiànzài jǐ diǎn?",
+              "es": "Disculpe, ¿qué hora es?",
+              "en": "Excuse me, what time is it?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "觉得",
+      "hsk": 2,
+      "senses": [
+        {
+          "pinyin": "juéde",
+          "category": "verb",
+          "meaning": { "es": "creer; opinar; parecerle a uno; sentir", "en": "to think; to feel" },
+          "nuance": {
+            "es": "Para opiniones personales y sensaciones. Es más suave y coloquial que 认为.",
+            "en": "For personal opinions and feelings. Softer and more colloquial than 认为."
+          },
+          "sentences": [
+            {
+              "zh": "你觉得汉语怎么样？",
+              "pinyin": "Nǐ juéde Hànyǔ zěnmeyàng?",
+              "es": "¿Qué te parece el chino?",
+              "en": "What do you think of Chinese?"
+            },
+            {
+              "zh": "我觉得今天有点儿冷。",
+              "pinyin": "Wǒ juéde jīntiān yǒudiǎnr lěng.",
+              "es": "Siento que hoy hace un poco de frío.",
+              "en": "I feel it's a bit cold today."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "了解",
+      "hsk": 3,
+      "senses": [
+        {
+          "pinyin": "liǎojiě",
+          "category": "verb",
+          "meaning": {
+            "es": "conocer a fondo; entender bien; informarse",
+            "en": "to understand well; to know in depth; to find out"
+          },
+          "nuance": {
+            "es": "Cierra el trío: 认识 (conocer a alguien), 知道 (saber un dato), 了解 (conocer a fondo). Puedes 认识 a alguien sin 了解lo.",
+            "en": "Completes the trio: 认识 (to know someone), 知道 (to know a fact), 了解 (to know in depth). You can 认识 someone without 了解-ing them."
+          },
+          "sentences": [
+            {
+              "zh": "我想了解中国文化。",
+              "pinyin": "Wǒ xiǎng liǎojiě Zhōngguó wénhuà.",
+              "es": "Quiero conocer a fondo la cultura china.",
+              "en": "I want to learn about Chinese culture."
+            },
+            {
+              "zh": "我认识他，但是不了解他。",
+              "pinyin": "Wǒ rènshi tā, dànshì bù liǎojiě tā.",
+              "es": "Lo conozco, pero no lo conozco bien.",
+              "en": "I know him, but I don't really know him."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "关心",
+      "hsk": 3,
+      "culturalNote": {
+        "es": "En China la preocupación por los demás se expresa mucho con preguntas cotidianas: 吃饭了吗？ (\"¿ya comiste?\") funciona casi como un saludo, y 多穿点儿 (\"abrígate más\") es un clásico de padres y abuelos.",
+        "en": "In China, caring for others is often shown through everyday questions: 吃饭了吗？ (\"have you eaten?\") works almost as a greeting, and 多穿点儿 (\"wear more layers\") is a classic from parents and grandparents."
+      },
+      "senses": [
+        {
+          "pinyin": "guānxīn",
+          "category": "verb",
+          "meaning": {
+            "es": "preocuparse por; interesarse por",
+            "en": "to care about; to be concerned about"
+          },
+          "nuance": {
+            "es": "Preocuparse por alguien con cariño, no estar angustiado. \"Estar preocupado\" (nervioso) es 担心.",
+            "en": "Caring about someone with affection, not being anxious. \"To be worried\" is 担心."
+          },
+          "sentences": [
+            {
+              "zh": "妈妈很关心我的身体。",
+              "pinyin": "Māma hěn guānxīn wǒ de shēntǐ.",
+              "es": "Mi mamá se preocupa mucho por mi salud.",
+              "en": "My mom really cares about my health."
+            },
+            {
+              "zh": "谢谢你的关心。",
+              "pinyin": "Xièxie nǐ de guānxīn.",
+              "es": "Gracias por preocuparte.",
+              "en": "Thank you for your concern."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "习惯",
+      "hsk": 3,
+      "culturalNote": {
+        "es": "Una costumbre que conviene conocer: no se clavan los palillos de pie en el arroz, porque recuerda al incienso de los funerales.",
+        "en": "A custom worth knowing: don't stick chopsticks upright in rice, because it resembles the incense at funerals."
+      },
+      "senses": [
+        {
+          "pinyin": "xíguàn",
+          "category": "noun",
+          "meaning": { "es": "costumbre; hábito", "en": "habit; custom" },
+          "sentences": [
+            {
+              "zh": "早上喝茶是我的习惯。",
+              "pinyin": "Zǎoshang hē chá shì wǒ de xíguàn.",
+              "es": "Tomar té por la mañana es mi costumbre.",
+              "en": "Drinking tea in the morning is my habit."
+            },
+            {
+              "zh": "每个国家都有自己的习惯。",
+              "pinyin": "Měi gè guójiā dōu yǒu zìjǐ de xíguàn.",
+              "es": "Cada país tiene sus propias costumbres.",
+              "en": "Every country has its own customs."
+            }
+          ]
+        },
+        {
+          "pinyin": "xíguàn",
+          "category": "verb",
+          "meaning": { "es": "acostumbrarse a; estar acostumbrado", "en": "to be used to; to get used to" },
+          "sentences": [
+            {
+              "zh": "我还不习惯用筷子。",
+              "pinyin": "Wǒ hái bù xíguàn yòng kuàizi.",
+              "es": "Todavía no me acostumbro a usar palillos.",
+              "en": "I'm still not used to using chopsticks."
+            },
+            {
+              "zh": "你习惯这儿的天气吗？",
+              "pinyin": "Nǐ xíguàn zhèr de tiānqì ma?",
+              "es": "¿Te has acostumbrado al clima de aquí?",
+              "en": "Are you used to the weather here?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hanzi": "文化",
+      "hsk": 3,
+      "culturalNote": {
+        "es": "文 en su forma antigua parece una persona con dibujos en el pecho: \"patrón, marca\". 化 es \"transformar\". 文化 es, literalmente, transformar a las personas mediante la escritura y las costumbres.",
+        "en": "The ancient form of 文 looks like a person with markings on the chest: \"pattern, mark\". 化 means \"to transform\". 文化 literally means transforming people through writing and customs."
+      },
+      "senses": [
+        {
+          "pinyin": "wénhuà",
+          "category": "noun",
+          "meaning": { "es": "cultura", "en": "culture" },
+          "sentences": [
+            {
+              "zh": "我很喜欢中国文化。",
+              "pinyin": "Wǒ hěn xǐhuan Zhōngguó wénhuà.",
+              "es": "Me gusta mucho la cultura china.",
+              "en": "I really like Chinese culture."
+            },
+            {
+              "zh": "每个国家的文化都不一样。",
+              "pinyin": "Měi gè guójiā de wénhuà dōu bù yíyàng.",
+              "es": "La cultura de cada país es distinta.",
+              "en": "Every country's culture is different."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
