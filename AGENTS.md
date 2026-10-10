@@ -21,15 +21,15 @@
 - La demo es para la profesora de Ever (mostrarle la propuesta).
 - Arquitectura propuesta en `ARQUITECTURA.md`; framework: Next.js.
 - MVP centrado en la enseñanza en clase (fases 0–3 en `ARQUITECTURA.md` §6).
-- **Siguiente paso:** fase 0 (andamiaje + una lección real con contenido). **Pendiente:** cerrar el estilo visual. Lección de demo en `contenido/LECCION-DEMO.md`.
+- **Fase 0 en curso:** andamiaje listo (Next.js 16, Tailwind v4, shadcn/ui sobre Base UI, next-themes, tokens de color, fuentes Noto + Inter). Falta: Supabase, esquema de datos, contenido de la lección de demo, importar radicales. **Pendiente:** cerrar el estilo visual. Lección de demo en `contenido/LECCION-DEMO.md`.
 
 ## Stack y comandos
-- **Runtime / lenguaje:** TypeScript (Node.js)
+- **Runtime / lenguaje:** TypeScript, Node.js ≥ 20.9 (probado con 22.14). Next.js 16.4 + React 19.3.
 - **Framework / librerías:** Next.js (decidido). Base de datos y login: Supabase con keep-alive en GitHub Actions (decidido). Interfaz: Tailwind v4 + shadcn/ui, next-intl, next-themes, Hanzi Writer (decidido, ver ARQUITECTURA.md §6.1). Estilo visual: por decidir.
-- **Instalar dependencias:**
-- **Servidor de desarrollo:**
-- **Tests:**
-- **Lint / formateo:**
+- **Instalar dependencias:** `npm ci`
+- **Servidor de desarrollo:** `npm run dev` (Turbopack)
+- **Tests:** pendiente (Playwright para tests visuales, como en Nimbus)
+- **Lint / formateo:** `npm run lint` (ESLint flat config)
 - **Build / despliegue:** Vercel, despliegue automático al hacer push a GitHub; ramas con URL de previsualización. Dominio: `hanzi.davila.uno` (CNAME a Vercel, pendiente de configurar).
 
 ## Convenciones
@@ -82,3 +82,13 @@ _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-10 - Despliegue en Vercel (git push → deploy automático) con subdominio propio `hanzi.davila.uno` - Next.js necesita servidor Node; un subdominio por proyecto evita proxy y no comparte origen con Nimbus (`lab.davila.uno`).
 - 2026-10-10 - El MVP se centra en la enseñanza en clase (modo presentación, valoración de la profesora y votación anónima), no en el autoestudio - la demo es para mostrarle a la profesora cómo podría enseñar mejor. Se añade una fase 0: sin una lección real no hay nada que presentar.
 - 2026-10-10 - Datos de caracteres y radicales importados una vez a la base propia (sin API en vivo); IA solo para arrancar la biblioteca; votación tipo Kahoot (URL + código); rojo suave solo para la palabra clave; capa de interfaz confirmada (Tailwind v4 + shadcn/ui + next-intl + next-themes + Hanzi Writer) - decisiones de Ever tras revisar el modo profesora.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
