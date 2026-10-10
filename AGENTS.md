@@ -19,8 +19,8 @@
 - Configuración base compartida añadida (`AGENTS.md` + `.clinerules`).
 - Idea discutida y documentada en `IDEA.md` (2026-10-10).
 - La demo es para la profesora de Ever (mostrarle la propuesta).
-- **Pendiente:** decidir el origen de las frases (corpus vs. IA revisada) y el stack.
-- **Stack todavía sin definir.** Completar la siguiente sección al elegir tecnología.
+- Arquitectura propuesta en `ARQUITECTURA.md`; framework: Next.js.
+- **Pendiente:** confirmar Supabase, elegir estilo visual, librería CSS y fuentes, y definir el MVP.
 
 ## Stack y comandos
 - **Runtime / lenguaje:** TypeScript (Node.js)
