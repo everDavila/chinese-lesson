@@ -8,10 +8,13 @@ import type { StrokeData, StrokeRole } from "@/lib/lesson-types";
 // trazo y radical, y solo en hex; aquí cada trazo toma el color de su papel
 // (radical verde, fonético azul) con los tokens CSS, en claro y en oscuro.
 
-const ROLE_COLOR: Record<StrokeRole, string> = {
-  semantic: "var(--radical)",
-  phonetic: "var(--phonetic)",
-  other: "var(--foreground)",
+// "full": descomposición en color (reverso). "subtle": tinta con un matiz,
+// para que el carácter se lea entero (anverso). "ink": todo en tinta.
+export type StrokeTone = "full" | "subtle" | "ink";
+const ROLE_COLOR: Record<StrokeTone, Record<StrokeRole, string>> = {
+  full: { semantic: "var(--radical)", phonetic: "var(--phonetic)", other: "var(--foreground)" },
+  subtle: { semantic: "var(--radical-subtle)", phonetic: "var(--phonetic-subtle)", other: "var(--foreground)" },
+  ink: { semantic: "var(--foreground)", phonetic: "var(--foreground)", other: "var(--foreground)" },
 };
 
 // Unidades de la cuadrícula por segundo a velocidad 1, y pausa entre trazos.
@@ -47,8 +50,7 @@ type StrokeArtProps = {
   playing?: boolean;
   speed?: number;
   startDelay?: number;
-  /** Colorear radical y fonético; si es false, todo en tinta. */
-  colorRoles?: boolean;
+  tone?: StrokeTone;
   className?: string;
   title?: string;
 };
@@ -60,12 +62,12 @@ export function StrokeArt({
   playing = true,
   speed = 1,
   startDelay = 0,
-  colorRoles = true,
+  tone = "full",
   className,
   title,
 }: StrokeArtProps) {
   const id = useId();
-  const colorOf = (i: number) => (colorRoles ? ROLE_COLOR[roles[i] ?? "other"] : ROLE_COLOR.other);
+  const colorOf = (i: number) => ROLE_COLOR[tone][roles[i] ?? "other"];
 
   if (mode === "static") {
     return (

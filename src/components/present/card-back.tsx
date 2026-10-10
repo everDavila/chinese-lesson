@@ -5,6 +5,7 @@ import { ChevronDown, Volume2 } from "lucide-react";
 import { StrokeArt } from "@/components/hanzi/stroke-art";
 import { Button } from "@/components/ui/button";
 import type { Bilingual, LessonItem, Sentence } from "@/lib/lesson-types";
+import { toneless } from "@/lib/pinyin";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 
@@ -133,6 +134,52 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
         </div>
       </header>
 
+      {/* Cómo se forma: aquí sí, la descomposición en color (radical verde,
+          fonético azul). En el anverso solo hay un matiz de tono. */}
+      <section aria-label="Cómo se forma" className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
+        <h3 className="w-full text-sm font-medium text-muted-foreground">Cómo se forma</h3>
+        {item.characters.map((c) => {
+          const charSyllable = c.info?.pinyin[0];
+          return (
+            <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 text-[clamp(1rem,1.4vw,1.25rem)]">
+              <span className="font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]">{c.char}</span>
+              <span className="text-muted-foreground">=</span>
+              {c.info?.components.length ? (
+                c.info.components.map((comp, i) => (
+                  <span key={i} className="flex items-baseline gap-1">
+                    {i > 0 && <span className="text-muted-foreground">+</span>}
+                    <span
+                      className={cn(
+                        "font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]",
+                        comp.role === "semantic" && "text-radical",
+                        comp.role === "phonetic" && "text-phonetic",
+                      )}
+                    >
+                      {comp.char}
+                    </span>
+                    {comp.role === "semantic" && (
+                      <span className="text-muted-foreground">
+                        {componentMeanings[comp.char]?.es ?? "radical"}
+                      </span>
+                    )}
+                    {comp.role === "phonetic" && comp.pinyin && (
+                      <span className="text-muted-foreground">
+                        {comp.pinyin} ·{" "}
+                        {charSyllable && toneless(comp.pinyin) === toneless(charSyllable)
+                          ? "da el sonido"
+                          : "sonido aproximado"}
+                      </span>
+                    )}
+                  </span>
+                ))
+              ) : (
+                <span className="text-muted-foreground">carácter simple</span>
+              )}
+            </p>
+          );
+        })}
+      </section>
+
       <ol className="rounded-xl border border-border bg-background/60 px-5">
         {sense.sentences.map((s, i) => (
           <SentenceRow
@@ -170,36 +217,6 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
                 <p><Highlighted text={word.culturalNote.es} keyword={word.hanzi} /></p>
               </div>
             )}
-            <div>
-              <h3 className="mb-1 text-sm font-medium text-muted-foreground">Caracteres</h3>
-              <ul className="space-y-1">
-                {item.characters.map((c) => (
-                  <li key={c.char}>
-                    <span className="font-hanzi text-xl">{c.char}</span>{" "}
-                    {c.info?.components.map((comp, i) => (
-                      <span key={i}>
-                        {i > 0 && " + "}
-                        <span
-                          className={cn(
-                            "font-hanzi text-xl",
-                            comp.role === "semantic" && "text-radical",
-                            comp.role === "phonetic" && "text-phonetic",
-                          )}
-                        >
-                          {comp.char}
-                        </span>
-                        {comp.role === "semantic" && componentMeanings[comp.char] && (
-                          <span className="text-muted-foreground"> ({componentMeanings[comp.char].es})</span>
-                        )}
-                        {comp.role === "phonetic" && comp.pinyin && (
-                          <span className="text-muted-foreground"> ({comp.pinyin}, sonido)</span>
-                        )}
-                      </span>
-                    ))}
-                  </li>
-                ))}
-              </ul>
-            </div>
             {otherSenses.length > 0 && (
               <div>
                 <h3 className="mb-1 text-sm font-medium text-muted-foreground">Otros usos (otras lecciones)</h3>

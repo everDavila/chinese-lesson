@@ -150,7 +150,6 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
                 speed={speed}
                 runId={runId}
                 showPinyin={showPinyin}
-                componentMeanings={lesson.componentMeanings}
               />
               <p className="pb-3 text-center text-sm text-muted-foreground">Clic o Espacio para girar</p>
             </section>
