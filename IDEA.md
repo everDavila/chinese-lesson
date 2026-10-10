@@ -63,6 +63,19 @@ evitaría:
 - Traducción floja: 别问我这是什么东西！ aparece como "Don't ask me what it
   was" (mejor: "¡No me preguntes qué es esto!").
 
+Otra app (secciones Learn / Practice / Cards / Reader):
+- **Repaso con 4 botones** Forgot / Shaky / Good / Easy, cada uno con su
+  próximo intervalo (1d / 1d / 3d / 11d): valida la escala de 4 propuesta.
+- **Listas por frecuencia** ("Essential 1": 的, 是, 了, 就, 我…) con
+  selección múltiple para armar un set → útil para que la profesora arme
+  lecciones eligiendo de una lista.
+- **Varias lecturas por carácter** (的: de / dí / dì) y enlace a detalle de
+  carácter; simplificado y tradicional.
+- **Modo Reader** (lectura) → input comprensible.
+- Carencias: definiciones de diccionario ("after a suppositional clause…")
+  y sin frases. Partículas como 了, 就, 的 o 过 (aspecto: 我去过北京) son
+  imposibles de aprender sin contexto.
+
 Dato práctico: **Quizlet admite texto libre en la definición**, así que la
 profesora podría añadir frases sin cambiar de herramienta.
 
@@ -99,6 +112,32 @@ profesora podría añadir frases sin cambiar de herramienta.
    avanzada, la frase puede serlo también.
 5. **Valoración de dificultad graduada** por palabra al practicar (escala de 4: No la sé · Me costó · Bien · Fácil), además de registrar si acertó.
 
+7. **Enfocado al chino, no genérico como Quizlet.** En el anverso, la
+   palabra se separa en sus caracteres y cada uno se **anima trazo a trazo**
+   mientras el alumno piensa la respuesta (ej. 认识 → 认 y 识, en orden).
+   Se puede repetir y pausar. Aprovechar para señalar componentes
+   compartidos: 认 y 识 llevan 讠 (radical de "palabra/hablar").
+   - Herramienta candidata: librería **Hanzi Writer** (JS, código abierto,
+     datos de Make Me a Hanzi): animación de trazos y modo de práctica de
+     escritura.
+   - Más adelante: modo "escribe tú", trazando el carácter con el ratón o el
+     dedo.
+
+8. **Radicales en color.** En la práctica y en la animación, el radical (o
+   el componente de significado) se pinta de otro color para que el alumno
+   lo reconozca luego en otros caracteres. Referencia: app "Hanzi
+   University" (Ever la probó).
+   - En los caracteres fonosemánticos (形声字, la mayoría), distinguir
+     **parte de significado** y **parte de sonido**: 认 rèn = 讠 (hablar,
+     significado) + 人 rén (sonido).
+   - Son pocos: la tabla moderna de radicales tiene ~200 (los clásicos de
+     Kangxi son 214).
+9. **Ficha ampliable con profundidad opcional.** Las clases son cortas, así
+   que la tarjeta es breve; pero el alumno curioso puede abrir la ficha y ver:
+   qué es el radical y en qué otros caracteres sale, origen e historia del
+   carácter y la nota cultural. **La parte cultural es prioritaria para
+   Ever**: hace que el alumno conecte con el idioma de otra manera.
+
 ### Para la profesora (feedback)
 6. **Panel de resultados** con semáforo por palabra (verde: ya la saben · amarillo: repasar · rojo: reforzar mucho), por grupo y por alumno. Muestra qué palabras le cuestan más al grupo y a cada
    alumno, para centrar la próxima clase en reforzarlas.
@@ -115,19 +154,10 @@ profesora podría añadir frases sin cambiar de herramienta.
 - **Toque cultural.** Una nota breve por palabra cuando aporte (costumbres,
   origen del carácter, uso real).
 
-### Esbozo de arquitectura (sin stack decidido)
-- **Roles:** profesora y alumno.
-- **Datos:**
-  - `Word`: hanzi, pinyin, significado, nivel HSK, caracteres que la forman.
-  - `Sentence`: texto, pinyin, traducción, nivel (= nivel máximo de sus
-    palabras), palabras que contiene.
-  - `Deck` / lección: lista de palabras que asigna la profesora.
-  - `Review`: alumno + palabra + valoración (fácil/difícil) + acierto + fecha.
-- **Flujo:** profesora crea lección → alumnos practican y valoran → panel
-  agrega los `Review` → profesora ve las palabras que más cuestan.
-- **Origen de las frases (por decidir):** corpus existente con nivel HSK
-  (p. ej. Tatoeba filtrado) o generadas por IA con revisión de la profesora.
+### Arquitectura
+Ver **[ARQUITECTURA.md](ARQUITECTURA.md)**: recursos externos, motor de contenido,
+modelo de datos, pantallas y fases (MVP / después).
 
 ## Preguntas abiertas
 - ~~¿Para quién es la demo?~~ → Para la profesora de Ever: mostrarle la propuesta (Ever se pone en su lugar; él ha enseñado español a no hispanohablantes).
-- Stack técnico: sin definir.
+- Stack técnico: propuesta en ARQUITECTURA.md, por confirmar.

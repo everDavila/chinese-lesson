@@ -11,7 +11,8 @@
 - **Owner:** Ever Dávila (`everDavila`)
 - **Objetivo:** Demo web para enseñar vocabulario chino **en contexto** (frases,
   descomposición en caracteres, matices de tono y uso) en vez de palabras sueltas.
-  Detalle completo de la idea en **[IDEA.md](IDEA.md)**: léelo antes de proponer nada.
+  Detalle completo de la idea en **[IDEA.md](IDEA.md)** y propuesta técnica en
+  **[ARQUITECTURA.md](ARQUITECTURA.md)**: léelos antes de proponer nada.
 
 ## Estado actual
 - Repo inicializado (público) y conectado a GitHub.
@@ -22,9 +23,8 @@
 - **Stack todavía sin definir.** Completar la siguiente sección al elegir tecnología.
 
 ## Stack y comandos
-_(Rellenar cuando se defina el stack. Ejemplo de formato:)_
-- **Runtime / lenguaje:**
-- **Framework / librerías:**
+- **Runtime / lenguaje:** TypeScript (Node.js)
+- **Framework / librerías:** Next.js (decidido). Base de datos: Supabase (propuesta, por confirmar). Estilos y fuentes: por decidir.
 - **Instalar dependencias:**
 - **Servidor de desarrollo:**
 - **Tests:**
@@ -48,3 +48,5 @@ _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-10 - Repo creado como público y conectado a GitHub - punto de partida del proyecto.
 - 2026-10-10 - Se añaden `AGENTS.md` + `.clinerules` para compartir contexto entre varias PCs y agentes.
 - 2026-10-10 - Se documenta la idea en `IDEA.md`; formato previsto: plataforma web demostrativa - las clases son online y no se busca una app nativa.
+- 2026-10-10 - Se elige Next.js (React) como framework - el owner ya trabaja con Next.js; sirve también para PWA o webview más adelante, sin necesidad de Vue.
+- 2026-10-10 - Contenido trilingüe (chino, español, inglés) y base curada propia con origen y estado de revisión por dato - la profesora es china y habla inglés; los alumnos son hispanohablantes.
