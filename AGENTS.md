@@ -9,11 +9,16 @@
 - **Nombre:** chinese-lesson
 - **Repositorio:** https://github.com/everDavila/chinese-lesson
 - **Owner:** Ever Dávila (`everDavila`)
-- **Objetivo:** Proyecto de lecciones de chino (alcance concreto por definir).
+- **Objetivo:** Demo web para enseñar vocabulario chino **en contexto** (frases,
+  descomposición en caracteres, matices de tono y uso) en vez de palabras sueltas.
+  Detalle completo de la idea en **[IDEA.md](IDEA.md)**: léelo antes de proponer nada.
 
 ## Estado actual
 - Repo inicializado (público) y conectado a GitHub.
 - Configuración base compartida añadida (`AGENTS.md` + `.clinerules`).
+- Idea discutida y documentada en `IDEA.md` (2026-10-10).
+- La demo es para la profesora de Ever (mostrarle la propuesta).
+- **Pendiente:** decidir el origen de las frases (corpus vs. IA revisada) y el stack.
 - **Stack todavía sin definir.** Completar la siguiente sección al elegir tecnología.
 
 ## Stack y comandos
@@ -42,3 +47,4 @@ _(Rellenar cuando se defina el stack. Ejemplo de formato:)_
 _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-10 - Repo creado como público y conectado a GitHub - punto de partida del proyecto.
 - 2026-10-10 - Se añaden `AGENTS.md` + `.clinerules` para compartir contexto entre varias PCs y agentes.
+- 2026-10-10 - Se documenta la idea en `IDEA.md`; formato previsto: plataforma web demostrativa - las clases son online y no se busca una app nativa.
