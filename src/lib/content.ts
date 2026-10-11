@@ -168,6 +168,8 @@ export type CollectionSummary = {
   template: boolean;
   source: string;
   copiedFrom: string | null;
+  /** Frases por palabra en clase; 0 = todas. */
+  examplesShown: number;
   lessons: LessonSummary[];
 };
 
@@ -177,10 +179,11 @@ type CollectionRow = {
   owner_id: string | null;
   source_note: string | null;
   copied_from: string | null;
+  examples_shown: number;
   lessons: { id: string; title: string; position: number | null; lesson_items: { position: number; senses: { words: { hanzi: string } } }[] }[];
 };
 const COLLECTION_SELECT =
-  "id, title, owner_id, source_note, copied_from, lessons(id, title, position, lesson_items(position, senses(words(hanzi))))";
+  "id, title, owner_id, source_note, copied_from, examples_shown, lessons(id, title, position, lesson_items(position, senses(words(hanzi))))";
 
 function toCollection(c: CollectionRow): CollectionSummary {
   return {
@@ -189,6 +192,7 @@ function toCollection(c: CollectionRow): CollectionSummary {
     template: c.owner_id === null,
     source: c.source_note ?? "",
     copiedFrom: c.copied_from,
+    examplesShown: c.examples_shown,
     lessons: [...c.lessons]
       .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
       .map((l) => ({
@@ -201,7 +205,7 @@ function toCollection(c: CollectionRow): CollectionSummary {
 }
 
 /** Una colección en una lista: solo los totales. */
-export type CollectionListItem = Omit<CollectionSummary, "lessons"> & { lessons: number; words: number };
+export type CollectionListItem = Omit<CollectionSummary, "lessons" | "examplesShown"> & { lessons: number; words: number };
 
 /**
  * Plantillas (de todos) o las colecciones propias. Solo cuenta lecciones y
@@ -269,6 +273,10 @@ export type EditableLesson = {
   title: string;
   collectionId: string | null;
   template: boolean;
+  /** Frases por palabra en esta lección; null = como la colección; 0 = todas. */
+  examplesShown: number | null;
+  /** Lo que dice la colección (0 = todas). */
+  collectionExamplesShown: number;
   items: LessonItemRow[];
 };
 
@@ -277,7 +285,7 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
   const { data, error } = await supabase
     .from("lessons")
     .select(
-      `id, title, collection_id, teacher_id,
+      `id, title, collection_id, teacher_id, examples_shown, collections(examples_shown),
        lesson_items(position, sense_id,
          senses(words(id, hanzi, hsk_level, status,
            senses(id, position, pinyin, category, meaning_es, meaning_en, sentences(id)))))`,
@@ -302,6 +310,8 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
     title: data.title,
     collectionId: data.collection_id,
     template: data.teacher_id === null,
+    examplesShown: data.examples_shown,
+    collectionExamplesShown: (data.collections as unknown as { examples_shown: number } | null)?.examples_shown ?? 0,
     items: rows.map((r) => {
       const w = r.senses.words;
       const senses = [...w.senses].sort((a, b) => a.position - b.position);

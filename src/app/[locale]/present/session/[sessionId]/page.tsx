@@ -27,7 +27,7 @@ async function SessionContent({ params }: { params: Params }) {
 
   const session = await getSession(sessionId);
   if (!session) notFound();
-  const lesson = await getLesson(session.lessonId);
+  const lesson = await getLesson(session.lessonId, { sessionId: session.id });
   // Sin palabras con frases no hay tarjetas que mostrar.
   if (!lesson?.items.length) notFound();
 

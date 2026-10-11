@@ -2,7 +2,7 @@
 
 import { getLocale } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
-import { currentUserId, createDemoLesson } from "@/lib/lessons";
+import { chooseSessionSentences, currentUserId, createDemoLesson } from "@/lib/lessons";
 import { createSession, endSession, setTeacherRating } from "@/lib/sessions";
 
 async function requireTeacher() {
@@ -21,6 +21,8 @@ export async function createDemoLessonAction() {
 export async function startSessionAction(lessonId: string) {
   const teacherId = await requireTeacher();
   const sessionId = await createSession(lessonId, teacherId);
+  // Si la elección de frases falla, la clase se da igual con todas.
+  await chooseSessionSentences(sessionId, lessonId).catch((e) => console.error("Rotación de frases:", e));
   redirect({ href: `/present/session/${sessionId}`, locale: await getLocale() });
 }
 

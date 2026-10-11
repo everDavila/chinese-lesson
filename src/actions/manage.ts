@@ -356,3 +356,28 @@ export async function hideSentenceAction(sentenceId: string, hidden: boolean): P
   refresh();
   return { ok: true };
 }
+
+// ── Rotación de frases ──────────────────────────────────────────────────
+const validCount = (n: number | null) => n === null || (Number.isInteger(n) && n >= 0 && n <= 9);
+
+/** Frases por palabra en clase para toda la colección (0 = todas). */
+export async function setCollectionExamplesAction(id: string, count: number): Promise<Result> {
+  const s = await session();
+  if (!s) return { ok: false, error: "auth" };
+  if (!validCount(count)) return { ok: false, error: "invalid" };
+  const { error } = await s.db.from("collections").update({ examples_shown: count }).eq("id", id);
+  if (error) return fail(error);
+  refresh();
+  return { ok: true };
+}
+
+/** Lo mismo para una lección; null = como la colección. */
+export async function setLessonExamplesAction(id: string, count: number | null): Promise<Result> {
+  const s = await session();
+  if (!s) return { ok: false, error: "auth" };
+  if (!validCount(count)) return { ok: false, error: "invalid" };
+  const { error } = await s.db.from("lessons").update({ examples_shown: count }).eq("id", id);
+  if (error) return fail(error);
+  refresh();
+  return { ok: true };
+}

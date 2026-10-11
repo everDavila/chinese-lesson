@@ -21,7 +21,8 @@
     "test:db": "node tests/db/permisos.mjs",
     "test:sesion": "node scripts/guardar-sesion.mjs",
     "test:recorridos": "playwright test --project=recorridos",
-    "db:cambiar-clave": "node --env-file=.env.local scripts/cambiar-clave.mjs"
+    "db:cambiar-clave": "node --env-file=.env.local scripts/cambiar-clave.mjs",
+    "test:unit": "node --experimental-strip-types --no-warnings --test tests/unit/*.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

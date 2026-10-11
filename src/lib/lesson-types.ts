@@ -5,6 +5,8 @@
 export type Bilingual = { es: string; en: string };
 
 export type Sentence = {
+  /** Clave para la rotación entre clases; ausente en la demo local. */
+  key?: string;
   zh: string;
   pinyin: string;
   es: string;

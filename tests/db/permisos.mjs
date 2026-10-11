@@ -164,3 +164,24 @@ await expectOk("admin rechaza con nota", A,
 await expectOk("la rechazada sigue siendo de la docente y puede reenviarla", T1,
   `update teacher_examples set zh = '测试词是好的。', status = 'submitted' where id = '${ej2Id}' returning status`);
 await expectFail("docente NO borra frases de la base común", T1, `delete from sentences where sense_id = '${S}' returning id`);
+
+console.log("\n— Rotación de frases (20261012000000) —");
+const nuevaCol = (await as(T1, `insert into collections (owner_id, title) values ('${T1}', 'Rotación') returning id, examples_shown`)).rows[0];
+console.log(`✓ colección nueva con 2 frases por defecto → ${nuevaCol.examples_shown}`);
+const lec = (await as(T1, `insert into lessons (teacher_id, collection_id, title, position) values ('${T1}', '${nuevaCol.id}', 'L1', 1) returning id`)).rows[0].id;
+const lec2 = (await as(T1, `insert into lessons (teacher_id, collection_id, title, position) values ('${T1}', '${nuevaCol.id}', 'L2', 2) returning id`)).rows[0].id;
+const ses = (await as(T1, `insert into class_sessions (lesson_id, teacher_id, join_code) values ('${lec}', '${T1}', 'RXTA22') returning id`)).rows[0].id;
+const K1 = "s:00000000-0000-0000-0000-000000000001", K2 = "s:00000000-0000-0000-0000-000000000002";
+await expectOk("docente guarda las frases elegidas de su sesión", T1,
+  `insert into session_sentences (session_id, sense_id, sentence_key, position) values ('${ses}', '${S}', '${K1}', 1), ('${ses}', '${S}', '${K2}', 2) returning position`);
+await expectFail("clave con formato inválido", T1,
+  `insert into session_sentences (session_id, sense_id, sentence_key, position) values ('${ses}', '${S}', 'x', 3) returning position`);
+await expectFail("otra docente NO ve las frases de esa sesión", T2, `select * from session_sentences`);
+await expectFail("otra docente NO escribe en esa sesión", T2,
+  `insert into session_sentences (session_id, sense_id, sentence_key, position) values ('${ses}', '${S}', 's:00000000-0000-0000-0000-000000000003', 3) returning position`);
+await expectOk("el historial cuenta para otra lección de la misma colección", T1,
+  `select count(*)::int as frases from sentence_history('${lec2}', array['${S}']::uuid[])`);
+await expectFail("el historial de una docente no lo ve otra", T2,
+  `select * from sentence_history('${lec2}', array['${S}']::uuid[])`);
+await expectFail("examples_shown fuera de rango", T1,
+  `update lessons set examples_shown = 12 where id = '${lec}' returning id`);
