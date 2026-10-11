@@ -23,8 +23,8 @@
 - MVP centrado en la enseñanza en clase (fases 0–3 en `ARQUITECTURA.md` §6).
 - **Fase 0 completa:** andamiaje, contenido validado de la lección de demo, datos de caracteres y trazos. Supabase `hanzi` con migración inicial + seed aplicados y `.env.local` configurado (no se sube).
 - **Fase 1 en curso:** `/present` (demo local, sin login) y `/present/session/[id]` (clase en vivo: lección desde Supabase, valoraciones en `teacher_ratings`). Login de la profesora en `/login`; en el inicio, "Crear la lección de demo" y "Empezar clase". Migraciones aplicadas con `npm run db:migrate`. También en la rama: interfaz en zh/es/en según el navegador, paleta dorada del modo oscuro, tarjeta responsive y `npm run test:visual`. Falta: probar el flujo con la cuenta de Ever, pantalla de preparación de la lección. Lección de demo en `contenido/LECCION-DEMO.md`.
-- **Ramas (2026-10-10):** `master` en GitHub y en producción (https://davila-hanzi.vercel.app, sin login ni idiomas). `fase-1-supabase` en GitHub con previsualización protegida en https://davila-hanzi-preview.vercel.app (dominio fijo ligado a la rama con la API de Vercel). Se pasa a `master` cuando Ever pruebe el flujo con su cuenta.
-- **Pendiente fuera del repo:** CNAME `hanzi` → `312661f168af2cce.vercel-dns-017.com` en el DNS de HostGator para `hanzi.davila.uno`.
+- **Ramas (2026-10-11):** `master` en GitHub y en producción (https://hanzi.davila.uno y https://davila-hanzi.vercel.app), ya con todo lo de `fase-1-supabase`. `fase-1-supabase` en GitHub con previsualización protegida en https://davila-hanzi-preview.vercel.app (dominio fijo ligado a la rama con la API de Vercel). Se pasa a `master` cuando Ever pruebe el flujo con su cuenta.
+- **Dominio propio activo (2026-10-11):** https://hanzi.davila.uno (CNAME en HostGator → Vercel; certificado emitido con `vercel certs issue`, Vercel no lo pidió solo).
 - **Auditoría UX y contenido completa (2026-10-10):** revisión de la lección, recorrido móvil y escritorio, accesibilidad visible y prioridades P0–P2 documentadas en [AUDITORIA-UX-CONTENIDO-2026-10-10.md](AUDITORIA-UX-CONTENIDO-2026-10-10.md). Informe visual en Word en `reports/AUDITORIA-UX-CONTENIDO-2026-10-10.docx`. No se implementaron las correcciones.
 
 ## Stack y comandos
@@ -34,7 +34,7 @@
 - **Servidor de desarrollo:** `npm run dev` (Turbopack)
 - **Tests:** `npm run test:visual` (Playwright: tarjeta en celular 390×844, 1366×768, 1440×900 y 1920×1080, claro y oscuro; capturas en `tests/screens/`, sin subir a git; comprueba que no haya scroll horizontal). Usa el `npm run dev` que esté corriendo o lo arranca.
 - **Lint / formateo:** `npm run lint` (ESLint flat config)
-- **Build / despliegue:** Vercel, proyecto `hanzi` conectado a GitHub: push a `master` → producción en https://davila-hanzi.vercel.app; otras ramas → URL de previsualización. Todo se gestiona con el CLI (`npx vercel@latest …`, `vercel login` una vez por PC), sin pasos manuales en el panel. Variables públicas de Supabase cargadas en Production y Preview. Dominio `hanzi.davila.uno` añadido al proyecto; falta el CNAME `hanzi` → `312661f168af2cce.vercel-dns-017.com` en el DNS de HostGator.
+- **Build / despliegue:** Vercel, proyecto `hanzi` conectado a GitHub: push a `master` → producción en https://davila-hanzi.vercel.app; otras ramas → URL de previsualización. Todo se gestiona con el CLI (`npx vercel@latest …`, `vercel login` una vez por PC), sin pasos manuales en el panel. Variables públicas de Supabase cargadas en Production y Preview. Dominio `hanzi.davila.uno` activo: CNAME `hanzi` → `312661f168af2cce.vercel-dns-017.com` en el DNS de HostGator; si un dominio nuevo no recibe certificado en unos minutos, `npx vercel@latest certs issue <dominio>`.
 
 ## Convenciones
 - Commits en español, mensajes claros y concisos (Conventional Commits opcional).

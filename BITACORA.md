@@ -78,7 +78,6 @@ Documentado en `IDEA.md` (requisitos 1–11) y `ARQUITECTURA.md`.
 - Probar el flujo completo con la cuenta de Ever en la previsualización
   (login → crear lección → empezar clase → valorar) y luego pasar
   `fase-1-supabase` a `master`.
-- CNAME `hanzi` en HostGator para `hanzi.davila.uno`.
 - Triar la auditoría de Codex (`AUDITORIA-UX-CONTENIDO-2026-10-10.md`).
 - Revisión del español (Ever) y del chino (la profesora) del contenido.
 - Pantalla de preparación de la lección; votación anónima (fase 2).
@@ -90,3 +89,17 @@ Documentado en `IDEA.md` (requisitos 1–11) y `ARQUITECTURA.md`.
 - El modo claro tras el último ajuste de tinta (solo se ajustó el oscuro).
 - La voz del navegador en el equipo de la profesora.
 - El modo presentación compartiendo pantalla en Zoom de verdad.
+
+---
+
+## 2026-10-11 — Dominio propio
+
+- `fase-1-supabase` llegó a `master` (empujado desde otra sesión) y se
+  desplegó a producción antes de probar el login con la cuenta de Ever.
+- CNAME `hanzi` → `312661f168af2cce.vercel-dns-017.com` creado por Ever en
+  HostGator; propagó en minutos. Vercel marcó el dominio como verificado pero
+  no emitió el certificado solo; se pidió con `vercel certs issue`.
+  https://hanzi.davila.uno responde con HTTPS (válido hasta enero de 2027,
+  renovación automática).
+
+**No probado:** el login en producción con la cuenta de Ever.
