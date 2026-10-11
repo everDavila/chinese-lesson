@@ -118,21 +118,21 @@
 }
 
 .dark {
-  /* Paleta "dorada" (rama estetica/dark-dorado): negro cálido casi marrón,
-     texto crema, acentos dorados y salvia, bordes con un velo dorado. */
-  --background: oklch(0.155 0.012 65);
+  /* Paleta "dorada" (rama estetica/dark-dorado): negro carbón frío (no marrón),
+     texto crema, botones y bordes dorados. */
+  --background: oklch(0.17 0.012 240);
   --foreground: oklch(0.93 0.03 85); /* crema */
-  --card: oklch(0.195 0.014 65);
+  --card: oklch(0.2 0.013 240);
   --card-foreground: oklch(0.93 0.03 85);
-  --popover: oklch(0.21 0.015 65);
+  --popover: oklch(0.22 0.013 240);
   --popover-foreground: oklch(0.93 0.03 85);
   --primary: oklch(0.78 0.11 75); /* dorado */
-  --primary-foreground: oklch(0.18 0.015 65);
-  --secondary: oklch(0.25 0.016 65);
+  --primary-foreground: oklch(0.18 0.012 240);
+  --secondary: oklch(0.25 0.013 240);
   --secondary-foreground: oklch(0.93 0.03 85);
-  --muted: oklch(0.25 0.016 65);
+  --muted: oklch(0.25 0.013 240);
   --muted-foreground: oklch(0.72 0.035 80);
-  --accent: oklch(0.27 0.02 70);
+  --accent: oklch(0.27 0.014 240);
   --accent-foreground: oklch(0.93 0.03 85);
   --destructive: oklch(0.68 0.15 30);
   --border: oklch(0.78 0.11 75 / 22%);
@@ -143,11 +143,11 @@
   --chart-3: oklch(0.72 0.08 140);
   --chart-4: oklch(0.7 0.07 230);
   --chart-5: oklch(0.6 0.02 65);
-  --sidebar: oklch(0.18 0.013 65);
+  --sidebar: oklch(0.19 0.012 240);
   --sidebar-foreground: oklch(0.93 0.03 85);
   --sidebar-primary: oklch(0.78 0.11 75);
-  --sidebar-primary-foreground: oklch(0.18 0.015 65);
-  --sidebar-accent: oklch(0.27 0.02 70);
+  --sidebar-primary-foreground: oklch(0.18 0.012 240);
+  --sidebar-accent: oklch(0.27 0.014 240);
   --sidebar-accent-foreground: oklch(0.93 0.03 85);
   --sidebar-border: oklch(0.78 0.11 75 / 22%);
   --sidebar-ring: oklch(0.78 0.11 75 / 60%);
@@ -161,14 +161,14 @@
   --hanzi-ink: oklch(0.92 0.015 85);
   --radical-subtle: oklch(0.8 0.1 70);
   --phonetic-subtle: oklch(0.87 0.05 80);
-  --stroke-ghost: oklch(0.33 0.02 65);
+  --stroke-ghost: oklch(0.33 0.012 240);
   --grid-line: oklch(0.78 0.11 75 / 25%);
 
   --rating-1: oklch(0.68 0.14 25);
   --rating-2: oklch(0.8 0.12 70);
   --rating-3: oklch(0.76 0.12 135);
   --rating-4: oklch(0.7 0.08 235);
-  --no-data: oklch(0.5 0.01 65);
+  --no-data: oklch(0.5 0.01 240);
 }
 
 @layer base {
