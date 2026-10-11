@@ -1,0 +1,500 @@
+{
+  "_nota": "Lista de vocabulario y caracteres por lección, tomada de las capturas de Ever. Solo la lista y su orden: las traducciones, frases y textos del libro no se copian (derechos de autor). Los significados y ejemplos salen de la base curada.",
+  "_uso": "Solo referencia: no generar contenido a partir de esta lista. Es la colección de la clase de la profesora de Ever para la demo: cuando la base común tenga poblados los hanzi, se arma con ella la plantilla 'Básico 1' con lo ya curado (decisión de Ever, 2026-10-11).",
+  "collection": {
+    "title": "Básico 1",
+    "source": "Nuevo libro de chino práctico (新实用汉语课本), libro 1"
+  },
+  "lessons": [
+    {
+      "number": 1,
+      "title": "Lección 1",
+      "words": [
+        {
+          "hanzi": "你",
+          "pinyin": "nǐ",
+          "block": 1
+        },
+        {
+          "hanzi": "好",
+          "pinyin": "hǎo",
+          "block": 1
+        },
+        {
+          "hanzi": "陆雨平",
+          "pinyin": "Lù Yǔpíng",
+          "block": 1,
+          "properNoun": true
+        },
+        {
+          "hanzi": "力波",
+          "pinyin": "Lìbō",
+          "block": 1,
+          "properNoun": true
+        },
+        {
+          "hanzi": "吗",
+          "pinyin": "ma",
+          "block": 2
+        },
+        {
+          "hanzi": "我",
+          "pinyin": "wǒ",
+          "block": 2
+        },
+        {
+          "hanzi": "很",
+          "pinyin": "hěn",
+          "block": 2
+        },
+        {
+          "hanzi": "呢",
+          "pinyin": "ne",
+          "block": 2
+        },
+        {
+          "hanzi": "也",
+          "pinyin": "yě",
+          "block": 2
+        },
+        {
+          "hanzi": "林娜",
+          "pinyin": "Lín Nà",
+          "block": 2,
+          "properNoun": true
+        }
+      ],
+      "charactersToWrite": [
+        "一",
+        "八",
+        "力",
+        "门",
+        "也",
+        "马",
+        "女",
+        "五",
+        "木",
+        "火"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lección 2",
+      "words": [
+        {
+          "hanzi": "忙",
+          "pinyin": "máng",
+          "block": 1
+        },
+        {
+          "hanzi": "吗",
+          "pinyin": "ma",
+          "block": 1,
+          "review": true
+        },
+        {
+          "hanzi": "爸爸",
+          "pinyin": "bàba",
+          "block": 1
+        },
+        {
+          "hanzi": "妈妈",
+          "pinyin": "māma",
+          "block": 1
+        },
+        {
+          "hanzi": "他们",
+          "pinyin": "tāmen",
+          "block": 1
+        },
+        {
+          "hanzi": "他",
+          "pinyin": "tā",
+          "block": 1
+        },
+        {
+          "hanzi": "们",
+          "pinyin": "men",
+          "block": 1
+        },
+        {
+          "hanzi": "都",
+          "pinyin": "dōu",
+          "block": 1
+        },
+        {
+          "hanzi": "不",
+          "pinyin": "bù",
+          "block": 1
+        },
+        {
+          "hanzi": "男",
+          "pinyin": "nán",
+          "block": 1
+        },
+        {
+          "hanzi": "朋友",
+          "pinyin": "péngyou",
+          "block": 1
+        },
+        {
+          "hanzi": "呢",
+          "pinyin": "ne",
+          "block": 1,
+          "review": true
+        },
+        {
+          "hanzi": "哥哥",
+          "pinyin": "gēge",
+          "block": 2
+        },
+        {
+          "hanzi": "要",
+          "pinyin": "yào",
+          "block": 2
+        },
+        {
+          "hanzi": "咖啡",
+          "pinyin": "kāfēi",
+          "block": 2
+        },
+        {
+          "hanzi": "弟弟",
+          "pinyin": "dìdi",
+          "block": 2
+        },
+        {
+          "hanzi": "我们",
+          "pinyin": "wǒmen",
+          "block": 2
+        },
+        {
+          "hanzi": "喝",
+          "pinyin": "hē",
+          "block": 2
+        },
+        {
+          "hanzi": "丁",
+          "pinyin": "Dīng",
+          "block": 2,
+          "properNoun": true
+        }
+      ],
+      "charactersToWrite": [
+        "丁",
+        "刀",
+        "又",
+        "大",
+        "口",
+        "土",
+        "六",
+        "不",
+        "尼",
+        "可"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lección 3",
+      "words": [
+        {
+          "hanzi": "她",
+          "pinyin": "tā",
+          "block": 1
+        },
+        {
+          "hanzi": "是",
+          "pinyin": "shì",
+          "block": 1
+        },
+        {
+          "hanzi": "哪",
+          "pinyin": "nǎ",
+          "block": 1
+        },
+        {
+          "hanzi": "国",
+          "pinyin": "guó",
+          "block": 1
+        },
+        {
+          "hanzi": "人",
+          "pinyin": "rén",
+          "block": 1
+        },
+        {
+          "hanzi": "那",
+          "pinyin": "nà",
+          "block": 1
+        },
+        {
+          "hanzi": "谁",
+          "pinyin": "shéi",
+          "block": 1
+        },
+        {
+          "hanzi": "老师",
+          "pinyin": "lǎoshī",
+          "block": 1
+        },
+        {
+          "hanzi": "都",
+          "pinyin": "dōu",
+          "block": 1,
+          "review": true
+        },
+        {
+          "hanzi": "中国",
+          "pinyin": "Zhōngguó",
+          "block": 1,
+          "properNoun": true
+        },
+        {
+          "hanzi": "您",
+          "pinyin": "nín",
+          "block": 2
+        },
+        {
+          "hanzi": "这",
+          "pinyin": "zhè",
+          "block": 2
+        },
+        {
+          "hanzi": "他",
+          "pinyin": "tā",
+          "block": 2,
+          "review": true
+        },
+        {
+          "hanzi": "外语",
+          "pinyin": "wàiyǔ",
+          "block": 2
+        },
+        {
+          "hanzi": "你",
+          "pinyin": "nǐ",
+          "block": 2,
+          "review": true
+        },
+        {
+          "hanzi": "医生",
+          "pinyin": "yīshēng",
+          "block": 2
+        },
+        {
+          "hanzi": "奶奶",
+          "pinyin": "nǎinai",
+          "block": 2
+        },
+        {
+          "hanzi": "外婆",
+          "pinyin": "wàipó",
+          "block": 2
+        },
+        {
+          "hanzi": "陈",
+          "pinyin": "Chén",
+          "block": 2,
+          "properNoun": true
+        }
+      ],
+      "charactersToWrite": [
+        "人",
+        "十",
+        "匕",
+        "中",
+        "日",
+        "贝",
+        "玉",
+        "矢",
+        "生",
+        "者"
+      ],
+      "decompositionPractice": [
+        "她",
+        "他",
+        "们",
+        "你",
+        "那",
+        "哪",
+        "娜",
+        "都"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Lección 4",
+      "words": [
+        {
+          "hanzi": "认识",
+          "pinyin": "rènshi",
+          "block": 1
+        },
+        {
+          "hanzi": "高兴",
+          "pinyin": "gāoxìng",
+          "block": 1
+        },
+        {
+          "hanzi": "可以",
+          "pinyin": "kěyǐ",
+          "block": 1
+        },
+        {
+          "hanzi": "进来",
+          "pinyin": "jìnlai",
+          "block": 1
+        },
+        {
+          "hanzi": "进",
+          "pinyin": "jìn",
+          "block": 1
+        },
+        {
+          "hanzi": "来",
+          "pinyin": "lái",
+          "block": 1
+        },
+        {
+          "hanzi": "请",
+          "pinyin": "qǐng",
+          "block": 1
+        },
+        {
+          "hanzi": "您",
+          "pinyin": "nín",
+          "block": 1,
+          "review": true
+        },
+        {
+          "hanzi": "朋友",
+          "pinyin": "péngyou",
+          "block": 1,
+          "review": true
+        },
+        {
+          "hanzi": "记者",
+          "pinyin": "jìzhě",
+          "block": 1
+        },
+        {
+          "hanzi": "请问",
+          "pinyin": "qǐngwèn",
+          "block": 1
+        },
+        {
+          "hanzi": "问",
+          "pinyin": "wèn",
+          "block": 1
+        },
+        {
+          "hanzi": "贵姓",
+          "pinyin": "guìxìng",
+          "block": 1
+        },
+        {
+          "hanzi": "姓",
+          "pinyin": "xìng",
+          "block": 1
+        },
+        {
+          "hanzi": "叫",
+          "pinyin": "jiào",
+          "block": 1
+        },
+        {
+          "hanzi": "先生",
+          "pinyin": "xiānsheng",
+          "block": 1
+        },
+        {
+          "hanzi": "杨",
+          "pinyin": "Yáng",
+          "block": 1,
+          "properNoun": true
+        },
+        {
+          "hanzi": "语言",
+          "pinyin": "yǔyán",
+          "block": 2
+        },
+        {
+          "hanzi": "学院",
+          "pinyin": "xuéyuàn",
+          "block": 2
+        },
+        {
+          "hanzi": "的",
+          "pinyin": "de",
+          "block": 2
+        },
+        {
+          "hanzi": "学生",
+          "pinyin": "xuésheng",
+          "block": 2
+        },
+        {
+          "hanzi": "什么",
+          "pinyin": "shénme",
+          "block": 2
+        },
+        {
+          "hanzi": "学习",
+          "pinyin": "xuéxí",
+          "block": 2
+        },
+        {
+          "hanzi": "汉语",
+          "pinyin": "Hànyǔ",
+          "block": 2
+        },
+        {
+          "hanzi": "英国",
+          "pinyin": "Yīngguó",
+          "block": 2,
+          "properNoun": true
+        },
+        {
+          "hanzi": "马大为",
+          "pinyin": "Mǎ Dàwéi",
+          "block": 2,
+          "properNoun": true
+        },
+        {
+          "hanzi": "加拿大",
+          "pinyin": "Jiānádà",
+          "block": 2,
+          "properNoun": true
+        },
+        {
+          "hanzi": "美国",
+          "pinyin": "Měiguó",
+          "block": 2,
+          "properNoun": true
+        }
+      ],
+      "charactersToWrite": [
+        "七",
+        "小",
+        "心",
+        "水",
+        "月",
+        "手",
+        "田",
+        "白",
+        "只",
+        "言"
+      ],
+      "decompositionPractice": [
+        "认识",
+        "语言",
+        "汉语",
+        "您",
+        "朋友",
+        "贵姓",
+        "叫",
+        "的"
+      ]
+    }
+  ]
+}
