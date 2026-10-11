@@ -34,10 +34,20 @@ Alumno ◄── [Práctica de tarjetas] ◄────────────
 | Web Speech API (nativo) / TTS en la nube | Audio de palabra y frase | — / de pago | Audio. Nativo para la demo; nube si la calidad no basta |
 | LLM (p. ej. Claude API) | Frases actuales del nivel adecuado, traducción al español, nota cultural | De pago por uso | Generar lo que los datos abiertos no tienen |
 
-**Idiomas:** la profesora es china y habla inglés (y algo de español); los
-alumnos son hispanohablantes. Todo el contenido es **trilingüe: chino,
-español e inglés**. Interfaz de la profesora en inglés (o chino); la del
-alumno, en español.
+**Idiomas (decidido 2026-10-10).** Dos ajustes independientes:
+
+1. **Idioma de la interfaz** (botones, menús, etiquetas): **chino por
+   defecto**, porque los docentes previstos son chinos, con selector
+   **中文 / Español / English**. Lo elige cada persona y se recuerda. Futuros
+   docentes hispanohablantes o anglohablantes solo cambian el selector.
+2. **Idioma del contenido para los alumnos** (significados, traducciones,
+   notas): va con la clase, no con quien usa la app. Hoy se muestran español
+   e inglés; más adelante se elegirá por lección.
+
+Así una docente china ve la app en chino mientras sus alumnos ven los
+significados en español. El contenido base es **trilingüe: chino, español e
+inglés**. Textos de la interfaz con lenguaje neutro de género ("docente",
+"acceso docente"; en chino 教师 ya es neutro).
 
 **Hueco importante:** no hay datos abiertos buenos en **español**. CC-CEDICT y
 HSK traen inglés (útil para la profesora), pero el español lo genera el LLM.
@@ -200,7 +210,7 @@ lo decide la profesora.
 | Tokens de diseño | Variables CSS: colores base, acento, radical / parte fonética, 4 tonos, semáforo; modo claro y oscuro | Una sola fuente de verdad para el estilo |
 | Fuentes | **next/font** con Noto Serif SC (hanzi), Noto Sans SC (UI) e Inter (latín y pinyin) | Carga optimizada; las fuentes CJK son pesadas |
 | Modo oscuro | **next-themes** | Claro/oscuro sin parpadeo |
-| Idiomas de la UI | **next-intl** (es, en, zh) | Alumno en español, profesora en inglés o chino |
+| Idiomas de la UI | **next-intl** con prefijo en la URL (`/zh`, `/es`, `/en`), chino por defecto | Ver "Idiomas" en §2; el prefijo mantiene las páginas estáticas con Cache Components |
 | Trazos | **Hanzi Writer** | Animación y práctica de escritura |
 | Animaciones de UI | CSS / Tailwind; **Motion** solo si hace falta (giro de tarjeta) | Ligero |
 | Gráficas del panel | **Charts de shadcn/ui** (Recharts) | Solo si el semáforo necesita gráficas |
