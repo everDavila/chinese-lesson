@@ -38,11 +38,14 @@ export function Presentation({
   lesson,
   session,
   contentLanguage = "es",
+  exitHref = "/",
 }: {
   lesson: Lesson;
   session?: LiveSession;
   /** Idioma de los alumnos para la tarjeta; los controles van en el de la interfaz. */
   contentLanguage?: ContentLanguage;
+  /** Adónde lleva la X fuera de una clase en vivo (la vista previa del admin vuelve al editor). */
+  exitHref?: string;
 }) {
   const t = useTranslations("Controls");
   const tc = useTranslations("Common");
@@ -344,7 +347,7 @@ export function Presentation({
               </Button>
             </form>
           ) : (
-            <Link href="/" aria-label={t("exit")} className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted">
+            <Link href={exitHref} aria-label={t("exit")} className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted">
               <X className="size-4" />
             </Link>
           )}

@@ -17,19 +17,26 @@ export function MultiSelect<T extends string | number>({
   selected,
   onChange,
   className,
+  allLabel = "Todos",
+  clearLabel = "Quitar filtro",
+  selectedLabel = (n) => `${n} seleccionados`,
 }: {
   label: string;
   options: MultiOption<T>[];
   selected: T[];
   onChange: (next: T[]) => void;
   className?: string;
+  /** Textos para otros idiomas; por defecto, español. */
+  allLabel?: string;
+  clearLabel?: string;
+  selectedLabel?: (n: number) => string;
 }) {
   const summary =
     selected.length === 0
-      ? "Todos"
+      ? allLabel
       : selected.length <= 2
         ? options.filter((o) => selected.includes(o.value)).map((o) => o.label).join(", ")
-        : `${selected.length} seleccionados`;
+        : selectedLabel(selected.length);
 
   return (
     <Menu.Root>
@@ -79,7 +86,7 @@ export function MultiSelect<T extends string | number>({
                   onClick={() => onChange([])}
                   className="rounded-md px-2 py-1.5 text-sm text-muted-foreground outline-none data-[highlighted]:bg-muted"
                 >
-                  Quitar filtro
+                  {clearLabel}
                 </Menu.Item>
               </>
             )}

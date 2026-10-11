@@ -1,0 +1,31 @@
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { LessonEditor } from "@/components/manage/lesson-editor";
+import { getCollection, getEditableLesson, listWords } from "@/lib/content";
+import { requireProfile } from "@/lib/guard";
+
+type Params = PageProps<"/[locale]/collections/[collectionId]/[lessonId]">["params"];
+
+export default function Page({ params }: { params: Params }) {
+  return (
+    <Suspense fallback={<main className="flex-1" aria-busy />}>
+      <Content params={params} />
+    </Suspense>
+  );
+}
+
+async function Content({ params }: { params: Params }) {
+  const { collectionId, lessonId } = await params;
+  const profile = await requireProfile();
+  const [collection, lesson, words] = await Promise.all([getCollection(collectionId), getEditableLesson(lessonId), listWords()]);
+  if (!collection || collection.template || !lesson || lesson.collectionId !== collectionId) notFound();
+  return (
+    <LessonEditor
+      mode="teacher"
+      isAdmin={profile.role === "admin"}
+      collection={{ id: collection.id, title: collection.title }}
+      lesson={lesson}
+      words={words}
+    />
+  );
+}
