@@ -181,6 +181,102 @@ El nivel HSK es de la palabra, no del sentido (las listas oficiales no
 separan sentidos), así que el orden de los sentidos lo sugiere el sistema y
 lo decide la profesora.
 
+## 4.1 Colecciones, plantillas y aportes de docentes (diseño 2026-10-11)
+
+> Propuesta para revisión; aún no hay migración. Objetivo: que la docente arme
+> sus propias lecciones a partir de su libro y que sus correcciones lleguen a
+> la base curada sin que nadie pise lo de nadie.
+
+### Organización
+
+```
+Colección   "Básico 1" (o un libro, o "HSK 1")
+ └─ Lección  "Lección 1", "Lección 2"… (ordenadas)
+     └─ Ítem  palabra + el sentido que se enseña ahí (+ frases elegidas)
+```
+
+- **Colección** de una docente: la crea desde cero o **copia una plantilla**
+  y la adapta. Las copias son independientes: si la plantilla cambia, la
+  copia no.
+- **Plantillas** (colecciones sin dueño, curadas por administración): "HSK 1",
+  "HSK 2"… y colecciones organizadas como los libros que usan las docentes
+  ("Básico 1 · Lección 1…"). De los libros se toma **solo la lista de
+  palabras** y su orden; las frases y textos del libro no se copian (derechos
+  de autor), las frases son las nuestras.
+- Una misma palabra puede estar en varias lecciones con **sentidos
+  distintos** (家 casa en Básico 1, 家 clasificador más adelante).
+
+### Roles
+
+| Rol | Puede |
+|---|---|
+| `admin` | Curar la base común (palabras, sentidos, frases, notas), las plantillas y la cola de sugerencias. |
+| `teacher` | Sus colecciones y lecciones; usar las frases curadas; crear frases propias; sugerir correcciones y frases para la base. |
+| `reviewer` | Revisar contenido en su idioma (chino, español, inglés) sin administrar plantillas. |
+
+### Quién edita qué
+
+- **Base común** (`words`, `senses`, `sentences` sin dueño): solo `admin`
+  (y `reviewer` para marcar revisado). **Hoy cualquier usuario autenticado
+  puede escribirla: hay que cerrarlo antes de invitar a una segunda docente.**
+- **Frases propias:** `sentences.owner_id` = la docente. Solo ella las ve y las
+  usa en sus lecciones. Validación de nivel HSK igual que las curadas.
+- **Sugerencias:** una docente propone un cambio (corregir un campo, añadir
+  una frase a la base, pedir una palabra que falta). Queda en una cola; admin
+  acepta (se aplica a la base y queda en `revisions`) o rechaza con motivo.
+  Si la docente necesita el cambio ya, crea su frase propia y además sugiere.
+
+### Modelo de datos (cambios sobre §4)
+
+| Tabla | Cambio |
+|---|---|
+| `profiles` | `role` admite `admin`. |
+| `collections` (nueva) | `id`, `owner_id` (null = plantilla), `title`, `description`, `source_note` (de dónde sale la lista, p. ej. "vocabulario del libro X"), `copied_from`, `created_at`. |
+| `lessons` | + `collection_id`, + `position` (orden dentro de la colección; único por colección). |
+| `lesson_items` | + `sentence_ids uuid[]` opcional: qué frases mostrar (curadas o propias); vacío = las curadas por defecto. |
+| `sentences` | + `owner_id` (null = curada y común; docente = propia y privada). |
+| `suggestions` (nueva) | `id`, `author_id`, `kind` (`edit` / `new_sentence` / `new_word`), `entity`, `entity_id`, `payload jsonb` (campo, valor actual y propuesto, o la frase nueva), `comment`, `status` (`pending` / `accepted` / `rejected`), `reviewed_by`, `reviewed_at`, `review_note`, `created_at`. |
+| `senses` | + columna generada `pinyin_plain` (sin tonos) para buscar "renshi". |
+
+Funciones (security definer, con RLS por dentro):
+- `is_admin()`: lo usan las políticas.
+- `copy_collection(template_id)`: copia colección, lecciones e ítems a la
+  docente que llama.
+
+### Cómo arma una lección la docente
+
+1. **Mis colecciones** → crear una nueva o **copiar una plantilla**.
+2. **Colección** → lecciones en orden: crear, renombrar, reordenar.
+3. **Lección → añadir palabras**:
+   - **Buscar** por hanzi, pinyin (con o sin tonos) o significado, con
+     filtro por nivel HSK.
+   - **Pegar una lista** (los hanzi de la lección del libro, separados por
+     espacios o saltos de línea). El sistema la resuelve:
+     - palabra en la base → se añade con su primer sentido (cambiable);
+     - palabra que no existe → se crea con datos abiertos (pinyin, nivel
+       HSK, inglés) marcada "pendiente de contenido" y genera una sugerencia
+       `new_word` para que administración cure frases y español.
+4. **Por palabra**: elegir el sentido; ver las frases; usar las curadas,
+   **añadir una propia** o **sugerir una corrección**.
+5. Ordenar las palabras y **empezar clase** (lo que ya existe).
+
+### Administración
+
+- Editor de plantillas (mismas pantallas que la docente, sobre colecciones
+  sin dueño).
+- Cola de sugerencias: ver propuesta frente a valor actual, aceptar o
+  rechazar con motivo.
+- Revisión por idioma (lo que ya prevé §3.1).
+
+### Fases propuestas
+
+- **1b · Preparación (siguiente):** migración (roles, colecciones, posición
+  de lecciones, `owner_id` en frases, sugerencias, RLS cerrada, copia de
+  plantillas); pantallas de colecciones, lecciones y añadir palabras (buscar
+  y pegar lista); plantilla "Básico 1" con las listas del libro de Ever.
+- **1c · Aportes:** frases propias, sugerencias y cola de curación.
+- Después: alumno (repaso) sobre las mismas colecciones.
+
 ## 5. Pantallas
 
 **Profesora**
