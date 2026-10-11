@@ -1,10 +1,13 @@
 // Crea la cuenta de una profesora (rol teacher, el de por defecto).
-// Uso: node --env-file=.env.local scripts/crear-docente.mjs <correo> <clave>
+// La clave se pasa por la variable DOCENTE_CLAVE para no dejarla en el
+// historial del shell; si no está, se toma del segundo argumento.
+// Uso: $env:DOCENTE_CLAVE="..."; node --env-file=.env.local scripts/crear-docente.mjs <correo>
 import { createClient } from "@supabase/supabase-js";
 
-const [email, password] = process.argv.slice(2);
+const [email, claveArg] = process.argv.slice(2);
+const password = process.env.DOCENTE_CLAVE ?? claveArg;
 if (!email || !password) {
-  console.error("Uso: node --env-file=.env.local scripts/crear-docente.mjs <correo> <clave>");
+  console.error("Uso: node --env-file=.env.local scripts/crear-docente.mjs <correo> [clave]");
   process.exit(1);
 }
 
