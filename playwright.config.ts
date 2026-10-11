@@ -24,18 +24,25 @@ export default defineConfig({
     // Sin animación: los hanzi salen ya dibujados y la captura no depende de la suerte.
     reducedMotion: "reduce",
   },
-  projects: Object.entries(sizes).flatMap(([name, viewport]) =>
-    (["light", "dark"] as const).map((colorScheme) => ({
-      name: `${name}-${colorScheme}`,
-      use: {
-        viewport,
-        colorScheme,
-        isMobile: name === "phone",
-        hasTouch: name === "phone",
-        deviceScaleFactor: name === "phone" ? 2 : 1,
-      },
-    })),
-  ),
+  projects: [
+    ...Object.entries(sizes).flatMap(([name, viewport]) =>
+      (["light", "dark"] as const).map((colorScheme) => ({
+        name: `${name}-${colorScheme}`,
+        // Los recorridos con sesión escriben en la base: no van aquí.
+        testIgnore: "flows/**",
+        use: {
+          viewport,
+          colorScheme,
+          isMobile: name === "phone",
+          hasTouch: name === "phone",
+          deviceScaleFactor: name === "phone" ? 2 : 1,
+        },
+      })),
+    ),
+    // npm run test:recorridos. Una sola vez, en escritorio (las capturas de
+    // celular las hace el propio recorrido).
+    { name: "recorridos", testMatch: "flows/**/*.spec.ts", use: { viewport: sizes.desktop } },
+  ],
   webServer: {
     command: `npm run dev -- -p ${port}`,
     url: `${baseURL}/es/present`,

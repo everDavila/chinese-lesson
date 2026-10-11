@@ -16,9 +16,11 @@
     "db:backup": "node --env-file=.env.local scripts/backup-db.mjs",
     "db:promover-admin": "node --env-file=.env.local scripts/promover-admin.mjs",
     "db:crear-docente": "node --env-file=.env.local scripts/crear-docente.mjs",
-    "test:visual": "playwright test",
+    "test:visual": "playwright test --project=*-light --project=*-dark",
     "db:sync-content": "node --env-file=.env.local scripts/sync-content.mjs",
-    "test:db": "node tests/db/permisos.mjs"
+    "test:db": "node tests/db/permisos.mjs",
+    "test:sesion": "node scripts/guardar-sesion.mjs",
+    "test:recorridos": "playwright test --project=recorridos"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
