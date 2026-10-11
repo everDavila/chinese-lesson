@@ -1,3 +1,4 @@
+import { ManageLoading } from "@/components/manage/loading";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { AdminWordEditor } from "@/components/manage/admin";
@@ -8,7 +9,7 @@ type Params = PageProps<"/[locale]/admin/words/[hanzi]">["params"];
 
 export default function Page({ params }: { params: Params }) {
   return (
-    <Suspense fallback={<main className="flex-1" aria-busy />}>
+    <Suspense fallback={<ManageLoading />}>
       <Content params={params} />
     </Suspense>
   );

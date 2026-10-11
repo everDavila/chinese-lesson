@@ -15,7 +15,7 @@ import {
 import { startSessionAction } from "@/actions/class";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
-import type { CollectionSummary } from "@/lib/content";
+import type { CollectionListItem, CollectionSummary } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Empty, inputCls, ManageShell, NewTitleForm, useRunner, type Crumb } from "./shell";
 
@@ -35,7 +35,6 @@ export function useHomeCrumbs(mode: Mode): Crumb[] {
       ];
 }
 
-const wordCount = (c: CollectionSummary) => c.lessons.reduce((n, l) => n + l.hanzi.length, 0);
 
 function CollectionCard({
   c,
@@ -43,7 +42,7 @@ function CollectionCard({
   onCopy,
   pending,
 }: {
-  c: CollectionSummary;
+  c: CollectionListItem;
   mode: Mode;
   onCopy?: () => void;
   pending?: boolean;
@@ -60,7 +59,7 @@ function CollectionCard({
           </Link>
         )}
         <p className="text-sm text-muted-foreground">
-          {t("lessonsWords", { lessons: c.lessons.length, words: wordCount(c) })}
+          {t("lessonsWords", { lessons: c.lessons, words: c.words })}
           {c.source ? ` · ${c.source}` : ""}
         </p>
       </div>
@@ -87,8 +86,8 @@ export function CollectionsScreen({
 }: {
   mode: Mode;
   isAdmin: boolean;
-  mine: CollectionSummary[];
-  templates: CollectionSummary[];
+  mine: CollectionListItem[];
+  templates: CollectionListItem[];
   looseLessons?: { id: string; title: string; items: number }[];
 }) {
   const t = useTranslations("Manage");

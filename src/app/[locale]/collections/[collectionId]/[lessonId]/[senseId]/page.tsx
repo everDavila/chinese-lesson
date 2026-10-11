@@ -1,3 +1,4 @@
+import { ManageLoading } from "@/components/manage/loading";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { ExamplesScreen } from "@/components/manage/examples";
@@ -9,7 +10,7 @@ type Params = PageProps<"/[locale]/collections/[collectionId]/[lessonId]/[senseI
 // Frases de una palabra de la lección: las de la base y las de la docente.
 export default function Page({ params }: { params: Params }) {
   return (
-    <Suspense fallback={<main className="flex-1" aria-busy />}>
+    <Suspense fallback={<ManageLoading />}>
       <Content params={params} />
     </Suspense>
   );

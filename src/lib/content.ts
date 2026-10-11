@@ -200,10 +200,19 @@ function toCollection(c: CollectionRow): CollectionSummary {
   };
 }
 
-/** Plantillas (de todos) o las colecciones propias. */
-export async function listCollections(kind: "mine" | "templates"): Promise<CollectionSummary[]> {
+/** Una colección en una lista: solo los totales. */
+export type CollectionListItem = Omit<CollectionSummary, "lessons"> & { lessons: number; words: number };
+
+/**
+ * Plantillas (de todos) o las colecciones propias. Solo cuenta lecciones y
+ * palabras: traer los hanzi de las 68 lecciones de plantilla tardaba 0,8 s.
+ */
+export async function listCollections(kind: "mine" | "templates"): Promise<CollectionListItem[]> {
   const supabase = await createClient();
-  let query = supabase.from("collections").select(COLLECTION_SELECT).order("created_at");
+  let query = supabase
+    .from("collections")
+    .select("id, title, owner_id, source_note, copied_from, lessons(lesson_items(count))")
+    .order("created_at");
   if (kind === "templates") query = query.is("owner_id", null);
   else {
     const { data } = await supabase.auth.getClaims();
@@ -211,7 +220,16 @@ export async function listCollections(kind: "mine" | "templates"): Promise<Colle
   }
   const { data, error } = await query;
   if (error) throw error;
-  return (data as unknown as CollectionRow[]).map(toCollection);
+  type Row = Omit<CollectionRow, "lessons"> & { lessons: { lesson_items: { count: number }[] }[] };
+  return (data as unknown as Row[]).map((c) => ({
+    id: c.id,
+    title: c.title,
+    template: c.owner_id === null,
+    source: c.source_note ?? "",
+    copiedFrom: c.copied_from,
+    lessons: c.lessons.length,
+    words: c.lessons.reduce((n, l) => n + (l.lesson_items[0]?.count ?? 0), 0),
+  }));
 }
 
 export async function getCollection(id: string): Promise<CollectionSummary | null> {

@@ -1,3 +1,4 @@
+import { ManageLoading } from "@/components/manage/loading";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { CollectionScreen } from "@/components/manage/collections";
@@ -8,7 +9,7 @@ type Params = PageProps<"/[locale]/collections/[collectionId]">["params"];
 
 export default function Page({ params }: { params: Params }) {
   return (
-    <Suspense fallback={<main className="flex-1" aria-busy />}>
+    <Suspense fallback={<ManageLoading />}>
       <Content params={params} />
     </Suspense>
   );
