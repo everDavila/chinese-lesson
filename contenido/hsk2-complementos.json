@@ -1,0 +1,95 @@
+{
+  "爱好": [{ "zh": "我的爱好是看书。", "es": "Mi afición es leer.", "en": "My hobby is reading." }],
+  "本子": [
+    { "zh": "这是我的本子。", "es": "Este es mi cuaderno.", "en": "This is my notebook." },
+    { "zh": "我在本子上写字。", "es": "Escribo en el cuaderno.", "en": "I write in the notebook." }
+  ],
+  "笔": [{ "zh": "这是我的笔。", "es": "Este es mi bolígrafo.", "en": "This is my pen." }],
+  "不错": [
+    { "zh": "这个饭店不错。", "es": "Este restaurante está bastante bien.", "en": "This restaurant is pretty good." },
+    { "zh": "你说得不错。", "es": "Lo dijiste bastante bien.", "en": "You said it quite well." }
+  ],
+  "出来": [{ "zh": "请从教室里出来。", "es": "Sal del aula, por favor.", "en": "Please come out of the classroom." }],
+  "床": [{ "zh": "床在房间里。", "es": "La cama está en la habitación.", "en": "The bed is in the room." }],
+  "打车": [{ "zh": "我们打车去机场。", "es": "Vamos al aeropuerto en taxi.", "en": "We are taking a taxi to the airport." }],
+  "高中": [{ "zh": "我哥哥在上高中。", "es": "Mi hermano mayor estudia en secundaria superior.", "en": "My older brother is in high school." }],
+  "个子": [{ "zh": "那个男孩儿个子很高。", "es": "Ese chico es muy alto.", "en": "That boy is very tall." }],
+  "过年": [
+    { "zh": "我们回家过年。", "es": "Volvemos a casa para celebrar el Año Nuevo.", "en": "We go home for the New Year." },
+    { "zh": "过年我很高兴。", "es": "Estoy muy contento durante el Año Nuevo.", "en": "I am very happy during the New Year." }
+  ],
+  "红茶": [
+    { "zh": "我喜欢喝红茶。", "es": "Me gusta tomar té negro.", "en": "I like drinking black tea." },
+    { "zh": "妈妈也喝红茶。", "es": "Mamá también toma té negro.", "en": "Mom also drinks black tea." }
+  ],
+  "后面": [{ "zh": "学校后面有一个商场。", "es": "Hay un centro comercial detrás de la escuela.", "en": "There is a shopping mall behind the school." }],
+  "回来": [{ "zh": "我下午回来。", "es": "Vuelvo por la tarde.", "en": "I will come back in the afternoon." }],
+  "回去": [{ "zh": "我明天回去。", "es": "Regreso mañana.", "en": "I will go back tomorrow." }],
+  "机票": [
+    { "zh": "我买了明天的机票。", "es": "Compré un boleto de avión para mañana.", "en": "I bought a plane ticket for tomorrow." },
+    { "zh": "机票多少钱？", "es": "¿Cuánto cuesta el boleto de avión?", "en": "How much is the plane ticket?" }
+  ],
+  "教室": [{ "zh": "老师在教室里上课。", "es": "El profesor da clase en el aula.", "en": "The teacher is teaching in the classroom." }],
+  "介绍": [{ "zh": "我来介绍一下。", "es": "Permíteme hacer una breve presentación.", "en": "Let me give a brief introduction." }],
+  "进去": [{ "zh": "老师进去了。", "es": "El profesor entró.", "en": "The teacher went in." }],
+  "考": [{ "zh": "明天考汉语。", "es": "Mañana hay examen de chino.", "en": "There is a Chinese exam tomorrow." }],
+  "篮球": [{ "zh": "他喜欢打篮球。", "es": "A él le gusta jugar básquet.", "en": "He likes playing basketball." }],
+  "楼": [{ "zh": "他住在三楼。", "es": "Él vive en el tercer piso.", "en": "He lives on the third floor." }],
+  "绿色": [{ "zh": "我喜欢绿色。", "es": "Me gusta el color verde.", "en": "I like green." }],
+  "没意思": [{ "zh": "这个电影没意思。", "es": "Esta película es aburrida.", "en": "This movie is boring." }],
+  "门票": [{ "zh": "我去买门票。", "es": "Voy a comprar entradas.", "en": "I am going to buy tickets." }],
+  "那样": [{ "zh": "不要那样做。", "es": "No lo hagas de esa manera.", "en": "Don't do it that way." }],
+  "奶茶": [
+    { "zh": "我想喝奶茶。", "es": "Quiero tomar té con leche.", "en": "I want to drink milk tea." },
+    { "zh": "妈妈也喜欢奶茶。", "es": "A mamá también le gusta el té con leche.", "en": "Mom also likes milk tea." }
+  ],
+  "奶奶": [{ "zh": "奶奶在家做饭。", "es": "La abuela está cocinando en casa.", "en": "Grandma is cooking at home." }],
+  "男孩儿": [
+    { "zh": "那个男孩儿是我弟弟。", "es": "Ese chico es mi hermano menor.", "en": "That boy is my younger brother." },
+    { "zh": "男孩儿在打篮球。", "es": "El chico está jugando básquet.", "en": "The boy is playing basketball." }
+  ],
+  "晴": [{ "zh": "今天是晴天。", "es": "Hoy está despejado.", "en": "It is sunny today." }],
+  "球": [{ "zh": "球在桌子下面。", "es": "La pelota está debajo de la mesa.", "en": "The ball is under the table." }],
+  "商场": [{ "zh": "商场在学校左边。", "es": "El centro comercial está a la izquierda de la escuela.", "en": "The shopping mall is to the left of the school." }],
+  "上来": [
+    { "zh": "请上来。", "es": "Sube, por favor.", "en": "Please come up." },
+    { "zh": "他从楼下上来了。", "es": "Él subió desde abajo.", "en": "He came up from downstairs." }
+  ],
+  "上面": [
+    { "zh": "书在桌子上面。", "es": "El libro está encima de la mesa.", "en": "The book is on the table." },
+    { "zh": "上面有什么？", "es": "¿Qué hay arriba?", "en": "What is up there?" }
+  ],
+  "上去": [{ "zh": "你上去吧。", "es": "Sube tú.", "en": "You go up." }],
+  "上网": [{ "zh": "我晚上上网。", "es": "Me conecto a internet por la noche.", "en": "I go online at night." }],
+  "书包": [{ "zh": "书包在椅子上。", "es": "La mochila está en la silla.", "en": "The schoolbag is on the chair." }],
+  "虽然": [
+    { "zh": "虽然很贵，但是很好。", "es": "Aunque es caro, es muy bueno.", "en": "Although it is expensive, it is very good." },
+    { "zh": "虽然下雨，但是他来了。", "es": "Aunque llueve, él vino.", "en": "Although it is raining, he came." }
+  ],
+  "万": [{ "zh": "这里有一万人。", "es": "Aquí hay diez mil personas.", "en": "There are ten thousand people here." }],
+  "网上": [{ "zh": "网上有很多书。", "es": "Hay muchos libros en internet.", "en": "There are many books online." }],
+  "洗手间": [{ "zh": "洗手间在右边。", "es": "El baño está a la derecha.", "en": "The restroom is on the right." }],
+  "下面": [
+    { "zh": "猫在桌子下面。", "es": "El gato está debajo de la mesa.", "en": "The cat is under the table." },
+    { "zh": "下面有一家饭店。", "es": "Abajo hay un restaurante.", "en": "There is a restaurant downstairs." }
+  ],
+  "下去": [
+    { "zh": "你下去吧。", "es": "Baja tú.", "en": "You go down." },
+    { "zh": "我从楼上下去。", "es": "Bajo desde el piso de arriba.", "en": "I am going down from upstairs." }
+  ],
+  "小孩儿": [{ "zh": "那个小孩儿在玩。", "es": "Ese niño está jugando.", "en": "That child is playing." }],
+  "姓名": [{ "zh": "请写下你的姓名。", "es": "Escribe tu nombre completo, por favor.", "en": "Please write down your full name." }],
+  "一会儿": [
+    { "zh": "请等一会儿。", "es": "Espera un momento, por favor.", "en": "Please wait a moment." },
+    { "zh": "我一会儿回来。", "es": "Vuelvo en un momento.", "en": "I will be back in a moment." }
+  ],
+  "一起": [{ "zh": "我们一起去上课。", "es": "Vamos juntos a clase.", "en": "We go to class together." }],
+  "右边": [
+    { "zh": "学校在右边。", "es": "La escuela está a la derecha.", "en": "The school is on the right." },
+    { "zh": "请看右边。", "es": "Mira a la derecha, por favor.", "en": "Please look to the right." }
+  ],
+  "左边": [
+    { "zh": "饭店在左边。", "es": "El restaurante está a la izquierda.", "en": "The restaurant is on the left." },
+    { "zh": "我的书在左边。", "es": "Mi libro está a la izquierda.", "en": "My book is on the left." }
+  ]
+}

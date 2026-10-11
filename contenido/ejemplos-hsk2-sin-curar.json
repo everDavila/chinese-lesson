@@ -1,0 +1,6540 @@
+{
+  "metadata": {
+    "standard": "hsk-3.0",
+    "level": 2,
+    "sourceId": "cti-hsk3-2026",
+    "status": "unreviewed",
+    "generatedAt": "2026-10-11T15:06:23.408Z",
+    "requestedPerSense": 3,
+    "sources": [
+      {
+        "id": "gushi",
+        "url": "https://gushichinese.com/es/hsk-3.0/downloads/hsk-3.0-words-2.json",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "id": "tatoeba",
+        "url": "https://tatoeba.org",
+        "license": "CC BY 2.0 FR"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "sourceOrder": 301,
+      "hanzi": "啊",
+      "targetPinyin": "a",
+      "sentences": [
+        {
+          "zh": "真想睡过去啊。",
+          "pinyin": "Zhēnxiǎng shuìguòqù a.",
+          "es": "Quiero dormir.",
+          "en": "I want to sleep.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "帮帮忙啊。",
+          "pinyin": "Bāngbangmáng ā.",
+          "es": "¡Ayúdame!",
+          "en": "Help!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2638745,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你好啊！早上好！",
+          "pinyin": "Nǐhǎo ā! zǎoshanghǎo!",
+          "es": "¡Hola! ¡Buenos días!",
+          "en": "Hello! Good morning!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10552179,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 302,
+      "hanzi": "爱好",
+      "targetPinyin": "àihào",
+      "sentences": [
+        {
+          "zh": "我的爱好是看书。",
+          "es": "Mi afición es leer.",
+          "en": "My hobby is reading.",
+          "pinyin": "wǒ de àihào shì kàn shū。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你的爱好是什么？",
+          "pinyin": "Nǐ de àihào shì shénme?",
+          "es": "¿Cuál es tu afición?",
+          "en": "What's your hobby?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 303,
+      "hanzi": "白色",
+      "targetPinyin": "báisè",
+      "sentences": [
+        {
+          "zh": "她穿着白色的衣服。",
+          "pinyin": "Tā chuānzhe báisè de yīfú.",
+          "es": "Va vestida de blanco.",
+          "en": "She is dressed in white.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "这只狗是白色的。",
+          "pinyin": "Zhè zhī gǒu shì báisè de.",
+          "es": "El perro es blanco.",
+          "en": "This dog is white.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3706747,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我们有一只白色的猫。",
+          "pinyin": "Wǒmen yǒu yī zhī báisè de māo.",
+          "es": "Tenemos un gato blanco.",
+          "en": "We have a white cat.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1045529,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 304,
+      "hanzi": "班",
+      "targetPinyin": "bān",
+      "sentences": [
+        {
+          "zh": "你在上班吗？",
+          "pinyin": "Nǐ zài shàngbān ma?",
+          "es": "¿Estás trabajando?",
+          "en": "Are you working?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5999024,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你九点上班。",
+          "pinyin": "Nǐ jiǔ diǎn shàngbān.",
+          "es": "Empiezas a trabajar a las nueve.",
+          "en": "You work at nine o'clock.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5575448,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你什么时候上班？",
+          "pinyin": "Nǐ shén me shíhou shàngbān?",
+          "es": "¿Cuándo trabajas?",
+          "en": "When do you work?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 808854,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 305,
+      "hanzi": "帮",
+      "targetPinyin": "bāng",
+      "sentences": [
+        {
+          "zh": "他们不帮忙。",
+          "pinyin": "Tāmen bù bāngmáng.",
+          "es": "No ayudan.",
+          "en": "They don't help.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "请帮帮她！",
+          "pinyin": "Qǐng bāng bāng tā!",
+          "es": "¡Por favor, ayúdala!",
+          "en": "Please, help her!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9991961,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "帮我们做.",
+          "pinyin": "Bāng wǒmen zuò.",
+          "es": "Háznoslo.",
+          "en": "Help us do it.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6850364,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 306,
+      "hanzi": "帮忙",
+      "targetPinyin": "bāngmáng",
+      "sentences": [
+        {
+          "zh": "他们不帮忙。",
+          "pinyin": "Tāmen bù bāngmáng.",
+          "es": "No ayudan.",
+          "en": "They don't help.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我想请你帮忙。",
+          "pinyin": "Wǒ xiǎng qǐng nǐ bāngmáng.",
+          "es": "Quiero pedirte ayuda.",
+          "en": "I look to you for help.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 364355,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "Jane希望Mary帮忙她。",
+          "pinyin": "Jane xīwàng Mary bāngmáng tā.",
+          "es": "Jane espera que Mary le ayude.",
+          "en": "Jane expects Mary will help her.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4455702,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 307,
+      "hanzi": "包",
+      "targetPinyin": "bāo",
+      "sentences": [
+        {
+          "zh": "我吃面包。",
+          "pinyin": "Wǒ chī miànbāo.",
+          "es": "Como pan.",
+          "en": "I eat bread.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你的包在哪里？",
+          "pinyin": "Nǐ de bāo zài nǎlǐ?",
+          "es": "¿Dónde está tu bolsa?",
+          "en": "Where's your bag?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5713529,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她有点儿面包。",
+          "pinyin": "Tā yǒudiǎnr miànbāo.",
+          "es": "Ella tiene un poco de pan.",
+          "en": "She has a little bread.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 787242,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 308,
+      "hanzi": "本子",
+      "targetPinyin": "běnzi",
+      "sentences": [
+        {
+          "zh": "这是我的本子。",
+          "es": "Este es mi cuaderno.",
+          "en": "This is my notebook.",
+          "pinyin": "zhè shì wǒ de běnzi。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我在本子上写字。",
+          "es": "Escribo en el cuaderno.",
+          "en": "I write in the notebook.",
+          "pinyin": "wǒ zài běnzi shàng xiě zì。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 309,
+      "hanzi": "比",
+      "targetPinyin": "bǐ",
+      "sentences": [
+        {
+          "zh": "我比他高。",
+          "pinyin": "Wǒ bǐ tā gāo.",
+          "es": "Soy más alto que él.",
+          "en": "I am taller than him.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我比Tom好。",
+          "pinyin": "Wǒ bǐ T om hǎo.",
+          "es": "Soy mejor que Tom.",
+          "en": "I'm better than Tom.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3478436,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她比他大。",
+          "pinyin": "Tā bǐ tā dà.",
+          "es": "Ella es mayor que él.",
+          "en": "She's older than him.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1178883,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 310,
+      "hanzi": "笔",
+      "targetPinyin": "bǐ",
+      "sentences": [
+        {
+          "zh": "这是我的笔。",
+          "es": "Este es mi bolígrafo.",
+          "en": "This is my pen.",
+          "pinyin": "zhè shì wǒ de bǐ。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你的笔比我的好。",
+          "pinyin": "Nǐ de bǐ bǐ wǒ de hǎo.",
+          "es": "Tu bolígrafo es mejor que el mío.",
+          "en": "Your pen is better than mine.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 333143,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 311,
+      "hanzi": "别",
+      "targetPinyin": "bié",
+      "sentences": [
+        {
+          "zh": "别让狗进来。",
+          "pinyin": "Bié ràng gǒu jìnlái.",
+          "es": "Mantén al perro fuera.",
+          "en": "Keep the dog out.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "别走！",
+          "pinyin": "Bié zǒu!",
+          "es": "¡No te vayas!",
+          "en": "Don't leave!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6131474,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "别动！",
+          "pinyin": "Bié dòng!",
+          "es": "¡No te muevas!",
+          "en": "Hold it!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2531345,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 312,
+      "hanzi": "不错",
+      "targetPinyin": "búcuò",
+      "sentences": [
+        {
+          "zh": "这个饭店不错。",
+          "es": "Este restaurante está bastante bien.",
+          "en": "This restaurant is pretty good.",
+          "pinyin": "zhège fàndiàn búcuò。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你说得不错。",
+          "es": "Lo dijiste bastante bien.",
+          "en": "You said it quite well.",
+          "pinyin": "nǐ shuō de búcuò。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 313,
+      "hanzi": "不好意思",
+      "targetPinyin": "bù hǎoyìsi",
+      "sentences": [
+        {
+          "zh": "我真是不好意思！",
+          "pinyin": "Wǒ zhēnshi bù hǎoyìsi!",
+          "es": "¡Lo siento muchísimo!",
+          "en": "I'm very sorry.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 419968,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不好意思，我要走了。",
+          "pinyin": "Bù hǎoyìsi, wǒ yào zǒu le.",
+          "es": "Lo siento, me tengo que ir.",
+          "en": "I am afraid I must be going now.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 388380,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不好意思，你叫什么名字？",
+          "pinyin": "Bù hǎoyìsi, nǐ jiào shénme míngzi?",
+          "es": "Perdona, ¿cómo te llamas?",
+          "en": "Excuse me. What's your name?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1202599,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 314,
+      "hanzi": "长",
+      "targetPinyin": "cháng",
+      "sentences": [
+        {
+          "zh": "这条路很长",
+          "pinyin": "Zhè tiáo lù hěn cháng.",
+          "es": "Este camino es muy largo.",
+          "en": "This road is very long.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "这个太长了。",
+          "pinyin": "Zhège tài cháng le.",
+          "es": "Esto es demasiado largo.",
+          "en": "This is too long.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 364349,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 315,
+      "hanzi": "车站",
+      "targetPinyin": "chēzhàn",
+      "sentences": [
+        {
+          "zh": "这就是车站吗？",
+          "pinyin": "Zhè jiù shì chēzhàn ma?",
+          "es": "¿Es esta la estación de tren?",
+          "en": "Is this the train station?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2318424,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你几点会到车站？",
+          "pinyin": "Nǐ jǐdiǎn huì dào chēzhàn?",
+          "es": "¿Tú a qué hora puedes llegar a la estación?",
+          "en": "What time will you get to the station?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2007057,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你能开车去车站吗？",
+          "pinyin": "Nǐ néng kāichē qù chēzhàn ma?",
+          "es": "¿Me llevas en coche a la estación?",
+          "en": "Could you drive to the station?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5964269,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 316,
+      "hanzi": "出",
+      "targetPinyin": "chū",
+      "sentences": [
+        {
+          "zh": "我不出名。",
+          "pinyin": "Wǒ bù chūmíng.",
+          "es": "No soy famoso.",
+          "en": "I'm not famous.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我出去了。",
+          "pinyin": "Wǒ chūqù le.",
+          "es": "Salí.",
+          "en": "Get out.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 634832,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她很少出去。",
+          "pinyin": "Tā hěn shǎo chūqù.",
+          "es": "Ella rara vez sale a la calle.",
+          "en": "She seldom goes out.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 354509,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 317,
+      "hanzi": "出国",
+      "targetPinyin": "chūguó",
+      "sentences": [
+        {
+          "zh": "她最近就要出国了。",
+          "pinyin": "Tā zuìjìn jiùyào chūguó le.",
+          "es": "Se irá al extranjero pronto.",
+          "en": "She will go abroad soon.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "她半年后就要出国了。",
+          "pinyin": "Tā bàn nián hòu jiù yào chūguó le.",
+          "es": "Se va al extranjero dentro de 6 meses.",
+          "en": "She's leaving the country in six months.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 332421,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 318,
+      "hanzi": "出来",
+      "targetPinyin": "chūlái",
+      "sentences": [
+        {
+          "zh": "请从教室里出来。",
+          "es": "Sal del aula, por favor.",
+          "en": "Please come out of the classroom.",
+          "pinyin": "qǐng cóng jiàoshì lǐ chūlái。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "她从车里出来了。",
+          "pinyin": "Tā cóng chē lǐ chūlái le.",
+          "es": "Salió del coche.",
+          "en": "She got out of the car.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 407251,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 319,
+      "hanzi": "出门",
+      "targetPinyin": "chūmén",
+      "sentences": [
+        {
+          "zh": "她在准备出门。",
+          "pinyin": "Tā zài zhǔnbèi chūmén.",
+          "es": "Ella estaba preparándose para salir de casa.",
+          "en": "She was getting ready for leaving home.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3149453,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我今天想出门。",
+          "pinyin": "Wǒ jīntiān xiǎngchū mén.",
+          "es": "Hoy tengo ganas de salir.",
+          "en": "I feel like going out today.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 848941,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他一出门，雨就开始下了。",
+          "pinyin": "Tā yī chūmén, yǔ jiù kāishǐ xià le.",
+          "es": "En cuanto salió por la puerta, empezó a llover.",
+          "en": "As soon as he went out of the house, it began to rain.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3158499,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 320,
+      "hanzi": "出去",
+      "targetPinyin": "chūqù",
+      "sentences": [
+        {
+          "zh": "她正要出去。",
+          "pinyin": "Tā zhèngyào chūqù.",
+          "es": "Estaba a punto de irse.",
+          "en": "She was about to leave.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我出去了。",
+          "pinyin": "Wǒ chūqù le.",
+          "es": "Salí.",
+          "en": "Get out.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 634832,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她很少出去。",
+          "pinyin": "Tā hěn shǎo chūqù.",
+          "es": "Ella rara vez sale a la calle.",
+          "en": "She seldom goes out.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 354509,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 321,
+      "hanzi": "床",
+      "targetPinyin": "chuáng",
+      "sentences": [
+        {
+          "zh": "床在房间里。",
+          "es": "La cama está en la habitación.",
+          "en": "The bed is in the room.",
+          "pinyin": "chuáng zài fángjiān lǐ。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "他坐在床上了。",
+          "pinyin": "Tā zuò zài chuáng shàng le.",
+          "es": "Se sentó en la cama.",
+          "en": "He sat on the bed.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 761329,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 322,
+      "hanzi": "词",
+      "targetPinyin": "cí",
+      "sentences": [
+        {
+          "zh": "你们怎么读这个词？",
+          "pinyin": "Nǐmen zěnme dú zhège cí?",
+          "es": "¿Cómo leen ustedes esta palabra?",
+          "en": "How do you pronounce this word?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 345739,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "这个词是什么意思？",
+          "pinyin": "Zhège cí shì shénme yìsi?",
+          "es": "¿Qué significa esta palabra?",
+          "en": "What does this word mean?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 335099,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我不知道这个词什么意思。",
+          "pinyin": "Wǒ bù zhīdào zhège cí shénme yìsi.",
+          "es": "No sé qué significa esta palabra.",
+          "en": "I don't know what this word means.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 354446,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 323,
+      "hanzi": "次",
+      "targetPinyin": "cì",
+      "sentences": [
+        {
+          "zh": "我记得第一次。",
+          "pinyin": "Wǒ jìde dìyīcì.",
+          "es": "Recuerdo la primera vez.",
+          "en": "I remember the first time.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "再一次。",
+          "pinyin": "Zàiyīcì.",
+          "es": "Una vez más.",
+          "en": "Come again?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 826049,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "这是第一次。",
+          "pinyin": "Zhè shì dìyīcì.",
+          "es": "Ésta es la primera vez.",
+          "en": "This is the first time.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1227135,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 324,
+      "hanzi": "从",
+      "targetPinyin": "cóng",
+      "sentences": [
+        {
+          "zh": "他从中国回来了。",
+          "pinyin": "Tā cóng zhōngguó huílái le.",
+          "es": "Regresó de China.",
+          "en": "He came back from China.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你从哪里来？",
+          "pinyin": "Nǐ cóng nǎlǐ lái?",
+          "es": "¿De dónde vienes?",
+          "en": "Where do you come from?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9209961,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "从这里开始。",
+          "pinyin": "Cóng zhèlǐ kāishǐ.",
+          "es": "Empieza aquí.",
+          "en": "Start here.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 13531819,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 325,
+      "hanzi": "从小",
+      "targetPinyin": "cóngxiǎo",
+      "sentences": [
+        {
+          "zh": "他从小就爱画画。",
+          "pinyin": "Tā cóngxiǎo jiù ài huà huà.",
+          "es": "Le encanta dibujar desde la infancia.",
+          "en": "He has loved drawing since childhood.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我和他从小就是好朋友了。",
+          "pinyin": "Wǒ hé tā cóngxiǎo jiùshì hǎopéngyou le.",
+          "es": "Él y yo somos buenos amigos desde que éramos pequeños.",
+          "en": "He and I have been good friends since we were children.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 339495,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 326,
+      "hanzi": "错",
+      "targetPinyin": "cuò",
+      "sentences": [
+        {
+          "zh": "错。",
+          "pinyin": "Cuò.",
+          "es": "Equivocado.",
+          "en": "Wrong.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 346153,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不错。",
+          "pinyin": "Bù cuò.",
+          "es": "No está mal.",
+          "en": "Not bad.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1073169,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "是雨的错？",
+          "pinyin": "Shì yǔ de cuò?",
+          "es": "¿La lluvia tiene la culpa?",
+          "en": "Is the rain to blame?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5722984,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 327,
+      "hanzi": "打",
+      "targetPinyin": "dǎ",
+      "sentences": [
+        {
+          "zh": "打电话回家！",
+          "pinyin": "Dǎdiànhuà huíjiā!",
+          "es": "¡Llama a casa!",
+          "en": "Call home!",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "打电话给我！",
+          "pinyin": "Dǎdiànhuà gěi wǒ!",
+          "es": "¡Llámame!",
+          "en": "Call me!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 12615456,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "打开电脑。",
+          "pinyin": "Dǎkāi diànnǎo.",
+          "es": "Enciende el ordenador.",
+          "en": "Turn on the computer.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9054806,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 328,
+      "hanzi": "打车",
+      "targetPinyin": "dǎchē",
+      "sentences": [
+        {
+          "zh": "我们打车去机场。",
+          "es": "Vamos al aeropuerto en taxi.",
+          "en": "We are taking a taxi to the airport.",
+          "pinyin": "wǒmen dǎchē qù jīchǎng。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "太晚了，我们打车回家吧。",
+          "pinyin": "Tài wǎn le, wǒmen dǎchē huí jiā ba.",
+          "es": "Es tarde; tomemos un taxi a casa.",
+          "en": "It is late. Let us take a taxi home.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 329,
+      "hanzi": "打开",
+      "targetPinyin": "dǎkāi",
+      "sentences": [
+        {
+          "zh": "不要打开你的书。",
+          "pinyin": "Búyào dǎkāi nǐ de shū.",
+          "es": "No abras el libro.",
+          "en": "Don't open your book.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "打开电脑。",
+          "pinyin": "Dǎkāi diànnǎo.",
+          "es": "Enciende el ordenador.",
+          "en": "Turn on the computer.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9054806,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 330,
+      "hanzi": "但",
+      "targetPinyin": "dàn",
+      "sentences": [
+        {
+          "zh": "我本来想走的，但后来忘了。",
+          "pinyin": "Wǒ běnlái xiǎng zǒu de, dàn hòulái wàng le.",
+          "es": "Tenía intención de ir, pero se me olvidó.",
+          "en": "I intended to go, but forgot to.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "但你喜欢！",
+          "pinyin": "Dàn nǐ xǐhuan!",
+          "es": "¡Pero te gusta!",
+          "en": "But you like it!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 473005,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我想，但我不能。",
+          "pinyin": "Wǒ xiǎng, dàn wǒ bù néng.",
+          "es": "Me gustaría pero no puedo.",
+          "en": "I want to, but I can't.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4189345,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 331,
+      "hanzi": "但是",
+      "targetPinyin": "dànshì",
+      "sentences": [
+        {
+          "zh": "雨很大，但是他还是出门了。",
+          "pinyin": "Yǔ hěn dà, dànshì tā háishi chūmén le.",
+          "es": "Salió aunque llovía mucho.",
+          "en": "He went out though it was raining heavily.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "但是，我没有钱。",
+          "pinyin": "Dànshì, wǒ méiyǒu qián.",
+          "es": "Pero no tengo dinero.",
+          "en": "However, I have no money.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 340150,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我是学生，但是他不是。",
+          "pinyin": "Wǒ shì xuésheng, dànshì tā bù shì.",
+          "es": "Yo soy estudiante, pero él no.",
+          "en": "I am a student, but he isn't.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6172117,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 332,
+      "hanzi": "得",
+      "targetPinyin": "de",
+      "sentences": [
+        {
+          "zh": "做得好！",
+          "pinyin": "Zuò de hǎo!",
+          "es": "¡Bien hecho!",
+          "en": "Great!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4261676,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你睡得好吗？",
+          "pinyin": "Nǐ shuì de hǎo ma?",
+          "es": "¿Has dormido bien?",
+          "en": "Did you have a good sleep?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 475849,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你听得见吗？",
+          "pinyin": "Nǐ tīngdejiàn ma?",
+          "es": "¿Me oyes?",
+          "en": "Can you hear me?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 333415,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 333,
+      "hanzi": "地",
+      "targetPinyin": "de",
+      "sentences": [
+        {
+          "zh": "我们见面的地点是学校门口。",
+          "pinyin": "Wǒmen jiànmiàn de dìdiǎn shì xuéxiào ménkǒu.",
+          "es": "El lugar donde nos vemos es la puerta de la escuela.",
+          "en": "The place we meet is the school gate.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "地球是我们的家。",
+          "pinyin": "Dìqiú shì wǒmen de jiā.",
+          "es": "La tierra es nuestro hogar.",
+          "en": "The Earth is our home.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6031936,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我是这里的外地人。",
+          "pinyin": "Wǒ shì zhèli de wàidìrén.",
+          "es": "Soy extranjero aquí.",
+          "en": "I'm a stranger here.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 941138,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 334,
+      "hanzi": "等",
+      "targetPinyin": "děng",
+      "sentences": [
+        {
+          "zh": "他们等得了。",
+          "pinyin": "Tāmen děng de liǎo.",
+          "es": "Pueden esperar.",
+          "en": "They can wait.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "等等！",
+          "pinyin": "Děngděng!",
+          "es": "¡Espera!",
+          "en": "Hold it!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4970122,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "等一下。",
+          "pinyin": "Děng yīxià.",
+          "es": "Espera un momento.",
+          "en": "Wait a moment.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9007563,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 335,
+      "hanzi": "地铁",
+      "targetPinyin": "dìtiě",
+      "sentences": [
+        {
+          "zh": "我坐地铁上学。",
+          "pinyin": "Wǒ zuò dìtiě shàngxué.",
+          "es": "Voy al colegio en metro.",
+          "en": "I go to school by subway.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9524569,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我在哪里坐地铁？",
+          "pinyin": "Wǒ zài nǎlǐ zuò dìtiě?",
+          "es": "¿Dónde cojo el metro?",
+          "en": "Where do I get the subway?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9524567,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "地铁站有点儿远",
+          "pinyin": "Dìtiězhàn yǒudiǎnr yuǎn",
+          "es": "La estación de metro queda un poco lejos.",
+          "en": "The metro station is quite far.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4563030,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 336,
+      "hanzi": "点",
+      "targetPinyin": "diǎn",
+      "sentences": [
+        {
+          "zh": "快点！",
+          "pinyin": "Kuài diǎn!",
+          "es": "¡Date prisa!",
+          "en": "Hurry up.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 512039,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "快一点！",
+          "pinyin": "Kuài yīdiǎn!",
+          "es": "¡Más rápido!",
+          "en": "Hurry up.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4754629,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "几点了？",
+          "pinyin": "Jǐ diǎn le?",
+          "es": "¿Qué hora es?",
+          "en": "What time?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 501536,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 337,
+      "hanzi": "懂",
+      "targetPinyin": "dǒng",
+      "sentences": [
+        {
+          "zh": "你们懂吗？",
+          "pinyin": "Nǐmen dǒng ma?",
+          "es": "¿Lo pilláis?",
+          "en": "Do you understand?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6850348,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我不懂。",
+          "pinyin": "Wǒ bù dǒng.",
+          "es": "No entiendo.",
+          "en": "I don't get it.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 409679,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我不懂你。",
+          "pinyin": "Wǒ bù dǒng nǐ.",
+          "es": "No te entiendo.",
+          "en": "I don't see your point.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5580983,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 338,
+      "hanzi": "动",
+      "targetPinyin": "dòng",
+      "sentences": [
+        {
+          "zh": "别动！",
+          "pinyin": "Bié dòng!",
+          "es": "¡No te muevas!",
+          "en": "Hold it!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2531345,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不要动.",
+          "pinyin": "Bù yào dòng.",
+          "es": "Estaos quietos.",
+          "en": "Don't move.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6850362,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 339,
+      "hanzi": "饭馆",
+      "targetPinyin": "fànguǎn",
+      "sentences": [
+        {
+          "zh": "这家饭馆的菜很好吃。",
+          "pinyin": "Zhè jiā fànguǎn de cài hěn hǎochī.",
+          "es": "La comida de este restaurante está deliciosa.",
+          "en": "The food at this restaurant is delicious.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我是上个星期五跟我女朋友在饭馆吃饭的。",
+          "pinyin": "Wǒ shì shànggèxīngqī wǔ gēn wǒ nǚpéngyou zài fànguǎn chīfàn de.",
+          "es": "El viernes pasado me fui a comer a un restaurante con mi novia.",
+          "en": "It was last Friday that I ate dinner with my girlfriend in a restaurant.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 844679,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 340,
+      "hanzi": "飞",
+      "targetPinyin": "fēi",
+      "sentences": [
+        {
+          "zh": "我很爱飞。",
+          "pinyin": "Wǒ hěn ài fēi.",
+          "es": "Me apasiona volar.",
+          "en": "I love flying.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5768184,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你能教我飞吗?",
+          "pinyin": "Nǐ néng jiāo wǒ fēi ma?",
+          "es": "¿Puedes enseñarme a volar?",
+          "en": "Can you teach me how to steal?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 390539,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "这只鸟不能飞。",
+          "pinyin": "Zhè zhǐ niǎo bù néng fēi.",
+          "es": "Este pájaro no puede volar.",
+          "en": "This bird cannot fly.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 381926,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 341,
+      "hanzi": "高",
+      "targetPinyin": "gāo",
+      "sentences": [
+        {
+          "zh": "我个子高。",
+          "pinyin": "Wǒ gèzi gāo.",
+          "es": "Soy alto.",
+          "en": "I'm tall.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "她高。",
+          "pinyin": "Tā gāo.",
+          "es": "Es alta.",
+          "en": "He weighs 270 pounds.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4887717,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他高。",
+          "pinyin": "Tā gāo.",
+          "es": "Él es alto.",
+          "en": "He weighs 270 pounds.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4887716,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 342,
+      "hanzi": "高中",
+      "targetPinyin": "gāozhōng",
+      "sentences": [
+        {
+          "zh": "我哥哥在上高中。",
+          "es": "Mi hermano mayor estudia en secundaria superior.",
+          "en": "My older brother is in high school.",
+          "pinyin": "wǒ gēge zài shàng gāozhōng。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你要去哪个高中读书？",
+          "pinyin": "Nǐ yào qù nǎge gāozhōng dúshū?",
+          "es": "¿A qué instituto vas?",
+          "en": "Where do you attend high school?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 499648,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 343,
+      "hanzi": "告诉",
+      "targetPinyin": "gàosu",
+      "sentences": [
+        {
+          "zh": "告诉我！",
+          "pinyin": "Gàosu wǒ!",
+          "es": "¡Cuéntame!",
+          "en": "Tell me about it!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9965594,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "您会告诉我吗？",
+          "pinyin": "Nín huì gàosu wǒ ma?",
+          "es": "¿Me lo vas a contar?",
+          "en": "Will you tell me?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1659816,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "您想告诉我什么？",
+          "pinyin": "Nín xiǎng gàosu wǒ shénme?",
+          "es": "¿Qué quiere contarme?",
+          "en": "What do you mean to say to me?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10182795,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 344,
+      "hanzi": "个子",
+      "targetPinyin": "gèzi",
+      "sentences": [
+        {
+          "zh": "那个男孩儿个子很高。",
+          "es": "Ese chico es muy alto.",
+          "en": "That boy is very tall.",
+          "pinyin": "nàge nánháir gèzi hěn gāo。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我个子高。",
+          "pinyin": "Wǒ gèzi gāo.",
+          "es": "Soy alto.",
+          "en": "I'm tall.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 345,
+      "hanzi": "跟",
+      "targetPinyin": "gēn",
+      "sentences": [
+        {
+          "zh": "我不跟你要好了。",
+          "pinyin": "Wǒ bù gēn nǐ yào hǎo le.",
+          "es": "Voy a dejar de intentar ser amable contigo.",
+          "en": "I'm going to stop trying to be friendly with you.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "跟我来！",
+          "pinyin": "Gēn wǒ lái!",
+          "es": "¡Ven conmigo!",
+          "en": "Come along with me.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 419988,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "跟我们来。",
+          "pinyin": "Gēn wǒmen lái.",
+          "es": "Ven con nosotros.",
+          "en": "Come along with us.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 778962,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 346,
+      "hanzi": "公交车",
+      "targetPinyin": "gōngjiāochē",
+      "sentences": [
+        {
+          "zh": "我在公交车上睡觉了。",
+          "pinyin": "Wǒ zài gōngjiāochē shàng shuìjiào le.",
+          "es": "Dormí en el autobús.",
+          "en": "I slept on the bus.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我在等公交车。",
+          "pinyin": "Wǒ zài děng gōngjiāochē.",
+          "es": "Estoy esperando el autobús.",
+          "en": "I'm waiting for the bus.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5756027,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "是我们的公交车。",
+          "pinyin": "Shì wǒmen de gōngjiāochē.",
+          "es": "¡Es nuestro autobús!",
+          "en": "That's our bus.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9179784,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 347,
+      "hanzi": "过",
+      "targetPinyin": "guò",
+      "sentences": [
+        {
+          "zh": "我见过。",
+          "pinyin": "Wǒ jiàn guo.",
+          "es": "Lo he visto.",
+          "en": "I've seen it.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 824531,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "吃过饭了没有？",
+          "pinyin": "Chī guo fàn le méiyǒu?",
+          "es": "¿Has comido?",
+          "en": "Have you eaten yet?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5570615,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你吃过晚饭了吗？",
+          "pinyin": "Nǐ chī guo wǎnfàn le ma?",
+          "es": "¿Ya has cenado?",
+          "en": "Have you eaten your dinner already?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 842427,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 348,
+      "hanzi": "过来",
+      "targetPinyin": "guòlái",
+      "sentences": [
+        {
+          "zh": "让她中午过来。",
+          "pinyin": "Ràng tā zhōngwǔ guòlái.",
+          "es": "Dile que venga al mediodía.",
+          "en": "Tell her to come at noon.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "什么时候想来就过来吧。",
+          "pinyin": "Shénme shíhou xiǎng lái jiù guòlái ba.",
+          "es": "A la hora que quieras venir, ven.",
+          "en": "Come whenever you like.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5153294,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 349,
+      "hanzi": "过年",
+      "targetPinyin": "guònián",
+      "sentences": [
+        {
+          "zh": "我们回家过年。",
+          "es": "Volvemos a casa para celebrar el Año Nuevo.",
+          "en": "We go home for the New Year.",
+          "pinyin": "wǒmen huí jiā guònián。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "过年我很高兴。",
+          "es": "Estoy muy contento durante el Año Nuevo.",
+          "en": "I am very happy during the New Year.",
+          "pinyin": "guònián wǒ hěn gāoxìng。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 350,
+      "hanzi": "过去",
+      "targetPinyin": "guòqù",
+      "sentences": [
+        {
+          "zh": "多少年过去了。",
+          "pinyin": "Duōshǎo nián guòqù le.",
+          "es": "Pasaron los años.",
+          "en": "Years passed.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "最坏的已经过去了。",
+          "pinyin": "Zuì huài de yǐjīng guòqù le.",
+          "es": "Ya pasó lo peor.",
+          "en": "The worst is over.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 795804,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "过去,我是中学生,现在我是大学生.",
+          "pinyin": "Guòqù, wǒ shì zhōngxuéshēng, xiànzài wǒ shì dàxuéshēng.",
+          "es": "Antes era estudiante de instituto, ahora soy universitario.",
+          "en": "In the past, I was a middle school student. Now I am a college student.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 333482,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 351,
+      "hanzi": "过",
+      "targetPinyin": "guo",
+      "sentences": [
+        {
+          "zh": "我见过。",
+          "pinyin": "Wǒ jiàn guo.",
+          "es": "Lo he visto.",
+          "en": "I've seen it.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 824531,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "吃过饭了没有？",
+          "pinyin": "Chī guo fàn le méiyǒu?",
+          "es": "¿Has comido?",
+          "en": "Have you eaten yet?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5570615,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你吃过晚饭了吗？",
+          "pinyin": "Nǐ chī guo wǎnfàn le ma?",
+          "es": "¿Ya has cenado?",
+          "en": "Have you eaten your dinner already?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 842427,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 352,
+      "hanzi": "还是",
+      "targetPinyin": "háishi",
+      "sentences": [
+        {
+          "zh": "肉还是鱼？",
+          "pinyin": "Ròu háishi yú?",
+          "es": "¿Carne o pescado?",
+          "en": "Meat or fish?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1358670,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "咖啡还是茶？",
+          "pinyin": "Kāfēi háishi chá?",
+          "es": "¿Café o té?",
+          "en": "Coffee or tea?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2347106,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "您想要茶还是咖啡？",
+          "pinyin": "Nín xiǎngyào chá háishi kāfēi?",
+          "es": "¿Quiere café o té?",
+          "en": "Would you like coffee or tea?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 335008,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 353,
+      "hanzi": "黑色",
+      "targetPinyin": "hēisè",
+      "sentences": [
+        {
+          "zh": "猫是黑色的。",
+          "pinyin": "Māo shì hēisè de.",
+          "es": "El gato es negro.",
+          "en": "The cat is black.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "哪只狗是黑色的？",
+          "pinyin": "Nǎ zhī gǒu shì hēisède?",
+          "es": "¿Qué perro es negro?",
+          "en": "Which dog is black?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 11515785,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你的猫是黑色的。",
+          "pinyin": "Nǐ de māo shì hēisè de.",
+          "es": "Tu gato es negro.",
+          "en": "Your cat is black.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5941729,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 354,
+      "hanzi": "红茶",
+      "targetPinyin": "hóngchá",
+      "sentences": [
+        {
+          "zh": "我喜欢喝红茶。",
+          "es": "Me gusta tomar té negro.",
+          "en": "I like drinking black tea.",
+          "pinyin": "wǒ xǐhuan hē hóngchá。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "妈妈也喝红茶。",
+          "es": "Mamá también toma té negro.",
+          "en": "Mom also drinks black tea.",
+          "pinyin": "māma yě hē hóngchá。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 355,
+      "hanzi": "红色",
+      "targetPinyin": "hóngsè",
+      "sentences": [
+        {
+          "zh": "她有红色的花。",
+          "pinyin": "Tā yǒu hóngsè de huā.",
+          "es": "Ella tiene flores rojas.",
+          "en": "She has red flowers.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5941744,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "这本书是红色。",
+          "pinyin": "Zhè běn shū shì hóngsè.",
+          "es": "Éste libro es rojo.",
+          "en": "This book is red.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2448491,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "苹果是红色的。",
+          "pinyin": "Píngguǒ shì hóngsè de.",
+          "es": "Las manzanas son rojas.",
+          "en": "Apples are red.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1799192,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 356,
+      "hanzi": "后面",
+      "targetPinyin": "hòumiàn",
+      "sentences": [
+        {
+          "zh": "学校后面有一个商场。",
+          "es": "Hay un centro comercial detrás de la escuela.",
+          "en": "There is a shopping mall behind the school.",
+          "pinyin": "xuéxiào hòumiàn yǒu yī gè shāngchǎng。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我就在你后面。",
+          "pinyin": "Wǒ jiù zài nǐ hòumiàn.",
+          "es": "Estaba justo detrás de ti.",
+          "en": "I was right behind you.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 357,
+      "hanzi": "花",
+      "targetPinyin": "huā",
+      "sentences": [
+        {
+          "zh": "这是花吗？",
+          "pinyin": "Zhè shì huā ma?",
+          "es": "¿Esto es una flor?",
+          "en": "Is this a flower?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1187312,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我买了花。",
+          "pinyin": "Wǒ mǎile huā.",
+          "es": "Compré flores.",
+          "en": "I bought flowers.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 11508980,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我喜欢花。",
+          "pinyin": "Wǒ xǐhuan huā.",
+          "es": "Adoro las flores.",
+          "en": "I love flowers.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4504367,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 358,
+      "hanzi": "花",
+      "targetPinyin": "huā",
+      "sentences": [
+        {
+          "zh": "这是花吗？",
+          "pinyin": "Zhè shì huā ma?",
+          "es": "¿Esto es una flor?",
+          "en": "Is this a flower?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1187312,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我买了花。",
+          "pinyin": "Wǒ mǎile huā.",
+          "es": "Compré flores.",
+          "en": "I bought flowers.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 11508980,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我喜欢花。",
+          "pinyin": "Wǒ xǐhuan huā.",
+          "es": "Adoro las flores.",
+          "en": "I love flowers.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4504367,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 359,
+      "hanzi": "画",
+      "targetPinyin": "huà",
+      "sentences": [
+        {
+          "zh": "你为什么在画花？",
+          "pinyin": "Nǐ wèishénme zài huà huā?",
+          "es": "¿Por qué estás pintando flores?",
+          "en": "Why are you drawing flowers?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5973318,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他是一位有名的画家。",
+          "pinyin": "Tā shì yī wèi yǒumíng de huàjiā.",
+          "es": "Él es un pintor famoso.",
+          "en": "He is a famous artist.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 402609,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我从来没有看过这么漂亮的画。",
+          "pinyin": "Wǒ cóngláiméiyǒu kàn guo zhème piàoliang de huà.",
+          "es": "Nunca había visto un cuadro tan bonito.",
+          "en": "Never have I seen such a beautiful picture.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 470270,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 360,
+      "hanzi": "坏",
+      "targetPinyin": "huài",
+      "sentences": [
+        {
+          "zh": "电视坏了。",
+          "pinyin": "Diànshì huàile.",
+          "es": "La televisión no funciona.",
+          "en": "The television doesn't work.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 817677,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你没有这么坏。",
+          "pinyin": "Nǐ méiyǒu zhème huài.",
+          "es": "No eras tan malo.",
+          "en": "You weren't that bad.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6020623,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我的手机坏了。",
+          "pinyin": "Wǒ de shǒujī huàile.",
+          "es": "Mi móvil está roto.",
+          "en": "My phone is broken.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5254708,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 361,
+      "hanzi": "回来",
+      "targetPinyin": "huílái",
+      "sentences": [
+        {
+          "zh": "我下午回来。",
+          "es": "Vuelvo por la tarde.",
+          "en": "I will come back in the afternoon.",
+          "pinyin": "wǒ xiàwǔ huílái。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "请回来。",
+          "pinyin": "Qǐng huílái.",
+          "es": "Da la vuelta, por favor.",
+          "en": "Turn back, please.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 362,
+      "hanzi": "回去",
+      "targetPinyin": "huíqù",
+      "sentences": [
+        {
+          "zh": "我明天回去。",
+          "es": "Regreso mañana.",
+          "en": "I will go back tomorrow.",
+          "pinyin": "wǒ míngtiān huíqù。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "回去工作。",
+          "pinyin": "Huíqù gōngzuò.",
+          "es": "Vuelve al trabajo.",
+          "en": "Go back to work.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 363,
+      "hanzi": "机场",
+      "targetPinyin": "jīchǎng",
+      "sentences": [
+        {
+          "zh": "我现在在机场。",
+          "pinyin": "Wǒ xiànzài zài jīchǎng.",
+          "es": "Ahora estoy en el aeropuerto.",
+          "en": "I'm at the airport now.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "机场很近。",
+          "pinyin": "Jīchǎng hěn jìn.",
+          "es": "El aeropuerto está cerca.",
+          "en": "The airport is close at hand.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9524579,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我去机场。",
+          "pinyin": "Wǒ qù jīchǎng.",
+          "es": "Voy al aeropuerto.",
+          "en": "I'm going to the airport.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9524578,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 364,
+      "hanzi": "机票",
+      "targetPinyin": "jīpiào",
+      "sentences": [
+        {
+          "zh": "我买了明天的机票。",
+          "es": "Compré un boleto de avión para mañana.",
+          "en": "I bought a plane ticket for tomorrow.",
+          "pinyin": "wǒ mǎi le míngtiān de jīpiào。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "机票多少钱？",
+          "es": "¿Cuánto cuesta el boleto de avión?",
+          "en": "How much is the plane ticket?",
+          "pinyin": "jīpiào duōshao qián？",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 365,
+      "hanzi": "记得",
+      "targetPinyin": "jìde",
+      "sentences": [
+        {
+          "zh": "你记得吗？",
+          "pinyin": "Nǐ jìde ma?",
+          "es": "¿Te acuerdas?",
+          "en": "Do you remember?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我不记得了！",
+          "pinyin": "Wǒ bù jìde le!",
+          "es": "¡No me acuerdo!",
+          "en": "I don't remember!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1314344,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我不记得了。",
+          "pinyin": "Wǒ bù jìde le.",
+          "es": "No me acuerdo.",
+          "en": "I don't recall.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 910225,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 366,
+      "hanzi": "间",
+      "targetPinyin": "jiān",
+      "sentences": [
+        {
+          "zh": "我有时间。",
+          "pinyin": "Wǒ yǒu shíjiān.",
+          "es": "Tengo tiempo.",
+          "en": "I have time.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我时间不多。",
+          "pinyin": "Wǒ shíjiān bù duō.",
+          "es": "No tengo mucho tiempo.",
+          "en": "I do not have much time.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 813630,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "这间房间很冷。",
+          "pinyin": "Zhè jiān fángjiān hěn lěng.",
+          "es": "Esta habitación está fría.",
+          "en": "The room is cold.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4504341,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 367,
+      "hanzi": "教",
+      "targetPinyin": "jiāo",
+      "sentences": [
+        {
+          "zh": "我教书。",
+          "pinyin": "Wǒ jiāoshū.",
+          "es": "Yo enseño.",
+          "en": "I am teaching.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 335164,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我教中文。",
+          "pinyin": "Wǒ jiāo Zhōngwén.",
+          "es": "Enseño chino.",
+          "en": "I teach Chinese.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1746084,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "可以教我吗？",
+          "pinyin": "Kěyǐ jiāo wǒ ma?",
+          "es": "¿Me puedes enseñar?",
+          "en": "Can you teach me?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 443089,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 368,
+      "hanzi": "教室",
+      "targetPinyin": "jiàoshì",
+      "sentences": [
+        {
+          "zh": "老师在教室里上课。",
+          "es": "El profesor da clase en el aula.",
+          "en": "The teacher is teaching in the classroom.",
+          "pinyin": "lǎoshī zài jiàoshì lǐ shàngkè。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "学生们在教室里。",
+          "pinyin": "Xuéshēng men zài jiàoshì lǐ.",
+          "es": "Los estudiantes están en el aula.",
+          "en": "The students are in the classroom.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 369,
+      "hanzi": "介绍",
+      "targetPinyin": "jièshào",
+      "sentences": [
+        {
+          "zh": "我来介绍一下。",
+          "es": "Permíteme hacer una breve presentación.",
+          "en": "Let me give a brief introduction.",
+          "pinyin": "wǒ lái jièshào yíxià。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我给你介绍介绍我的朋友。",
+          "pinyin": "Wǒ gěi nǐ jièshào jièshào wǒ de péngyǒu.",
+          "es": "Déjame presentarte a mis amigos.",
+          "en": "Let me introduce my friends to you.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 370,
+      "hanzi": "进",
+      "targetPinyin": "jìn",
+      "sentences": [
+        {
+          "zh": "进来！",
+          "pinyin": "Jìnlái!",
+          "es": "Entre.",
+          "en": "Come on in!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 348106,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "请进！",
+          "pinyin": "Qǐng jìn!",
+          "es": "Entre.",
+          "en": "Come on in!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 348105,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "请进。",
+          "pinyin": "Qǐngjìn.",
+          "es": "Entra, por favor.",
+          "en": "Please step inside.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 472959,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 371,
+      "hanzi": "近",
+      "targetPinyin": "jìn",
+      "sentences": [
+        {
+          "zh": "我最近很忙。",
+          "pinyin": "Wǒ zuìjìn hěn máng.",
+          "es": "Estos días estoy muy ocupado.",
+          "en": "I'm very busy these days.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "机场很近。",
+          "pinyin": "Jīchǎng hěn jìn.",
+          "es": "El aeropuerto está cerca.",
+          "en": "The airport is close at hand.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9524579,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他年近六十。",
+          "pinyin": "Tā nián jìn liùshí.",
+          "es": "Él tiene cerca de sesenta años.",
+          "en": "He is close to sixty.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 429446,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 372,
+      "hanzi": "进来",
+      "targetPinyin": "jìnlái",
+      "sentences": [
+        {
+          "zh": "进来！",
+          "pinyin": "Jìnlái!",
+          "es": "Entre.",
+          "en": "Come on in!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 348106,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不要进来。",
+          "pinyin": "Bù yào jìnlái.",
+          "es": "No entres.",
+          "en": "Keep out.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 444627,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "小猫想进来。",
+          "pinyin": "Xiǎomāo xiǎng jìnlái.",
+          "es": "El gatito quiere entrar.",
+          "en": "The kitten wanted in.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9963105,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 373,
+      "hanzi": "进去",
+      "targetPinyin": "jìnqù",
+      "sentences": [
+        {
+          "zh": "老师进去了。",
+          "es": "El profesor entró.",
+          "en": "The teacher went in.",
+          "pinyin": "lǎoshī jìnqù le。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "让我进去。",
+          "pinyin": "Ràng wǒ jìnqù.",
+          "es": "Déjame entrar.",
+          "en": "Let me in.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 374,
+      "hanzi": "经常",
+      "targetPinyin": "jīngcháng",
+      "sentences": [
+        {
+          "zh": "您经常去吗？",
+          "pinyin": "Nín jīngcháng qù ma?",
+          "es": "¿Vas a menudo?",
+          "en": "Do you go often?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "最近经常下雨。",
+          "pinyin": "Zuì jìn jīngcháng xiàyǔ.",
+          "es": "Últimamente llueve todo el tiempo.",
+          "en": "It's been raining all the time recently.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 365891,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他晚饭经常吃鱼。",
+          "pinyin": "Tā wǎnfàn jīngcháng chī yú.",
+          "es": "Con frecuencia cena pescado.",
+          "en": "He often eats fish for dinner.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 848864,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 375,
+      "hanzi": "酒店",
+      "targetPinyin": "jiǔdiàn",
+      "sentences": [
+        {
+          "zh": "让我们回酒店吧。",
+          "pinyin": "Ràng wǒmen huí jiǔdiàn ba.",
+          "es": "Volvamos al hotel.",
+          "en": "Let's go back to the hotel.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2448744,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我住在这间酒店。",
+          "pinyin": "Wǒ zhù zài zhè jiān jiǔdiàn.",
+          "es": "Me alojo en este hotel.",
+          "en": "I'm staying at that hotel.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 342848,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 376,
+      "hanzi": "就",
+      "targetPinyin": "jiù",
+      "sentences": [
+        {
+          "zh": "昨天我十点就睡了。",
+          "pinyin": "Zuótiān wǒ shí diǎn jiù shuì le.",
+          "es": "Ayer me acosté a las diez.",
+          "en": "Yesterday I went to sleep at ten.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "就是！",
+          "pinyin": "Jiùshì!",
+          "es": "¡Exactamente!",
+          "en": "That's right!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 425576,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "人就是人。",
+          "pinyin": "Rén jiù shì rén.",
+          "es": "La gente es gente.",
+          "en": "People are people.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 13715720,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 377,
+      "hanzi": "咖啡",
+      "targetPinyin": "kāfēi",
+      "sentences": [
+        {
+          "zh": "你喝茶还是咖啡？",
+          "pinyin": "Nǐ hē chá háishi kāfēi?",
+          "es": "¿Preferirías té o café?",
+          "en": "Would you prefer tea or coffee?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "咖啡还是茶？",
+          "pinyin": "Kāfēi háishi chá?",
+          "es": "¿Café o té?",
+          "en": "Coffee or tea?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2347106,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你想咖啡吗？",
+          "pinyin": "Nǐ xiǎng kāfēi ma?",
+          "es": "¿Quieres café?",
+          "en": "Would you like some coffee?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 720031,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 378,
+      "hanzi": "开始",
+      "targetPinyin": "kāishǐ",
+      "sentences": [
+        {
+          "zh": "我们开始吧！",
+          "pinyin": "Wǒmen kāishǐ ba!",
+          "es": "¡Empecemos!",
+          "en": "Let's go!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 819358,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "从这里开始。",
+          "pinyin": "Cóng zhèlǐ kāishǐ.",
+          "es": "Empieza aquí.",
+          "en": "Start here.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 13531819,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "六点半开始。",
+          "pinyin": "Liù diǎn bàn kāishǐ.",
+          "es": "Empieza a las seis y media.",
+          "en": "It begins at six-thirty.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10657915,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 379,
+      "hanzi": "开学",
+      "targetPinyin": "kāixué",
+      "sentences": [
+        {
+          "zh": "那是新学校什么时候开学？",
+          "pinyin": "Nà shì xīn xuéxiào shénme shíhòu kāixué?",
+          "es": "¿Cuándo abrirá esa escuela nueva?",
+          "en": "When will that new school open?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "下周一开学。",
+          "pinyin": "Xiàzhōu yī kāixué.",
+          "es": "La escuela empieza el lunes que viene.",
+          "en": "School starts next Monday.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 431555,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "学校下周开学。",
+          "pinyin": "Xuéxiào xiàzhōu kāixué.",
+          "es": "El colegio empieza la semana que viene.",
+          "en": "School starts next week.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 713281,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 380,
+      "hanzi": "考",
+      "targetPinyin": "kǎo",
+      "sentences": [
+        {
+          "zh": "明天考汉语。",
+          "es": "Mañana hay examen de chino.",
+          "en": "There is a Chinese exam tomorrow.",
+          "pinyin": "míngtiān kǎo Hànyǔ。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你考得比我好。",
+          "pinyin": "Nǐ kǎo de bǐ wǒ hǎo.",
+          "es": "Hiciste un mejor examen que yo.",
+          "en": "You did better on the exam than me.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6583558,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 381,
+      "hanzi": "考试",
+      "targetPinyin": "kǎoshì",
+      "sentences": [
+        {
+          "zh": "今天上午考试。",
+          "pinyin": "Jīntiān shàngwǔ kǎoshì.",
+          "es": "Tengo un examen esta mañana.",
+          "en": "I'm taking a test this morning.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我今天做了四个考试.",
+          "pinyin": "Wǒ jīntiān zuò le sì gè kǎoshì.",
+          "es": "Hoy he hecho cuatro exámenes.",
+          "en": "Today I had four exams.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6583555,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "有十周的时间准备考试。",
+          "pinyin": "Yǒu shí zhōu de shíjiān zhǔnbèi kǎoshì.",
+          "es": "Hay 10 semanas de preparación para el examen.",
+          "en": "There are 10 weeks of preparation for the exam.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1516147,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 382,
+      "hanzi": "可能",
+      "targetPinyin": "kěnéng",
+      "sentences": [
+        {
+          "zh": "不可能！",
+          "pinyin": "Bù kěnéng!",
+          "es": "¡De ninguna manera!",
+          "en": "No way!",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "这不可能！",
+          "pinyin": "Zhè bù kěnéng!",
+          "es": "¡No puede ser!",
+          "en": "It can't be!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 334699,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不可能的。",
+          "pinyin": "Bù kěnéng de.",
+          "es": "¡No puede ser!",
+          "en": "It can't be!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9962371,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 383,
+      "hanzi": "裤子",
+      "targetPinyin": "kùzi",
+      "sentences": [
+        {
+          "zh": "那些是我的裤子。",
+          "pinyin": "Nàxiē shì wǒ de kùzi.",
+          "es": "Esos son mis pantalones.",
+          "en": "Those are my pants.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 824629,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我小时候只穿裤子。",
+          "pinyin": "Wǒ xiǎoshíhou zhǐ chuān kùzi.",
+          "es": "Cuando era pequeño, sólo me ponía pantalones.",
+          "en": "When I was little, I would only wear pants.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 333870,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 384,
+      "hanzi": "快",
+      "targetPinyin": "kuài",
+      "sentences": [
+        {
+          "zh": "快写！",
+          "pinyin": "Kuài xiě!",
+          "es": "¡Escribe!",
+          "en": "Write!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5112383,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "快点！",
+          "pinyin": "Kuài diǎn!",
+          "es": "¡Date prisa!",
+          "en": "Hurry up.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 512039,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "快一点！",
+          "pinyin": "Kuài yīdiǎn!",
+          "es": "¡Más rápido!",
+          "en": "Hurry up.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4754629,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 385,
+      "hanzi": "快乐",
+      "targetPinyin": "kuàilè",
+      "sentences": [
+        {
+          "zh": "我很快乐。",
+          "pinyin": "Wǒ hěn kuàilè.",
+          "es": "Estoy muy contento.",
+          "en": "I'm very happy.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "新年快乐！",
+          "pinyin": "Xīnniánkuàilè!",
+          "es": "¡Feliz Año Nuevo!",
+          "en": "Happy New Year!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6581625,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你快乐吗？",
+          "pinyin": "Nǐ kuàilè ma?",
+          "es": "¿Estás feliz?",
+          "en": "Are you happy?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 819454,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 386,
+      "hanzi": "快要",
+      "targetPinyin": "kuàiyào",
+      "sentences": [
+        {
+          "zh": "他快要睡了。",
+          "pinyin": "Tā kuàiyào shuì le.",
+          "es": "Estaba justo a punto de dormirse.",
+          "en": "He was just on the verge of going to sleep.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "天快要下雨了。",
+          "pinyin": "Tiān kuài yào xiàyǔ le.",
+          "es": "Amenaza lluvia.",
+          "en": "It's threatening to rain.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 335128,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 387,
+      "hanzi": "篮球",
+      "targetPinyin": "lánqiú",
+      "sentences": [
+        {
+          "zh": "他喜欢打篮球。",
+          "es": "A él le gusta jugar básquet.",
+          "en": "He likes playing basketball.",
+          "pinyin": "tā xǐhuan dǎ lánqiú。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我不打篮球。",
+          "pinyin": "Wǒ bù dǎlánqiú.",
+          "es": "No juego al baloncesto.",
+          "en": "I don't play basketball.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 388,
+      "hanzi": "累",
+      "targetPinyin": "lèi",
+      "sentences": [
+        {
+          "zh": "她觉得很累。",
+          "pinyin": "Tā juéde hěn lèi.",
+          "es": "Se siente muy cansada.",
+          "en": "She feels very tired.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我好累。",
+          "pinyin": "Wǒ hǎo lèi.",
+          "es": "Estoy muy cansado.",
+          "en": "I'm tired.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 785298,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我很累。",
+          "pinyin": "Wǒ hěn lèi.",
+          "es": "Estoy muy cansado.",
+          "en": "I'm tired.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 397734,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 389,
+      "hanzi": "离",
+      "targetPinyin": "lí",
+      "sentences": [
+        {
+          "zh": "他们离开了。",
+          "pinyin": "Tāmen líkāi le.",
+          "es": "Se fueron.",
+          "en": "They left.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "离这儿远吗？",
+          "pinyin": "Lí zhèr yuǎn ma?",
+          "es": "¿Está lejos de aquí?",
+          "en": "Is it far from here?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 501530,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "离这里不远。",
+          "pinyin": "Lí zhèli bù yuǎn.",
+          "es": "No está lejos de aquí.",
+          "en": "It's not far from here to there.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 398388,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 390,
+      "hanzi": "里面",
+      "targetPinyin": "lǐmiàn",
+      "sentences": [
+        {
+          "zh": "杯子里面有水。",
+          "pinyin": "Bēizi lǐmiàn yǒushuǐ.",
+          "es": "Hay agua en el vaso.",
+          "en": "There is water in the glass.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我在里面等你。",
+          "pinyin": "Wǒ zài lǐmiàn děng nǐ.",
+          "es": "Te espero dentro.",
+          "en": "I'll wait for you in here.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9453413,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他住在苹果里面。",
+          "pinyin": "Tā zhù zài píngguǒ lǐmiàn.",
+          "es": "Él vive en una manzana.",
+          "en": "He lives inside an apple.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 514814,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 391,
+      "hanzi": "楼",
+      "targetPinyin": "lóu",
+      "sentences": [
+        {
+          "zh": "他住在三楼。",
+          "es": "Él vive en el tercer piso.",
+          "en": "He lives on the third floor.",
+          "pinyin": "tā zhù zài sān lóu。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我们的房间在几楼？",
+          "pinyin": "Wǒmen de fángjiān zài jǐ lóu?",
+          "es": "¿En qué piso está nuestra habitación?",
+          "en": "What storey is our room?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6284515,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 392,
+      "hanzi": "路",
+      "targetPinyin": "lù",
+      "sentences": [
+        {
+          "zh": "这条路很长",
+          "pinyin": "Zhè tiáo lù hěn cháng.",
+          "es": "Este camino es muy largo.",
+          "en": "This road is very long.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我走路去。",
+          "pinyin": "Wǒ zǒulù qù.",
+          "es": "Iré andando.",
+          "en": "I will go on foot.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 380734,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她走路去上学。",
+          "pinyin": "Tā zǒulù qù shàngxué.",
+          "es": "Ella va al colegio a pie.",
+          "en": "She goes to school on foot.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 804828,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 393,
+      "hanzi": "路上",
+      "targetPinyin": "lùshang",
+      "sentences": [
+        {
+          "zh": "我在去医院的路上。",
+          "pinyin": "Wǒ zài qù yīyuàn de lùshang.",
+          "es": "Estoy de camino al hospital.",
+          "en": "I'm going to the hospital.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10657916,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我正在去第四医院的路上。",
+          "pinyin": "Wǒ zhèngzài qù dì sì yīyuàn de lùshang.",
+          "es": "Voy al hospital número cuatro.",
+          "en": "I'm going to the Number Four hospital.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 395026,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 394,
+      "hanzi": "旅游",
+      "targetPinyin": "lǚyóu",
+      "sentences": [
+        {
+          "zh": "明年他要去国外旅游。",
+          "pinyin": "Míngnián tā yào qù guówài lǚyóu.",
+          "es": "El año que viene viajará al extranjero.",
+          "en": "He will travel abroad next year.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "他很喜欢旅游。",
+          "pinyin": "Tā hěn xǐhuan lǚyóu.",
+          "es": "A él le gusta mucho viajar.",
+          "en": "He has a great fancy for travelling.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 745218,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我很喜欢去国外旅游。",
+          "pinyin": "Wǒ hěn xǐhuan qùguówài lǚyóu.",
+          "es": "Me gusta mucho viajar al extranjero.",
+          "en": "I love to travel abroad.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1502676,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 395,
+      "hanzi": "绿茶",
+      "targetPinyin": "lǜchá",
+      "sentences": [
+        {
+          "zh": "你喝绿茶吗？",
+          "pinyin": "Nǐ hē lǜchá ma?",
+          "es": "¿Bebes té verde?",
+          "en": "Do you drink green tea?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我不喜欢绿茶。",
+          "pinyin": "Wǒ bù xǐhuan lǜchá.",
+          "es": "No me gusta el té verde.",
+          "en": "I don't care for green tea.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 812718,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 396,
+      "hanzi": "绿色",
+      "targetPinyin": "lǜsè",
+      "sentences": [
+        {
+          "zh": "我喜欢绿色。",
+          "es": "Me gusta el color verde.",
+          "en": "I like green.",
+          "pinyin": "wǒ xǐhuan lǜsè。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "她从来不穿绿色的衣服。",
+          "pinyin": "Tā cóngláibù chuān lǜsè de yīfu.",
+          "es": "Ella nunca se viste de verde.",
+          "en": "She never wears green.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1019959,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 397,
+      "hanzi": "慢",
+      "targetPinyin": "màn",
+      "sentences": [
+        {
+          "zh": "他们走得很慢。",
+          "pinyin": "Tāmen zǒu de hěn màn.",
+          "es": "Caminan muy despacio.",
+          "en": "They walk very slowly.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "慢一点。",
+          "pinyin": "Màn yīdiǎn.",
+          "es": "Más despacio.",
+          "en": "Slow down.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4754645,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "请说得慢一点！",
+          "pinyin": "Qǐng shuō de màn yīdiǎn!",
+          "es": "Hable más despacio, ¡por favor!",
+          "en": "Speak more slowly, please!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 501607,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 398,
+      "hanzi": "没意思",
+      "targetPinyin": "méi yìsi",
+      "sentences": [
+        {
+          "zh": "这个电影没意思。",
+          "es": "Esta película es aburrida.",
+          "en": "This movie is boring.",
+          "pinyin": "zhège diànyǐng méi yìsi。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你们这帮人真没意思。",
+          "pinyin": "Nǐmen zhèbāng rénzhēn méiyìsi.",
+          "es": "Ustedes no son nada divertidos.",
+          "en": "You people are no fun at all.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 399,
+      "hanzi": "每",
+      "targetPinyin": "měi",
+      "sentences": [
+        {
+          "zh": "你每天跑步吗？",
+          "pinyin": "Nǐ měitiān pǎobù ma?",
+          "es": "¿Corres todos los días?",
+          "en": "Do you run every day?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 815681,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我每天跑步。",
+          "pinyin": "Wǒ měitiān pǎobù.",
+          "es": "Corro todos los días.",
+          "en": "I run every day.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 414247,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "每个人都在笑。",
+          "pinyin": "Měigerén dōu zài xiào.",
+          "es": "Todo el mundo se está riendo.",
+          "en": "Everyone's laughing.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5351526,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 400,
+      "hanzi": "门",
+      "targetPinyin": "mén",
+      "sentences": [
+        {
+          "zh": "门票多少钱？",
+          "pinyin": "Ménpiào duōshǎo qián?",
+          "es": "¿Cuánto cuesta la entrada?",
+          "en": "How much is the admission?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "开门！",
+          "pinyin": "Kāimén!",
+          "es": "¡Abre la puerta!",
+          "en": "Open up.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 862207,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "门在哪里？",
+          "pinyin": "Mén zài nǎlǐ?",
+          "es": "¿Dónde está la puerta?",
+          "en": "Where is the gate?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10007048,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 401,
+      "hanzi": "门口",
+      "targetPinyin": "ménkǒu",
+      "sentences": [
+        {
+          "zh": "他站在了门口。",
+          "pinyin": "Tā zhàn zài le ménkǒu.",
+          "es": "Estaba de pie en la puerta.",
+          "en": "He was standing at the door.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "有人在门口。",
+          "pinyin": "Yǒurén zài ménkǒu.",
+          "es": "Hay alguien en la puerta.",
+          "en": "Someone is at the door.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3701722,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "有一个男的在门口。",
+          "pinyin": "Yǒu yī gè nánde zài ménkǒu.",
+          "es": "Hay un hombre en la puerta.",
+          "en": "There is a man at the door.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5687586,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 402,
+      "hanzi": "门票",
+      "targetPinyin": "ménpiào",
+      "sentences": [
+        {
+          "zh": "我去买门票。",
+          "es": "Voy a comprar entradas.",
+          "en": "I am going to buy tickets.",
+          "pinyin": "wǒ qù mǎi ménpiào。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "门票多少钱？",
+          "pinyin": "Ménpiào duōshǎo qián?",
+          "es": "¿Cuánto cuesta la entrada?",
+          "en": "How much is the admission?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 403,
+      "hanzi": "面",
+      "targetPinyin": "miàn",
+      "sentences": [
+        {
+          "zh": "我吃面包。",
+          "pinyin": "Wǒ chī miànbāo.",
+          "es": "Como pan.",
+          "en": "I eat bread.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我吃面",
+          "pinyin": "Wǒ chī miàn",
+          "es": "Yo como pasta.",
+          "en": "I eat noodles.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5295475,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我吃面。",
+          "pinyin": "Wǒ chī miàn.",
+          "es": "Como pasta.",
+          "en": "I eat noodles.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5295473,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 404,
+      "hanzi": "名",
+      "targetPinyin": "míng",
+      "sentences": [
+        {
+          "zh": "我不出名。",
+          "pinyin": "Wǒ bù chūmíng.",
+          "es": "No soy famoso.",
+          "en": "I'm not famous.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "他叫什么名字？",
+          "pinyin": "Tā jiào shénme míngzi?",
+          "es": "¿Cuál es su nombre?",
+          "en": "What is your name?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6142028,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你叫什么名字？",
+          "pinyin": "Nǐ jiào shénme míngzi?",
+          "es": "¿Cuál es tu nombre?",
+          "en": "What is your name?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6142025,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 405,
+      "hanzi": "拿",
+      "targetPinyin": "ná",
+      "sentences": [
+        {
+          "zh": "我晚点再来拿。",
+          "pinyin": "Wǒ wǎndiǎn zàilái ná.",
+          "es": "Vendré a recogerlo más tarde.",
+          "en": "I'll come to pick it up later.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你拿吗?",
+          "pinyin": "Nǐ ná ma?",
+          "es": "¿Lo coges?",
+          "en": "Did you take it?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6850327,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你拿过来吗?",
+          "pinyin": "Nǐ ná guòlai ma?",
+          "es": "¿Lo traes?",
+          "en": "You brought it over?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6850353,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 406,
+      "hanzi": "那么",
+      "targetPinyin": "nàme",
+      "sentences": [
+        {
+          "zh": "还是那么忙吗？",
+          "pinyin": "Háishì nàme máng ma?",
+          "es": "¿Sigues ocupado?",
+          "en": "Are you still busy?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4885107,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不是那么远。",
+          "pinyin": "Bù shì nàme yuǎn.",
+          "es": "No está tan lejos.",
+          "en": "It's not so far.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 451442,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你怎么能那么说？",
+          "pinyin": "Nǐ zěnme néng nàme shuō?",
+          "es": "¿Cómo puedes decir eso?",
+          "en": "How can you say that?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 833189,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 407,
+      "hanzi": "那样",
+      "targetPinyin": "nàyàng",
+      "sentences": [
+        {
+          "zh": "不要那样做。",
+          "es": "No lo hagas de esa manera.",
+          "en": "Don't do it that way.",
+          "pinyin": "búyào nàyàng zuò。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你为什么那样说?",
+          "pinyin": "Nǐ wèishénme nàyàng shuō?",
+          "es": "¿Por qué dices eso?",
+          "en": "Why do you say that?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 780270,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 408,
+      "hanzi": "奶茶",
+      "targetPinyin": "nǎichá",
+      "sentences": [
+        {
+          "zh": "我想喝奶茶。",
+          "es": "Quiero tomar té con leche.",
+          "en": "I want to drink milk tea.",
+          "pinyin": "wǒ xiǎng hē nǎichá。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "妈妈也喜欢奶茶。",
+          "es": "A mamá también le gusta el té con leche.",
+          "en": "Mom also likes milk tea.",
+          "pinyin": "māma yě xǐhuan nǎichá。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 409,
+      "hanzi": "奶奶",
+      "targetPinyin": "nǎinai",
+      "sentences": [
+        {
+          "zh": "奶奶在家做饭。",
+          "es": "La abuela está cocinando en casa.",
+          "en": "Grandma is cooking at home.",
+          "pinyin": "nǎinai zài jiā zuò fàn。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我奶奶说话很慢。",
+          "pinyin": "Wǒ nǎinai shuōhuà hěn màn.",
+          "es": "Mi abuela habla despacio.",
+          "en": "My grandmother speaks slowly.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1138983,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 410,
+      "hanzi": "男孩儿",
+      "targetPinyin": "nánháir",
+      "sentences": [
+        {
+          "zh": "那个男孩儿是我弟弟。",
+          "es": "Ese chico es mi hermano menor.",
+          "en": "That boy is my younger brother.",
+          "pinyin": "nàge nánháir shì wǒ dìdi。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "男孩儿在打篮球。",
+          "es": "El chico está jugando básquet.",
+          "en": "The boy is playing basketball.",
+          "pinyin": "nánháir zài dǎ lánqiú。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 411,
+      "hanzi": "鸟",
+      "targetPinyin": "niǎo",
+      "sentences": [
+        {
+          "zh": "它是一只鸟。",
+          "pinyin": "Tā shì yì zhī niǎo.",
+          "es": "Eso es un pájaro.",
+          "en": "That's a bird.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "鸟在天上。",
+          "pinyin": "Niǎo zài tiānshàng.",
+          "es": "El pájaro está en el cielo.",
+          "en": "The bird is in the sky.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9096132,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你有一只鸟吗？",
+          "pinyin": "Nǐ yǒu yī zhī niǎo ma?",
+          "es": "¿Tienes un pájaro?",
+          "en": "Are you mad?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5552073,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 412,
+      "hanzi": "女孩儿",
+      "targetPinyin": "nǚháir",
+      "sentences": [
+        {
+          "zh": "那个女孩儿是我妹妹。",
+          "pinyin": "Nàge nǚháir shì wǒ mèimei.",
+          "es": "Esa muchacha es mi hermana menor.",
+          "en": "That girl is my little sister.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我是个女孩儿。",
+          "pinyin": "Wǒ shì gè nǚháir.",
+          "es": "Soy una niña.",
+          "en": "I am a girl.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10477397,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 413,
+      "hanzi": "旁边",
+      "targetPinyin": "pángbiān",
+      "sentences": [
+        {
+          "zh": "坐我旁边。",
+          "pinyin": "Zuò wǒ pángbiān.",
+          "es": "Siéntate a mi lado.",
+          "en": "Sit beside me.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "他在她的旁边。",
+          "pinyin": "Tā zài tā de pángbiān.",
+          "es": "Está a su lado.",
+          "en": "He is at her side.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 712989,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她坐在我旁边。",
+          "pinyin": "Tā zuò zài wǒ pángbiān.",
+          "es": "Ella se sentó a mi lado.",
+          "en": "She sat next to me.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 343957,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 414,
+      "hanzi": "跑",
+      "targetPinyin": "pǎo",
+      "sentences": [
+        {
+          "zh": "我跑。",
+          "pinyin": "Wǒ pǎo.",
+          "es": "Corro.",
+          "en": "I run.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 885365,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他跑了起来。",
+          "pinyin": "Tā pǎo le qǐlai.",
+          "es": "Él empezó a correr.",
+          "en": "He began running.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 13532022,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "Lynn 跑得很快。",
+          "pinyin": "Lynn  pǎo dehěn kuài.",
+          "es": "Lynn corre muy rápido.",
+          "en": "Lynn runs fast.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 344766,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 415,
+      "hanzi": "跑步",
+      "targetPinyin": "pǎobù",
+      "sentences": [
+        {
+          "zh": "我喜欢跑步。",
+          "pinyin": "Wǒ xǐhuān pǎobù.",
+          "es": "Me gusta correr.",
+          "en": "I like to run.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你每天跑步吗？",
+          "pinyin": "Nǐ měitiān pǎobù ma?",
+          "es": "¿Corres todos los días?",
+          "en": "Do you run every day?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 815681,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我每天跑步。",
+          "pinyin": "Wǒ měitiān pǎobù.",
+          "es": "Corro todos los días.",
+          "en": "I run every day.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 414247,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 416,
+      "hanzi": "票",
+      "targetPinyin": "piào",
+      "sentences": [
+        {
+          "zh": "门票多少钱？",
+          "pinyin": "Ménpiào duōshǎo qián?",
+          "es": "¿Cuánto cuesta la entrada?",
+          "en": "How much is the admission?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "火车票贵吗？",
+          "pinyin": "Huǒchēpiào guì ma?",
+          "es": "¿Los billetes de tren son caros?",
+          "en": "Are the train tickets expensive?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2202352,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她没有票。",
+          "pinyin": "Tā méiyǒu piào.",
+          "es": "Ella no tiene billete.",
+          "en": "She doesn't have the ticket.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1754865,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 417,
+      "hanzi": "妻子",
+      "targetPinyin": "qīzi",
+      "sentences": [
+        {
+          "zh": "我妻子正在做饭。",
+          "pinyin": "Wǒ qīzi zhèngzài zuòfàn.",
+          "es": "Ahora mi mujer está cocinando.",
+          "en": "My wife is cooking right now.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 408275,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我妻子现在在准备晚饭。",
+          "pinyin": "Wǒ qīzi xiànzài zài zhǔnbèi wǎnfàn.",
+          "es": "Mi esposa está preparando la cena ahora mismo.",
+          "en": "My wife is preparing dinner right now.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5687581,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他问了他妻子是不是跟他一起来。",
+          "pinyin": "Tā wèn le tā qīzi shìbùshì gēn tā yīqǐ lái.",
+          "es": "Le preguntó a su mujer si venía con él.",
+          "en": "He asked his wife if she was coming with him.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 408234,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 418,
+      "hanzi": "起来",
+      "targetPinyin": "qǐlái",
+      "sentences": [
+        {
+          "zh": "跟我们一起来吧。",
+          "pinyin": "Gēn wǒmen yīqǐ lái ba.",
+          "es": "Ven con nosotros.",
+          "en": "Come along with us.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 824489,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他想和我们一起来。",
+          "pinyin": "Tā xiǎng hé wǒmen yīqǐ lái.",
+          "es": "Él quiere venir con nosotros.",
+          "en": "He wants to come with us.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 687038,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我可以和家人一起来吗？",
+          "pinyin": "Wǒ kěyǐ hé jiārén yīqǐ lái ma?",
+          "es": "¿Puedo venir con mi familia?",
+          "en": "May I bring my family along?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 422057,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 419,
+      "hanzi": "前面",
+      "targetPinyin": "qiánmiàn",
+      "sentences": [
+        {
+          "zh": "零在一前面。",
+          "pinyin": "Língzài yī qiánmiàn.",
+          "es": "El cero viene antes del uno.",
+          "en": "Zero comes before one.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我在学校前面等你。",
+          "pinyin": "Wǒ zài xuéxiào qiánmiàn děng nǐ.",
+          "es": "Te espero al frente del colegio.",
+          "en": "I will wait for you in front of the school.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4506252,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 420,
+      "hanzi": "晴",
+      "targetPinyin": "qíng",
+      "sentences": [
+        {
+          "zh": "今天是晴天。",
+          "es": "Hoy está despejado.",
+          "en": "It is sunny today.",
+          "pinyin": "jīntiān shì qíng tiān。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "明天天气不好，不是晴天，要下雪，很冷。",
+          "pinyin": "Míngtiān tiānqì bù hǎo, bù shì qíngtiān, yào xiàxuě, hěn lěng.",
+          "es": "Mañana va a hacer mal tiempo. No va a hacer sol, va a nevar y va a hacer frío.",
+          "en": "Tomorrow's weather won't be so good, with cloudy skies, heavy snow, and very cold temperatures.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6092462,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 421,
+      "hanzi": "球",
+      "targetPinyin": "qiú",
+      "sentences": [
+        {
+          "zh": "球在桌子下面。",
+          "es": "La pelota está debajo de la mesa.",
+          "en": "The ball is under the table.",
+          "pinyin": "qiú zài zhuōzi xiàmiàn。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "地球是我们的家。",
+          "pinyin": "Dìqiú shì wǒmen de jiā.",
+          "es": "La tierra es nuestro hogar.",
+          "en": "The Earth is our home.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6031936,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 422,
+      "hanzi": "让",
+      "targetPinyin": "ràng",
+      "sentences": [
+        {
+          "zh": "让我进去。",
+          "pinyin": "Ràng wǒ jìnqù.",
+          "es": "Déjame entrar.",
+          "en": "Let me in.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "让我看看。",
+          "pinyin": "Ràng wǒ kànkan.",
+          "es": "Déjame verlo.",
+          "en": "Let me see it.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 819468,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "让我想一想。",
+          "pinyin": "Ràng wǒ xiǎng yī xiǎng.",
+          "es": "Déjame pensarlo.",
+          "en": "Let me think about it.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4504253,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 423,
+      "hanzi": "肉",
+      "targetPinyin": "ròu",
+      "sentences": [
+        {
+          "zh": "肉还是鱼？",
+          "pinyin": "Ròu háishi yú?",
+          "es": "¿Carne o pescado?",
+          "en": "Meat or fish?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1358670,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "您吃不吃肉？",
+          "pinyin": "Nín chī bù chī ròu?",
+          "es": "¿Come usted carne?",
+          "en": "Do you eat meat?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 427989,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我从不吃肉。",
+          "pinyin": "Wǒ cóngbù chī ròu.",
+          "es": "Yo nunca como carne.",
+          "en": "I never eat meat.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 347049,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 424,
+      "hanzi": "商场",
+      "targetPinyin": "shāngchǎng",
+      "sentences": [
+        {
+          "zh": "商场在学校左边。",
+          "es": "El centro comercial está a la izquierda de la escuela.",
+          "en": "The shopping mall is to the left of the school.",
+          "pinyin": "shāngchǎng zài xuéxiào zuǒbian。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我想去商场。",
+          "pinyin": "Wǒ xiǎng qù shāngchǎng.",
+          "es": "Me gustaría ir al centro comercial.",
+          "en": "I'd like to go to the mall.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 425,
+      "hanzi": "上来",
+      "targetPinyin": "shànglái",
+      "sentences": [
+        {
+          "zh": "请上来。",
+          "es": "Sube, por favor.",
+          "en": "Please come up.",
+          "pinyin": "qǐng shànglái。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "他从楼下上来了。",
+          "es": "Él subió desde abajo.",
+          "en": "He came up from downstairs.",
+          "pinyin": "tā cóng lóu xià shànglái le。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 426,
+      "hanzi": "上面",
+      "targetPinyin": "shàngmiàn",
+      "sentences": [
+        {
+          "zh": "书在桌子上面。",
+          "es": "El libro está encima de la mesa.",
+          "en": "The book is on the table.",
+          "pinyin": "shū zài zhuōzi shàngmiàn。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "上面有什么？",
+          "es": "¿Qué hay arriba?",
+          "en": "What is up there?",
+          "pinyin": "shàngmiàn yǒu shénme？",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 427,
+      "hanzi": "上去",
+      "targetPinyin": "shàngqù",
+      "sentences": [
+        {
+          "zh": "你上去吧。",
+          "es": "Sube tú.",
+          "en": "You go up.",
+          "pinyin": "nǐ shàngqù ba。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你看上去很好。",
+          "pinyin": "Nǐ kànshàngqù hěn hǎo.",
+          "es": "Te ves muy bien.",
+          "en": "You look very good.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 428,
+      "hanzi": "上网",
+      "targetPinyin": "shàngwǎng",
+      "sentences": [
+        {
+          "zh": "我晚上上网。",
+          "es": "Me conecto a internet por la noche.",
+          "en": "I go online at night.",
+          "pinyin": "wǒ wǎnshang shàngwǎng。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我上网了。",
+          "pinyin": "Wǒ shàngwǎng le.",
+          "es": "Estoy en línea.",
+          "en": "I am online.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 429,
+      "hanzi": "身体",
+      "targetPinyin": "shēntǐ",
+      "sentences": [
+        {
+          "zh": "你身体不舒服吗？",
+          "pinyin": "Nǐ shēntǐ bù shūfú ma?",
+          "es": "¿No te sientes bien?",
+          "en": "Are you not feeling well?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你最近是不是身体有点不舒服？",
+          "pinyin": "Nǐ zuì jìn shìbùshì shēntǐ yǒudiǎn bù shūfu?",
+          "es": "Últimamente ¿Tu cuerpo ha estado en malas condiciones o no?",
+          "en": "Have you been feeling a bit of discomfort lately?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2440647,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 430,
+      "hanzi": "生日",
+      "targetPinyin": "shēngrì",
+      "sentences": [
+        {
+          "zh": "谁的生日？",
+          "pinyin": "Shuí de shēngrì?",
+          "es": "¿De quién es el cumpleaños?",
+          "en": "Whose birthday is it?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "生日快乐！",
+          "pinyin": "Shēngrì kuàilè!",
+          "es": "¡Feliz cumpleaños!",
+          "en": "Happy birthday to you!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 346492,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "生日快乐，Muiriel！",
+          "pinyin": "Shēngrìkuàilè,Muiriel!",
+          "es": "¡Feliz cumpleaños, Muiriel!",
+          "en": "Happy birthday, Muiriel!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 431,
+      "hanzi": "时",
+      "targetPinyin": "shí",
+      "sentences": [
+        {
+          "zh": "我有时间。",
+          "pinyin": "Wǒ yǒushí jiān.",
+          "es": "Tengo tiempo.",
+          "en": "I have some time.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4859550,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我时间不多。",
+          "pinyin": "Wǒ shíjiān bù duō.",
+          "es": "No tengo mucho tiempo.",
+          "en": "I do not have much time.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 813630,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我现在没有时间",
+          "pinyin": "Wǒ xiànzài méiyǒu shíjiān",
+          "es": "Ahora no tengo tiempo.",
+          "en": "I don't have time right now.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 778959,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 432,
+      "hanzi": "事情",
+      "targetPinyin": "shìqing",
+      "sentences": [
+        {
+          "zh": "后来事情怎么样？",
+          "pinyin": "Hòulái shìqing zěnme yàng?",
+          "es": "¿Cómo salieron las cosas después?",
+          "en": "How did things turn out later?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我喜欢有很多事情做。",
+          "pinyin": "Wǒ xǐhuan yǒu hěn duō shìqing zuò.",
+          "es": "Me gusta tener muchas cosas que hacer.",
+          "en": "I like having plenty to do.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1325335,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 433,
+      "hanzi": "手",
+      "targetPinyin": "shǒu",
+      "sentences": [
+        {
+          "zh": "你不是歌手。",
+          "pinyin": "Nǐ búshì gēshǒu.",
+          "es": "No eres cantante.",
+          "en": "You're no singer.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我洗手。",
+          "pinyin": "Wǒ xǐshǒu.",
+          "es": "Me lavo las manos.",
+          "en": "I wash my hands.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9510629,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "饭前洗手",
+          "pinyin": "Fàn qián xǐshǒu",
+          "es": "Lavate las manos antes de cada comida.",
+          "en": "Wash your hands before each meal.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 984031,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 434,
+      "hanzi": "手表",
+      "targetPinyin": "shǒubiǎo",
+      "sentences": [
+        {
+          "zh": "你的手表比我的贵。",
+          "pinyin": "Nǐ de shǒubiǎo bǐ wǒ de guì.",
+          "es": "Tu reloj es más caro que el mío.",
+          "en": "Your watch is more expensive than mine.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "这不是手表。",
+          "pinyin": "Zhè bù shì shǒubiǎo.",
+          "es": "No es un reloj.",
+          "en": "It is not a watch.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 710675,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "这是谁的手表呢 ?",
+          "pinyin": "Zhè shì shéi de shǒubiǎo ne?",
+          "es": "¿De quién es este reloj?",
+          "en": "Whose watch is this?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 13260886,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 435,
+      "hanzi": "书包",
+      "targetPinyin": "shūbāo",
+      "sentences": [
+        {
+          "zh": "书包在椅子上。",
+          "es": "La mochila está en la silla.",
+          "en": "The schoolbag is on the chair.",
+          "pinyin": "shūbāo zài yǐzi shàng。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我的书包里有三本书。",
+          "pinyin": "Wǒ de shūbāo li yǒu sān běn shū.",
+          "es": "Hay tres libros en mi mochila escolar.",
+          "en": "There are three books in my schoolbag.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 436,
+      "hanzi": "舒服",
+      "targetPinyin": "shūfu",
+      "sentences": [
+        {
+          "zh": "在这个房间里我很舒服。",
+          "pinyin": "Zài zhège fángjiān lǐ wǒ hěn shūfu.",
+          "es": "Estoy bastante cómodo en esta habitación.",
+          "en": "I am quite comfortable in this room.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 11698415,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不好意思，我有点儿不舒服。",
+          "pinyin": "Bùhǎoyìsi, wǒ yǒudiǎnr bù shūfu.",
+          "es": "Disculpe, no me encuentro bien.",
+          "en": "Excuse me, but I feel sick.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4878943,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你最近是不是身体有点不舒服？",
+          "pinyin": "Nǐ zuì jìn shìbùshì shēntǐ yǒudiǎn bù shūfu?",
+          "es": "Últimamente ¿Tu cuerpo ha estado en malas condiciones o no?",
+          "en": "Have you been feeling a bit of discomfort lately?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2440647,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 437,
+      "hanzi": "送",
+      "targetPinyin": "sòng",
+      "sentences": [
+        {
+          "zh": "她想知道是谁送的花。",
+          "pinyin": "Tā xiǎng zhīdào shì shéi sòng de huā.",
+          "es": "Ella quiere saber quién le envió las flores.",
+          "en": "She is curious to find who sent the flowers.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1891663,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我们送给他一块手表。",
+          "pinyin": "Wǒmen sònggěi tā yīkuài shǒubiǎo.",
+          "es": "Le dimos un reloj de pulsera.",
+          "en": "We presented a watch to him.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 408815,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 438,
+      "hanzi": "虽然",
+      "targetPinyin": "suīrán",
+      "sentences": [
+        {
+          "zh": "虽然很贵，但是很好。",
+          "es": "Aunque es caro, es muy bueno.",
+          "en": "Although it is expensive, it is very good.",
+          "pinyin": "suīrán hěn guì，dànshì hěn hǎo。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "虽然下雨，但是他来了。",
+          "es": "Aunque llueve, él vino.",
+          "en": "Although it is raining, he came.",
+          "pinyin": "suīrán xià yǔ，dànshì tā lái le。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 439,
+      "hanzi": "所以",
+      "targetPinyin": "suǒyǐ",
+      "sentences": [
+        {
+          "zh": "所以，哪里有问题？",
+          "pinyin": "Suǒyǐ, nǎlǐ yǒu wèntí?",
+          "es": "¿Entonces dónde está el problema?",
+          "en": "So where's the problem?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我很累所以早睡了。",
+          "pinyin": "Wǒ hěn lèi suǒyǐ zǎo shuì le.",
+          "es": "Estaba muy cansado, así que me fui a dormir pronto.",
+          "en": "I was very tired, so I went to bed early.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 348007,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "所以我给你打了电话。",
+          "pinyin": "Suǒyǐ wǒ gěi nǐ dǎ le diànhuà.",
+          "es": "Por eso te llamé.",
+          "en": "That's why I called you.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5998477,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 440,
+      "hanzi": "疼",
+      "targetPinyin": "téng",
+      "sentences": [
+        {
+          "zh": "他头疼。",
+          "pinyin": "Tā tóuténg.",
+          "es": "Le duele la cabeza.",
+          "en": "He's got a headache.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 748584,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我的头疼。",
+          "pinyin": "Wǒ de tóuténg.",
+          "es": "Me duele la cabeza.",
+          "en": "I have a headache.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 338784,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 441,
+      "hanzi": "踢",
+      "targetPinyin": "tī",
+      "sentences": [
+        {
+          "zh": "我踢足球。",
+          "pinyin": "Wǒ tīzúqiú.",
+          "es": "Juego al fútbol.",
+          "en": "I play football.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "他在踢我！",
+          "pinyin": "Tā zài tī wǒ!",
+          "es": "¡¡Él está pateándome!!",
+          "en": "He's kicking me!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 42,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "去踢足球吧。",
+          "pinyin": "Qù tī zúqiú ba.",
+          "es": "¡Vamos a jugar al fútbol!",
+          "en": "Let's play soccer.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 332489,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 442,
+      "hanzi": "题",
+      "targetPinyin": "tí",
+      "sentences": [
+        {
+          "zh": "好问题。",
+          "pinyin": "Hǎo wèntí.",
+          "es": "Buena pregunta.",
+          "en": "Good question!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 344230,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "有什么问题吗？",
+          "pinyin": "Yǒu shénme wèntí ma?",
+          "es": "¿Hay alguna pregunta?",
+          "en": "Are there any questions?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1783789,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你有什么问题？",
+          "pinyin": "Nǐ yǒu shénme wèntí?",
+          "es": "¿Cuál es tu problema?",
+          "en": "What is the matter with you?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 718821,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 443,
+      "hanzi": "条",
+      "targetPinyin": "tiáo",
+      "sentences": [
+        {
+          "zh": "你吃面条还是吃饭？",
+          "pinyin": "Nǐ chī miàntiáo háishì chīfàn?",
+          "es": "¿Quieres comer fideos o arroz?",
+          "en": "Do you want to eat noodles or rice?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你是一条狗。",
+          "pinyin": "Nǐ shì yī tiáo gǒu.",
+          "es": "Eres un perro.",
+          "en": "You're a dog.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10552172,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我要一条鱼。",
+          "pinyin": "Wǒ yào yī tiáo yú.",
+          "es": "Quiero un pez.",
+          "en": "I'd like a fish.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5568438,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 444,
+      "hanzi": "跳舞",
+      "targetPinyin": "tiàowǔ",
+      "sentences": [
+        {
+          "zh": "我想要跳舞。",
+          "pinyin": "Wǒ xiǎngyào tiàowǔ.",
+          "es": "Me gustaría bailar.",
+          "en": "I'd like to dance.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你会跳舞吗？",
+          "pinyin": "Nǐ huì tiàowǔ ma?",
+          "es": "¿Sabes bailar?",
+          "en": "Do you know how to dance?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3748352,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我想跳舞。",
+          "pinyin": "Wǒ xiǎng tiàowǔ.",
+          "es": "Quiero bailar.",
+          "en": "I want to dance.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1962854,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 445,
+      "hanzi": "头",
+      "targetPinyin": "tóu",
+      "sentences": [
+        {
+          "zh": "回头看！",
+          "pinyin": "Huítóu kàn!",
+          "es": "¡Mira atrás!",
+          "en": "Look back!",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "他头疼。",
+          "pinyin": "Tā tóuténg.",
+          "es": "Le duele la cabeza.",
+          "en": "He's got a headache.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 748584,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我的头疼。",
+          "pinyin": "Wǒ de tóuténg.",
+          "es": "Me duele la cabeza.",
+          "en": "I have a headache.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 338784,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 446,
+      "hanzi": "外国",
+      "targetPinyin": "wàiguó",
+      "sentences": [
+        {
+          "zh": "为什么你想到外国读书？",
+          "pinyin": "Wèishénme nǐ xiǎngdào wàiguó dúshū?",
+          "es": "¿Por qué quieres estudiar en el extranjero?",
+          "en": "Why do you want to study abroad?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我是外国人。",
+          "pinyin": "Wǒ shì wàiguórén.",
+          "es": "Soy extranjero.",
+          "en": "I am a foreigner.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2221094,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我有很多外国朋友。",
+          "pinyin": "Wǒ yǒu hěn duō wàiguó péngyou.",
+          "es": "Tengo muchos amigos extranjeros.",
+          "en": "I have many friends in foreign countries.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 583851,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 447,
+      "hanzi": "外面",
+      "targetPinyin": "wàimiàn",
+      "sentences": [
+        {
+          "zh": "外面在下雪。",
+          "pinyin": "Wàimiàn zài xiàxuě.",
+          "es": "Está nevando fuera.",
+          "en": "It's snowing outside.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你是在家里吃饭还是出去到外面吃饭",
+          "pinyin": "Nǐ shì zài jiālǐ chīfàn háishi chūqù dào wàimiàn chīfàn",
+          "es": "¿Comes en casa o sales a comer fuera?",
+          "en": "Do you eat at home or eat out?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 591846,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 448,
+      "hanzi": "完",
+      "targetPinyin": "wán",
+      "sentences": [
+        {
+          "zh": "水喝完了。",
+          "pinyin": "Shuǐ hēwán le.",
+          "es": "Terminé de beber el agua.",
+          "en": "I finished drinking the water.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "卖完了！",
+          "pinyin": "Màiwán le!",
+          "es": "¡Se ha vendido todo!",
+          "en": "All sold out!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 435240,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我写完了。",
+          "pinyin": "Wǒ xiěwán le.",
+          "es": "He terminado de escribir.",
+          "en": "I finished writing.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5941735,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 449,
+      "hanzi": "万",
+      "targetPinyin": "wàn",
+      "sentences": [
+        {
+          "zh": "这里有一万人。",
+          "es": "Aquí hay diez mil personas.",
+          "en": "There are ten thousand people here.",
+          "pinyin": "zhèlǐ yǒu yī wàn rén。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "他给了我1万日元。",
+          "pinyin": "Tā gěi le wǒ 1 wàn Rìyuán.",
+          "es": "Él me dio 10.000 yenes.",
+          "en": "He gave me 10,000 yen.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 343810,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 450,
+      "hanzi": "往",
+      "targetPinyin": "wǎng",
+      "sentences": [
+        {
+          "zh": "往后站！",
+          "pinyin": "Wǎnghòu zhàn!",
+          "es": "¡Retrocede!",
+          "en": "Stand back!",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "往前开。",
+          "pinyin": "Wǎng qián kāi.",
+          "es": "Maneja.",
+          "en": "Drive on.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5102335,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "不要往我房间里看。",
+          "pinyin": "Bù yào wǎng wǒ fángjiān lǐ kàn.",
+          "es": "No mires en mi cuarto.",
+          "en": "Don't look into my room.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 333189,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 451,
+      "hanzi": "网上",
+      "targetPinyin": "wǎngshang",
+      "sentences": [
+        {
+          "zh": "网上有很多书。",
+          "es": "Hay muchos libros en internet.",
+          "en": "There are many books online.",
+          "pinyin": "wǎngshang yǒu hěn duō shū。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我在网上买了一本书。",
+          "pinyin": "Wǒ zài wǎngshang mǎi le yì běn shū.",
+          "es": "Compré un libro en línea.",
+          "en": "I bought a book online.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 452,
+      "hanzi": "忘",
+      "targetPinyin": "wàng",
+      "sentences": [
+        {
+          "zh": "我忘了。",
+          "pinyin": "Wǒ wàng le.",
+          "es": "Me olvidé.",
+          "en": "I forgot it.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 335875,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "别忘了我们！",
+          "pinyin": "Bié wàng le wǒmen!",
+          "es": "¡No te olvides de nosotros!",
+          "en": "Don't forget about us!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 337720,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "别忘了你是谁。",
+          "pinyin": "Bié wàng le nǐ shì shéi.",
+          "es": "No te olvides de quién eres.",
+          "en": "Don't forget who you are.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3710605,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 453,
+      "hanzi": "位",
+      "targetPinyin": "wèi",
+      "sentences": [
+        {
+          "zh": "我是位女士。",
+          "pinyin": "Wǒ shì wèi nǚshì.",
+          "es": "Soy una dama.",
+          "en": "I'm a lady.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你们是几位？",
+          "pinyin": "Nǐmen shì jǐ wèi?",
+          "es": "¿Cuántos son?",
+          "en": "How many of you are there?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 419685,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "那边的两位女士是谁？",
+          "pinyin": "Nàbian de liǎng wèi nǚshì shì shéi?",
+          "es": "¿Quiénes son aquellas dos chicas?",
+          "en": "Who are the two women over there?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3783463,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 454,
+      "hanzi": "为什么",
+      "targetPinyin": "wèi shénme",
+      "sentences": [
+        {
+          "zh": "为什么不？",
+          "pinyin": "Wèishénme bù?",
+          "es": "¿Por qué no?",
+          "en": "Why not?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "为什么？",
+          "pinyin": "Wèishénme?",
+          "es": "¿Por qué?",
+          "en": "For what?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 12278373,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "为什么?",
+          "pinyin": "Wèishénme?",
+          "es": "¿Por qué?",
+          "en": "For what?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4996546,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 455,
+      "hanzi": "希望",
+      "targetPinyin": "xīwàng",
+      "sentences": [
+        {
+          "zh": "我希望你去。",
+          "pinyin": "Wǒ xīwàng nǐ qù.",
+          "es": "Ojalá fueras.",
+          "en": "I wish you'd go.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "希望你会喜欢。",
+          "pinyin": "Xīwàng nǐ huì xǐhuan.",
+          "es": "Espero que te guste.",
+          "en": "I hope you'll like it.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 362623,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我希望这是对的。",
+          "pinyin": "Wǒ xīwàng zhè shì duì de.",
+          "es": "Espero que sea cierto.",
+          "en": "I hope this is the right one.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6534050,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 456,
+      "hanzi": "洗",
+      "targetPinyin": "xǐ",
+      "sentences": [
+        {
+          "zh": "洗手间在哪里？",
+          "pinyin": "Xǐshǒujiān zài nǎlǐ?",
+          "es": "¿Dónde está el baño?",
+          "en": "Where is the bathroom?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我洗手。",
+          "pinyin": "Wǒ xǐshǒu.",
+          "es": "Me lavo las manos.",
+          "en": "I wash my hands.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9510629,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你洗吗?",
+          "pinyin": "Nǐ xǐ ma?",
+          "es": "¿Lo limpias?",
+          "en": "Have you washed?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6850341,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 457,
+      "hanzi": "洗手间",
+      "targetPinyin": "xǐshǒujiān",
+      "sentences": [
+        {
+          "zh": "洗手间在右边。",
+          "es": "El baño está a la derecha.",
+          "en": "The restroom is on the right.",
+          "pinyin": "xǐshǒujiān zài yòubian。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "洗手间在哪里？",
+          "pinyin": "Xǐshǒujiān zài nǎlǐ?",
+          "es": "¿Dónde está el baño?",
+          "en": "Where is the bathroom?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 458,
+      "hanzi": "下来",
+      "targetPinyin": "xiàlái",
+      "sentences": [
+        {
+          "zh": "你给我下来！",
+          "pinyin": "Nǐ gěi wǒ xiàlái!",
+          "es": "¡Baja aquí!",
+          "en": "Come down here!",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我从出租车上下来。",
+          "pinyin": "Wǒ cóng chūzūchē shàng xiàlái.",
+          "es": "Bajé del taxi.",
+          "en": "I got out of the taxi.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9179884,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 459,
+      "hanzi": "下面",
+      "targetPinyin": "xiàmiàn",
+      "sentences": [
+        {
+          "zh": "猫在桌子下面。",
+          "es": "El gato está debajo de la mesa.",
+          "en": "The cat is under the table.",
+          "pinyin": "māo zài zhuōzi xiàmiàn。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "下面有一家饭店。",
+          "es": "Abajo hay un restaurante.",
+          "en": "There is a restaurant downstairs.",
+          "pinyin": "xiàmiàn yǒu yī jiā fàndiàn。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 460,
+      "hanzi": "下去",
+      "targetPinyin": "xiàqù",
+      "sentences": [
+        {
+          "zh": "你下去吧。",
+          "es": "Baja tú.",
+          "en": "You go down.",
+          "pinyin": "nǐ xiàqù ba。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我从楼上下去。",
+          "es": "Bajo desde el piso de arriba.",
+          "en": "I am going down from upstairs.",
+          "pinyin": "wǒ cóng lóu shàng xiàqù。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 461,
+      "hanzi": "小孩儿",
+      "targetPinyin": "xiǎoháir",
+      "sentences": [
+        {
+          "zh": "那个小孩儿在玩。",
+          "es": "Ese niño está jugando.",
+          "en": "That child is playing.",
+          "pinyin": "nàge xiǎoháir zài wán。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我们是大人，不是小孩儿。",
+          "pinyin": "Wǒmen shì dàren, bù shì xiǎoháir.",
+          "es": "Somos hombres, y no niños.",
+          "en": "We're men, not boys.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10298130,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 462,
+      "hanzi": "小时候",
+      "targetPinyin": "xiǎoshíhou",
+      "sentences": [
+        {
+          "zh": "我小时候只穿裤子。",
+          "pinyin": "Wǒ xiǎoshíhou zhǐ chuān kùzi.",
+          "es": "Cuando era pequeño, sólo me ponía pantalones.",
+          "en": "When I was little, I would only wear pants.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 333870,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她小时候唱歌唱得很好。",
+          "pinyin": "Tā xiǎoshíhou chànggē chàng dehěn hǎo.",
+          "es": "Cuando ella era pequeña cantaba bien.",
+          "en": "She could sing well when she was a child.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 685095,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 463,
+      "hanzi": "笑",
+      "targetPinyin": "xiào",
+      "sentences": [
+        {
+          "zh": "我开玩笑。",
+          "pinyin": "Wǒ kāiwánxiào.",
+          "es": "Estoy bromeando.",
+          "en": "I'm kidding.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "他笑了。",
+          "pinyin": "Tā xiào le.",
+          "es": "Él se rio.",
+          "en": "He laughed.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 336964,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我笑了。",
+          "pinyin": "Wǒ xiào le.",
+          "es": "Me reí.",
+          "en": "I laughed.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 335165,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 464,
+      "hanzi": "姓",
+      "targetPinyin": "xìng",
+      "sentences": [
+        {
+          "zh": "您贵姓？",
+          "pinyin": "Nín guìxìng?",
+          "es": "¿Cuál es su apellido, por favor?",
+          "en": "What's your surname please?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你的姓怎么读？",
+          "pinyin": "Nǐde xìng zěnme dú?",
+          "es": "¿Cómo se pronuncia su apellido?",
+          "en": "How do you pronounce your last name?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5675496,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你的姓名是什么？",
+          "pinyin": "Nǐ de xìngmíng shì shénme?",
+          "es": "¿Cuál es tu nombre completo?",
+          "en": "What's your full name?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 827198,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 465,
+      "hanzi": "姓名",
+      "targetPinyin": "xìngmíng",
+      "sentences": [
+        {
+          "zh": "请写下你的姓名。",
+          "es": "Escribe tu nombre completo, por favor.",
+          "en": "Please write down your full name.",
+          "pinyin": "qǐng xiě xià nǐ de xìngmíng。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "你的姓名是什么？",
+          "pinyin": "Nǐ de xìngmíng shì shénme?",
+          "es": "¿Cuál es tu nombre completo?",
+          "en": "What's your full name?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 827198,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 466,
+      "hanzi": "颜色",
+      "targetPinyin": "yánsè",
+      "sentences": [
+        {
+          "zh": "你的车什么颜色？",
+          "pinyin": "Nǐ de chē shénme yánsè?",
+          "es": "¿De qué color es tu auto?",
+          "en": "What color is your car?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "这是你的颜色！",
+          "pinyin": "Zhè shì nǐ de yánsè!",
+          "es": "¡Es tu color!",
+          "en": "This is your color!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1482139,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你有喜欢的颜色吗？",
+          "pinyin": "Nǐ yǒu xǐhuan de yánsè ma?",
+          "es": "¿Hay algún color que te guste?",
+          "en": "Do you have a favorite color?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 8976062,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 467,
+      "hanzi": "眼睛",
+      "targetPinyin": "yǎnjing",
+      "sentences": [
+        {
+          "zh": "你的眼睛真漂亮。",
+          "pinyin": "Nǐ de yǎnjing zhēn piàoliang.",
+          "es": "Tienes unos ojos realmente hermosos.",
+          "en": "You have beautiful eyes.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3671251,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "日本人有黑色的眼睛。",
+          "pinyin": "Rìběnrén yǒu hēisè de yǎnjing.",
+          "es": "Los japoneses tienen ojos oscuros.",
+          "en": "The Japanese have dark eyes.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 794015,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你的眼睛为什么那么大？",
+          "pinyin": "Nǐ de yǎnjing wèishénme nàme dà?",
+          "es": "¿Por qué tus ojos son tan grandes?",
+          "en": "Why are your eyes so big?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 399221,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 468,
+      "hanzi": "药",
+      "targetPinyin": "yào",
+      "sentences": [
+        {
+          "zh": "药店就在医院旁边。",
+          "pinyin": "Yàodiàn jiù zài yīyuàn pángbiān.",
+          "es": "La farmacia está justo al lado del hospital.",
+          "en": "The pharmacy is right next to the hospital.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "这些是什么药？",
+          "pinyin": "Zhèxiē shì shénme yào?",
+          "es": "¿Qué son estas pastillas?",
+          "en": "What are these tablets?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9139527,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "最近的药店在哪里？",
+          "pinyin": "Zuì jìn de yàodiàn zài nǎlǐ?",
+          "es": "¿Dónde está la farmacia más cercana?",
+          "en": "Where's the nearest drugstore?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 825126,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 469,
+      "hanzi": "药店",
+      "targetPinyin": "yàodiàn",
+      "sentences": [
+        {
+          "zh": "药店就在医院旁边。",
+          "pinyin": "Yàodiàn jiù zài yīyuàn pángbiān.",
+          "es": "La farmacia está justo al lado del hospital.",
+          "en": "The pharmacy is right next to the hospital.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "最近的药店在哪里？",
+          "pinyin": "Zuì jìn de yàodiàn zài nǎlǐ?",
+          "es": "¿Dónde está la farmacia más cercana?",
+          "en": "Where's the nearest drugstore?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 825126,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 470,
+      "hanzi": "爷爷",
+      "targetPinyin": "yéye",
+      "sentences": [
+        {
+          "zh": "爷爷买给我的！",
+          "pinyin": "Yéye mǎi gěi wǒ de!",
+          "es": "¡Me lo ha comprado el abuelo!",
+          "en": "Grandpa bought it for me!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 334262,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我是Tom的爷爷。",
+          "pinyin": "Wǒ shì T om de yéye.",
+          "es": "Soy el abuelo de Tom.",
+          "en": "I'm Tom's grandfather.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4504250,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我上周看到了爷爷。",
+          "pinyin": "Wǒ shàng zhōu kàn dào le yéye.",
+          "es": "Vi al abuelo la semana pasada.",
+          "en": "I saw grandfather last week.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 881767,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 471,
+      "hanzi": "一会儿",
+      "targetPinyin": "yíhuìr",
+      "sentences": [
+        {
+          "zh": "请等一会儿。",
+          "es": "Espera un momento, por favor.",
+          "en": "Please wait a moment.",
+          "pinyin": "qǐng děng yíhuìr。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我一会儿回来。",
+          "es": "Vuelvo en un momento.",
+          "en": "I will be back in a moment.",
+          "pinyin": "wǒ yíhuìr huílái。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 472,
+      "hanzi": "已经",
+      "targetPinyin": "yǐjīng",
+      "sentences": [
+        {
+          "zh": "已经没事了。",
+          "pinyin": "Yǐjīng méishì le.",
+          "es": "Ya estoy bien.",
+          "en": "I'm fine now.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "已经星期二了？",
+          "pinyin": "Yǐjīng Xīngqī'èr le?",
+          "es": "¿Ya es martes?",
+          "en": "Is it Tuesday already?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6961327,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "已经9点了。",
+          "pinyin": "Yǐjīng 9 diǎn le.",
+          "es": "Ya son las nueve.",
+          "en": "It's already nine o'clock.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 406740,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 473,
+      "hanzi": "一起",
+      "targetPinyin": "yìqǐ",
+      "sentences": [
+        {
+          "zh": "我们一起去上课。",
+          "es": "Vamos juntos a clase.",
+          "en": "We go to class together.",
+          "pinyin": "wǒmen yìqǐ qù shàngkè。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我喜欢和你一起吃早饭。",
+          "pinyin": "Wǒ xǐhuān hé nǐ yìqǐ chī zǎofàn.",
+          "es": "Me gusta desayunar contigo.",
+          "en": "I like having breakfast with you.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 474,
+      "hanzi": "意思",
+      "targetPinyin": "yìsi",
+      "sentences": [
+        {
+          "zh": "这是什么意思？",
+          "pinyin": "Zhèshì shénme yìsi?",
+          "es": "¿Qué significa?",
+          "en": "What does it mean?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "真有意思！",
+          "pinyin": "Zhēn yǒuyìsi!",
+          "es": "¡Qué interesante!",
+          "en": "How interesting!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4970139,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "USB是什么意思？",
+          "pinyin": "US bī shì shénme yìsi?",
+          "es": "¿Qué significa USB?",
+          "en": "What does USB stand for?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 958364,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 475,
+      "hanzi": "阴",
+      "targetPinyin": "yīn",
+      "sentences": [
+        {
+          "zh": "天阴了起来。",
+          "pinyin": "Tiān yīn le qǐlai.",
+          "es": "Se está nublando.",
+          "en": "It's getting cloudy.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6014668,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "今天是个阴天。",
+          "pinyin": "Jīntiān shì gè yīntiān.",
+          "es": "Hoy está nublado.",
+          "en": "It's cloudy today.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4625757,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "天阴了，要下雨了。",
+          "pinyin": "Tiān yīn le, yào xiàyǔ le.",
+          "es": "Las nubes están oscureciéndose; va a llover.",
+          "en": "The clouds are getting darker; it's going to rain.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5941934,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 476,
+      "hanzi": "因为",
+      "targetPinyin": "yīnwèi",
+      "sentences": [
+        {
+          "zh": "她不在是因为病了。",
+          "pinyin": "Tā bú zài shìyīnwèi bìng le.",
+          "es": "Está ausente porque está enferma.",
+          "en": "She's absent because she's sick.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "因为他们在看电视。",
+          "pinyin": "Yīnwèi tāmen zài kàn diànshì.",
+          "es": "Porque están viendo la televisión.",
+          "en": "Because they're watching television.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4558246,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "因为他有钱，所以能去那儿。",
+          "pinyin": "Yīnwèi tā yǒuqián, suǒyǐ néng qù nàr.",
+          "es": "Como él es rico, puede ir allá.",
+          "en": "Because he was wealthy, he was able to go there.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1691746,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 477,
+      "hanzi": "游",
+      "targetPinyin": "yóu",
+      "sentences": [
+        {
+          "zh": "他游得很好。",
+          "pinyin": "Tā yóude hěn hǎo.",
+          "es": "Él nada bien.",
+          "en": "He can swim well.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 11524435,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他能游得很快。",
+          "pinyin": "Tā néng yóu de hěn kuài.",
+          "es": "Puede nadar muy rápido.",
+          "en": "He is able to swim very fast.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 332778,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他游泳游得很快。",
+          "pinyin": "Tā yóuyǒng yóu dehěn kuài.",
+          "es": "Él nada muy rápido.",
+          "en": "He is able to swim quickly.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1517740,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 478,
+      "hanzi": "游泳",
+      "targetPinyin": "yóuyǒng",
+      "sentences": [
+        {
+          "zh": "我要游泳。",
+          "pinyin": "Wǒyào yóuyǒng.",
+          "es": "Nadaré.",
+          "en": "I'll swim.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "Tom游泳。",
+          "pinyin": "T om yóuyǒng.",
+          "es": "Tom nadó.",
+          "en": "Tom is swimming.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5529807,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他会游泳。",
+          "pinyin": "Tā huì yóuyǒng.",
+          "es": "Él sabe nadar.",
+          "en": "He can swim.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 408816,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 479,
+      "hanzi": "有意思",
+      "targetPinyin": "yǒu yìsi",
+      "sentences": [
+        {
+          "zh": "看书很有意思。",
+          "pinyin": "Kànshū hěn yǒuyìsi.",
+          "es": "Leer libros es interesante.",
+          "en": "Reading books is interesting.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "真有意思！",
+          "pinyin": "Zhēn yǒuyìsi!",
+          "es": "¡Qué interesante!",
+          "en": "How interesting!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4970139,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "在我看来很有意思！",
+          "pinyin": "Zài wǒ kànlái hěn yǒu yìsi!",
+          "es": "¡Me parece interesante!",
+          "en": "It seems interesting to me.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 335070,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 480,
+      "hanzi": "有时",
+      "targetPinyin": "yǒushí",
+      "sentences": [
+        {
+          "zh": "我有时间。",
+          "pinyin": "Wǒ yǒu shíjiān.",
+          "es": "Tengo tiempo.",
+          "en": "I have time.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "他们有时帮我们。",
+          "pinyin": "Tāmen yǒushí bāng wǒmen.",
+          "es": "A veces nos ayudan.",
+          "en": "They sometimes help us.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6635888,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你有时间再做吧。",
+          "pinyin": "Nǐ yǒu shíjiān zài zuò ba.",
+          "es": "Hazlo cuando tengas tiempo.",
+          "en": "Do it when you have time.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 334400,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 481,
+      "hanzi": "右",
+      "targetPinyin": "yòu",
+      "sentences": [
+        {
+          "zh": "他左右看了看。",
+          "pinyin": "Tā zuǒyòu kàn le kàn.",
+          "es": "Miró a izquierda y derecha.",
+          "en": "He looked left and right.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我六点左右起床。",
+          "pinyin": "Wǒ liù diǎn zuǒyòu qǐchuáng.",
+          "es": "Me levanté más o menos a las seis.",
+          "en": "I got up at about six.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5815587,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他五点左右会回来。",
+          "pinyin": "Tā wǔ diǎn zuǒyòu huì huílai.",
+          "es": "Volverá sobre las cinco.",
+          "en": "He'll be back by five o'clock.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 846152,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 482,
+      "hanzi": "右边",
+      "targetPinyin": "yòubian",
+      "sentences": [
+        {
+          "zh": "学校在右边。",
+          "es": "La escuela está a la derecha.",
+          "en": "The school is on the right.",
+          "pinyin": "xuéxiào zài yòubian。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "请看右边。",
+          "es": "Mira a la derecha, por favor.",
+          "en": "Please look to the right.",
+          "pinyin": "qǐng kàn yòubian。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    },
+    {
+      "sourceOrder": 483,
+      "hanzi": "鱼",
+      "targetPinyin": "yú",
+      "sentences": [
+        {
+          "zh": "鱼睡觉吗？",
+          "pinyin": "Yú shuìjiào ma?",
+          "es": "¿Los peces duermen?",
+          "en": "Do fish sleep?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10706717,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "肉还是鱼？",
+          "pinyin": "Ròu háishi yú?",
+          "es": "¿Carne o pescado?",
+          "en": "Meat or fish?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1358670,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "猫看着鱼。",
+          "pinyin": "Māo kàn zhe yú.",
+          "es": "El gato está observando al pez.",
+          "en": "The cat is watching the fish.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 466164,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 484,
+      "hanzi": "远",
+      "targetPinyin": "yuǎn",
+      "sentences": [
+        {
+          "zh": "到机场有多远？",
+          "pinyin": "Dào jīchǎng yǒuduōyuǎn?",
+          "es": "¿A qué distancia está el aeropuerto?",
+          "en": "How far away is the airport?",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "远吗？",
+          "pinyin": "Yuǎn ma?",
+          "es": "¿Está lejos?",
+          "en": "Is it far?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6559044,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "离这儿远吗？",
+          "pinyin": "Lí zhèr yuǎn ma?",
+          "es": "¿Está lejos de aquí?",
+          "en": "Is it far from here?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 501530,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 485,
+      "hanzi": "运动",
+      "targetPinyin": "yùndòng",
+      "sentences": [
+        {
+          "zh": "他爱做运动。",
+          "pinyin": "Tā ài zuò yùndòng.",
+          "es": "Le encanta hacer ejercicio.",
+          "en": "He loves exercising.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你喜欢运动吗？",
+          "pinyin": "Nǐ xǐhuan yùndòng ma?",
+          "es": "¿Te gusta el deporte?",
+          "en": "Do you like sports?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 345825,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我每天做运动。",
+          "pinyin": "Wǒ měitiān zuò yùndòng.",
+          "es": "Hago deporte todos los días.",
+          "en": "I play sports every day.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1742396,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 486,
+      "hanzi": "站",
+      "targetPinyin": "zhàn",
+      "sentences": [
+        {
+          "zh": "往后站！",
+          "pinyin": "Wǎnghòu zhàn!",
+          "es": "¡Retrocede!",
+          "en": "Stand back!",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我在哪站下？",
+          "pinyin": "Wǒ zài nǎ zhàn xià?",
+          "es": "¿En qué parada me bajo?",
+          "en": "Which stop do I alight at?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6559053,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "这就是车站吗？",
+          "pinyin": "Zhè jiù shì chēzhàn ma?",
+          "es": "¿Es esta la estación de tren?",
+          "en": "Is this the train station?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 2318424,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 487,
+      "hanzi": "丈夫",
+      "targetPinyin": "zhàngfu",
+      "sentences": [
+        {
+          "zh": "你丈夫叫什么？",
+          "pinyin": "Nǐ zhàngfu jiào shénme?",
+          "es": "¿Cómo se llama tu marido?",
+          "en": "What's your husband's name?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5595206,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他会是一个好丈夫。",
+          "pinyin": "Tā huì shì yī gè hǎo zhàngfu.",
+          "es": "Será un buen marido.",
+          "en": "He'll be a good husband.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 392943,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我和我的丈夫都是老师。",
+          "pinyin": "Wǒ hé wǒ de zhàngfu dōu shì lǎoshī.",
+          "es": "Mi marido y yo somos profesores.",
+          "en": "My husband and I are both teachers.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1171771,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 488,
+      "hanzi": "这么",
+      "targetPinyin": "zhème",
+      "sentences": [
+        {
+          "zh": "我也这么想。",
+          "pinyin": "Wǒ yě zhème xiǎng.",
+          "es": "Yo también lo creo.",
+          "en": "I think so, too.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "别走这么快。",
+          "pinyin": "Bié zǒu zhème kuài.",
+          "es": "No camines tan rápido.",
+          "en": "Don't walk so fast.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6535138,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你怎么能这么说！",
+          "pinyin": "Nǐ zěnme néng zhème shuō!",
+          "es": "¡Cómo puedes decir algo así!",
+          "en": "How can you say something like that?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 9975375,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 489,
+      "hanzi": "这样",
+      "targetPinyin": "zhèyàng",
+      "sentences": [
+        {
+          "zh": "这样好多了。",
+          "pinyin": "Zhèyàng hǎoduō le.",
+          "es": "Esto es mucho mejor.",
+          "en": "This is way better.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "不要这样说。",
+          "pinyin": "Bù yào zhèyàng shuō.",
+          "es": "No hables así.",
+          "en": "Don't talk like that.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 382425,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "请不要这样说。",
+          "pinyin": "Qǐng bù yào zhèyàng shuō.",
+          "es": "Por favor, no digas eso.",
+          "en": "Please don't say that.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4885866,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 490,
+      "hanzi": "着",
+      "targetPinyin": "zhe",
+      "sentences": [
+        {
+          "zh": "一边站着。",
+          "pinyin": "Yībiān zhàn zhe.",
+          "es": "Hazte a un lado.",
+          "en": "Stand aside.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "看着我",
+          "pinyin": "Kàn zhe wǒ",
+          "es": "Mírame.",
+          "en": "Look at me.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 12615453,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "猫看着鱼。",
+          "pinyin": "Māo kàn zhe yú.",
+          "es": "El gato está observando al pez.",
+          "en": "The cat is watching the fish.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 466164,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 491,
+      "hanzi": "正",
+      "targetPinyin": "zhèng",
+      "sentences": [
+        {
+          "zh": "她正在学习。",
+          "pinyin": "Tā zhèngzài xuéxí.",
+          "es": "Ella está estudiando.",
+          "en": "He is studying.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 11512603,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我正在工作。",
+          "pinyin": "Wǒ zhèngzài gōngzuò.",
+          "es": "Estoy trabajando.",
+          "en": "I am working.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1974803,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "你正在想什么？",
+          "pinyin": "Nǐ zhèngzài xiǎng shénme?",
+          "es": "¿En qué estás pensando?",
+          "en": "What are you thinking about?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 770615,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 492,
+      "hanzi": "周",
+      "targetPinyin": "zhōu",
+      "sentences": [
+        {
+          "zh": "下周一开学。",
+          "pinyin": "Xiàzhōuyī kāixué.",
+          "es": "Las clases empiezan el próximo lunes.",
+          "en": "School starts next Monday.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "周日见！",
+          "pinyin": "Zhōurì jiàn!",
+          "es": "¡Hasta el domingo!",
+          "en": "See you on Sunday!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 10314792,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "今天是周六。",
+          "pinyin": "Jīntiān shì Zhōuliù.",
+          "es": "Hoy es sábado.",
+          "en": "It's Saturday today.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 784508,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 493,
+      "hanzi": "准备",
+      "targetPinyin": "zhǔnbèi",
+      "sentences": [
+        {
+          "zh": "他已经准备好了。",
+          "pinyin": "Tā yǐjīng zhǔnbèi hǎo le.",
+          "es": "Ya completó los preparativos.",
+          "en": "He already completed preparations.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "你准备好了吗？",
+          "pinyin": "Nǐ zhǔnbèi hǎo le ma?",
+          "es": "¿Estás listo?",
+          "en": "Are you ready?",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 799302,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她在准备出门。",
+          "pinyin": "Tā zài zhǔnbèi chūmén.",
+          "es": "Ella estaba preparándose para salir de casa.",
+          "en": "She was getting ready for leaving home.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 3149453,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 494,
+      "hanzi": "自己",
+      "targetPinyin": "zìjǐ",
+      "sentences": [
+        {
+          "zh": "我自己做的。",
+          "pinyin": "Wǒ zìjǐzuò de.",
+          "es": "Lo hice yo mismo.",
+          "en": "I made it myself.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 512813,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我不喜欢自己。",
+          "pinyin": "Wǒ bù xǐhuan zìjǐ.",
+          "es": "No me gusto a mí mismo.",
+          "en": "I don't like myself.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 1775710,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我可以自己做。",
+          "pinyin": "Wǒ kěyǐ zìjǐ zuò.",
+          "es": "Puedo hacerlo yo mismo.",
+          "en": "I can do it by myself.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 918074,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 495,
+      "hanzi": "走",
+      "targetPinyin": "zǒu",
+      "sentences": [
+        {
+          "zh": "他走路很快。",
+          "pinyin": "Tā zǒulù hěnkuài.",
+          "es": "Camina rápido.",
+          "en": "He walks fast.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "别走！",
+          "pinyin": "Bié zǒu!",
+          "es": "¡No te vayas!",
+          "en": "Don't leave!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 6131474,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "走吧。",
+          "pinyin": "Zǒu ba.",
+          "es": "Vamos.",
+          "en": "Come on!",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 334277,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 496,
+      "hanzi": "走路",
+      "targetPinyin": "zǒulù",
+      "sentences": [
+        {
+          "zh": "他走路很快。",
+          "pinyin": "Tā zǒulù hěnkuài.",
+          "es": "Camina rápido.",
+          "en": "He walks fast.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我走路去。",
+          "pinyin": "Wǒ zǒulù qù.",
+          "es": "Iré andando.",
+          "en": "I will go on foot.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 380734,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "她走路去上学。",
+          "pinyin": "Tā zǒulù qù shàngxué.",
+          "es": "Ella va al colegio a pie.",
+          "en": "She goes to school on foot.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 804828,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 497,
+      "hanzi": "足球",
+      "targetPinyin": "zúqiú",
+      "sentences": [
+        {
+          "zh": "我踢足球。",
+          "pinyin": "Wǒ tīzúqiú.",
+          "es": "Juego al fútbol.",
+          "en": "I play football.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "去踢足球吧。",
+          "pinyin": "Qù tī zúqiú ba.",
+          "es": "¡Vamos a jugar al fútbol!",
+          "en": "Let's play soccer.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 332489,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "我们去踢足球吧！",
+          "pinyin": "Wǒmen qù tī zúqiú ba!",
+          "es": "¡Vamos a jugar al fútbol!",
+          "en": "Let's play soccer.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 11231395,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 498,
+      "hanzi": "最",
+      "targetPinyin": "zuì",
+      "sentences": [
+        {
+          "zh": "你最好去。",
+          "pinyin": "Nǐ zuìhǎo qù.",
+          "es": "Deberías ir.",
+          "en": "You should go.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我最好。",
+          "pinyin": "Wǒ zuì hǎo.",
+          "es": "Soy el mejor.",
+          "en": "I am the best.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 12283024,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "Tom 最喜欢我。",
+          "pinyin": "T om  zuì xǐhuan wǒ.",
+          "es": "A Tom le agrado más que nadie.",
+          "en": "Tom likes me the most.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 4789468,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 499,
+      "hanzi": "左",
+      "targetPinyin": "zuǒ",
+      "sentences": [
+        {
+          "zh": "出口在左边。",
+          "pinyin": "Chūkǒu zài zuǒbian.",
+          "es": "La entrada está a la izquierda.",
+          "en": "The entrance is on the left.",
+          "origin": "open_data",
+          "source": "gushi",
+          "license": "CC BY-SA 4.0"
+        },
+        {
+          "zh": "我六点左右起床。",
+          "pinyin": "Wǒ liù diǎn zuǒyòu qǐchuáng.",
+          "es": "Me levanté más o menos a las seis.",
+          "en": "I got up at about six.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 5815587,
+          "license": "CC BY 2.0 FR"
+        },
+        {
+          "zh": "他五点左右会回来。",
+          "pinyin": "Tā wǔ diǎn zuǒyòu huì huílai.",
+          "es": "Volverá sobre las cinco.",
+          "en": "He'll be back by five o'clock.",
+          "origin": "open_data",
+          "source": "tatoeba",
+          "sourceSentenceId": 846152,
+          "license": "CC BY 2.0 FR"
+        }
+      ]
+    },
+    {
+      "sourceOrder": 500,
+      "hanzi": "左边",
+      "targetPinyin": "zuǒbian",
+      "sentences": [
+        {
+          "zh": "饭店在左边。",
+          "es": "El restaurante está a la izquierda.",
+          "en": "The restaurant is on the left.",
+          "pinyin": "fàndiàn zài zuǒbian。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        },
+        {
+          "zh": "我的书在左边。",
+          "es": "Mi libro está a la izquierda.",
+          "en": "My book is on the left.",
+          "pinyin": "wǒ de shū zài zuǒbian。",
+          "origin": "ai",
+          "source": "project-draft",
+          "license": null
+        }
+      ]
+    }
+  ]
+}
