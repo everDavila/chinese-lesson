@@ -224,7 +224,6 @@ export function Presentation({
                 item={item}
                 showPinyin={showPinyin}
                 showTranslations={showTranslations}
-                componentMeanings={lesson.componentMeanings}
                 lang={contentLanguage}
                 footer={<GroupRating value={ratings[itemKey]} onChange={setRating} labels={labels} />}
               />

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Volume2 } from "lucide-react";
 import { StrokeArt } from "@/components/hanzi/stroke-art";
 import { Button } from "@/components/ui/button";
-import type { Bilingual, LessonItem, Sentence } from "@/lib/lesson-types";
+import type { LessonItem, Sentence } from "@/lib/lesson-types";
 import { studentLabels, type ContentLanguage, type StudentLabels } from "@/lib/student-labels";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
@@ -90,23 +90,55 @@ function SentenceRow({
   );
 }
 
+// ── Cómo se forma ────────────────────────────────────────────────────────
+type Part = { char: string; role: "semantic" | "phonetic" | "other"; pinyin: string | null };
+type Formula = { char: string; pinyin: string | null; parts: Part[] };
+
+// Descripciones de estructura (⿰⿱…) de Make Me a Hanzi.
+const IDC = /[⿰-⿻]/g;
+
+/**
+ * Fórmula de un carácter a partir de sus datos. Una pieza anidada (⿱旦寸)
+ * se aplana en sus caracteres (旦 + 寸). Si falta una pieza (？) o no hay
+ * datos, no hay fórmula: una a medias enseñaría algo falso.
+ */
+function buildFormula(char: string, info: LessonItem["characters"][number]["info"]): Formula[] {
+  const comps = info?.components ?? [];
+  if (!comps.length || comps.some((p) => p.char.includes("？"))) return [];
+  const parts = comps.flatMap((p): Part[] =>
+    p.char.length > 1
+      ? [...p.char.replace(IDC, "")].map((ch) => ({ char: ch, role: "other", pinyin: null }))
+      : [{ char: p.char, role: p.role, pinyin: p.pinyin }],
+  );
+  return [{ char, pinyin: info?.pinyin[0] ?? null, parts }];
+}
+
+/** Una pieza: el hanzi y, debajo, su pinyin chiquito (el nombre con que se dice en clase). */
+function Piece({ char, pinyin, className }: { char: string; pinyin: string | null; className?: string }) {
+  return (
+    <span className="inline-flex flex-col items-center">
+      <span className={className}>{char}</span>
+      <span className="mt-1 font-sans text-[0.45em] text-muted-foreground">{pinyin ?? " "}</span>
+    </span>
+  );
+}
+
 type CardBackProps = {
   item: LessonItem;
   showPinyin: boolean;
   showTranslations: boolean;
-  componentMeanings: Record<string, Bilingual>;
   /** Idioma del contenido para los alumnos (no el de la interfaz). */
   lang: ContentLanguage;
   footer?: React.ReactNode;
 };
 
-export function CardBack({ item, showPinyin, showTranslations, componentMeanings, lang, footer }: CardBackProps) {
+export function CardBack({ item, showPinyin, showTranslations, lang, footer }: CardBackProps) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const labels = studentLabels(lang);
   const { word, senseIndex } = item;
   const sense = word.senses[senseIndex];
   const otherSenses = word.senses.filter((_, i) => i !== senseIndex);
-  const withInfo = item.characters.filter((c) => c.info);
+  const formulas = item.characters.flatMap((c) => buildFormula(c.char, c.info));
 
   // Al bajar por las frases, la cabecera grande se va: una barra compacta con
   // la palabra queda fija arriba (auditoría UX, P1). Va en un contenedor de
@@ -177,60 +209,29 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
         {/* Desde xl hay ancho de sobra: composición y frases lado a lado (auditoría UX,
             P2). La composición, angosta; las frases, que son lo principal, anchas. */}
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] xl:items-start">
-          {/* Cómo se forma: aquí sí, la descomposición en color (radical verde,
-              fonético azul). En el anverso solo hay un matiz de tono. */}
-          {/* Solo la fórmula en color (知 = 矢 + 口): el significado del radical
-              sale al pasar el cursor, enfocar o tocar. Una línea por carácter. */}
-          {/* Sin datos de descomposición (hoy, casi todo fuera de la lección de
-              demo) no se muestra nada: decir "carácter simple" sería falso. */}
-          {withInfo.length > 0 && (
-            <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
-              <h3 className="flex w-full flex-wrap items-baseline justify-between gap-x-3 text-sm font-medium text-muted-foreground">
-                {labels.howItsBuilt}
-                <span className="text-xs font-normal">{labels.howItsBuiltHint}</span>
-              </h3>
-              {withInfo.map((c) => {
-                // Solo el radical lleva detalle (su significado). El sonido del
-                // fonético confundía: varios componentes suenan parecido.
-                const detail = (comp: NonNullable<typeof c.info>["components"][number]) =>
-                  comp.role === "semantic" ? (componentMeanings[comp.char]?.[lang] ?? labels.radical) : null;
-                return (
-                  <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 font-hanzi text-[clamp(1.25rem,2.2vw,2rem)]">
-                    <span>{c.char}</span>
-                    <span className="text-[0.6em] text-muted-foreground">=</span>
-                    {c.info?.components.length ? (
-                      c.info.components.map((comp, i) => {
-                        const text = detail(comp);
-                        const color = cn(comp.role === "semantic" && "text-radical", comp.role === "phonetic" && "text-phonetic");
-                        return (
-                          <span key={i} className="flex items-baseline gap-2">
-                            {i > 0 && <span className="text-[0.6em] text-muted-foreground">+</span>}
-                            {text ? (
-                              <button
-                                type="button"
-                                className={cn("group relative rounded-sm underline decoration-dotted decoration-1 underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring", color)}
-                                aria-label={`${comp.char}: ${text}`}
-                              >
-                                {comp.char}
-                                <span
-                                  role="tooltip"
-                                  className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 rounded-md border border-border bg-popover px-2 py-1 font-sans text-sm whitespace-nowrap text-popover-foreground opacity-0 shadow-md transition-opacity group-hover:opacity-100 group-focus:opacity-100"
-                                >
-                                  {text}
-                                </span>
-                              </button>
-                            ) : (
-                              <span className={color}>{comp.char}</span>
-                            )}
-                          </span>
-                        );
-                      })
-                    ) : (
-                      <span className="font-sans text-[clamp(1rem,1.4vw,1.25rem)] text-muted-foreground">{labels.simpleCharacter}</span>
-                    )}
-                  </p>
-                );
-              })}
+          {/* Cómo se forma: la fórmula en color (radical verde, fonético azul)
+              con el pinyin de cada pieza debajo, para poder nombrarla en clase
+              ("el de kǒu"). Sin glosas. Si los datos de un carácter están
+              incompletos, su fórmula no se muestra: a medias enseñaría mal. */}
+          {formulas.length > 0 && (
+            <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-10 gap-y-3 rounded-xl border border-border bg-background/60 px-5 py-3">
+              <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
+              {formulas.map((f) => (
+                <p key={f.char} className="flex items-start gap-x-2 font-hanzi text-[clamp(1.25rem,2.2vw,2rem)] leading-none">
+                  <Piece char={f.char} pinyin={f.pinyin} />
+                  <span className="pt-[0.15em] text-[0.6em] text-muted-foreground">=</span>
+                  {f.parts.map((p, i) => (
+                    <span key={i} className="flex items-start gap-x-2">
+                      {i > 0 && <span className="pt-[0.15em] text-[0.6em] text-muted-foreground">+</span>}
+                      <Piece
+                        char={p.char}
+                        pinyin={p.pinyin}
+                        className={cn(p.role === "semantic" && "text-radical", p.role === "phonetic" && "text-phonetic")}
+                      />
+                    </span>
+                  ))}
+                </p>
+              ))}
             </section>
           )}
 

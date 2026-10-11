@@ -65,24 +65,26 @@ test("reverso: barra compacta al bajar y segundo idioma plegado en celular", asy
   else await expect(support).toBeVisible();
 });
 
-test("cómo se forma: el detalle de cada parte sale al pasar el cursor o tocar", async ({ page }, testInfo) => {
-  const phone = testInfo.project.name.startsWith("phone");
+test("cómo se forma: piezas con su pinyin, sin glosas", async ({ page }, testInfo) => {
   await page.goto("/es/present");
   await page.locator(".transform-3d").waitFor();
   // Elegir antes de que la página se hidrate pierde el cambio.
   await page.waitForLoadState("networkidle");
+  const section = page.getByRole("region", { name: "Cómo se forma" });
+
   await page.getByRole("combobox").selectOption({ index: 3 }); // 知道 = 矢 + 口 · 辶 + 首
   await page.keyboard.press("Space");
   await page.waitForTimeout(700);
+  for (const text of ["矢", "shǐ", "口", "kǒu", "首", "shǒu"]) await expect(section.getByText(text, { exact: true })).toBeVisible();
+  await expect(section.getByText("boca")).toHaveCount(0);
+  await expect(section.getByText(/sonido/)).toHaveCount(0);
+  await page.screenshot({ path: `tests/screens/${testInfo.project.name}/composicion.png` });
 
-  const part = page.getByRole("button", { name: /^口: / });
-  // Dentro de un botón el rol tooltip no se expone: se busca el elemento.
-  const tip = part.locator("[role=tooltip]");
-  const opacity = () => tip.evaluate((el) => getComputedStyle(el).opacity);
-  expect(await opacity()).toBe("0");
-  if (phone) await part.tap();
-  else await part.hover();
-  await expect.poll(opacity).toBe("1");
-  await expect(tip).toHaveText("boca");
-  await page.screenshot({ path: `tests/screens/${testInfo.project.name}/composicion-detalle.png` });
+  // 觉得: 得 = 彳 + ⿱旦寸 en los datos; se aplana en 彳 + 旦 + 寸.
+  await page.keyboard.press("Space");
+  await page.getByRole("combobox").selectOption({ index: 6 });
+  await page.keyboard.press("Space");
+  await page.waitForTimeout(700);
+  for (const text of ["彳", "旦", "寸"]) await expect(section.getByText(text, { exact: true })).toBeVisible();
+  await expect(section.getByText(/⿱/)).toHaveCount(0);
 });
