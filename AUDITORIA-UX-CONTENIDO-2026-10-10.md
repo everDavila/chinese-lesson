@@ -205,3 +205,5 @@ horizontal) con capturas en `tests/screens/recorridos/5-clase-celular-*.png`.
 fija con hanzi, pinyin y significado; el inglés de apoyo se pliega en celular
 (sigue en pantalla grande). **P2.2 hecho:** desde 1280 px, "Cómo se forma" y
 las frases van en dos columnas. Comprobado en `tests/visual/card.spec.ts`.
+**P2.1 hecho:** el inicio explica la dinámica en una línea y el botón
+"Presentar la lección" va antes de la lista de palabras.

@@ -14,7 +14,8 @@
     "startClass": "Empezar clase",
     "teacherAccess": "Acceso docente",
     "presentDemo": "Presentar la lección",
-    "shortcuts": "Atajos en la presentación: ← → palabra · Espacio girar · P pausa · R repetir · Y pinyin · T traducciones · 1–4 valorar · F pantalla completa"
+    "shortcuts": "Atajos en la presentación: ← → palabra · Espacio girar · P pausa · R repetir · Y pinyin · T traducciones · 1–4 valorar · F pantalla completa",
+    "demoIntro": "Cada palabra se enseña en contexto: primero el carácter y sus trazos; al girar la tarjeta, cómo se forma, frases reales y cuándo se usa. La profesora presenta, la clase lo comenta y valoran juntos cuánto se entendió."
   },
   "Login": {
     "title": "Acceso docente",

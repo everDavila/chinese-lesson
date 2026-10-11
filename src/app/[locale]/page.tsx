@@ -42,6 +42,16 @@ async function Guest() {
           </Link>
         </div>
       </header>
+      {/* Antes de la lista, qué es y el botón para probarlo (auditoría UX, P2). */}
+      <section className="flex flex-col items-start gap-4">
+        <p className="max-w-2xl text-lg">{t("demoIntro")}</p>
+        <Link
+          href="/present"
+          className="rounded-lg bg-primary px-5 py-3 text-primary-foreground hover:bg-primary/85"
+        >
+          {t("presentDemo")}
+        </Link>
+      </section>
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-5">
         {lesson.items.map((it) => (
           <li key={it.word.hanzi} className="rounded-lg border border-border bg-card p-3 text-center">
@@ -51,12 +61,6 @@ async function Guest() {
           </li>
         ))}
       </ul>
-      <Link
-        href="/present"
-        className="self-start rounded-lg bg-primary px-5 py-3 text-primary-foreground hover:bg-primary/85"
-      >
-        {t("presentDemo")}
-      </Link>
       <p className="text-sm text-muted-foreground">{t("shortcuts")}</p>
     </main>
   );

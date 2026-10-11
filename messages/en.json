@@ -14,7 +14,8 @@
     "startClass": "Start class",
     "teacherAccess": "Teacher sign-in",
     "presentDemo": "Present the lesson",
-    "shortcuts": "Presentation shortcuts: ← → word · Space flip · P pause · R replay · Y pinyin · T translations · 1–4 rate · F fullscreen"
+    "shortcuts": "Presentation shortcuts: ← → word · Space flip · P pause · R replay · Y pinyin · T translations · 1–4 rate · F fullscreen",
+    "demoIntro": "Each word is taught in context: first the character and its strokes; flip the card to see how it's built, real sentences and when it's used. The teacher presents, the class discusses it, and together they rate how well it was understood."
   },
   "Login": {
     "title": "Teacher sign-in",
