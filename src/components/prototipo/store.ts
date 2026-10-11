@@ -251,11 +251,11 @@ export const prototype = {
 const toneless = (s: string) =>
   s.normalize("NFD").replace(/\p{Diacritic}/gu, "").replace(/\s+/g, "").toLowerCase();
 
-export function searchWords(words: ProtoWord[], query: string, hsk: number | null): ProtoWord[] {
+export function searchWords(words: ProtoWord[], query: string, hsk: number[]): ProtoWord[] {
   const q = query.trim();
   const plain = toneless(q);
   return words.filter((w) => {
-    if (hsk && w.hsk !== hsk) return false;
+    if (hsk.length && !hsk.includes(w.hsk)) return false;
     if (!q) return true;
     return (
       w.hanzi.includes(q) ||

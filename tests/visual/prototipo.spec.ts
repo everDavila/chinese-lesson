@@ -51,7 +51,9 @@ test("admin: base común, editar palabra y plantillas", async ({ page }, info) =
 
   await page.goto("/es/prototipo/admin");
   await expect(page.getByRole("heading", { name: "Base común" })).toBeVisible();
-  await page.getByRole("button", { name: "HSK 1" }).click();
+  await page.getByRole("button", { name: /Nivel/ }).click();
+  await page.getByRole("menuitemcheckbox", { name: /HSK 1/ }).click();
+  await page.keyboard.press("Escape");
   await shot("10-admin-base");
 
   // Editar una palabra del catálogo sin contenido: el control de nivel avisa.

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, Pencil, Plus, Presentation, Trash2 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { MultiSelect } from "@/components/ui/multi-select";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { collectionsBase, homeCrumb, type Mode } from "./collections";
@@ -234,7 +235,7 @@ export function LessonEditor({ mode, collectionId, lessonId }: { mode: Mode; col
 
 function SearchPanel({ words, inLesson, onAdd }: { words: ProtoWord[]; inLesson: Set<string>; onAdd: (h: string) => void }) {
   const [q, setQ] = useState("");
-  const [hsk, setHsk] = useState<number | null>(null);
+  const [hsk, setHsk] = useState<number[]>([]);
   const results = useMemo(() => searchWords(words, q, hsk).slice(0, 40), [words, q, hsk]);
   return (
     <div className="flex flex-col gap-3">
@@ -245,21 +246,13 @@ function SearchPanel({ words, inLesson, onAdd }: { words: ProtoWord[]; inLesson:
         aria-label="Buscar palabra"
         className="h-9 rounded-lg border border-input bg-background px-3"
       />
-      <div className="flex gap-1" role="group" aria-label="Nivel HSK">
-        {[null, 1, 2, 3].map((n) => (
-          <button
-            key={n ?? "todas"}
-            onClick={() => setHsk(n)}
-            aria-pressed={hsk === n}
-            className={cn(
-              "rounded-md border border-border px-2.5 py-1 text-xs",
-              hsk === n ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted",
-            )}
-          >
-            {n ? `HSK ${n}` : "Todas"}
-          </button>
-        ))}
-      </div>
+      <MultiSelect
+        label="Nivel"
+        selected={hsk}
+        onChange={setHsk}
+        className="self-start"
+        options={[1, 2, 3].map((n) => ({ value: n, label: `HSK ${n}`, count: words.filter((w) => w.hsk === n).length }))}
+      />
       <ul className="flex max-h-[28rem] flex-col gap-1 overflow-y-auto">
         {results.map((w) => (
           <li key={w.hanzi} className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-muted">

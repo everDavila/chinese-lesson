@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { CircleCheck, CircleDashed, Eye, Pencil, Plus, RotateCcw, Save, Trash2 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { MultiSelect } from "@/components/ui/multi-select";
 import { Link } from "@/i18n/navigation";
 import type { Sense, Sentence } from "@/lib/lesson-types";
 import { makeLevelChecker, type Levels } from "@/lib/level-check";
@@ -19,11 +20,11 @@ const ADMIN_CRUMBS = [
 export function AdminWordsScreen() {
   const state = usePrototype();
   const [q, setQ] = useState("");
-  const [hsk, setHsk] = useState<number | null>(null);
-  const [status, setStatus] = useState<WordStatus | null>(null);
+  const [hsk, setHsk] = useState<number[]>([]);
+  const [status, setStatus] = useState<WordStatus[]>([]);
   const all = prototype.allWords(state);
   const filtered = useMemo(
-    () => searchWords(all, q, hsk).filter((w) => !status || w.status === status),
+    () => searchWords(all, q, hsk).filter((w) => !status.length || status.includes(w.status)),
     [all, q, hsk, status],
   );
   const count = (s: WordStatus) => all.filter((w) => w.status === s).length;
@@ -50,13 +51,23 @@ export function AdminWordsScreen() {
           aria-label="Buscar en la base"
           className="h-9 min-w-56 flex-1 rounded-lg border border-input bg-background px-3"
         />
-        <Filter value={hsk} onChange={setHsk} options={[null, 1, 2, 3]} label={(n) => (n ? `HSK ${n}` : "Todo HSK")} />
-        <Filter
-          value={status}
-          onChange={setStatus}
-          options={[null, "curada", "borrador", "sin contenido"] as (WordStatus | null)[]}
-          label={(s) => s ?? "Todo estado"}
+        <MultiSelect
+          label="Nivel"
+          selected={hsk}
+          onChange={setHsk}
+          options={[1, 2, 3].map((n) => ({ value: n, label: `HSK ${n}`, count: all.filter((w) => w.hsk === n).length }))}
         />
+        <MultiSelect
+          label="Estado"
+          selected={status}
+          onChange={setStatus}
+          options={(["curada", "borrador", "sin contenido"] as WordStatus[]).map((s) => ({ value: s, label: s, count: count(s) }))}
+        />
+        {(q || hsk.length > 0 || status.length > 0) && (
+          <Button variant="ghost" onClick={() => (setQ(""), setHsk([]), setStatus([]))}>
+            Limpiar
+          </Button>
+        )}
       </div>
       <div className="overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm">
@@ -158,26 +169,6 @@ function RowActions({ word, edited }: { word: ProtoWord; edited: boolean }) {
       >
         <RotateCcw className="size-4" />
       </button>
-    </div>
-  );
-}
-
-function Filter<T>({ value, onChange, options, label }: { value: T; onChange: (v: T) => void; options: T[]; label: (v: T) => string }) {
-  return (
-    <div className="flex gap-1" role="group">
-      {options.map((o) => (
-        <button
-          key={String(o)}
-          onClick={() => onChange(o)}
-          aria-pressed={value === o}
-          className={cn(
-            "rounded-md border border-border px-2.5 py-1 text-xs whitespace-nowrap",
-            value === o ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted",
-          )}
-        >
-          {label(o)}
-        </button>
-      ))}
     </div>
   );
 }
