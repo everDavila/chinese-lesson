@@ -63,11 +63,14 @@ export function AdminWordsScreen() {
           onChange={setStatus}
           options={(["curada", "borrador", "sin contenido"] as WordStatus[]).map((s) => ({ value: s, label: s, count: count(s) }))}
         />
-        {(q || hsk.length > 0 || status.length > 0) && (
-          <Button variant="ghost" onClick={() => (setQ(""), setHsk([]), setStatus([]))}>
-            Limpiar
-          </Button>
-        )}
+        {/* Siempre presente (deshabilitado si no hay filtros) para que la fila no salte. */}
+        <Button
+          variant="ghost"
+          disabled={!q && !hsk.length && !status.length}
+          onClick={() => (setQ(""), setHsk([]), setStatus([]))}
+        >
+          Limpiar
+        </Button>
       </div>
       <div className="overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm">
