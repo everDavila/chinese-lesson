@@ -38,6 +38,15 @@ const LABELS = {
     groupSource: "valoración docente",
     ratings: ["No la sé", "Me costó", "Bien", "Fácil"],
     verdicts: { reinforce: "Requiere refuerzo", review: "Necesita repaso", mastered: "Dominio aparente" },
+    votingTitle: "Votación de los alumnos",
+    votingOpen: "Abrir votación",
+    votingClose: "Cerrar votación",
+    votingHint: "Cada alumno vota desde su celular, sin cuenta.",
+    votingJoin: "Entren en",
+    votingCode: "código",
+    votingNoData: "Pocos votos todavía",
+    votingCombined: "Con tu valoración",
+    votesCount: (n: number) => (n === 1 ? "1 voto" : `${n} votos`),
   },
   en: {
     categories: {
@@ -72,6 +81,15 @@ const LABELS = {
     groupSource: "teacher's rating",
     ratings: ["Don't know it", "Struggled", "Good", "Easy"],
     verdicts: { reinforce: "Needs reinforcement", review: "Needs review", mastered: "Apparent mastery" },
+    votingTitle: "Student vote",
+    votingOpen: "Open voting",
+    votingClose: "Close voting",
+    votingHint: "Each student votes from their phone, no account needed.",
+    votingJoin: "Go to",
+    votingCode: "code",
+    votingNoData: "Not enough votes yet",
+    votingCombined: "With your rating",
+    votesCount: (n: number) => (n === 1 ? "1 vote" : `${n} votes`),
   },
 };
 

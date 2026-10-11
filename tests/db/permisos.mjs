@@ -21,6 +21,7 @@ const run = async (label, sql) => {
 
 await run("simulación de Supabase", `
   create role authenticated;
+  create role anon;
   create schema auth;
   create table auth.users (id uuid primary key, email text, raw_user_meta_data jsonb);
   create function auth.uid() returns uuid language sql stable as
@@ -164,3 +165,48 @@ await expectOk("admin rechaza con nota", A,
 await expectOk("la rechazada sigue siendo de la docente y puede reenviarla", T1,
   `update teacher_examples set zh = '测试词是好的。', status = 'submitted' where id = '${ej2Id}' returning status`);
 await expectFail("docente NO borra frases de la base común", T1, `delete from sentences where sense_id = '${S}' returning id`);
+
+console.log("\n— Votación anónima (20261012010000) —");
+// Un alumno sin cuenta: rol anon, sin auth.uid().
+async function asAnon(sql) {
+  await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`);
+  try {
+    return await db.query(sql);
+  } finally {
+    await db.exec(`reset role;`);
+  }
+}
+const VOTER = "a".repeat(64);
+const vLesson = (await as(T1, `insert into lessons (teacher_id, title) values ('${T1}', 'Votos') returning id`)).rows[0].id;
+const vSes = (await as(T1, `insert into class_sessions (lesson_id, teacher_id, join_code) values ('${vLesson}', '${T1}', 'VXTE22') returning id`)).rows[0].id;
+const estado = async (code) => (await asAnon(`select student_vote_state('${code}') as s`)).rows[0].s;
+console.log(`✓ código inexistente → ${JSON.stringify(await estado("ZZZZZZ"))}`);
+console.log(`✓ clase sin votación abierta → ${JSON.stringify(await estado("vxte22"))}`);
+const ev = (await as(T1, `insert into evaluations (session_id, sense_id) values ('${vSes}', '${S}') returning id`)).rows[0].id;
+const abierto = await estado("VXTE22");
+if (abierto.status !== "open" || abierto.hanzi !== "测试词" || "meaning_es" in abierto) { console.log("✗ estado abierto incorrecto", abierto); process.exitCode = 1; }
+else console.log(`✓ votación abierta muestra hanzi y pinyin, sin significado → ${JSON.stringify(abierto)}`);
+
+const vota = async (rating, voter = VOTER, code = "VXTE22", evId = ev) =>
+  (await asAnon(`select cast_student_vote('${code}', '${evId}', '${voter}', ${rating}::smallint) as ok`)).rows[0].ok;
+if (await vota(3)) console.log("✓ alumno anónimo vota"); else { console.log("✗ no pudo votar"); process.exitCode = 1; }
+await vota(1);
+const cuenta = (await as(T1, `select count(*)::int as n, max(rating) as r from votes where evaluation_id = '${ev}'`)).rows[0];
+if (cuenta.n === 1 && cuenta.r === 1) console.log("✓ votar otra vez cambia el voto, no lo suma"); else { console.log("✗ voto duplicado", cuenta); process.exitCode = 1; }
+for (const [label, ok] of [
+  ["rating fuera de 1–4", await vota(7)],
+  ["hash de votante inválido", await vota(2, "x")],
+  ["código de otra clase", await vota(2, VOTER, "ZZZZZZ")],
+]) {
+  if (ok) { console.log(`✗ ${label}: aceptado`); process.exitCode = 1; } else console.log(`✓ ${label}: rechazado`);
+}
+await expectFail("anon NO lee los votos", "", `select * from votes`);
+await (async () => {
+  try { await asAnon(`insert into votes (evaluation_id, voter_hash, rating) values ('${ev}', '${"b".repeat(64)}', 4)`); console.log("✗ anon insertó en votes"); process.exitCode = 1; }
+  catch { console.log("✓ anon NO escribe en votes directamente"); }
+})();
+await as(T1, `update evaluations set status = 'closed', closed_at = now() where id = '${ev}'`);
+if (await vota(4, "c".repeat(64))) { console.log("✗ votó con la votación cerrada"); process.exitCode = 1; } else console.log("✓ votación cerrada: no acepta votos");
+await as(T1, `update class_sessions set status = 'ended' where id = '${vSes}'`);
+console.log(`✓ clase terminada → ${JSON.stringify(await estado("VXTE22"))}`);
+await expectOk("la docente ve el voto en los resultados", T1, `select votes_total, votes_1 from session_results where session_id = '${vSes}'`);

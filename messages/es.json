@@ -147,5 +147,24 @@
     "levelOver": "Por encima de HSK {level}: {pieces}",
     "outsideList": "fuera de lista",
     "staleFields": "Cambiaste el chino, pero esto sigue como antes: {fields}. Revisa que coincida con la frase nueva."
+  },
+  "Vote": {
+    "title": "Votar",
+    "enterCode": "Escribe el código que te da tu profesora.",
+    "codeLabel": "Código de la clase",
+    "go": "Entrar",
+    "invalid": "Ese código no existe o la clase ya terminó.",
+    "tryAnother": "Probar otro código",
+    "waiting": "Esperando a que la profesora abra una palabra…",
+    "question": "¿Qué tal entiendes esta palabra?",
+    "ratings": [
+      "No la sé",
+      "Me costó",
+      "Bien",
+      "Fácil"
+    ],
+    "saved": "Voto registrado. Puedes cambiarlo mientras siga abierta.",
+    "error": "No se pudo enviar. Revisa la conexión e inténtalo otra vez.",
+    "anonymous": "Votas sin cuenta: nadie ve quién votó qué."
   }
 }
