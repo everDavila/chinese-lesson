@@ -250,3 +250,9 @@ como clasificador de miembros de la familia.
    un **código grande**; el alumno entra a la URL, escribe el código y ve
    en su móvil **el hanzi actual y los 4 botones**, que cambian solos
    cuando la profesora pasa de palabra. QR opcional.
+
+## Pendiente de mejorar
+- **Paleta dorada del modo oscuro** (rama `estetica/dark-dorado`): fondo
+  negro cálido, texto crema, botones y bordes dorados; los hanzi conservan
+  sus colores (token propio `--hanzi-ink`). En prueba: Ever quiere revisarla
+  y mejorarla antes de decidir si entra.

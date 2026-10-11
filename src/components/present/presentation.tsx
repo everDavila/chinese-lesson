@@ -11,6 +11,7 @@ import {
   Play,
   RotateCcw,
   Sun,
+  Undo2,
   Type,
   X,
 } from "lucide-react";
@@ -169,21 +170,25 @@ export function Presentation({
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
       <main className="relative flex min-h-0 flex-1 items-center justify-center px-[3vw] pt-[3vh] pb-2">
-        {/* Una tarjeta con dos caras: clic en cualquier zona libre la gira.
-            Las dos caras siguen montadas para no perder la animación ni lo revelado. */}
+        {/* Una tarjeta con dos caras. En el anverso, clic en cualquier zona la
+            gira (no hay nada más que tocar). En el reverso hay mucho que
+            explorar, así que un clic suelto no la gira: se vuelve con el botón
+            de la esquina o con Espacio. Las dos caras siguen montadas para no
+            perder la animación ni lo revelado. */}
         <div className="h-full w-full max-w-[min(1400px,160vh)] perspective-[2400px]">
           <div
-            role="button"
-            tabIndex={-1}
-            aria-label={side === "front" ? t("flip") : t("flipBack")}
+            role={side === "front" ? "button" : undefined}
+            tabIndex={side === "front" ? -1 : undefined}
+            aria-label={side === "front" ? t("flip") : undefined}
             onClick={(e) => {
+              if (side !== "front") return;
               const target = e.target as HTMLElement;
               if (target.closest("button, a, select, input, label, summary, [data-no-flip]")) return;
               flip();
             }}
             className={cn(
-              "relative h-full w-full cursor-pointer transition-transform duration-500 ease-out transform-3d motion-reduce:transition-none",
-              side === "back" && "rotate-y-180",
+              "relative h-full w-full transition-transform duration-500 ease-out transform-3d motion-reduce:transition-none",
+              side === "front" ? "cursor-pointer" : "rotate-y-180",
             )}
           >
             <section
@@ -203,6 +208,14 @@ export function Presentation({
               aria-hidden={side !== "back"}
               className="absolute inset-0 overflow-hidden rounded-3xl border border-border bg-card p-[clamp(1rem,2.5vw,2.5rem)] shadow-xl backface-hidden rotate-y-180"
             >
+              <Button
+                variant="outline"
+                onClick={flip}
+                aria-label={t("flipBack")}
+                className="absolute top-3 right-3 z-10 shadow-sm"
+              >
+                <Undo2 /> {t("front")}
+              </Button>
               <CardBack
                 key={itemKey}
                 item={item}
