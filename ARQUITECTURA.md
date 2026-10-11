@@ -260,6 +260,16 @@ Funciones (security definer, con RLS por dentro):
    **añadir una propia** o **sugerir una corrección**.
 5. Ordenar las palabras y **empezar clase** (lo que ya existe).
 
+### Nivel de las frases en colecciones de libro
+
+Los libros no siguen el orden HSK: Básico 1 (Nuevo libro de chino práctico)
+mete 奶奶 (HSK 3) en la lección 3 y 记者, 语言 (HSK 4) en la 4, y 10 de sus 58
+palabras ni están en las listas HSK (他们, 外语, 请问…). Por eso, en una
+colección de libro, la regla de nivel de los ejemplos pasa a ser
+**"solo vocabulario visto hasta esta lección"** (acumulado de la colección)
+en vez de "HSK de la palabra". El validador recibe la lista acumulada.
+Ejemplo con la lección 1 (你 好 吗 我 很 呢 也): 你好吗？我很好。你呢？我也很好。
+
 ### Administración
 
 - Editor de plantillas (mismas pantallas que la docente, sobre colecciones
