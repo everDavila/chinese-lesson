@@ -56,6 +56,8 @@ export type CharacterCard = {
 
 // Un elemento de la lección: una palabra con el sentido que se enseña hoy.
 export type LessonItem = {
+  /** Id del sentido en Supabase; ausente en la lección de demo local. */
+  senseId?: string;
   word: Word;
   senseIndex: number;
   characters: CharacterCard[];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { startTransition, useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -23,8 +23,15 @@ import { CardBack } from "./card-back";
 import { CardFront } from "./card-front";
 import { GroupRating, type Rating } from "./group-rating";
 import { ratingsStore } from "./ratings-store";
+import { endSessionAction, rateSenseAction } from "@/app/(present)/actions";
 
-export function Presentation({ lesson }: { lesson: Lesson }) {
+type LiveSession = { id: string; joinCode: string; ratings: Record<string, Rating> };
+
+/**
+ * Sin `session`: lección de demo, valoraciones en el navegador.
+ * Con `session`: clase en vivo, valoraciones guardadas en Supabase.
+ */
+export function Presentation({ lesson, session }: { lesson: Lesson; session?: LiveSession }) {
   const [index, setIndex] = useState(0);
   const [side, setSide] = useState<"front" | "back">("front");
   const [playing, setPlaying] = useState(true);
@@ -35,17 +42,42 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
   const { resolvedTheme, setTheme } = useTheme();
 
   const item = lesson.items[index];
-  const itemKey = `${item.word.hanzi}#${item.senseIndex}`;
+  const itemKey = item.senseId ?? `${item.word.hanzi}#${item.senseIndex}`;
   const count = lesson.items.length;
 
-  const ratings = useSyncExternalStore(
+  const localRatings = useSyncExternalStore(
     ratingsStore.subscribe,
     ratingsStore.getSnapshot,
     ratingsStore.getServerSnapshot,
   );
+  const [sessionRatings, setSessionRatings] = useState<Record<string, Rating>>(session?.ratings ?? {});
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const ratings = session ? sessionRatings : localRatings;
+
   const setRating = useCallback(
-    (rating: Rating | undefined) => ratingsStore.set(itemKey, rating),
-    [itemKey],
+    (rating: Rating | undefined) => {
+      if (!session || !item.senseId) {
+        ratingsStore.set(itemKey, rating);
+        return;
+      }
+      // Optimista: se marca al instante y se guarda en segundo plano.
+      const senseId = item.senseId;
+      setSessionRatings((prev) => {
+        const next = { ...prev };
+        if (rating) next[senseId] = rating;
+        else delete next[senseId];
+        return next;
+      });
+      setSaveError(null);
+      startTransition(async () => {
+        try {
+          await rateSenseAction(session.id, senseId, rating ?? null);
+        } catch {
+          setSaveError("No se pudo guardar la valoración. Revisa la conexión.");
+        }
+      });
+    },
+    [session, item.senseId, itemKey],
   );
 
   const goTo = useCallback(
@@ -170,6 +202,11 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
         </div>
       </main>
 
+      {saveError && (
+        <p role="alert" className="px-[3vw] text-center text-sm text-destructive">
+          {saveError}
+        </p>
+      )}
       {/* Controles al estilo Quizlet: ← n / total → al centro, siempre visibles. */}
       <nav
         aria-label="Controles de la presentación"
@@ -270,9 +307,17 @@ export function Presentation({ lesson }: { lesson: Lesson }) {
           <Button variant="ghost" size="icon-lg" aria-label="Pantalla completa (F)" onClick={toggleFullscreen}>
             <Expand />
           </Button>
-          <Link href="/" aria-label="Salir" className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted">
-            <X className="size-4" />
-          </Link>
+          {session ? (
+            <form action={endSessionAction.bind(null, session.id)}>
+              <Button type="submit" variant="ghost" aria-label="Terminar la clase">
+                <X /> Terminar clase
+              </Button>
+            </form>
+          ) : (
+            <Link href="/" aria-label="Salir" className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted">
+              <X className="size-4" />
+            </Link>
+          )}
         </div>
       </nav>
     </div>
