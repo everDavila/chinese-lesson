@@ -99,6 +99,17 @@ una vez** a la base propia con un script y desde ahí se curan:
   (semántico / fonético), pista etimológica (de Make Me a Hanzi).
 - Los trazos de Hanzi Writer se sirven como JSON autoalojado.
 
+## 3.2.1 Formas antiguas de los caracteres (futuro)
+
+- Campo por carácter: `ancient_forms` (oracular, bronce, sello), cada una
+  con SVG, fuente y licencia. Solo para caracteres con etimología
+  pictográfica o ideográfica.
+- Los SVG se guardan en Storage o en `public/` y se pintan con los tokens de
+  la app (tinta, dorado), dentro del marco de la retícula, para que encajen
+  con la estética sin alterar el glifo.
+- Se curan poco a poco, como las frases y el audio; si la etimología es
+  discutida, se dice.
+
 ## 3.3 Uso de la IA
 
 La IA solo **arranca** la biblioteca: genera frases, español y notas

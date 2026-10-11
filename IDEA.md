@@ -147,6 +147,20 @@ profesora podría añadir frases sin cambiar de herramienta.
     enseña en cada lección. Lo ya visto aparece como repaso; lo que aún no
     se ha visto queda oculto. El semáforo se mide por sentido.
 
+11. **Imágenes en el reverso (decidido 2026-10-10):**
+    - **No a las fotos que ilustran el significado** (el apretón de manos de
+      Quizlet): fijan un solo sentido, compiten con la frase y son caras de
+      curar.
+    - **Sí a la evolución del carácter** (huesos oraculares → bronce → sello →
+      moderno), solo en caracteres pictográficos o ideográficos (los marca
+      Make Me a Hanzi) y en "Cómo se forma", nunca en el anverso. Ejemplo
+      estrella: 家 oracular es literalmente un cerdo bajo un techo.
+    - Glifos **auténticos** (SVG con fuente y licencia, p. ej. Wikimedia
+      Commons) reestilizados con la paleta de la app; **no** generados con IA,
+      porque inventarían etimologías falsas. Una ilustración de la idea hecha
+      con IA puede ir aparte, rotulada como ilustración, en la nota cultural.
+    - Próximo paso: prototipo con 家 en una rama `pictogramas`.
+
 ### Para la profesora (feedback)
 6. **Panel de resultados** con semáforo por palabra (verde: ya la saben · amarillo: repasar · rojo: reforzar mucho), por grupo y por alumno. Muestra qué palabras le cuestan más al grupo y a cada
    alumno, para centrar la próxima clase en reforzarlas.
