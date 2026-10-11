@@ -145,6 +145,7 @@
     "levelEmpty": "Escribe la frase en chino para comprobar su nivel.",
     "levelOk": "Nivel correcto (≤ HSK {level}).",
     "levelOver": "Por encima de HSK {level}: {pieces}",
-    "outsideList": "fuera de lista"
+    "outsideList": "fuera de lista",
+    "staleFields": "Cambiaste el chino, pero esto sigue como antes: {fields}. Revisa que coincida con la frase nueva."
   }
 }

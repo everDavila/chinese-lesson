@@ -145,6 +145,7 @@
     "levelEmpty": "输入中文例句即可检查难度。",
     "levelOk": "难度合适（≤ HSK {level}）。",
     "levelOver": "超出 HSK {level}：{pieces}",
-    "outsideList": "不在词表中"
+    "outsideList": "不在词表中",
+    "staleFields": "你改了中文，但以下内容还没改：{fields}。请确认它们和新句子一致。"
   }
 }

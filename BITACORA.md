@@ -150,3 +150,12 @@ localStorage) se sustituye por pantallas sobre Supabase y se borra.
 copiar plantilla, editar palabra, sugerir y aceptar frases, presentar). No
 tengo las claves y no inicio sesión por Ever: lo prueba él con sus dos
 cuentas. Tampoco el diseño de las pantallas nuevas en el celular.
+
+**Después, el mismo día:** Ever guardó las sesiones (`npm run test:sesion`) y
+`npm run test:recorridos` probó todo con login real, también en celular.
+Destapó un error que venía de antes: con sesión, Supabase usa `Date.now()` y
+Cache Components lo rechazaba al prerenderizar (arreglado con `connection()`
+en `createClient`). También se arreglaron 47 glosas cortadas a media palabra
+(migración `20261011030000`, regla en `scripts/lib/gloss.mjs`) y la pantalla
+de frases avisa si se cambia el chino y el pinyin o la traducción siguen
+como estaban.

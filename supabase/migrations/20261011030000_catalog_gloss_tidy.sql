@@ -1,0 +1,56 @@
+-- Generado por scripts/build-gloss-tidy.mjs; no editar a mano.
+-- Glosas del catálogo HSK 3.0 que quedaron cortadas a 90 caracteres a media
+-- palabra. Solo cambia las que siguen exactamente como se importaron.
+
+update senses s
+set meaning_en = g.tidy
+from (values
+  ('to love; to be fond of; to like; affection; to be inclined (to do sth); to tend to (happen', 'to love; to be fond of; to like; affection; to be inclined (to do sth)'),
+  ('of; ~''s (possessive particle); (used after an attribute); (used to form a nominal expressi', 'of; ~''s (possessive particle); (used after an attribute)'),
+  ('(prefix indicating ordinal number, as in 六 "sixth"); (literary) grades in which successful', '(prefix indicating ordinal number, as in 六 "sixth")'),
+  ('(joining two nouns) and; together with; with (Taiwan pr. [hàn]); (math.) sum; to make peac', '(joining two nouns) and; together with; with (Taiwan pr. [hàn]); (math.) sum'),
+  ('can; to have the skill; to know how to; to be likely to; to be sure to; to meet; to get to', 'can; to have the skill; to know how to; to be likely to; to be sure to; to meet'),
+  ('to open (transitive or intransitive); (of ships, vehicles, troops etc) to start; to turn o', 'to open (transitive or intransitive); (of ships, vehicles, troops etc) to start'),
+  ('mouth; classifier for things with mouths (people, domestic animals, cannons, wells etc); c', 'mouth; classifier for things with mouths (people, domestic animals, cannons, wells etc)'),
+  ('classifier for pieces of cloth, cake, soap etc; (coll.) classifier for money and currency ', 'classifier for pieces of cloth, cake, soap etc'),
+  ('to come; (used as a substitute for a more specific verb); hither (directional complement f', 'to come; (used as a substitute for a more specific verb)'),
+  ('(completed action marker); (modal particle indicating change of state, situation now); (mo', '(completed action marker); (modal particle indicating change of state, situation now)'),
+  ('where?; wherever; anywhere; somewhere; (used in rhetorical questions) how can ...?; how co', 'where?; wherever; anywhere; somewhere; (used in rhetorical questions) how can ...?'),
+  ('(specifier) that; the; those (colloquial pr. [nèi]); (pronoun) that (referring to persons,', '(specifier) that; the; those (colloquial pr. [nèi])'),
+  ('particle indicating that a previously asked question is to be applied to the preceding wor', 'particle indicating that a previously asked question is to be applied to the preceding…'),
+  ('(bound form) up; upper; above; previous; first (of multiple parts); to climb; to get onto;', '(bound form) up; upper; above; previous; first (of multiple parts); to climb'),
+  ('to be (followed by substantives only); correct; right; true; (respectful acknowledgement o', 'to be (followed by substantives only); correct; right; true'),
+  ('he; him (used for either sex when the sex is unknown or unimportant); (used before sb''s na', 'he; him (used for either sex when the sex is unknown or unimportant)'),
+  ('(adverb) also; both ... and ... (before predicates only); (literary) particle having funct', '(adverb) also; both ... and ... (before predicates only)'),
+  ('erhua variant of 一点; a bit; a little bit; (used in negative expressions) (not) the least b', 'erhua variant of 一点; a bit; a little bit'),
+  ('to exist; to be alive; (of sb or sth) to be (located) at; (used before a verb to indicate ', 'to exist; to be alive; (of sb or sth) to be (located) at'),
+  ('(pronoun) this; these; (bound form) this; the (followed by a noun); (bound form) this; the', '(pronoun) this; these; (bound form) this; the (followed by a noun); (bound form) this'),
+  ('classifier for birds and certain animals, one of a pair, some utensils, vessels etc; grain', 'classifier for birds and certain animals, one of a pair, some utensils, vessels etc'),
+  ('to leave; to part (from); (literary) to differentiate; to distinguish; (bound form) other;', 'to leave; to part (from); (literary) to differentiate; to distinguish'),
+  ('structural particle: used after a verb (or adjective as main verb), linking it to followin', 'structural particle: used after a verb (or adjective as main verb), linking it to…'),
+  ('-ly; structural particle: used before a verb or adjective, linking it to preceding modifyi', '-ly'),
+  ('airport; airfield; (slang) service provider for Shadowsocks or similar software for circum', 'airport; airfield'),
+  ('(after a suppositional clause) in that case; then; (after a clause of action) as soon as; ', '(after a suppositional clause) in that case; then; (after a clause of action) as soon as'),
+  ('green tea; (slang) (of a girl) seemingly innocent and charming but actually calculating an', 'green tea'),
+  ('(informal) grandma (paternal grandmother); (respectful) mistress of the house; (coll.) boo', '(informal) grandma (paternal grandmother); (respectful) mistress of the house'),
+  ('bird; "bird" radical in Chinese characters (Kangxi radical 196); (dialect) to pay attentio', 'bird; "bird" radical in Chinese characters (Kangxi radical 196)'),
+  ('(after a verb) indicating the beginning and continuation of an action or a state; indicati', '(after a verb) indicating the beginning and continuation of an action or a state'),
+  ('to go online; to connect to the Internet; (of a document etc) to be uploaded to the Intern', 'to go online; to connect to the Internet'),
+  ('to come down; (completed action marker); (after verb of motion, indicates motion down and ', 'to come down; (completed action marker)'),
+  ('medicine; drug; substance used for a specific purpose (e.g. poisoning, explosion, fermenti', 'medicine; drug'),
+  ('to take down (in writing); notes; a type of literature consisting mainly of short sketches', 'to take down (in writing); notes'),
+  ('mountain pass; to close; to shut; to turn off; to confine; to lock (sb) up; to shut (sb in', 'mountain pass; to close; to shut; to turn off; to confine; to lock (sb) up'),
+  ('the day after tomorrow; life after birth (the period in which one develops through experie', 'the day after tomorrow'),
+  ('to add; plus; (used after an adverb such as 不, 大, 稍 etc, and before a disyllabic verb, to ', 'to add; plus'),
+  ('classifier for segments: lessons, train wagons, biblical verses etc; joint; node; (bound f', 'classifier for segments: lessons, train wagons, biblical verses etc; joint; node'),
+  ('to solve; to resolve; to settle (a problem); to eliminate; to wipe out (an enemy, bandits ', 'to solve; to resolve; to settle (a problem); to eliminate'),
+  ('prefix used before the surname of a person or a numeral indicating the order of birth of t', 'prefix used before the surname of a person or a numeral indicating the order of birth of…'),
+  ('to receive (praise, an education, punishment etc); to be ...ed (praised, educated, punishe', 'to receive (praise, an education, punishment etc)'),
+  ('(of a restaurant) to provide a takeout or home delivery meal; takeout (business); takeout ', '(of a restaurant) to provide a takeout or home delivery meal; takeout (business)'),
+  ('to think (i.e. to take it to be true that ...) (Usually there is an implication that the n', 'to think (i.e. to take it to be true that ...)'),
+  ('we or us (including both the speaker and the person(s) spoken to); (dialect) I or me; (dia', 'we or us (including both the speaker and the person(s) spoken to); (dialect) I or me'),
+  ('to worry; to feel anxious; to feel a sense of urgency; to be in a hurry; Taiwan pr. [zhāo ', 'to worry; to feel anxious; to feel a sense of urgency; to be in a hurry'),
+  ('only have ...; there is only ...; (used in combination with 才) it is only if one ... (that', 'only have ...; there is only ...'),
+  ('Chinese character dictionary (containing entries for single characters, contrasted with a ', 'Chinese character dictionary')
+) as g (old, tidy)
+where s.catalog_source_id = 'cti-hsk3-2026' and s.meaning_en = g.old;

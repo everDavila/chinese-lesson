@@ -123,6 +123,8 @@ test.describe("profesora", () => {
     // Copia editada de esa original: en sus clases sale en su lugar.
     await original.getByRole("button", { name: Z.editCopy }).click();
     await page.getByRole("textbox", { name: Z.fieldZh }).fill(COPY);
+    // Cambió el chino y no el pinyin: avisa, pero deja guardar.
+    await expect(page.getByRole("status").filter({ hasText: Z.fieldPinyin })).toBeVisible();
     await page.getByRole("button", { name: Z.save }).click();
     await expect(page.getByText(Z.replacedBy)).toBeVisible();
     await expect(page.getByRole("listitem").filter({ hasText: COPY })).toBeVisible();

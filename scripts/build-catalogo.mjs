@@ -4,6 +4,7 @@
 // otra lectura (吗 ma, no má). Uso:
 //   node scripts/build-catalogo.mjs <ruta/a/complete.min.json>
 import { readFileSync, writeFileSync } from "node:fs";
+import { tidyGloss } from "./lib/gloss.mjs";
 
 const completePath = process.argv[2];
 if (!completePath) {
@@ -40,7 +41,8 @@ function glossFor(hanzi, pinyin, cat) {
     const cl = all.filter((x) => /classifier/i.test(x));
     meanings = [...cl, ...meanings.filter((x) => !cl.includes(x))];
   }
-  return meanings.slice(0, 3).join("; ").slice(0, 90);
+  // Máximo 90 caracteres sin cortar a media palabra ni dejar un "(" abierto.
+  return tidyGloss(meanings.slice(0, 3).join("; "));
 }
 
 // Primera categoría del temario ("名、动" → noun).

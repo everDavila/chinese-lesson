@@ -145,6 +145,7 @@
     "levelEmpty": "Type the sentence in Chinese to check its level.",
     "levelOk": "Level OK (≤ HSK {level}).",
     "levelOver": "Above HSK {level}: {pieces}",
-    "outsideList": "not in list"
+    "outsideList": "not in list",
+    "staleFields": "You changed the Chinese, but these are unchanged: {fields}. Make sure they match the new sentence."
   }
 }

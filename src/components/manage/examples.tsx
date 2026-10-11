@@ -23,7 +23,8 @@ import { Empty, inputCls, ManageShell, meaningFor, useRunner } from "./shell";
 // o escribir las suyas. Las propias son privadas y salen en sus clases; si
 // las sugiere y el admin las acepta, pasan a la base para todos.
 
-type Editing = { id?: string; basedOn: string | null; value: ExampleInput };
+// initial: cómo estaba al abrir el formulario, para avisar de campos sin actualizar.
+type Editing = { id?: string; basedOn: string | null; value: ExampleInput; initial: ExampleInput };
 
 export function ExamplesScreen({
   isAdmin,
@@ -42,6 +43,7 @@ export function ExamplesScreen({
   const { pending, error, setError, run } = useRunner();
   const checker = useLevelChecker();
   const [editing, setEditing] = useState<Editing | null>(null);
+  const open = (e: Omit<Editing, "initial">) => setEditing({ ...e, initial: e.value });
   const translation = (s: { es: string; en: string }) => (locale === "es" ? s.es || s.en : s.en || s.es);
   const copyOf = new Map(data.own.filter((o) => o.basedOn && o.status !== "accepted").map((o) => [o.basedOn!, o]));
   const lessonHref = `/collections/${collection.id}/${lesson.id}`;
@@ -56,6 +58,7 @@ export function ExamplesScreen({
     editing && (editing.id ?? `new:${editing.basedOn ?? ""}`) === key ? (
       <SentenceForm
         value={editing.value}
+        initial={editing.initial}
         hanzi={data.hanzi}
         level={data.hsk}
         checker={checker}
@@ -110,7 +113,7 @@ export function ExamplesScreen({
                       size="sm"
                       disabled={Boolean(copy) || pending}
                       onClick={() =>
-                        setEditing({ basedOn: s.id, value: { zh: s.zh, pinyin: s.pinyin, es: s.es, en: s.en } })
+                        open({ basedOn: s.id, value: { zh: s.zh, pinyin: s.pinyin, es: s.es, en: s.en } })
                       }
                     >
                       <Copy /> {t("editCopy")}
@@ -138,7 +141,7 @@ export function ExamplesScreen({
           <Button
             variant="outline"
             disabled={pending}
-            onClick={() => setEditing({ basedOn: null, value: { zh: "", pinyin: "", es: "", en: "" } })}
+            onClick={() => open({ basedOn: null, value: { zh: "", pinyin: "", es: "", en: "" } })}
           >
             <Plus /> {t("newSentence")}
           </Button>
@@ -154,7 +157,7 @@ export function ExamplesScreen({
                 translation={translation(o)}
                 pending={pending}
                 form={form(o.id)}
-                onEdit={() => setEditing({ id: o.id, basedOn: o.basedOn, value: { zh: o.zh, pinyin: o.pinyin, es: o.es, en: o.en } })}
+                onEdit={() => open({ id: o.id, basedOn: o.basedOn, value: { zh: o.zh, pinyin: o.pinyin, es: o.es, en: o.en } })}
                 onDelete={() => window.confirm(t("confirmDeleteSentence", { zh: o.zh })) && run(() => deleteExampleAction(o.id))}
                 onSuggest={(submit) => {
                   if (submit && !o.pinyin) return setError(t("pinyinNeeded"));
@@ -252,6 +255,7 @@ function OwnRow({
 
 function SentenceForm({
   value,
+  initial,
   hanzi,
   level,
   checker,
@@ -261,6 +265,7 @@ function SentenceForm({
   onSave,
 }: {
   value: ExampleInput;
+  initial: ExampleInput;
   hanzi: string;
   level: number;
   checker: ReturnType<typeof useLevelChecker>;
@@ -270,6 +275,13 @@ function SentenceForm({
   onSave: () => void;
 }) {
   const t = useTranslations("Manage");
+  // Cambió el chino pero el pinyin o la traducción siguen como estaban
+  // (típico al editar una copia): se avisa, sin impedir guardar.
+  const stale =
+    initial.zh.trim() !== "" && value.zh.trim() !== initial.zh.trim()
+      ? (["pinyin", "es", "en"] as const).filter((k) => initial[k].trim() !== "" && value[k].trim() === initial[k].trim())
+      : [];
+  const labels = { pinyin: t("fieldPinyin"), es: t("fieldEs"), en: t("fieldEn") };
   const field = (key: keyof ExampleInput, label: string, extra?: string) => (
     <label className="flex flex-col gap-1 text-sm">
       <span className="text-muted-foreground">{label}</span>
@@ -288,6 +300,11 @@ function SentenceForm({
       {field("pinyin", t("fieldPinyin"))}
       {field("es", t("fieldEs"))}
       {field("en", t("fieldEn"))}
+      {stale.length > 0 && (
+        <p role="status" className="rounded-md bg-rating-2/25 px-2 py-1 text-sm sm:col-span-2">
+          {t("staleFields", { fields: stale.map((k) => labels[k]).join(", ") })}
+        </p>
+      )}
       <div className="flex flex-wrap items-center justify-between gap-2 sm:col-span-2">
         <LevelNote
           checker={checker}
