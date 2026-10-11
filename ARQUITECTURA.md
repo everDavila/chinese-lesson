@@ -183,7 +183,8 @@ lo decide la profesora.
 
 ## 4.1 Colecciones, plantillas y aportes de docentes (diseño 2026-10-11)
 
-> Propuesta para revisión; aún no hay migración. Objetivo: que la docente arme
+> Diseño aprobado por Ever el 2026-10-11 (solo admin edita la base común);
+> aún no hay migración. Objetivo: que la docente arme
 > sus propias lecciones a partir de su libro y que sus correcciones lleguen a
 > la base curada sin que nadie pise lo de nadie.
 
