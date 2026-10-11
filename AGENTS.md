@@ -57,6 +57,26 @@
 - **Al cerrar algo, decir siempre el estado real:** código local, commiteado,
   pusheado o desplegado. Nunca asumir que ya lo sabe.
 
+## Cuando Ever diga "para bitácora"
+Dos salidas, en este orden; no publicar ni desplegar nada.
+1. **[BITACORA.md](BITACORA.md):** entrada con la fecha de hoy: qué cambió,
+   por qué, decisiones, pendientes y lo que NO se probó. Con detalle técnico
+   (archivos, commits). Revisar el `git log` del día. Nunca tokens, claves ni
+   correos.
+2. **Borrador para la bitácora pública de davila.uno**, como texto para
+   copiar: primera persona con la voz de Ever, humor seco y autocrítico,
+   honesto con lo que falta, remate corto. Texto plano, párrafos de 1–3
+   frases, sin rutas ni commits, entendible sin saber programar. Una idea
+   por entrada (~120 palabras), sin tope diario pero sin microcambios. Por
+   entrada: proyecto, fecha y hora aproximada, dimensión (Idea, Producto,
+   Interfaz, Implementación, Infraestructura, Aprendizaje, Hito,
+   Investigación, Testing, Contenido, Datos, Diseño de sistema,
+   Accesibilidad, Proceso, Cierre del día), tag (Hipótesis, Decisión,
+   Exploración, Avance, Completado, Lección, Hito, Fallo, Pivote, Insight,
+   Duda, Pausa, Validación) y texto. Si falta un porqué, una sola pregunta
+   antes. Si es visual, recordar la captura y qué mostrar. Guía completa en
+   `D:eposGITappclimaCLAUDE.md`, sección "Cuando diga 'para bitácora'".
+
 ## Reglas para los agentes
 1. Lee este archivo **antes** de proponer cambios grandes.
 2. Respeta las convenciones ya presentes en el código.
