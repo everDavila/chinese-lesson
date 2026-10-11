@@ -13,6 +13,9 @@
     "build:seed": "node scripts/build-seed.mjs",
     "db": "node --env-file=.env.local scripts/db.mjs",
     "db:migrate": "node --env-file=.env.local scripts/db.mjs db push",
+    "db:backup": "node --env-file=.env.local scripts/backup-db.mjs",
+    "db:promover-admin": "node --env-file=.env.local scripts/promover-admin.mjs",
+    "db:crear-docente": "node --env-file=.env.local scripts/crear-docente.mjs",
     "test:visual": "playwright test",
     "db:sync-content": "node --env-file=.env.local scripts/sync-content.mjs",
     "test:db": "node tests/db/permisos.mjs"

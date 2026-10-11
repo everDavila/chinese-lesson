@@ -54,3 +54,6 @@ next-env.d.ts
 
 # Material de Ever para consultar (no va al repo)
 /input-externo/
+
+# Copias de seguridad de la base (datos reales, nunca al repo)
+/backups/
