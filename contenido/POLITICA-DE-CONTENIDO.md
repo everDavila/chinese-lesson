@@ -44,10 +44,15 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
   para copiar frases sin revisar derechos.
 - Los ejemplos deben reflejar situaciones contemporáneas y declarar el registro
   cuando sea relevante: conversación, aula, trabajo, noticias o escritura formal.
-- El vocabulario de un ejemplo HSK no puede superar el nivel de la entrada que
-  enseña: HSK 1 usa solo nivel 1; HSK 2 puede usar niveles 1-2; HSK 3, niveles
-  1-3. Una palabra superior se rechaza por defecto y, si es imprescindible,
-  requiere una excepción visible y explicada.
+- Como regla, el vocabulario de un ejemplo HSK no supera el nivel de la entrada:
+  HSK 1 usa nivel 1; HSK 2, niveles 1-2; HSK 3, niveles 1-3. Se admite un número
+  limitado de palabras superiores cuando sean necesarias para un contexto
+  natural o una información importante, pero cada una queda marcada como apoyo,
+  con motivo editorial.
+- Una palabra de apoyo superior ofrece ayuda inmediata: pinyin, significado
+  breve en el idioma de la clase y nivel HSK. Se abre con hover en escritorio,
+  foco de teclado y toque en móvil; nunca depende solo del color ni cuenta como
+  vocabulario ya aprendido.
 - En colecciones propias o basadas en libros manda el vocabulario acumulado ya
   visto en esa colección, porque el orden del libro no coincide necesariamente
   con HSK.

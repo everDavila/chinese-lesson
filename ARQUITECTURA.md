@@ -66,9 +66,10 @@ Al escribir una palabra (ej. 认识):
    uso) con traducción al español y al inglés, nota de matiz (falsos amigos
    como 认识 / 知道 / 去过) y nota cultural si aporta. Puede redactarlo una
    persona o una IA, pero siempre nace `unreviewed`.
-3. **Validación automática y de corpus:** se segmenta cada frase, se comprueba que todas
-   sus palabras sean del nivel de la palabra o inferior (o ya vistas en
-   clase) y se contrastan registro y colocaciones con BCC.
+3. **Validación automática y de corpus:** se segmenta cada frase y se comprueba
+   que sus palabras sean del nivel objetivo o inferior (o ya vistas en clase).
+   Una palabra superior necesaria se registra como apoyo, no como error
+   silencioso, y se contrastan registro y colocaciones con BCC.
 4. **Revisión por idioma:**
    - **Chino** (frases, pinyin, matices, cultura) → la profesora.
    - **Español** → Ever (en la demo).
@@ -166,8 +167,8 @@ frases con su voz, y esas grabaciones sustituyen a la voz del navegador.
   sugerido. Ej. 家 → ① casa/hogar/familia · ② clasificador de empresas y
   tiendas (一家公司). Las lecturas distintas (的 de/dí/dì) también son
   sentidos, cada uno con su pinyin.
-- `Sentence`: **sentido**, texto, pinyin, traducción (es, en), nivel
-  calculado.
+- `Sentence`: **sentido**, texto, pinyin, traducción (es, en), nivel calculado
+  y palabras de apoyo superiores (`support_terms`: entrada/sentido, motivo).
 - `Lesson`: profesora, clase, título, fecha, sentidos[] (la profesora elige
   qué sentido de cada palabra se enseña en esa clase).
 - `Review`: alumno, **sentido**, valoración (1–4), acierto, usó pista, fecha.
@@ -324,6 +325,12 @@ Ejemplo con la lección 1 (你 好 吗 我 很 呢 也): 你好吗？我很好�
    botón de pinyin y audio → reverso con significado, frases y notas →
    4 botones de valoración.
 5. Ficha de palabra: detalle de caracteres, lecturas y todas las frases.
+
+**Ayuda dentro de una frase:** una palabra superior al nivel objetivo se marca
+como interactiva. Hover o foco en escritorio y toque en móvil abren un
+popover con hanzi, pinyin, significado breve y nivel HSK. Debe poder cerrarse,
+usarse con teclado y anunciarse a lectores de pantalla; el color es solo apoyo
+visual.
 
 ## 6. Fases
 
