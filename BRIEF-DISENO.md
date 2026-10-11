@@ -251,8 +251,8 @@ como clasificador de miembros de la familia.
    en su móvil **el hanzi actual y los 4 botones**, que cambian solos
    cuando la profesora pasa de palabra. QR opcional.
 
-## Pendiente de mejorar
-- **Paleta dorada del modo oscuro** (rama `estetica/dark-dorado`): fondo
-  negro cálido, texto crema, botones y bordes dorados; los hanzi conservan
-  sus colores (token propio `--hanzi-ink`). En prueba: Ever quiere revisarla
-  y mejorarla antes de decidir si entra.
+## Paleta del modo oscuro (aprobada 2026-10-10)
+- Fondo carbón frío casi negro (leve tono azul, no marrón), texto crema,
+  botones y bordes dorados. Los hanzi conservan sus colores (token propio
+  `--hanzi-ink`; radical, fonético y palabra clave sin cambios).
+- Se puede seguir afinando más adelante (intensidad del dorado, contraste).

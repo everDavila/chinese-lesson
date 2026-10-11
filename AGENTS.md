@@ -95,3 +95,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- END:nextjs-agent-rules -->
 - 2026-10-10 - Interfaz en chino por defecto con selector 中文/Español/English, separada del idioma del contenido para los alumnos (va con la clase); textos de interfaz neutros de género - los docentes previstos son chinos, pero podrá haber hispanohablantes o anglohablantes.
 - 2026-10-10 - Idioma de la interfaz según el navegador (zh, es o en; si no, inglés), con selector que se recuerda - corrige la decisión anterior de chino fijo por defecto.
+- 2026-10-10 - Modo oscuro con paleta "dorada": carbón frío casi negro, texto crema, acentos dorados; los hanzi conservan sus colores - aprobada por Ever tras compararla en paralelo (worktree).
