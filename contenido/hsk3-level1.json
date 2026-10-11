@@ -9,7 +9,9 @@
     "effective": "2026-07",
     "retrievedAt": "2026-10-11",
     "sourceSha256": "EC74CE0439E837BBB15154BE13E747AE798903B2FD3A331629DF6C3B45504941",
+    "entryKind": "introduced-at-level",
     "entryCount": 300,
+    "cumulativeEntryCount": 300,
     "status": "source-verified-unreviewed"
   },
   "words": [

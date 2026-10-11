@@ -48,8 +48,10 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
   de aspecto, partícula, clasificador, colocación o contexto cultural.
 - Simplificado, tradicional y variantes se almacenan explícitamente; nunca se
   colapsan mediante conversión ciega.
-- Un nivel HSK pertenece a una versión concreta. Cambiar de estándar no modifica
-  ni elimina la clasificación anterior.
+- Un nivel HSK pertenece a una versión y una entrada concreta. El mismo hanzi
+  puede reaparecer en otro nivel por otra lectura, categoría o acepción; esas
+  filas no se deduplican a ciegas. Cambiar de estándar tampoco elimina la
+  clasificación anterior.
 
 ## Flujo editorial
 
@@ -63,10 +65,12 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
 5. Revisar chino, español e inglés por separado.
 6. Publicar solo los campos aprobados; conservar las correcciones en `revisions`.
 
-## Primera entrega: HSK 1 moderno
+## Primera entrega: HSK 1-3 moderno
 
 - Catálogo oficial de 300 entradas del nivel 1 del temario HSK 3.0 efectivo
   desde julio de 2026.
+- Catálogos incrementales de 200 entradas nuevas en nivel 2 y 500 en nivel 3:
+  500 y 1000 entradas acumuladas, respectivamente.
 - Mapeo de compatibilidad con HSK 2.0.
 - Pinyin y formas tradicional/simplificada verificadas.
 - Sentidos prioritarios para principiantes, no todas las acepciones de

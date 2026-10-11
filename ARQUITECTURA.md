@@ -24,7 +24,7 @@ Alumno ◄── [Práctica de tarjetas] ◄────────────
 
 | Recurso | Qué aporta | Licencia | Uso |
 |---|---|---|---|
-| [Temario HSK 3.0](https://hsk.cn-bj.ufileos.com/3.0/%E6%96%B0%E7%89%88HSK%E8%80%83%E8%AF%95%E5%A4%A7%E7%BA%B21219.pdf) / [GF 0025-2021](https://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202103/t20210329_523304.html) | Temario oficial publicado en 2025, efectivo desde 2026-07, y norma base de nueve niveles | Documento oficial; verificar redistribución por artefacto | Fuente canónica de clasificación; HSK 3.0 nivel 1 tiene 300 entradas y HSK 2.0 queda como compatibilidad |
+| [Temario HSK 3.0](https://hsk.cn-bj.ufileos.com/3.0/%E6%96%B0%E7%89%88HSK%E8%80%83%E8%AF%95%E5%A4%A7%E7%BA%B21219.pdf) / [GF 0025-2021](https://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202103/t20210329_523304.html) | Temario oficial publicado en 2025, efectivo desde 2026-07, y norma base de nueve niveles | Documento oficial; verificar redistribución por artefacto | Fuente canónica: niveles 1-3 introducen 300 + 200 + 500 entradas (1000 acumuladas); HSK 2.0 queda como compatibilidad |
 | [BCC](https://bcc.blcu.edu.cn/) | Corpus contemporáneo de Beijing Language and Culture University, separado por oralidad, noticias y otros dominios | Consulta y estadísticas con cita académica | Validar frecuencia, registro y colocaciones; no copiar frases automáticamente |
 | [Hanzi Writer](https://github.com/chanind/hanzi-writer) | Animación de trazos y modo de práctica de escritura en el navegador | Código MIT; datos de trazos bajo Arphic Public License | Anverso de la tarjeta; modo "escribe tú" |
 | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) | Descomposición en componentes, radical y pista etimológica (~9000 caracteres) | Descomposición/etimología LGPL (por confirmar); trazos Arphic | Descomposición 认 → 讠 + 人 |
@@ -158,7 +158,9 @@ frases con su voz, y esas grabaciones sustituyen a la voz del navegador.
   consulta y permiso de redistribución.
 - `Word`: hanzi, caracteres[], nota cultural. La clasificación no se guarda
   directamente aquí para no pisar un estándar con otro.
-- `WordLevel`: palabra, estándar (`hsk-2.0` / `hsk-3.0`), nivel y fuente.
+- `WordLevel`: entrada oficial vinculada a palabra y, cuando se puede, a su
+  sentido; estándar, nivel, orden, etiqueta original, pinyin, categoría y
+  fuente. Admite varias filas para el mismo hanzi.
 - `Sense` (**sentido o uso**): palabra, pinyin, significado (es, en),
   categoría (sustantivo, clasificador, verbo…), nota de matiz, orden
   sugerido. Ej. 家 → ① casa/hogar/familia · ② clasificador de empresas y
@@ -187,10 +189,11 @@ se distingue "dominan 家 = casa" de "no dominan 家 como clasificador".
   breve ("Ya lo viste: casa, hogar").
 - Los sentidos aún no vistos, ocultos, para no saturar a un principiante.
 
-El nivel HSK es de la palabra dentro de un estándar concreto, no del sentido
-(las listas oficiales no separan sentidos). Una palabra puede cambiar de nivel
-entre HSK 2.0 y HSK 3.0 sin duplicarse; el orden de sus sentidos lo sugiere el
-sistema y lo decide la profesora.
+El nivel HSK pertenece a la entrada oficial y puede corresponder a un sentido o
+lectura. El temario vigente repite formas como `只` (`zhī` en nivel 1 y `zhǐ`
+en nivel 3) y `长` (`cháng` en nivel 2 y `zhǎng` en nivel 3). La palabra no
+se duplica, pero conserva varias filas `WordLevel` enlazables a sentidos
+distintos. El orden pedagógico de esos sentidos lo decide la profesora.
 
 ## 4.1 Colecciones, plantillas y aportes de docentes (diseño 2026-10-11)
 
@@ -262,6 +265,10 @@ Funciones (security definer, con RLS por dentro):
 3. **Lección → añadir palabras**:
    - **Buscar** por hanzi, pinyin (con o sin tonos) o significado, con
      filtro por nivel HSK.
+   - Si una forma aparece en varios niveles, agruparla visualmente y mostrar
+     una opción por entrada/sentido con pinyin, categoría y etiqueta HSK; por
+     ejemplo `只` → `zhī · clasificador · HSK 1` y
+     `zhǐ · adverbio · HSK 3`.
    - **Pegar una lista** (los hanzi de la lección del libro, separados por
      espacios o saltos de línea). El sistema la resuelve:
      - palabra en la base → se añade con su primer sentido (cambiable);
