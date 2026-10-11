@@ -109,3 +109,58 @@ await expectFail("docente NO mete su lección en colección ajena", T2,
   `insert into lessons (teacher_id, collection_id, title, position) values ('${T2}', '${nueva}', 'intrusa', 2) returning id`);
 
 
+
+console.log("\n— Admin y docente (20261011021000) —");
+const W = "00000000-0000-0000-0000-00000000aaaa";
+const S = "00000000-0000-0000-0000-00000000bbbb";
+await expectOk("plantillas HSK 1–3 creadas desde el temario", A,
+  `select c.title, count(distinct l.id) as lecciones, count(i.*) as items from collections c
+   left join lessons l on l.collection_id = c.id left join lesson_items i on i.lesson_id = l.id
+   where c.owner_id is null and c.title in ('HSK 1','HSK 2','HSK 3') group by c.title order by c.title`);
+await expectOk("el catálogo trae glosa inglesa", A,
+  `select count(*) filter (where meaning_en is not null) as con_glosa, count(*) as total from senses where catalog_source_id = 'cti-hsk3-2026'`);
+
+const payload = (sentences) => JSON.stringify({
+  id: W, hsk_level: 1, status: "unreviewed",
+  senses: [{ id: S, pinyin: "cèshìcí", category: "noun", meaning_es: "palabra de prueba", sentences }],
+});
+await expectOk("admin guarda la palabra con dos frases", A,
+  `select save_word('${payload([{ zh: "这是测试词。", pinyin: "Zhè shì cèshìcí." }, { zh: "我有测试词。", pinyin: "Wǒ yǒu cèshìcí." }])}'::jsonb)`);
+await expectFail("docente NO puede usar save_word", T1, `select save_word('${payload([])}'::jsonb)`);
+const frases = await as(A, `select id, zh, position from sentences where sense_id = '${S}' order by position`);
+const f2 = frases.rows[1];
+await expectOk("admin reordena y borra frases al guardar", A,
+  `select save_word('${payload([{ id: f2.id, zh: f2.zh, pinyin: "Wǒ yǒu cèshìcí." }])}'::jsonb)`);
+await expectOk("queda solo la segunda, en posición 1", A,
+  `select zh, position from sentences where sense_id = '${S}'`);
+await expectOk("publicar marca sentidos y frases como revisados", A,
+  `select set_word_status('${W}', 'reviewed')`);
+await expectOk("…y la frase queda revisada", A, `select status from sentences where sense_id = '${S}'`);
+
+const ej = await expectOk("docente crea una copia editada de una original", T1,
+  `insert into teacher_examples (teacher_id, sense_id, zh, pinyin, based_on_sentence_id)
+   values ('${T1}', '${S}', '我也有测试词。', 'Wǒ yě yǒu cèshìcí.', '${f2.id}') returning id`);
+const ejId = ej?.rows?.[0]?.id;
+await expectFail("otra docente NO ve la frase ajena", T2, `select * from teacher_examples where id = '${ejId}'`);
+await expectOk("docente oculta una original en sus clases", T1,
+  `insert into teacher_hidden_sentences (sentence_id) values ('${f2.id}') returning teacher_id`);
+await expectFail("otra docente NO ve lo que oculta la primera", T2, `select * from teacher_hidden_sentences`);
+await expectOk("docente sugiere su frase", T1,
+  `update teacher_examples set status = 'submitted' where id = '${ejId}' returning status`);
+await expectFail("docente NO acepta su propia sugerencia", T1, `select accept_teacher_example('${ejId}', true)`);
+await expectOk("admin ve el nombre de quien sugiere", A,
+  `select p.display_name from teacher_examples e join profiles p on p.id = e.teacher_id where e.id = '${ejId}'`);
+await expectOk("admin acepta reemplazando la original", A, `select accept_teacher_example('${ejId}', true) as id`);
+await expectOk("la original cambió y quedó en el historial", A,
+  `select s.zh, s.status, r.old_value from sentences s join revisions r on r.entity_id = s.id where s.id = '${f2.id}'`);
+await expectFail("docente NO edita una frase ya aceptada", T1,
+  `update teacher_examples set zh = 'otra' where id = '${ejId}' returning id`);
+
+const ej2 = await as(T1, `insert into teacher_examples (teacher_id, sense_id, zh, pinyin, status) values ('${T1}', '${S}', '测试词很好。', 'Cèshìcí hěn hǎo.', 'draft') returning id`);
+const ej2Id = ej2.rows[0].id;
+await as(T1, `update teacher_examples set status = 'submitted' where id = '${ej2Id}'`);
+await expectOk("admin rechaza con nota", A,
+  `update teacher_examples set status = 'rejected', review_note = 'Mejor con 是', reviewed_by = '${A}', reviewed_at = now() where id = '${ej2Id}' returning status`);
+await expectOk("la rechazada sigue siendo de la docente y puede reenviarla", T1,
+  `update teacher_examples set zh = '测试词是好的。', status = 'submitted' where id = '${ej2Id}' returning status`);
+await expectFail("docente NO borra frases de la base común", T1, `delete from sentences where sense_id = '${S}' returning id`);
