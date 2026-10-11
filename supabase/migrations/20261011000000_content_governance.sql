@@ -34,25 +34,32 @@ create table content_sources (
 );
 
 create table word_levels (
+  id bigint generated always as identity primary key,
   word_id uuid not null references words on delete cascade,
+  sense_id uuid references senses on delete set null,
   standard text not null check (standard in ('hsk-2.0', 'hsk-3.0')),
   level smallint not null check (level between 1 and 9),
   source_id text not null references content_sources,
   source_order integer check (source_order > 0),
   source_label text,
   source_level_label text,
+  pinyin text,
+  part_of_speech text,
   created_at timestamptz not null default now(),
-  primary key (word_id, standard)
+  unique (standard, source_order)
 );
 
-create unique index word_levels_source_order_idx
-  on word_levels (standard, level, source_order)
-  where source_order is not null;
+create index word_levels_word_idx on word_levels (word_id, standard, level);
 
 -- Campo de búsqueda para que la vista de colecciones encuentre palabras sin
 -- exigir marcas de tono. Se puebla desde la fuente junto al sentido borrador.
 alter table senses add column pinyin_plain text;
+alter table senses add column catalog_source_id text references content_sources;
+alter table senses add column catalog_source_order integer check (catalog_source_order > 0);
 create index senses_pinyin_plain_idx on senses (pinyin_plain);
+create unique index senses_catalog_entry_idx
+  on senses (catalog_source_id, catalog_source_order)
+  where catalog_source_id is not null and catalog_source_order is not null;
 
 comment on column words.hsk_level is
   'Compatibilidad temporal con la demo. El catálogo versionado vive en word_levels.';
@@ -97,7 +104,7 @@ insert into content_sources (
     'Official exam material; redistribution terms must be checked per artifact',
     false,
     date '2026-10-11',
-    'Fuente del catálogo operativo por nivel; nivel 1 contiene 300 entradas.'
+    'Catálogo operativo: niveles 1-3 introducen 300, 200 y 500 entradas.'
   ),
   (
     'blcu-bcc',
@@ -120,7 +127,7 @@ select
   'legacy-repo-seed'
 from words
 where hsk_level is not null
-on conflict (word_id, standard) do nothing;
+on conflict do nothing;
 
 alter table profiles drop constraint if exists profiles_role_check;
 alter table profiles add constraint profiles_role_check
