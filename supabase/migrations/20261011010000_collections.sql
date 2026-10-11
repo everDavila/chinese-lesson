@@ -1,5 +1,6 @@
 -- Colecciones de lecciones (ARQUITECTURA.md §4.1, aprobado 2026-10-11).
--- Depende de la migración de gobernanza de contenido (20261011000000), que
+-- Va después de las migraciones de contenido de Codex (20261011000000 a
+-- 20261011004000) y depende de la de gobernanza (20261011000000), que
 -- define los roles 'reviewer' y 'admin' y cierra la base común.
 --
 -- Colección → lección (ordenada) → ítem (sentido).
