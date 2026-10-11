@@ -174,66 +174,70 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
           </div>
         </header>
 
-        {/* Cómo se forma: aquí sí, la descomposición en color (radical verde,
-            fonético azul). En el anverso solo hay un matiz de tono. */}
-        <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
-          <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
-          {item.characters.map((c) => {
-            const charSyllable = c.info?.pinyin[0];
-            return (
-              <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 text-[clamp(1rem,1.4vw,1.25rem)]">
-                <span className="font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]">{c.char}</span>
-                <span className="text-muted-foreground">=</span>
-                {c.info?.components.length ? (
-                  c.info.components.map((comp, i) => (
-                    <span key={i} className="flex items-baseline gap-1">
-                      {i > 0 && <span className="text-muted-foreground">+</span>}
-                      <span
-                        className={cn(
-                          "font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]",
-                          comp.role === "semantic" && "text-radical",
-                          comp.role === "phonetic" && "text-phonetic",
+        {/* Desde xl hay ancho de sobra: composición y frases lado a lado (auditoría UX,
+            P2). La composición, angosta; las frases, que son lo principal, anchas. */}
+        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] xl:items-start">
+          {/* Cómo se forma: aquí sí, la descomposición en color (radical verde,
+              fonético azul). En el anverso solo hay un matiz de tono. */}
+          <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
+            <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
+            {item.characters.map((c) => {
+              const charSyllable = c.info?.pinyin[0];
+              return (
+                <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 text-[clamp(1rem,1.4vw,1.25rem)]">
+                  <span className="font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]">{c.char}</span>
+                  <span className="text-muted-foreground">=</span>
+                  {c.info?.components.length ? (
+                    c.info.components.map((comp, i) => (
+                      <span key={i} className="flex items-baseline gap-1">
+                        {i > 0 && <span className="text-muted-foreground">+</span>}
+                        <span
+                          className={cn(
+                            "font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]",
+                            comp.role === "semantic" && "text-radical",
+                            comp.role === "phonetic" && "text-phonetic",
+                          )}
+                        >
+                          {comp.char}
+                        </span>
+                        {comp.role === "semantic" && (
+                          <span className="text-muted-foreground">
+                            {componentMeanings[comp.char]?.[lang] ?? labels.radical}
+                          </span>
                         )}
-                      >
-                        {comp.char}
+                        {comp.role === "phonetic" && comp.pinyin && (
+                          <span className="text-muted-foreground">
+                            {comp.pinyin} ·{" "}
+                            {charSyllable && toneless(comp.pinyin) === toneless(charSyllable)
+                              ? labels.givesSound
+                              : labels.approximateSound}
+                          </span>
+                        )}
                       </span>
-                      {comp.role === "semantic" && (
-                        <span className="text-muted-foreground">
-                          {componentMeanings[comp.char]?.[lang] ?? labels.radical}
-                        </span>
-                      )}
-                      {comp.role === "phonetic" && comp.pinyin && (
-                        <span className="text-muted-foreground">
-                          {comp.pinyin} ·{" "}
-                          {charSyllable && toneless(comp.pinyin) === toneless(charSyllable)
-                            ? labels.givesSound
-                            : labels.approximateSound}
-                        </span>
-                      )}
-                    </span>
-                  ))
-                ) : (
-                  <span className="text-muted-foreground">{labels.simpleCharacter}</span>
-                )}
-              </p>
-            );
-          })}
-        </section>
+                    ))
+                  ) : (
+                    <span className="text-muted-foreground">{labels.simpleCharacter}</span>
+                  )}
+                </p>
+              );
+            })}
+          </section>
 
-        <ol className="rounded-xl border border-border bg-background/60 px-5">
-          {sense.sentences.map((s, i) => (
-            <SentenceRow
-              key={`${word.hanzi}-${senseIndex}-${i}`}
-              sentence={s}
-              keyword={word.hanzi}
-              index={i}
-              showPinyin={showPinyin}
-              showTranslations={showTranslations}
-              lang={lang}
-              labels={labels}
-            />
-          ))}
-        </ol>
+          <ol className="rounded-xl border border-border bg-background/60 px-5">
+            {sense.sentences.map((s, i) => (
+              <SentenceRow
+                key={`${word.hanzi}-${senseIndex}-${i}`}
+                sentence={s}
+                keyword={word.hanzi}
+                index={i}
+                showPinyin={showPinyin}
+                showTranslations={showTranslations}
+                lang={lang}
+                labels={labels}
+              />
+            ))}
+          </ol>
+        </div>
 
         <section className="rounded-xl border border-border bg-background/60">
           <button

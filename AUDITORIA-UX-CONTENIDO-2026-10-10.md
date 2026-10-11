@@ -200,3 +200,8 @@ todo el ancho con botones de al menos 44 px; el atajo de teclado (1–4) solo
 se muestra desde `sm`, y el texto ya no menciona teclas. Lo comprueba
 `npm run test:recorridos` (dos filas, dos columnas, alto ≥ 44 px, sin scroll
 horizontal) con capturas en `tests/screens/recorridos/5-clase-celular-*.png`.
+
+**P1.1 y P1.3 hechos (2026-10-11):** al bajar por el reverso aparece una barra
+fija con hanzi, pinyin y significado; el inglés de apoyo se pliega en celular
+(sigue en pantalla grande). **P2.2 hecho:** desde 1280 px, "Cómo se forma" y
+las frases van en dos columnas. Comprobado en `tests/visual/card.spec.ts`.
