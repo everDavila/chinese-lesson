@@ -31,7 +31,7 @@
 - **Servidor de desarrollo:** `npm run dev` (Turbopack)
 - **Tests:** `npm run test:visual` (Playwright: tarjeta en celular 390×844, 1366×768, 1440×900 y 1920×1080, claro y oscuro; capturas en `tests/screens/`, sin subir a git; comprueba que no haya scroll horizontal). Usa el `npm run dev` que esté corriendo o lo arranca.
 - **Lint / formateo:** `npm run lint` (ESLint flat config)
-- **Build / despliegue:** Vercel, despliegue automático al hacer push a GitHub; ramas con URL de previsualización. Dominio: `hanzi.davila.uno` (CNAME a Vercel, pendiente de configurar).
+- **Build / despliegue:** Vercel, proyecto `hanzi` conectado a GitHub: push a `master` → producción en https://davila-hanzi.vercel.app; otras ramas → URL de previsualización. Todo se gestiona con el CLI (`npx vercel@latest …`, `vercel login` una vez por PC), sin pasos manuales en el panel. Variables públicas de Supabase cargadas en Production y Preview. Dominio `hanzi.davila.uno` añadido al proyecto; falta el CNAME `hanzi` → `312661f168af2cce.vercel-dns-017.com` en el DNS de HostGator.
 
 ## Convenciones
 - Commits en español, mensajes claros y concisos (Conventional Commits opcional).
@@ -83,6 +83,7 @@ _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-10 - Despliegue en Vercel (git push → deploy automático) con subdominio propio `hanzi.davila.uno` - Next.js necesita servidor Node; un subdominio por proyecto evita proxy y no comparte origen con Nimbus (`lab.davila.uno`).
 - 2026-10-10 - El MVP se centra en la enseñanza en clase (modo presentación, valoración de la profesora y votación anónima), no en el autoestudio - la demo es para mostrarle a la profesora cómo podría enseñar mejor. Se añade una fase 0: sin una lección real no hay nada que presentar.
 - 2026-10-10 - Datos de caracteres y radicales importados una vez a la base propia (sin API en vivo); IA solo para arrancar la biblioteca; votación tipo Kahoot (URL + código); rojo suave solo para la palabra clave; capa de interfaz confirmada (Tailwind v4 + shadcn/ui + next-intl + next-themes + Hanzi Writer) - decisiones de Ever tras revisar el modo profesora.
+- 2026-10-10 - Despliegue en Vercel gestionado solo por CLI; URL `davila-hanzi.vercel.app` (`hanzi.vercel.app` ya estaba tomado) - Ever no quiere pasos manuales en el panel ni URLs aleatorias; regla: `<proyecto>.vercel.app` o `davila-<proyecto>.vercel.app`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
