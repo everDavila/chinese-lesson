@@ -280,10 +280,14 @@ Ejemplo con la lección 1 (你 好 吗 我 很 呢 也): 你好吗？我很好�
 
 ### Fases propuestas
 
+- **Antes de las plantillas de libro:** poblar la base común con los hanzi
+  (fuentes candidatas que dejó Ever en `input-externo/`: 5000 caracteres
+  comunes y radicales HSK 1–6). Las listas de libros
+  (`contenido/colecciones/`) son solo referencia hasta entonces.
 - **1b · Preparación (siguiente):** migración (roles, colecciones, posición
   de lecciones, `owner_id` en frases, sugerencias, RLS cerrada, copia de
   plantillas); pantallas de colecciones, lecciones y añadir palabras (buscar
-  y pegar lista); plantilla "Básico 1" con las listas del libro de Ever.
+  y pegar lista); plantilla "Básico 1" con las listas del libro de Ever cuando la base esté poblada.
 - **1c · Aportes:** frases propias, sugerencias y cola de curación.
 - Después: alumno (repaso) sobre las mismas colecciones.
 
