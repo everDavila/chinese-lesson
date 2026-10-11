@@ -29,7 +29,7 @@
 - **Framework / librerías:** Next.js (decidido). Base de datos y login: Supabase con keep-alive en GitHub Actions (decidido). Interfaz: Tailwind v4 + shadcn/ui, next-intl, next-themes, Hanzi Writer (decidido, ver ARQUITECTURA.md §6.1). Estilo visual: por decidir.
 - **Instalar dependencias:** `npm ci`
 - **Servidor de desarrollo:** `npm run dev` (Turbopack)
-- **Tests:** pendiente (Playwright para tests visuales, como en Nimbus)
+- **Tests:** `npm run test:visual` (Playwright: tarjeta en celular 390×844, 1366×768, 1440×900 y 1920×1080, claro y oscuro; capturas en `tests/screens/`, sin subir a git; comprueba que no haya scroll horizontal). Usa el `npm run dev` que esté corriendo o lo arranca.
 - **Lint / formateo:** `npm run lint` (ESLint flat config)
 - **Build / despliegue:** Vercel, despliegue automático al hacer push a GitHub; ramas con URL de previsualización. Dominio: `hanzi.davila.uno` (CNAME a Vercel, pendiente de configurar).
 

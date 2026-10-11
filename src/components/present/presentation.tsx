@@ -206,7 +206,7 @@ export function Presentation({
             </section>
             <section
               aria-hidden={side !== "back"}
-              className="absolute inset-0 overflow-hidden rounded-3xl border border-border bg-card p-[clamp(1rem,2.5vw,2.5rem)] shadow-xl backface-hidden rotate-y-180"
+              className="absolute inset-0 overflow-hidden rounded-3xl border border-border bg-card p-[clamp(1rem,2.5vw,2.5rem)] pt-16 shadow-xl backface-hidden rotate-y-180 md:pt-[clamp(1rem,2.5vw,2.5rem)]"
             >
               <Button
                 variant="outline"
@@ -238,8 +238,10 @@ export function Presentation({
       {/* Controles al estilo Quizlet: ← n / total → al centro, siempre visibles. */}
       <nav
         aria-label={t("label")}
-        className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-[3vw] pt-1 pb-4"
+        className="grid grid-cols-2 items-center gap-x-4 gap-y-2 px-[3vw] pt-1 pb-4 md:grid-cols-[1fr_auto_1fr]"
       >
+        {/* En móvil: flechas arriba a lo ancho; caras y pinyin a la izquierda y
+            el resto a la derecha en la fila de abajo. */}
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex rounded-lg border border-border p-0.5" role="tablist" aria-label={t("faces")}>
             {(["front", "back"] as const).map((s) => (
@@ -264,7 +266,7 @@ export function Presentation({
           )}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="order-first col-span-2 flex items-center justify-center gap-3 md:order-none md:col-span-1">
           <Button
             variant="secondary"
             aria-label={t("previous")}

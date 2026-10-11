@@ -25,7 +25,8 @@ export function CardFront({ item, playing, speed, runId, showPinyin }: CardFront
 
   // Las casillas van pegadas, como en un cuaderno 田字格: la palabra se lee
   // como una unidad y cada carácter conserva su retícula y su animación.
-  const size = `min(48vh, ${Math.floor(70 / item.characters.length)}vw, 30rem)`;
+  // En celular se aprovecha casi todo el ancho; en escritorio limita la altura.
+  const size = `min(48vh, ${Math.floor(84 / item.characters.length)}vw, 30rem)`;
 
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4">

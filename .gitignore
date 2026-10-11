@@ -43,3 +43,8 @@ next-env.d.ts
 
 # caché local de la CLI de Supabase
 /supabase/.temp/
+
+# Playwright
+/tests/.results/
+/tests/screens/
+/playwright-report/

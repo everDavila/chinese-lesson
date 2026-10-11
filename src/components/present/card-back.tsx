@@ -105,7 +105,7 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
 
   return (
     <div className="mx-auto flex h-full w-full max-w-6xl flex-col gap-4 overflow-y-auto">
-      <header className="flex items-center gap-6">
+      <header className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
         <div className="flex shrink-0 gap-1">
           {item.characters.map((c) =>
             c.strokes ? (
