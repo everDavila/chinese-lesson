@@ -104,6 +104,8 @@ Dos salidas, en este orden; no publicar ni desplegar nada.
    trabajo del otro (pasó el 2026-10-10 con Codex, Vercel y Claude a la vez).
 10. Lecciones técnicas heredadas de otros proyectos de Ever:
    [LECCIONES.md](LECCIONES.md).
+11. Ideas y hallazgos aún sin decidir: [IDEAS-POR-CONTRASTAR.md](IDEAS-POR-CONTRASTAR.md).
+   Al decidir una, pasa a la bitácora de abajo y sale de ese archivo.
 
 ## Bitácora de decisiones
 _(Formato: `AAAA-MM-DD - decisión - motivo`)_
