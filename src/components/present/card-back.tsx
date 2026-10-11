@@ -53,7 +53,7 @@ function SentenceRow({
         {index + 1}
       </span>
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => setRevealed((r) => !r)}
@@ -63,6 +63,11 @@ function SentenceRow({
           >
             <Highlighted text={sentence.zh} keyword={keyword} />
           </button>
+          {sentence.status === "unreviewed" && (
+            <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-300">
+              {labels.unreviewedExample}
+            </span>
+          )}
           <Button
             variant="ghost"
             size="icon"

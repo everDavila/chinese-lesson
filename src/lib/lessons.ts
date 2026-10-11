@@ -14,6 +14,7 @@ type SentenceRow = {
   pinyin: string;
   translation_es: string | null;
   translation_en: string | null;
+  status: "unreviewed" | "reviewed" | "corrected";
 };
 type SenseRow = {
   id: string;
@@ -116,7 +117,13 @@ function toWord(row: WordRow): Word {
           nuance: bilingual(s.nuance_es, s.nuance_en),
           sentences: [...s.sentences]
             .sort((a, b) => a.position - b.position)
-            .map((t) => ({ zh: t.zh, pinyin: t.pinyin, es: t.translation_es ?? "", en: t.translation_en ?? "" })),
+            .map((t) => ({
+              zh: t.zh,
+              pinyin: t.pinyin,
+              es: t.translation_es ?? "",
+              en: t.translation_en ?? "",
+              status: t.status,
+            })),
         }),
       ),
   };
@@ -132,7 +139,7 @@ export async function getLesson(lessonId: string): Promise<Lesson | null> {
        lesson_items(position, sense_id,
          senses(words(hanzi, hsk_level, cultural_note_es, cultural_note_en,
            senses(id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en,
-             sentences(position, zh, pinyin, translation_es, translation_en)))))`,
+             sentences(position, zh, pinyin, translation_es, translation_en, status)))))`,
     )
     .eq("id", lessonId)
     .maybeSingle();

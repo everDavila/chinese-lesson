@@ -18,6 +18,7 @@ test("tarjeta: anverso y reverso", async ({ page }, testInfo) => {
 
     await page.keyboard.press("Space");
     await page.waitForTimeout(700);
+    await expect(page.getByText("Sin curar").first()).toBeVisible();
     await page.screenshot({ path: `${dir}/${n}-reverso.png` });
 
     const overflow = await page.evaluate(

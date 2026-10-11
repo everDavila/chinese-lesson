@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "standard": "hsk-3.0",
+    "level": 1,
+    "sourceId": "cti-hsk3-2026",
+    "batch": "demo-01",
+    "entryCount": 20,
+    "origin": "ai",
+    "status": "unreviewed",
+    "generatedAt": "2026-10-11",
+    "note": "Borradores para demostrar el flujo editorial. No deben presentarse como contenido curado hasta que una persona los revise."
+  },
+  "examples": [
+    { "sourceOrder": 1, "hanzi": "爱", "zh": "我爱妈妈。", "pinyin": "Wǒ ài māma.", "es": "Amo a mi mamá.", "en": "I love my mom." },
+    { "sourceOrder": 2, "hanzi": "八", "zh": "我有八本书。", "pinyin": "Wǒ yǒu bā běn shū.", "es": "Tengo ocho libros.", "en": "I have eight books." },
+    { "sourceOrder": 3, "hanzi": "爸爸", "zh": "我爸爸是老师。", "pinyin": "Wǒ bàba shì lǎoshī.", "es": "Mi papá es profesor.", "en": "My dad is a teacher." },
+    { "sourceOrder": 4, "hanzi": "吧", "zh": "我们吃饭吧。", "pinyin": "Wǒmen chī fàn ba.", "es": "Comamos.", "en": "Let's eat." },
+    { "sourceOrder": 5, "hanzi": "白天", "zh": "我白天工作。", "pinyin": "Wǒ báitiān gōngzuò.", "es": "Trabajo de día.", "en": "I work during the day." },
+    { "sourceOrder": 6, "hanzi": "百", "zh": "这个一百元。", "pinyin": "Zhège yì bǎi yuán.", "es": "Esto cuesta cien yuanes.", "en": "This costs one hundred yuan." },
+    { "sourceOrder": 7, "hanzi": "半", "zh": "现在八点半。", "pinyin": "Xiànzài bā diǎn bàn.", "es": "Ahora son las ocho y media.", "en": "It is eight thirty now." },
+    { "sourceOrder": 8, "hanzi": "包子", "zh": "我想吃包子。", "pinyin": "Wǒ xiǎng chī bāozi.", "es": "Quiero comer baozi.", "en": "I want to eat baozi." },
+    { "sourceOrder": 9, "hanzi": "杯子", "zh": "杯子里有水。", "pinyin": "Běizi lǐ yǒu shuǐ.", "es": "Hay agua en el vaso.", "en": "There is water in the cup." },
+    { "sourceOrder": 10, "hanzi": "本", "zh": "我有一本书。", "pinyin": "Wǒ yǒu yì běn shū.", "es": "Tengo un libro.", "en": "I have one book." },
+    { "sourceOrder": 11, "hanzi": "边", "zh": "老师在那边。", "pinyin": "Lǎoshī zài nàbiān.", "es": "La profesora está allí.", "en": "The teacher is over there." },
+    { "sourceOrder": 12, "hanzi": "病", "zh": "他病了。", "pinyin": "Tā bìng le.", "es": "Él está enfermo.", "en": "He is sick." },
+    { "sourceOrder": 13, "hanzi": "不", "zh": "我不喝茶。", "pinyin": "Wǒ bù hē chá.", "es": "No tomo té.", "en": "I don't drink tea." },
+    { "sourceOrder": 14, "hanzi": "不客气", "zh": "谢谢！不客气。", "pinyin": "Xièxie! Bú kèqi.", "es": "¡Gracias! De nada.", "en": "Thank you! You're welcome." },
+    { "sourceOrder": 15, "hanzi": "不要", "zh": "不要喝冷水。", "pinyin": "Búyào hē lěng shuǐ.", "es": "No tomes agua fría.", "en": "Don't drink cold water." },
+    { "sourceOrder": 16, "hanzi": "菜", "zh": "我喜欢这个菜。", "pinyin": "Wǒ xǐhuan zhège cài.", "es": "Me gusta este plato.", "en": "I like this dish." },
+    { "sourceOrder": 17, "hanzi": "茶", "zh": "我想喝茶。", "pinyin": "Wǒ xiǎng hē chá.", "es": "Quiero tomar té.", "en": "I want to drink tea." },
+    { "sourceOrder": 18, "hanzi": "唱", "zh": "她会唱中文歌。", "pinyin": "Tā huì chàng Zhōngwén gē.", "es": "Ella sabe cantar canciones en chino.", "en": "She can sing songs in Chinese." },
+    { "sourceOrder": 19, "hanzi": "超市", "zh": "超市在那边。", "pinyin": "Chāoshì zài nàbiān.", "es": "El supermercado está allí.", "en": "The supermarket is over there." },
+    { "sourceOrder": 20, "hanzi": "车", "zh": "他的车在外边。", "pinyin": "Tā de chē zài wàibian.", "es": "Su auto está afuera.", "en": "His car is outside." }
+  ]
+}
