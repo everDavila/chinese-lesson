@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Volume2 } from "lucide-react";
 import { StrokeArt } from "@/components/hanzi/stroke-art";
 import { Button } from "@/components/ui/button";
@@ -81,7 +81,9 @@ function SentenceRow({
         {visible && (
           <p className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)]">
             {sentence[lang]}
-            {lang !== "en" && <span className="text-muted-foreground"> · {sentence.en}</span>}
+            {/* El inglés de apoyo se pliega en celular: alarga cada frase al doble
+                (auditoría UX, P1). En pantalla grande, donde presenta la docente, sigue. */}
+            {lang !== "en" && <span className="hidden text-muted-foreground sm:inline"> · {sentence.en}</span>}
           </p>
         )}
       </div>
@@ -106,147 +108,178 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
   const sense = word.senses[senseIndex];
   const otherSenses = word.senses.filter((_, i) => i !== senseIndex);
 
+  // Al bajar por las frases, la cabecera grande se va: una barra compacta con
+  // la palabra queda fija arriba (auditoría UX, P1). Va en un contenedor de
+  // alto 0 para no mover el contenido al aparecer.
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const [compact, setCompact] = useState(false);
+  useEffect(() => {
+    const root = scrollRef.current;
+    const header = headerRef.current;
+    if (!root || !header) return;
+    const observer = new IntersectionObserver(([entry]) => setCompact(!entry.isIntersecting), { root });
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="mx-auto flex h-full w-full max-w-6xl flex-col gap-4 overflow-y-auto">
-      <header className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
-        <div className="flex shrink-0 gap-1">
-          {item.characters.map((c) =>
-            c.strokes ? (
-              <StrokeArt
-                key={c.char}
-                strokes={c.strokes}
-                roles={c.info?.strokeRoles ?? []}
-                mode="static"
-                className="size-[clamp(4.5rem,9vw,7.5rem)] rounded-lg border border-grid-line bg-card p-2"
-                title={c.char}
-              />
-            ) : (
-              <span key={c.char} className="font-hanzi text-7xl">{c.char}</span>
-            ),
-          )}
-        </div>
-        <div className="min-w-0">
-          <div className="flex items-center gap-3">
-            <p className="text-[clamp(2rem,4vw,3.5rem)] leading-none">{sense.pinyin}</p>
-            <Button variant="ghost" size="icon-lg" aria-label={labels.listenWord} onClick={() => speakChinese(word.hanzi)}>
-              <Volume2 />
-            </Button>
-            <span className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
-              HSK {word.hsk} · {labels.categories[sense.category] ?? sense.category}
-            </span>
-          </div>
-          <p className="mt-2 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-tight">{sense.meaning[lang]}</p>
-          {lang !== "en" && (
-            <p className="text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sense.meaning.en}</p>
-          )}
-        </div>
-      </header>
-
-      {/* Cómo se forma: aquí sí, la descomposición en color (radical verde,
-          fonético azul). En el anverso solo hay un matiz de tono. */}
-      <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
-        <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
-        {item.characters.map((c) => {
-          const charSyllable = c.info?.pinyin[0];
-          return (
-            <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 text-[clamp(1rem,1.4vw,1.25rem)]">
-              <span className="font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]">{c.char}</span>
-              <span className="text-muted-foreground">=</span>
-              {c.info?.components.length ? (
-                c.info.components.map((comp, i) => (
-                  <span key={i} className="flex items-baseline gap-1">
-                    {i > 0 && <span className="text-muted-foreground">+</span>}
-                    <span
-                      className={cn(
-                        "font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]",
-                        comp.role === "semantic" && "text-radical",
-                        comp.role === "phonetic" && "text-phonetic",
-                      )}
-                    >
-                      {comp.char}
-                    </span>
-                    {comp.role === "semantic" && (
-                      <span className="text-muted-foreground">
-                        {componentMeanings[comp.char]?.[lang] ?? labels.radical}
-                      </span>
-                    )}
-                    {comp.role === "phonetic" && comp.pinyin && (
-                      <span className="text-muted-foreground">
-                        {comp.pinyin} ·{" "}
-                        {charSyllable && toneless(comp.pinyin) === toneless(charSyllable)
-                          ? labels.givesSound
-                          : labels.approximateSound}
-                      </span>
-                    )}
-                  </span>
-                ))
-              ) : (
-                <span className="text-muted-foreground">{labels.simpleCharacter}</span>
-              )}
-            </p>
-          );
-        })}
-      </section>
-
-      <ol className="rounded-xl border border-border bg-background/60 px-5">
-        {sense.sentences.map((s, i) => (
-          <SentenceRow
-            key={`${word.hanzi}-${senseIndex}-${i}`}
-            sentence={s}
-            keyword={word.hanzi}
-            index={i}
-            showPinyin={showPinyin}
-            showTranslations={showTranslations}
-            lang={lang}
-            labels={labels}
-          />
-        ))}
-      </ol>
-
-      <section className="rounded-xl border border-border bg-background/60">
-        <button
-          type="button"
-          className="flex w-full items-center justify-between px-5 py-3 text-left"
-          onClick={() => setDetailsOpen((o) => !o)}
-          aria-expanded={detailsOpen}
-        >
-          <span className="font-medium">{labels.moreDetails}</span>
-          <ChevronDown className={cn("size-5 transition-transform", detailsOpen && "rotate-180")} />
-        </button>
-        {detailsOpen && (
-          <div className="grid gap-5 border-t border-border px-5 py-4 md:grid-cols-2">
-            {sense.nuance && (
-              <div>
-                <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.nuance}</h3>
-                <p><Highlighted text={sense.nuance[lang]} keyword={word.hanzi} /></p>
-              </div>
-            )}
-            {word.culturalNote && (
-              <div>
-                <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.culturalNote}</h3>
-                <p><Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} /></p>
-              </div>
-            )}
-            {otherSenses.length > 0 && (
-              <div>
-                <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.otherUses}</h3>
-                <ul className="space-y-1">
-                  {otherSenses.map((s, i) => (
-                    <li key={i}>
-                      {s.meaning[lang]}
-                      {s.sentences[0] && (
-                        <span className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} /></span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+    <div className="relative mx-auto h-full w-full max-w-6xl">
+      {/* La barra va fuera de la zona que se desplaza: dentro de la cara girada
+          en 3D, un sticky queda detrás de la lista de frases. */}
+      <div
+        aria-hidden={!compact}
+        data-testid="card-compact-header"
+        className={cn(
+          "absolute inset-x-0 top-0 z-10 flex items-baseline gap-3 rounded-lg border border-border bg-card px-4 py-2 shadow-sm transition-opacity",
+          compact ? "opacity-100" : "pointer-events-none opacity-0",
         )}
-      </section>
+      >
+        <span className="shrink-0 font-hanzi text-2xl whitespace-nowrap">{word.hanzi}</span>
+        <span className="shrink-0 text-lg whitespace-nowrap">{sense.pinyin}</span>
+        <span className="min-w-0 truncate text-muted-foreground">{sense.meaning[lang]}</span>
+      </div>
+      <div ref={scrollRef} className="flex h-full w-full flex-col gap-4 overflow-y-auto">
+        <header ref={headerRef} className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+          <div className="flex shrink-0 gap-1">
+            {item.characters.map((c) =>
+              c.strokes ? (
+                <StrokeArt
+                  key={c.char}
+                  strokes={c.strokes}
+                  roles={c.info?.strokeRoles ?? []}
+                  mode="static"
+                  className="size-[clamp(4.5rem,9vw,7.5rem)] rounded-lg border border-grid-line bg-card p-2"
+                  title={c.char}
+                />
+              ) : (
+                <span key={c.char} className="font-hanzi text-7xl">{c.char}</span>
+              ),
+            )}
+          </div>
+          <div className="min-w-0">
+            <div className="flex items-center gap-3">
+              <p className="text-[clamp(2rem,4vw,3.5rem)] leading-none">{sense.pinyin}</p>
+              <Button variant="ghost" size="icon-lg" aria-label={labels.listenWord} onClick={() => speakChinese(word.hanzi)}>
+                <Volume2 />
+              </Button>
+              <span className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
+                HSK {word.hsk} · {labels.categories[sense.category] ?? sense.category}
+              </span>
+            </div>
+            <p className="mt-2 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-tight">{sense.meaning[lang]}</p>
+            {lang !== "en" && (
+              <p className="hidden text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground sm:block">{sense.meaning.en}</p>
+            )}
+          </div>
+        </header>
 
-      {footer}
+        {/* Cómo se forma: aquí sí, la descomposición en color (radical verde,
+            fonético azul). En el anverso solo hay un matiz de tono. */}
+        <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
+          <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
+          {item.characters.map((c) => {
+            const charSyllable = c.info?.pinyin[0];
+            return (
+              <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 text-[clamp(1rem,1.4vw,1.25rem)]">
+                <span className="font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]">{c.char}</span>
+                <span className="text-muted-foreground">=</span>
+                {c.info?.components.length ? (
+                  c.info.components.map((comp, i) => (
+                    <span key={i} className="flex items-baseline gap-1">
+                      {i > 0 && <span className="text-muted-foreground">+</span>}
+                      <span
+                        className={cn(
+                          "font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]",
+                          comp.role === "semantic" && "text-radical",
+                          comp.role === "phonetic" && "text-phonetic",
+                        )}
+                      >
+                        {comp.char}
+                      </span>
+                      {comp.role === "semantic" && (
+                        <span className="text-muted-foreground">
+                          {componentMeanings[comp.char]?.[lang] ?? labels.radical}
+                        </span>
+                      )}
+                      {comp.role === "phonetic" && comp.pinyin && (
+                        <span className="text-muted-foreground">
+                          {comp.pinyin} ·{" "}
+                          {charSyllable && toneless(comp.pinyin) === toneless(charSyllable)
+                            ? labels.givesSound
+                            : labels.approximateSound}
+                        </span>
+                      )}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-muted-foreground">{labels.simpleCharacter}</span>
+                )}
+              </p>
+            );
+          })}
+        </section>
+
+        <ol className="rounded-xl border border-border bg-background/60 px-5">
+          {sense.sentences.map((s, i) => (
+            <SentenceRow
+              key={`${word.hanzi}-${senseIndex}-${i}`}
+              sentence={s}
+              keyword={word.hanzi}
+              index={i}
+              showPinyin={showPinyin}
+              showTranslations={showTranslations}
+              lang={lang}
+              labels={labels}
+            />
+          ))}
+        </ol>
+
+        <section className="rounded-xl border border-border bg-background/60">
+          <button
+            type="button"
+            className="flex w-full items-center justify-between px-5 py-3 text-left"
+            onClick={() => setDetailsOpen((o) => !o)}
+            aria-expanded={detailsOpen}
+          >
+            <span className="font-medium">{labels.moreDetails}</span>
+            <ChevronDown className={cn("size-5 transition-transform", detailsOpen && "rotate-180")} />
+          </button>
+          {detailsOpen && (
+            <div className="grid gap-5 border-t border-border px-5 py-4 md:grid-cols-2">
+              {sense.nuance && (
+                <div>
+                  <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.nuance}</h3>
+                  <p><Highlighted text={sense.nuance[lang]} keyword={word.hanzi} /></p>
+                </div>
+              )}
+              {word.culturalNote && (
+                <div>
+                  <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.culturalNote}</h3>
+                  <p><Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} /></p>
+                </div>
+              )}
+              {otherSenses.length > 0 && (
+                <div>
+                  <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.otherUses}</h3>
+                  <ul className="space-y-1">
+                    {otherSenses.map((s, i) => (
+                      <li key={i}>
+                        {s.meaning[lang]}
+                        {s.sentences[0] && (
+                          <span className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} /></span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+        </section>
+
+        {footer}
+      </div>
     </div>
   );
 }

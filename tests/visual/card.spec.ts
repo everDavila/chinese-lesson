@@ -29,3 +29,36 @@ test("tarjeta: anverso y reverso", async ({ page }, testInfo) => {
     await page.keyboard.press("Space");
   }
 });
+
+test("reverso: barra compacta al bajar y segundo idioma plegado en celular", async ({ page }, testInfo) => {
+  const phone = testInfo.project.name.startsWith("phone");
+  await page.goto("/es/present");
+  await page.locator(".transform-3d").waitFor();
+  await page.getByRole("combobox").selectOption({ index: 3 }); // 知道: frases largas
+  await page.keyboard.press("Space");
+  await page.waitForTimeout(700);
+
+  const bar = page.getByTestId("card-compact-header");
+  await expect(bar).toHaveAttribute("aria-hidden", "true");
+  // Baja hasta el final del reverso: la cabecera grande sale de vista.
+  // Si el reverso cabe entero (pantallas grandes), no hay nada que bajar y la
+  // barra no debe aparecer.
+  const scrolled = await bar.evaluate((el) => {
+    // La barra y la zona que se desplaza son hermanas; la cabecera grande es
+    // lo primero de esa zona.
+    const scroller = el.parentElement!.querySelector(".overflow-y-auto")!;
+    scroller.scrollTop = scroller.scrollHeight;
+    const header = scroller.querySelector("header")!;
+    return scroller.scrollTop > header.offsetTop + header.offsetHeight;
+  });
+  await expect(bar).toHaveAttribute("aria-hidden", scrolled ? "false" : "true");
+  await page.waitForTimeout(300); // fin de la transición de opacidad
+  if (phone) expect(scrolled, "en celular el reverso de 知道 se desplaza").toBe(true);
+  await page.screenshot({ path: `tests/screens/${testInfo.project.name}/reverso-abajo.png` });
+
+  // La traducción inglesa de apoyo (tras " · ") solo se ve desde sm.
+  await page.keyboard.press("t");
+  const support = page.locator("li span.text-muted-foreground", { hasText: /^ · / }).first();
+  if (phone) await expect(support).toBeHidden();
+  else await expect(support).toBeVisible();
+});
