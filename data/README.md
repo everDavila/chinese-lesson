@@ -10,7 +10,7 @@ la base de datos.
 
 | Archivo | Origen | Licencia | Contenido |
 |---|---|---|---|
-| `hsk-catalogo-1-3.json` | [clem109/hsk-vocabulary](https://github.com/clem109/hsk-vocabulary) (listas HSK 2.0, niveles 1–3) | MIT, © 2018 Clement Venard | Catálogo del prototipo: hanzi, pinyin de la lectura HSK y traducción inglesa (595 palabras). Se usa esta fuente porque marca la lectura correcta (吗 ma, no má) |
+| `hsk-catalogo-1-3.json` | Temario oficial HSK 3.0 niveles 1–3 (`contenido/hsk3-level*.json`) + glosa inglesa de complete-hsk-vocabulary (MIT) | Lista: temario oficial; glosas: MIT | Catálogo del prototipo: 988 palabras, un sentido por entrada del temario (点, 只… tienen dos). Se genera con `node scripts/build-catalogo.mjs <complete.min.json>`; la glosa se empareja por hanzi y pinyin (吗 ma, no má) |
 | `characters.json` | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) (`dictionary.txt`) | LGPL v3 o posterior | Descomposición, radical, etimología y papel de cada trazo (semántico / fonético / otro) de los caracteres de la lección |
 | `../public/hanzi-writer/*.json` | [hanzi-writer-data](https://github.com/chanind/hanzi-writer-data) (derivado de Make Me a Hanzi y fuentes Arphic) | Arphic Public License (`ARPHICPL.TXT` en la misma carpeta) | Trazos para la animación, solo de los caracteres de la lección |
 

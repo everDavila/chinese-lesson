@@ -316,6 +316,11 @@ export function AdminWordEditor({ hanzi }: { hanzi: string }) {
                 <option value="adjective">adjetivo</option>
                 <option value="adverb">adverbio</option>
                 <option value="pronoun">pronombre</option>
+                <option value="numeral">numeral</option>
+                <option value="preposition">preposición</option>
+                <option value="conjunction">conjunción</option>
+                <option value="interjection">interjección</option>
+                <option value="affix">afijo</option>
                 <option value="particle">partícula</option>
                 <option value="measure word">clasificador</option>
                 <option value="set phrase">expresión</option>

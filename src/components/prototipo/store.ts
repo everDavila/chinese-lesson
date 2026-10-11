@@ -36,7 +36,9 @@ type State = {
 };
 
 const KEY = "hanzi:prototipo:v1";
-type CatalogEntry = { h: string; p: string; l: number; en: string };
+// Catálogo HSK 3.0 (scripts/build-catalogo.mjs): una entrada por hanzi, con
+// un sentido por cada entrada del temario (点: clasificador y verbo).
+type CatalogEntry = { h: string; l: number; s: { p: string; en: string; c: string }[] };
 const CATALOG = catalogo as CatalogEntry[];
 const CURATED = leccionDemo.words as Word[];
 
@@ -46,12 +48,10 @@ function catalogWord(e: CatalogEntry): ProtoWord {
   return {
     hanzi: e.h,
     hsk: e.l,
-    pinyin: e.p,
-    meaningEn: e.en,
+    pinyin: e.s[0]?.p ?? "",
+    meaningEn: e.s[0]?.en ?? "",
     status: "sin contenido",
-    senses: [
-      { pinyin: e.p, category: "", meaning: { es: "", en: e.en }, sentences: [] },
-    ],
+    senses: e.s.map((s) => ({ pinyin: s.p, category: s.c, meaning: { es: "", en: s.en }, sentences: [] })),
   };
 }
 
@@ -59,8 +59,8 @@ function curatedWord(w: Word): ProtoWord {
   const e = CATALOG.find((c) => c.h === w.hanzi);
   return {
     ...w,
-    pinyin: w.senses[0]?.pinyin ?? e?.p ?? "",
-    meaningEn: w.senses[0]?.meaning.en ?? e?.en ?? "",
+    pinyin: w.senses[0]?.pinyin ?? e?.s[0]?.p ?? "",
+    meaningEn: w.senses[0]?.meaning.en ?? e?.s[0]?.en ?? "",
     status: "curada",
   };
 }
@@ -75,7 +75,7 @@ function initialState(): State {
         id: "plantilla-hsk1",
         title: "HSK 1",
         template: true,
-        source: "Catálogo HSK 1 (150 palabras), en lecciones de 15",
+        source: "Temario oficial HSK 3.0, nivel 1 (300 entradas), en lecciones de 15",
         lessons: chunks.map((c, i) => ({
           id: `hsk1-l${i + 1}`,
           title: `Lección ${i + 1}`,
