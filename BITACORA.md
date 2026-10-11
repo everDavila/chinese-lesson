@@ -113,3 +113,40 @@ Documentado en `IDEA.md` (requisitos 1–11) y `ARQUITECTURA.md`.
 - Lección reordenada para que 认识 / 知道 / 了解 vayan seguidos.
 
 **No probado:** cómo se ven las notas nuevas, más largas, en el celular.
+
+## 2026-10-11 — Del prototipo a las vistas reales de docente y admin
+
+Rama `fase-1c-admin-docente`. El prototipo (`/prototipo`, datos en
+localStorage) se sustituye por pantallas sobre Supabase y se borra.
+
+- **Hallazgo:** los 1000 sentidos del temario HSK 3.0 estaban en la base sin
+  significado y con la categoría en chino ("量、（名）"); el prototipo se veía
+  bien porque leía un JSON aparte. Migración `20261011020000_catalog_glosses`
+  (generada con `scripts/build-catalog-glosses.mjs`) pasa la glosa inglesa y
+  la categoría, solo donde estaba vacío. 11 entradas siguen sin glosa porque
+  la fuente no la trae. El español sigue pendiente: es trabajo de curación.
+- **Migración `20261011021000_admin_docente`:** `based_on_sentence_id` y
+  `review_note` en `teacher_examples`; `teacher_hidden_sentences`;
+  `save_word(jsonb)` y `set_word_status` (solo admin, en una transacción);
+  `accept_teacher_example(id, replace_original)`; el admin lee los perfiles
+  (para ver quién sugiere) y puede borrar en la base común; plantillas
+  HSK 1/2/3 (20/14/34 lecciones de 15) desde `word_levels`, en orden oficial.
+  49 comprobaciones de permisos en PGlite.
+- **Pantallas:** `/collections` (docente, zh/es/en), `/admin` (solo admin, en
+  español). Lecturas en `src/lib/content.ts`, escrituras en
+  `src/actions/manage.ts` (devuelven un código de error que la pantalla
+  traduce). `getLesson` mezcla las frases de la docente y descarta las
+  palabras sin frases. El inicio con sesión lleva a `/collections`, donde
+  siguen las lecciones de demo antiguas como "Lecciones sueltas".
+- **Respaldo:** `npm run db:backup` sobrescribía el archivo del día (se perdió
+  el de las 02:18; el nuevo contiene todo lo que había) y no copiaba las
+  tablas nuevas. Ahora lleva hora en el nombre e incluye `collections`,
+  `teacher_examples`, `word_levels`, etc. Respaldo previo a esta migración:
+  `backups/supabase-2026-10-11T1359.json`.
+- Consultas de las pantallas probadas contra la base real con la clave de
+  servicio; sin sesión, las rutas protegidas llevan al login (Playwright).
+
+**No probado:** ningún recorrido con sesión iniciada (crear colección,
+copiar plantilla, editar palabra, sugerir y aceptar frases, presentar). No
+tengo las claves y no inicio sesión por Ever: lo prueba él con sus dos
+cuentas. Tampoco el diseño de las pantallas nuevas en el celular.

@@ -32,6 +32,10 @@
   LF no coincide y **falla en silencio** (pasó con los botones de valoración).
   Para editar, usar la herramienta de edición o normalizar antes; y
   comprobar siempre el resultado (`git diff`), no solo que el script corrió.
+- **`redirect()` dentro de `<Suspense>` devuelve 200, no 302.** Con Cache
+  Components la página ya empezó a enviarse; la redirección llega en el
+  streaming y la hace el navegador. `curl` no sirve para probar que una ruta
+  protegida manda al login: hace falta Playwright (`tests/visual/access.spec.ts`).
 
 ## Estado y depuración
 - **Mutar estado anidado puede no propagar a los derivados.** En Pinia,
