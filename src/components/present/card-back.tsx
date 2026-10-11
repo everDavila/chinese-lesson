@@ -60,7 +60,7 @@ function SentenceRow({
           <button
             type="button"
             onClick={() => setRevealed((r) => !r)}
-            className="text-left font-hanzi text-[clamp(1.75rem,3.2vw,2.75rem)] leading-tight"
+            className="text-left font-hanzi text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight"
             aria-expanded={visible}
             title={showTranslations ? undefined : labels.revealTranslation}
           >
@@ -149,11 +149,11 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
                   strokes={c.strokes}
                   roles={c.info?.strokeRoles ?? []}
                   mode="static"
-                  className="size-[clamp(4.5rem,9vw,7.5rem)] rounded-lg border border-grid-line bg-card p-2"
+                  className="size-[clamp(3.75rem,9vw,7.5rem)] rounded-lg border border-grid-line bg-card p-2"
                   title={c.char}
                 />
               ) : (
-                <span key={c.char} className="font-hanzi text-7xl">{c.char}</span>
+                <span key={c.char} className="font-hanzi text-6xl sm:text-7xl">{c.char}</span>
               ),
             )}
           </div>
@@ -185,7 +185,7 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
               const charSyllable = c.info?.pinyin[0];
               return (
                 <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 text-[clamp(1rem,1.4vw,1.25rem)]">
-                  <span className="font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]">{c.char}</span>
+                  <span className="font-hanzi text-[clamp(1.25rem,2.2vw,2rem)]">{c.char}</span>
                   <span className="text-muted-foreground">=</span>
                   {c.info?.components.length ? (
                     c.info.components.map((comp, i) => (
@@ -193,7 +193,7 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
                         {i > 0 && <span className="text-muted-foreground">+</span>}
                         <span
                           className={cn(
-                            "font-hanzi text-[clamp(1.5rem,2.2vw,2rem)]",
+                            "font-hanzi text-[clamp(1.25rem,2.2vw,2rem)]",
                             comp.role === "semantic" && "text-radical",
                             comp.role === "phonetic" && "text-phonetic",
                           )}
