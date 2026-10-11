@@ -22,7 +22,10 @@
 - Arquitectura propuesta en `ARQUITECTURA.md`; framework: Next.js.
 - MVP centrado en la enseñanza en clase (fases 0–3 en `ARQUITECTURA.md` §6).
 - **Fase 0 completa:** andamiaje, contenido validado de la lección de demo, datos de caracteres y trazos. Supabase `hanzi` con migración inicial + seed aplicados y `.env.local` configurado (no se sube).
-- **Fase 1 en curso:** `/present` (demo local, sin login) y `/present/session/[id]` (clase en vivo: lección desde Supabase, valoraciones en `teacher_ratings`). Login de la profesora en `/login`; en el inicio, "Crear la lección de demo" y "Empezar clase". Migraciones aplicadas con `npm run db:migrate`. Falta: probar el flujo con la cuenta de Ever, pantalla de preparación de la lección. **Pendiente:** cerrar el estilo visual. Lección de demo en `contenido/LECCION-DEMO.md`.
+- **Fase 1 en curso:** `/present` (demo local, sin login) y `/present/session/[id]` (clase en vivo: lección desde Supabase, valoraciones en `teacher_ratings`). Login de la profesora en `/login`; en el inicio, "Crear la lección de demo" y "Empezar clase". Migraciones aplicadas con `npm run db:migrate`. También en la rama: interfaz en zh/es/en según el navegador, paleta dorada del modo oscuro, tarjeta responsive y `npm run test:visual`. Falta: probar el flujo con la cuenta de Ever, pantalla de preparación de la lección. Lección de demo en `contenido/LECCION-DEMO.md`.
+- **Ramas (2026-10-10):** `master` en GitHub y en producción (https://davila-hanzi.vercel.app, sin login ni idiomas). `fase-1-supabase` en GitHub con previsualización protegida (https://hanzi-git-fase-1-supabase-ever-davila-s-projects.vercel.app). Se pasa a `master` cuando Ever pruebe el flujo con su cuenta.
+- **Pendiente fuera del repo:** CNAME `hanzi` → `312661f168af2cce.vercel-dns-017.com` en el DNS de HostGator para `hanzi.davila.uno`.
+- **Auditoría técnica y UX (Codex, 2026-10-10) a medias:** confirmó lint, tipos, contenido y build OK y 9 vulnerabilidades altas solo en herramientas de desarrollo (shadcn, ESLint, fast-glob/braces); la parte de UX quedó sin hacer porque otra sesión cambió de rama en mitad.
 
 ## Stack y comandos
 - **Runtime / lenguaje:** TypeScript, Node.js ≥ 20.9 (probado con 22.14). Next.js 16.4 + React 19.3.
@@ -69,7 +72,11 @@
 8. Antes de fiarte de una nota, memoria o documento previo, verifícalo contra
    el código actual: un archivo o función citado en una nota vieja existía
    cuando se escribió, no necesariamente ahora.
-9. Lecciones técnicas heredadas de otros proyectos de Ever:
+9. **Varias sesiones o agentes a la vez: cada uno en su propia carpeta**
+   (`git worktree add ../chinese-lesson-<tarea> <rama>`). En la misma carpeta
+   se pisan: un `git switch` o un `npm ci` de uno rompe el servidor o el
+   trabajo del otro (pasó el 2026-10-10 con Codex, Vercel y Claude a la vez).
+10. Lecciones técnicas heredadas de otros proyectos de Ever:
    [LECCIONES.md](LECCIONES.md).
 
 ## Bitácora de decisiones
