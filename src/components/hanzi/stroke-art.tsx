@@ -12,9 +12,9 @@ import type { StrokeData, StrokeRole } from "@/lib/lesson-types";
 // para que el carácter se lea entero (anverso). "ink": todo en tinta.
 export type StrokeTone = "full" | "subtle" | "ink";
 const ROLE_COLOR: Record<StrokeTone, Record<StrokeRole, string>> = {
-  full: { semantic: "var(--radical)", phonetic: "var(--phonetic)", other: "var(--foreground)" },
-  subtle: { semantic: "var(--radical-subtle)", phonetic: "var(--phonetic-subtle)", other: "var(--foreground)" },
-  ink: { semantic: "var(--foreground)", phonetic: "var(--foreground)", other: "var(--foreground)" },
+  full: { semantic: "var(--radical)", phonetic: "var(--phonetic)", other: "var(--hanzi-ink)" },
+  subtle: { semantic: "var(--radical-subtle)", phonetic: "var(--phonetic-subtle)", other: "var(--hanzi-ink)" },
+  ink: { semantic: "var(--hanzi-ink)", phonetic: "var(--hanzi-ink)", other: "var(--hanzi-ink)" },
 };
 
 // Unidades de la cuadrícula por segundo a velocidad 1, y pausa entre trazos.
