@@ -290,7 +290,16 @@ export function AdminWordEditor({ hanzi }: { hanzi: string }) {
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Sentido {si + 1}</h2>
             {word.senses.length > 1 && (
-              <Button variant="ghost" size="sm" onClick={() => edit((w) => ({ ...w, senses: w.senses.filter((_, i) => i !== si) }))}>
+              <Button variant="ghost" size="sm" onClick={() => {
+                  const n = s.sentences.filter((t) => t.zh.trim()).length;
+                  const label = s.meaning.es || s.meaning.en || `sentido ${si + 1}`;
+                  if (
+                    window.confirm(
+                      `¿Quitar el sentido "${label}"${n ? ` y sus ${n} frase${n === 1 ? "" : "s"}` : ""}? El cambio se aplica al guardar.`,
+                    )
+                  )
+                    edit((w) => ({ ...w, senses: w.senses.filter((_, i) => i !== si) }));
+                }}>
                 <Trash2 /> Quitar sentido
               </Button>
             )}
@@ -387,7 +396,10 @@ export function AdminWordEditor({ hanzi }: { hanzi: string }) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => editSense(si, (x) => ({ ...x, sentences: x.sentences.filter((_, i) => i !== ti) }))}
+                    onClick={() => {
+                      if (!t.zh.trim() || window.confirm(`¿Quitar la frase "${t.zh}"? El cambio se aplica al guardar.`))
+                        editSense(si, (x) => ({ ...x, sentences: x.sentences.filter((_, i) => i !== ti) }));
+                    }}
                   >
                     <Trash2 /> Quitar
                   </Button>
