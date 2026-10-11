@@ -56,9 +56,8 @@ test("admin: base común, editar palabra y plantillas", async ({ page }, info) =
 
   // Editar una palabra del catálogo sin contenido: el control de nivel avisa.
   await page.getByLabel("Buscar en la base").fill("ài");
-  await page.getByRole("link", { name: "爱", exact: true }).click();
+  await page.getByRole("link", { name: "Editar 爱" }).click();
   await page.getByLabel("Significado (español)").fill("amar; querer");
-  await page.getByRole("button", { name: "Añadir frase" }).click();
   await page.getByLabel("Chino").fill("我爱我的家。");
   await expect(page.getByText(/Nivel correcto/)).toBeVisible();
   await page.getByLabel("Chino").fill("我爱旅游。");

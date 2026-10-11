@@ -153,6 +153,20 @@ export const prototype = {
   saveWord(word: ProtoWord) {
     update((s) => ({ ...s, words: { ...s.words, [word.hanzi]: word } }));
   },
+  setStatus(state: State, hanzi: string, status: WordStatus) {
+    const w = prototype.word(state, hanzi);
+    if (w) prototype.saveWord({ ...w, status });
+  },
+  /** Descarta los cambios del admin: vuelve a la versión de la demo o del catálogo. */
+  resetWord(hanzi: string) {
+    update((s) => {
+      const words = { ...s.words };
+      const curated = CURATED.find((w) => w.hanzi === hanzi);
+      if (curated) words[hanzi] = curatedWord(curated);
+      else delete words[hanzi];
+      return { ...s, words };
+    });
+  },
 
   // ── Colecciones ──
   createCollection(title: string, template: boolean): string {

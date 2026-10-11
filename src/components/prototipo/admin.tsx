@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Plus, Save, Trash2 } from "lucide-react";
+import { CircleCheck, CircleDashed, Eye, Pencil, Plus, RotateCcw, Save, Trash2 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Sense, Sentence } from "@/lib/lesson-types";
@@ -68,6 +68,9 @@ export function AdminWordsScreen() {
               <th className="px-3 py-2 font-medium">HSK</th>
               <th className="px-3 py-2 font-medium">Sentidos / frases</th>
               <th className="px-3 py-2 font-medium">Estado</th>
+              <th className="px-3 py-2 font-medium">
+                Acciones
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -87,6 +90,9 @@ export function AdminWordsScreen() {
                 <td className="px-3 py-2">
                   <StatusBadge status={w.status} />
                 </td>
+                <td className="px-3 py-2">
+                  <RowActions word={w} edited={Boolean(state.words[w.hanzi])} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -94,6 +100,65 @@ export function AdminWordsScreen() {
       </div>
       {filtered.length > 200 && <p className="text-sm text-muted-foreground">Mostrando 200 de {filtered.length}; afina la búsqueda.</p>}
     </ProtoShell>
+  );
+}
+
+// Acciones por fila: editar, vista previa, publicar/borrador y restablecer.
+const DEMO_HANZI = new Set(["家", "东西", "认识", "知道", "了解", "意思", "觉得", "关心", "习惯", "文化"]);
+function RowActions({ word, edited }: { word: ProtoWord; edited: boolean }) {
+  const state = usePrototype();
+  const href = `/prototipo/admin/palabras/${encodeURIComponent(word.hanzi)}`;
+  const icon = "inline-flex size-8 items-center justify-center rounded-md hover:bg-muted disabled:opacity-30";
+  const canPreview = DEMO_HANZI.has(word.hanzi) && word.status === "curada";
+  return (
+    <div className="flex items-center gap-0.5">
+      <Link href={href} className={icon} aria-label={`Editar ${word.hanzi}`} title="Editar">
+        <Pencil className="size-4" />
+      </Link>
+      {canPreview ? (
+        <Link
+          href={`/present?palabras=${encodeURIComponent(word.hanzi)}`}
+          className={icon}
+          aria-label={`Vista previa de ${word.hanzi}`}
+          title="Vista previa de la tarjeta"
+        >
+          <Eye className="size-4" />
+        </Link>
+      ) : (
+        <button className={icon} disabled aria-label={`Vista previa de ${word.hanzi} (sin contenido curado)`} title="Vista previa: solo con contenido curado">
+          <Eye className="size-4" />
+        </button>
+      )}
+      {word.status === "curada" ? (
+        <button
+          className={icon}
+          aria-label={`Pasar ${word.hanzi} a borrador`}
+          title="Pasar a borrador (deja de verse para las docentes)"
+          onClick={() => prototype.setStatus(state, word.hanzi, "borrador")}
+        >
+          <CircleDashed className="size-4" />
+        </button>
+      ) : (
+        <button
+          className={icon}
+          aria-label={`Publicar ${word.hanzi}`}
+          title={word.senses[0]?.meaning.es ? "Publicar (marcar como curada)" : "Publicar: falta el significado en español"}
+          disabled={!word.senses[0]?.meaning.es}
+          onClick={() => prototype.setStatus(state, word.hanzi, "curada")}
+        >
+          <CircleCheck className="size-4" />
+        </button>
+      )}
+      <button
+        className={icon}
+        aria-label={`Restablecer ${word.hanzi}`}
+        title="Restablecer: descartar los cambios del admin"
+        disabled={!edited}
+        onClick={() => window.confirm(`¿Descartar los cambios de ${word.hanzi}?`) && prototype.resetWord(word.hanzi)}
+      >
+        <RotateCcw className="size-4" />
+      </button>
+    </div>
   );
 }
 
@@ -143,7 +208,11 @@ export function AdminWordEditor({ hanzi }: { hanzi: string }) {
     import("../../../data/hsk-levels.json").then((m) => setChecker(() => makeLevelChecker(m.default as Levels)));
   }, []);
 
-  const word = draft ?? stored;
+  const word =
+    draft ??
+    (stored && stored.senses.every((s) => !s.sentences.length)
+      ? { ...stored, senses: stored.senses.map((s) => ({ ...s, sentences: [emptySentence()] })) }
+      : stored);
   if (!word) {
     return (
       <ProtoShell crumbs={[...ADMIN_CRUMBS, { label: hanzi }]} title={hanzi}>
