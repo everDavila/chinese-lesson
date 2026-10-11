@@ -158,11 +158,11 @@
   --radical: oklch(0.72 0.09 155);
   --phonetic: oklch(0.72 0.07 250);
   /* Los hanzi conservan su color de antes (Ever): solo cambia lo de alrededor. */
-  --hanzi-ink: oklch(0.92 0.015 85);
-  /* Casi la misma luminosidad que la tinta (0.92) y poca saturación: un matiz
-     dorado, no una pieza aparte. */
-  --radical-subtle: oklch(0.88 0.055 78);
-  --phonetic-subtle: oklch(0.9 0.03 82);
+  /* Idea de Ever: en vez de aclarar el radical, la tinta baja hacia él. El
+     radical conserva su dorado y el carácter se lee como una sola pieza. */
+  --hanzi-ink: oklch(0.84 0.035 80);
+  --radical-subtle: oklch(0.8 0.1 70);
+  --phonetic-subtle: oklch(0.82 0.06 76);
   --stroke-ghost: oklch(0.33 0.012 240);
   --grid-line: oklch(0.78 0.11 75 / 25%);
 
