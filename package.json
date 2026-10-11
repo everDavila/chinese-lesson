@@ -21,7 +21,10 @@
     "test:db": "node tests/db/permisos.mjs",
     "test:sesion": "node scripts/guardar-sesion.mjs",
     "test:recorridos": "playwright test --project=recorridos",
-    "db:cambiar-clave": "node --env-file=.env.local scripts/cambiar-clave.mjs"
+    "db:cambiar-clave": "node --env-file=.env.local scripts/cambiar-clave.mjs",
+    "db:dev:crear": "node --env-file=.env.local scripts/crear-base-dev.mjs",
+    "db:dev:copiar": "node scripts/copiar-contenido.mjs",
+    "dev:base-dev": "node --env-file=.env.dev.local node_modules/next/dist/bin/next dev -p 3001"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
