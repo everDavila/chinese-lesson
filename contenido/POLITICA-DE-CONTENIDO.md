@@ -44,6 +44,13 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
   para copiar frases sin revisar derechos.
 - Los ejemplos deben reflejar situaciones contemporáneas y declarar el registro
   cuando sea relevante: conversación, aula, trabajo, noticias o escritura formal.
+- El vocabulario de un ejemplo HSK no puede superar el nivel de la entrada que
+  enseña: HSK 1 usa solo nivel 1; HSK 2 puede usar niveles 1-2; HSK 3, niveles
+  1-3. Una palabra superior se rechaza por defecto y, si es imprescindible,
+  requiere una excepción visible y explicada.
+- En colecciones propias o basadas en libros manda el vocabulario acumulado ya
+  visto en esa colección, porque el orden del libro no coincide necesariamente
+  con HSK.
 - Se evita enseñar equivalencias palabra por palabra cuando el sentido depende
   de aspecto, partícula, clasificador, colocación o contexto cultural.
 - Simplificado, tradicional y variantes se almacenan explícitamente; nunca se
@@ -60,7 +67,8 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
    primer sentido provisional con el pinyin y la categoría del temario; queda
    `unreviewed`, sin traducciones ni ejemplos, y nunca pisa un sentido existente.
 2. Crear sentidos separados cuando cambien pronunciación, categoría o uso.
-3. Redactar ejemplos restringidos al nivel o al vocabulario ya conocido.
+3. Redactar ejemplos restringidos al nivel o al vocabulario ya conocido y
+   validarlos palabra por palabra antes de publicarlos.
 4. Contrastar uso y colocaciones con corpus contemporáneo.
 5. Revisar chino, español e inglés por separado.
 6. Publicar solo los campos aprobados; conservar las correcciones en `revisions`.
