@@ -24,15 +24,17 @@ Alumno ◄── [Práctica de tarjetas] ◄────────────
 
 | Recurso | Qué aporta | Licencia | Uso |
 |---|---|---|---|
+| [Temario HSK 3.0](https://hsk.cn-bj.ufileos.com/3.0/%E6%96%B0%E7%89%88HSK%E8%80%83%E8%AF%95%E5%A4%A7%E7%BA%B21219.pdf) / [GF 0025-2021](https://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202103/t20210329_523304.html) | Temario oficial publicado en 2025, efectivo desde 2026-07, y norma base de nueve niveles | Documento oficial; verificar redistribución por artefacto | Fuente canónica: niveles 1-3 introducen 300 + 200 + 500 entradas (1000 acumuladas); HSK 2.0 queda como compatibilidad |
+| [BCC](https://bcc.blcu.edu.cn/) | Corpus contemporáneo de Beijing Language and Culture University, separado por oralidad, noticias y otros dominios | Consulta y estadísticas con cita académica | Validar frecuencia, registro y colocaciones; no copiar frases automáticamente |
 | [Hanzi Writer](https://github.com/chanind/hanzi-writer) | Animación de trazos y modo de práctica de escritura en el navegador | Código MIT; datos de trazos bajo Arphic Public License | Anverso de la tarjeta; modo "escribe tú" |
 | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) | Descomposición en componentes, radical y pista etimológica (~9000 caracteres) | Descomposición/etimología LGPL (por confirmar); trazos Arphic | Descomposición 认 → 讠 + 人 |
 | [CC-CEDICT](https://cc-cedict.org/wiki/) | Diccionario chino–inglés (~120 000 entradas): simplificado, tradicional, pinyin, varias lecturas | CC BY-SA | Pinyin, lecturas múltiples (的 de/dí/dì). **Solo en inglés** |
-| [complete-hsk-vocabulary](https://github.com/drkameleon/complete-hsk-vocabulary) / [ivankra/hsk30](https://github.com/ivankra/hsk30) | Listas HSK 2.0 y 3.0 con nivel por palabra (JSON / CSV) | MIT | Nivel de cada palabra; listas para que la profesora elija |
-| [Tatoeba](https://tatoeba.org/es/downloads) | Frases reales chino–español/inglés | CC BY (algunas CC0) | Fuente opcional de frases reales |
+| [complete-hsk-vocabulary](https://github.com/drkameleon/complete-hsk-vocabulary) / [ivankra/hsk30](https://github.com/ivankra/hsk30) | Espejos técnicos de listas HSK para automatizar comparaciones | MIT | Borrador de importación; siempre se contrasta con la norma o el temario oficial |
+| [Tatoeba](https://tatoeba.org/es/downloads) | Frases aportadas por la comunidad | CC BY (algunas CC0) | Solo candidato con trazabilidad y revisión, nunca ejemplo curado automático |
 | pinyin-pro (npm) | Hanzi → pinyin con cambios de tono de 一 y 不 | Por confirmar | Pinyin de las frases generadas |
 | `Intl.Segmenter` (nativo del navegador/Node) | Segmenta frases chinas en palabras | — | Calcular el nivel HSK de una frase |
 | Web Speech API (nativo) / TTS en la nube | Audio de palabra y frase | — / de pago | Audio. Nativo para la demo; nube si la calidad no basta |
-| LLM (p. ej. Claude API) | Frases actuales del nivel adecuado, traducción al español, nota cultural | De pago por uso | Generar lo que los datos abiertos no tienen |
+| LLM (p. ej. Claude API) | Borradores de frases, traducción y notas | De pago por uso | Asistencia editorial; nunca fuente ni aprobación |
 
 **Idiomas (decidido 2026-10-10).** Dos ajustes independientes:
 
@@ -49,22 +51,25 @@ significados en español. El contenido base es **trilingüe: chino, español e
 inglés**. Textos de la interfaz con lenguaje neutro de género ("docente",
 "acceso docente"; en chino 教师 ya es neutro).
 
-**Hueco importante:** no hay datos abiertos buenos en **español**. CC-CEDICT y
-HSK traen inglés (útil para la profesora), pero el español lo genera el LLM.
+**Hueco importante:** no hay una base abierta y acreditada suficiente en
+**español**. CC-CEDICT aporta inglés; el español se redacta como borrador y lo
+revisa una persona. La IA puede ayudar, pero no se registra como autoridad.
 
 ## 3. Motor de contenido (la "ventaja extra")
 
 Al escribir una palabra (ej. 认识):
 
-1. **Datos fijos** (sin IA): nivel HSK (listas HSK), pinyin, lecturas y
+1. **Datos fijos** (sin IA): nivel HSK (norma/temario oficial), pinyin, lecturas y
    significado en inglés (CC-CEDICT), caracteres, componentes y radical
    (Make Me a Hanzi), trazos (Hanzi Writer).
-2. **Generación con IA:** significado en español, de 2 a 3 frases (una por
+2. **Borrador editorial:** significado en español, de 2 a 3 frases (una por
    uso) con traducción al español y al inglés, nota de matiz (falsos amigos
-   como 认识 / 知道 / 去过) y nota cultural si aporta.
-3. **Validación automática:** se segmenta cada frase y se comprueba que todas
-   sus palabras sean del nivel de la palabra o inferior (o ya vistas en
-   clase). Si no cumple, se regenera.
+   como 认识 / 知道 / 去过) y nota cultural si aporta. Puede redactarlo una
+   persona o una IA, pero siempre nace `unreviewed`.
+3. **Validación automática y de corpus:** se segmenta cada frase y se comprueba
+   que sus palabras sean del nivel objetivo o inferior (o ya vistas en clase).
+   Una palabra superior necesaria se registra como apoyo, no como error
+   silencioso, y se contrastan registro y colocaciones con BCC.
 4. **Revisión por idioma:**
    - **Chino** (frases, pinyin, matices, cultura) → la profesora.
    - **Español** → Ever (en la demo).
@@ -148,21 +153,29 @@ frases con su voz, y esas grabaciones sustituyen a la voz del navegador.
 
 ## 4. Modelo de datos
 
-- `User`: id, nombre, rol (profesora / alumno / revisor), idiomas que revisa.
+- `User`: id, nombre, rol (docente / revisor / administrador de contenido), idiomas que revisa.
 - `Class`: grupo de alumnos de una profesora.
-- `Word`: hanzi, nivel HSK, caracteres[], nota cultural.
+- `ContentSource`: fuente, editor, tipo, versión, URL, licencia, fecha de
+  consulta y permiso de redistribución.
+- `Word`: hanzi, caracteres[], nota cultural. La clasificación no se guarda
+  directamente aquí para no pisar un estándar con otro.
+- `WordLevel`: entrada oficial vinculada a palabra y, cuando se puede, a su
+  sentido; estándar, nivel, orden, etiqueta original, pinyin, categoría y
+  fuente. Admite varias filas para el mismo hanzi.
 - `Sense` (**sentido o uso**): palabra, pinyin, significado (es, en),
   categoría (sustantivo, clasificador, verbo…), nota de matiz, orden
   sugerido. Ej. 家 → ① casa/hogar/familia · ② clasificador de empresas y
   tiendas (一家公司). Las lecturas distintas (的 de/dí/dì) también son
   sentidos, cada uno con su pinyin.
-- `Sentence`: **sentido**, texto, pinyin, traducción (es, en), nivel
-  calculado.
+- `Sentence`: **sentido**, texto, pinyin, traducción (es, en), nivel calculado
+  y palabras de apoyo superiores (`support_terms`: entrada/sentido, motivo).
 - `Lesson`: profesora, clase, título, fecha, sentidos[] (la profesora elige
   qué sentido de cada palabra se enseña en esa clase).
 - `Review`: alumno, **sentido**, valoración (1–4), acierto, usó pista, fecha.
 - `Revision`: entidad, campo, valor anterior, valor nuevo, origen, autor,
   fecha. Historial de correcciones para la base curada.
+- `TeacherExample`: propuesta privada de una docente para un sentido; puede
+  quedarse privada, enviarse a revisión o promoverse a `Sentence` global.
 
 Cada campo traducible o corregible lleva además: origen, estado de revisión
 y revisor.
@@ -177,9 +190,11 @@ se distingue "dominan 家 = casa" de "no dominan 家 como clasificador".
   breve ("Ya lo viste: casa, hogar").
 - Los sentidos aún no vistos, ocultos, para no saturar a un principiante.
 
-El nivel HSK es de la palabra, no del sentido (las listas oficiales no
-separan sentidos), así que el orden de los sentidos lo sugiere el sistema y
-lo decide la profesora.
+El nivel HSK pertenece a la entrada oficial y puede corresponder a un sentido o
+lectura. El temario vigente repite formas como `只` (`zhī` en nivel 1 y `zhǐ`
+en nivel 3) y `长` (`cháng` en nivel 2 y `zhǎng` en nivel 3). La palabra no
+se duplica, pero conserva varias filas `WordLevel` enlazables a sentidos
+distintos. El orden pedagógico de esos sentidos lo decide la profesora.
 
 ## 4.1 Colecciones, plantillas y aportes de docentes (diseño 2026-10-11)
 
@@ -251,6 +266,10 @@ Funciones (security definer, con RLS por dentro):
 3. **Lección → añadir palabras**:
    - **Buscar** por hanzi, pinyin (con o sin tonos) o significado, con
      filtro por nivel HSK.
+   - Si una forma aparece en varios niveles, agruparla visualmente y mostrar
+     una opción por entrada/sentido con pinyin, categoría y etiqueta HSK; por
+     ejemplo `只` → `zhī · clasificador · HSK 1` y
+     `zhǐ · adverbio · HSK 3`.
    - **Pegar una lista** (los hanzi de la lección del libro, separados por
      espacios o saltos de línea). El sistema la resuelve:
      - palabra en la base → se añade con su primer sentido (cambiable);
@@ -306,6 +325,12 @@ Ejemplo con la lección 1 (你 好 吗 我 很 呢 也): 你好吗？我很好�
    botón de pinyin y audio → reverso con significado, frases y notas →
    4 botones de valoración.
 5. Ficha de palabra: detalle de caracteres, lecturas y todas las frases.
+
+**Ayuda dentro de una frase:** una palabra superior al nivel objetivo se marca
+como interactiva. Hover o foco en escritorio y toque en móvil abren un
+popover con hanzi, pinyin, significado breve y nivel HSK. Debe poder cerrarse,
+usarse con teclado y anunciarse a lectores de pantalla; el color es solo apoyo
+visual.
 
 ## 6. Fases
 

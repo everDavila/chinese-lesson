@@ -1,0 +1,1619 @@
+{
+  "metadata": {
+    "standard": "hsk-3.0",
+    "level": 2,
+    "sourceId": "cti-hsk3-2026",
+    "sourceTitle": "新版HSK考试大纲",
+    "sourceUrl": "https://hsk.cn-bj.ufileos.com/3.0/%E6%96%B0%E7%89%88HSK%E8%80%83%E8%AF%95%E5%A4%A7%E7%BA%B21219.pdf",
+    "published": "2025-11",
+    "effective": "2026-07",
+    "retrievedAt": "2026-10-11",
+    "sourceSha256": "EC74CE0439E837BBB15154BE13E747AE798903B2FD3A331629DF6C3B45504941",
+    "entryKind": "introduced-at-level",
+    "entryCount": 200,
+    "cumulativeEntryCount": 500,
+    "status": "source-verified-unreviewed"
+  },
+  "words": [
+    {
+      "sourceOrder": 301,
+      "hanzi": "啊",
+      "sourceLabel": "啊",
+      "pinyin": "a",
+      "partOfSpeech": "助",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 302,
+      "hanzi": "爱好",
+      "sourceLabel": "爱好",
+      "pinyin": "àihào",
+      "partOfSpeech": "动、名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 303,
+      "hanzi": "白色",
+      "sourceLabel": "白色",
+      "pinyin": "báisè",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 304,
+      "hanzi": "班",
+      "sourceLabel": "班",
+      "pinyin": "bān",
+      "partOfSpeech": "名、（量）",
+      "sourceLevelLabel": "2（5）"
+    },
+    {
+      "sourceOrder": 305,
+      "hanzi": "帮",
+      "sourceLabel": "帮",
+      "pinyin": "bāng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 306,
+      "hanzi": "帮忙",
+      "sourceLabel": "帮忙",
+      "pinyin": "bāngmáng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 307,
+      "hanzi": "包",
+      "sourceLabel": "包",
+      "pinyin": "bāo",
+      "partOfSpeech": "动、名、量",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 308,
+      "hanzi": "本子",
+      "sourceLabel": "本子",
+      "pinyin": "běnzi",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 309,
+      "hanzi": "比",
+      "sourceLabel": "比",
+      "pinyin": "bǐ",
+      "partOfSpeech": "动、介",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 310,
+      "hanzi": "笔",
+      "sourceLabel": "笔",
+      "pinyin": "bǐ",
+      "partOfSpeech": "名、（量）",
+      "sourceLevelLabel": "2（5）"
+    },
+    {
+      "sourceOrder": 311,
+      "hanzi": "别",
+      "sourceLabel": "别1",
+      "pinyin": "bié",
+      "partOfSpeech": "副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 312,
+      "hanzi": "不错",
+      "sourceLabel": "不错",
+      "pinyin": "búcuò",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 313,
+      "hanzi": "不好意思",
+      "sourceLabel": "不好意思",
+      "pinyin": "bù hǎoyìsi",
+      "partOfSpeech": null,
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 314,
+      "hanzi": "长",
+      "sourceLabel": "长",
+      "pinyin": "cháng",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 315,
+      "hanzi": "车站",
+      "sourceLabel": "车站",
+      "pinyin": "chēzhàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 316,
+      "hanzi": "出",
+      "sourceLabel": "出",
+      "pinyin": "chū",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 317,
+      "hanzi": "出国",
+      "sourceLabel": "出国",
+      "pinyin": "chūguó",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 318,
+      "hanzi": "出来",
+      "sourceLabel": "出来",
+      "pinyin": "chūlái",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 319,
+      "hanzi": "出门",
+      "sourceLabel": "出门",
+      "pinyin": "chūmén",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 320,
+      "hanzi": "出去",
+      "sourceLabel": "出去",
+      "pinyin": "chūqù",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 321,
+      "hanzi": "床",
+      "sourceLabel": "床",
+      "pinyin": "chuáng",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 322,
+      "hanzi": "词",
+      "sourceLabel": "词",
+      "pinyin": "cí",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 323,
+      "hanzi": "次",
+      "sourceLabel": "次",
+      "pinyin": "cì",
+      "partOfSpeech": "量、（形）",
+      "sourceLevelLabel": "2（7-9）"
+    },
+    {
+      "sourceOrder": 324,
+      "hanzi": "从",
+      "sourceLabel": "从",
+      "pinyin": "cóng",
+      "partOfSpeech": "介、（副）",
+      "sourceLevelLabel": "2（4）"
+    },
+    {
+      "sourceOrder": 325,
+      "hanzi": "从小",
+      "sourceLabel": "从小",
+      "pinyin": "cóngxiǎo",
+      "partOfSpeech": "副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 326,
+      "hanzi": "错",
+      "sourceLabel": "错",
+      "pinyin": "cuò",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 327,
+      "hanzi": "打",
+      "sourceLabel": "打1",
+      "pinyin": "dǎ",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 328,
+      "hanzi": "打车",
+      "sourceLabel": "打车",
+      "pinyin": "dǎchē",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 329,
+      "hanzi": "打开",
+      "sourceLabel": "打开",
+      "pinyin": "dǎkāi",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 330,
+      "hanzi": "但",
+      "sourceLabel": "但",
+      "pinyin": "dàn",
+      "partOfSpeech": "连、（副）",
+      "sourceLevelLabel": "2（7-9）"
+    },
+    {
+      "sourceOrder": 331,
+      "hanzi": "但是",
+      "sourceLabel": "但是",
+      "pinyin": "dànshì",
+      "partOfSpeech": "连",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 332,
+      "hanzi": "得",
+      "sourceLabel": "得",
+      "pinyin": "de",
+      "partOfSpeech": "助",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 333,
+      "hanzi": "地",
+      "sourceLabel": "地",
+      "pinyin": "de",
+      "partOfSpeech": "助",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 334,
+      "hanzi": "等",
+      "sourceLabel": "等1",
+      "pinyin": "děng",
+      "partOfSpeech": "动、（介）",
+      "sourceLevelLabel": "2（4）"
+    },
+    {
+      "sourceOrder": 335,
+      "hanzi": "地铁",
+      "sourceLabel": "地铁",
+      "pinyin": "dìtiě",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 336,
+      "hanzi": "点",
+      "sourceLabel": "点2",
+      "pinyin": "diǎn",
+      "partOfSpeech": "动、（名、量）",
+      "sourceLevelLabel": "2（4）"
+    },
+    {
+      "sourceOrder": 337,
+      "hanzi": "懂",
+      "sourceLabel": "懂",
+      "pinyin": "dǒng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 338,
+      "hanzi": "动",
+      "sourceLabel": "动",
+      "pinyin": "dòng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 339,
+      "hanzi": "饭馆",
+      "sourceLabel": "饭馆",
+      "pinyin": "fànguǎn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 340,
+      "hanzi": "飞",
+      "sourceLabel": "飞",
+      "pinyin": "fēi",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 341,
+      "hanzi": "高",
+      "sourceLabel": "高",
+      "pinyin": "gāo",
+      "partOfSpeech": "形、名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 342,
+      "hanzi": "高中",
+      "sourceLabel": "高中",
+      "pinyin": "gāozhōng",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 343,
+      "hanzi": "告诉",
+      "sourceLabel": "告诉",
+      "pinyin": "gàosu",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 344,
+      "hanzi": "个子",
+      "sourceLabel": "个子",
+      "pinyin": "gèzi",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 345,
+      "hanzi": "跟",
+      "sourceLabel": "跟",
+      "pinyin": "gēn",
+      "partOfSpeech": "介、连、（名、动）",
+      "sourceLevelLabel": "2（5）"
+    },
+    {
+      "sourceOrder": 346,
+      "hanzi": "公交车",
+      "sourceLabel": "公交车",
+      "pinyin": "gōngjiāochē",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 347,
+      "hanzi": "过",
+      "sourceLabel": "过",
+      "pinyin": "guò",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 348,
+      "hanzi": "过来",
+      "sourceLabel": "过来",
+      "pinyin": "guòlái",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 349,
+      "hanzi": "过年",
+      "sourceLabel": "过年",
+      "pinyin": "guònián",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 350,
+      "hanzi": "过去",
+      "sourceLabel": "过去1",
+      "pinyin": "guòqù",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 351,
+      "hanzi": "过",
+      "sourceLabel": "过",
+      "pinyin": "guo",
+      "partOfSpeech": "助",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 352,
+      "hanzi": "还是",
+      "sourceLabel": "还是",
+      "pinyin": "háishi",
+      "partOfSpeech": "副、连",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 353,
+      "hanzi": "黑色",
+      "sourceLabel": "黑色",
+      "pinyin": "hēisè",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 354,
+      "hanzi": "红茶",
+      "sourceLabel": "红茶",
+      "pinyin": "hóngchá",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 355,
+      "hanzi": "红色",
+      "sourceLabel": "红色",
+      "pinyin": "hóngsè",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 356,
+      "hanzi": "后面",
+      "sourceLabel": "后面",
+      "pinyin": "hòumiàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 357,
+      "hanzi": "花",
+      "sourceLabel": "花1",
+      "pinyin": "huā",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 358,
+      "hanzi": "花",
+      "sourceLabel": "花2",
+      "pinyin": "huā",
+      "partOfSpeech": "名、（形）",
+      "sourceLevelLabel": "2（6）"
+    },
+    {
+      "sourceOrder": 359,
+      "hanzi": "画",
+      "sourceLabel": "画",
+      "pinyin": "huà",
+      "partOfSpeech": "动、名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 360,
+      "hanzi": "坏",
+      "sourceLabel": "坏",
+      "pinyin": "huài",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 361,
+      "hanzi": "回来",
+      "sourceLabel": "回来",
+      "pinyin": "huílái",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 362,
+      "hanzi": "回去",
+      "sourceLabel": "回去",
+      "pinyin": "huíqù",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 363,
+      "hanzi": "机场",
+      "sourceLabel": "机场",
+      "pinyin": "jīchǎng",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 364,
+      "hanzi": "机票",
+      "sourceLabel": "机票",
+      "pinyin": "jīpiào",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 365,
+      "hanzi": "记得",
+      "sourceLabel": "记得",
+      "pinyin": "jìde",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 366,
+      "hanzi": "间",
+      "sourceLabel": "间",
+      "pinyin": "jiān",
+      "partOfSpeech": "量、（名）",
+      "sourceLevelLabel": "2（4）"
+    },
+    {
+      "sourceOrder": 367,
+      "hanzi": "教",
+      "sourceLabel": "教",
+      "pinyin": "jiāo",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 368,
+      "hanzi": "教室",
+      "sourceLabel": "教室",
+      "pinyin": "jiàoshì",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 369,
+      "hanzi": "介绍",
+      "sourceLabel": "介绍",
+      "pinyin": "jièshào",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 370,
+      "hanzi": "进",
+      "sourceLabel": "进",
+      "pinyin": "jìn",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 371,
+      "hanzi": "近",
+      "sourceLabel": "近",
+      "pinyin": "jìn",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 372,
+      "hanzi": "进来",
+      "sourceLabel": "进来",
+      "pinyin": "jìnlái",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 373,
+      "hanzi": "进去",
+      "sourceLabel": "进去",
+      "pinyin": "jìnqù",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 374,
+      "hanzi": "经常",
+      "sourceLabel": "经常",
+      "pinyin": "jīngcháng",
+      "partOfSpeech": "副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 375,
+      "hanzi": "酒店",
+      "sourceLabel": "酒店",
+      "pinyin": "jiǔdiàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 376,
+      "hanzi": "就",
+      "sourceLabel": "就",
+      "pinyin": "jiù",
+      "partOfSpeech": "副、（介）",
+      "sourceLevelLabel": "2（7-9）"
+    },
+    {
+      "sourceOrder": 377,
+      "hanzi": "咖啡",
+      "sourceLabel": "咖啡",
+      "pinyin": "kāfēi",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 378,
+      "hanzi": "开始",
+      "sourceLabel": "开始",
+      "pinyin": "kāishǐ",
+      "partOfSpeech": "动、名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 379,
+      "hanzi": "开学",
+      "sourceLabel": "开学",
+      "pinyin": "kāixué",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 380,
+      "hanzi": "考",
+      "sourceLabel": "考",
+      "pinyin": "kǎo",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 381,
+      "hanzi": "考试",
+      "sourceLabel": "考试",
+      "pinyin": "kǎoshì",
+      "partOfSpeech": "动、名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 382,
+      "hanzi": "可能",
+      "sourceLabel": "可能",
+      "pinyin": "kěnéng",
+      "partOfSpeech": "形、名、动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 383,
+      "hanzi": "裤子",
+      "sourceLabel": "裤子",
+      "pinyin": "kùzi",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 384,
+      "hanzi": "快",
+      "sourceLabel": "快",
+      "pinyin": "kuài",
+      "partOfSpeech": "形、副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 385,
+      "hanzi": "快乐",
+      "sourceLabel": "快乐",
+      "pinyin": "kuàilè",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 386,
+      "hanzi": "快要",
+      "sourceLabel": "快要",
+      "pinyin": "kuàiyào",
+      "partOfSpeech": "副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 387,
+      "hanzi": "篮球",
+      "sourceLabel": "篮球",
+      "pinyin": "lánqiú",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 388,
+      "hanzi": "累",
+      "sourceLabel": "累",
+      "pinyin": "lèi",
+      "partOfSpeech": "形、动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 389,
+      "hanzi": "离",
+      "sourceLabel": "离",
+      "pinyin": "lí",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 390,
+      "hanzi": "里面",
+      "sourceLabel": "里面",
+      "pinyin": "lǐmiàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 391,
+      "hanzi": "楼",
+      "sourceLabel": "楼",
+      "pinyin": "lóu",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 392,
+      "hanzi": "路",
+      "sourceLabel": "路",
+      "pinyin": "lù",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 393,
+      "hanzi": "路上",
+      "sourceLabel": "路上",
+      "pinyin": "lùshang",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 394,
+      "hanzi": "旅游",
+      "sourceLabel": "旅游",
+      "pinyin": "lǚyóu",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 395,
+      "hanzi": "绿茶",
+      "sourceLabel": "绿茶",
+      "pinyin": "lǜchá",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 396,
+      "hanzi": "绿色",
+      "sourceLabel": "绿色",
+      "pinyin": "lǜsè",
+      "partOfSpeech": "名、（形）",
+      "sourceLevelLabel": "2（4）"
+    },
+    {
+      "sourceOrder": 397,
+      "hanzi": "慢",
+      "sourceLabel": "慢",
+      "pinyin": "màn",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 398,
+      "hanzi": "没意思",
+      "sourceLabel": "没意思",
+      "pinyin": "méi yìsi",
+      "partOfSpeech": null,
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 399,
+      "hanzi": "每",
+      "sourceLabel": "每",
+      "pinyin": "měi",
+      "partOfSpeech": "代、（副）",
+      "sourceLevelLabel": "2（4）"
+    },
+    {
+      "sourceOrder": 400,
+      "hanzi": "门",
+      "sourceLabel": "门",
+      "pinyin": "mén",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 401,
+      "hanzi": "门口",
+      "sourceLabel": "门口",
+      "pinyin": "ménkǒu",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 402,
+      "hanzi": "门票",
+      "sourceLabel": "门票",
+      "pinyin": "ménpiào",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 403,
+      "hanzi": "面",
+      "sourceLabel": "面1",
+      "pinyin": "miàn",
+      "partOfSpeech": "后缀、（动、名、量）",
+      "sourceLevelLabel": "2（5）"
+    },
+    {
+      "sourceOrder": 404,
+      "hanzi": "名",
+      "sourceLabel": "名",
+      "pinyin": "míng",
+      "partOfSpeech": "名、量",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 405,
+      "hanzi": "拿",
+      "sourceLabel": "拿",
+      "pinyin": "ná",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 406,
+      "hanzi": "那么",
+      "sourceLabel": "那么",
+      "pinyin": "nàme",
+      "partOfSpeech": "代、连",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 407,
+      "hanzi": "那样",
+      "sourceLabel": "那样",
+      "pinyin": "nàyàng",
+      "partOfSpeech": "代",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 408,
+      "hanzi": "奶茶",
+      "sourceLabel": "奶茶",
+      "pinyin": "nǎichá",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 409,
+      "hanzi": "奶奶",
+      "sourceLabel": "奶奶",
+      "pinyin": "nǎinai",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 410,
+      "hanzi": "男孩儿",
+      "sourceLabel": "男孩儿",
+      "pinyin": "nánháir",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 411,
+      "hanzi": "鸟",
+      "sourceLabel": "鸟",
+      "pinyin": "niǎo",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 412,
+      "hanzi": "女孩儿",
+      "sourceLabel": "女孩儿",
+      "pinyin": "nǚháir",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 413,
+      "hanzi": "旁边",
+      "sourceLabel": "旁边",
+      "pinyin": "pángbiān",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 414,
+      "hanzi": "跑",
+      "sourceLabel": "跑",
+      "pinyin": "pǎo",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 415,
+      "hanzi": "跑步",
+      "sourceLabel": "跑步",
+      "pinyin": "pǎobù",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 416,
+      "hanzi": "票",
+      "sourceLabel": "票",
+      "pinyin": "piào",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 417,
+      "hanzi": "妻子",
+      "sourceLabel": "妻子",
+      "pinyin": "qīzi",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 418,
+      "hanzi": "起来",
+      "sourceLabel": "起来",
+      "pinyin": "qǐlái",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 419,
+      "hanzi": "前面",
+      "sourceLabel": "前面",
+      "pinyin": "qiánmiàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 420,
+      "hanzi": "晴",
+      "sourceLabel": "晴",
+      "pinyin": "qíng",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 421,
+      "hanzi": "球",
+      "sourceLabel": "球",
+      "pinyin": "qiú",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 422,
+      "hanzi": "让",
+      "sourceLabel": "让",
+      "pinyin": "ràng",
+      "partOfSpeech": "动、（介）",
+      "sourceLevelLabel": "2（4）"
+    },
+    {
+      "sourceOrder": 423,
+      "hanzi": "肉",
+      "sourceLabel": "肉",
+      "pinyin": "ròu",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 424,
+      "hanzi": "商场",
+      "sourceLabel": "商场",
+      "pinyin": "shāngchǎng",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 425,
+      "hanzi": "上来",
+      "sourceLabel": "上来",
+      "pinyin": "shànglái",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 426,
+      "hanzi": "上面",
+      "sourceLabel": "上面",
+      "pinyin": "shàngmiàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 427,
+      "hanzi": "上去",
+      "sourceLabel": "上去",
+      "pinyin": "shàngqù",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 428,
+      "hanzi": "上网",
+      "sourceLabel": "上网",
+      "pinyin": "shàngwǎng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 429,
+      "hanzi": "身体",
+      "sourceLabel": "身体",
+      "pinyin": "shēntǐ",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 430,
+      "hanzi": "生日",
+      "sourceLabel": "生日",
+      "pinyin": "shēngrì",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 431,
+      "hanzi": "时",
+      "sourceLabel": "时",
+      "pinyin": "shí",
+      "partOfSpeech": "名、（量）",
+      "sourceLevelLabel": "2（6）"
+    },
+    {
+      "sourceOrder": 432,
+      "hanzi": "事情",
+      "sourceLabel": "事情",
+      "pinyin": "shìqing",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 433,
+      "hanzi": "手",
+      "sourceLabel": "手",
+      "pinyin": "shǒu",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 434,
+      "hanzi": "手表",
+      "sourceLabel": "手表",
+      "pinyin": "shǒubiǎo",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 435,
+      "hanzi": "书包",
+      "sourceLabel": "书包",
+      "pinyin": "shūbāo",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 436,
+      "hanzi": "舒服",
+      "sourceLabel": "舒服",
+      "pinyin": "shūfu",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 437,
+      "hanzi": "送",
+      "sourceLabel": "送",
+      "pinyin": "sòng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 438,
+      "hanzi": "虽然",
+      "sourceLabel": "虽然",
+      "pinyin": "suīrán",
+      "partOfSpeech": "连",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 439,
+      "hanzi": "所以",
+      "sourceLabel": "所以",
+      "pinyin": "suǒyǐ",
+      "partOfSpeech": "连",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 440,
+      "hanzi": "疼",
+      "sourceLabel": "疼",
+      "pinyin": "téng",
+      "partOfSpeech": "形、（动）",
+      "sourceLevelLabel": "2（6）"
+    },
+    {
+      "sourceOrder": 441,
+      "hanzi": "踢",
+      "sourceLabel": "踢",
+      "pinyin": "tī",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 442,
+      "hanzi": "题",
+      "sourceLabel": "题",
+      "pinyin": "tí",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 443,
+      "hanzi": "条",
+      "sourceLabel": "条",
+      "pinyin": "tiáo",
+      "partOfSpeech": "量、（名）",
+      "sourceLevelLabel": "2（5）"
+    },
+    {
+      "sourceOrder": 444,
+      "hanzi": "跳舞",
+      "sourceLabel": "跳舞",
+      "pinyin": "tiàowǔ",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 445,
+      "hanzi": "头",
+      "sourceLabel": "头",
+      "pinyin": "tóu",
+      "partOfSpeech": "名、（量）、（形）",
+      "sourceLevelLabel": "2（3）（5）"
+    },
+    {
+      "sourceOrder": 446,
+      "hanzi": "外国",
+      "sourceLabel": "外国",
+      "pinyin": "wàiguó",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 447,
+      "hanzi": "外面",
+      "sourceLabel": "外面",
+      "pinyin": "wàimiàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 448,
+      "hanzi": "完",
+      "sourceLabel": "完",
+      "pinyin": "wán",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 449,
+      "hanzi": "万",
+      "sourceLabel": "万",
+      "pinyin": "wàn",
+      "partOfSpeech": "数",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 450,
+      "hanzi": "往",
+      "sourceLabel": "往",
+      "pinyin": "wǎng",
+      "partOfSpeech": "动、介",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 451,
+      "hanzi": "网上",
+      "sourceLabel": "网上",
+      "pinyin": "wǎngshang",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 452,
+      "hanzi": "忘",
+      "sourceLabel": "忘",
+      "pinyin": "wàng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 453,
+      "hanzi": "位",
+      "sourceLabel": "位",
+      "pinyin": "wèi",
+      "partOfSpeech": "量",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 454,
+      "hanzi": "为什么",
+      "sourceLabel": "为什么",
+      "pinyin": "wèi shénme",
+      "partOfSpeech": null,
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 455,
+      "hanzi": "希望",
+      "sourceLabel": "希望",
+      "pinyin": "xīwàng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 456,
+      "hanzi": "洗",
+      "sourceLabel": "洗",
+      "pinyin": "xǐ",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 457,
+      "hanzi": "洗手间",
+      "sourceLabel": "洗手间",
+      "pinyin": "xǐshǒujiān",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 458,
+      "hanzi": "下来",
+      "sourceLabel": "下来",
+      "pinyin": "xiàlái",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 459,
+      "hanzi": "下面",
+      "sourceLabel": "下面",
+      "pinyin": "xiàmiàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 460,
+      "hanzi": "下去",
+      "sourceLabel": "下去",
+      "pinyin": "xiàqù",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 461,
+      "hanzi": "小孩儿",
+      "sourceLabel": "小孩儿",
+      "pinyin": "xiǎoháir",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 462,
+      "hanzi": "小时候",
+      "sourceLabel": "小时候",
+      "pinyin": "xiǎoshíhou",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 463,
+      "hanzi": "笑",
+      "sourceLabel": "笑",
+      "pinyin": "xiào",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 464,
+      "hanzi": "姓",
+      "sourceLabel": "姓",
+      "pinyin": "xìng",
+      "partOfSpeech": "名、动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 465,
+      "hanzi": "姓名",
+      "sourceLabel": "姓名",
+      "pinyin": "xìngmíng",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 466,
+      "hanzi": "颜色",
+      "sourceLabel": "颜色",
+      "pinyin": "yánsè",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 467,
+      "hanzi": "眼睛",
+      "sourceLabel": "眼睛",
+      "pinyin": "yǎnjing",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 468,
+      "hanzi": "药",
+      "sourceLabel": "药",
+      "pinyin": "yào",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 469,
+      "hanzi": "药店",
+      "sourceLabel": "药店",
+      "pinyin": "yàodiàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 470,
+      "hanzi": "爷爷",
+      "sourceLabel": "爷爷",
+      "pinyin": "yéye",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 471,
+      "hanzi": "一会儿",
+      "sourceLabel": "一会儿",
+      "pinyin": "yíhuìr",
+      "partOfSpeech": "数量、（副）",
+      "sourceLevelLabel": "2（3）"
+    },
+    {
+      "sourceOrder": 472,
+      "hanzi": "已经",
+      "sourceLabel": "已经",
+      "pinyin": "yǐjīng",
+      "partOfSpeech": "副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 473,
+      "hanzi": "一起",
+      "sourceLabel": "一起",
+      "pinyin": "yìqǐ",
+      "partOfSpeech": "副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 474,
+      "hanzi": "意思",
+      "sourceLabel": "意思",
+      "pinyin": "yìsi",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 475,
+      "hanzi": "阴",
+      "sourceLabel": "阴",
+      "pinyin": "yīn",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 476,
+      "hanzi": "因为",
+      "sourceLabel": "因为",
+      "pinyin": "yīnwèi",
+      "partOfSpeech": "介、连",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 477,
+      "hanzi": "游",
+      "sourceLabel": "游",
+      "pinyin": "yóu",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 478,
+      "hanzi": "游泳",
+      "sourceLabel": "游泳",
+      "pinyin": "yóuyǒng",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 479,
+      "hanzi": "有意思",
+      "sourceLabel": "有意思",
+      "pinyin": "yǒu yìsi",
+      "partOfSpeech": null,
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 480,
+      "hanzi": "有时",
+      "sourceLabel": "有时",
+      "pinyin": "yǒushí",
+      "partOfSpeech": "副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 481,
+      "hanzi": "右",
+      "sourceLabel": "右",
+      "pinyin": "yòu",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 482,
+      "hanzi": "右边",
+      "sourceLabel": "右边",
+      "pinyin": "yòubian",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 483,
+      "hanzi": "鱼",
+      "sourceLabel": "鱼",
+      "pinyin": "yú",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 484,
+      "hanzi": "远",
+      "sourceLabel": "远",
+      "pinyin": "yuǎn",
+      "partOfSpeech": "形",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 485,
+      "hanzi": "运动",
+      "sourceLabel": "运动",
+      "pinyin": "yùndòng",
+      "partOfSpeech": "动、名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 486,
+      "hanzi": "站",
+      "sourceLabel": "站1",
+      "pinyin": "zhàn",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 487,
+      "hanzi": "丈夫",
+      "sourceLabel": "丈夫",
+      "pinyin": "zhàngfu",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 488,
+      "hanzi": "这么",
+      "sourceLabel": "这么",
+      "pinyin": "zhème",
+      "partOfSpeech": "代",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 489,
+      "hanzi": "这样",
+      "sourceLabel": "这样",
+      "pinyin": "zhèyàng",
+      "partOfSpeech": "代",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 490,
+      "hanzi": "着",
+      "sourceLabel": "着",
+      "pinyin": "zhe",
+      "partOfSpeech": "助",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 491,
+      "hanzi": "正",
+      "sourceLabel": "正",
+      "pinyin": "zhèng",
+      "partOfSpeech": "副、（形）",
+      "sourceLevelLabel": "2（5）"
+    },
+    {
+      "sourceOrder": 492,
+      "hanzi": "周",
+      "sourceLabel": "周",
+      "pinyin": "zhōu",
+      "partOfSpeech": "名、（量）",
+      "sourceLevelLabel": "2（6）"
+    },
+    {
+      "sourceOrder": 493,
+      "hanzi": "准备",
+      "sourceLabel": "准备",
+      "pinyin": "zhǔnbèi",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 494,
+      "hanzi": "自己",
+      "sourceLabel": "自己",
+      "pinyin": "zìjǐ",
+      "partOfSpeech": "代",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 495,
+      "hanzi": "走",
+      "sourceLabel": "走",
+      "pinyin": "zǒu",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 496,
+      "hanzi": "走路",
+      "sourceLabel": "走路",
+      "pinyin": "zǒulù",
+      "partOfSpeech": "动",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 497,
+      "hanzi": "足球",
+      "sourceLabel": "足球",
+      "pinyin": "zúqiú",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 498,
+      "hanzi": "最",
+      "sourceLabel": "最",
+      "pinyin": "zuì",
+      "partOfSpeech": "副",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 499,
+      "hanzi": "左",
+      "sourceLabel": "左",
+      "pinyin": "zuǒ",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    },
+    {
+      "sourceOrder": 500,
+      "hanzi": "左边",
+      "sourceLabel": "左边",
+      "pinyin": "zuǒbian",
+      "partOfSpeech": "名",
+      "sourceLevelLabel": "2"
+    }
+  ]
+}

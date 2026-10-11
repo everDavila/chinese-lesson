@@ -8,9 +8,18 @@
 import { readFileSync } from "node:fs";
 
 const lessonPath = process.argv[2] ?? "contenido/leccion-demo.json";
-const lesson = JSON.parse(readFileSync(lessonPath, "utf8"));
+const content = JSON.parse(readFileSync(lessonPath, "utf8"));
 const levels = JSON.parse(readFileSync("data/hsk-levels.json", "utf8"));
-const v = lesson.lesson.hskVersion === "3.0" ? "n" : "o";
+const isDraftBatch = Array.isArray(content.examples);
+const hskVersion = isDraftBatch ? content.metadata.standard.replace("hsk-", "") : content.lesson.hskVersion;
+const v = hskVersion === "3.0" ? "n" : "o";
+const words = isDraftBatch
+  ? content.examples.map((example) => ({
+      hanzi: example.hanzi,
+      hsk: content.metadata.level,
+      senses: [{ sentences: [example] }],
+    }))
+  : content.words;
 const MAX_LEN = Math.max(...Object.keys(levels).map((w) => w.length));
 
 // Un carácter suelto que no es palabra (学, 晚) toma el nivel mínimo de las
@@ -43,7 +52,7 @@ function bestSplit(text, target) {
 }
 
 let problems = 0;
-for (const word of lesson.words) {
+for (const word of words) {
   for (const [i, sense] of word.senses.entries()) {
     for (const s of sense.sentences) {
       const bad = [];

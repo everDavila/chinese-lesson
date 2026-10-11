@@ -10,12 +10,17 @@ const sizes = {
   wide: { width: 1920, height: 1080 },
 } as const;
 
+// Cada worktree puede usar su propio puerto y no terminar probando, con mucha
+// seguridad y cero utilidad, el servidor de otra sesión.
+const port = process.env.PLAYWRIGHT_PORT ?? "3000";
+const baseURL = `http://localhost:${port}`;
+
 export default defineConfig({
   testDir: "tests",
   outputDir: "tests/.results",
   reporter: "list",
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL,
     // Sin animación: los hanzi salen ya dibujados y la captura no depende de la suerte.
     reducedMotion: "reduce",
   },
@@ -32,8 +37,8 @@ export default defineConfig({
     })),
   ),
   webServer: {
-    command: "npm run dev",
-    url: "http://localhost:3000/es/present",
+    command: `npm run dev -- -p ${port}`,
+    url: `${baseURL}/es/present`,
     reuseExistingServer: true,
     timeout: 120_000,
   },

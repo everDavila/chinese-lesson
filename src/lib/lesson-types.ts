@@ -9,6 +9,8 @@ export type Sentence = {
   pinyin: string;
   es: string;
   en: string;
+  /** Estado editorial: los borradores de IA deben verse como tales en clase. */
+  status?: "unreviewed" | "reviewed" | "corrected";
 };
 
 export type Sense = {
