@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "validate:content": "node scripts/validate-content.mjs",
-    "build:seed": "node scripts/build-seed.mjs"
+    "build:seed": "node scripts/build-seed.mjs",
+    "db": "node --env-file=.env.local scripts/db.mjs",
+    "db:migrate": "node --env-file=.env.local scripts/db.mjs db push"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

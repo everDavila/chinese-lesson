@@ -8,15 +8,25 @@
 - `seed.sql`: contenido de la lección de demo. Se genera con
   `npm run build:seed`; no editar a mano.
 
-## Aplicar en un proyecto nuevo
+## Aplicar migraciones
 
-1. Supabase → **SQL Editor** → pegar y ejecutar la migración.
-2. Después, pegar y ejecutar `seed.sql`.
-3. Cada migración nueva se pega y ejecuta en orden (por fecha del nombre).
+Con `SUPABASE_DB_URL` en `.env.local` (URI del **Session pooler**, ver
+`.env.example`):
 
-**Estado del proyecto `hanzi` (2026-10-10):** migración inicial y seed
-aplicados (10 palabras, 15 sentidos, 30 frases, 19 caracteres); usuario de
-Ever creado. Pendiente: `20261010010000_profiles_trigger.sql`.
+```
+npm run db -- migration list   # qué está aplicado
+npm run db:migrate             # aplica las pendientes (supabase db push)
+```
+
+`scripts/db.mjs` ejecuta la CLI de Supabase y oculta la URL y la contraseña
+en la salida. La conexión directa (`db.<ref>.supabase.co`) es solo IPv6 y
+no resuelve en redes IPv4; el Session pooler sí.
+
+El seed no lo aplica `db push`: se ejecuta una vez a mano en el SQL Editor.
+
+**Estado del proyecto `hanzi` (2026-10-10):** las dos migraciones aplicadas y
+registradas en el historial; seed aplicado (10 palabras, 15 sentidos, 30
+frases, 19 caracteres); usuario de Ever con su perfil de profesora.
 
 (Con la CLI de Supabase: `supabase link` + `supabase db push`, y el seed con
 `psql`.)

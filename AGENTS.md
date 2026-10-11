@@ -22,7 +22,7 @@
 - Arquitectura propuesta en `ARQUITECTURA.md`; framework: Next.js.
 - MVP centrado en la enseñanza en clase (fases 0–3 en `ARQUITECTURA.md` §6).
 - **Fase 0 completa:** andamiaje, contenido validado de la lección de demo, datos de caracteres y trazos. Supabase `hanzi` con migración inicial + seed aplicados y `.env.local` configurado (no se sube).
-- **Fase 1 en curso:** `/present` (demo local, sin login) y `/present/session/[id]` (clase en vivo: lección desde Supabase, valoraciones en `teacher_ratings`). Login de la profesora en `/login`; en el inicio, "Crear la lección de demo" y "Empezar clase". Falta: aplicar `supabase/migrations/20261010010000_profiles_trigger.sql` (sin perfil no se pueden crear lecciones), probar el flujo con la cuenta de Ever, pantalla de preparación de la lección. **Pendiente:** cerrar el estilo visual. Lección de demo en `contenido/LECCION-DEMO.md`.
+- **Fase 1 en curso:** `/present` (demo local, sin login) y `/present/session/[id]` (clase en vivo: lección desde Supabase, valoraciones en `teacher_ratings`). Login de la profesora en `/login`; en el inicio, "Crear la lección de demo" y "Empezar clase". Migraciones aplicadas con `npm run db:migrate`. Falta: probar el flujo con la cuenta de Ever, pantalla de preparación de la lección. **Pendiente:** cerrar el estilo visual. Lección de demo en `contenido/LECCION-DEMO.md`.
 
 ## Stack y comandos
 - **Runtime / lenguaje:** TypeScript, Node.js ≥ 20.9 (probado con 22.14). Next.js 16.4 + React 19.3.
