@@ -57,3 +57,6 @@ next-env.d.ts
 
 # Copias de seguridad de la base (datos reales, nunca al repo)
 /backups/
+
+# Caché de fuentes externas para construir lotes de contenido
+/.cache/

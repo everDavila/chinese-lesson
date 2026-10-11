@@ -18,6 +18,8 @@
     "db:crear-docente": "node --env-file=.env.local scripts/crear-docente.mjs",
     "test:visual": "playwright test",
     "db:sync-content": "node --env-file=.env.local scripts/sync-content.mjs",
+    "content:build-examples": "node scripts/build-hsk-examples.mjs",
+    "db:sync-hsk-examples": "node --env-file=.env.local scripts/sync-hsk-examples.mjs",
     "test:db": "node tests/db/permisos.mjs"
   },
   "dependencies": {

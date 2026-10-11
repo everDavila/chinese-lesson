@@ -9,15 +9,26 @@ import { readFileSync } from "node:fs";
 
 const lessonPath = process.argv[2] ?? "contenido/leccion-demo.json";
 const content = JSON.parse(readFileSync(lessonPath, "utf8"));
-const levels = JSON.parse(readFileSync("data/hsk-levels.json", "utf8"));
 const isDraftBatch = Array.isArray(content.examples);
 const hskVersion = isDraftBatch ? content.metadata.standard.replace("hsk-", "") : content.lesson.hskVersion;
 const v = hskVersion === "3.0" ? "n" : "o";
+const levels = JSON.parse(readFileSync("data/hsk-levels.json", "utf8"));
+if (hskVersion === "3.0") {
+  // El catálogo vigente es el temario oficial publicado en 2025 (efectivo
+  // desde 2026), no la tabla provisional GF 0025-2021 de data/hsk-levels.json.
+  for (const level of [1, 2, 3]) {
+    const catalog = JSON.parse(readFileSync(`contenido/hsk3-level${level}.json`, "utf8"));
+    for (const word of catalog.words) {
+      const current = levels[word.hanzi]?.n;
+      levels[word.hanzi] = { ...(levels[word.hanzi] ?? {}), n: current ? Math.min(current, level) : level };
+    }
+  }
+}
 const words = isDraftBatch
   ? content.examples.map((example) => ({
       hanzi: example.hanzi,
       hsk: content.metadata.level,
-      senses: [{ sentences: [example] }],
+      senses: [{ sentences: example.sentences ?? [example] }],
     }))
   : content.words;
 const MAX_LEN = Math.max(...Object.keys(levels).map((w) => w.length));
