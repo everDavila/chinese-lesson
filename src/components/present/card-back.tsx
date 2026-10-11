@@ -47,6 +47,9 @@ function SentenceRow({
   // Con las traducciones apagadas, un clic en la frase revela solo esa.
   const [revealed, setRevealed] = useState(false);
   const visible = showTranslations || revealed;
+  // El estado de revisión de la frase (sentences.status) no se muestra aquí:
+  // es información editorial interna, no material de clase. No existe aún
+  // vista de admin que lo exponga, así que hoy vive solo en la base.
   return (
     <li className="flex gap-4 border-t border-border py-4 first:border-t-0">
       <span className="mt-2 flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-sm text-muted-foreground">
@@ -63,11 +66,6 @@ function SentenceRow({
           >
             <Highlighted text={sentence.zh} keyword={keyword} />
           </button>
-          {sentence.status === "unreviewed" && (
-            <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-300">
-              {labels.unreviewedExample}
-            </span>
-          )}
           <Button
             variant="ghost"
             size="icon"

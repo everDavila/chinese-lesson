@@ -18,7 +18,8 @@ test("tarjeta: anverso y reverso", async ({ page }, testInfo) => {
 
     await page.keyboard.press("Space");
     await page.waitForTimeout(700);
-    await expect(page.getByText("Sin curar").first()).toBeVisible();
+    // El estado editorial no se enseña en clase (solo en el admin).
+    await expect(page.getByText("Sin curar")).toHaveCount(0);
     await page.screenshot({ path: `${dir}/${n}-reverso.png` });
 
     const overflow = await page.evaluate(
