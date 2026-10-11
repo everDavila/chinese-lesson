@@ -15,12 +15,22 @@ if (
   throw new Error("El generador solo acepta el catálogo HSK 3.0 nivel 1 validado.");
 }
 
+const toPlainPinyin = (pinyin) =>
+  pinyin
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z]/g, "");
+
 const entries = catalog.words.map(
-  ({ sourceOrder, hanzi, sourceLabel, sourceLevelLabel }) => ({
+  ({ sourceOrder, hanzi, sourceLabel, sourceLevelLabel, pinyin, partOfSpeech }) => ({
     source_order: sourceOrder,
     hanzi,
     source_label: sourceLabel,
     source_level_label: sourceLevelLabel,
+    pinyin,
+    pinyin_plain: toPlainPinyin(pinyin),
+    category: partOfSpeech,
   }),
 );
 const payload = JSON.stringify(entries);
@@ -35,7 +45,10 @@ with source_entries as (
     source_order integer,
     hanzi text,
     source_label text,
-    source_level_label text
+    source_level_label text,
+    pinyin text,
+    pinyin_plain text,
+    category text
   )
 )
 insert into words (hanzi, hsk_level, hsk_version, origin, status)
@@ -49,7 +62,10 @@ with source_entries as (
     source_order integer,
     hanzi text,
     source_label text,
-    source_level_label text
+    source_level_label text,
+    pinyin text,
+    pinyin_plain text,
+    category text
   )
 )
 insert into word_levels (
@@ -77,6 +93,42 @@ on conflict (word_id, standard) do update set
   source_order = excluded.source_order,
   source_label = excluded.source_label,
   source_level_label = excluded.source_level_label;
+
+-- Un sentido provisional hace que cada palabra se pueda buscar y seleccionar
+-- al armar una colección. No pisa contenido ya curado y sigue marcado como
+-- unreviewed hasta separar acepciones, traducir y añadir ejemplos.
+with source_entries as (
+  select *
+  from jsonb_to_recordset($catalog$${payload}$catalog$::jsonb) as entry (
+    source_order integer,
+    hanzi text,
+    source_label text,
+    source_level_label text,
+    pinyin text,
+    pinyin_plain text,
+    category text
+  )
+)
+insert into senses (
+  word_id,
+  position,
+  pinyin,
+  pinyin_plain,
+  category,
+  origin,
+  status
+)
+select
+  words.id,
+  1,
+  source_entries.pinyin,
+  source_entries.pinyin_plain,
+  source_entries.category,
+  'open_data',
+  'unreviewed'
+from source_entries
+join words using (hanzi)
+on conflict (word_id, position) do nothing;
 `;
 
 await writeFile(outputUrl, sql, "utf8");

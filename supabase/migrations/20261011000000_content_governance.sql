@@ -49,6 +49,11 @@ create unique index word_levels_source_order_idx
   on word_levels (standard, level, source_order)
   where source_order is not null;
 
+-- Campo de búsqueda para que la vista de colecciones encuentre palabras sin
+-- exigir marcas de tono. Se puebla desde la fuente junto al sentido borrador.
+alter table senses add column pinyin_plain text;
+create index senses_pinyin_plain_idx on senses (pinyin_plain);
+
 comment on column words.hsk_level is
   'Compatibilidad temporal con la demo. El catálogo versionado vive en word_levels.';
 comment on column words.hsk_version is
@@ -119,7 +124,7 @@ on conflict (word_id, standard) do nothing;
 
 alter table profiles drop constraint if exists profiles_role_check;
 alter table profiles add constraint profiles_role_check
-  check (role in ('teacher', 'reviewer', 'content_admin'));
+  check (role in ('teacher', 'reviewer', 'admin'));
 
 -- La política inicial permitía actualizar cualquier columna del perfil propio,
 -- incluido role. RLS decide qué filas; los privilegios de columna evitan que un
@@ -171,68 +176,68 @@ drop policy if exists "editar frases" on sentences;
 create policy "curadores crean palabras" on words for insert to authenticated
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 create policy "curadores editan palabras" on words for update to authenticated
   using (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ))
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 
 create policy "curadores crean sentidos" on senses for insert to authenticated
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 create policy "curadores editan sentidos" on senses for update to authenticated
   using (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ))
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 
 create policy "curadores crean frases" on sentences for insert to authenticated
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 create policy "curadores editan frases" on sentences for update to authenticated
   using (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ))
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 
 create policy "leer fuentes" on content_sources for select to authenticated using (true);
 create policy "curadores gestionan fuentes" on content_sources for all to authenticated
   using (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ))
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 
 create policy "leer niveles" on word_levels for select to authenticated using (true);
 create policy "curadores gestionan niveles" on word_levels for all to authenticated
   using (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ))
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 
 create policy "docentes leen sus ejemplos" on teacher_examples
@@ -253,32 +258,32 @@ create policy "curadores revisan ejemplos" on teacher_examples
   for select to authenticated
   using (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 create policy "curadores deciden ejemplos" on teacher_examples
   for update to authenticated
   using (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ))
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 
 create policy "curadores crean caracteres" on characters for insert to authenticated
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 create policy "curadores editan caracteres" on characters for update to authenticated
   using (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ))
   with check (exists (
     select 1 from profiles p
-    where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+    where p.id = auth.uid() and p.role = 'admin'
   ));
 
 drop policy if exists "registrar cambio" on revisions;
@@ -288,6 +293,6 @@ create policy "curadores registran cambios" on revisions
     author = auth.uid()
     and exists (
       select 1 from profiles p
-      where p.id = auth.uid() and p.role in ('reviewer', 'content_admin')
+      where p.id = auth.uid() and p.role = 'admin'
     )
   );

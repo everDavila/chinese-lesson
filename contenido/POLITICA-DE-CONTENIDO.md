@@ -54,6 +54,9 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
 ## Flujo editorial
 
 1. Importar únicamente identificación y clasificación verificables.
+   Para habilitar la selección en colecciones, el importador puede crear un
+   primer sentido provisional con el pinyin y la categoría del temario; queda
+   `unreviewed`, sin traducciones ni ejemplos, y nunca pisa un sentido existente.
 2. Crear sentidos separados cuando cambien pronunciación, categoría o uso.
 3. Redactar ejemplos restringidos al nivel o al vocabulario ya conocido.
 4. Contrastar uso y colocaciones con corpus contemporáneo.
