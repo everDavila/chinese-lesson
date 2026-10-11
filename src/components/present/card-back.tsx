@@ -106,6 +106,7 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
   const { word, senseIndex } = item;
   const sense = word.senses[senseIndex];
   const otherSenses = word.senses.filter((_, i) => i !== senseIndex);
+  const withInfo = item.characters.filter((c) => c.info);
 
   // Al bajar por las frases, la cabecera grande se va: una barra compacta con
   // la palabra queda fija arriba (auditoría UX, P1). Va en un contenedor de
@@ -180,54 +181,58 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
               fonético azul). En el anverso solo hay un matiz de tono. */}
           {/* Solo la fórmula en color (知 = 矢 + 口): el significado del radical
               sale al pasar el cursor, enfocar o tocar. Una línea por carácter. */}
-          <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
-            <h3 className="flex w-full flex-wrap items-baseline justify-between gap-x-3 text-sm font-medium text-muted-foreground">
-              {labels.howItsBuilt}
-              <span className="text-xs font-normal">{labels.howItsBuiltHint}</span>
-            </h3>
-            {item.characters.map((c) => {
-              // Solo el radical lleva detalle (su significado). El sonido del
-              // fonético confundía: varios componentes suenan parecido.
-              const detail = (comp: NonNullable<typeof c.info>["components"][number]) =>
-                comp.role === "semantic" ? (componentMeanings[comp.char]?.[lang] ?? labels.radical) : null;
-              return (
-                <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 font-hanzi text-[clamp(1.25rem,2.2vw,2rem)]">
-                  <span>{c.char}</span>
-                  <span className="text-[0.6em] text-muted-foreground">=</span>
-                  {c.info?.components.length ? (
-                    c.info.components.map((comp, i) => {
-                      const text = detail(comp);
-                      const color = cn(comp.role === "semantic" && "text-radical", comp.role === "phonetic" && "text-phonetic");
-                      return (
-                        <span key={i} className="flex items-baseline gap-2">
-                          {i > 0 && <span className="text-[0.6em] text-muted-foreground">+</span>}
-                          {text ? (
-                            <button
-                              type="button"
-                              className={cn("group relative rounded-sm underline decoration-dotted decoration-1 underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring", color)}
-                              aria-label={`${comp.char}: ${text}`}
-                            >
-                              {comp.char}
-                              <span
-                                role="tooltip"
-                                className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 rounded-md border border-border bg-popover px-2 py-1 font-sans text-sm whitespace-nowrap text-popover-foreground opacity-0 shadow-md transition-opacity group-hover:opacity-100 group-focus:opacity-100"
+          {/* Sin datos de descomposición (hoy, casi todo fuera de la lección de
+              demo) no se muestra nada: decir "carácter simple" sería falso. */}
+          {withInfo.length > 0 && (
+            <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
+              <h3 className="flex w-full flex-wrap items-baseline justify-between gap-x-3 text-sm font-medium text-muted-foreground">
+                {labels.howItsBuilt}
+                <span className="text-xs font-normal">{labels.howItsBuiltHint}</span>
+              </h3>
+              {withInfo.map((c) => {
+                // Solo el radical lleva detalle (su significado). El sonido del
+                // fonético confundía: varios componentes suenan parecido.
+                const detail = (comp: NonNullable<typeof c.info>["components"][number]) =>
+                  comp.role === "semantic" ? (componentMeanings[comp.char]?.[lang] ?? labels.radical) : null;
+                return (
+                  <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 font-hanzi text-[clamp(1.25rem,2.2vw,2rem)]">
+                    <span>{c.char}</span>
+                    <span className="text-[0.6em] text-muted-foreground">=</span>
+                    {c.info?.components.length ? (
+                      c.info.components.map((comp, i) => {
+                        const text = detail(comp);
+                        const color = cn(comp.role === "semantic" && "text-radical", comp.role === "phonetic" && "text-phonetic");
+                        return (
+                          <span key={i} className="flex items-baseline gap-2">
+                            {i > 0 && <span className="text-[0.6em] text-muted-foreground">+</span>}
+                            {text ? (
+                              <button
+                                type="button"
+                                className={cn("group relative rounded-sm underline decoration-dotted decoration-1 underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring", color)}
+                                aria-label={`${comp.char}: ${text}`}
                               >
-                                {text}
-                              </span>
-                            </button>
-                          ) : (
-                            <span className={color}>{comp.char}</span>
-                          )}
-                        </span>
-                      );
-                    })
-                  ) : (
-                    <span className="font-sans text-[clamp(1rem,1.4vw,1.25rem)] text-muted-foreground">{labels.simpleCharacter}</span>
-                  )}
-                </p>
-              );
-            })}
-          </section>
+                                {comp.char}
+                                <span
+                                  role="tooltip"
+                                  className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 rounded-md border border-border bg-popover px-2 py-1 font-sans text-sm whitespace-nowrap text-popover-foreground opacity-0 shadow-md transition-opacity group-hover:opacity-100 group-focus:opacity-100"
+                                >
+                                  {text}
+                                </span>
+                              </button>
+                            ) : (
+                              <span className={color}>{comp.char}</span>
+                            )}
+                          </span>
+                        );
+                      })
+                    ) : (
+                      <span className="font-sans text-[clamp(1rem,1.4vw,1.25rem)] text-muted-foreground">{labels.simpleCharacter}</span>
+                    )}
+                  </p>
+                );
+              })}
+            </section>
+          )}
 
           <ol className="rounded-xl border border-border bg-background/60 px-5">
             {sense.sentences.map((s, i) => (
