@@ -45,7 +45,7 @@ from jsonb_to_recordset($catalog$${payload}$catalog$::jsonb) as entry (
 ${sourceEntries}
 
 insert into words (hanzi, hsk_level, hsk_version, origin, status)
-select distinct hanzi, ${level}, '3.0', 'open_data', 'unreviewed'
+select distinct hanzi, ${level}, '3.0', 'open_data'::content_origin, 'unreviewed'::review_status
 from hsk_source_entries_temp
 on conflict (hanzi) do nothing;
 
@@ -134,8 +134,8 @@ select
   part_of_speech,
   '${sourceId}',
   source_order,
-  'open_data',
-  'unreviewed'
+  'open_data'::content_origin,
+  'unreviewed'::review_status
 from positioned
 on conflict (word_id, position) do nothing;
 

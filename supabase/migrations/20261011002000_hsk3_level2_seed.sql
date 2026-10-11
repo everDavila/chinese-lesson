@@ -25,7 +25,7 @@ from jsonb_to_recordset($catalog$[{"source_order":301,"hanzi":"啊","source_labe
 );
 
 insert into words (hanzi, hsk_level, hsk_version, origin, status)
-select distinct hanzi, 2, '3.0', 'open_data', 'unreviewed'
+select distinct hanzi, 2, '3.0', 'open_data'::content_origin, 'unreviewed'::review_status
 from hsk_source_entries_temp
 on conflict (hanzi) do nothing;
 
@@ -114,8 +114,8 @@ select
   part_of_speech,
   'cti-hsk3-2026',
   source_order,
-  'open_data',
-  'unreviewed'
+  'open_data'::content_origin,
+  'unreviewed'::review_status
 from positioned
 on conflict (word_id, position) do nothing;
 
