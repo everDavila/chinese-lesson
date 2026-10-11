@@ -51,3 +51,6 @@ next-env.d.ts
 
 # archivos temporales de Office (documento abierto)
 ~$*
+
+# Material de Ever para consultar (no va al repo)
+/input-externo/
