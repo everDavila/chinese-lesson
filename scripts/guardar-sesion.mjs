@@ -21,9 +21,9 @@ const page = await context.newPage();
 await page.goto(`${base}/es/login`);
 console.log(`Inicia sesión con la cuenta "${name}" en la ventana que se abrió (tienes 5 minutos).`);
 
-// El login lleva a /collections cuando la clave es correcta (también al admin).
-await page.waitForURL(/\/collections/, { timeout: 5 * 60_000 });
-console.log("Sesión iniciada. Es normal ver primero «Mis colecciones»: compruebo el rol en /admin…");
+// Con la clave correcta, el login lleva a /admin (admin) o a /collections.
+await page.waitForURL(/\/(collections|admin)/, { timeout: 5 * 60_000 });
+console.log("Sesión iniciada: compruebo el rol en /admin…");
 
 // Comprueba que la cuenta es la que se pidió: el admin ve «Base común»; a
 // cualquier otra cuenta /admin la devuelve a /collections. Se espera a una

@@ -3,9 +3,9 @@ import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Link, redirect } from "@/i18n/navigation";
 import { getDemoLesson } from "@/lib/demo-lesson";
-import { currentUserId } from "@/lib/lessons";
+import { getProfile } from "@/lib/content";
 
-// Inicio. Sin sesión: la lección de demo local. Con sesión: las colecciones
+// Inicio. Sin sesión: la lección de demo local. Con sesión: /admin o las colecciones
 // del docente. Lo que lee la sesión va dentro de <Suspense> (Cache
 // Components: el resto es estático).
 export default async function Home({ params }: PageProps<"/[locale]">) {
@@ -19,7 +19,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 }
 
 async function HomeContent() {
-  if (await currentUserId()) redirect({ href: "/collections", locale: await getLocale() });
+  // Con sesión: el admin a la base común, la docente a sus colecciones.
+  const profile = await getProfile();
+  if (profile) redirect({ href: profile.role === "admin" ? "/admin" : "/collections", locale: await getLocale() });
   return <Guest />;
 }
 

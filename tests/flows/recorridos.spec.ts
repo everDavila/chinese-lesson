@@ -68,7 +68,9 @@ test.describe("profesora", () => {
   test.use({ storageState: LAOSHI });
 
   test("copia la plantilla HSK 1 y la renombra", async ({ page }) => {
-    await page.goto("/zh/collections");
+    // El inicio lleva a la docente a sus colecciones.
+    await page.goto("/zh");
+    await page.waitForURL(/\/zh\/collections$/);
     await expect(page.getByRole("heading", { level: 1, name: Z.nav.collections })).toBeVisible();
     await noMissingKeys(page);
     await shoot(page, "1-colecciones");
@@ -150,7 +152,9 @@ test.describe("admin", () => {
   test.use({ storageState: ADMIN });
 
   test("base común, editor, vista previa y plantillas", async ({ page }) => {
-    await page.goto("/es/admin");
+    // El inicio lleva al admin directo a la base común.
+    await page.goto("/es");
+    await page.waitForURL(/\/es\/admin$/);
     await expect(page.getByRole("heading", { level: 1, name: "Base común" })).toBeVisible();
     await page.getByRole("textbox", { name: "Buscar en la base" }).fill("爱");
     await expect(page.getByRole("link", { name: "爱", exact: true })).toBeVisible();
