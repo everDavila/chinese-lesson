@@ -34,6 +34,8 @@ test("reverso: barra compacta al bajar y segundo idioma plegado en celular", asy
   const phone = testInfo.project.name.startsWith("phone");
   await page.goto("/es/present");
   await page.locator(".transform-3d").waitFor();
+  // Elegir antes de que la página se hidrate pierde el cambio.
+  await page.waitForLoadState("networkidle");
   await page.getByRole("combobox").selectOption({ index: 3 }); // 知道: frases largas
   await page.keyboard.press("Space");
   await page.waitForTimeout(700);
@@ -61,4 +63,26 @@ test("reverso: barra compacta al bajar y segundo idioma plegado en celular", asy
   const support = page.locator("li span.text-muted-foreground", { hasText: /^ · / }).first();
   if (phone) await expect(support).toBeHidden();
   else await expect(support).toBeVisible();
+});
+
+test("cómo se forma: el detalle de cada parte sale al pasar el cursor o tocar", async ({ page }, testInfo) => {
+  const phone = testInfo.project.name.startsWith("phone");
+  await page.goto("/es/present");
+  await page.locator(".transform-3d").waitFor();
+  // Elegir antes de que la página se hidrate pierde el cambio.
+  await page.waitForLoadState("networkidle");
+  await page.getByRole("combobox").selectOption({ index: 3 }); // 知道 = 矢 + 口 · 辶 + 首
+  await page.keyboard.press("Space");
+  await page.waitForTimeout(700);
+
+  const part = page.getByRole("button", { name: /^口: / });
+  // Dentro de un botón el rol tooltip no se expone: se busca el elemento.
+  const tip = part.locator("[role=tooltip]");
+  const opacity = () => tip.evaluate((el) => getComputedStyle(el).opacity);
+  expect(await opacity()).toBe("0");
+  if (phone) await part.tap();
+  else await part.hover();
+  await expect.poll(opacity).toBe("1");
+  await expect(tip).toHaveText("boca");
+  await page.screenshot({ path: `tests/screens/${testInfo.project.name}/composicion-detalle.png` });
 });

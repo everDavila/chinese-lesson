@@ -5,7 +5,6 @@ import { ChevronDown, Volume2 } from "lucide-react";
 import { StrokeArt } from "@/components/hanzi/stroke-art";
 import { Button } from "@/components/ui/button";
 import type { Bilingual, LessonItem, Sentence } from "@/lib/lesson-types";
-import { toneless } from "@/lib/pinyin";
 import { studentLabels, type ContentLanguage, type StudentLabels } from "@/lib/student-labels";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
@@ -179,44 +178,51 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] xl:items-start">
           {/* Cómo se forma: aquí sí, la descomposición en color (radical verde,
               fonético azul). En el anverso solo hay un matiz de tono. */}
+          {/* Solo la fórmula en color (知 = 矢 + 口): el significado del radical
+              sale al pasar el cursor, enfocar o tocar. Una línea por carácter. */}
           <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
-            <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
+            <h3 className="flex w-full flex-wrap items-baseline justify-between gap-x-3 text-sm font-medium text-muted-foreground">
+              {labels.howItsBuilt}
+              <span className="text-xs font-normal">{labels.howItsBuiltHint}</span>
+            </h3>
             {item.characters.map((c) => {
-              const charSyllable = c.info?.pinyin[0];
+              // Solo el radical lleva detalle (su significado). El sonido del
+              // fonético confundía: varios componentes suenan parecido.
+              const detail = (comp: NonNullable<typeof c.info>["components"][number]) =>
+                comp.role === "semantic" ? (componentMeanings[comp.char]?.[lang] ?? labels.radical) : null;
               return (
-                <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 text-[clamp(1rem,1.4vw,1.25rem)]">
-                  <span className="font-hanzi text-[clamp(1.25rem,2.2vw,2rem)]">{c.char}</span>
-                  <span className="text-muted-foreground">=</span>
+                <p key={c.char} className="flex flex-wrap items-baseline gap-x-2 font-hanzi text-[clamp(1.25rem,2.2vw,2rem)]">
+                  <span>{c.char}</span>
+                  <span className="text-[0.6em] text-muted-foreground">=</span>
                   {c.info?.components.length ? (
-                    c.info.components.map((comp, i) => (
-                      <span key={i} className="flex items-baseline gap-1">
-                        {i > 0 && <span className="text-muted-foreground">+</span>}
-                        <span
-                          className={cn(
-                            "font-hanzi text-[clamp(1.25rem,2.2vw,2rem)]",
-                            comp.role === "semantic" && "text-radical",
-                            comp.role === "phonetic" && "text-phonetic",
+                    c.info.components.map((comp, i) => {
+                      const text = detail(comp);
+                      const color = cn(comp.role === "semantic" && "text-radical", comp.role === "phonetic" && "text-phonetic");
+                      return (
+                        <span key={i} className="flex items-baseline gap-2">
+                          {i > 0 && <span className="text-[0.6em] text-muted-foreground">+</span>}
+                          {text ? (
+                            <button
+                              type="button"
+                              className={cn("group relative rounded-sm underline decoration-dotted decoration-1 underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring", color)}
+                              aria-label={`${comp.char}: ${text}`}
+                            >
+                              {comp.char}
+                              <span
+                                role="tooltip"
+                                className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 rounded-md border border-border bg-popover px-2 py-1 font-sans text-sm whitespace-nowrap text-popover-foreground opacity-0 shadow-md transition-opacity group-hover:opacity-100 group-focus:opacity-100"
+                              >
+                                {text}
+                              </span>
+                            </button>
+                          ) : (
+                            <span className={color}>{comp.char}</span>
                           )}
-                        >
-                          {comp.char}
                         </span>
-                        {comp.role === "semantic" && (
-                          <span className="text-muted-foreground">
-                            {componentMeanings[comp.char]?.[lang] ?? labels.radical}
-                          </span>
-                        )}
-                        {comp.role === "phonetic" && comp.pinyin && (
-                          <span className="text-muted-foreground">
-                            {comp.pinyin} ·{" "}
-                            {charSyllable && toneless(comp.pinyin) === toneless(charSyllable)
-                              ? labels.givesSound
-                              : labels.approximateSound}
-                          </span>
-                        )}
-                      </span>
-                    ))
+                      );
+                    })
                   ) : (
-                    <span className="text-muted-foreground">{labels.simpleCharacter}</span>
+                    <span className="font-sans text-[clamp(1rem,1.4vw,1.25rem)] text-muted-foreground">{labels.simpleCharacter}</span>
                   )}
                 </p>
               );
