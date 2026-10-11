@@ -10,6 +10,7 @@ la base de datos.
 
 | Archivo | Origen | Licencia | Contenido |
 |---|---|---|---|
+| `hsk-catalogo-1-3.json` | [clem109/hsk-vocabulary](https://github.com/clem109/hsk-vocabulary) (listas HSK 2.0, niveles 1–3) | MIT, © 2018 Clement Venard | Catálogo del prototipo: hanzi, pinyin de la lectura HSK y traducción inglesa (595 palabras). Se usa esta fuente porque marca la lectura correcta (吗 ma, no má) |
 | `characters.json` | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) (`dictionary.txt`) | LGPL v3 o posterior | Descomposición, radical, etimología y papel de cada trazo (semántico / fonético / otro) de los caracteres de la lección |
 | `../public/hanzi-writer/*.json` | [hanzi-writer-data](https://github.com/chanind/hanzi-writer-data) (derivado de Make Me a Hanzi y fuentes Arphic) | Arphic Public License (`ARPHICPL.TXT` en la misma carpeta) | Trazos para la animación, solo de los caracteres de la lección |
 
