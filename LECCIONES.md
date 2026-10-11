@@ -18,6 +18,16 @@
   computado (`getComputedStyle`: opacidad, nombre y duración de la animación).
   *Aquí:* trazos de Hanzi Writer y giro de tarjeta en los tests de Playwright.
 
+## Next.js 16 (lecciones de este proyecto)
+- **CSS que no se actualiza en `npm run dev`:** la caché de Turbopack en
+  disco (`.next/`) sobrevive a los reinicios y puede seguir sirviendo una
+  versión vieja de `globals.css`. Síntoma: el código tiene un color y el
+  navegador muestra otro. Solución: parar el servidor, borrar `.next/` y
+  volver a arrancar. Para comprobarlo sin adivinar, mirar qué valor sirve
+  realmente el CSS (`curl` al archivo de `/_next/static/…css`).
+- **Lightning CSS descarta `color-mix()` con `var()`** dentro de variables
+  CSS: la variable queda vacía sin aviso. Usar valores explícitos.
+
 ## Estado y depuración
 - **Mutar estado anidado puede no propagar a los derivados.** En Pinia,
   `$patch` con el objeto completo sí propaga. *Equivalente en React:*
