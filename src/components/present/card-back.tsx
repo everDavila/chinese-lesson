@@ -20,7 +20,7 @@ function Highlighted({ text, keyword }: { text: string; keyword: string }) {
       {parts.map((part, i) => (
         <span key={i}>
           {part}
-          {i < parts.length - 1 && <span className="text-keyword">{keyword}</span>}
+          {i < parts.length - 1 && <span className="whitespace-nowrap text-keyword">{keyword}</span>}
         </span>
       ))}
     </>

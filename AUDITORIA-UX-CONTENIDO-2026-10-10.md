@@ -168,3 +168,29 @@ No se verificaron lector de pantalla, orden completo de foco, zoom al 200 % y 40
 - No se modificó el código del producto durante esta auditoría.
 - Las correcciones lingüísticas propuestas deben confirmarse con la profesora antes de marcar el contenido como revisado.
 
+
+## Seguimiento (2026-10-11)
+
+Correcciones de contenido aplicadas en `contenido/leccion-demo.json` y
+sincronizadas con Supabase (`npm run db:sync-content`):
+
+| Palabra | Aplicado |
+|---|---|
+| 家 | La nota del cerdo bajo techo pasa a "interpretación tradicional" y menciona la lectura de 豕 como pista fonética. |
+| 认识 | Sin "solo" en el matiz; `认识你很高兴` → `很高兴认识你` (frase y nota cultural). |
+| 东西 | `这个东西很好` → `这个东西多少钱？`. Se descartó `很好用`: `用` es HSK 3 y la palabra es HSK 1. |
+| 知道 | Afirmación limitada a "en esta lección"; menciona `懂`. |
+| 意思 | Nota de registro: `你是什么意思？` puede sonar a reclamo; alternativa `这是什么意思？`. |
+| 觉得 | "Me parece que hoy hace un poco de frío." |
+| 了解 | "Puedes conocer a alguien (认识) sin conocerlo a fondo (了解)." |
+| 关心 | `吃饭了吗？` presentado como uso posible según región, edad y relación. |
+| 习惯 | Sentido "hábito (de una persona)"; matiz con `风俗`/`风俗习惯`; `每个人都有自己的习惯`. |
+| 文化 | Interpretación tradicional con fuente (《周易》: 观乎人文，以化成天下), sin "literalmente". |
+
+Estructural: el trío 认识 / 知道 / 了解 va seguido en la lección (también en la
+lección ya creada en Supabase).
+
+**Pendiente:** validación nativa con la profesora; fuente, autor y estado de
+revisión visibles por dato (P1); pregunta de comprobación por palabra (P1);
+chino como idioma explicativo de la tarjeta; objetivo de aprendizaje
+declarado de la lección.

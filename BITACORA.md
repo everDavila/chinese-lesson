@@ -102,4 +102,14 @@ Documentado en `IDEA.md` (requisitos 1–11) y `ARQUITECTURA.md`.
   https://hanzi.davila.uno responde con HTTPS (válido hasta enero de 2027,
   renovación automática).
 
-**No probado:** el login en producción con la cuenta de Ever.
+- Flujo completo probado por Ever en producción: login, lección de demo
+  creada, 2 sesiones de clase y 2 valoraciones guardadas.
+- Correcciones de contenido de la auditoría de Codex aplicadas (detalle en
+  la auditoría, "Seguimiento"). `npm run db:sync-content` lleva los cambios
+  del JSON a Supabase sin pisar filas revisadas (solo `status =
+  unreviewed`); el seed no sirve para eso porque no sobrescribe palabras
+  existentes. El validador de nivel rechazó la sugerencia `这个东西很好用`
+  (用 es HSK 3).
+- Lección reordenada para que 认识 / 知道 / 了解 vayan seguidos.
+
+**No probado:** cómo se ven las notas nuevas, más largas, en el celular.

@@ -61,7 +61,7 @@ on conflict (char) do nothing;
 
 with w as (
   insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
-  values ('家', 1, '2.0', '家 se escribe con 宀 (techo) y 豕 (cerdo). En la China antigua los cerdos se criaban junto a la casa: un cerdo bajo techo era señal de un hogar con sustento.', '家 combines 宀 (roof) and 豕 (pig). In ancient China pigs were raised next to the house: a pig under a roof meant a household that could feed itself.', 'ai')
+  values ('家', 1, '2.0', 'Una interpretación tradicional de 家: 宀 (techo) sobre 豕 (cerdo), porque en la China antigua se criaban cerdos junto a la casa. Otros estudiosos ven en 豕 sobre todo una pista de pronunciación: el origen exacto se discute.', 'A traditional interpretation of 家: 宀 (roof) over 豕 (pig), because pigs were raised next to the house in ancient China. Other scholars read 豕 mainly as a pronunciation hint: the exact origin is debated.', 'ai')
   on conflict (hanzi) do nothing
   returning id
 )
@@ -95,20 +95,41 @@ select 1;
 
 with w as (
   insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
-  values ('认识', 1, '2.0', 'Al conocer a alguien se dice 认识你很高兴. Hoy, lo siguiente suele ser intercambiar WeChat: 加个微信吧 ("agreguémonos en WeChat").', 'When meeting someone you say 认识你很高兴. Nowadays the next step is usually swapping WeChat: 加个微信吧 ("let''s add each other on WeChat").', 'ai')
+  values ('东西', 1, '2.0', 'Una explicación popular: en la antigua Chang''an había un mercado del este (东市) y otro del oeste (西市). "Ir al este y al oeste" era ir de compras, y lo que se compraba acabó siendo "东西". Es una etimología tradicional, no la única propuesta.', 'A popular explanation: ancient Chang''an had an eastern market (东市) and a western market (西市). "Going east and west" meant shopping, and what you bought became "东西". It is a traditional etymology, not the only one proposed.', 'ai')
   on conflict (hanzi) do nothing
   returning id
 )
 , s0 as (
   insert into senses (word_id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en, origin)
-  select id, 1, 'rènshi', 'verb', 'conocer (a una persona)', 'to know (someone); to meet', 'Solo para personas o cosas que reconoces. "Conocer un lugar" (haber estado) es 去过, y "saber un dato" es 知道.', 'Only for people or things you recognize. "Having been to a place" is 去过, and "knowing a fact" is 知道.', 'ai' from w
+  select id, 1, 'dōngxi', 'noun', 'cosa; objeto', 'thing; stuff', 'Con 西 en tono neutro (dōngxi) es "cosa". Con primer tono (dōngxī) significa "este y oeste".', 'With 西 in the neutral tone (dōngxi) it means "thing". With the first tone (dōngxī) it means "east and west".', 'ai' from w
+  returning id
+), t0 as (
+  insert into sentences (sense_id, position, zh, pinyin, translation_es, translation_en, origin)
+  select s0.id, v.position, v.zh, v.pinyin, v.es, v.en, 'ai'
+  from s0, (values
+      (1, '你想买什么东西？', 'Nǐ xiǎng mǎi shénme dōngxi?', '¿Qué cosas quieres comprar?', 'What do you want to buy?'),
+      (2, '这个东西多少钱？', 'Zhège dōngxi duōshao qián?', '¿Cuánto cuesta esto?', 'How much is this?')
+  ) as v(position, zh, pinyin, es, en)
+  returning 1
+)
+select 1;
+
+with w as (
+  insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
+  values ('认识', 1, '2.0', 'Al conocer a alguien se suele decir 很高兴认识你. Hoy es habitual que lo siguiente sea intercambiar WeChat: 加个微信吧 ("agreguémonos en WeChat").', 'When meeting someone people often say 很高兴认识你. Nowadays the next step is usually swapping WeChat: 加个微信吧 ("let''s add each other on WeChat").', 'ai')
+  on conflict (hanzi) do nothing
+  returning id
+)
+, s0 as (
+  insert into senses (word_id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en, origin)
+  select id, 1, 'rènshi', 'verb', 'conocer (a una persona)', 'to know (someone); to meet', 'Sobre todo para personas, y para cosas que reconoces, como caracteres. "Conocer un lugar" (haber estado) suele ser 去过, y "saber un dato" es 知道.', 'Mostly for people, and for things you recognize, like characters. "Having been to a place" is usually 去过, and "knowing a fact" is 知道.', 'ai' from w
   returning id
 ), t0 as (
   insert into sentences (sense_id, position, zh, pinyin, translation_es, translation_en, origin)
   select s0.id, v.position, v.zh, v.pinyin, v.es, v.en, 'ai'
   from s0, (values
       (1, '我认识他。', 'Wǒ rènshi tā.', 'Lo conozco.', 'I know him.'),
-      (2, '认识你很高兴。', 'Rènshi nǐ hěn gāoxìng.', 'Encantado de conocerte.', 'Nice to meet you.')
+      (2, '很高兴认识你。', 'Hěn gāoxìng rènshi nǐ.', 'Mucho gusto en conocerte.', 'Nice to meet you.')
   ) as v(position, zh, pinyin, es, en)
   returning 1
 ),
@@ -129,34 +150,13 @@ select 1;
 
 with w as (
   insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
-  values ('东西', 1, '2.0', 'Una explicación popular: en la antigua Chang''an había un mercado del este (东市) y otro del oeste (西市). "Ir al este y al oeste" era ir de compras, y lo que se compraba acabó siendo "东西". Es una etimología tradicional, no la única propuesta.', 'A popular explanation: ancient Chang''an had an eastern market (东市) and a western market (西市). "Going east and west" meant shopping, and what you bought became "东西". It is a traditional etymology, not the only one proposed.', 'ai')
-  on conflict (hanzi) do nothing
-  returning id
-)
-, s0 as (
-  insert into senses (word_id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en, origin)
-  select id, 1, 'dōngxi', 'noun', 'cosa; objeto', 'thing; stuff', 'Con 西 en tono neutro (dōngxi) es "cosa". Con primer tono (dōngxī) significa "este y oeste".', 'With 西 in the neutral tone (dōngxi) it means "thing". With the first tone (dōngxī) it means "east and west".', 'ai' from w
-  returning id
-), t0 as (
-  insert into sentences (sense_id, position, zh, pinyin, translation_es, translation_en, origin)
-  select s0.id, v.position, v.zh, v.pinyin, v.es, v.en, 'ai'
-  from s0, (values
-      (1, '你想买什么东西？', 'Nǐ xiǎng mǎi shénme dōngxi?', '¿Qué cosas quieres comprar?', 'What do you want to buy?'),
-      (2, '这个东西很好。', 'Zhège dōngxi hěn hǎo.', 'Esta cosa es muy buena.', 'This thing is really good.')
-  ) as v(position, zh, pinyin, es, en)
-  returning 1
-)
-select 1;
-
-with w as (
-  insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
   values ('知道', 2, '2.0', null, null, 'ai')
   on conflict (hanzi) do nothing
   returning id
 )
 , s0 as (
   insert into senses (word_id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en, origin)
-  select id, 1, 'zhīdào', 'verb', 'saber (un dato); estar enterado', 'to know (a fact); to be aware of', 'El "saber" del español se reparte en tres: 知道 (saber un dato), 会 (saber hacer algo) y 认识 (conocer a alguien).', 'Spanish "saber" splits into three: 知道 (to know a fact), 会 (to know how to do something) and 认识 (to know someone).', 'ai' from w
+  select id, 1, 'zhīdào', 'verb', 'saber (un dato); estar enterado', 'to know (a fact); to be aware of', 'En esta lección, el "saber" del español se reparte en tres: 知道 (saber un dato), 会 (saber hacer algo) y 认识 (conocer a alguien). Hay otros, como 懂 (entender).', 'In this lesson, Spanish "saber" splits into three: 知道 (to know a fact), 会 (to know how to do something) and 认识 (to know someone). There are others, like 懂 (to understand).', 'ai' from w
   returning id
 ), t0 as (
   insert into sentences (sense_id, position, zh, pinyin, translation_es, translation_en, origin)
@@ -171,13 +171,34 @@ select 1;
 
 with w as (
   insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
+  values ('了解', 3, '2.0', null, null, 'ai')
+  on conflict (hanzi) do nothing
+  returning id
+)
+, s0 as (
+  insert into senses (word_id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en, origin)
+  select id, 1, 'liǎojiě', 'verb', 'conocer a fondo; entender bien; informarse', 'to understand well; to know in depth; to find out', 'Cierra el trío: 认识 (conocer a alguien), 知道 (saber un dato), 了解 (conocer a fondo). Puedes conocer a alguien (认识) sin conocerlo a fondo (了解).', 'Completes the trio: 认识 (to know someone), 知道 (to know a fact), 了解 (to know in depth). You can know someone (认识) without really knowing them (了解).', 'ai' from w
+  returning id
+), t0 as (
+  insert into sentences (sense_id, position, zh, pinyin, translation_es, translation_en, origin)
+  select s0.id, v.position, v.zh, v.pinyin, v.es, v.en, 'ai'
+  from s0, (values
+      (1, '我想了解中国文化。', 'Wǒ xiǎng liǎojiě Zhōngguó wénhuà.', 'Quiero conocer a fondo la cultura china.', 'I want to learn about Chinese culture.'),
+      (2, '我认识他，但是不了解他。', 'Wǒ rènshi tā, dànshì bù liǎojiě tā.', 'Lo conozco, pero no lo conozco bien.', 'I know him, but I don''t really know him.')
+  ) as v(position, zh, pinyin, es, en)
+  returning 1
+)
+select 1;
+
+with w as (
+  insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
   values ('意思', 2, '2.0', '不好意思 se usa muchísimo: para pedir perdón por algo pequeño, para llamar la atención de alguien o para mostrar vergüenza. Es más suave y cotidiano que 对不起.', '不好意思 is used constantly: to apologize for something small, to get someone''s attention or to show embarrassment. It is softer and more everyday than 对不起.', 'ai')
   on conflict (hanzi) do nothing
   returning id
 )
 , s0 as (
   insert into senses (word_id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en, origin)
-  select id, 1, 'yìsi', 'noun', 'significado; lo que alguien quiere decir', 'meaning; what someone means', null, null, 'ai' from w
+  select id, 1, 'yìsi', 'noun', 'significado; lo que alguien quiere decir', 'meaning; what someone means', 'Ojo con el tono: 你是什么意思？ puede sonar a reclamo ("¿qué insinúas?"). Para preguntar con suavidad por una palabra: 这是什么意思？', 'Mind the tone: 你是什么意思？ can sound confrontational ("what are you implying?"). To ask gently about a word: 这是什么意思？', 'ai' from w
   returning id
 ), t0 as (
   insert into sentences (sense_id, position, zh, pinyin, translation_es, translation_en, origin)
@@ -231,7 +252,7 @@ with w as (
   select s0.id, v.position, v.zh, v.pinyin, v.es, v.en, 'ai'
   from s0, (values
       (1, '你觉得汉语怎么样？', 'Nǐ juéde Hànyǔ zěnmeyàng?', '¿Qué te parece el chino?', 'What do you think of Chinese?'),
-      (2, '我觉得今天有点儿冷。', 'Wǒ juéde jīntiān yǒudiǎnr lěng.', 'Siento que hoy hace un poco de frío.', 'I feel it''s a bit cold today.')
+      (2, '我觉得今天有点儿冷。', 'Wǒ juéde jīntiān yǒudiǎnr lěng.', 'Me parece que hoy hace un poco de frío.', 'I think it''s a bit cold today.')
   ) as v(position, zh, pinyin, es, en)
   returning 1
 )
@@ -239,28 +260,7 @@ select 1;
 
 with w as (
   insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
-  values ('了解', 3, '2.0', null, null, 'ai')
-  on conflict (hanzi) do nothing
-  returning id
-)
-, s0 as (
-  insert into senses (word_id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en, origin)
-  select id, 1, 'liǎojiě', 'verb', 'conocer a fondo; entender bien; informarse', 'to understand well; to know in depth; to find out', 'Cierra el trío: 认识 (conocer a alguien), 知道 (saber un dato), 了解 (conocer a fondo). Puedes 认识 a alguien sin 了解lo.', 'Completes the trio: 认识 (to know someone), 知道 (to know a fact), 了解 (to know in depth). You can 认识 someone without 了解-ing them.', 'ai' from w
-  returning id
-), t0 as (
-  insert into sentences (sense_id, position, zh, pinyin, translation_es, translation_en, origin)
-  select s0.id, v.position, v.zh, v.pinyin, v.es, v.en, 'ai'
-  from s0, (values
-      (1, '我想了解中国文化。', 'Wǒ xiǎng liǎojiě Zhōngguó wénhuà.', 'Quiero conocer a fondo la cultura china.', 'I want to learn about Chinese culture.'),
-      (2, '我认识他，但是不了解他。', 'Wǒ rènshi tā, dànshì bù liǎojiě tā.', 'Lo conozco, pero no lo conozco bien.', 'I know him, but I don''t really know him.')
-  ) as v(position, zh, pinyin, es, en)
-  returning 1
-)
-select 1;
-
-with w as (
-  insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
-  values ('关心', 3, '2.0', 'En China la preocupación por los demás se expresa mucho con preguntas cotidianas: 吃饭了吗？ ("¿ya comiste?") funciona casi como un saludo, y 多穿点儿 ("abrígate más") es un clásico de padres y abuelos.', 'In China, caring for others is often shown through everyday questions: 吃饭了吗？ ("have you eaten?") works almost as a greeting, and 多穿点儿 ("wear more layers") is a classic from parents and grandparents.', 'ai')
+  values ('关心', 3, '2.0', 'En muchos contextos, sobre todo en familia o entre personas mayores, la preocupación por los demás se expresa con preguntas cotidianas: 吃饭了吗？ ("¿ya comiste?") puede funcionar casi como un saludo, y 多穿点儿 ("abrígate más") es un consejo típico de padres y abuelos. Depende de la región, la edad y la relación.', 'In many contexts, especially within families or among older people, care for others is shown through everyday questions: 吃饭了吗？ ("have you eaten?") can work almost as a greeting, and 多穿点儿 ("wear more layers") is typical advice from parents and grandparents. It depends on region, age and relationship.', 'ai')
   on conflict (hanzi) do nothing
   returning id
 )
@@ -281,20 +281,20 @@ select 1;
 
 with w as (
   insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
-  values ('习惯', 3, '2.0', 'Una costumbre que conviene conocer: no se clavan los palillos de pie en el arroz, porque recuerda al incienso de los funerales.', 'A custom worth knowing: don''t stick chopsticks upright in rice, because it resembles the incense at funerals.', 'ai')
+  values ('习惯', 3, '2.0', 'Una costumbre de mesa (风俗) que conviene conocer: no se clavan los palillos de pie en el arroz, porque recuerda al incienso de los funerales.', 'A table custom (风俗) worth knowing: don''t stick chopsticks upright in rice, because it resembles the incense at funerals.', 'ai')
   on conflict (hanzi) do nothing
   returning id
 )
 , s0 as (
   insert into senses (word_id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en, origin)
-  select id, 1, 'xíguàn', 'noun', 'costumbre; hábito', 'habit; custom', null, null, 'ai' from w
+  select id, 1, 'xíguàn', 'noun', 'hábito; costumbre (de una persona)', 'habit; personal custom', '习惯 es sobre todo el hábito de una persona. Las costumbres de un pueblo o país se dicen 风俗 o 风俗习惯.', '习惯 is mainly a person''s habit. The customs of a people or country are 风俗 or 风俗习惯.', 'ai' from w
   returning id
 ), t0 as (
   insert into sentences (sense_id, position, zh, pinyin, translation_es, translation_en, origin)
   select s0.id, v.position, v.zh, v.pinyin, v.es, v.en, 'ai'
   from s0, (values
       (1, '早上喝茶是我的习惯。', 'Zǎoshang hē chá shì wǒ de xíguàn.', 'Tomar té por la mañana es mi costumbre.', 'Drinking tea in the morning is my habit.'),
-      (2, '每个国家都有自己的习惯。', 'Měi gè guójiā dōu yǒu zìjǐ de xíguàn.', 'Cada país tiene sus propias costumbres.', 'Every country has its own customs.')
+      (2, '每个人都有自己的习惯。', 'Měi gè rén dōu yǒu zìjǐ de xíguàn.', 'Cada persona tiene sus propios hábitos.', 'Everyone has their own habits.')
   ) as v(position, zh, pinyin, es, en)
   returning 1
 ),
@@ -315,7 +315,7 @@ select 1;
 
 with w as (
   insert into words (hanzi, hsk_level, hsk_version, cultural_note_es, cultural_note_en, origin)
-  values ('文化', 3, '2.0', '文 en su forma antigua parece una persona con dibujos en el pecho: "patrón, marca". 化 es "transformar". 文化 es, literalmente, transformar a las personas mediante la escritura y las costumbres.', 'The ancient form of 文 looks like a person with markings on the chest: "pattern, mark". 化 means "to transform". 文化 literally means transforming people through writing and customs.', 'ai')
+  values ('文化', 3, '2.0', 'Una explicación extendida: la forma antigua de 文 parece una persona con marcas en el pecho, de ahí "dibujo, patrón" y luego "escritura". 化 es "transformar". La expresión se suele relacionar con el Libro de los Cambios (《周易》): 观乎人文，以化成天下, "observar la cultura humana para transformar el mundo". Tómalo como interpretación tradicional, no como etimología segura.', 'A widespread explanation: the ancient form of 文 looks like a person with markings on the chest, hence "pattern" and later "writing". 化 means "to transform". The term is often linked to the Book of Changes (《周易》): 观乎人文，以化成天下, "observe human culture to transform the world". Treat it as a traditional interpretation, not a settled etymology.', 'ai')
   on conflict (hanzi) do nothing
   returning id
 )
