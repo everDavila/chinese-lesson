@@ -48,3 +48,6 @@ next-env.d.ts
 /tests/.results/
 /tests/screens/
 /playwright-report/
+
+# archivos temporales de Office (documento abierto)
+~$*
