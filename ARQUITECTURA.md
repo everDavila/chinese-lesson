@@ -36,10 +36,10 @@ Alumno ◄── [Práctica de tarjetas] ◄────────────
 
 **Idiomas (decidido 2026-10-10).** Dos ajustes independientes:
 
-1. **Idioma de la interfaz** (botones, menús, etiquetas): **chino por
-   defecto**, porque los docentes previstos son chinos, con selector
-   **中文 / Español / English**. Lo elige cada persona y se recuerda. Futuros
-   docentes hispanohablantes o anglohablantes solo cambian el selector.
+1. **Idioma de la interfaz** (botones, menús, etiquetas): **el del
+   navegador** si es chino, español o inglés; **si no, inglés**. Selector
+   **中文 / Español / English** para cambiarlo; la elección se recuerda y manda
+   sobre el navegador. URLs: inglés sin prefijo, `/zh` y `/es`.
 2. **Idioma del contenido para los alumnos** (significados, traducciones,
    notas): va con la clase, no con quien usa la app. Hoy se muestran español
    e inglés; más adelante se elegirá por lección.
@@ -238,7 +238,7 @@ lo decide la profesora.
 | Tokens de diseño | Variables CSS: colores base, acento, radical / parte fonética, 4 tonos, semáforo; modo claro y oscuro | Una sola fuente de verdad para el estilo |
 | Fuentes | **next/font** con Noto Serif SC (hanzi), Noto Sans SC (UI) e Inter (latín y pinyin) | Carga optimizada; las fuentes CJK son pesadas |
 | Modo oscuro | **next-themes** | Claro/oscuro sin parpadeo |
-| Idiomas de la UI | **next-intl** con prefijo en la URL (`/zh`, `/es`, `/en`), chino por defecto | Ver "Idiomas" en §2; el prefijo mantiene las páginas estáticas con Cache Components |
+| Idiomas de la UI | **next-intl** con prefijo en la URL (`/zh`, `/es`; inglés sin prefijo), detección por el navegador | Ver "Idiomas" en §2; el prefijo mantiene las páginas estáticas con Cache Components |
 | Trazos | **Hanzi Writer** | Animación y práctica de escritura |
 | Animaciones de UI | CSS / Tailwind; **Motion** solo si hace falta (giro de tarjeta) | Ligero |
 | Gráficas del panel | **Charts de shadcn/ui** (Recharts) | Solo si el semáforo necesita gráficas |

@@ -1,15 +1,14 @@
 import { defineRouting } from "next-intl/routing";
 
-// Idioma de la interfaz (ARQUITECTURA.md §2, "Idiomas"): chino por defecto,
-// sin prefijo; español e inglés con /es y /en. El idioma del contenido para
-// los alumnos es otro ajuste y no depende de este.
+// Idioma de la interfaz (ARQUITECTURA.md §2, "Idiomas"): el del navegador si
+// es chino, español o inglés; si no, inglés. Lo elegido en el selector se
+// recuerda (cookie NEXT_LOCALE) y manda sobre el navegador. El idioma del
+// contenido para los alumnos es otro ajuste y no depende de este.
 export const routing = defineRouting({
   locales: ["zh", "es", "en"],
-  defaultLocale: "zh",
+  // Respaldo cuando el navegador no pide ninguno de los tres; va sin prefijo.
+  defaultLocale: "en",
   localePrefix: "as-needed",
-  // No se deduce del navegador: sin prefijo siempre es chino; el selector
-  // lleva a /es o /en y los enlaces internos conservan ese prefijo.
-  localeDetection: false,
 });
 
 export type Locale = (typeof routing.locales)[number];
