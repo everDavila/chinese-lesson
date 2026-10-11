@@ -108,6 +108,33 @@ MVP no hay IA en vivo: el contenido inicial se genera en sesión de
 desarrollo (gratis) y una palabra nueva sin biblioteca se rellena con datos
 abiertos y queda "pendiente de ejemplos".
 
+## 3.4 Audio con voz real (futuro)
+
+Hoy el audio sale de la síntesis de voz del navegador: gratis, pero
+robótica y dependiente de las voces instaladas. Idea de Ever: que el audio
+también se cure, como las frases. Cada docente graba poco a poco palabras y
+frases con su voz, y esas grabaciones sustituyen a la voz del navegador.
+
+- **Prioridad al reproducir:** grabación revisada > grabación sin revisar >
+  voz del navegador. Lo que aún no tiene grabación sigue sonando como hoy,
+  así que se puede avanzar de a poco.
+- **Grabar desde la app:** botón "Grabar" en la pantalla de revisión de la
+  ficha (MediaRecorder del navegador, micrófono del portátil). Escuchar,
+  repetir o guardar. Sin estudio ni programas aparte.
+- **Dónde se guarda:** Supabase Storage (bucket `audio`). Una frase de unos
+  3 s en Opus ocupa unos 15 KB: miles de grabaciones caben en el plan gratis
+  (1 GB).
+- **Datos:** tabla `audio_recordings` (entidad: palabra, sentido o frase;
+  id; ruta en Storage; quién grabó; duración; estado de revisión; fecha).
+  Varias voces por frase es posible (útil para oír acentos distintos).
+- **Compatibilidad:** Safari no siempre graba en el mismo formato que
+  Chrome; se guarda lo que dé el navegador y, si hace falta, se convierte a
+  un formato común al subir.
+- **Consentimiento:** la voz es un dato personal. Quien graba acepta que se
+  use en la plataforma y puede borrar sus grabaciones.
+- **Alternativa intermedia:** TTS de calidad en la nube (voz neuronal) para
+  lo que nadie ha grabado, si la del navegador no basta.
+
 ## 4. Modelo de datos
 
 - `User`: id, nombre, rol (profesora / alumno / revisor), idiomas que revisa.
@@ -199,6 +226,7 @@ lo decide la profesora.
 - Habilidades separadas: reconocer, usar, oír, escribir.
 - Modo lectura (textos con vocabulario conocido).
 - Varias clases, responsive para móvil, TTS de mejor calidad.
+- Audio con la voz de la docente, grabado poco a poco desde la app (§3.4).
 
 ## 6.1 Capa de interfaz (decidida 2026-10-10)
 
