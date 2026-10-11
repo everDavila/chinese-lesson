@@ -42,8 +42,8 @@ const T2 = "00000000-0000-0000-0000-0000000000b2";
 await run("datos de prueba", `
   insert into auth.users (id, email) values ('${A}','a@x'),('${T1}','t1@x'),('${T2}','t2@x');
   update profiles set role = 'admin' where id = '${A}';
-  insert into words (id, hanzi, hsk_level) values ('00000000-0000-0000-0000-00000000aaaa','家',1);
-  insert into senses (id, word_id, position, pinyin) values ('00000000-0000-0000-0000-00000000bbbb','00000000-0000-0000-0000-00000000aaaa',1,'jiā');
+  insert into words (id, hanzi, hsk_level) values ('00000000-0000-0000-0000-00000000aaaa','测试词',1);
+  insert into senses (id, word_id, position, pinyin) values ('00000000-0000-0000-0000-00000000bbbb','00000000-0000-0000-0000-00000000aaaa',1,'cèshìcí');
   grant select, insert, update, delete on all tables in schema public to authenticated;
   grant execute on all functions in schema public to authenticated;
 `);
@@ -79,8 +79,8 @@ async function expectFail(label, user, sql) {
 }
 
 console.log("\n— Permisos —");
-await expectFail("docente NO edita la base común", T1, `update words set hsk_level = 2 where hanzi = '家'`);
-await expectOk("admin SÍ edita la base común", A, `update words set hsk_level = 1 where hanzi = '家' returning hanzi`);
+await expectFail("docente NO edita la base común", T1, `update words set hsk_level = 2 where hanzi = '测试词'`);
+await expectOk("admin SÍ edita la base común", A, `update words set hsk_level = 1 where hanzi = '测试词' returning hanzi`);
 
 await expectOk("admin crea plantilla", A,
   `insert into collections (id, owner_id, title) values ('00000000-0000-0000-0000-0000000000c1', null, 'HSK 1') returning title`);
