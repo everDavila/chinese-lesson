@@ -28,6 +28,13 @@
 - **Lightning CSS descarta `color-mix()` con `var()`** dentro de variables
   CSS: la variable queda vacía sin aviso. Usar valores explícitos.
 
+- **Saltos de línea de Windows (CRLF):** git en esta PC deja los archivos con
+  CRLF. Un reemplazo por script que busca texto de varias líneas con `
+`
+  no coincide y **falla en silencio** (pasó con los botones de valoración).
+  Para editar, usar la herramienta de edición o normalizar antes; y
+  comprobar siempre el resultado (`git diff`), no solo que el script corrió.
+
 ## Estado y depuración
 - **Mutar estado anidado puede no propagar a los derivados.** En Pinia,
   `$patch` con el objeto completo sí propaga. *Equivalente en React:*

@@ -5,11 +5,13 @@ import { cn } from "@/lib/utils";
 
 export type Rating = 1 | 2 | 3 | 4;
 
+// Sin seleccionar, los cuatro son iguales y neutros (solo cambia el emoji);
+// el color aparece únicamente en el elegido, para que se note cuál es.
 const RATING_STYLES: { value: Rating; emoji: string; className: string }[] = [
-  { value: 1, emoji: "😕", className: "bg-rating-1/15 border-rating-1/40 data-[active=true]:bg-rating-1/35" },
-  { value: 2, emoji: "😣", className: "bg-rating-2/15 border-rating-2/40 data-[active=true]:bg-rating-2/35" },
-  { value: 3, emoji: "🙂", className: "bg-rating-3/15 border-rating-3/40 data-[active=true]:bg-rating-3/35" },
-  { value: 4, emoji: "😎", className: "bg-rating-4/15 border-rating-4/40 data-[active=true]:bg-rating-4/35" },
+  { value: 1, emoji: "😕", className: "data-[active=true]:border-rating-1 data-[active=true]:bg-rating-1/30" },
+  { value: 2, emoji: "😣", className: "data-[active=true]:border-rating-2 data-[active=true]:bg-rating-2/30" },
+  { value: 3, emoji: "🙂", className: "data-[active=true]:border-rating-3 data-[active=true]:bg-rating-3/30" },
+  { value: 4, emoji: "😎", className: "data-[active=true]:border-rating-4 data-[active=true]:bg-rating-4/30" },
 ];
 
 // Semáforo a partir de la valoración docente (DIAGNOSTICO-MODO-CLASE.md).
@@ -56,7 +58,7 @@ export function GroupRating({
               data-active={value === r.value}
               onClick={() => onChange(value === r.value ? undefined : r.value)}
               className={cn(
-                "flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors",
+                "flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-muted data-[active=true]:font-medium",
                 r.className,
               )}
             >
