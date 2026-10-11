@@ -194,3 +194,9 @@ lección ya creada en Supabase).
 revisión visibles por dato (P1); pregunta de comprobación por palabra (P1);
 chino como idioma explicativo de la tarjeta; objetivo de aprendizaje
 declarado de la lección.
+
+**P0.1 hecho (2026-10-11):** en celular la valoración es una cuadrícula 2×2 a
+todo el ancho con botones de al menos 44 px; el atajo de teclado (1–4) solo
+se muestra desde `sm`, y el texto ya no menciona teclas. Lo comprueba
+`npm run test:recorridos` (dos filas, dos columnas, alto ≥ 44 px, sin scroll
+horizontal) con capturas en `tests/screens/recorridos/5-clase-celular-*.png`.

@@ -48,7 +48,13 @@ export function GroupRating({
             )}
           </p>
         </div>
-        <div className="ml-auto flex gap-2" role="radiogroup" aria-label={labels.groupTitle}>
+        {/* En celular, 2×2 a todo el ancho con botones de 44 px (auditoría
+            UX, P0); desde sm, una fila a la derecha. */}
+        <div
+          className="grid w-full grid-cols-2 gap-2 sm:ml-auto sm:flex sm:w-auto"
+          role="radiogroup"
+          aria-label={labels.groupTitle}
+        >
           {RATING_STYLES.map((r) => (
             <button
               key={r.value}
@@ -58,13 +64,14 @@ export function GroupRating({
               data-active={value === r.value}
               onClick={() => onChange(value === r.value ? undefined : r.value)}
               className={cn(
-                "flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-muted data-[active=true]:font-medium",
+                "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-muted data-[active=true]:font-medium sm:justify-start",
                 r.className,
               )}
             >
               <span aria-hidden>{r.emoji}</span>
               {labels.ratings[r.value - 1]}
-              <kbd className="rounded bg-background/70 px-1.5 text-xs text-muted-foreground">{r.value}</kbd>
+              {/* El atajo de teclado no sirve en un celular. */}
+              <kbd className="hidden rounded bg-background/70 px-1.5 text-xs text-muted-foreground sm:inline">{r.value}</kbd>
             </button>
           ))}
         </div>

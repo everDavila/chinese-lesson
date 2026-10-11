@@ -143,6 +143,28 @@ test.describe("profesora", () => {
     await expect(page.getByText(COPY)).toBeVisible();
     await expect(page.getByText(OWN)).toBeVisible();
     await page.screenshot({ path: `${SHOTS}/5-clase.png` });
+
+    // La misma clase en un celular: anverso, reverso y la valoración al final.
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.keyboard.press("Space");
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `${SHOTS}/5-clase-celular-anverso.png` });
+    await page.keyboard.press("Space");
+    await page.waitForTimeout(700);
+    await page.screenshot({ path: `${SHOTS}/5-clase-celular-reverso.png` });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, "scroll horizontal en la clase (celular)").toBeLessThanOrEqual(1);
+    // Valoración en 2×2 con botones de al menos 44 px (auditoría UX, P0).
+    const radios = page.getByRole("radiogroup").getByRole("radio");
+    await radios.first().scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `${SHOTS}/5-clase-celular-valoracion.png` });
+    const boxes = await radios.evaluateAll((els) => els.map((e) => e.getBoundingClientRect()).map((r) => ({ x: Math.round(r.x), y: Math.round(r.y), h: r.height })));
+    expect(boxes).toHaveLength(4);
+    for (const b of boxes) expect(b.h, "alto del botón de valoración").toBeGreaterThanOrEqual(44);
+    expect(new Set(boxes.map((b) => b.y)).size, "dos filas").toBe(2);
+    expect(new Set(boxes.map((b) => b.x)).size, "dos columnas").toBe(2);
+    await page.setViewportSize({ width: 1440, height: 900 });
+
     await page.getByRole("button", { name: zh.Controls.endClass }).click();
     await page.waitForURL(/\/collections$/);
   });
