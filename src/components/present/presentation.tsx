@@ -1,7 +1,6 @@
 "use client";
 
 import { startTransition, useCallback, useEffect, useState, useSyncExternalStore } from "react";
-import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
@@ -23,7 +22,10 @@ import { CardBack } from "./card-back";
 import { CardFront } from "./card-front";
 import { GroupRating, type Rating } from "./group-rating";
 import { ratingsStore } from "./ratings-store";
-import { endSessionAction, rateSenseAction } from "@/app/(present)/actions";
+import { endSessionAction, rateSenseAction } from "@/actions/class";
+import { Link } from "@/i18n/navigation";
+import { studentLabels, type ContentLanguage } from "@/lib/student-labels";
+import { useTranslations } from "next-intl";
 
 type LiveSession = { id: string; joinCode: string; ratings: Record<string, Rating> };
 
@@ -31,7 +33,19 @@ type LiveSession = { id: string; joinCode: string; ratings: Record<string, Ratin
  * Sin `session`: lección de demo, valoraciones en el navegador.
  * Con `session`: clase en vivo, valoraciones guardadas en Supabase.
  */
-export function Presentation({ lesson, session }: { lesson: Lesson; session?: LiveSession }) {
+export function Presentation({
+  lesson,
+  session,
+  contentLanguage = "es",
+}: {
+  lesson: Lesson;
+  session?: LiveSession;
+  /** Idioma de los alumnos para la tarjeta; los controles van en el de la interfaz. */
+  contentLanguage?: ContentLanguage;
+}) {
+  const t = useTranslations("Controls");
+  const tc = useTranslations("Common");
+  const labels = studentLabels(contentLanguage);
   const [index, setIndex] = useState(0);
   const [side, setSide] = useState<"front" | "back">("front");
   const [playing, setPlaying] = useState(true);
@@ -73,11 +87,11 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
         try {
           await rateSenseAction(session.id, senseId, rating ?? null);
         } catch {
-          setSaveError("No se pudo guardar la valoración. Revisa la conexión.");
+          setSaveError(t("saveError"));
         }
       });
     },
-    [session, item.senseId, itemKey],
+    [session, item.senseId, itemKey, t],
   );
 
   const goTo = useCallback(
@@ -161,7 +175,7 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
           <div
             role="button"
             tabIndex={-1}
-            aria-label={side === "front" ? "Girar la tarjeta (Espacio)" : "Volver al anverso (Espacio)"}
+            aria-label={side === "front" ? t("flip") : t("flipBack")}
             onClick={(e) => {
               const target = e.target as HTMLElement;
               if (target.closest("button, a, select, input, label, summary, [data-no-flip]")) return;
@@ -183,7 +197,7 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
                 runId={runId}
                 showPinyin={showPinyin}
               />
-              <p className="pb-3 text-center text-sm text-muted-foreground">Clic o Espacio para girar</p>
+              <p className="pb-3 text-center text-sm text-muted-foreground">{t("flipHint")}</p>
             </section>
             <section
               aria-hidden={side !== "back"}
@@ -195,7 +209,8 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
                 showPinyin={showPinyin}
                 showTranslations={showTranslations}
                 componentMeanings={lesson.componentMeanings}
-                footer={<GroupRating value={ratings[itemKey]} onChange={setRating} />}
+                lang={contentLanguage}
+                footer={<GroupRating value={ratings[itemKey]} onChange={setRating} labels={labels} />}
               />
             </section>
           </div>
@@ -209,11 +224,11 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
       )}
       {/* Controles al estilo Quizlet: ← n / total → al centro, siempre visibles. */}
       <nav
-        aria-label="Controles de la presentación"
+        aria-label={t("label")}
         className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-[3vw] pt-1 pb-4"
       >
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex rounded-lg border border-border p-0.5" role="tablist" aria-label="Cara de la tarjeta (Espacio)">
+          <div className="flex rounded-lg border border-border p-0.5" role="tablist" aria-label={t("faces")}>
             {(["front", "back"] as const).map((s) => (
               <button
                 key={s}
@@ -222,16 +237,16 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
                 onClick={() => setSide(s)}
                 className={cn("rounded-md px-3 py-1 text-sm", side === s ? "bg-primary text-primary-foreground" : "text-muted-foreground")}
               >
-                {s === "front" ? "Anverso" : "Reverso"}
+                {s === "front" ? t("front") : t("back")}
               </button>
             ))}
           </div>
-          <Button variant={showPinyin ? "secondary" : "ghost"} onClick={() => setShowPinyin((v) => !v)} aria-pressed={showPinyin} aria-label="Pinyin (Y)">
-            <Type /> Pinyin
+          <Button variant={showPinyin ? "secondary" : "ghost"} onClick={() => setShowPinyin((v) => !v)} aria-pressed={showPinyin} aria-label={`${t("pinyin")} (Y)`}>
+            <Type /> {t("pinyin")}
           </Button>
           {side === "back" && (
-            <Button variant={showTranslations ? "secondary" : "ghost"} onClick={() => setShowTranslations((v) => !v)} aria-pressed={showTranslations} aria-label="Traducciones (T)">
-              <Languages /> Traducciones
+            <Button variant={showTranslations ? "secondary" : "ghost"} onClick={() => setShowTranslations((v) => !v)} aria-pressed={showTranslations} aria-label={`${t("translations")} (T)`}>
+              <Languages /> {t("translations")}
             </Button>
           )}
         </div>
@@ -239,7 +254,7 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
         <div className="flex items-center gap-3">
           <Button
             variant="secondary"
-            aria-label="Palabra anterior (←)"
+            aria-label={t("previous")}
             onClick={() => goTo(index - 1)}
             disabled={index === 0}
             className="h-12 w-20 rounded-full [&_svg:not([class*='size-'])]:size-6"
@@ -248,7 +263,7 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
           </Button>
           {/* El contador también sirve para saltar a cualquier palabra. */}
           <select
-            aria-label="Ir a la palabra"
+            aria-label={t("goTo")}
             value={index}
             onChange={(e) => goTo(Number(e.target.value))}
             className="h-12 cursor-pointer appearance-none rounded-full bg-transparent px-3 text-center text-lg tabular-nums hover:bg-muted"
@@ -261,7 +276,7 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
           </select>
           <Button
             variant="secondary"
-            aria-label="Palabra siguiente (→)"
+            aria-label={t("next")}
             onClick={() => goTo(index + 1)}
             disabled={index === count - 1}
             className="h-12 w-20 rounded-full [&_svg:not([class*='size-'])]:size-6"
@@ -273,10 +288,10 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
         <div className="flex flex-wrap items-center justify-end gap-1">
           {side === "front" && (
             <>
-              <Button variant="ghost" size="icon-lg" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pausar trazos (P)" : "Reproducir trazos (P)"}>
+              <Button variant="ghost" size="icon-lg" onClick={() => setPlaying((p) => !p)} aria-label={playing ? t("pause") : t("play")}>
                 {playing ? <Pause /> : <Play />}
               </Button>
-              <Button variant="ghost" size="icon-lg" onClick={replay} aria-label="Repetir trazos (R)">
+              <Button variant="ghost" size="icon-lg" onClick={replay} aria-label={t("replay")}>
                 <RotateCcw />
               </Button>
               <input
@@ -285,7 +300,7 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
                 max={2}
                 step={0.25}
                 value={speed}
-                aria-label="Velocidad de los trazos"
+                aria-label={t("speed")}
                 onChange={(e) => {
                   setSpeed(Number(e.target.value));
                   setRunId((r) => r + 1);
@@ -297,24 +312,24 @@ export function Presentation({ lesson, session }: { lesson: Lesson; session?: Li
           <Button
             variant="ghost"
             size="icon-lg"
-            aria-label="Cambiar tema"
+            aria-label={tc("theme")}
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
           >
             {/* Los dos iconos y CSS decide: el tema no se conoce en el servidor. */}
             <Sun className="hidden dark:block" />
             <Moon className="dark:hidden" />
           </Button>
-          <Button variant="ghost" size="icon-lg" aria-label="Pantalla completa (F)" onClick={toggleFullscreen}>
+          <Button variant="ghost" size="icon-lg" aria-label={t("fullscreen")} onClick={toggleFullscreen}>
             <Expand />
           </Button>
           {session ? (
             <form action={endSessionAction.bind(null, session.id)}>
-              <Button type="submit" variant="ghost" aria-label="Terminar la clase">
-                <X /> Terminar clase
+              <Button type="submit" variant="ghost" aria-label={t("endClass")}>
+                <X /> {t("endClass")}
               </Button>
             </form>
           ) : (
-            <Link href="/" aria-label="Salir" className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted">
+            <Link href="/" aria-label={t("exit")} className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted">
               <X className="size-4" />
             </Link>
           )}

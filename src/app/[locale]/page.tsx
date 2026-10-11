@@ -1,15 +1,19 @@
 import { Suspense } from "react";
-import Link from "next/link";
-import { createDemoLessonAction, startSessionAction } from "@/app/(present)/actions";
-import { signOut } from "@/app/login/actions";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { createDemoLessonAction, startSessionAction } from "@/actions/class";
+import { signOut } from "@/actions/auth";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { getDemoLesson } from "@/lib/demo-lesson";
 import { currentUserId, listLessons } from "@/lib/lessons";
 
-// Inicio. Sin sesión: la lección de demo local. Con sesión: las lecciones de
-// la profesora en Supabase y el botón para empezar una clase. Lo que lee la
+// Inicio. Sin sesión: la lección de demo local. Con sesión: las lecciones del
+// docente en Supabase y el botón para empezar una clase. Lo que lee la
 // sesión va dentro de <Suspense> (Cache Components: el resto es estático).
-export default function Home() {
+export default async function Home({ params }: PageProps<"/[locale]">) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <Suspense fallback={<main className="flex-1" aria-busy />}>
       <HomeContent />
@@ -21,24 +25,33 @@ async function HomeContent() {
   const teacherId = await currentUserId();
   if (!teacherId) return <Guest />;
 
+  const t = await getTranslations("Home");
+  const tc = await getTranslations("Common");
   const lessons = await listLessons();
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-6 py-16">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm text-muted-foreground">Hanzi</p>
-          <h1 className="text-3xl font-semibold">Mis lecciones</h1>
+          <p className="text-sm text-muted-foreground">{tc("appName")}</p>
+          <h1 className="text-3xl font-semibold">{t("myLessons")}</h1>
         </div>
-        <form action={signOut}>
-          <Button type="submit" variant="ghost">Salir</Button>
-        </form>
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
+          <form action={signOut}>
+            <Button type="submit" variant="ghost">
+              {tc("signOut")}
+            </Button>
+          </form>
+        </div>
       </header>
 
       {lessons.length === 0 ? (
         <section className="flex flex-col items-start gap-3 rounded-xl border border-border bg-card p-6">
-          <p>Aún no tienes lecciones.</p>
+          <p>{t("noLessons")}</p>
           <form action={createDemoLessonAction}>
-            <Button type="submit" size="lg">Crear la lección de demo</Button>
+            <Button type="submit" size="lg">
+              {t("createDemo")}
+            </Button>
           </form>
         </section>
       ) : (
@@ -47,33 +60,39 @@ async function HomeContent() {
             <li key={l.id} className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4">
               <div>
                 <p className="font-medium">{l.title}</p>
-                <p className="text-sm text-muted-foreground">{l.items} palabras</p>
+                <p className="text-sm text-muted-foreground">{t("words", { count: l.items })}</p>
               </div>
               <form action={startSessionAction.bind(null, l.id)}>
-                <Button type="submit" size="lg">Empezar clase</Button>
+                <Button type="submit" size="lg">
+                  {t("startClass")}
+                </Button>
               </form>
             </li>
           ))}
         </ul>
       )}
 
-      <Shortcuts />
+      <p className="text-sm text-muted-foreground">{t("shortcuts")}</p>
     </main>
   );
 }
 
-function Guest() {
+async function Guest() {
+  const t = await getTranslations("Home");
   const lesson = getDemoLesson();
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-6 py-16">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm text-muted-foreground">Hanzi · demo</p>
+          <p className="text-sm text-muted-foreground">{t("demoBadge")}</p>
           <h1 className="text-3xl font-semibold">{lesson.title}</h1>
         </div>
-        <Link href="/login" className="text-sm underline-offset-4 hover:underline">
-          Entrar como profesora
-        </Link>
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher />
+          <Link href="/login" className="text-sm underline-offset-4 hover:underline">
+            {t("teacherAccess")}
+          </Link>
+        </div>
       </header>
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-5">
         {lesson.items.map((it) => (
@@ -88,18 +107,9 @@ function Guest() {
         href="/present"
         className="self-start rounded-lg bg-primary px-5 py-3 text-primary-foreground hover:bg-primary/85"
       >
-        Presentar la lección
+        {t("presentDemo")}
       </Link>
-      <Shortcuts />
+      <p className="text-sm text-muted-foreground">{t("shortcuts")}</p>
     </main>
-  );
-}
-
-function Shortcuts() {
-  return (
-    <p className="text-sm text-muted-foreground">
-      Atajos en la presentación: ← → palabra · Espacio girar · P pausa · R repetir · Y pinyin · T traducciones ·
-      1–4 valorar · F pantalla completa
-    </p>
   );
 }

@@ -1,0 +1,52 @@
+{
+  "Common": {
+    "appName": "汉字",
+    "language": "界面语言",
+    "signOut": "退出",
+    "theme": "切换主题"
+  },
+  "Home": {
+    "demoBadge": "汉字 · 演示",
+    "myLessons": "我的课程",
+    "noLessons": "你还没有课程。",
+    "createDemo": "创建演示课程",
+    "words": "{count} 个词",
+    "startClass": "开始上课",
+    "teacherAccess": "教师登录",
+    "presentDemo": "演示课程",
+    "shortcuts": "演示快捷键：← → 换词 · 空格 翻面 · P 暂停 · R 重播 · Y 拼音 · T 翻译 · 1–4 评价 · F 全屏"
+  },
+  "Login": {
+    "title": "教师登录",
+    "subtitle": "学生不需要账号。",
+    "email": "邮箱",
+    "password": "密码",
+    "submit": "登录",
+    "submitting": "正在登录…",
+    "missing": "请输入邮箱和密码。",
+    "invalid": "邮箱或密码不正确。",
+    "demoLink": "不登录，直接看演示课程"
+  },
+  "Controls": {
+    "label": "演示控制",
+    "front": "正面",
+    "back": "背面",
+    "faces": "卡片的面（空格）",
+    "pinyin": "拼音",
+    "translations": "翻译",
+    "previous": "上一个词（←）",
+    "next": "下一个词（→）",
+    "goTo": "跳到某个词",
+    "pause": "暂停笔顺（P）",
+    "play": "播放笔顺（P）",
+    "replay": "重播笔顺（R）",
+    "speed": "笔顺速度",
+    "fullscreen": "全屏（F）",
+    "exit": "退出",
+    "endClass": "结束上课",
+    "saveError": "评价没有保存成功，请检查网络。",
+    "flipHint": "点击或按空格翻面",
+    "flip": "翻面（空格）",
+    "flipBack": "回到正面（空格）"
+  }
+}

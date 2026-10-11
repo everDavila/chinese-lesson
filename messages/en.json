@@ -1,0 +1,52 @@
+{
+  "Common": {
+    "appName": "Hanzi",
+    "language": "Interface language",
+    "signOut": "Sign out",
+    "theme": "Toggle theme"
+  },
+  "Home": {
+    "demoBadge": "Hanzi · demo",
+    "myLessons": "My lessons",
+    "noLessons": "You don't have any lessons yet.",
+    "createDemo": "Create the demo lesson",
+    "words": "{count} words",
+    "startClass": "Start class",
+    "teacherAccess": "Teacher sign-in",
+    "presentDemo": "Present the lesson",
+    "shortcuts": "Presentation shortcuts: ← → word · Space flip · P pause · R replay · Y pinyin · T translations · 1–4 rate · F fullscreen"
+  },
+  "Login": {
+    "title": "Teacher sign-in",
+    "subtitle": "Students don't need an account.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "missing": "Enter your email and password.",
+    "invalid": "Wrong email or password.",
+    "demoLink": "See the demo lesson without signing in"
+  },
+  "Controls": {
+    "label": "Presentation controls",
+    "front": "Front",
+    "back": "Back",
+    "faces": "Card side (Space)",
+    "pinyin": "Pinyin",
+    "translations": "Translations",
+    "previous": "Previous word (←)",
+    "next": "Next word (→)",
+    "goTo": "Go to word",
+    "pause": "Pause strokes (P)",
+    "play": "Play strokes (P)",
+    "replay": "Replay strokes (R)",
+    "speed": "Stroke speed",
+    "fullscreen": "Fullscreen (F)",
+    "exit": "Exit",
+    "endClass": "End class",
+    "saveError": "The rating couldn't be saved. Check your connection.",
+    "flipHint": "Click or press Space to flip",
+    "flip": "Flip the card (Space)",
+    "flipBack": "Back to the front (Space)"
+  }
+}

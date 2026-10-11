@@ -1,26 +1,27 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
+import { redirect } from "@/i18n/navigation";
 import { currentUserId, createDemoLesson } from "@/lib/lessons";
 import { createSession, endSession, setTeacherRating } from "@/lib/sessions";
 
 async function requireTeacher() {
   const teacherId = await currentUserId();
-  if (!teacherId) redirect("/login");
+  if (!teacherId) return redirect({ href: "/login", locale: await getLocale() });
   return teacherId;
 }
 
 export async function createDemoLessonAction() {
   const teacherId = await requireTeacher();
   await createDemoLesson(teacherId);
-  redirect("/");
+  redirect({ href: "/", locale: await getLocale() });
 }
 
 /** Empieza una clase con la lección y abre la presentación. */
 export async function startSessionAction(lessonId: string) {
   const teacherId = await requireTeacher();
   const sessionId = await createSession(lessonId, teacherId);
-  redirect(`/present/session/${sessionId}`);
+  redirect({ href: `/present/session/${sessionId}`, locale: await getLocale() });
 }
 
 export async function rateSenseAction(sessionId: string, senseId: string, rating: number | null) {
@@ -32,5 +33,5 @@ export async function rateSenseAction(sessionId: string, senseId: string, rating
 export async function endSessionAction(sessionId: string) {
   await requireTeacher();
   await endSession(sessionId);
-  redirect("/");
+  redirect({ href: "/", locale: await getLocale() });
 }

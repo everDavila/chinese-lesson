@@ -1,0 +1,52 @@
+{
+  "Common": {
+    "appName": "Hanzi",
+    "language": "Idioma de la interfaz",
+    "signOut": "Salir",
+    "theme": "Cambiar tema"
+  },
+  "Home": {
+    "demoBadge": "Hanzi · demo",
+    "myLessons": "Mis lecciones",
+    "noLessons": "Aún no tienes lecciones.",
+    "createDemo": "Crear la lección de demo",
+    "words": "{count} palabras",
+    "startClass": "Empezar clase",
+    "teacherAccess": "Acceso docente",
+    "presentDemo": "Presentar la lección",
+    "shortcuts": "Atajos en la presentación: ← → palabra · Espacio girar · P pausa · R repetir · Y pinyin · T traducciones · 1–4 valorar · F pantalla completa"
+  },
+  "Login": {
+    "title": "Acceso docente",
+    "subtitle": "Los alumnos no necesitan cuenta.",
+    "email": "Correo",
+    "password": "Contraseña",
+    "submit": "Entrar",
+    "submitting": "Entrando…",
+    "missing": "Escribe tu correo y tu contraseña.",
+    "invalid": "Correo o contraseña incorrectos.",
+    "demoLink": "Ver la lección de demo sin entrar"
+  },
+  "Controls": {
+    "label": "Controles de la presentación",
+    "front": "Anverso",
+    "back": "Reverso",
+    "faces": "Cara de la tarjeta (Espacio)",
+    "pinyin": "Pinyin",
+    "translations": "Traducciones",
+    "previous": "Palabra anterior (←)",
+    "next": "Palabra siguiente (→)",
+    "goTo": "Ir a la palabra",
+    "pause": "Pausar trazos (P)",
+    "play": "Reproducir trazos (P)",
+    "replay": "Repetir trazos (R)",
+    "speed": "Velocidad de los trazos",
+    "fullscreen": "Pantalla completa (F)",
+    "exit": "Salir",
+    "endClass": "Terminar clase",
+    "saveError": "No se pudo guardar la valoración. Revisa la conexión.",
+    "flipHint": "Clic o Espacio para girar",
+    "flip": "Girar la tarjeta (Espacio)",
+    "flipBack": "Volver al anverso (Espacio)"
+  }
+}

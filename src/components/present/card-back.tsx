@@ -6,15 +6,10 @@ import { StrokeArt } from "@/components/hanzi/stroke-art";
 import { Button } from "@/components/ui/button";
 import type { Bilingual, LessonItem, Sentence } from "@/lib/lesson-types";
 import { toneless } from "@/lib/pinyin";
+import { studentLabels, type ContentLanguage, type StudentLabels } from "@/lib/student-labels";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 
-const CATEGORY_ES: Record<string, string> = {
-  noun: "sustantivo",
-  verb: "verbo",
-  "measure word": "clasificador",
-  "set phrase": "expresión",
-};
 
 // Resalta la palabra clave (rojo suave, único uso del rojo) en frases, matices
 // y notas culturales.
@@ -38,12 +33,16 @@ function SentenceRow({
   index,
   showPinyin,
   showTranslations,
+  lang,
+  labels,
 }: {
   sentence: Sentence;
   keyword: string;
   index: number;
   showPinyin: boolean;
   showTranslations: boolean;
+  lang: ContentLanguage;
+  labels: StudentLabels;
 }) {
   // Con las traducciones apagadas, un clic en la frase revela solo esa.
   const [revealed, setRevealed] = useState(false);
@@ -60,14 +59,14 @@ function SentenceRow({
             onClick={() => setRevealed((r) => !r)}
             className="text-left font-hanzi text-[clamp(1.75rem,3.2vw,2.75rem)] leading-tight"
             aria-expanded={visible}
-            title={showTranslations ? undefined : "Clic para ver la traducción"}
+            title={showTranslations ? undefined : labels.revealTranslation}
           >
             <Highlighted text={sentence.zh} keyword={keyword} />
           </button>
           <Button
             variant="ghost"
             size="icon"
-            aria-label="Escuchar la frase"
+            aria-label={labels.listenSentence}
             onClick={() => speakChinese(sentence.zh)}
           >
             <Volume2 />
@@ -78,7 +77,8 @@ function SentenceRow({
         )}
         {visible && (
           <p className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)]">
-            {sentence.es} <span className="text-muted-foreground">· {sentence.en}</span>
+            {sentence[lang]}
+            {lang !== "en" && <span className="text-muted-foreground"> · {sentence.en}</span>}
           </p>
         )}
       </div>
@@ -91,11 +91,14 @@ type CardBackProps = {
   showPinyin: boolean;
   showTranslations: boolean;
   componentMeanings: Record<string, Bilingual>;
+  /** Idioma del contenido para los alumnos (no el de la interfaz). */
+  lang: ContentLanguage;
   footer?: React.ReactNode;
 };
 
-export function CardBack({ item, showPinyin, showTranslations, componentMeanings, footer }: CardBackProps) {
+export function CardBack({ item, showPinyin, showTranslations, componentMeanings, lang, footer }: CardBackProps) {
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const labels = studentLabels(lang);
   const { word, senseIndex } = item;
   const sense = word.senses[senseIndex];
   const otherSenses = word.senses.filter((_, i) => i !== senseIndex);
@@ -122,22 +125,24 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
         <div className="min-w-0">
           <div className="flex items-center gap-3">
             <p className="text-[clamp(2rem,4vw,3.5rem)] leading-none">{sense.pinyin}</p>
-            <Button variant="ghost" size="icon-lg" aria-label="Escuchar la palabra" onClick={() => speakChinese(word.hanzi)}>
+            <Button variant="ghost" size="icon-lg" aria-label={labels.listenWord} onClick={() => speakChinese(word.hanzi)}>
               <Volume2 />
             </Button>
             <span className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
-              HSK {word.hsk} · {CATEGORY_ES[sense.category] ?? sense.category}
+              HSK {word.hsk} · {labels.categories[sense.category] ?? sense.category}
             </span>
           </div>
-          <p className="mt-2 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-tight">{sense.meaning.es}</p>
-          <p className="text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sense.meaning.en}</p>
+          <p className="mt-2 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-tight">{sense.meaning[lang]}</p>
+          {lang !== "en" && (
+            <p className="text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sense.meaning.en}</p>
+          )}
         </div>
       </header>
 
       {/* Cómo se forma: aquí sí, la descomposición en color (radical verde,
           fonético azul). En el anverso solo hay un matiz de tono. */}
-      <section aria-label="Cómo se forma" className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
-        <h3 className="w-full text-sm font-medium text-muted-foreground">Cómo se forma</h3>
+      <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-border bg-background/60 px-5 py-3">
+        <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
         {item.characters.map((c) => {
           const charSyllable = c.info?.pinyin[0];
           return (
@@ -159,21 +164,21 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
                     </span>
                     {comp.role === "semantic" && (
                       <span className="text-muted-foreground">
-                        {componentMeanings[comp.char]?.es ?? "radical"}
+                        {componentMeanings[comp.char]?.[lang] ?? labels.radical}
                       </span>
                     )}
                     {comp.role === "phonetic" && comp.pinyin && (
                       <span className="text-muted-foreground">
                         {comp.pinyin} ·{" "}
                         {charSyllable && toneless(comp.pinyin) === toneless(charSyllable)
-                          ? "da el sonido"
-                          : "sonido aproximado"}
+                          ? labels.givesSound
+                          : labels.approximateSound}
                       </span>
                     )}
                   </span>
                 ))
               ) : (
-                <span className="text-muted-foreground">carácter simple</span>
+                <span className="text-muted-foreground">{labels.simpleCharacter}</span>
               )}
             </p>
           );
@@ -189,6 +194,8 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
             index={i}
             showPinyin={showPinyin}
             showTranslations={showTranslations}
+            lang={lang}
+            labels={labels}
           />
         ))}
       </ol>
@@ -200,30 +207,30 @@ export function CardBack({ item, showPinyin, showTranslations, componentMeanings
           onClick={() => setDetailsOpen((o) => !o)}
           aria-expanded={detailsOpen}
         >
-          <span className="font-medium">Más detalles de la palabra</span>
+          <span className="font-medium">{labels.moreDetails}</span>
           <ChevronDown className={cn("size-5 transition-transform", detailsOpen && "rotate-180")} />
         </button>
         {detailsOpen && (
           <div className="grid gap-5 border-t border-border px-5 py-4 md:grid-cols-2">
             {sense.nuance && (
               <div>
-                <h3 className="mb-1 text-sm font-medium text-muted-foreground">Matiz</h3>
-                <p><Highlighted text={sense.nuance.es} keyword={word.hanzi} /></p>
+                <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.nuance}</h3>
+                <p><Highlighted text={sense.nuance[lang]} keyword={word.hanzi} /></p>
               </div>
             )}
             {word.culturalNote && (
               <div>
-                <h3 className="mb-1 text-sm font-medium text-muted-foreground">Nota cultural</h3>
-                <p><Highlighted text={word.culturalNote.es} keyword={word.hanzi} /></p>
+                <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.culturalNote}</h3>
+                <p><Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} /></p>
               </div>
             )}
             {otherSenses.length > 0 && (
               <div>
-                <h3 className="mb-1 text-sm font-medium text-muted-foreground">Otros usos (otras lecciones)</h3>
+                <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.otherUses}</h3>
                 <ul className="space-y-1">
                   {otherSenses.map((s, i) => (
                     <li key={i}>
-                      {s.meaning.es}
+                      {s.meaning[lang]}
                       {s.sentences[0] && (
                         <span className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} /></span>
                       )}

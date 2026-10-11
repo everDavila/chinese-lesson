@@ -1,15 +1,17 @@
 "use client";
 
 import { useActionState } from "react";
+import { useTranslations } from "next-intl";
+import { signIn, type LoginState } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
-import { signIn, type LoginState } from "./actions";
 
 export function LoginForm() {
+  const t = useTranslations("Login");
   const [state, action, pending] = useActionState<LoginState, FormData>(signIn, {});
   return (
     <form action={action} className="flex flex-col gap-4">
       <label className="flex flex-col gap-1 text-sm">
-        Correo
+        {t("email")}
         <input
           name="email"
           type="email"
@@ -19,7 +21,7 @@ export function LoginForm() {
         />
       </label>
       <label className="flex flex-col gap-1 text-sm">
-        Contraseña
+        {t("password")}
         <input
           name="password"
           type="password"
@@ -30,11 +32,11 @@ export function LoginForm() {
       </label>
       {state.error && (
         <p role="alert" className="text-sm text-destructive">
-          {state.error}
+          {t(state.error)}
         </p>
       )}
       <Button type="submit" size="lg" disabled={pending}>
-        {pending ? "Entrando…" : "Entrar"}
+        {pending ? t("submitting") : t("submit")}
       </Button>
     </form>
   );
