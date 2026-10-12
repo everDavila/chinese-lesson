@@ -5,7 +5,7 @@ import { ChevronDown, Volume2 } from "lucide-react";
 import { StrokeArt } from "@/components/hanzi/stroke-art";
 import { Button } from "@/components/ui/button";
 import type { LessonItem, Sentence } from "@/lib/lesson-types";
-import { studentLabels, type ContentLanguage, type StudentLabels } from "@/lib/student-labels";
+import { categoryLabel, studentLabels, type ContentLanguage, type StudentLabels } from "@/lib/student-labels";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 
@@ -199,7 +199,9 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
                 <Volume2 />
               </Button>
               <span title={labels.hskNote} className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
-                HSK {word.hsk} · {labels.categories[sense.category] ?? sense.category}
+                {/* HSK 3.0 agrupa 7, 8 y 9 en una banda: en la base es 7. */}
+                HSK {word.hsk === 7 ? "7–9" : word.hsk}
+                {sense.category && ` · ${categoryLabel(sense.category, labels)}`}
               </span>
             </div>
             <p className="mt-2 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-tight">{sense.meaning[lang]}</p>

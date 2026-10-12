@@ -20,6 +20,7 @@ const LABELS = {
       interjection: "interjección",
       particle: "partícula",
       affix: "afijo",
+      onomatopoeia: "onomatopeya",
     } as Record<string, string>,
     listenWord: "Escuchar la palabra",
     listenSentence: "Escuchar la frase",
@@ -63,6 +64,7 @@ const LABELS = {
       interjection: "interjection",
       particle: "particle",
       affix: "affix",
+      onomatopoeia: "onomatopoeia",
     } as Record<string, string>,
     listenWord: "Listen to the word",
     listenSentence: "Listen to the sentence",
@@ -96,4 +98,35 @@ export type StudentLabels = (typeof LABELS)["es"];
 
 export function studentLabels(language: ContentLanguage): StudentLabels {
   return LABELS[language];
+}
+
+// El temario HSK 3.0 (niveles 4–9, de Codex) trae la categoría en chino
+// abreviado y a veces combinada: "动、名", "名、（动）". Entre paréntesis va un
+// uso secundario: no se muestra.
+const ZH_CATEGORY: Record<string, string> = {
+  名: "noun",
+  动: "verb",
+  形: "adjective",
+  副: "adverb",
+  连: "conjunction",
+  量: "measure word",
+  代: "pronoun",
+  数: "numeral",
+  数量: "numeral",
+  介: "preposition",
+  助: "particle",
+  叹: "interjection",
+  前缀: "affix",
+  后缀: "affix",
+  拟声: "onomatopoeia",
+};
+
+/** "动、名" → "verbo / sustantivo"; "noun" → "sustantivo". Como mucho dos. */
+export function categoryLabel(category: string, labels: StudentLabels): string {
+  if (!category) return "";
+  if (labels.categories[category]) return labels.categories[category];
+  const main = category.replace(/（[^）]*）/g, "").split("、").map((c) => c.trim()).filter(Boolean);
+  if (!main.length) return category;
+  const names = [...new Set(main.map((c) => labels.categories[ZH_CATEGORY[c] ?? c] ?? c))];
+  return names.slice(0, 2).join(" / ");
 }
