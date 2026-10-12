@@ -11,6 +11,8 @@ for (const path of ["/es/collections", "/es/admin", "/es/admin/suggestions", "/z
 
 test("alumno: escribir el código en /v lleva a la votación", async ({ page }) => {
   await page.goto("/es/v");
+  // Escribir antes de que la página se hidrate pierde el texto.
+  await page.waitForLoadState("networkidle");
   await page.getByRole("textbox").fill("abc234");
   await page.getByRole("button").filter({ hasText: /Entrar/ }).click();
   await expect(page).toHaveURL(/\/es\/v\/ABC234$/);
