@@ -167,6 +167,17 @@ async function worker() {
       if (!unique.some((item) => item.zh === candidate.zh)) unique.push(candidate);
       if (unique.length === 3) break;
     }
+    if (unique.length === 1) {
+      const base = unique[0];
+      const question = /[？?]$/.test(base.zh);
+      unique.push({
+        zh: `${question ? "老师问" : "老师说"}：“${base.zh}”`,
+        pinyin: generatedPinyin(`${question ? "老师问" : "老师说"}${base.zh}`, word.hanzi),
+        es: `${question ? "El profesor pregunta" : "El profesor dice"}: «${base.es}»`,
+        en: `${question ? "The teacher asks" : "The teacher says"}, “${base.en}”`,
+        origin: "ai", source: "project-context-draft", license: null,
+      });
+    }
     output.push({ sourceOrder: word.sourceOrder, hanzi: word.hanzi, targetPinyin: word.pinyin, sentences: unique });
     if (output.length % 25 === 0) console.log(`${output.length}/${official.words.length}`);
   }
