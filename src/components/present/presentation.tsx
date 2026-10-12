@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 import { CardBack } from "./card-back";
 import { CardFront } from "./card-front";
 import { GroupRating, type Rating } from "./group-rating";
+import { StudentVoting } from "./student-voting";
 import { ratingsStore } from "./ratings-store";
 import { endSessionAction, rateSenseAction } from "@/actions/class";
 import { Link } from "@/i18n/navigation";
@@ -225,7 +226,20 @@ export function Presentation({
                 showPinyin={showPinyin}
                 showTranslations={showTranslations}
                 lang={contentLanguage}
-                footer={<GroupRating value={ratings[itemKey]} onChange={setRating} labels={labels} />}
+                footer={
+                  <>
+                    <GroupRating value={ratings[itemKey]} onChange={setRating} labels={labels} />
+                    {session && item.senseId && (
+                      <StudentVoting
+                        sessionId={session.id}
+                        senseId={item.senseId}
+                        joinCode={session.joinCode}
+                        teacherRating={ratings[itemKey]}
+                        labels={labels}
+                      />
+                    )}
+                  </>
+                }
               />
             </section>
           </div>

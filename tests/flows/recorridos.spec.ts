@@ -184,6 +184,46 @@ test.describe("profesora", () => {
   });
 });
 
+test.describe("votación de alumnos", () => {
+  test.use({ storageState: LAOSHI });
+
+  test("la profesora abre la votación y un alumno anónimo vota", async ({ page, browser }) => {
+    // Hasta aplicar la migración 20261012010000, la base no tiene las funciones.
+    const probe = await admin().rpc("student_vote_state", { code: "ZZZZZZ" });
+    test.skip(Boolean(probe.error), "Falta aplicar la migración de votación en esta base");
+
+    await page.goto(lessonUrl);
+    await page.getByRole("button", { name: new RegExp(Z.present.replace(/（\{count\}）/, "")) }).click();
+    await page.waitForURL(/\/present\/session\//);
+    await page.locator(".transform-3d").waitFor();
+    await page.keyboard.press("Space");
+    await page.keyboard.press("v");
+    const code = (await page.getByTestId("join-code").textContent())!.trim();
+    expect(code).toMatch(/^[A-Z2-9]{6}$/);
+
+    // Un alumno: otro navegador, sin sesión ni cookies.
+    const student = await browser.newContext({ storageState: { cookies: [], origins: [] }, viewport: { width: 390, height: 844 } });
+    const phone = await student.newPage();
+    await phone.goto(`/es/v/${code}`);
+    await expect(phone.getByText("爱").first()).toBeVisible();
+    await phone.getByRole("radio", { name: es.Vote.ratings[2] }).click();
+    await expect(phone.getByText(es.Vote.saved)).toBeVisible();
+    await phone.screenshot({ path: `${SHOTS}/9-alumno-vota.png` });
+    // Cambiar el voto no suma otro.
+    await phone.getByRole("radio", { name: es.Vote.ratings[3] }).click();
+    await expect(phone.getByRole("radio", { name: es.Vote.ratings[3] })).toHaveAttribute("aria-checked", "true");
+
+    await expect(page.getByTestId("votes-total")).toHaveText(/^1 /, { timeout: 10_000 });
+    await page.screenshot({ path: `${SHOTS}/9-profesora-ve-votos.png` });
+
+    // Cerrada la votación, el alumno vuelve a esperar.
+    await page.keyboard.press("v");
+    await expect(phone.getByText(es.Vote.waiting)).toBeVisible({ timeout: 10_000 });
+    await student.close();
+    await page.getByRole("button", { name: zh.Controls.endClass }).click();
+  });
+});
+
 test.describe("admin", () => {
   test.use({ storageState: ADMIN });
   test.afterEach(keepSession(ADMIN));
