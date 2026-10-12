@@ -172,15 +172,16 @@
     "checkError": "We couldn't check the code. Check your connection and try again.",
     "tryAnother": "Try another code",
     "waiting": "Waiting for the teacher to open a word…",
-    "question": "How well do you understand this word?",
+    "question": "How easy was it to understand?",
     "ratings": [
-      "Don't know it",
-      "Struggled",
+      "Didn't understand",
+      "It was hard",
       "Good",
-      "Easy"
+      "Very easy"
     ],
-    "saved": "Vote saved. You can change it while voting is open.",
+    "selectOne": "Select an answer",
+    "saved": "Answer saved",
     "error": "Couldn't send it. Check your connection and try again.",
-    "anonymous": "You vote without an account: nobody sees who voted what."
+    "anonymous": "Your answer is anonymous"
   }
 }

@@ -172,15 +172,16 @@
     "checkError": "No pudimos comprobar el código. Revisa tu conexión e inténtalo otra vez.",
     "tryAnother": "Probar otro código",
     "waiting": "Esperando a que la profesora abra una palabra…",
-    "question": "¿Qué tal entiendes esta palabra?",
+    "question": "¿Qué tan fácil te resultó entenderla?",
     "ratings": [
-      "No la sé",
+      "No entendí",
       "Me costó",
       "Bien",
-      "Fácil"
+      "Muy fácil"
     ],
-    "saved": "Voto registrado. Puedes cambiarlo mientras siga abierta.",
+    "selectOne": "Selecciona una respuesta",
+    "saved": "Respuesta guardada",
     "error": "No se pudo enviar. Revisa la conexión e inténtalo otra vez.",
-    "anonymous": "Votas sin cuenta: nadie ve quién votó qué."
+    "anonymous": "Tu respuesta es anónima"
   }
 }

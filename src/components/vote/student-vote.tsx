@@ -11,6 +11,7 @@ import {
   type FormEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import { Check, LockKeyhole } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { castVoteAction, studentStateAction, type StudentState } from "@/actions/vote";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -26,19 +27,107 @@ const POLL_MS = 2500;
 const CODE_LENGTH = 6;
 const SUCCESS_REACTION_MS = 950;
 const EMOJI = ["😕", "😣", "🙂", "😎"];
-const ACTIVE = [
-  "border-rating-1 bg-rating-1/30",
-  "border-rating-2 bg-rating-2/30",
-  "border-rating-3 bg-rating-3/30",
-  "border-rating-4 bg-rating-4/30",
-];
+
+const hanziSize = (hanzi: string) => {
+  const length = Array.from(hanzi).length;
+  if (length === 1) return "text-[clamp(7.5rem,min(38vw,30vh),18rem)]";
+  if (length === 2) return "text-[clamp(6rem,min(30vw,26vh),15rem)]";
+  if (length === 3) return "text-[clamp(4.75rem,min(22vw,22vh),11rem)]";
+  return "text-[clamp(3.5rem,min(16vw,18vh),8rem)]";
+};
+
+export function StudentVotePanel({
+  hanzi,
+  selectedRating,
+  pending,
+  saved,
+  error,
+  onVote,
+}: {
+  hanzi: string;
+  selectedRating?: number;
+  pending: boolean;
+  saved: boolean;
+  error: boolean;
+  onVote: (rating: number) => void;
+}) {
+  const t = useTranslations("Vote");
+  const ratings = t.raw("ratings") as string[];
+
+  return (
+    <section className="flex min-h-0 flex-1 flex-col rounded-[1.75rem] border border-border bg-card/70 px-3 py-4 shadow-sm sm:px-8 sm:py-7 lg:px-12 lg:py-9" aria-live="polite">
+      <div className="flex min-h-[clamp(8rem,28dvh,20rem)] flex-1 items-center justify-center overflow-hidden py-2 sm:py-4">
+        <p className={cn("font-hanzi leading-none tracking-tight [color:var(--hanzi-ink)]", hanziSize(hanzi))}>{hanzi}</p>
+      </div>
+
+      <div className="mx-auto w-full max-w-4xl shrink-0">
+        <div className="space-y-2 text-center">
+          <h1 className="text-balance text-base font-semibold sm:text-lg lg:text-xl">{t("question")}</h1>
+          <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground sm:text-sm">
+            <LockKeyhole className="size-3.5" aria-hidden />
+            {t("anonymous")}
+          </p>
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-2 sm:mt-6 sm:gap-3" role="radiogroup" aria-label={t("question")}>
+          {ratings.map((label, index) => {
+            const rating = index + 1;
+            const active = selectedRating === rating;
+            return (
+              <button
+                key={rating}
+                type="button"
+                role="radio"
+                aria-checked={active}
+                disabled={pending}
+                onClick={() => onVote(rating)}
+                className={cn(
+                  "relative flex min-h-[5.25rem] flex-col items-center justify-center gap-1 rounded-2xl border bg-background/55 px-2 py-3 text-center transition-[border-color,background-color,transform] active:scale-[0.985] disabled:cursor-wait disabled:opacity-80 sm:min-h-28 sm:gap-2 sm:text-base lg:min-h-32",
+                  active
+                    ? "border-primary bg-primary/10 font-semibold shadow-[inset_0_0_0_1px_var(--primary)]"
+                    : "border-border hover:border-primary/45 hover:bg-accent/60",
+                )}
+              >
+                {active ? (
+                  <span className="absolute top-2 right-2 flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground sm:top-3 sm:right-3 sm:size-6">
+                    <Check className="size-3.5 sm:size-4" strokeWidth={3} aria-hidden />
+                  </span>
+                ) : null}
+                <span className="text-2xl leading-none sm:text-3xl" aria-hidden>
+                  {EMOJI[index]}
+                </span>
+                <span>{label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-3 flex min-h-5 items-center justify-center text-center text-xs sm:mt-4 sm:text-sm" aria-live="polite">
+          {error ? (
+            <p role="alert" className="text-destructive">
+              {t("error")}
+            </p>
+          ) : saved ? (
+            <p className="flex items-center gap-1.5 text-muted-foreground">
+              <Check className="size-3.5 text-primary" strokeWidth={2.5} aria-hidden />
+              {t("saved")}
+            </p>
+          ) : (
+            <p className="text-muted-foreground">{t("selectOne")}</p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function StudentVote({ code }: { code: string }) {
   const t = useTranslations("Vote");
   const [state, setState] = useState<StudentState | null>(null);
   // Voto elegido por ronda: al abrirse otra palabra, se empieza de cero.
   const [chosen, setChosen] = useState<Record<string, number>>({});
-  const [error, setError] = useState(false);
+  const [saved, setSaved] = useState<Record<string, boolean>>({});
+  const [voteError, setVoteError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   const poll = useCallback(async () => {
@@ -57,90 +146,76 @@ export function StudentVote({ code }: { code: string }) {
     };
   }, [poll]);
 
-  const vote = (evaluation: string, rating: number) =>
+  const vote = (evaluation: string, rating: number) => {
+    const previousRating = chosen[evaluation];
+    setChosen((current) => ({ ...current, [evaluation]: rating }));
+    setSaved((current) => ({ ...current, [evaluation]: false }));
+    setVoteError(null);
+
     startTransition(async () => {
       try {
         const ok = await castVoteAction(code, evaluation, rating);
-        setError(!ok);
-        if (ok) setChosen((c) => ({ ...c, [evaluation]: rating }));
-        else void poll(); // probablemente se cerró la votación
+        if (ok) {
+          setSaved((current) => ({ ...current, [evaluation]: true }));
+          return;
+        }
+        setVoteError(evaluation);
+        setChosen((current) => {
+          const next = { ...current };
+          if (previousRating) next[evaluation] = previousRating;
+          else delete next[evaluation];
+          return next;
+        });
+        void poll(); // probablemente se cerró la votación
       } catch {
-        setError(true);
+        setVoteError(evaluation);
+        setChosen((current) => {
+          const next = { ...current };
+          if (previousRating) next[evaluation] = previousRating;
+          else delete next[evaluation];
+          return next;
+        });
       }
     });
-
-  const ratings = t.raw("ratings") as string[];
+  };
 
   return (
-    <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-6">
-      <header className="flex items-center justify-between">
-        <span className="font-hanzi text-2xl">认识</span>
+    <main className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col gap-3 px-3 py-3 sm:gap-5 sm:px-6 sm:py-5 lg:px-8 lg:py-8">
+      <header className="flex shrink-0 items-center justify-between gap-3 px-1">
+        <span className="font-hanzi text-xl text-primary sm:text-2xl">认识</span>
         <div className="flex items-center gap-3">
-          <span className="font-mono text-sm tracking-widest text-muted-foreground">{code}</span>
+          <span className="rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-xs tracking-[0.18em] text-muted-foreground sm:text-sm">{code}</span>
           <LanguageSwitcher />
         </div>
       </header>
 
       {state === null ? (
-        <p className="text-muted-foreground" aria-busy>
-          …
-        </p>
+        <section className="flex flex-1 items-center justify-center rounded-[1.75rem] border border-border bg-card/70" aria-busy>
+          <p className="animate-pulse text-muted-foreground">…</p>
+        </section>
       ) : state.status === "invalid" ? (
-        <div className="flex flex-col gap-4">
+        <section className="flex flex-1 flex-col items-center justify-center gap-4 rounded-[1.75rem] border border-border bg-card/70 p-6 text-center">
           <p role="alert" className="text-lg">
             {t("invalid")}
           </p>
-          <Link href="/v" className="self-start underline underline-offset-4">
+          <Link href="/v" className="rounded-full border border-border px-4 py-2 underline-offset-4 hover:bg-accent">
             {t("tryAnother")}
           </Link>
-        </div>
-      ) : state.status === "waiting" ? (
-        <p className="py-16 text-center text-lg text-muted-foreground" aria-live="polite">
-          {t("waiting")}
-        </p>
-      ) : (
-        <section className="flex flex-col gap-5" aria-live="polite">
-          <div className="text-center">
-            <p className="font-hanzi text-7xl leading-tight">{state.hanzi}</p>
-            <p className="text-2xl text-muted-foreground">{state.pinyin}</p>
-          </div>
-          <h1 className="text-center text-lg font-medium">{t("question")}</h1>
-          <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label={t("question")}>
-            {ratings.map((label, i) => {
-              const active = chosen[state.evaluation] === i + 1;
-              return (
-                <button
-                  key={i}
-                  type="button"
-                  role="radio"
-                  aria-checked={active}
-                  disabled={pending}
-                  onClick={() => vote(state.evaluation, i + 1)}
-                  className={cn(
-                    "flex min-h-24 flex-col items-center justify-center gap-1 rounded-2xl border-2 border-border bg-card text-lg transition-colors",
-                    active && ACTIVE[i],
-                    active && "font-semibold",
-                  )}
-                >
-                  <span className="text-3xl" aria-hidden>
-                    {EMOJI[i]}
-                  </span>
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-          {error ? (
-            <p role="alert" className="text-center text-sm text-destructive">
-              {t("error")}
-            </p>
-          ) : chosen[state.evaluation] ? (
-            <p className="text-center text-sm text-muted-foreground">{t("saved")}</p>
-          ) : null}
         </section>
+      ) : state.status === "waiting" ? (
+        <section className="flex flex-1 items-center justify-center rounded-[1.75rem] border border-border bg-card/70 p-6 text-center" aria-live="polite">
+          <p className="max-w-sm text-lg text-muted-foreground">{t("waiting")}</p>
+        </section>
+      ) : (
+        <StudentVotePanel
+          hanzi={state.hanzi}
+          selectedRating={chosen[state.evaluation]}
+          pending={pending}
+          saved={saved[state.evaluation] ?? false}
+          error={voteError === state.evaluation}
+          onVote={(rating) => vote(state.evaluation, rating)}
+        />
       )}
-
-      <p className="mt-auto text-center text-xs text-muted-foreground">{t("anonymous")}</p>
     </main>
   );
 }
