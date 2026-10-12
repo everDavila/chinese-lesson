@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import type { ExampleStatus, OwnSentence, SenseExamples } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { useHomeCrumbs } from "./collections";
 import { LevelNote, useLevelChecker } from "./level-check";
 import { Empty, inputCls, ManageShell, meaningFor, useRunner } from "./shell";
@@ -41,6 +42,7 @@ export function ExamplesScreen({
   const locale = useLocale();
   const crumbs = useHomeCrumbs("teacher");
   const { pending, error, setError, run } = useRunner();
+  const [confirm, confirmDialog] = useConfirm();
   const checker = useLevelChecker();
   const [editing, setEditing] = useState<Editing | null>(null);
   const open = (e: Omit<Editing, "initial">) => setEditing({ ...e, initial: e.value });
@@ -158,7 +160,7 @@ export function ExamplesScreen({
                 pending={pending}
                 form={form(o.id)}
                 onEdit={() => open({ id: o.id, basedOn: o.basedOn, value: { zh: o.zh, pinyin: o.pinyin, es: o.es, en: o.en } })}
-                onDelete={() => window.confirm(t("confirmDeleteSentence", { zh: o.zh })) && run(() => deleteExampleAction(o.id))}
+                onDelete={async () => (await confirm({ title: t("confirmDeleteSentence", { zh: o.zh }), confirmLabel: t("delete"), cancelLabel: t("cancel"), destructive: true })) && run(() => deleteExampleAction(o.id))}
                 onSuggest={(submit) => {
                   if (submit && !o.pinyin) return setError(t("pinyinNeeded"));
                   run(() => suggestExampleAction(o.id, submit));
@@ -170,6 +172,7 @@ export function ExamplesScreen({
           !editing && <Empty>{t("noMine")}</Empty>
         )}
       </section>
+      {confirmDialog}
     </ManageShell>
   );
 }
