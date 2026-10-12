@@ -5,13 +5,14 @@ import { expect, test } from "@playwright/test";
 // admin), para cuando entra contenido en masa: descomposiciones largas, notas
 // culturales, frases largas. Solo corre a pedido:
 //   HANZI_BARRIDO=<lista.json> PLAYWRIGHT_PORT=3001 npx playwright test tests/barrido --project=phone-light
-// con la lista de hanzi en un JSON y la sesión de admin de tests/.auth-dev.
+// con la lista de hanzi en un JSON y la sesión de admin de tests/.auth-dev
+// (otra carpeta con HANZI_AUTH_DIR; la vista previa solo lee).
 
 const list = process.env.HANZI_BARRIDO;
 const words: string[] = list ? JSON.parse(readFileSync(list, "utf8")) : [];
 const CHUNKS = 8;
 
-test.use({ storageState: "tests/.auth-dev/admin.json" });
+test.use({ storageState: `${process.env.HANZI_AUTH_DIR ?? "tests/.auth-dev"}/admin.json` });
 
 for (let c = 0; c < CHUNKS; c++) {
   test(`barrido ${c + 1}/${CHUNKS}`, async ({ page }) => {
