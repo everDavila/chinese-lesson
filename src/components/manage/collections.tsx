@@ -14,6 +14,7 @@ import {
   setCollectionExamplesAction,
 } from "@/actions/manage";
 import { ExamplesSelect } from "./examples-select";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { startSessionAction } from "@/actions/class";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -177,6 +178,7 @@ export function CollectionsScreen({
 /** Una colección: sus lecciones en orden. */
 export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode; isAdmin: boolean; collection: CollectionSummary }) {
   const t = useTranslations("Manage");
+  const [confirm, confirmDialog] = useConfirm();
   const router = useRouter();
   const { pending, error, run } = useRunner();
   const crumbs = useHomeCrumbs(mode);
@@ -197,8 +199,8 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
           <Button
             variant="ghost"
             disabled={pending}
-            onClick={() => {
-              if (window.confirm(t("confirmDeleteCollection", { title: c.title })))
+            onClick={async () => {
+              if (await confirm({ title: t("confirmDeleteCollection", { title: c.title }), confirmLabel: t("delete"), cancelLabel: t("cancel"), destructive: true }))
                 run(() => deleteCollectionAction(c.id), () => router.push(base));
             }}
           >
@@ -288,7 +290,7 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
                   size="icon"
                   aria-label={t("deleteLesson")}
                   disabled={pending}
-                  onClick={() => window.confirm(t("confirmDeleteLesson", { title: l.title })) && run(() => deleteLessonAction(l.id))}
+                  onClick={async () => (await confirm({ title: t("confirmDeleteLesson", { title: l.title }), confirmLabel: t("delete"), cancelLabel: t("cancel"), destructive: true })) && run(() => deleteLessonAction(l.id))}
                 >
                   <Trash2 />
                 </Button>
@@ -299,6 +301,7 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
       ) : (
         <Empty>{t("noLessons")}</Empty>
       )}
+      {confirmDialog}
     </ManageShell>
   );
 }

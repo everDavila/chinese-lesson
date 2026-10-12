@@ -15,6 +15,7 @@ import type { EditableSense, EditableSentence, EditableWord, Suggestion, WordSta
 import { toneless } from "@/lib/pinyin";
 import { cn } from "@/lib/utils";
 import { LevelNote, useLevelChecker } from "./level-check";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Empty, inputCls, ManageShell, useRunner } from "./shell";
 
 // Vistas del admin: la base común (solo admin la edita), el editor de cada
@@ -233,6 +234,10 @@ function Field({ label, children, className }: { label: string; children: React.
 
 export function AdminWordEditor({ word: stored }: { word: EditableWord }) {
   const { pending, error, run } = useRunner();
+  const [confirm, confirmDialog] = useConfirm();
+  // El admin va en español (solo lo usa Ever): textos fijos.
+  const ask = (title: string, confirmLabel: string, description?: string) =>
+    confirm({ title, description, confirmLabel, cancelLabel: "Cancelar", destructive: true });
   const checker = useLevelChecker();
   // Una palabra sin frases abre con una vacía, lista para escribir.
   const initial = (): EditableWord => ({
@@ -277,8 +282,8 @@ export function AdminWordEditor({ word: stored }: { word: EditableWord }) {
           {dirty && (
             <Button
               variant="ghost"
-              onClick={() => {
-                if (window.confirm("¿Descartar los cambios sin guardar?")) {
+              onClick={async () => {
+                if (await ask("¿Descartar los cambios sin guardar?", "Descartar")) {
                   setWord(initial());
                   setDirty(false);
                 }
@@ -356,12 +361,14 @@ export function AdminWordEditor({ word: stored }: { word: EditableWord }) {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => {
+                onClick={async () => {
                   const n = s.sentences.filter((t) => t.zh.trim()).length;
                   const label = s.meaningEs || s.meaningEn || `sentido ${si + 1}`;
                   if (
-                    window.confirm(
-                      `¿Quitar el sentido "${label}"${n ? ` y sus ${n} frase${n === 1 ? "" : "s"}` : ""}? El cambio se aplica al guardar. Si alguna lección lo usa, no se podrá guardar.`,
+                    await ask(
+                      `¿Quitar el sentido "${label}"${n ? ` y sus ${n} frase${n === 1 ? "" : "s"}` : ""}?`,
+                      "Quitar sentido",
+                      "El cambio se aplica al guardar. Si alguna lección lo usa, no se podrá guardar.",
                     )
                   )
                     edit((w) => ({ ...w, senses: w.senses.filter((_, i) => i !== si) }));
@@ -423,8 +430,8 @@ export function AdminWordEditor({ word: stored }: { word: EditableWord }) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => {
-                    if (!t.zh.trim() || window.confirm(`¿Quitar la frase "${t.zh}"? El cambio se aplica al guardar.`))
+                  onClick={async () => {
+                    if (!t.zh.trim() || (await ask(`¿Quitar la frase "${t.zh}"?`, "Quitar frase", "El cambio se aplica al guardar.")))
                       editSense(si, (x) => ({ ...x, sentences: x.sentences.filter((_, i) => i !== ti) }));
                   }}
                 >
@@ -450,6 +457,7 @@ export function AdminWordEditor({ word: stored }: { word: EditableWord }) {
       >
         <Plus /> Añadir sentido
       </Button>
+      {confirmDialog}
     </ManageShell>
   );
 }

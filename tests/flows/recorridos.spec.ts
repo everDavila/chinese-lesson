@@ -75,6 +75,7 @@ async function noMissingKeys(page: Page) {
 }
 
 let lessonUrl = "";
+let collectionUrl = "";
 let examplesUrl = "";
 
 test.describe("profesora", () => {
@@ -97,6 +98,7 @@ test.describe("profesora", () => {
     await page.getByRole("textbox", { name: Z.newName }).fill(`${MARK} ${Date.now()}`);
     await page.getByRole("button", { name: Z.save }).click();
     await expect(page.getByRole("heading", { level: 1 })).toContainText(MARK);
+    collectionUrl = page.url();
     await expect(page.getByText(Z.copyNote)).toBeVisible();
     await shoot(page, "2-coleccion");
 
@@ -305,5 +307,25 @@ test.describe("profesora tras la revisión", () => {
     await expect(own.getByText(Z.exampleStatus.rejected)).toBeVisible();
     await expect(own.getByText(MARK)).toBeVisible();
     await expect(own.getByRole("button", { name: Z.suggest })).toBeVisible();
+  });
+
+  test("borra la colección con el diálogo de confirmación propio", async ({ page }) => {
+    await page.goto(collectionUrl);
+    // Cancelar no borra nada.
+    await page.getByRole("button", { name: Z.delete, exact: true }).click();
+    const dialog = page.getByRole("alertdialog");
+    await expect(dialog).toContainText(MARK);
+    await page.screenshot({ path: `${SHOTS}/10-confirmar-borrado.png` });
+    await dialog.getByRole("button", { name: Z.cancel }).click();
+    await expect(dialog).toHaveCount(0);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(MARK);
+    // Confirmar borra y vuelve a la lista.
+    await page.getByRole("button", { name: Z.delete, exact: true }).click();
+    await page.getByRole("alertdialog").getByRole("button", { name: Z.delete, exact: true }).click();
+    await page.waitForURL(/\/collections$/);
+    // Solo en el contenido: el anunciador de rutas de Next (oculto, para
+    // lectores de pantalla) repite el título de la página anterior.
+    await expect(page.getByRole("heading", { level: 1, name: Z.nav.collections })).toBeVisible();
+    await expect(page.getByRole("main").getByText(MARK)).toHaveCount(0);
   });
 });

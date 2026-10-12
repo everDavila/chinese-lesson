@@ -1,0 +1,27 @@
+# Supabase pausa los proyectos gratuitos tras 7 días sin actividad. Dos veces
+# por semana se llama a una función pública (con la clave publicable, la misma
+# que va en el navegador) para que la base registre actividad real. El código
+# "000000" no existe: la función responde "invalid" y no escribe nada.
+name: keep-alive
+
+on:
+  schedule:
+    - cron: "17 12 * * 1,4"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [prod, dev]
+    steps:
+      - name: Llama a student_vote_state
+        env:
+          URL: ${{ matrix.base == 'prod' && secrets.SUPABASE_URL || secrets.SUPABASE_DEV_URL }}
+          KEY: ${{ matrix.base == 'prod' && secrets.SUPABASE_PUBLISHABLE_KEY || secrets.SUPABASE_DEV_PUBLISHABLE_KEY }}
+        run: |
+          curl --fail-with-body -sS -X POST "$URL/rest/v1/rpc/student_vote_state" \
+            -H "apikey: $KEY" -H "Content-Type: application/json" \
+            -d '{"code":"000000"}'
