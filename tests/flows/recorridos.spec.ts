@@ -13,8 +13,10 @@ import zh from "../../messages/zh.json";
 // Sesiones: npm run test:sesion -- admin / laoshi (la clave la escribe la
 // persona). Ejecutar: npm run test:recorridos
 
-const ADMIN = "tests/.auth/admin.json";
-const LAOSHI = "tests/.auth/laoshi.json";
+// Producción o desarrollo: lo decide playwright.config.ts según el proyecto.
+const AUTH = process.env.HANZI_AUTH_DIR ?? "tests/.auth";
+const ADMIN = `${AUTH}/admin.json`;
+const LAOSHI = `${AUTH}/laoshi.json`;
 const MARK = "Prueba automática";
 const OWN = "我爱自动测试。";
 const COPY = "我爱自动测试的副本。";
@@ -27,7 +29,7 @@ test.describe.configure({ mode: "serial" });
 // Limpieza con la clave de servicio (solo en este proceso, nunca se imprime).
 function admin() {
   const env = Object.fromEntries(
-    readFileSync(".env.local", "utf8")
+    readFileSync(process.env.HANZI_ENV_FILE ?? ".env.local", "utf8")
       .split(/\r?\n/)
       .filter((l) => l && !l.startsWith("#") && l.includes("="))
       .map((l) => [l.slice(0, l.indexOf("=")).trim(), l.slice(l.indexOf("=") + 1).trim().replace(/^"|"$/g, "")]),
@@ -43,6 +45,17 @@ async function cleanup() {
 }
 test.beforeAll(cleanup);
 test.afterAll(cleanup);
+
+/**
+ * Supabase renueva el token cada hora e invalida el anterior: si el archivo
+ * de sesión se queda con el viejo, la siguiente corrida entra sin sesión
+ * (refresh_token_not_found). Tras cada paso se guarda la sesión renovada.
+ */
+function keepSession(path: string) {
+  return async ({ context }: { context: import("@playwright/test").BrowserContext }) => {
+    await context.storageState({ path });
+  };
+}
 
 /** Captura en escritorio y en celular, y comprueba que no haya scroll horizontal. */
 async function shoot(page: Page, name: string) {
@@ -66,6 +79,7 @@ let examplesUrl = "";
 
 test.describe("profesora", () => {
   test.use({ storageState: LAOSHI });
+  test.afterEach(keepSession(LAOSHI));
 
   test("copia la plantilla HSK 1 y la renombra", async ({ page }) => {
     // El inicio lleva a la docente a sus colecciones.
@@ -172,6 +186,7 @@ test.describe("profesora", () => {
 
 test.describe("admin", () => {
   test.use({ storageState: ADMIN });
+  test.afterEach(keepSession(ADMIN));
 
   test("base común, editor, vista previa y plantillas", async ({ page }) => {
     // El inicio lleva al admin directo a la base común.
@@ -213,6 +228,7 @@ test.describe("admin", () => {
 
 test.describe("profesora tras la revisión", () => {
   test.use({ storageState: LAOSHI });
+  test.afterEach(keepSession(LAOSHI));
 
   test("ve la frase rechazada con la nota y sigue siendo suya", async ({ page }) => {
     await page.goto(examplesUrl);

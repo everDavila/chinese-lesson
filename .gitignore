@@ -60,3 +60,4 @@ next-env.d.ts
 
 # Sesiones guardadas para los recorridos (son llaves: nunca al repo)
 /tests/.auth/
+/tests/.auth-dev/

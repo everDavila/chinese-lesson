@@ -13,6 +13,13 @@ const sizes = {
 // Cada worktree puede usar su propio puerto y no terminar probando, con mucha
 // seguridad y cero utilidad, el servidor de otra sesión.
 const port = process.env.PLAYWRIGHT_PORT ?? "3000";
+
+// Recorridos contra la base de desarrollo: otras sesiones y otra base para
+// limpiar. Se fija aquí porque los workers heredan el entorno del proceso
+// principal y el spec lo lee al cargarse.
+const devRun = process.argv.some((a) => a.includes("recorridos-dev"));
+process.env.HANZI_AUTH_DIR ??= devRun ? "tests/.auth-dev" : "tests/.auth";
+process.env.HANZI_ENV_FILE ??= devRun ? ".env.dev.local" : ".env.local";
 const baseURL = `http://localhost:${port}`;
 
 export default defineConfig({
@@ -42,6 +49,13 @@ export default defineConfig({
     // npm run test:recorridos. Una sola vez, en escritorio (las capturas de
     // celular las hace el propio recorrido).
     { name: "recorridos", testMatch: "flows/**/*.spec.ts", use: { viewport: sizes.desktop } },
+    // npm run test:recorridos:dev: lo mismo contra la base de desarrollo
+    // (servidor `npm run dev:base-dev` en el 3001, sesiones en tests/.auth-dev).
+    {
+      name: "recorridos-dev",
+      testMatch: "flows/**/*.spec.ts",
+      use: { viewport: sizes.desktop, baseURL: "http://localhost:3001" },
+    },
   ],
   webServer: {
     command: `npm run dev -- -p ${port}`,

@@ -21,6 +21,7 @@ comprobar antes de hacerla. Cuando se decida, pasa a la bitácora de
 
 | Idea | Por qué | Qué contrastar antes |
 |---|---|---|
+| **Crear colección / lección: botón, no campo suelto** (mala UX, señalada por Ever) | El campo de nombre arriba de la lista parece un buscador ("demo" + Crear confunde). Igual en "Añadir lección" y en plantillas del admin. | Buenas prácticas (Material, Apple HIG, Nielsen): botón principal "+ Nueva colección" que abre el campo con etiqueta visible, Crear y Cancelar; el estado vacío repite el botón; un buscador, si lo hay, con lupa y "Buscar…". Hacerlo en `NewTitleForm` (`src/components/manage/shell.tsx`). |
 | **Pinyin y significado de la cabecera un punto más chicos en celular** | Los hanzi ya bajaron; "zhīdào" (32 px) y el significado (24 px) siguen grandes. | Ver capturas en 390 px con palabras de significado largo. |
 | **Renombrar "Sentido"** a "Uso" o "Significado" | "Sentido" no se entiende a la primera. | Decisión de Ever; cambia textos zh/es/en. |
 | **Fijar una frase preferida** para que salga siempre | Complemento de la rotación de frases. | Si la docente lo necesita de verdad tras probar la rotación. |

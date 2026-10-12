@@ -5,15 +5,19 @@
 // Requiere `npm run dev` en marcha. Uso:
 //   npm run test:sesion -- admin
 //   npm run test:sesion -- laoshi
+// Base de desarrollo (servidor `npm run dev:base-dev`, puerto 3001): añadir
+// --dev; la sesión va a tests/.auth-dev/ y no pisa la de producción.
 import { chromium } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 
 const name = process.argv[2];
+const dev = process.argv.includes("--dev");
+const dir = dev ? "tests/.auth-dev" : "tests/.auth";
 if (!["admin", "laoshi"].includes(name)) {
   console.error("Uso: npm run test:sesion -- admin   (o laoshi)");
   process.exit(1);
 }
-const base = `http://localhost:${process.env.PLAYWRIGHT_PORT ?? "3000"}`;
+const base = `http://localhost:${process.env.PLAYWRIGHT_PORT ?? (dev ? "3001" : "3000")}`;
 
 const browser = await chromium.launch({ headless: false });
 const context = await browser.newContext();
@@ -43,7 +47,7 @@ if ((name === "admin") !== isAdmin) {
   process.exit(1);
 }
 
-mkdirSync("tests/.auth", { recursive: true });
-await context.storageState({ path: `tests/.auth/${name}.json` });
-console.log(`Sesión guardada en tests/.auth/${name}.json`);
+mkdirSync(dir, { recursive: true });
+await context.storageState({ path: `${dir}/${name}.json` });
+console.log(`Sesión guardada en ${dir}/${name}.json`);
 await browser.close();

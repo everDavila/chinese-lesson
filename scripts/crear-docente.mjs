@@ -1,19 +1,22 @@
 // Crea la cuenta de una profesora (rol teacher, el de por defecto).
-// La clave se pasa por la variable DOCENTE_CLAVE para no dejarla en el
-// historial del shell; si no está, se toma del segundo argumento.
-// Uso: $env:DOCENTE_CLAVE="..."; node --env-file=.env.local scripts/crear-docente.mjs <correo>
+// La clave se pide dos veces sin mostrarla (no queda en el historial de la
+// terminal); en scripts sin terminal se puede pasar por DOCENTE_CLAVE. Uso:
+//   npm run db:crear-docente -- <correo>
+//   (base de desarrollo: node --env-file=.env.dev.local scripts/crear-docente.mjs <correo>)
 import { createClient } from "@supabase/supabase-js";
+import { askNewPassword } from "./lib/prompt.mjs";
 
-const [email, claveArg] = process.argv.slice(2);
-const password = process.env.DOCENTE_CLAVE ?? claveArg;
-if (!email || !password) {
-  console.error("Uso: node --env-file=.env.local scripts/crear-docente.mjs <correo> [clave]");
+const email = process.argv[2]?.trim().toLowerCase();
+if (!email) {
+  console.error("Uso: npm run db:crear-docente -- <correo>");
   process.exit(1);
 }
+const password = process.env.DOCENTE_CLAVE ?? (await askNewPassword(email));
 
 const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SECRET_KEY, {
   auth: { persistSession: false },
 });
+console.log(`Base: ${new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname.split(".")[0]}`);
 
 const { data, error } = await admin.auth.admin.createUser({
   email,
