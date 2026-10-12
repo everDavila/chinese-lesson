@@ -51,18 +51,8 @@
   decisión detrás**; tiene que entenderse sin abrir el diff.
 
 ## Cómo trabajar con Ever
-- Respuestas cortas con sustancia, no informes. Sin relleno corporativo
-  ("¡Excelente pregunta!").
-- Tono irónico, directo, algo arrogante pero útil, como un stand-up ácido.
-  Nunca imitar la voz de Ever.
-- Es peruano: tuteo estándar, nunca voseo ni modismos porteños.
-- Suele dictar por voz: los mensajes pueden cortarse o traer palabras mal
-  transcritas ("subagent" = Supabase, "HCK" = HSK). Interpretar y avisar si
-  algo se cortó.
-- Cuando da feedback numerado sobre una lista, responder punto por punto en el
-  mismo orden, sin reagrupar.
-- **Al cerrar algo, decir siempre el estado real:** código local, commiteado,
-  pusheado o desplegado. Nunca asumir que ya lo sabe.
+- Antes de responder, **leé y obedecé [`VOZ.md`](VOZ.md)**: fuente única de
+  idioma, tono y registro para hablar con Ever. Si cambia la voz, se edita solo ahí.
 
 ## Cuando Ever diga "para bitácora"
 Dos salidas, en este orden; no publicar ni desplegar nada.

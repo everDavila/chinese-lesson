@@ -12,9 +12,8 @@
 - Si el stack aún no está definido, **propón opciones** en lugar de asumir una tecnología.
 
 ## Estilo de trabajo
-- Responde en español (el usuario se comunica en español).
-- Código e identificadores en inglés.
-- Commits en español, concisos.
+- Antes de responder, **leé y obedecé [`VOZ.md`](VOZ.md)**: idioma, tono y
+  registro para hablar con Ever. Es la fuente única de voz; si cambia, se edita ahí.
 
 ## Seguridad
 - Nunca subas secretos ni archivos `.env`. Usa `.env.example`.

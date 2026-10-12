@@ -13,8 +13,11 @@ Recorrido completo con sesiones reales (docente + admin + alumno anónimo) contr
   frase rechazada y sigue siendo suya.
 - **Capturas:** 20 PNG en `tests/screens/recorridos/` (escritorio + celular 390×844 por
   vista, más clase en anverso/reverso/valoración y alumno votando).
-- **Análisis estático:** accesibilidad (`aria-*`, `role`, foco), i18n, contraste de la
-  paleta, uso de diálogos nativos. Sin `dangerouslySetInnerHTML` en el proyecto.
+- **Análisis estático (1ª pasada):** accesibilidad (`aria-*`, `role`, foco), i18n,
+  contraste de la paleta, uso de diálogos nativos. Sin `dangerouslySetInnerHTML`.
+- **Análisis estático (2ª pasada, a pedido):** donde de verdad se rompe una app —
+  estados vacíos, manejo de error/red, y el idioma (`lang`) del contenido chino.
+  Ver "Segunda pasada" más abajo.
 - **Verificaciones automáticas que ya pasan en cada vista:** sin scroll horizontal en
   celular, sin claves de traducción crudas, botones de valoración ≥ 44 px en rejilla 2×2.
 
@@ -64,6 +67,44 @@ recomiendo pasarlo por uno (p. ej. axe/Playwright) antes de la siguiente demo.
 `admin.tsx` tiene estado `dirty` y avisa en pantalla, pero no intercepta la salida de la
 página. Si la docente/admin cierra la pestaña a medias, pierde el trabajo sin aviso.
 Menor: es una herramienta de admin, no de clase.
+
+## Segunda pasada — donde de verdad se rompe una app
+
+Pedido de Ever tras notar que "nada grave" era una conclusión cómoda. Fui a los
+sitios que la 1ª pasada no tocó: **estados vacíos**, **manejo de error/red**, y el
+**`lang` del contenido chino**. Evidencia con archivo:línea.
+
+### P0 nuevo — Sin estado de "sin conexión": el alumno se queda en "…" para siempre
+`student-vote.tsx` (línea 31-37): el sondeo hace `setState(await
+studentStateAction(code))` dentro de un `try/catch`, pero el `catch` está **vacío**
+(solo un comentario `// Sin red: se reintenta`). Si la primera llamada falla porque
+el WiFi del salón se cae —que pasa en clase—, `state` se queda en `null` y la
+pantalla muestra **"…" indefinidamente** (línea 71-74). El alumno no sabe si está
+conectado, si la profe aún no abrió la ronda, o si su datos se fueron. No hay
+reintento visible, ni "reconectando", ni error. Es la pantalla más crítica del
+alumno y se queda muda ante el fallo más común. **Fix:** tras N sondeos fallidos,
+mostrar un aviso "Sin conexión, reintentando…" con `role="status"`. Lo mismo aplica
+a `student-voting.tsx` (línea 46-52), donde `results` se congela en el último valor
+y la profe cree que no entran votos cuando en realidad se perdió la red.
+
+### P1 nuevo — El hanzi/pinyin no declara `lang="zh"`
+`layout.tsx` pone `lang` según el locale de la interfaz (`es`/`en`/`zh`) y
+`translate="no"` (correcto, evita que el traductor del navegador rompa 汉字). Pero
+el contenido chino en sí —el hanzi gigante de la tarjeta, el pinyin, las frases— va
+en `<span className="font-hanzi">` **sin** `lang="zh-Hans"`. Cuando la interfaz está
+en español (`lang="es"`), un lector de pantalla lee 家 con fonética española ("ya")
+en vez de china ("jiā"), y el pinyin suena a castellano. Es accesibilidad real para
+el usuario ciego, y también afecta la entonación en algunos TTS. **Fix:** envolver
+el contenido chino con `lang="zh-Hans"` (los pinyin, con `lang="zh-Latn"`).
+
+### Bien hecho (verificado, para que quede constancia)
+- **Estados vacíos existen y están traducidos a los 3 idiomas:** `noCollections`
+  ("Aún no tienes colecciones…"), `noTemplates`, `noLessons`, `emptyLesson`,
+  `noOriginals`, `noMine`, y "No hay sugerencias pendientes". El primer día de la
+  profe no ve una lista en blanco: ve una invitación a crear o copiar plantilla.
+  Eso está bien.
+- **`catch` en `presentation.tsx` sí avisa:** `setSaveError(t("saveError"))` — la
+  valoración de la docente tiene feedback de error, a diferencia del voto del alumno.
 
 ## No probado / límites de esta auditoría
 
