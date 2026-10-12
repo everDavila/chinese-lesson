@@ -159,3 +159,84 @@ en `createClient`). También se arreglaron 47 glosas cortadas a media palabra
 (migración `20261011030000`, regla en `scripts/lib/gloss.mjs`) y la pantalla
 de frases avisa si se cambia el chino y el pinyin o la traducción siguen
 como estaban.
+
+## 2026-10-11 (tarde y noche) — Base de desarrollo, rotación, votación y versión estable
+
+Del prototipo en producción a una versión estable (`estable-2026-10-12`,
+`507605c`) con dos funciones nuevas probadas primero en una base aparte.
+Al final se unió la carga de frases de Codex (`0a72cc2`).
+
+**Rendimiento** (`cd3d2c0`). Con sesión, `/collections` tardaba 1,3 s y se
+veía en blanco. Tres causas: Vercel corría en Virginia (`iad1`) y Supabase
+está en São Paulo, así que `vercel.json` fija `gru1`; la lista de plantillas
+traía los hanzi de 68 lecciones solo para contarlos (0,8 s → 0,15 s); y el
+fallback de Suspense era vacío (ahora `ManageLoading`). Medido en el Chrome
+de Ever: 1,3 s → 0,5 s.
+
+**Interfaz** (todo en `master` y desplegado):
+- El admin entra directo a `/admin` (`fc4314f`).
+- Auditoría UX: P0.1 valoración 2×2 en celular con botones ≥ 44 px
+  (`54474b1`); P1.1 barra fija con la palabra al bajar por el reverso y P1.3
+  inglés de apoyo plegado en celular (`1e59bbf`; la barra va fuera de la zona
+  que se desplaza porque un sticky dentro de la cara girada en 3D quedaba
+  detrás de la lista); P2.2 composición y frases en dos columnas desde
+  1280 px (`e5495ae`, y a todo el ancho si no hay fórmula, `4b04e6f`); P2.1 el
+  inicio explica la demo (`0a03116`).
+- Hanzi del reverso un punto más chicos en celular (`f99071a`).
+- "Cómo se forma", tras varias vueltas con Ever (`c51f91b` → `d5de8b2`):
+  solo la fórmula con el pinyin de cada pieza debajo (知 zhī = 矢 shǐ + 口
+  kǒu), sin glosas. Sin datos fiables no se muestra: antes decía "carácter
+  simple" en 爱, que no lo es (`d6838bd`). Piezas anidadas de Make Me a Hanzi
+  (得 = 彳 + ⿱旦寸) se aplanan; con una pieza desconocida (？, en 心 y 习) la
+  fórmula no sale.
+
+**Base de desarrollo `hanzi-dev`** (sa-east-1). Ever hizo `npx supabase
+login`; `npm run db:dev:crear` la creó y aplicó las migraciones, y
+`npm run db:dev:copiar` copió contenido y plantillas de producción con los
+mismos ids. Cuentas propias (`hanzi` admin, `laoshi`) creadas por Ever con
+`crear-docente`, que ahora pide la clave oculta (`scripts/lib/prompt.mjs`).
+Servidor `npm run dev:base-dev` en el 3001 (lanzador propio: Next no admite
+`node --env-file`), sesiones `npm run test:sesion:dev`, recorridos
+`npm run test:recorridos:dev`.
+
+**Rotación de frases** (migración `20261012000000`). La docente elige cuántas
+frases por palabra ve la clase (1, 2, 3 o todas; 2 por defecto) en la
+colección o en una lección. Al abrir la clase se eligen y guardan
+(`session_sentences`): primero las que esa clase no vio, luego las vistas hace
+más tiempo; sus frases propias también rotan. Algoritmo puro en
+`src/lib/rotation.ts` con 6 pruebas.
+
+**Votación de alumnos** (migración `20261012010000`). Tecla V en la clase;
+el alumno vota en `/v/CÓDIGO` desde el celular, sin cuenta (hanzi y pinyin,
+sin significado; votar otra vez cambia el voto). La docente ve los votos en
+vivo (sondeo cada 2,5 s) y el semáforo (`src/lib/semaphore.ts`, 8 pruebas).
+Como Vercel no tiene la clave de servicio de Supabase, los alumnos pasan por
+dos funciones `security definer` con `execute` para `anon` que validan clase
+activa y votación abierta; RLS sigue cerrada. Identidad: token en cookie
+httpOnly, en la base solo su hash.
+
+**Paso a producción.** Las dos ramas se juntaron en `pruebas-dev`
+(conflictos solo en `package.json` y mensajes), se aplicaron sus migraciones
+en `hanzi-dev` y pasaron 8/8 recorridos allí (incluidos rotación y un alumno
+anónimo que vota). Luego: respaldo `backups/supabase-2026-10-12T0133.json`,
+migraciones en producción, fusión en `master`, 8/8 recorridos y 63/63
+visuales contra producción, y `/v/…` comprobado ya desplegado.
+
+**Contenido (Codex, `0a72cc2`).** Los 1000 sentidos de HSK 1–3 tienen 2–3
+frases (2654 en total, de Tatoeba, Gushi e IA, todas `unreviewed`), cargadas
+con un importador que solo inserta y respeta lo revisado. Revisado y unido;
+el validador de nivel pasa.
+
+**Herramientas y fallos encontrados:**
+- Las sesiones guardadas caducaban: Supabase renueva el token cada hora e
+  invalida el anterior. El recorrido guarda la sesión renovada tras cada paso.
+- En PowerShell, `npm run x -- admin --dev` pierde el `--dev` (se come el
+  `--`): de ahí `test:sesion:dev`. Primer intento con el nombre detrás de
+  `--dev` fallaba (`789abe2`).
+- Mala UX señalada por Ever: el campo de crear colección parece un buscador.
+  Anotado con buenas prácticas en `IDEAS-POR-CONTRASTAR.md`, sin hacer.
+
+**No probado / pendiente:** con alumnos reales y varios celulares a la vez;
+límite de peticiones en la votación; significado en español (15 de 1005
+sentidos); datos de componentes y trazos (19 de 655 caracteres); atribución
+por frase de Tatoeba y Gushi. Todo en `IDEAS-POR-CONTRASTAR.md`.
