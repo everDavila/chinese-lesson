@@ -73,7 +73,8 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
 1. Importar únicamente identificación y clasificación verificables.
    Para habilitar la selección en colecciones, el importador puede crear un
    primer sentido provisional con el pinyin y la categoría del temario; queda
-   `unreviewed`, sin traducciones ni ejemplos, y nunca pisa un sentido existente.
+   `unreviewed` y nunca pisa un sentido existente. Puede incluir una glosa
+   abierta con fuente y licencia claras; no equivale a una traducción curada.
 2. Crear sentidos separados cuando cambien pronunciación, categoría o uso.
 3. Redactar ejemplos restringidos al nivel o al vocabulario ya conocido y
    validarlos palabra por palabra antes de publicarlos.
@@ -93,6 +94,21 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
   diccionario.
 - Ejemplos actuales, cortos y naturales, con traducción española e inglesa.
 - Estado de revisión por palabra, sentido y ejemplo.
+
+## Catálogo básico HSK 4–9
+
+- Temario de examen publicado en 2025 y efectivo desde 2026-07: 1000 entradas
+  nuevas en HSK 4, 1600 en HSK 5, 1800 en HSK 6 y 5600 en la banda HSK 7–9.
+- La banda avanzada se conserva como `7-9`; no se reparte artificialmente en
+  tres niveles. El total operativo vigente es 11.000, no las 11.092 entradas
+  de la norma base de 2021.
+- Cada entrada incluye forma, pinyin, categoría y glosa española básica de
+  Gushi como `open_data` y `unreviewed`.
+- No se importan ejemplos, matices ni notas culturales. Esto permite buscar y
+  armar temáticas, pero esas palabras no se presentan en clase hasta tener al
+  menos una frase.
+- La descomposición se amplía a los 3088 caracteres del catálogo; las 198
+  estructuras incompletas de la fuente quedan identificadas y no se muestran.
 
 ## Fuentes registradas inicialmente
 

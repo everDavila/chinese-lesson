@@ -1,4 +1,4 @@
-// Construye los datos de caracteres usados por el catálogo HSK 1-3 a partir
+// Construye los datos de caracteres usados por el catálogo HSK 1-9 a partir
 // de Make Me a Hanzi (dictionary.txt, LGPL-3.0-or-later). No toca Supabase.
 // Uso: node scripts/build-hsk-characters.mjs <ruta/a/dictionary.txt>
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -13,7 +13,8 @@ const dict = new Map(
     .map((line) => JSON.parse(line))
     .map((entry) => [entry.character, entry]),
 );
-const words = [1, 2, 3].flatMap((level) =>
+const levels = [1, 2, 3, 4, 5, 6, "7-9"];
+const words = levels.flatMap((level) =>
   JSON.parse(readFileSync(`contenido/hsk3-level${level}.json`, "utf8")).words,
 );
 const chars = [...new Set(words.flatMap((word) => [...word.hanzi].filter((char) => /\p{Script=Han}/u.test(char))))];
@@ -80,7 +81,7 @@ writeFileSync(
     sourceFile: "dictionary.txt",
     license: "LGPL-3.0-or-later",
     retrievedAt: new Date().toISOString().slice(0, 10),
-    catalog: "HSK 3.0 levels 1-3",
+    catalog: "HSK 3.0 levels 1-9 (7-9 is one official band)",
     charactersRequested: chars.length,
     charactersWritten: Object.keys(out).length,
     incompleteDecompositions: Object.values(out).filter((row) => row.decomposition.includes("？")).length,
