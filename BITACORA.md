@@ -333,3 +333,88 @@ El primer build falló por el propietario del caché global de SWC en Windows; a
 usar un caché aislado dentro del worktree compiló correctamente. No se probaron
 los recorridos con sesión ni una revisión nativa completa de las 2637 frases.
 
+
+## 2026-10-12 (madrugada) — HSK 3.0 completo, votación que sigue a la clase y Renshi
+
+De la limpieza de reglas a un catálogo de 10 896 palabras en producción y un
+nombre nuevo. Todo en `master` y desplegado (`9e73882`); producción en
+https://renshi.davila.uno.
+
+**Reglas y mantenimiento** (`b901ebb`). `VOZ.md`, `CLAUDE.md` y `.clinerules`
+estaban en voseo (lo que `VOZ.md` prohíbe): pasan a tuteo. `.clinerules` queda
+como puntero; `AGENTS.md` se reduce a lo vigente, se arregla la ruta rota de la
+guía de bitácora y el bloque de Next.js va al final. El keep-alive de Supabase,
+que `AGENTS.md` daba por hecho, no existía: `.github/workflows/keep-alive.yml`
+llama a `student_vote_state` (pública, no escribe) en prod y dev los lunes y
+jueves, con la clave publicable en los secretos del repo. Lanzado a mano: verde.
+
+**Barrido de las 988 tarjetas** (`tests/barrido`, a pedido). Tras la
+descomposición de Codex: fórmula en 930 palabras, ninguna con "？" a la vista,
+sin errores de JavaScript. Encontró 9 palabras de tres sílabas (矿泉水, 中学生…)
+cuya cabecera se salía en 390 px: la etiqueta baja de línea y el pinyin es algo
+más chico en celular (`bdb7072`). El primer barrido dio 55 falsos "？": eran
+signos de interrogación de las frases; el detector mira ahora solo la fórmula.
+
+**Interfaz** (pedidos de Ever):
+- Nota "Basado en el nuevo HSK 3.0 (2025), que contempla 9 niveles" al pie de
+  toda la web, en zh/es/en; en clase va como tooltip del "HSK n" (`8ea6bef`,
+  `335362e`: con Cache Components, `usePathname` en el layout exige Suspense).
+- Mis colecciones: buscador con lupa y botón "Nueva colección" separados; el
+  campo con botón parecía un buscador (`54dfc6a`).
+- Votación que sigue a la tarjeta (`cd444ef`): se activa una vez (barra de
+  arriba o V); al cambiar de palabra se cierra la ronda anterior y se abre la
+  nueva, y el celular del alumno cambia solo. Código y dirección fijos arriba
+  toda la clase; volver a una palabra reabre su ronda con sus votos. Antes
+  había que girar, bajar y pulsar "Abrir votación" en cada palabra.
+- Código del alumno en seis casillas (`b264051`): se ve si falta una letra.
+  Por debajo es un solo campo (pegar, teclado y lector de pantalla igual).
+
+**HSK 3.0 completo y búsqueda en la base** (`f88120f`). Codex cargó HSK 4–9
+(1000 + 1600 + 1800 + 5600 entradas; 7–9 es una sola banda y en la base es
+nivel 7). El editor de lección mandaba el catálogo entero al navegador: con
+1000 palabras ya tardaba ~5 s. Ahora `search_words` (migración
+`20261012030000`) busca en la base por hanzi, pinyin sin tonos o significado,
+con relevancia ("agua" → 水 antes que 伞 por "paraguas") y devuelve solo la
+página: ~0,25 s en producción; abrir una lección pasó a 0,5–0,9 s. La primera
+versión cruzaba cada palabra con cada sentido y no terminaba (timeout). "Pegar
+lista" pregunta solo por los hanzi pegados. Producción: respaldo
+`backups/supabase-2026-10-12T0723.json` y luego las 5 migraciones juntas
+(semillas de Codex + búsqueda), para que el código nuevo no llamara a una
+función inexistente. Codex y yo usamos el mismo número `20261012020000`: la mía
+pasó a `…30000`.
+
+**Palabras sin frases** (`31df27e`, `c134c62`). Con HSK 4–9, ~9900 palabras no
+tienen frases y la regla "sin frases no se presenta" las dejaba fuera de clase
+en silencio. Decisión de Ever: se presentan, con la consigna "Inventen una
+frase con X · Díganla en voz alta; la profesora la corrige". Sus palabras
+propias, cuando existan, saldrán sin consigna (拜拜 no está ni en HSK 3.0). La
+tarjeta traduce las categorías del temario nuevo ("名" → sustantivo, "动、名"
+→ verbo / sustantivo) y muestra "HSK 7–9".
+
+**Renshi** (`c311455`, `9e73882`). "Hanzi" nombraba la categoría; 认识 (rènshi,
+"conocer, reconocer") nombra lo que hace la app. Logo 认识, título y portada
+cambian; lo interno (Vercel `hanzi`, Supabase, repo, cookie) no. Ever creó el
+CNAME `renshi` en HostGator; Vercel emitió el certificado solo.
+`hanzi.davila.uno` redirige (308, `vercel.json`) conservando la ruta. Hay que
+volver a iniciar sesión: la cookie es por dominio.
+
+**Lo que cazaron las pruebas** (recorridos contra hanzi-dev): la nota HSK sin
+Suspense rompía la página de la lección; `hsk-note.tsx` quedó fuera de un
+`commit -a` por ser nuevo; y una carrera en la votación: la respuesta lenta de
+"¿estaba activa?" desactivaba la votación si la docente pulsaba V antes (el
+alumno votaba y ella veía 0 votos, `21c5a19`). Los recorridos esperan ahora 15 s
+y 2 min por paso: desde un servidor local cada página va hasta São Paulo.
+`DEV_PORT` permite la base de dev en otro puerto (un Next huérfano ocupa el
+3001 y no tengo permiso para matarlo).
+
+**Estado de pruebas:** recorridos 9/9 contra hanzi-dev (con buscar, pegar y la
+votación nueva), visuales 80/80, unitarias 18/18, permisos con
+`search_words`. **No probado:** la votación con varios celulares reales; el
+editor desplegado con sesión de producción (solo el mismo código contra dev y
+la función en la base de producción); los recorridos contra producción.
+
+**Pendientes:** frases para HSK 4–9 (Codex, empezando por HSK 4); palabras
+propias de la docente (拜拜); temas de Cline (rama aparte, toca el catálogo);
+P0 "sin conexión" en la votación y P1 `lang="zh-Hans"` de la auditoría de
+Cline; avisar a la profesora del dominio nuevo; borrar los worktrees ya unidos
+(`-hsk`, `-votacion`, `-busqueda`, `-renshi`); matar el Next huérfano del 3001.
