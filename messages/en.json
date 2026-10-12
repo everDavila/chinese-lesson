@@ -180,6 +180,7 @@
       "Very easy"
     ],
     "selectOne": "Select an answer",
+    "saving": "Saving answer…",
     "saved": "Answer saved",
     "error": "Couldn't send it. Check your connection and try again.",
     "anonymous": "Your answer is anonymous"

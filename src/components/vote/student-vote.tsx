@@ -84,12 +84,12 @@ export function StudentVotePanel({
                 className={cn(
                   "relative flex min-h-[5.25rem] flex-col items-center justify-center gap-1 rounded-2xl border bg-background/55 px-2 py-3 text-center transition-[border-color,background-color,transform] active:scale-[0.985] disabled:cursor-wait disabled:opacity-80 sm:min-h-28 sm:gap-2 sm:text-base lg:min-h-32",
                   active
-                    ? "border-primary bg-primary/10 font-semibold shadow-[inset_0_0_0_1px_var(--primary)]"
+                    ? "border-emerald-300 bg-emerald-400/15 font-semibold shadow-[inset_0_0_0_1px_var(--color-emerald-300)]"
                     : "border-border hover:border-primary/45 hover:bg-accent/60",
                 )}
               >
                 {active ? (
-                  <span className="absolute top-2 right-2 flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground sm:top-3 sm:right-3 sm:size-6">
+                  <span className="absolute top-2 right-2 flex size-5 items-center justify-center rounded-full bg-emerald-300 text-emerald-950 sm:top-3 sm:right-3 sm:size-6">
                     <Check className="size-3.5 sm:size-4" strokeWidth={3} aria-hidden />
                   </span>
                 ) : null}
@@ -107,9 +107,11 @@ export function StudentVotePanel({
             <p role="alert" className="text-destructive">
               {t("error")}
             </p>
+          ) : pending ? (
+            <p className="text-muted-foreground">{t("saving")}</p>
           ) : saved ? (
-            <p className="flex items-center gap-1.5 text-muted-foreground">
-              <Check className="size-3.5 text-primary" strokeWidth={2.5} aria-hidden />
+            <p className="flex items-center gap-1.5 text-emerald-300">
+              <Check className="size-3.5" strokeWidth={2.5} aria-hidden />
               {t("saved")}
             </p>
           ) : (
