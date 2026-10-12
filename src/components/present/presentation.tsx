@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { startTransition, useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -22,9 +22,10 @@ import { cn } from "@/lib/utils";
 import { CardBack } from "./card-back";
 import { CardFront } from "./card-front";
 import { GroupRating, type Rating } from "./group-rating";
-import { StudentVoting } from "./student-voting";
+import { StudentVoting, VotingBar } from "./student-voting";
 import { ratingsStore } from "./ratings-store";
 import { endSessionAction, rateSenseAction } from "@/actions/class";
+import { closeVotingAction, openVotingAction, votingLiveAction } from "@/actions/vote";
 import { Link } from "@/i18n/navigation";
 import { studentLabels, type ContentLanguage } from "@/lib/student-labels";
 import { useTranslations } from "next-intl";
@@ -99,6 +100,31 @@ export function Presentation({
     [session, item.senseId, itemKey, t],
   );
 
+  // Votación de los alumnos: se activa una vez y sigue a la tarjeta. Al
+  // recargar, sigue activa si la sesión tenía una ronda abierta.
+  const [voting, setVoting] = useState(false);
+  // Si la docente ya pulsó V, la respuesta (lenta) de "¿estaba activa?" llega
+  // tarde y no debe deshacer lo que ella eligió.
+  const votingTouched = useRef(false);
+  const sessionId = session?.id;
+  const senseId = item.senseId;
+  useEffect(() => {
+    if (!sessionId) return;
+    votingLiveAction(sessionId).then((live) => !votingTouched.current && setVoting(live), () => {});
+  }, [sessionId]);
+  useEffect(() => {
+    if (!sessionId || !voting || !senseId) return;
+    openVotingAction(sessionId, senseId)
+      .then(() => setSaveError(null), () => setSaveError(t("votingError")));
+  }, [sessionId, voting, senseId, t]);
+  const toggleVoting = useCallback(() => {
+    if (!sessionId) return;
+    votingTouched.current = true;
+    if (!voting) return setVoting(true);
+    setVoting(false);
+    closeVotingAction(sessionId).catch(() => setSaveError(t("votingError")));
+  }, [sessionId, voting, t]);
+
   const goTo = useCallback(
     (i: number) => {
       setIndex(Math.max(0, Math.min(count - 1, i)));
@@ -156,6 +182,10 @@ export function Presentation({
         case "F":
           toggleFullscreen();
           break;
+        case "v":
+        case "V":
+          toggleVoting();
+          break;
         case "1":
         case "2":
         case "3":
@@ -169,10 +199,13 @@ export function Presentation({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goTo, index, side, ratings, itemKey, setRating]);
+  }, [goTo, index, side, ratings, itemKey, setRating, toggleVoting]);
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
+      {session && (
+        <VotingBar joinCode={session.joinCode} live={voting} onToggle={toggleVoting} labels={labels} />
+      )}
       <main className="relative flex min-h-0 flex-1 items-center justify-center px-[3vw] pt-[3vh] pb-2">
         {/* Una tarjeta con dos caras. En el anverso, clic en cualquier zona la
             gira (no hay nada más que tocar). En el reverso hay mucho que
@@ -233,7 +266,7 @@ export function Presentation({
                       <StudentVoting
                         sessionId={session.id}
                         senseId={item.senseId}
-                        joinCode={session.joinCode}
+                        live={voting}
                         teacherRating={ratings[itemKey]}
                         labels={labels}
                       />

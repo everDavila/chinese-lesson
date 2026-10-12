@@ -193,12 +193,12 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
             )}
           </div>
           <div className="min-w-0">
-            <div className="flex items-center gap-3">
-              <p className="text-[clamp(2rem,4vw,3.5rem)] leading-none">{sense.pinyin}</p>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <p className="text-[clamp(1.625rem,4vw,3.5rem)] leading-none [overflow-wrap:anywhere]">{sense.pinyin}</p>
               <Button variant="ghost" size="icon-lg" aria-label={labels.listenWord} onClick={() => speakChinese(word.hanzi)}>
                 <Volume2 />
               </Button>
-              <span className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
+              <span title={labels.hskNote} className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
                 HSK {word.hsk} · {labels.categories[sense.category] ?? sense.category}
               </span>
             </div>

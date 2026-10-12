@@ -3,7 +3,8 @@
     "appName": "汉字",
     "language": "界面语言",
     "signOut": "退出",
-    "theme": "切换主题"
+    "theme": "切换主题",
+    "hskNote": "依据新版 HSK 3.0（2025），共九级。"
   },
   "Home": {
     "demoBadge": "汉字 · 演示",
@@ -46,6 +47,7 @@
     "exit": "退出",
     "endClass": "结束上课",
     "saveError": "评价没有保存成功，请检查网络。",
+    "votingError": "投票没有更新成功，请检查网络。",
     "flipHint": "点击或按空格翻面",
     "flip": "翻面（空格）",
     "flipBack": "回到正面（空格）"
@@ -69,6 +71,11 @@
     "newCollection": "课程集名称（例如：基础 1）",
     "newTemplate": "模板名称（例如：HSK 4）",
     "create": "创建",
+    "createCollection": "新建课程集",
+    "createTemplate": "新建模板",
+    "searchCollections": "搜索课程集或模板",
+    "searchTemplates": "搜索模板",
+    "noMatches": "没有与「{query}」匹配的结果。",
     "noCollections": "你还没有课程集。新建一个，或者从模板开始。",
     "noTemplates": "没有模板。",
     "looseLessons": "其他课程",

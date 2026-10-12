@@ -1,8 +1,13 @@
 import { readFileSync, existsSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
-import { expect, test, type Page } from "@playwright/test";
+import { expect as baseExpect, test, type Page } from "@playwright/test";
 import es from "../../messages/es.json";
 import zh from "../../messages/zh.json";
+
+// Contra un servidor local, cada página va y vuelve hasta São Paulo: el editor
+// de lección tarda ~5 s en cargar (en producción, Vercel está junto a la base).
+const expect = baseExpect.configure({ timeout: 15_000 });
+test.describe.configure({ timeout: 120_000 });
 
 // Recorridos con sesión real: la profesora (en chino) copia una plantilla,
 // escribe y sugiere una frase, hace una copia editada de una original y
@@ -247,7 +252,19 @@ test.describe("votación de alumnos", () => {
     await expect(page.getByTestId("votes-total")).toHaveText(/^1 /, { timeout: 10_000 });
     await page.screenshot({ path: `${SHOTS}/9-profesora-ve-votos.png` });
 
-    // Cerrada la votación, el alumno vuelve a esperar.
+    // La votación sigue a la tarjeta: la profesora pasa de palabra y el
+    // celular cambia solo; al volver, la ronda se reabre con sus votos.
+    const second = (await page.locator("nav select option").nth(1).textContent())!.split("·")[1].trim();
+    await page.keyboard.press("ArrowRight");
+    await expect(phone.getByText(second, { exact: true }).first()).toBeVisible({ timeout: 10_000 });
+    await expect(phone.getByRole("radio").first()).toBeVisible();
+    await phone.screenshot({ path: `${SHOTS}/9-alumno-siguiente-palabra.png` });
+    await page.keyboard.press("ArrowLeft");
+    await expect(phone.getByText("爱").first()).toBeVisible({ timeout: 10_000 });
+    await page.keyboard.press("Space");
+    await expect(page.getByTestId("votes-total")).toHaveText(/^1 /, { timeout: 10_000 });
+
+    // Pausada la votación, el alumno vuelve a esperar.
     await page.keyboard.press("v");
     await expect(phone.getByText(es.Vote.waiting)).toBeVisible({ timeout: 10_000 });
     await student.close();

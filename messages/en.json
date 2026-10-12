@@ -3,7 +3,8 @@
     "appName": "Hanzi",
     "language": "Interface language",
     "signOut": "Sign out",
-    "theme": "Toggle theme"
+    "theme": "Toggle theme",
+    "hskNote": "Based on the new HSK 3.0 standard (2025), which has 9 levels."
   },
   "Home": {
     "demoBadge": "Hanzi · demo",
@@ -46,6 +47,7 @@
     "exit": "Exit",
     "endClass": "End class",
     "saveError": "The rating couldn't be saved. Check your connection.",
+    "votingError": "Voting couldn't be updated. Check your connection.",
     "flipHint": "Click or press Space to flip",
     "flip": "Flip the card (Space)",
     "flipBack": "Back to the front (Space)"
@@ -69,6 +71,11 @@
     "newCollection": "Collection name (e.g. Basic 1)",
     "newTemplate": "Template name (e.g. HSK 4)",
     "create": "Create",
+    "createCollection": "New collection",
+    "createTemplate": "New template",
+    "searchCollections": "Search collections and templates",
+    "searchTemplates": "Search templates",
+    "noMatches": "Nothing matches “{query}”.",
     "noCollections": "You don't have any collections yet. Create one or start from a template.",
     "noTemplates": "No templates.",
     "looseLessons": "Other lessons",
