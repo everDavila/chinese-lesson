@@ -25,6 +25,12 @@
   Significados, matices y frases ya están en `hanzi-dev` y producción; siguen
   `unreviewed` hasta aprobación humana. La curación conservó UUID y corrigió
   178 filas HSK 1, 86 HSK 2 y 273 HSK 3.
+- **Catálogo HSK 4–9 en preparación (rama `contenido-hsk4-9`):** el temario
+  oficial 2025/2026 añade 1000 entradas en HSK 4, 1600 en HSK 5, 1800 en HSK
+  6 y 5600 en la banda conjunta HSK 7–9. Tienen pinyin, categoría, glosa
+  española básica y descomposición, pero deliberadamente no tienen frases,
+  matices ni notas culturales. Las cuatro migraciones y 3088 caracteres ya
+  están probados en `hanzi-dev`; todavía no están en producción ni en `master`.
 - **Descomposición y cultura:** preparados 655 caracteres y sus trazos; 574
   fórmulas completas, 545 componentes semánticos coloreables, 267 fonéticos y
   81 descomposiciones incompletas que la interfaz oculta. Hay 45 notas
@@ -141,6 +147,7 @@ _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-11 - "Cómo se forma" muestra solo las piezas con su pinyin, sin glosas ni "sonido aproximado"; sin datos fiables, no se muestra - la clase nombra la pieza ("el de kǒu"); el sonido del fonético confundía. Decisión de Ever.
 - 2026-10-11 - El admin entra directo a `/admin` - aterrizaba en la vista de la docente.
 - 2026-10-12 - Keep-alive: GitHub Actions llama dos veces por semana a `student_vote_state` en prod y dev con la clave publicable - Supabase pausa los proyectos gratuitos tras 7 días sin actividad; la función es pública y no escribe nada.
+- 2026-10-12 - HSK 4–9 usa el temario de examen 2025/2026: 1000 + 1600 + 1800 + 5600 entradas, con 7–9 como una sola banda oficial - no mezclar las 11.000 entradas del examen vigente con las 11.092 de GF 0025-2021 ni inventar niveles 7, 8 y 9 separados.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

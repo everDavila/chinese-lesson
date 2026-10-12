@@ -39,6 +39,7 @@ export function StatusBadge({ status }: { status: WordStatus }) {
 }
 
 const plain = (s: string) => toneless(s).replace(/\s+/g, "");
+const hskLabel = (level: number) => level === 7 ? "7–9" : level;
 
 /** Inicio del admin: la base común con filtros y acciones por fila. */
 export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSummary[]; pendingSuggestions: number }) {
@@ -98,7 +99,11 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
           label="Nivel"
           selected={hsk}
           onChange={setHsk}
-          options={[1, 2, 3].map((n) => ({ value: n, label: `HSK ${n}`, count: words.filter((w) => w.hsk === n).length }))}
+          options={[1, 2, 3, 4, 5, 6, 7].map((n) => ({
+            value: n,
+            label: `HSK ${hskLabel(n)}`,
+            count: words.filter((w) => w.hsk === n).length,
+          }))}
         />
         <MultiSelect
           label="Estado"

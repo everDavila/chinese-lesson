@@ -28,6 +28,7 @@ function parsePastedList(text: string): string[] {
 }
 
 const plain = (s: string) => toneless(s).replace(/\s+/g, "").toLowerCase();
+const hskLabel = (level: number) => level === 7 ? "7–9" : level || "?";
 
 function searchWords(words: WordSummary[], query: string, hsk: number[]) {
   const q = query.trim().toLowerCase();
@@ -156,7 +157,7 @@ export function LessonEditor({
                         <span className="text-muted-foreground">{sense ? meaningFor(locale, sense) : "—"}</span>
                       </p>
                       <div className="mt-1 flex min-w-0 flex-wrap items-center gap-2">
-                        <span className="text-xs text-muted-foreground">HSK {it.hsk || "?"}</span>
+                        <span className="text-xs text-muted-foreground">HSK {hskLabel(it.hsk)}</span>
                         <Link
                           href={sentencesHref}
                           className={cn(
@@ -288,7 +289,11 @@ function SearchPanel({
         selected={hsk}
         onChange={setHsk}
         className="self-start"
-        options={[1, 2, 3].map((n) => ({ value: n, label: `HSK ${n}`, count: words.filter((w) => w.hsk === n).length }))}
+        options={[1, 2, 3, 4, 5, 6, 7].map((n) => ({
+          value: n,
+          label: `HSK ${hskLabel(n)}`,
+          count: words.filter((w) => w.hsk === n).length,
+        }))}
       />
       <ul className="flex max-h-[28rem] flex-col gap-1 overflow-y-auto">
         {results.map((w) => (
@@ -298,7 +303,7 @@ function SearchPanel({
               <span className="font-medium">{w.senses[0]?.pinyin}</span>{" "}
               <span className="text-muted-foreground">{w.senses[0] ? meaningFor(locale, w.senses[0]) : ""}</span>
             </span>
-            <span className="text-xs text-muted-foreground">HSK {w.hsk || "?"}</span>
+            <span className="text-xs text-muted-foreground">HSK {hskLabel(w.hsk)}</span>
             <Button
               size="icon-sm"
               variant="outline"
