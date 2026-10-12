@@ -10,6 +10,7 @@
     "validate:content": "node scripts/validate-content.mjs",
     "validate:hsk": "node scripts/validate-hsk-catalog.mjs",
     "build:hsk-seed": "node scripts/build-hsk-seed.mjs",
+    "build:hsk-seed:4-9": "node scripts/build-hsk-seed-4-9.mjs",
     "build:seed": "node scripts/build-seed.mjs",
     "db": "node --env-file=.env.local scripts/db.mjs",
     "db:migrate": "node --env-file=.env.local scripts/db.mjs db push",
@@ -64,6 +65,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
     "hanzi-writer-data": "^2.0.1",
+    "pdfjs-dist": "^5.4.624",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
