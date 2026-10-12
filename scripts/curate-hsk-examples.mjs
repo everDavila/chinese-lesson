@@ -35,10 +35,29 @@ const replacements = {
     "268-1": { es: "¡Solo cuesta diez yuanes!", en: "It only costs ten yuan!" },
     "286-2": { en: "She is studying." },
   },
+  2: {
+    "305-3": { zh: "请帮我们做饭。", pinyin: "Qǐng bāng wǒmen zuòfàn.", es: "Por favor, ayúdanos a cocinar.", en: "Please help us cook." },
+    "306-3": { zh: "你能帮忙吗？", pinyin: "Nǐ néng bāngmáng ma?", es: "¿Puedes ayudar?", en: "Can you help?" },
+    "309-2": { zh: "我比他高。", pinyin: "Wǒ bǐ tā gāo.", es: "Soy más alto que él.", en: "I am taller than him." },
+    "340-2": { en: "Can you teach me how to fly?" },
+    "341-2": { zh: "她很高。", pinyin: "Tā hěn gāo.", es: "Ella es alta.", en: "She is tall." },
+    "381-2": { zh: "明天有考试。", pinyin: "Míngtiān yǒu kǎoshì.", es: "Mañana hay un examen.", en: "There is an exam tomorrow." },
+    "405-2": { zh: "请拿一本书。", pinyin: "Qǐng ná yì běn shū.", es: "Por favor, toma un libro.", en: "Please take a book." },
+    "405-3": { zh: "请拿过来。", pinyin: "Qǐng ná guòlái.", es: "Por favor, tráelo.", en: "Please bring it here." },
+    "414-3": { zh: "他跑得很快。", pinyin: "Tā pǎo de hěn kuài.", es: "Él corre muy rápido.", en: "He runs very fast." },
+    "430-3": { zh: "今天是我的生日。", pinyin: "Jīntiān shì wǒ de shēngrì.", es: "Hoy es mi cumpleaños.", en: "Today is my birthday." },
+    "454-3": { zh: "你为什么不去？", pinyin: "Nǐ wèishénme bú qù?", es: "¿Por qué no vas?", en: "Why aren't you going?" },
+    "456-3": { zh: "你洗衣服吗？", pinyin: "Nǐ xǐ yīfu ma?", es: "¿Lavas la ropa?", en: "Do you wash clothes?" },
+    "470-2": { zh: "我是他的爷爷。", pinyin: "Wǒ shì tā de yéye.", es: "Soy su abuelo.", en: "I am his grandfather." },
+    "474-3": { zh: "这个词是什么意思？", pinyin: "Zhège cí shì shénme yìsi?", es: "¿Qué significa esta palabra?", en: "What does this word mean?" },
+    "478-2": { zh: "他在游泳。", pinyin: "Tā zài yóuyǒng.", es: "Él está nadando.", en: "He is swimming." },
+    "491-1": { en: "She is studying." },
+    "498-3": { zh: "他最喜欢我。", pinyin: "Tā zuì xǐhuan wǒ.", es: "Yo soy quien más le gusta.", en: "He likes me the most." },
+  },
 };
 
 function normalizeZh(text) {
-  return text.trim().replace(/\s+([，。！？])/g, "$1").replace(/\.$/, "。").replace(/\?$/, "？").replace(/!$/, "！");
+  return text.trim().replaceAll(",", "，").replace(/\s+([，。！？])/g, "$1").replace(/\.$/, "。").replace(/\?$/, "？").replace(/!$/, "！");
 }
 
 function normalizePinyin(text) {
