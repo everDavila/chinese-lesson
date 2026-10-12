@@ -149,6 +149,9 @@ test.describe("profesora", () => {
 
   test("presenta la lección con sus frases", async ({ page }) => {
     await page.goto(lessonUrl);
+    // Todas las frases (la colección copiada trae 2 por palabra por defecto).
+    await page.getByLabel(Z.examplesPerWord).selectOption("0");
+    await expect(page.getByLabel(Z.examplesPerWord)).toHaveValue("0");
     await page.getByRole("button", { name: new RegExp(Z.present.replace(/（\{count\}）/, "")) }).click();
     await page.waitForURL(/\/present\/session\//);
     await page.locator(".transform-3d").waitFor();
@@ -181,6 +184,32 @@ test.describe("profesora", () => {
 
     await page.getByRole("button", { name: zh.Controls.endClass }).click();
     await page.waitForURL(/\/collections$/);
+  });
+
+  test("con 1 frase por palabra, dos clases seguidas muestran frases distintas", async ({ page }) => {
+    await page.goto(lessonUrl);
+    await page.getByLabel(Z.examplesPerWord).selectOption("1");
+    await expect(page.getByLabel(Z.examplesPerWord)).toHaveValue("1");
+
+    // Da una clase y devuelve las frases de 爱 (primera palabra) en el reverso.
+    const giveClass = async () => {
+      await page.goto(lessonUrl);
+      await page.getByRole("button", { name: new RegExp(Z.present.replace(/（\{count\}）/, "")) }).click();
+      await page.waitForURL(/\/present\/session\//);
+      await page.locator(".transform-3d").waitFor();
+      await page.keyboard.press("Space");
+      await page.waitForTimeout(700);
+      // El botón de la frase (el del altavoz tiene aria-label; este, aria-expanded).
+      const shown = (await page.locator(".transform-3d ol > li button[aria-expanded]").allInnerTexts()).map((t) => t.trim());
+      await page.getByRole("button", { name: zh.Controls.endClass }).click();
+      await page.waitForURL(/\/collections$/);
+      return shown;
+    };
+    const first = await giveClass();
+    const second = await giveClass();
+    expect(first, "1 frase por palabra").toHaveLength(1);
+    expect(second, "1 frase por palabra").toHaveLength(1);
+    expect(second[0], "la segunda clase no repite la frase de la primera").not.toBe(first[0]);
   });
 });
 
