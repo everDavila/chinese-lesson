@@ -39,12 +39,12 @@ test("alumno: el panda mira la casilla activa del código", async ({ page }) => 
   await expect(pupils).toHaveAttribute("data-gaze-index", "5");
 });
 
-test("alumno: tocar una casilla reemplaza solo ese carácter", async ({ page }) => {
+test("alumno: corregir una casilla permite seguir con las siguientes", async ({ page }) => {
   await page.goto("/es/v");
   await page.waitForLoadState("networkidle");
 
   const input = page.getByRole("textbox");
-  await input.fill("PAMDA2");
+  await input.fill("PAMXB2");
   const bounds = await input.boundingBox();
   expect(bounds).not.toBeNull();
 
@@ -60,6 +60,19 @@ test("alumno: tocar una casilla reemplaza solo ese carácter", async ({ page }) 
     .toEqual([2, 3]);
   await input.press("N");
 
+  await expect(input).toHaveValue("PANXB2");
+  await expect
+    .poll(() =>
+      input.evaluate((element) => {
+        const field = element as HTMLInputElement;
+        return [field.selectionStart, field.selectionEnd];
+      }),
+    )
+    .toEqual([3, 4]);
+
+  await input.press("D");
+  await input.press("A");
+
   await expect(input).toHaveValue("PANDA2");
-  await expect(page.getByTestId("panda-pupils")).toHaveAttribute("data-gaze-index", "3");
+  await expect(page.getByTestId("panda-pupils")).toHaveAttribute("data-gaze-index", "5");
 });

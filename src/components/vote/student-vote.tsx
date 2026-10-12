@@ -3,9 +3,11 @@
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   useTransition,
+  type ChangeEvent,
   type FormEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
@@ -148,6 +150,7 @@ export function CodeForm() {
   const t = useTranslations("Vote");
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const pendingSelectionRef = useRef<{ start: number; end: number } | null>(null);
   const [code, setCode] = useState("");
   const [focused, setFocused] = useState(false);
   const [caretIndex, setCaretIndex] = useState(0);
@@ -156,6 +159,15 @@ export function CodeForm() {
   const [reactionKey, setReactionKey] = useState(0);
   const [checking, startChecking] = useTransition();
   const activeCodeIndex = focused ? Math.min(caretIndex, CODE_LENGTH - 1) : null;
+
+  useLayoutEffect(() => {
+    const pendingSelection = pendingSelectionRef.current;
+    const input = inputRef.current;
+    if (!pendingSelection || !input || document.activeElement !== input) return;
+
+    pendingSelectionRef.current = null;
+    input.setSelectionRange(pendingSelection.start, pendingSelection.end);
+  }, [code]);
 
   const handleCodePointerDown = (event: ReactPointerEvent<HTMLInputElement>) => {
     const input = event.currentTarget;
@@ -173,6 +185,23 @@ export function CodeForm() {
     input.focus();
     input.setSelectionRange(selectionStart, selectionEnd);
     setCaretIndex(selectionStart);
+  };
+
+  const handleCodeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const nextCode = event.currentTarget.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, CODE_LENGTH);
+    const selectionStart = Math.min(event.currentTarget.selectionStart ?? nextCode.length, nextCode.length);
+
+    // React vuelve a escribir el valor del input controlado y algunos
+    // navegadores mandan su selección al final. Si todavía hay otro carácter,
+    // lo dejamos seleccionado para poder corregir varias casillas seguidas.
+    pendingSelectionRef.current = {
+      start: selectionStart,
+      end: selectionStart < nextCode.length ? selectionStart + 1 : selectionStart,
+    };
+    setCode(nextCode);
+    setCaretIndex(selectionStart);
+    setCodeError(null);
+    setMascotReaction("idle");
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -241,13 +270,7 @@ export function CodeForm() {
             <input
               ref={inputRef}
               value={code}
-              onChange={(e) => {
-                const nextCode = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, CODE_LENGTH);
-                setCode(nextCode);
-                setCaretIndex(Math.min(e.currentTarget.selectionStart ?? nextCode.length, nextCode.length));
-                setCodeError(null);
-                setMascotReaction("idle");
-              }}
+              onChange={handleCodeChange}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
               onPointerDown={handleCodePointerDown}
