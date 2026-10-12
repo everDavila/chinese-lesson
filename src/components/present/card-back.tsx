@@ -11,15 +11,18 @@ import { cn } from "@/lib/utils";
 
 
 // Resalta la palabra clave (rojo suave, único uso del rojo) en frases, matices
-// y notas culturales.
-function Highlighted({ text, keyword }: { text: string; keyword: string }) {
+// y notas culturales. En texto chico (`small`) usa un rojo algo más oscuro:
+// el suave no llega al contraste 4.5:1 que pide el texto normal.
+function Highlighted({ text, keyword, small }: { text: string; keyword: string; small?: boolean }) {
   const parts = text.split(keyword);
   return (
     <>
       {parts.map((part, i) => (
         <span key={i}>
           {part}
-          {i < parts.length - 1 && <span className="whitespace-nowrap text-keyword">{keyword}</span>}
+          {i < parts.length - 1 && (
+            <span className={cn("whitespace-nowrap", small ? "text-keyword-text" : "text-keyword")}>{keyword}</span>
+          )}
         </span>
       ))}
     </>
@@ -267,13 +270,13 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
               {sense.nuance && (
                 <div>
                   <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.nuance}</h3>
-                  <p><Highlighted text={sense.nuance[lang]} keyword={word.hanzi} /></p>
+                  <p><Highlighted text={sense.nuance[lang]} keyword={word.hanzi} small /></p>
                 </div>
               )}
               {word.culturalNote && (
                 <div>
                   <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.culturalNote}</h3>
-                  <p><Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} /></p>
+                  <p><Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} small /></p>
                 </div>
               )}
               {otherSenses.length > 0 && (
@@ -284,7 +287,7 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
                       <li key={i}>
                         {s.meaning[lang]}
                         {s.sentences[0] && (
-                          <span className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} /></span>
+                          <span className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} small /></span>
                         )}
                       </li>
                     ))}

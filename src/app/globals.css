@@ -10,6 +10,7 @@
   --font-sans: var(--font-inter), var(--font-noto-sans-sc), sans-serif;
   --font-hanzi: var(--font-noto-serif-sc), serif;
   --color-keyword: var(--keyword);
+  --color-keyword-text: var(--keyword-text);
   --color-radical: var(--radical);
   --color-phonetic: var(--phonetic);
   --color-stroke-ghost: var(--stroke-ghost);
@@ -98,6 +99,9 @@
 
   /* Semánticos del chino */
   --keyword: oklch(0.6 0.13 25); /* rojo suave: solo la palabra clave */
+  /* La misma palabra clave dentro de texto chico (matiz, nota): con el rojo
+     suave daba 3.3:1 y el texto normal necesita 4.5:1 (prueba a11y.spec). */
+  --keyword-text: oklch(0.5 0.15 25);
   --radical: oklch(0.58 0.09 155); /* verde: radical / parte semántica */
   --phonetic: oklch(0.6 0.08 250); /* azul pizarra: componente fonético */
   /* Anverso monocromático: todo el carácter en el tono de la tinta (h 60) y
@@ -155,6 +159,7 @@
   /* Colores de los hanzi: sin cambios respecto a la paleta anterior (Ever:
      la paleta dorada es solo para el resto de la interfaz). */
   --keyword: oklch(0.72 0.12 25);
+  --keyword-text: oklch(0.72 0.12 25); /* en oscuro el mismo ya pasa */
   --radical: oklch(0.72 0.09 155);
   --phonetic: oklch(0.72 0.07 250);
   /* Los hanzi conservan su color de antes (Ever): solo cambia lo de alrededor. */
@@ -182,6 +187,16 @@
   }
   html {
     @apply font-sans;
+  }
+  /* Foco de teclado visible en todo lo interactivo hecho a mano (botones de
+     voto, valoración, frases, enlaces con forma de botón). Auditoría UX/UI
+     2026-10-12, P1. Los componentes que traen su propio indicador (Button de
+     shadcn: outline-none + ring) lo conservan: las utilidades ganan a esta capa. */
+  :where(a, button, select, input, textarea, summary, [role="tab"], [tabindex]):focus-visible {
+    /* El color del texto: contraste de sobra en claro y oscuro (un indicador
+       de foco necesita 3:1; el gris de --ring no llegaba sobre el crema). */
+    outline: 2px solid var(--foreground);
+    outline-offset: 2px;
   }
 }
 
