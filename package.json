@@ -29,7 +29,10 @@
     "test:unit": "node --experimental-strip-types --no-warnings --test tests/unit/*.test.ts",
     "test:sesion:dev": "node scripts/guardar-sesion.mjs --dev",
     "content:build-examples": "node scripts/build-hsk-examples.mjs",
-    "db:sync-hsk-examples": "node --env-file=.env.local scripts/sync-hsk-examples.mjs"
+    "db:sync-hsk-examples": "node --env-file=.env.local scripts/sync-hsk-examples.mjs",
+    "content:build-characters": "node scripts/build-hsk-characters.mjs",
+    "db:sync-hsk-characters": "node --env-file=.env.local scripts/sync-hsk-characters.mjs",
+    "db:sync-cultural-notes": "node --env-file=.env.local scripts/sync-cultural-notes.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
