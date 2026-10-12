@@ -32,7 +32,10 @@
     "db:sync-hsk-examples": "node --env-file=.env.local scripts/sync-hsk-examples.mjs",
     "content:build-characters": "node scripts/build-hsk-characters.mjs",
     "db:sync-hsk-characters": "node --env-file=.env.local scripts/sync-hsk-characters.mjs",
-    "db:sync-cultural-notes": "node --env-file=.env.local scripts/sync-cultural-notes.mjs"
+    "db:sync-cultural-notes": "node --env-file=.env.local scripts/sync-cultural-notes.mjs",
+    "content:build-meanings-es": "node scripts/build-hsk-meanings-es.mjs",
+    "db:sync-hsk-meanings-es": "node --env-file=.env.local scripts/sync-hsk-meanings-es.mjs",
+    "db:sync-hsk-nuances": "node --env-file=.env.local scripts/sync-hsk-nuances.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
