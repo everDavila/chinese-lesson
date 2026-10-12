@@ -1,4 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "regions": ["gru1"]
+  "regions": ["gru1"],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "hanzi.davila.uno" }],
+      "destination": "https://renshi.davila.uno/:path*",
+      "permanent": true
+    }
+  ]
 }

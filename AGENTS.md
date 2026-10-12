@@ -13,7 +13,8 @@
 - Voz para hablar con Ever: [VOZ.md](VOZ.md).
 
 ## Estado actual
-- **Producción:** https://hanzi.davila.uno (también https://davila-hanzi.vercel.app),
+- **Producción:** https://renshi.davila.uno (el producto se llama Renshi, 认识;
+  https://hanzi.davila.uno redirige ahí y https://davila-hanzi.vercel.app sigue),
   desde `master`. Última versión estable etiquetada: `estable-2026-10-12`.
 - **Funciona:** docente en `/collections` (colecciones, plantillas HSK 1–3,
   lecciones, frases propias, copias editadas, sugerencias, rotación de frases,
@@ -148,6 +149,8 @@ _(Formato: `AAAA-MM-DD - decisión - motivo`)_
 - 2026-10-11 - El admin entra directo a `/admin` - aterrizaba en la vista de la docente.
 - 2026-10-12 - Keep-alive: GitHub Actions llama dos veces por semana a `student_vote_state` en prod y dev con la clave publicable - Supabase pausa los proyectos gratuitos tras 7 días sin actividad; la función es pública y no escribe nada.
 - 2026-10-12 - HSK 4–9 usa el temario de examen 2025/2026: 1000 + 1600 + 1800 + 5600 entradas, con 7–9 como una sola banda oficial - no mezclar las 11.000 entradas del examen vigente con las 11.092 de GF 0025-2021 ni inventar niveles 7, 8 y 9 separados.
+- 2026-10-12 - Las palabras sin frases se presentan con la consigna "Inventen una frase con X"; las propias de la docente (cuando existan) saldrán sin consigna - con HSK 4–9, ~9900 palabras no tienen frases y la regla anterior las dejaba fuera de clase. Decisión de Ever.
+- 2026-10-12 - El producto se llama **Renshi** (认识, "conocer, reconocer"), en https://renshi.davila.uno; hanzi.davila.uno redirige (vercel.json). Los nombres internos (proyecto de Vercel `hanzi`, Supabase, repo) no cambian - "Hanzi" nombraba la categoría, no el producto; renombrar lo interno rompe configuración sin ganar nada. Decisión de Ever.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
