@@ -257,7 +257,8 @@ export async function getLesson(lessonId: string, opts: { sessionId?: string } =
   if (opts.sessionId) words = await onlyChosen(opts.sessionId, rows.map((r) => r.sense_id), words);
   const items = rows
     .map((r, i) => ({ senseId: r.sense_id, word: words[i] }))
-    .filter(({ senseId, word }) => word.senses.find((s) => s.id === senseId)?.sentences.length);
+    // Las palabras sin frases también se presentan (solo significado, pinyin y trazos).
+    .filter(({ senseId, word }) => word.senses.some((s) => s.id === senseId));
   return buildLesson(lesson.title, items);
 }
 

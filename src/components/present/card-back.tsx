@@ -239,6 +239,18 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
             </section>
           )}
 
+          {/* Palabra del catálogo sin frases (casi todo HSK 4–9): en vez de un
+              hueco, una consigna para la clase. Usar la palabra enseña más que
+              reconocerla. (Las palabras propias de la docente, cuando existan,
+              saldrán sin consigna: decisión de Ever.) */}
+          {sense.sentences.length === 0 ? (
+            <section className="rounded-xl border border-dashed border-border bg-background/60 px-5 py-4">
+              <p className="text-[clamp(1.125rem,1.8vw,1.5rem)] font-medium">
+                {labels.inventTitle} <span className="font-hanzi text-keyword-text">{word.hanzi}</span>
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">{labels.inventHint}</p>
+            </section>
+          ) : (
           <ol className="rounded-xl border border-border bg-background/60 px-5">
             {sense.sentences.map((s, i) => (
               <SentenceRow
@@ -253,6 +265,7 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
               />
             ))}
           </ol>
+          )}
         </div>
 
         <section className="rounded-xl border border-border bg-background/60">

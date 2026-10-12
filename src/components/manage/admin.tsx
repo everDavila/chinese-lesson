@@ -145,15 +145,9 @@ export function AdminWordsScreen({ initial, pendingSuggestions }: { initial: Wor
                       <Link href={href} className={icon} aria-label={`Editar ${w.hanzi}`} title="Editar">
                         <Pencil className="size-4" />
                       </Link>
-                      {sentences ? (
-                        <Link href={`${href}/preview`} className={icon} aria-label={`Vista previa de ${w.hanzi}`} title="Vista previa de la tarjeta">
-                          <Eye className="size-4" />
-                        </Link>
-                      ) : (
-                        <button className={icon} disabled aria-label={`Vista previa de ${w.hanzi} (sin frases)`} title="Vista previa: hace falta al menos una frase">
-                          <Eye className="size-4" />
-                        </button>
-                      )}
+                      <Link href={`${href}/preview`} className={icon} aria-label={`Vista previa de ${w.hanzi}`} title="Vista previa de la tarjeta">
+                        <Eye className="size-4" />
+                      </Link>
                       {w.status === "curada" ? (
                         <button
                           className={icon}

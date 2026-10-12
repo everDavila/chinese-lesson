@@ -4,9 +4,11 @@ import { expect, test } from "@playwright/test";
 // Barrido de la tarjeta de TODAS las palabras del catálogo (vista previa del
 // admin), para cuando entra contenido en masa: descomposiciones largas, notas
 // culturales, frases largas. Solo corre a pedido:
-//   HANZI_BARRIDO=<lista.json> PLAYWRIGHT_PORT=3001 npx playwright test tests/barrido --project=phone-light
-// con la lista de hanzi en un JSON y la sesión de admin de tests/.auth-dev
-// (otra carpeta con HANZI_AUTH_DIR; la vista previa solo lee).
+//   HANZI_AUTH_DIR=tests/.auth-dev HANZI_BARRIDO=<lista.json> PLAYWRIGHT_PORT=3001 \
+//     npx playwright test tests/barrido --project=phone-light
+// con la lista de hanzi en un JSON. HANZI_AUTH_DIR es obligatorio contra la
+// base de dev: si falta, playwright.config pone la sesión de producción y
+// todas las tarjetas "no cargan" (la vista previa solo lee).
 
 const list = process.env.HANZI_BARRIDO;
 const words: string[] = list ? JSON.parse(readFileSync(list, "utf8")) : [];
@@ -27,7 +29,8 @@ for (let c = 0; c < CHUNKS; c++) {
       const res = await page.goto(`/es/admin/words/${encodeURIComponent(hanzi)}/preview`);
       if (res?.status() === 404) continue; // palabra sin frases: no se presenta
       const card = page.locator(".transform-3d");
-      if (!(await card.isVisible({ timeout: 15_000 }).catch(() => false))) {
+      // isVisible no espera: waitFor sí.
+      if (!(await card.waitFor({ timeout: 15_000 }).then(() => true, () => false))) {
         problems.push(`${hanzi}: no carga la tarjeta`);
         continue;
       }

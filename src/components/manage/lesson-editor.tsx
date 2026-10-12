@@ -53,7 +53,7 @@ export function LessonEditor({
   const add = (senseIds: string[]) => {
     if (senseIds.length) run(() => addItemsAction(lesson.id, senseIds));
   };
-  const presentable = lesson.items.filter((i) => i.classSentences > 0).length;
+  const withoutSentences = lesson.items.filter((i) => i.classSentences === 0).length;
 
   return (
     <ManageShell
@@ -71,10 +71,10 @@ export function LessonEditor({
             <form action={startSessionAction.bind(null, lesson.id)}>
               <Button
                 type="submit"
-                disabled={!presentable}
-                title={presentable < lesson.items.length ? t("presentHint") : undefined}
+                disabled={!lesson.items.length}
+                title={withoutSentences ? t("presentHint", { count: withoutSentences }) : undefined}
               >
-                <Presentation /> {t("present", { count: presentable })}
+                <Presentation /> {t("present", { count: lesson.items.length })}
               </Button>
             </form>
           )}

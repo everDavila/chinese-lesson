@@ -26,6 +26,9 @@ const LABELS = {
     revealTranslation: "Clic para ver la traducción",
     howItsBuilt: "Cómo se forma",
     hskNote: "Basado en el nuevo HSK 3.0 (2025), que contempla 9 niveles.",
+    // Palabra del catálogo sin frases: la tarjeta propone crear una en clase.
+    inventTitle: "Inventen una frase con",
+    inventHint: "Díganla en voz alta; la profesora la corrige.",
     moreDetails: "Más detalles de la palabra",
     nuance: "Matiz",
     culturalNote: "Nota cultural",
@@ -66,6 +69,8 @@ const LABELS = {
     revealTranslation: "Click to see the translation",
     howItsBuilt: "How it's built",
     hskNote: "Based on the new HSK 3.0 standard (2025), which has 9 levels.",
+    inventTitle: "Make up a sentence with",
+    inventHint: "Say it out loud; the teacher will correct it.",
     moreDetails: "More about this word",
     nuance: "Nuance",
     culturalNote: "Cultural note",
