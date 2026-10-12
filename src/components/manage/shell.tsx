@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
+import { Search } from "lucide-react";
 import { signOut } from "@/actions/auth";
 import type { ActionError, Result } from "@/actions/manage";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -118,6 +119,11 @@ export function useRunner() {
 
 export const inputCls = "h-9 min-w-0 rounded-lg border border-input bg-background px-3";
 
+/**
+ * Crear algo con nombre: primero un botón ("Nueva colección") y, al pulsarlo,
+ * el campo del nombre con Crear y Cancelar. Un campo suelto con un botón al
+ * lado se confundía con un buscador.
+ */
 export function NewTitleForm({
   placeholder,
   label,
@@ -129,29 +135,63 @@ export function NewTitleForm({
   disabled?: boolean;
   onCreate: (title: string) => void;
 }) {
+  const t = useTranslations("Manage");
+  const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const close = () => {
+    setOpen(false);
+    setTitle("");
+  };
+  if (!open)
+    return (
+      <Button className="self-start" disabled={disabled} onClick={() => setOpen(true)}>
+        {label}
+      </Button>
+    );
   return (
     <form
-      className="flex gap-2"
+      className="flex basis-full flex-wrap gap-2 rounded-xl border border-border bg-card p-3"
       onSubmit={(e) => {
         e.preventDefault();
         if (title.trim()) {
           onCreate(title.trim());
-          setTitle("");
+          close();
         }
       }}
+      onKeyDown={(e) => e.key === "Escape" && close()}
     >
       <input
+        autoFocus
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className={cn(inputCls, "flex-1")}
+        className={cn(inputCls, "min-w-48 flex-1")}
       />
       <Button type="submit" disabled={!title.trim() || disabled}>
-        {label}
+        {t("create")}
+      </Button>
+      <Button type="button" variant="ghost" onClick={close}>
+        {t("cancel")}
       </Button>
     </form>
+  );
+}
+
+/** Buscador de una lista, con su lupa para que no se confunda con un campo de alta. */
+export function SearchInput({ value, onChange, label }: { value: string; onChange: (v: string) => void; label: string }) {
+  return (
+    <div className="relative">
+      <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+      <input
+        type="search"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={label}
+        aria-label={label}
+        className={cn(inputCls, "w-full pl-9")}
+      />
+    </div>
   );
 }
 
