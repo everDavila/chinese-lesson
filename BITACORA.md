@@ -240,3 +240,38 @@ el validador de nivel pasa.
 límite de peticiones en la votación; significado en español (15 de 1005
 sentidos); datos de componentes y trazos (19 de 655 caracteres); atribución
 por frase de Tatoeba y Gushi. Todo en `IDEAS-POR-CONTRASTAR.md`.
+
+## 2026-10-12 — Auditoría UX/UI contra base-dev
+
+Auditoría completa con sesiones reales (docente + admin + alumno anónimo)
+contra `hanzi-dev` (3001). Producción intacta. Recorridos **8/8** en verde y 20
+capturas en `tests/screens/recorridos/`. Informe completo:
+`reports/AUDITORIA-UX-UI-2026-10-12.md`.
+
+**Verificado y bien:** i18n sin huecos (150 claves idénticas en es/en/zh);
+sin scroll horizontal en celular en ninguna vista; votación accesible por rol
+(`radiogroup`/`radio`/`aria-live`); objetivos táctiles grandes (≈96 px); el
+estado editorial "Sin curar" no se muestra al alumno.
+
+**Hallazgos priorizados (PENDIENTES DE APLICAR):**
+- **P1** — `src/components/vote/student-vote.tsx`: los `<button>` nativos de las
+  4 tarjetas de voto (línea ~99) y el de enviar código (~167) **no tienen
+  indicador de foco de teclado**. Los `<Button>` de shadcn sí traen
+  `focus-visible:ring`, pero estos son botones crudos. Quien tabule o use lector
+  de pantalla no ve el foco en la pantalla clave del alumno. Fix de una línea:
+  añadir `focus-visible:outline-2 focus-visible:outline-offset-2
+  focus-visible:outline-ring` (o migrar a `<Button>`). **Único que afecta en
+  plena clase; candidato a arreglar antes de la siguiente demo.**
+- **P2** — `window.confirm` nativo en `collections.tsx`, `examples.tsx` y
+  `admin.tsx`. En admin los textos están **hardcodeados en español** (rompe el
+  i18n del resto) y el diálogo nativo se puede suprimir en algunos navegadores
+  (borrado sin confirmación real). Fix: diálogo propio `role="alertdialog"`
+  traducido.
+- **P2** — revisar contraste del `--keyword` (rojo) en texto pequeño: pasa AA
+  solo como texto grande.
+
+**Límites:** sin medidor automático de contraste (axe) ni lector de pantalla
+real (NVDA/VoiceOver); accesibilidad evaluada por ARIA del código. Sesión de
+prueba `laoshi` (rol docente); **rol `reviewer` sin recorrido**. **La profesora
+real todavía no ha abierto la app.**
+
