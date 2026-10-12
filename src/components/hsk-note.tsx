@@ -10,6 +10,12 @@ import { usePathname } from "@/i18n/navigation";
 export function HskNote() {
   const t = useTranslations("Common");
   const pathname = usePathname();
-  if (pathname.startsWith("/present") || pathname.endsWith("/preview")) return null;
+  if (
+    pathname.startsWith("/present") ||
+    pathname === "/v" ||
+    pathname.startsWith("/v/") ||
+    pathname.endsWith("/preview")
+  )
+    return null;
   return <footer className="px-4 py-3 text-center text-xs text-muted-foreground">{t("hskNote")}</footer>;
 }
