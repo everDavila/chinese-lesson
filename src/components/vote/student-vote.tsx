@@ -1,9 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useState, useTransition } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+  type FormEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { useTranslations } from "next-intl";
 import { castVoteAction, studentStateAction, type StudentState } from "@/actions/vote";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { PandaCodeMascot } from "@/components/vote/panda-code-mascot";
 import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +22,7 @@ import { cn } from "@/lib/utils";
 
 const POLL_MS = 2500;
 const CODE_LENGTH = 6;
+const SUCCESS_REACTION_MS = 950;
 const EMOJI = ["😕", "😣", "🙂", "😎"];
 const ACTIVE = [
   "border-rating-1 bg-rating-1/30",
@@ -137,24 +147,76 @@ export function StudentVote({ code }: { code: string }) {
 export function CodeForm() {
   const t = useTranslations("Vote");
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [code, setCode] = useState("");
   const [focused, setFocused] = useState(false);
+  const [caretIndex, setCaretIndex] = useState(0);
+  const [codeError, setCodeError] = useState<"invalid" | "network" | null>(null);
+  const [mascotReaction, setMascotReaction] = useState<"idle" | "confused" | "success">("idle");
+  const [reactionKey, setReactionKey] = useState(0);
+  const [checking, startChecking] = useTransition();
+  const activeCodeIndex = focused ? Math.min(caretIndex, CODE_LENGTH - 1) : null;
+
+  const handleCodePointerDown = (event: ReactPointerEvent<HTMLInputElement>) => {
+    const input = event.currentTarget;
+    const bounds = input.getBoundingClientRect();
+    const tappedIndex = Math.max(
+      0,
+      Math.min(CODE_LENGTH - 1, Math.floor(((event.clientX - bounds.left) / bounds.width) * CODE_LENGTH)),
+    );
+    const selectionStart = Math.min(tappedIndex, code.length);
+    const selectionEnd = selectionStart < code.length ? selectionStart + 1 : selectionStart;
+
+    // Cada casilla se comporta como un carácter seleccionable aunque debajo
+    // haya un único input (necesario para pegar y para el autocompletado móvil).
+    event.preventDefault();
+    input.focus();
+    input.setSelectionRange(selectionStart, selectionEnd);
+    setCaretIndex(selectionStart);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const clean = code.trim().toUpperCase();
+    if (clean.length !== CODE_LENGTH || checking) return;
+
+    startChecking(async () => {
+      try {
+        const state = await studentStateAction(clean);
+        if (state.status !== "invalid") {
+          setMascotReaction("success");
+          setReactionKey((current) => current + 1);
+          await new Promise((resolve) => window.setTimeout(resolve, SUCCESS_REACTION_MS));
+          router.push(`/v/${encodeURIComponent(clean)}`);
+          return;
+        }
+        setCodeError("invalid");
+        setMascotReaction("confused");
+      } catch {
+        setCodeError("network");
+        setMascotReaction("confused");
+      }
+      setReactionKey((current) => current + 1);
+      inputRef.current?.focus();
+    });
+  };
+
   return (
-    <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-10">
+    <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-4 px-4 py-6 sm:py-10">
       <header className="flex items-center justify-between">
         <span className="font-hanzi text-2xl">认识</span>
         <LanguageSwitcher />
       </header>
-      <h1 className="text-2xl font-semibold">{t("title")}</h1>
-      <p className="text-muted-foreground">{t("enterCode")}</p>
+      <section className="space-y-1 text-center">
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
+        <p className="text-muted-foreground">{t("enterCode")}</p>
+      </section>
       <form
-        className="flex flex-col gap-3"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const clean = code.trim().toUpperCase();
-          if (clean) router.push(`/v/${encodeURIComponent(clean)}`);
-        }}
+        className="flex flex-col gap-2"
+        onSubmit={handleSubmit}
+        aria-busy={checking}
       >
+        <PandaCodeMascot key={reactionKey} activeIndex={activeCodeIndex} reaction={mascotReaction} />
         {/* Seis casillas para que se vea si falta una letra. Por debajo es un
             solo campo (pegar, teclado del celular y lector de pantalla
             funcionan igual); las casillas solo lo dibujan. */}
@@ -167,17 +229,31 @@ export function CodeForm() {
                 aria-hidden
                 className={cn(
                   "flex h-14 items-center justify-center rounded-xl border-2 border-input bg-background font-mono text-3xl",
-                  focused && i === Math.min(code.length, CODE_LENGTH - 1) && "border-foreground",
+                  codeError && "border-destructive",
+                  focused &&
+                    i === activeCodeIndex &&
+                    (codeError ? "border-destructive ring-1 ring-destructive" : "border-foreground"),
                 )}
               >
                 {code[i] ?? ""}
               </span>
             ))}
             <input
+              ref={inputRef}
               value={code}
-              onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, CODE_LENGTH))}
+              onChange={(e) => {
+                const nextCode = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, CODE_LENGTH);
+                setCode(nextCode);
+                setCaretIndex(Math.min(e.currentTarget.selectionStart ?? nextCode.length, nextCode.length));
+                setCodeError(null);
+                setMascotReaction("idle");
+              }}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
+              onPointerDown={handleCodePointerDown}
+              onSelect={(event) => setCaretIndex(event.currentTarget.selectionStart ?? code.length)}
+              aria-invalid={codeError !== null}
+              aria-describedby={codeError ? "code-error" : undefined}
               autoCapitalize="characters"
               autoComplete="one-time-code"
               spellCheck={false}
@@ -186,8 +262,17 @@ export function CodeForm() {
             />
           </span>
         </label>
-        <button type="submit" className="h-12 rounded-xl bg-primary text-lg text-primary-foreground disabled:opacity-50" disabled={code.length < CODE_LENGTH}>
-          {t("go")}
+        {codeError ? (
+          <p id="code-error" role="alert" className="text-sm text-destructive">
+            {t(codeError === "invalid" ? "invalid" : "checkError")}
+          </p>
+        ) : null}
+        <button
+          type="submit"
+          className="h-12 rounded-xl bg-primary text-lg text-primary-foreground disabled:opacity-50"
+          disabled={code.length < CODE_LENGTH || checking}
+        >
+          {checking ? t("checking") : t("go")}
         </button>
       </form>
     </main>
