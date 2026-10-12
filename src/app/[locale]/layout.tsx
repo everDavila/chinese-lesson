@@ -4,6 +4,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Inter, Noto_Sans_SC, Noto_Serif_SC } from "next/font/google";
+import { HskNote } from "@/components/hsk-note";
 import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
 
@@ -58,6 +59,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
         <NextIntlClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
+            <HskNote />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

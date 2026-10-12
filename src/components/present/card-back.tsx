@@ -198,7 +198,7 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
               <Button variant="ghost" size="icon-lg" aria-label={labels.listenWord} onClick={() => speakChinese(word.hanzi)}>
                 <Volume2 />
               </Button>
-              <span className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
+              <span title={labels.hskNote} className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
                 HSK {word.hsk} · {labels.categories[sense.category] ?? sense.category}
               </span>
             </div>

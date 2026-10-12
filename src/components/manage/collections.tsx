@@ -20,7 +20,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { CollectionListItem, CollectionSummary } from "@/lib/content";
 import { cn } from "@/lib/utils";
-import { Empty, inputCls, ManageShell, NewTitleForm, useRunner, type Crumb } from "./shell";
+import { Empty, inputCls, ManageShell, NewTitleForm, SearchInput, useRunner, type Crumb } from "./shell";
 
 // Colecciones y lecciones. Las comparten la docente (sus colecciones) y el
 // admin (plantillas): cambia la base de las rutas y qué se puede copiar.
@@ -98,6 +98,12 @@ export function CollectionsScreen({
   const { pending, error, run } = useRunner();
   const crumbs = useHomeCrumbs(mode);
   const teacher = mode === "teacher";
+  const [query, setQuery] = useState("");
+  const q = query.trim().toLowerCase();
+  const matches = (title: string) => !q || title.toLowerCase().includes(q);
+  const shownMine = mine.filter((c) => matches(c.title));
+  const shownLoose = looseLessons.filter((l) => matches(l.title));
+  const shownTemplates = templates.filter((c) => matches(c.title));
 
   return (
     <ManageShell
@@ -106,12 +112,15 @@ export function CollectionsScreen({
       title={teacher ? t("nav.collections") : t("templates")}
       error={error}
     >
-      <section className="flex flex-col gap-3">
+      <div className="flex flex-wrap items-start gap-2">
+        <div className="min-w-56 flex-1">
+          <SearchInput value={query} onChange={setQuery} label={teacher ? t("searchCollections") : t("searchTemplates")} />
+        </div>
         <NewTitleForm
           placeholder={teacher ? t("newCollection") : t("newTemplate")}
           label={
             <>
-              <Plus /> {t("create")}
+              <Plus /> {teacher ? t("createCollection") : t("createTemplate")}
             </>
           }
           disabled={pending}
@@ -122,22 +131,25 @@ export function CollectionsScreen({
             )
           }
         />
-        {mine.length ? (
+      </div>
+
+      <section className="flex flex-col gap-3">
+        {shownMine.length ? (
           <ul className="flex flex-col gap-2">
-            {mine.map((c) => (
+            {shownMine.map((c) => (
               <CollectionCard key={c.id} c={c} mode={mode} />
             ))}
           </ul>
         ) : (
-          <Empty>{teacher ? t("noCollections") : t("noTemplates")}</Empty>
+          <Empty>{mine.length ? t("noMatches", { query: query.trim() }) : teacher ? t("noCollections") : t("noTemplates")}</Empty>
         )}
       </section>
 
-      {teacher && looseLessons.length > 0 && (
+      {teacher && shownLoose.length > 0 && (
         <section className="flex flex-col gap-3">
           <h2 className="text-xl font-semibold">{t("looseLessons")}</h2>
           <ul className="flex flex-col gap-2">
-            {looseLessons.map((l) => (
+            {shownLoose.map((l) => (
               <li key={l.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4">
                 <div>
                   <p className="font-medium">{l.title}</p>
@@ -152,14 +164,14 @@ export function CollectionsScreen({
         </section>
       )}
 
-      {teacher && (
+      {teacher && shownTemplates.length > 0 && (
         <section className="flex flex-col gap-3">
           <div>
             <h2 className="text-xl font-semibold">{t("fromTemplate")}</h2>
             <p className="text-sm text-muted-foreground">{t("fromTemplateHint")}</p>
           </div>
           <ul className="flex flex-col gap-2">
-            {templates.map((c) => (
+            {shownTemplates.map((c) => (
               <CollectionCard
                 key={c.id}
                 c={c}

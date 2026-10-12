@@ -3,7 +3,8 @@
     "appName": "Hanzi",
     "language": "Idioma de la interfaz",
     "signOut": "Salir",
-    "theme": "Cambiar tema"
+    "theme": "Cambiar tema",
+    "hskNote": "Basado en el nuevo HSK 3.0 (2025), que contempla 9 niveles."
   },
   "Home": {
     "demoBadge": "Hanzi · demo",
@@ -70,6 +71,11 @@
     "newCollection": "Nombre de la colección (p. ej. Básico 1)",
     "newTemplate": "Nombre de la plantilla (p. ej. HSK 4)",
     "create": "Crear",
+    "createCollection": "Nueva colección",
+    "createTemplate": "Nueva plantilla",
+    "searchCollections": "Buscar colección o plantilla",
+    "searchTemplates": "Buscar plantilla",
+    "noMatches": "Nada coincide con «{query}».",
     "noCollections": "Aún no tienes colecciones. Crea una o empieza desde una plantilla.",
     "noTemplates": "No hay plantillas.",
     "looseLessons": "Lecciones sueltas",

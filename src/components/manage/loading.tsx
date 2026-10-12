@@ -5,7 +5,7 @@
 export function ManageLoading() {
   const bar = "rounded-lg bg-muted motion-safe:animate-pulse";
   return (
-    <div className="flex min-h-dvh flex-col" aria-busy="true">
+    <div className="flex flex-1 flex-col" aria-busy="true">
       <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-2 sm:px-6">
         <div className="flex items-center gap-3">
           <span className="font-hanzi text-xl text-muted-foreground">汉字</span>
