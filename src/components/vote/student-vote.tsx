@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 // botones grandes. Votar otra vez cambia el voto.
 
 const POLL_MS = 2500;
+const CODE_LENGTH = 6;
 const EMOJI = ["😕", "😣", "🙂", "😎"];
 const ACTIVE = [
   "border-rating-1 bg-rating-1/30",
@@ -137,6 +138,7 @@ export function CodeForm() {
   const t = useTranslations("Vote");
   const router = useRouter();
   const [code, setCode] = useState("");
+  const [focused, setFocused] = useState(false);
   return (
     <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-10">
       <header className="flex items-center justify-between">
@@ -153,18 +155,38 @@ export function CodeForm() {
           if (clean) router.push(`/v/${encodeURIComponent(clean)}`);
         }}
       >
+        {/* Seis casillas para que se vea si falta una letra. Por debajo es un
+            solo campo (pegar, teclado del celular y lector de pantalla
+            funcionan igual); las casillas solo lo dibujan. */}
         <label className="flex flex-col gap-1">
           <span className="text-sm text-muted-foreground">{t("codeLabel")}</span>
-          <input
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            autoCapitalize="characters"
-            autoComplete="off"
-            maxLength={6}
-            className="h-14 rounded-xl border border-input bg-background px-4 text-center font-mono text-3xl tracking-[0.4em] uppercase"
-          />
+          <span className="relative grid grid-cols-6 gap-2">
+            {Array.from({ length: CODE_LENGTH }, (_, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className={cn(
+                  "flex h-14 items-center justify-center rounded-xl border-2 border-input bg-background font-mono text-3xl",
+                  focused && i === Math.min(code.length, CODE_LENGTH - 1) && "border-foreground",
+                )}
+              >
+                {code[i] ?? ""}
+              </span>
+            ))}
+            <input
+              value={code}
+              onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, CODE_LENGTH))}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              autoCapitalize="characters"
+              autoComplete="one-time-code"
+              spellCheck={false}
+              maxLength={CODE_LENGTH}
+              className="absolute inset-0 w-full cursor-text rounded-xl bg-transparent text-transparent caret-transparent selection:bg-transparent"
+            />
+          </span>
         </label>
-        <button type="submit" className="h-12 rounded-xl bg-primary text-lg text-primary-foreground disabled:opacity-50" disabled={code.trim().length < 6}>
+        <button type="submit" className="h-12 rounded-xl bg-primary text-lg text-primary-foreground disabled:opacity-50" disabled={code.length < CODE_LENGTH}>
           {t("go")}
         </button>
       </form>
