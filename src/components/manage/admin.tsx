@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Check, CircleCheck, CircleDashed, Eye, Inbox, Pencil, Plus, Replace, Save, Trash2, X } from "lucide-react";
 import {
   acceptSuggestionAction,
@@ -11,12 +11,12 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { Link } from "@/i18n/navigation";
-import type { EditableSense, EditableSentence, EditableWord, Suggestion, WordStatus, WordSummary } from "@/lib/content";
-import { toneless } from "@/lib/pinyin";
+import type { EditableSense, EditableSentence, EditableWord, Suggestion, WordSearch, WordStatus } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { LevelNote, useLevelChecker } from "./level-check";
 import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Empty, inputCls, ManageShell, useRunner } from "./shell";
+import { HSK_LEVELS, hskLabel, useWordSearch } from "./use-word-search";
 
 // Vistas del admin: la base común (solo admin la edita), el editor de cada
 // palabra y las sugerencias de las docentes. Solo en español: es para Ever.
@@ -38,32 +38,23 @@ export function StatusBadge({ status }: { status: WordStatus }) {
   return <span className={`rounded-md px-2 py-0.5 text-xs whitespace-nowrap ${style}`}>{status}</span>;
 }
 
-const plain = (s: string) => toneless(s).replace(/\s+/g, "");
-const hskLabel = (level: number) => level === 7 ? "7–9" : level;
+/** Filas por página en la tabla del admin. */
+export const ADMIN_PAGE = 200;
 
 /** Inicio del admin: la base común con filtros y acciones por fila. */
-export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSummary[]; pendingSuggestions: number }) {
+export function AdminWordsScreen({ initial, pendingSuggestions }: { initial: WordSearch; pendingSuggestions: number }) {
   const { pending, error, run } = useRunner();
   const [q, setQ] = useState("");
   const [hsk, setHsk] = useState<number[]>([]);
   const [status, setStatus] = useState<WordStatus[]>([]);
-  const filtered = useMemo(() => {
-    const query = q.trim().toLowerCase();
-    return words.filter(
-      (w) =>
-        (!hsk.length || hsk.includes(w.hsk)) &&
-        (!status.length || status.includes(w.status)) &&
-        (!query ||
-          w.hanzi.includes(query) ||
-          w.senses.some(
-            (s) =>
-              plain(s.pinyin).includes(plain(query)) ||
-              s.meaningEs.toLowerCase().includes(query) ||
-              s.meaningEn.toLowerCase().includes(query),
-          )),
-    );
-  }, [words, q, hsk, status]);
-  const count = (s: WordStatus) => words.filter((w) => w.status === s).length;
+  // Tras publicar o despublicar, se vuelve a pedir la página (cambia el estado).
+  const [version, setVersion] = useState(0);
+  const { result, loading, failed } = useWordSearch(q, hsk, status, ADMIN_PAGE, initial, version);
+  const data = result ?? initial;
+  const rows = data.rows;
+  const count = (s: WordStatus) => data.statuses[s] ?? 0;
+  const totalWords = Object.values(data.statuses).reduce((a, b) => a + (b ?? 0), 0);
+  const act = (fn: () => ReturnType<typeof setWordPublishedAction>) => run(fn, () => setVersion((v) => v + 1));
 
   return (
     <ManageShell
@@ -84,7 +75,7 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
       }
     >
       <p className="text-sm text-muted-foreground">
-        {words.length} palabras · {count("curada")} curadas · {count("borrador")} en borrador · {count("sin contenido")} sin
+        {totalWords} palabras · {count("curada")} curadas · {count("borrador")} en borrador · {count("sin contenido")} sin
         contenido. Solo el admin edita esta base; las docentes la usan en sus colecciones y no ven su estado.
       </p>
       <div className="flex flex-wrap items-center gap-2">
@@ -99,11 +90,7 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
           label="Nivel"
           selected={hsk}
           onChange={setHsk}
-          options={[1, 2, 3, 4, 5, 6, 7].map((n) => ({
-            value: n,
-            label: `HSK ${hskLabel(n)}`,
-            count: words.filter((w) => w.hsk === n).length,
-          }))}
+          options={HSK_LEVELS.map((n) => ({ value: n, label: `HSK ${hskLabel(n)}`, count: data.levels[n] }))}
         />
         <MultiSelect
           label="Estado"
@@ -116,7 +103,8 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
           Limpiar
         </Button>
       </div>
-      <div className="overflow-x-auto rounded-xl border border-border">
+      {failed && <p className="text-sm text-destructive">No se pudo buscar. Revisa la conexión.</p>}
+      <div className={cn("overflow-x-auto rounded-xl border border-border transition-opacity", loading && "opacity-60")} aria-busy={loading}>
         <table className="w-full text-sm">
           <thead className="bg-muted/60 text-left text-muted-foreground">
             <tr>
@@ -130,7 +118,7 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
             </tr>
           </thead>
           <tbody>
-            {filtered.slice(0, 200).map((w) => {
+            {rows.map((w) => {
               const href = `/admin/words/${encodeURIComponent(w.hanzi)}`;
               const sentences = w.senses.reduce((n, s) => n + s.sentences, 0);
               const icon = "inline-flex size-8 items-center justify-center rounded-md hover:bg-muted disabled:opacity-30";
@@ -145,7 +133,7 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
                   <td className="max-w-80 truncate px-3 py-2 text-muted-foreground">
                     {w.senses[0]?.meaningEs || w.senses[0]?.meaningEn}
                   </td>
-                  <td className="px-3 py-2 tabular-nums">{w.hsk || "?"}</td>
+                  <td className="px-3 py-2 whitespace-nowrap tabular-nums">{hskLabel(w.hsk)}</td>
                   <td className="px-3 py-2 tabular-nums text-muted-foreground">
                     {w.senses.length} / {sentences}
                   </td>
@@ -172,7 +160,7 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
                           disabled={pending}
                           aria-label={`Pasar ${w.hanzi} a borrador`}
                           title="Pasar a borrador"
-                          onClick={() => run(() => setWordPublishedAction(w.id, false))}
+                          onClick={() => act(() => setWordPublishedAction(w.id, false))}
                         >
                           <CircleDashed className="size-4" />
                         </button>
@@ -182,7 +170,7 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
                           aria-label={`Publicar ${w.hanzi}`}
                           title={w.senses[0]?.meaningEs ? "Publicar (marcar como curada)" : "Publicar: falta el significado en español"}
                           disabled={!w.senses[0]?.meaningEs || pending}
-                          onClick={() => run(() => setWordPublishedAction(w.id, true))}
+                          onClick={() => act(() => setWordPublishedAction(w.id, true))}
                         >
                           <CircleCheck className="size-4" />
                         </button>
@@ -195,7 +183,11 @@ export function AdminWordsScreen({ words, pendingSuggestions }: { words: WordSum
           </tbody>
         </table>
       </div>
-      {filtered.length > 200 && <p className="text-sm text-muted-foreground">Mostrando 200 de {filtered.length}; afina la búsqueda.</p>}
+      {data.total > rows.length && (
+        <p className="text-sm text-muted-foreground">
+          Mostrando {rows.length} de {data.total}; afina la búsqueda.
+        </p>
+      )}
     </ManageShell>
   );
 }

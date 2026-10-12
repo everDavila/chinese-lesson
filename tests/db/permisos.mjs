@@ -22,6 +22,7 @@ const run = async (label, sql) => {
 await run("simulación de Supabase", `
   create role authenticated;
   create role anon;
+  create role service_role;
   create schema auth;
   create table auth.users (id uuid primary key, email text, raw_user_meta_data jsonb);
   create function auth.uid() returns uuid language sql stable as
@@ -230,3 +231,16 @@ if (await vota(4, "c".repeat(64))) { console.log("✗ votó con la votación cer
 await as(T1, `update class_sessions set status = 'ended' where id = '${vSes}'`);
 console.log(`✓ clase terminada → ${JSON.stringify(await estado("VXTE22"))}`);
 await expectOk("la docente ve el voto en los resultados", T1, `select votes_total, votes_1 from session_results where session_id = '${vSes}'`);
+
+// ── Búsqueda del catálogo en la base (migración 20261012020000) ──────────
+{
+  const busca = async (user, args) => (await as(user, `select search_words(${args}) as r`)).rows[0].r;
+  const porPinyin = await busca(T1, `'ceshi'`);
+  if (porPinyin.rows.some((r) => r.hanzi === "测试词")) console.log(`✓ la docente busca sin tonos ("ceshi" → 测试词, ${porPinyin.total} resultado/s)`);
+  else { console.log("✗ 'ceshi' no encuentra 测试词", porPinyin); process.exitCode = 1; }
+  const porNivel = await busca(T1, `'', array[2]`);
+  if (!porNivel.rows.some((r) => r.hanzi === "测试词") && porNivel.levels["1"] >= 1) console.log("✓ el filtro de nivel excluye otros niveles y cuenta por nivel");
+  else { console.log("✗ filtro de nivel", porNivel); process.exitCode = 1; }
+  try { await asAnon(`select search_words('ceshi')`); console.log("✗ anon pudo buscar en el catálogo"); process.exitCode = 1; }
+  catch { console.log("✓ anon NO busca en el catálogo"); }
+}

@@ -116,6 +116,8 @@
     "selected": "{count} selected",
     "addWord": "Add {hanzi}",
     "noResults": "No results.",
+    "searchFailed": "Search failed. Check your connection.",
+    "moreResults": "Showing {shown} of {total}; refine your search.",
     "pastePlaceholder": "Paste the hanzi from your textbook lesson,\ne.g.: 你 好 吗 我 很 呢 也",
     "alreadyIn": "Already in the lesson",
     "notInCatalog": "Not in the catalog",

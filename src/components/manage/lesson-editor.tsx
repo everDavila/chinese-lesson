@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowDown, ArrowUp, MessageSquareText, Pencil, Plus, Presentation, Trash2 } from "lucide-react";
 import {
@@ -16,33 +16,16 @@ import { startSessionAction } from "@/actions/class";
 import { Button } from "@/components/ui/button";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { Link } from "@/i18n/navigation";
-import type { EditableLesson, WordSummary } from "@/lib/content";
-import { toneless } from "@/lib/pinyin";
+import { lookupWordsAction } from "@/actions/search";
+import type { EditableLesson } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { collectionsBase, useHomeCrumbs, type Mode } from "./collections";
 import { Empty, inputCls, ManageShell, meaningFor, useRunner } from "./shell";
+import { HSK_LEVELS, hskLabel, useWordSearch } from "./use-word-search";
 
 /** Separa una lista pegada ("你 好\n吗，我") en hanzi; ignora números y signos. */
 function parsePastedList(text: string): string[] {
   return [...new Set(text.match(/\p{Script=Han}+/gu) ?? [])];
-}
-
-const plain = (s: string) => toneless(s).replace(/\s+/g, "").toLowerCase();
-const hskLabel = (level: number) => level === 7 ? "7–9" : level || "?";
-
-function searchWords(words: WordSummary[], query: string, hsk: number[]) {
-  const q = query.trim().toLowerCase();
-  const p = plain(q);
-  return words.filter((w) => {
-    if (hsk.length && !hsk.includes(w.hsk)) return false;
-    if (!q) return true;
-    return (
-      w.hanzi.includes(q) ||
-      w.senses.some(
-        (s) => plain(s.pinyin).includes(p) || s.meaningEs.toLowerCase().includes(q) || s.meaningEn.toLowerCase().includes(q),
-      )
-    );
-  });
 }
 
 /** Editor de una lección: palabras, sentido elegido, orden y añadir. */
@@ -51,13 +34,11 @@ export function LessonEditor({
   isAdmin,
   collection,
   lesson,
-  words,
 }: {
   mode: Mode;
   isAdmin: boolean;
   collection: { id: string; title: string };
   lesson: EditableLesson;
-  words: WordSummary[];
 }) {
   const t = useTranslations("Manage");
   const locale = useLocale();
@@ -69,10 +50,8 @@ export function LessonEditor({
   const lessonHref = `${base}/${collection.id}/${lesson.id}`;
 
   const inLesson = new Set(lesson.items.map((i) => i.hanzi));
-  const byHanzi = useMemo(() => new Map(words.map((w) => [w.hanzi, w])), [words]);
-  const add = (hanzis: string[]) => {
-    const ids = hanzis.flatMap((h) => byHanzi.get(h)?.senses[0]?.id ?? []);
-    if (ids.length) run(() => addItemsAction(lesson.id, ids));
+  const add = (senseIds: string[]) => {
+    if (senseIds.length) run(() => addItemsAction(lesson.id, senseIds));
   };
   const presentable = lesson.items.filter((i) => i.classSentences > 0).length;
 
@@ -246,9 +225,9 @@ export function LessonEditor({
             ))}
           </div>
           {tab === "search" ? (
-            <SearchPanel words={words} inLesson={inLesson} pending={pending} onAdd={(h) => add([h])} />
+            <SearchPanel inLesson={inLesson} pending={pending} onAdd={(id) => add([id])} />
           ) : (
-            <PastePanel byHanzi={byHanzi} inLesson={inLesson} pending={pending} onAdd={add} />
+            <PastePanel inLesson={inLesson} pending={pending} onAdd={add} />
           )}
         </section>
       </div>
@@ -257,21 +236,21 @@ export function LessonEditor({
 }
 
 function SearchPanel({
-  words,
   inLesson,
   pending,
   onAdd,
 }: {
-  words: WordSummary[];
   inLesson: Set<string>;
   pending: boolean;
-  onAdd: (h: string) => void;
+  onAdd: (senseId: string) => void;
 }) {
   const t = useTranslations("Manage");
   const locale = useLocale();
   const [q, setQ] = useState("");
   const [hsk, setHsk] = useState<number[]>([]);
-  const results = useMemo(() => searchWords(words, q, hsk).slice(0, 40), [words, q, hsk]);
+  // La búsqueda la hace la base: el catálogo completo no viaja al navegador.
+  const { result, loading, failed } = useWordSearch(q, hsk);
+  const results = result?.rows ?? [];
   return (
     <div className="flex flex-col gap-3">
       <input
@@ -289,13 +268,9 @@ function SearchPanel({
         selected={hsk}
         onChange={setHsk}
         className="self-start"
-        options={[1, 2, 3, 4, 5, 6, 7].map((n) => ({
-          value: n,
-          label: `HSK ${hskLabel(n)}`,
-          count: words.filter((w) => w.hsk === n).length,
-        }))}
+        options={HSK_LEVELS.map((n) => ({ value: n, label: `HSK ${hskLabel(n)}`, count: result?.levels[n] }))}
       />
-      <ul className="flex max-h-[28rem] flex-col gap-1 overflow-y-auto">
+      <ul className={cn("flex max-h-[28rem] flex-col gap-1 overflow-y-auto transition-opacity", loading && "opacity-60")} aria-busy={loading}>
         {results.map((w) => (
           <li key={w.id} className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-muted">
             <span className="font-hanzi text-xl">{w.hanzi}</span>
@@ -303,39 +278,53 @@ function SearchPanel({
               <span className="font-medium">{w.senses[0]?.pinyin}</span>{" "}
               <span className="text-muted-foreground">{w.senses[0] ? meaningFor(locale, w.senses[0]) : ""}</span>
             </span>
-            <span className="text-xs text-muted-foreground">HSK {hskLabel(w.hsk)}</span>
+            <span className="text-xs whitespace-nowrap text-muted-foreground">HSK {hskLabel(w.hsk)}</span>
             <Button
               size="icon-sm"
               variant="outline"
               aria-label={t("addWord", { hanzi: w.hanzi })}
-              disabled={inLesson.has(w.hanzi) || pending}
-              onClick={() => onAdd(w.hanzi)}
+              disabled={inLesson.has(w.hanzi) || pending || !w.senses[0]}
+              onClick={() => w.senses[0] && onAdd(w.senses[0].id)}
             >
               <Plus />
             </Button>
           </li>
         ))}
-        {!results.length && <li className="p-2 text-sm text-muted-foreground">{t("noResults")}</li>}
+        {failed && <li className="p-2 text-sm text-destructive">{t("searchFailed")}</li>}
+        {!failed && !loading && result && !results.length && <li className="p-2 text-sm text-muted-foreground">{t("noResults")}</li>}
+        {result && result.total > results.length && (
+          <li className="p-2 text-xs text-muted-foreground">{t("moreResults", { shown: results.length, total: result.total })}</li>
+        )}
       </ul>
     </div>
   );
 }
 
 function PastePanel({
-  byHanzi,
   inLesson,
   pending,
   onAdd,
 }: {
-  byHanzi: Map<string, WordSummary>;
   inLesson: Set<string>;
   pending: boolean;
-  onAdd: (hanzis: string[]) => void;
+  onAdd: (senseIds: string[]) => void;
 }) {
   const t = useTranslations("Manage");
   const [text, setText] = useState("");
   const parsed = parsePastedList(text);
-  const fresh = parsed.filter((h) => !inLesson.has(h) && byHanzi.has(h));
+  // Solo se pregunta a la base por los hanzi pegados.
+  const [known, setKnown] = useState<Map<string, string>>(new Map());
+  const parsedKey = parsed.join(" ");
+  useEffect(() => {
+    if (!parsedKey) return;
+    const timer = window.setTimeout(() => {
+      lookupWordsAction(parsedKey.split(" "))
+        .then((found) => setKnown(new Map(found.map((f) => [f.hanzi, f.senseId]))))
+        .catch(() => {});
+    }, 250);
+    return () => window.clearTimeout(timer);
+  }, [parsedKey]);
+  const fresh = parsed.filter((h) => !inLesson.has(h) && known.has(h));
   return (
     <div className="flex flex-col gap-3">
       <textarea
@@ -350,16 +339,16 @@ function PastePanel({
         <>
           <ul className="flex flex-wrap gap-1.5">
             {parsed.map((h) => {
-              const known = byHanzi.has(h);
+              const isKnown = known.has(h);
               return (
                 <li
                   key={h}
                   className={cn(
                     "rounded-md border border-border px-2 py-1 font-hanzi",
                     inLesson.has(h) && "text-muted-foreground line-through",
-                    !known && "border-dashed text-muted-foreground",
+                    !isKnown && "border-dashed text-muted-foreground",
                   )}
-                  title={inLesson.has(h) ? t("alreadyIn") : known ? undefined : t("notInCatalog")}
+                  title={inLesson.has(h) ? t("alreadyIn") : isKnown ? undefined : t("notInCatalog")}
                 >
                   {h}
                 </li>
@@ -367,7 +356,7 @@ function PastePanel({
             })}
           </ul>
           <p className="text-xs text-muted-foreground">{t("pasteLegend")}</p>
-          <Button disabled={!fresh.length || pending} onClick={() => (onAdd(fresh), setText(""))}>
+          <Button disabled={!fresh.length || pending} onClick={() => (onAdd(fresh.map((h) => known.get(h)!)), setText(""))}>
             <Plus /> {t("addN", { count: fresh.length })}
           </Button>
         </>

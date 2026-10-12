@@ -50,43 +50,57 @@ type SummaryRow = {
   }[];
 };
 
+// La misma regla que search_words en la base.
 function wordStatus(row: SummaryRow): WordStatus {
   if (row.status !== "unreviewed") return "curada";
   return row.senses.some((s) => s.meaning_es || s.sentences[0]?.count) ? "borrador" : "sin contenido";
 }
 
-/** Todas las palabras de la base (≈1000), para la tabla del admin y la búsqueda. */
-export async function listWords(): Promise<WordSummary[]> {
+export type WordSearch = {
+  /** Cuántas palabras cumplen los filtros (rows trae como mucho `limit`). */
+  total: number;
+  rows: WordSummary[];
+  /** Conteos de toda la base, para los filtros. */
+  levels: Record<string, number>;
+  statuses: Partial<Record<WordStatus, number>>;
+};
+
+/**
+ * Busca en el catálogo (≈11 000 palabras con HSK 3.0 completo) dentro de la
+ * base: hanzi, pinyin sin tonos o significado, con filtros de nivel y estado.
+ * Función search_words (migración 20261012030000): ordena por relevancia.
+ */
+export async function searchWords({
+  query = "",
+  levels = [],
+  statuses = [],
+  limit = 40,
+}: {
+  query?: string;
+  levels?: number[];
+  statuses?: WordStatus[];
+  limit?: number;
+}): Promise<WordSearch> {
   const supabase = await createClient();
-  const rows: SummaryRow[] = [];
-  // PostgREST corta en 1000 filas: se pide por páginas.
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await supabase
-      .from("words")
-      .select("id, hanzi, hsk_level, status, senses(id, position, pinyin, category, meaning_es, meaning_en, sentences(count))")
-      .order("hsk_level", { ascending: true, nullsFirst: false })
-      .order("hanzi")
-      .range(from, from + 999);
-    if (error) throw error;
-    rows.push(...(data as unknown as SummaryRow[]));
-    if (data.length < 1000) break;
-  }
-  return rows.map((r) => ({
-    id: r.id,
-    hanzi: r.hanzi,
-    hsk: r.hsk_level ?? 0,
-    status: wordStatus(r),
-    senses: [...r.senses]
-      .sort((a, b) => a.position - b.position)
-      .map((s) => ({
-        id: s.id,
-        pinyin: s.pinyin,
-        category: s.category ?? "",
-        meaningEs: s.meaning_es ?? "",
-        meaningEn: s.meaning_en ?? "",
-        sentences: s.sentences[0]?.count ?? 0,
-      })),
-  }));
+  const { data, error } = await supabase.rpc("search_words", { q: query, levels, statuses, lim: limit });
+  if (error) throw error;
+  const r = data as Omit<WordSearch, "rows"> & { rows: (Omit<WordSummary, "hsk"> & { hsk: number | null })[] };
+  return { ...r, rows: r.rows.map((w) => ({ ...w, hsk: w.hsk ?? 0 })) };
+}
+
+/** Los hanzi de una lista pegada que están en el catálogo, con su primer sentido. */
+export async function lookupWords(hanzi: string[]): Promise<{ hanzi: string; senseId: string }[]> {
+  if (!hanzi.length) return [];
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("words")
+    .select("hanzi, senses(id, position)")
+    .in("hanzi", hanzi.slice(0, 300));
+  if (error) throw error;
+  return data.flatMap((w) => {
+    const first = [...w.senses].sort((a, b) => a.position - b.position)[0];
+    return first ? [{ hanzi: w.hanzi, senseId: first.id }] : [];
+  });
 }
 
 // ── Palabra completa (editor del admin) ─────────────────────────────────

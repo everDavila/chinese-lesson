@@ -113,6 +113,13 @@ test.describe("profesora", () => {
     await expect(page.getByRole("heading", { level: 2, name: new RegExp(`${Z.words}.*15`) })).toBeVisible();
     await noMissingKeys(page);
     await shoot(page, "3-leccion");
+
+    // Buscar y pegar consultan a la base (el catálogo no viaja entero).
+    await page.getByRole("textbox", { name: Z.search }).fill("renshi");
+    await expect(page.getByRole("button", { name: Z.addWord.replace("{hanzi}", "认识") })).toBeVisible();
+    await page.getByRole("tab", { name: Z.paste }).click();
+    await page.getByRole("textbox", { name: Z.paste }).fill("你 好 龘");
+    await expect(page.getByRole("button", { name: Z.addN.replace("{count}", "2") })).toBeVisible();
   });
 
   test("escribe una frase, la sugiere y hace una copia editada", async ({ page }) => {

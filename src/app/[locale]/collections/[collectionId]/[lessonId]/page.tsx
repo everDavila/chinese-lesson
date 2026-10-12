@@ -2,7 +2,7 @@ import { ManageLoading } from "@/components/manage/loading";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { LessonEditor } from "@/components/manage/lesson-editor";
-import { getCollection, getEditableLesson, listWords } from "@/lib/content";
+import { getCollection, getEditableLesson } from "@/lib/content";
 import { requireProfile } from "@/lib/guard";
 
 type Params = PageProps<"/[locale]/collections/[collectionId]/[lessonId]">["params"];
@@ -18,7 +18,7 @@ export default function Page({ params }: { params: Params }) {
 async function Content({ params }: { params: Params }) {
   const { collectionId, lessonId } = await params;
   const profile = await requireProfile();
-  const [collection, lesson, words] = await Promise.all([getCollection(collectionId), getEditableLesson(lessonId), listWords()]);
+  const [collection, lesson] = await Promise.all([getCollection(collectionId), getEditableLesson(lessonId)]);
   if (!collection || collection.template || !lesson || lesson.collectionId !== collectionId) notFound();
   return (
     <LessonEditor
@@ -26,7 +26,6 @@ async function Content({ params }: { params: Params }) {
       isAdmin={profile.role === "admin"}
       collection={{ id: collection.id, title: collection.title }}
       lesson={lesson}
-      words={words}
     />
   );
 }

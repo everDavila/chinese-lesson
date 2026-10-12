@@ -116,6 +116,8 @@
     "selected": "已选 {count} 项",
     "addWord": "添加 {hanzi}",
     "noResults": "没有结果。",
+    "searchFailed": "搜索失败，请检查网络。",
+    "moreResults": "显示 {total} 个中的 {shown} 个，请缩小搜索范围。",
     "pastePlaceholder": "在这里粘贴课本生词，\n例如：你 好 吗 我 很 呢 也",
     "alreadyIn": "已在课程中",
     "notInCatalog": "不在词库中",
