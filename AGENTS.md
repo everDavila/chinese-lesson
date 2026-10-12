@@ -28,8 +28,10 @@
 - **Descomposición y cultura:** preparados 655 caracteres y sus trazos; 574
   fórmulas completas, 545 componentes semánticos coloreables, 267 fonéticos y
   81 descomposiciones incompletas que la interfaz oculta. Hay 45 notas
-  culturales bilingües. Todo fue probado en `hanzi-dev`; los datos de
-  caracteres y cultura aún deben sincronizarse con producción tras el merge.
+  culturales bilingües. Todo fue probado en `hanzi-dev` y sincronizado con
+  producción el 2026-10-12 después del respaldo
+  `backups/supabase-2026-10-12T0513.json`: `characters` quedó en 655 filas y
+  las 45 notas existentes o cargadas quedaron preservadas como `unreviewed`.
 - **Pendiente:** auditorías en
   [AUDITORIA-UX-CONTENIDO-2026-10-10.md](AUDITORIA-UX-CONTENIDO-2026-10-10.md) y
   [reports/AUDITORIA-UX-UI-2026-10-12.md](reports/AUDITORIA-UX-UI-2026-10-12.md)

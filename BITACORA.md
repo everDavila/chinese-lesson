@@ -320,8 +320,11 @@ fórmulas completas, 545 componentes semánticos coloreables y 267 fonéticos. L
 81 descomposiciones que contienen `？` se guardan como incompletas y la interfaz
 no inventa una fórmula. También quedaron 45 notas culturales bilingües
 selectivas, todas `unreviewed` (`d3864da`). Caracteres, trazos y notas se probaron
-en `hanzi-dev`; todavía falta sincronizarlos con producción después de integrar
-el código.
+en `hanzi-dev`. Después de integrar el código se respaldó producción en
+`backups/supabase-2026-10-12T0513.json` y se insertaron los 636 caracteres
+ausentes sin modificar los 19 existentes; `characters` quedó en 655 filas. Se
+rellenaron además 44 notas culturales vacías y se preservó la nota ya existente
+de 家. Una segunda simulación devolvió cero caracteres y cero notas pendientes.
 
 La rama se fusionó con el `master` local más reciente (`0d8ecc4`). El único
 conflicto fue `AGENTS.md`: se conservaron las reglas nuevas y se añadió el estado
