@@ -5,16 +5,19 @@
 // Requiere `npm run dev` en marcha. Uso:
 //   npm run test:sesion -- admin
 //   npm run test:sesion -- laoshi
-// Base de desarrollo (servidor `npm run dev:base-dev`, puerto 3001): añadir
-// --dev; la sesión va a tests/.auth-dev/ y no pisa la de producción.
+// Base de desarrollo (servidor `npm run dev:base-dev`, puerto 3001):
+//   npm run test:sesion:dev admin   (o laoshi)
+// La sesión va a tests/.auth-dev/ y no pisa la de producción. Ojo: en
+// PowerShell, `npm run x -- admin --dev` no llega con --dev (se come el --).
 import { chromium } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 
-const name = process.argv[2];
+// El nombre puede ir antes o después de --dev (test:sesion:dev lo pone primero).
+const name = process.argv.slice(2).find((a) => !a.startsWith("--"));
 const dev = process.argv.includes("--dev");
 const dir = dev ? "tests/.auth-dev" : "tests/.auth";
 if (!["admin", "laoshi"].includes(name)) {
-  console.error("Uso: npm run test:sesion -- admin   (o laoshi)");
+  console.error("Uso: npm run test:sesion admin   (o laoshi; base de desarrollo: npm run test:sesion:dev admin)");
   process.exit(1);
 }
 const base = `http://localhost:${process.env.PLAYWRIGHT_PORT ?? (dev ? "3001" : "3000")}`;
@@ -23,6 +26,7 @@ const browser = await chromium.launch({ headless: false });
 const context = await browser.newContext();
 const page = await context.newPage();
 await page.goto(`${base}/es/login`);
+console.log(`Base ${dev ? "de DESARROLLO" : "de PRODUCCIÓN"} · ${base}`);
 console.log(`Inicia sesión con la cuenta "${name}" en la ventana que se abrió (tienes 5 minutos).`);
 
 // Con la clave correcta, el login lleva a /admin (admin) o a /collections.

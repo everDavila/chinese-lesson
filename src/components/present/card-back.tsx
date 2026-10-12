@@ -208,7 +208,8 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
 
         {/* Desde xl hay ancho de sobra: composición y frases lado a lado (auditoría UX,
             P2). La composición, angosta; las frases, que son lo principal, anchas. */}
-        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] xl:items-start">
+        {/* Sin fórmula que mostrar, las frases usan todo el ancho. */}
+        <div className={cn("grid gap-4", formulas.length > 0 && "xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] xl:items-start")}>
           {/* Cómo se forma: la fórmula en color (radical verde, fonético azul)
               con el pinyin de cada pieza debajo, para poder nombrarla en clase
               ("el de kǒu"). Sin glosas. Si los datos de un carácter están
