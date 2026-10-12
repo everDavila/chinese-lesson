@@ -294,3 +294,39 @@ real (NVDA/VoiceOver); accesibilidad evaluada por ARIA del código. Sesión de
 prueba `laoshi` (rol docente); **rol `reviewer` sin recorrido**. **La profesora
 real todavía no ha abierto la app.**
 
+## 2026-10-12 — Biblioteca HSK 1–3: español, ejemplos y descomposición
+
+La rama `contenido-descomposicion-cultura` completa la primera pasada de
+contenido para los 1000 sentidos oficiales de HSK 1–3. Los significados en
+español se construyeron por nivel desde Gushi (CC BY-SA 4.0) y se corrigieron
+cuando la glosa automática elegía una acepción histórica, especializada o poco
+útil para principiantes. Resultado: 300 glosas HSK 1, 200 HSK 2 y 500 HSK 3;
+119 sentidos llevan además una nota de matiz. Se cargaron primero en
+`hanzi-dev` y luego en producción, siempre después de respaldo y sin sobrescribir
+campos o filas ya revisados (`196b6dd`, `284b02b`, `131c2e2`, `b4bd1f2`).
+
+Los 2637 ejemplos ya cargados recibieron una primera curación lingüística por
+lotes. Se corrigieron nombres latinos incrustados en chino, traducciones que
+cambiaban persona o género, dólares donde el original decía yuanes, ejemplos
+fechados, frases forzadas y puntuación/pinyin inconsistente. Cambiaron 178 filas
+HSK 1, 86 HSK 2 y 273 HSK 3, conservando sus UUID y el estado `unreviewed` para
+que una revisora humana siga teniendo la última palabra (`449e2fd`, `88745af`,
+`73394f8`). Los tres lotes pasan `validate-content` y la sincronización es
+idempotente: una segunda simulación devuelve cero cambios.
+
+Para la tarjeta se generaron datos de los 655 caracteres distintos del catálogo
+desde Make Me a Hanzi (LGPL-3.0-or-later) y trazos de Hanzi Writer (Arphic): 574
+fórmulas completas, 545 componentes semánticos coloreables y 267 fonéticos. Las
+81 descomposiciones que contienen `？` se guardan como incompletas y la interfaz
+no inventa una fórmula. También quedaron 45 notas culturales bilingües
+selectivas, todas `unreviewed` (`d3864da`). Caracteres, trazos y notas se probaron
+en `hanzi-dev`; todavía falta sincronizarlos con producción después de integrar
+el código.
+
+La rama se fusionó con el `master` local más reciente (`0d8ecc4`). El único
+conflicto fue `AGENTS.md`: se conservaron las reglas nuevas y se añadió el estado
+real del contenido. Pasan lint, 14/14 pruebas unitarias y el build de Next.js.
+El primer build falló por el propietario del caché global de SWC en Windows; al
+usar un caché aislado dentro del worktree compiló correctamente. No se probaron
+los recorridos con sesión ni una revisión nativa completa de las 2637 frases.
+
