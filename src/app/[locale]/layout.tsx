@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -59,7 +60,10 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
         <NextIntlClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
-            <HskNote />
+            {/* usePathname fuera de Suspense bloquea el prerender (Cache Components). */}
+            <Suspense fallback={null}>
+              <HskNote />
+            </Suspense>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
