@@ -54,7 +54,7 @@ export default defineConfig({
     {
       name: "recorridos-dev",
       testMatch: "flows/**/*.spec.ts",
-      use: { viewport: sizes.desktop, baseURL: "http://localhost:3001" },
+      use: { viewport: sizes.desktop, baseURL: `http://localhost:${process.env.DEV_PORT ?? "3001"}` },
     },
   ],
   webServer: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { startTransition, useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -103,11 +103,14 @@ export function Presentation({
   // Votación de los alumnos: se activa una vez y sigue a la tarjeta. Al
   // recargar, sigue activa si la sesión tenía una ronda abierta.
   const [voting, setVoting] = useState(false);
+  // Si la docente ya pulsó V, la respuesta (lenta) de "¿estaba activa?" llega
+  // tarde y no debe deshacer lo que ella eligió.
+  const votingTouched = useRef(false);
   const sessionId = session?.id;
   const senseId = item.senseId;
   useEffect(() => {
     if (!sessionId) return;
-    votingLiveAction(sessionId).then(setVoting, () => {});
+    votingLiveAction(sessionId).then((live) => !votingTouched.current && setVoting(live), () => {});
   }, [sessionId]);
   useEffect(() => {
     if (!sessionId || !voting || !senseId) return;
@@ -116,6 +119,7 @@ export function Presentation({
   }, [sessionId, voting, senseId, t]);
   const toggleVoting = useCallback(() => {
     if (!sessionId) return;
+    votingTouched.current = true;
     if (!voting) return setVoting(true);
     setVoting(false);
     closeVotingAction(sessionId).catch(() => setSaveError(t("votingError")));

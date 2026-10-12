@@ -1,8 +1,13 @@
 import { readFileSync, existsSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
-import { expect, test, type Page } from "@playwright/test";
+import { expect as baseExpect, test, type Page } from "@playwright/test";
 import es from "../../messages/es.json";
 import zh from "../../messages/zh.json";
+
+// Contra un servidor local, cada página va y vuelve hasta São Paulo: el editor
+// de lección tarda ~5 s en cargar (en producción, Vercel está junto a la base).
+const expect = baseExpect.configure({ timeout: 15_000 });
+test.describe.configure({ timeout: 120_000 });
 
 // Recorridos con sesión real: la profesora (en chino) copia una plantilla,
 // escribe y sugiere una frase, hace una copia editada de una original y
