@@ -3,7 +3,8 @@
     "appName": "Hanzi",
     "language": "Idioma de la interfaz",
     "signOut": "Salir",
-    "theme": "Cambiar tema"
+    "theme": "Cambiar tema",
+    "hskNote": "Basado en el nuevo HSK 3.0 (2025), que contempla 9 niveles."
   },
   "Home": {
     "demoBadge": "Hanzi · demo",

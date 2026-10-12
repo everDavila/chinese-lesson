@@ -59,7 +59,7 @@ export function StudentVote({ code }: { code: string }) {
   const ratings = t.raw("ratings") as string[];
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col gap-6 px-4 py-6">
+    <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-6">
       <header className="flex items-center justify-between">
         <span className="font-hanzi text-2xl">汉字</span>
         <div className="flex items-center gap-3">
@@ -138,7 +138,7 @@ export function CodeForm() {
   const router = useRouter();
   const [code, setCode] = useState("");
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col gap-6 px-4 py-10">
+    <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-10">
       <header className="flex items-center justify-between">
         <span className="font-hanzi text-2xl">汉字</span>
         <LanguageSwitcher />

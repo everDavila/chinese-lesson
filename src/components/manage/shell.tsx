@@ -33,7 +33,7 @@ export function ManageShell({
   const t = useTranslations("Manage");
   const tc = useTranslations("Common");
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="flex flex-1 flex-col">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-2 sm:px-6">
         <nav className="flex items-center gap-1 text-sm">
           <Link href="/collections" className="mr-2 font-hanzi text-xl">

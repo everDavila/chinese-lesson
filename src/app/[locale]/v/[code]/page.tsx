@@ -11,7 +11,7 @@ type Params = PageProps<"/[locale]/v/[code]">["params"];
 // pide el cliente cada pocos segundos.
 export default function Page({ params }: { params: Params }) {
   return (
-    <Suspense fallback={<main className="min-h-dvh" aria-busy />}>
+    <Suspense fallback={<main className="flex-1" aria-busy />}>
       <Content params={params} />
     </Suspense>
   );
