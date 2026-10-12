@@ -270,6 +270,25 @@ estado editorial "Sin curar" no se muestra al alumno.
 - **P2** — revisar contraste del `--keyword` (rojo) en texto pequeño: pasa AA
   solo como texto grande.
 
+**Segunda pasada (a pedido de Ever, "nada grave" era cómodo) — 2 fallos reales
+más, con evidencia:**
+- **P0 nuevo** — `student-vote.tsx` (línea ~31) y `student-voting.tsx` (~46): el
+  `catch` del sondeo está **vacío** (solo comenta "sin red, se reintenta"). Si
+  falla la primera llamada (WiFi del salón caído, lo normal en clase), la pantalla
+  del alumno se queda en **"…" indefinidamente** sin saber si perdió la conexión o
+  si la profe no abrió la ronda; y en la vista de la profe los votos se congelan y
+  cree que no entra nadie. **Sin estado de "reconectando".** Fix: tras N sondeos
+  fallidos, aviso `role="status"` "Sin conexión, reintentando…".
+- **P1 nuevo** — el hanzi/pinyin/frases van en `font-hanzi` **sin
+  `lang="zh-Hans"`** (`layout.tsx` solo pone el `lang` de la interfaz). Con la
+  interfaz en español, un lector de pantalla lee 家 como "ya" y no "jiā". Fix:
+  envolver el contenido chino con `lang="zh-Hans"` (pinyin con `lang="zh-Latn"`).
+- **Bien hecho (verificado):** los **estados vacíos existen** y están traducidos a
+  es/en/zh (`noCollections`, `noTemplates`, `noLessons`, `emptyLesson`, `noMine`…);
+  el primer día de la profe ve invitación a crear/copiar, no un hueco. Y
+  `presentation.tsx` sí avisa del error al guardar la valoración
+  (`setSaveError`), a diferencia del voto del alumno.
+
 **Límites:** sin medidor automático de contraste (axe) ni lector de pantalla
 real (NVDA/VoiceOver); accesibilidad evaluada por ARIA del código. Sesión de
 prueba `laoshi` (rol docente); **rol `reviewer` sin recorrido**. **La profesora
