@@ -90,6 +90,13 @@
    (`git worktree add ../chinese-lesson-<tarea> <rama>`) y su propio puerto. En
    la misma carpeta se pisan: un `git switch` o un `npm ci` rompe el trabajo del
    otro.
+   **Qué carpeta es la tuya:** [TRABAJO-EN-CURSO.md](TRABAJO-EN-CURSO.md) (una
+   fila por agente: rama, carpeta, puerto, tarea y estado). Al empezar, búscate
+   ahí; si la carpeta no existe en esta PC, `npm run worktrees` la crea desde la
+   rama de GitHub. Al abrir una tarea nueva, agrega tu fila.
+   **Antes de que Ever cambie de PC** (o al cerrar una tarea): commitea, sube tu
+   rama (`git push -u origin <rama>`) y actualiza solo tu fila. Una rama sin
+   subir no existe en la otra PC.
 4. Lo grande o riesgoso (auth, modelo de datos, algo global) va en una rama o
    worktree aparte y se prueba antes de tocar `master`. Lo chico va directo.
 5. Antes de fiarte de una nota o documento previo, verifícalo contra el código

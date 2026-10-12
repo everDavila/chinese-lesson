@@ -25,6 +25,7 @@
     "db:cambiar-clave": "node --env-file=.env.local scripts/cambiar-clave.mjs",
     "db:dev:crear": "node --env-file=.env.local scripts/crear-base-dev.mjs",
     "db:dev:copiar": "node scripts/copiar-contenido.mjs",
+    "worktrees": "node scripts/worktrees.mjs",
     "dev:base-dev": "node scripts/dev-base-dev.mjs",
     "test:recorridos:dev": "playwright test --project=recorridos-dev",
     "test:unit": "node --experimental-strip-types --no-warnings --test tests/unit/*.test.ts",
