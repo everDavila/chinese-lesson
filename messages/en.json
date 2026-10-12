@@ -46,6 +46,7 @@
     "exit": "Exit",
     "endClass": "End class",
     "saveError": "The rating couldn't be saved. Check your connection.",
+    "votingError": "Voting couldn't be updated. Check your connection.",
     "flipHint": "Click or press Space to flip",
     "flip": "Flip the card (Space)",
     "flipBack": "Back to the front (Space)"

@@ -46,6 +46,7 @@
     "exit": "退出",
     "endClass": "结束上课",
     "saveError": "评价没有保存成功，请检查网络。",
+    "votingError": "投票没有更新成功，请检查网络。",
     "flipHint": "点击或按空格翻面",
     "flip": "翻面（空格）",
     "flipBack": "回到正面（空格）"

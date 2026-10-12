@@ -46,6 +46,7 @@
     "exit": "Salir",
     "endClass": "Terminar clase",
     "saveError": "No se pudo guardar la valoración. Revisa la conexión.",
+    "votingError": "No se pudo actualizar la votación. Revisa la conexión.",
     "flipHint": "Clic o Espacio para girar",
     "flip": "Girar la tarjeta (Espacio)",
     "flipBack": "Volver al anverso (Espacio)"

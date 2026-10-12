@@ -55,7 +55,11 @@ export async function castVoteAction(code: string, evaluation: string, rating: n
 
 export type VotingResults = { open: boolean; counts: [number, number, number, number] } | null;
 
-/** Abre la votación de un sentido; cierra la que hubiera abierta en la sesión. */
+/**
+ * Abre la votación de un sentido y cierra la que hubiera abierta en la sesión.
+ * Si ese sentido ya tuvo una ronda en esta clase, la reabre: volver a una
+ * palabra no borra los votos que ya tenía.
+ */
 export async function openVotingAction(sessionId: string, senseId: string): Promise<boolean> {
   if (!(await currentUserId())) return false;
   const supabase = await createClient();
@@ -66,9 +70,33 @@ export async function openVotingAction(sessionId: string, senseId: string): Prom
     .eq("session_id", sessionId)
     .eq("status", "open");
   if (closeError) throw closeError;
-  const { error } = await supabase.from("evaluations").insert({ session_id: sessionId, sense_id: senseId });
+  const { data: last, error: lastError } = await supabase
+    .from("evaluations")
+    .select("id")
+    .eq("session_id", sessionId)
+    .eq("sense_id", senseId)
+    .order("opened_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (lastError) throw lastError;
+  const { error } = last
+    ? await supabase.from("evaluations").update({ status: "open", closed_at: null }).eq("id", last.id)
+    : await supabase.from("evaluations").insert({ session_id: sessionId, sense_id: senseId });
   if (error) throw error;
   return true;
+}
+
+/** ¿Hay una votación abierta en la sesión? Al recargar, la clase sigue votando. */
+export async function votingLiveAction(sessionId: string): Promise<boolean> {
+  if (!(await currentUserId())) return false;
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("evaluations")
+    .select("id", { count: "exact", head: true })
+    .eq("session_id", sessionId)
+    .eq("status", "open");
+  if (error) throw error;
+  return (count ?? 0) > 0;
 }
 
 export async function closeVotingAction(sessionId: string): Promise<boolean> {

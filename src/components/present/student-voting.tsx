@@ -1,16 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useState, useSyncExternalStore, useTransition } from "react";
-import { closeVotingAction, openVotingAction, votingResultsAction, type VotingResults } from "@/actions/vote";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { votingResultsAction, type VotingResults } from "@/actions/vote";
 import { Button } from "@/components/ui/button";
 import { combinedVerdict, teacherVerdict, votesVerdict, type Verdict } from "@/lib/semaphore";
 import type { StudentLabels } from "@/lib/student-labels";
 import { cn } from "@/lib/utils";
 import type { Rating } from "./group-rating";
 
-// Votación de los alumnos bajo la valoración de la docente (fase 2). Abre
-// una ronda para el sentido de la tarjeta, muestra dónde entrar y los votos
-// en vivo (sondeo cada 2,5 s mientras está abierta). Tecla V: abrir/cerrar.
+// Votación de los alumnos (fase 2). La docente la activa una vez por clase
+// con la barra de arriba (VotingBar, tecla V) y desde ahí sigue a la tarjeta:
+// al cambiar de palabra se cierra la ronda anterior y se abre la nueva, y el
+// celular de cada alumno cambia solo. El código queda a la vista toda la
+// clase. Bajo la tarjeta, los votos de esta palabra en vivo (sondeo cada 2,5 s).
 
 const POLL_MS = 2500;
 const DOT: Record<Verdict, string> = {
@@ -21,27 +23,59 @@ const DOT: Record<Verdict, string> = {
 };
 const BAR = ["bg-rating-1", "bg-rating-2", "bg-rating-3", "bg-rating-4"];
 
-export function StudentVoting({
-  sessionId,
-  senseId,
+/** Barra fija de la clase: dónde entrar, el código y activar/pausar. */
+export function VotingBar({
   joinCode,
-  teacherRating,
+  live,
+  onToggle,
   labels,
 }: {
-  sessionId: string;
-  senseId: string;
   joinCode: string;
-  teacherRating?: Rating;
+  live: boolean;
+  onToggle: () => void;
   labels: StudentLabels;
 }) {
-  const [results, setResults] = useState<VotingResults>(null);
-  const [pending, startTransition] = useTransition();
   // El dominio donde entran los alumnos (el de esta misma página).
   const origin = useSyncExternalStore(
     () => () => {},
     () => window.location.host,
     () => "",
   );
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 px-[3vw] pt-2 text-sm">
+      {live ? (
+        <p>
+          {labels.votingJoin} <strong className="whitespace-nowrap">{origin}/v</strong> · {labels.votingCode}{" "}
+          <strong className="font-mono text-xl tracking-widest" data-testid="join-code">
+            {joinCode}
+          </strong>
+        </p>
+      ) : (
+        <p className="text-muted-foreground">{labels.votingHint}</p>
+      )}
+      <Button size="sm" variant={live ? "outline" : "default"} onClick={onToggle} aria-pressed={live}>
+        {live ? labels.votingClose : labels.votingOpen}
+        <kbd className="hidden rounded bg-background/30 px-1.5 text-xs sm:inline">V</kbd>
+      </Button>
+    </div>
+  );
+}
+
+/** Votos de esta palabra en la clase, bajo la valoración de la docente. */
+export function StudentVoting({
+  sessionId,
+  senseId,
+  live,
+  teacherRating,
+  labels,
+}: {
+  sessionId: string;
+  senseId: string;
+  live: boolean;
+  teacherRating?: Rating;
+  labels: StudentLabels;
+}) {
+  const [results, setResults] = useState<VotingResults>(null);
 
   const refresh = useCallback(async () => {
     try {
@@ -52,34 +86,15 @@ export function StudentVoting({
   }, [sessionId, senseId]);
 
   // La tarjeta se vuelve a montar al cambiar de palabra, así que esto carga
-  // los últimos resultados de esta palabra; si la ronda está abierta, se sondea.
+  // los últimos resultados de esta palabra; con la votación activa, se sondea.
   useEffect(() => {
     const first = window.setTimeout(() => void refresh(), 0);
-    return () => window.clearTimeout(first);
-  }, [refresh]);
-  useEffect(() => {
-    if (!results?.open) return;
-    const id = window.setInterval(() => void refresh(), POLL_MS);
-    return () => window.clearInterval(id);
-  }, [results?.open, refresh]);
-
-  const toggle = useCallback(
-    () =>
-      startTransition(async () => {
-        if (results?.open) await closeVotingAction(sessionId);
-        else await openVotingAction(sessionId, senseId);
-        await refresh();
-      }),
-    [results?.open, sessionId, senseId, refresh],
-  );
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if ((e.key === "v" || e.key === "V") && !e.metaKey && !e.ctrlKey && !(e.target instanceof HTMLInputElement)) toggle();
+    const id = live ? window.setInterval(() => void refresh(), POLL_MS) : undefined;
+    return () => {
+      window.clearTimeout(first);
+      window.clearInterval(id);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [toggle]);
+  }, [live, refresh]);
 
   const counts = results?.counts ?? [0, 0, 0, 0];
   const total = counts.reduce((a, b) => a + b, 0);
@@ -89,32 +104,10 @@ export function StudentVoting({
 
   return (
     <section className="rounded-xl border border-border bg-background/60 px-5 py-3" aria-label={labels.votingTitle}>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="min-w-0">
-          <h2 className="font-medium">{labels.votingTitle}</h2>
-          {results?.open ? (
-            <p className="text-sm">
-              {labels.votingJoin} <strong className="whitespace-nowrap">{origin}/v</strong> · {labels.votingCode}{" "}
-              <strong className="font-mono text-2xl tracking-widest" data-testid="join-code">
-                {joinCode}
-              </strong>
-            </p>
-          ) : (
-            <p className="text-sm text-muted-foreground">{labels.votingHint}</p>
-          )}
-        </div>
-        <Button
-          variant={results?.open ? "outline" : "default"}
-          className="ml-auto"
-          disabled={pending}
-          onClick={toggle}
-        >
-          {results?.open ? labels.votingClose : labels.votingOpen}
-          <kbd className="hidden rounded bg-background/30 px-1.5 text-xs sm:inline">V</kbd>
-        </Button>
-      </div>
+      <h2 className="font-medium">{labels.votingTitle}</h2>
+      {!results && !live && <p className="text-sm text-muted-foreground">{labels.votingHint}</p>}
 
-      {results && (
+      {(results || live) && (
         <div className="mt-3 flex flex-col gap-2" aria-live="polite">
           <div className="flex h-3 overflow-hidden rounded-full bg-muted" aria-hidden>
             {counts.map((n, i) => (
