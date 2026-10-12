@@ -24,9 +24,12 @@ para clase.
    conversación.
 4. **Datos léxicos abiertos:** CC-CEDICT puede proponer tradicional, pinyin y
    glosas inglesas. Sus datos entran como borrador y requieren revisión.
-5. **Caracteres y trazos:** Make Me a Hanzi y Hanzi Writer Data, respetando sus
+5. **Ejemplos abiertos:** Gushi y Tatoeba pueden aportar frases y traducciones
+   con sus licencias respectivas. Entran como `open_data` y `unreviewed`; que
+   una frase sea abierta no significa que ya represente bien el sentido meta.
+6. **Caracteres y trazos:** Make Me a Hanzi y Hanzi Writer Data, respetando sus
    licencias y atribución.
-6. **Contenido humano:** ejemplos, traducciones y notas redactados o corregidos
+7. **Contenido humano:** ejemplos, traducciones y notas redactados o corregidos
    por una persona identificada. La profesora puede proponer ejemplos privados;
    solo una persona con rol de curación puede promoverlos a la biblioteca global.
 
@@ -99,5 +102,7 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
 | `cti-hsk3-2026` | Chinese Test International, temario HSK 3.0 (2025-11; efectivo 2026-07) | Examen oficial | Catálogo operativo por nivel |
 | `blcu-bcc` | Beijing Language and Culture University, BCC | Corpus académico | Frecuencia y validación de uso |
 | `cc-cedict` | CC-CEDICT | Diccionario abierto | Borrador léxico con atribución |
+| `gushi` | Gushi HSK 3.0 downloads | Datos abiertos, CC BY-SA 4.0 | Glosas y ejemplos bilingües como borrador |
+| `tatoeba` | Tatoeba Project | Corpus abierto, CC BY 2.0 FR | Ejemplos con traducción directa como borrador |
 | `makemeahanzi` | Make Me a Hanzi | Datos abiertos | Estructura y etimología como borrador |
 | `hanzi-writer-data` | Hanzi Writer Data | Datos abiertos | Trazos y animación |

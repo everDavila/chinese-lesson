@@ -1,0 +1,165 @@
+{
+  "白天": [
+    { "zh": "我白天上班。", "es": "Trabajo durante el día.", "en": "I work during the day." }
+  ],
+  "百": [
+    { "zh": "这本书一百元。", "es": "Este libro cuesta cien yuanes.", "en": "This book costs one hundred yuan." }
+  ],
+  "包子": [
+    { "zh": "我想吃包子。", "es": "Quiero comer baozi.", "en": "I want to eat baozi." },
+    { "zh": "这个包子很好吃。", "es": "Este baozi está muy rico.", "en": "This baozi is delicious." }
+  ],
+  "不客气": [
+    { "zh": "不客气，再见。", "es": "De nada, adiós.", "en": "You're welcome, goodbye." }
+  ],
+  "不要": [
+    { "zh": "不要喝冷水。", "es": "No bebas agua fría.", "en": "Don't drink cold water." }
+  ],
+  "大学": [
+    { "zh": "他在大学学习汉语。", "es": "Él estudia chino en la universidad.", "en": "He studies Chinese at university." }
+  ],
+  "电话": [
+    { "zh": "这是我的电话。", "es": "Este es mi teléfono.", "en": "This is my phone." }
+  ],
+  "饭店": [
+    { "zh": "这家饭店很好。", "es": "Este restaurante es muy bueno.", "en": "This restaurant is very good." }
+  ],
+  "好玩儿": [
+    { "zh": "这里很好玩儿。", "es": "Aquí es muy divertido.", "en": "It is a lot of fun here." },
+    { "zh": "学校好玩儿吗？", "es": "¿Es divertida la escuela?", "en": "Is school fun?" }
+  ],
+  "饺子": [
+    { "zh": "我喜欢吃饺子。", "es": "Me gusta comer jiaozi.", "en": "I like eating jiaozi." },
+    { "zh": "妈妈在做饺子。", "es": "Mamá está preparando jiaozi.", "en": "Mom is making jiaozi." }
+  ],
+  "九": [
+    { "zh": "我有九本书。", "es": "Tengo nueve libros.", "en": "I have nine books." }
+  ],
+  "看病": [
+    { "zh": "他去医院看病。", "es": "Él va al hospital a consultar al médico.", "en": "He goes to the hospital to see a doctor." }
+  ],
+  "口": [
+    { "zh": "他们家有五口人。", "es": "En su familia hay cinco personas.", "en": "There are five people in their family." }
+  ],
+  "没事": [
+    { "zh": "我没事，谢谢。", "es": "Estoy bien, gracias.", "en": "I'm fine, thank you." }
+  ],
+  "面条儿": [
+    { "zh": "我想吃面条儿。", "es": "Quiero comer fideos.", "en": "I want to eat noodles." },
+    { "zh": "面条儿很好吃。", "es": "Los fideos están muy ricos.", "en": "The noodles are delicious." }
+  ],
+  "哪些": [
+    { "zh": "你喜欢哪些水果？", "es": "¿Qué frutas te gustan?", "en": "Which fruits do you like?" },
+    { "zh": "哪些书是你的？", "es": "¿Cuáles libros son tuyos?", "en": "Which books are yours?" }
+  ],
+  "那边": [
+    { "zh": "学校在那边。", "es": "La escuela está por allá.", "en": "The school is over there." }
+  ],
+  "那里": [
+    { "zh": "我的书在那里。", "es": "Mi libro está allí.", "en": "My book is there." }
+  ],
+  "女士": [
+    { "zh": "女士，你好。", "es": "Señora, hola.", "en": "Hello, ma'am." },
+    { "zh": "那个女士是老师。", "es": "Esa señora es profesora.", "en": "That lady is a teacher." }
+  ],
+  "便宜": [
+    { "zh": "这件衣服很便宜。", "es": "Esta prenda es muy barata.", "en": "This piece of clothing is very cheap." }
+  ],
+  "谁": [
+    { "zh": "他是谁？", "es": "¿Quién es él?", "en": "Who is he?" },
+    { "zh": "谁是老师？", "es": "¿Quién es el profesor?", "en": "Who is the teacher?" }
+  ],
+  "少": [
+    { "zh": "今天人很少。", "es": "Hoy hay poca gente.", "en": "There are few people today." },
+    { "zh": "我的钱很少。", "es": "Tengo muy poco dinero.", "en": "I have very little money." },
+    { "zh": "这里的学生少。", "es": "Aquí hay pocos estudiantes.", "en": "There are few students here." }
+  ],
+  "它们": [
+    { "zh": "它们都是我的。", "es": "Todos ellos son míos.", "en": "They are all mine." }
+  ],
+  "外边": [
+    { "zh": "他们在外边吃饭。", "es": "Ellos comen afuera.", "en": "They are eating outside." }
+  ],
+  "玩": [
+    { "zh": "小朋友在玩。", "es": "Los niños están jugando.", "en": "The children are playing." },
+    { "zh": "我们玩吧。", "es": "Juguemos.", "en": "Let's play." }
+  ],
+  "喂": [
+    { "zh": "喂，你好。", "es": "¿Aló? Hola.", "en": "Hello? Hi." },
+    { "zh": "喂，你是谁？", "es": "¿Aló? ¿Quién eres?", "en": "Hello? Who is this?" },
+    { "zh": "喂，妈妈在家吗？", "es": "¿Aló? ¿Está mamá en casa?", "en": "Hello? Is Mom home?" }
+  ],
+  "下班": [
+    { "zh": "我五点下班。", "es": "Salgo del trabajo a las cinco.", "en": "I finish work at five." },
+    { "zh": "爸爸下班了。", "es": "Papá terminó de trabajar.", "en": "Dad has finished work." }
+  ],
+  "下课": [
+    { "zh": "我们十二点下课。", "es": "Nuestra clase termina a las doce.", "en": "Our class ends at twelve." }
+  ],
+  "先生": [
+    { "zh": "先生，您好。", "es": "Señor, buenos días.", "en": "Hello, sir." },
+    { "zh": "那个先生是老师。", "es": "Ese señor es profesor.", "en": "That gentleman is a teacher." }
+  ],
+  "小朋友": [
+    { "zh": "小朋友在学校。", "es": "El niño está en la escuela.", "en": "The child is at school." },
+    { "zh": "那个小朋友五岁。", "es": "Ese niño tiene cinco años.", "en": "That child is five years old." }
+  ],
+  "小学": [
+    { "zh": "我妹妹上小学。", "es": "Mi hermana menor va a primaria.", "en": "My younger sister goes to primary school." },
+    { "zh": "小学在那边。", "es": "La escuela primaria está por allá.", "en": "The primary school is over there." }
+  ],
+  "小学生": [
+    { "zh": "他是小学生。", "es": "Él es alumno de primaria.", "en": "He is a primary school student." },
+    { "zh": "那个小学生在看书。", "es": "Ese alumno de primaria está leyendo.", "en": "That primary school student is reading." }
+  ],
+  "一半": [
+    { "zh": "我吃了一半。", "es": "Comí la mitad.", "en": "I ate half of it." },
+    { "zh": "一半学生来了。", "es": "Vino la mitad de los estudiantes.", "en": "Half of the students came." }
+  ],
+  "一下": [
+    { "zh": "我看一下。", "es": "Voy a echar un vistazo.", "en": "I'll take a quick look." },
+    { "zh": "你看一下。", "es": "Mira un momento.", "en": "Take a quick look." }
+  ],
+  "一点儿": [
+    { "zh": "我想喝一点儿水。", "es": "Quiero beber un poco de agua.", "en": "I want to drink a little water." }
+  ],
+  "一些": [
+    { "zh": "我买了一些水果。", "es": "Compré algunas frutas.", "en": "I bought some fruit." },
+    { "zh": "这里有一些书。", "es": "Aquí hay algunos libros.", "en": "There are some books here." }
+  ],
+  "有的": [
+    { "zh": "有的人喜欢茶。", "es": "A algunas personas les gusta el té.", "en": "Some people like tea." },
+    { "zh": "有的学生在看书。", "es": "Algunos estudiantes están leyendo.", "en": "Some students are reading." }
+  ],
+  "有点儿": [
+    { "zh": "今天有点儿冷。", "es": "Hoy hace un poco de frío.", "en": "It is a little cold today." },
+    { "zh": "这个菜有点儿贵。", "es": "Este plato es un poco caro.", "en": "This dish is a little expensive." },
+    { "zh": "水有点儿冷。", "es": "El agua está un poco fría.", "en": "The water is a little cold." }
+  ],
+  "有些": [
+    { "zh": "有些人不喝茶。", "es": "Algunas personas no toman té.", "en": "Some people do not drink tea." }
+  ],
+  "上课": [
+    { "zh": "我们八点上课。", "es": "Empezamos la clase a las ocho.", "en": "Our class starts at eight." }
+  ],
+  "听见": [
+    { "zh": "你听见吗？", "es": "¿Lo oyes?", "en": "Can you hear it?" }
+  ],
+  "这边": [
+    { "zh": "请来这边。", "es": "Ven por aquí, por favor.", "en": "Please come this way." },
+    { "zh": "老师在这边。", "es": "El profesor está por aquí.", "en": "The teacher is over here." }
+  ],
+  "中午": [
+    { "zh": "我们中午吃饭。", "es": "Comemos al mediodía.", "en": "We eat at noon." },
+    { "zh": "我中午十二点下班。", "es": "Termino de trabajar al mediodía, a las doce.", "en": "I finish work at noon, at twelve." }
+  ],
+  "中学": [
+    { "zh": "我哥哥上中学。", "es": "Mi hermano mayor va a secundaria.", "en": "My older brother goes to middle school." }
+  ],
+  "中学生": [
+    { "zh": "她是中学生。", "es": "Ella es estudiante de secundaria.", "en": "She is a middle school student." }
+  ],
+  "做饭": [
+    { "zh": "爸爸在做饭。", "es": "Papá está cocinando.", "en": "Dad is cooking." }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "表演": [
+    { "zh": "他们在学校表演。", "es": "Ellos actúan en la escuela.", "en": "They perform at school." },
+    { "zh": "这个表演很好看。", "es": "Este espectáculo es muy bueno.", "en": "This show is very good." }
+  ],
+  "不但": [
+    { "zh": "他不但会说汉语，还会说中文。", "es": "Él no solo habla mandarín, sino que también sabe expresarse en chino.", "en": "He not only speaks Mandarin but also knows Chinese." },
+    { "zh": "这里不但安静，也很干净。", "es": "Aquí no solo es tranquilo, sino también limpio.", "en": "It is not only quiet but also clean here." }
+  ],
+  "查": [
+    { "zh": "我在网上查一下。", "es": "Voy a consultarlo en internet.", "en": "I will look it up online." },
+    { "zh": "请帮我查这个字。", "es": "Ayúdame a buscar este carácter, por favor.", "en": "Please help me look up this character." }
+  ],
+  "常用": [
+    { "zh": "这是一个常用的字。", "es": "Este es un carácter de uso frecuente.", "en": "This is a commonly used character." },
+    { "zh": "这个词很常用。", "es": "Esta palabra se usa mucho.", "en": "This word is commonly used." }
+  ],
+  "大熊猫": [
+    { "zh": "大熊猫很可爱。", "es": "El panda gigante es muy tierno.", "en": "The giant panda is very cute." },
+    { "zh": "我想去看大熊猫。", "es": "Quiero ir a ver pandas gigantes.", "en": "I want to see giant pandas." }
+  ],
+  "到处": [
+    { "zh": "公园里到处都是人。", "es": "Hay gente por todo el parque.", "en": "There are people everywhere in the park." },
+    { "zh": "我到处找我的手机。", "es": "Busqué mi teléfono por todas partes.", "en": "I looked everywhere for my phone." }
+  ],
+  "电": [
+    { "zh": "这里没有电。", "es": "Aquí no hay electricidad.", "en": "There is no electricity here." },
+    { "zh": "电脑需要电。", "es": "La computadora necesita electricidad.", "en": "The computer needs electricity." }
+  ],
+  "电梯": [
+    { "zh": "我们坐电梯上去。", "es": "Subimos en ascensor.", "en": "We go up by elevator." },
+    { "zh": "电梯在左边。", "es": "El ascensor está a la izquierda.", "en": "The elevator is on the left." }
+  ],
+  "东北": [
+    { "zh": "他家在东北。", "es": "Su casa está en el noreste.", "en": "His home is in the northeast." },
+    { "zh": "东北的冬天很冷。", "es": "El invierno en el noreste es muy frío.", "en": "Winters in the northeast are very cold." }
+  ],
+  "对话": [
+    { "zh": "请听这个对话。", "es": "Escucha este diálogo, por favor.", "en": "Please listen to this dialogue." },
+    { "zh": "课文里有一个对话。", "es": "Hay un diálogo en el texto de la lección.", "en": "There is a dialogue in the lesson text." }
+  ],
+  "耳机": [
+    { "zh": "这是我的耳机。", "es": "Estos son mis audífonos.", "en": "These are my headphones." },
+    { "zh": "我用耳机听音乐。", "es": "Escucho música con audífonos.", "en": "I listen to music with headphones." }
+  ],
+  "夫妻": [
+    { "zh": "他们是夫妻。", "es": "Ellos son esposos.", "en": "They are a married couple." },
+    { "zh": "这对夫妻住在这里。", "es": "Este matrimonio vive aquí.", "en": "This married couple lives here." }
+  ],
+  "复习": [
+    { "zh": "我晚上复习汉语。", "es": "Repaso chino por la noche.", "en": "I review Chinese in the evening." },
+    { "zh": "考试前要复习。", "es": "Hay que repasar antes del examen.", "en": "You need to review before the exam." }
+  ],
+  "根据": [
+    { "zh": "请根据课文回答。", "es": "Responde según el texto, por favor.", "en": "Please answer based on the text." },
+    { "zh": "这是根据他的回答写的。", "es": "Esto se escribió basándose en su respuesta.", "en": "This was written based on his answer." }
+  ],
+  "关系": [
+    { "zh": "这两个问题有关系。", "es": "Estos dos problemas están relacionados.", "en": "These two questions are related." },
+    { "zh": "我和他关系很好。", "es": "Me llevo muy bien con él.", "en": "I have a good relationship with him." }
+  ],
+  "过节": [
+    { "zh": "我们回家过节。", "es": "Volvemos a casa para celebrar la fiesta.", "en": "We go home for the holiday." },
+    { "zh": "中国人怎么过节？", "es": "¿Cómo celebran las fiestas los chinos?", "en": "How do Chinese people celebrate holidays?" }
+  ],
+  "合适": [
+    { "zh": "这件衣服很合适。", "es": "Esta prenda queda muy bien.", "en": "This piece of clothing fits well." },
+    { "zh": "这个时间不合适。", "es": "Este horario no es adecuado.", "en": "This time is not suitable." }
+  ],
+  "换": [
+    { "zh": "我想换一个房间。", "es": "Quiero cambiar de habitación.", "en": "I want to change rooms." },
+    { "zh": "我们换一下吧。", "es": "Cambiemos un momento.", "en": "Let's switch." }
+  ],
+  "节日": [
+    { "zh": "今天是中国的节日。", "es": "Hoy es una festividad china.", "en": "Today is a Chinese holiday." },
+    { "zh": "你喜欢哪个节日？", "es": "¿Qué festividad te gusta?", "en": "Which holiday do you like?" }
+  ],
+  "课文": [
+    { "zh": "请读课文。", "es": "Lee el texto de la lección, por favor.", "en": "Please read the lesson text." },
+    { "zh": "课文里有很多字。", "es": "El texto de la lección tiene muchos caracteres.", "en": "The lesson text has many characters." }
+  ],
+  "空调": [
+    { "zh": "请打开空调。", "es": "Enciende el aire acondicionado, por favor.", "en": "Please turn on the air conditioner." },
+    { "zh": "房间里有空调。", "es": "La habitación tiene aire acondicionado.", "en": "There is air conditioning in the room." }
+  ],
+  "矿泉水": [
+    { "zh": "我想买矿泉水。", "es": "Quiero comprar agua mineral.", "en": "I want to buy mineral water." },
+    { "zh": "请给我矿泉水。", "es": "Dame agua mineral, por favor.", "en": "Please give me mineral water." }
+  ],
+  "练": [
+    { "zh": "我每天练汉字。", "es": "Practico caracteres chinos todos los días.", "en": "I practice Chinese characters every day." },
+    { "zh": "这个要多练。", "es": "Esto requiere más práctica.", "en": "You need to practice this more." }
+  ],
+  "凉快": [
+    { "zh": "今天很凉快。", "es": "Hoy está fresco.", "en": "It is cool today." },
+    { "zh": "外面比房间里凉快。", "es": "Afuera está más fresco que en la habitación.", "en": "It is cooler outside than in the room." }
+  ],
+  "楼梯": [
+    { "zh": "我们走楼梯下去。", "es": "Bajamos por las escaleras.", "en": "We go down the stairs." },
+    { "zh": "楼梯在电梯旁边。", "es": "Las escaleras están junto al ascensor.", "en": "The stairs are next to the elevator." }
+  ],
+  "路边": [
+    { "zh": "他站在路边。", "es": "Él está de pie al lado del camino.", "en": "He is standing by the road." },
+    { "zh": "路边有一家商店。", "es": "Hay una tienda al lado del camino.", "en": "There is a shop by the road." }
+  ],
+  "毛": [
+    { "zh": "猫有毛。", "es": "El gato tiene pelo.", "en": "The cat has fur." },
+    { "zh": "大熊猫也有毛。", "es": "El panda gigante también tiene pelo.", "en": "The giant panda also has fur." }
+  ],
+  "难题": [
+    { "zh": "这是一个难题。", "es": "Este es un problema difícil.", "en": "This is a difficult problem." },
+    { "zh": "老师帮我回答这个难题。", "es": "El profesor me ayuda a resolver este problema difícil.", "en": "The teacher helps me answer this difficult question." }
+  ],
+  "难听": [
+    { "zh": "这个声音很难听。", "es": "Este sonido es desagradable.", "en": "This sound is unpleasant." },
+    { "zh": "他说的话很难听。", "es": "Lo que dijo suena ofensivo.", "en": "What he said sounds unpleasant." }
+  ],
+  "牛": [
+    { "zh": "草地上有一头牛。", "es": "Hay una vaca en el pasto.", "en": "There is a cow on the grass." },
+    { "zh": "那头牛在吃草。", "es": "Esa vaca está comiendo pasto.", "en": "That cow is eating grass." }
+  ],
+  "其实": [
+    { "zh": "其实我不知道。", "es": "En realidad, no lo sé.", "en": "Actually, I don't know." },
+    { "zh": "其实他是老师。", "es": "En realidad, él es profesor.", "en": "Actually, he is a teacher." }
+  ],
+  "前年": [
+    { "zh": "我前年去了中国。", "es": "Fui a China anteayer... hace dos años.", "en": "I went to China the year before last." },
+    { "zh": "前年他是学生。", "es": "Hace dos años él era estudiante.", "en": "He was a student the year before last." }
+  ],
+  "球场": [
+    { "zh": "他们在球场打篮球。", "es": "Ellos juegan básquet en la cancha.", "en": "They play basketball on the court." },
+    { "zh": "球场在体育馆后面。", "es": "La cancha está detrás del gimnasio.", "en": "The court is behind the gym." }
+  ],
+  "热情": [
+    { "zh": "她对客人很热情。", "es": "Ella es muy cordial con los invitados.", "en": "She is very warm toward guests." },
+    { "zh": "这里的人很热情。", "es": "La gente de aquí es muy amable.", "en": "The people here are very welcoming." }
+  ],
+  "身高": [
+    { "zh": "你的身高是多少？", "es": "¿Cuánto mides?", "en": "What is your height?" },
+    { "zh": "他和我身高一样。", "es": "Él y yo medimos lo mismo.", "en": "He and I are the same height." }
+  ],
+  "市": [
+    { "zh": "这是一个很大的市。", "es": "Esta es una ciudad muy grande.", "en": "This is a very large city." },
+    { "zh": "他住在市里。", "es": "Él vive en la ciudad.", "en": "He lives in the city." }
+  ],
+  "受到": [
+    { "zh": "他受到大家的欢迎。", "es": "Él es bien recibido por todos.", "en": "He is welcomed by everyone." },
+    { "zh": "这里受到天气影响。", "es": "Este lugar se ve afectado por el clima.", "en": "This place is affected by the weather." }
+  ],
+  "水平": [
+    { "zh": "他的汉语水平很高。", "es": "Su nivel de chino es alto.", "en": "His Chinese level is high." },
+    { "zh": "我想提高汉语水平。", "es": "Quiero mejorar mi nivel de chino.", "en": "I want to improve my Chinese level." }
+  ],
+  "提高": [
+    { "zh": "我想提高成绩。", "es": "Quiero mejorar mis calificaciones.", "en": "I want to improve my grades." },
+    { "zh": "多练习可以提高水平。", "es": "Practicar más puede mejorar el nivel.", "en": "More practice can improve your level." }
+  ],
+  "晚会": [
+    { "zh": "学校晚上有晚会。", "es": "La escuela tiene una fiesta por la noche.", "en": "The school has an evening party." },
+    { "zh": "我们一起去晚会。", "es": "Vamos juntos a la fiesta.", "en": "We are going to the party together." }
+  ],
+  "西方": [
+    { "zh": "太阳从西方下去。", "es": "El sol se pone por el oeste.", "en": "The sun goes down in the west." },
+    { "zh": "他对西方文化有兴趣。", "es": "Él está interesado en la cultura occidental.", "en": "He is interested in Western culture." }
+  ],
+  "西南": [
+    { "zh": "学校在城市西南。", "es": "La escuela está al suroeste de la ciudad.", "en": "The school is in the southwest of the city." },
+    { "zh": "他来自中国西南。", "es": "Él viene del suroeste de China.", "en": "He comes from southwest China." }
+  ],
+  "校长": [
+    { "zh": "校长在办公室。", "es": "El director está en la oficina.", "en": "The principal is in the office." },
+    { "zh": "校长在说话。", "es": "El director está hablando.", "en": "The principal is speaking." }
+  ],
+  "心里": [
+    { "zh": "我心里很高兴。", "es": "Me siento muy feliz por dentro.", "en": "I feel very happy inside." },
+    { "zh": "他心里有点儿担心。", "es": "Él está un poco preocupado por dentro.", "en": "He feels a little worried inside." }
+  ],
+  "一共": [
+    { "zh": "我们一共有十个人。", "es": "Somos diez personas en total.", "en": "There are ten of us in total." },
+    { "zh": "这些一共多少钱？", "es": "¿Cuánto cuesta todo esto en total?", "en": "How much are these altogether?" }
+  ],
+  "一样": [
+    { "zh": "这两个杯子一样。", "es": "Estos dos vasos son iguales.", "en": "These two cups are the same." },
+    { "zh": "我和你想得一样。", "es": "Pienso igual que tú.", "en": "I think the same as you." }
+  ],
+  "一边": [
+    { "zh": "我一边吃饭一边看电视。", "es": "Como mientras veo televisión.", "en": "I eat while watching TV." },
+    { "zh": "她一边走一边打电话。", "es": "Ella camina mientras habla por teléfono.", "en": "She walks while talking on the phone." }
+  ],
+  "有关": [
+    { "zh": "这是有关学习的问题。", "es": "Esta es una pregunta relacionada con el estudio.", "en": "This is a question about studying." },
+    { "zh": "我想看有关中国文化的书。", "es": "Quiero leer libros sobre la cultura china.", "en": "I want to read books about Chinese culture." }
+  ],
+  "主要": [
+    { "zh": "这本书主要说中国文化。", "es": "Este libro trata principalmente sobre la cultura china.", "en": "This book is mainly about Chinese culture." },
+    { "zh": "他是这里的主要老师。", "es": "Él es el profesor principal aquí.", "en": "He is the main teacher here." }
+  ]
+}

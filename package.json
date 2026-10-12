@@ -16,7 +16,7 @@
     "db:backup": "node --env-file=.env.local scripts/backup-db.mjs",
     "db:promover-admin": "node --env-file=.env.local scripts/promover-admin.mjs",
     "db:crear-docente": "node --env-file=.env.local scripts/crear-docente.mjs",
-    "test:visual": "playwright test --project=*-light --project=*-dark",
+    "test:visual": "playwright test",
     "db:sync-content": "node --env-file=.env.local scripts/sync-content.mjs",
     "test:db": "node tests/db/permisos.mjs",
     "test:sesion": "node scripts/guardar-sesion.mjs",
@@ -27,7 +27,9 @@
     "dev:base-dev": "node scripts/dev-base-dev.mjs",
     "test:recorridos:dev": "playwright test --project=recorridos-dev",
     "test:unit": "node --experimental-strip-types --no-warnings --test tests/unit/*.test.ts",
-    "test:sesion:dev": "node scripts/guardar-sesion.mjs --dev"
+    "test:sesion:dev": "node scripts/guardar-sesion.mjs --dev",
+    "content:build-examples": "node scripts/build-hsk-examples.mjs",
+    "db:sync-hsk-examples": "node --env-file=.env.local scripts/sync-hsk-examples.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
