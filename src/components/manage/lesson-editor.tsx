@@ -9,7 +9,9 @@ import {
   removeItemAction,
   renameLessonAction,
   setItemSenseAction,
+  setLessonExamplesAction,
 } from "@/actions/manage";
+import { ExamplesSelect } from "./examples-select";
 import { startSessionAction } from "@/actions/class";
 import { Button } from "@/components/ui/button";
 import { MultiSelect } from "@/components/ui/multi-select";
@@ -121,6 +123,15 @@ export function LessonEditor({
             {t("cancel")}
           </Button>
         </form>
+      )}
+
+      {mode === "teacher" && (
+        <ExamplesSelect
+          value={lesson.examplesShown}
+          inherited={lesson.collectionExamplesShown}
+          disabled={pending}
+          onChange={(n) => run(() => setLessonExamplesAction(lesson.id, n))}
+        />
       )}
 
       <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,26rem)]">

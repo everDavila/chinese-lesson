@@ -147,6 +147,10 @@
     "levelOk": "Nivel correcto (≤ HSK {level}).",
     "levelOver": "Por encima de HSK {level}: {pieces}",
     "outsideList": "fuera de lista",
-    "staleFields": "Cambiaste el chino, pero esto sigue como antes: {fields}. Revisa que coincida con la frase nueva."
+    "staleFields": "Cambiaste el chino, pero esto sigue como antes: {fields}. Revisa que coincida con la frase nueva.",
+    "examplesPerWord": "Frases por palabra en clase:",
+    "examplesAll": "Todas",
+    "examplesInherit": "Como la colección ({n})",
+    "examplesHint": "Si hay más, cada clase muestra primero las que aún no vio."
   }
 }

@@ -11,7 +11,9 @@ import {
   deleteLessonAction,
   moveLessonAction,
   renameCollectionAction,
+  setCollectionExamplesAction,
 } from "@/actions/manage";
+import { ExamplesSelect } from "./examples-select";
 import { startSessionAction } from "@/actions/class";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -229,6 +231,13 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
         </form>
       )}
       {c.copiedFrom && <p className="text-sm text-muted-foreground">{t("copyNote")}</p>}
+      {mode === "teacher" && (
+        <ExamplesSelect
+          value={c.examplesShown}
+          disabled={pending}
+          onChange={(n) => run(() => setCollectionExamplesAction(c.id, n ?? 0))}
+        />
+      )}
 
       <NewTitleForm
         placeholder={t("newLesson", { n: c.lessons.length + 1 })}

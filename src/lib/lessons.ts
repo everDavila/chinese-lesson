@@ -3,6 +3,7 @@ import "server-only";
 import lessonJson from "../../contenido/leccion-demo.json";
 import { componentMeanings, readStrokes } from "./hanzi-data";
 import type { CharacterInfo, Lesson, Sense, Word } from "./lesson-types";
+import { pickSentences } from "./rotation";
 import { createClient } from "./supabase/server";
 
 // Lecciones de la profesora en Supabase. Devuelve los mismos tipos que la
@@ -11,6 +12,8 @@ import { createClient } from "./supabase/server";
 type SentenceRow = {
   /** Ausente en las frases propias de la docente. */
   id?: string;
+  /** Clave para la rotación: 's:<id>' (base) o 't:<id>' (de la docente). */
+  key?: string;
   position: number;
   zh: string;
   pinyin: string;
@@ -120,6 +123,7 @@ function toWord(row: WordRow): Word {
           sentences: [...s.sentences]
             .sort((a, b) => a.position - b.position)
             .map((t) => ({
+              key: t.key ?? (t.id ? `s:${t.id}` : undefined),
               zh: t.zh,
               pinyin: t.pinyin,
               es: t.translation_es ?? "",
@@ -136,6 +140,7 @@ const WORD_SELECT = `hanzi, hsk_level, cultural_note_es, cultural_note_en,
     sentences(id, position, zh, pinyin, translation_es, translation_en, status))`;
 
 type OwnExample = {
+  id: string;
   sense_id: string;
   zh: string;
   pinyin: string | null;
@@ -154,7 +159,7 @@ async function withTeacherSentences(rows: WordRow[]): Promise<WordRow[]> {
   const [{ data: mine }, { data: hidden }] = await Promise.all([
     supabase
       .from("teacher_examples")
-      .select("sense_id, zh, pinyin, translation_es, translation_en, based_on_sentence_id")
+      .select("id, sense_id, zh, pinyin, translation_es, translation_en, based_on_sentence_id")
       .in("sense_id", senseIds)
       .neq("status", "accepted")
       .order("created_at"),
@@ -164,6 +169,7 @@ async function withTeacherSentences(rows: WordRow[]): Promise<WordRow[]> {
   const hiddenIds = new Set((hidden ?? []).map((h) => h.sentence_id as string));
   const own = (mine ?? []) as OwnExample[];
   const asRow = (e: OwnExample, position: number): SentenceRow => ({
+    key: `t:${e.id}`,
     position,
     zh: e.zh,
     pinyin: e.pinyin ?? "",
@@ -235,7 +241,7 @@ async function buildLesson(title: string, items: { senseId: string; word: WordRo
  * plantillas), con sus frases propias. Las palabras sin ninguna frase se
  * quedan fuera: una tarjeta vacía no sirve en clase. null si no existe.
  */
-export async function getLesson(lessonId: string): Promise<Lesson | null> {
+export async function getLesson(lessonId: string, opts: { sessionId?: string } = {}): Promise<Lesson | null> {
   const supabase = await createClient();
   const { data: lesson, error } = await supabase
     .from("lessons")
@@ -247,11 +253,86 @@ export async function getLesson(lessonId: string): Promise<Lesson | null> {
 
   type ItemRow = { position: number; sense_id: string; senses: { words: WordRow } };
   const rows = [...(lesson.lesson_items as unknown as ItemRow[])].sort((a, b) => a.position - b.position);
-  const words = await withTeacherSentences(rows.map((r) => r.senses.words));
+  let words = await withTeacherSentences(rows.map((r) => r.senses.words));
+  if (opts.sessionId) words = await onlyChosen(opts.sessionId, rows.map((r) => r.sense_id), words);
   const items = rows
     .map((r, i) => ({ senseId: r.sense_id, word: words[i] }))
     .filter(({ senseId, word }) => word.senses.find((s) => s.id === senseId)?.sentences.length);
   return buildLesson(lesson.title, items);
+}
+
+const keyOf = (t: SentenceRow) => t.key ?? (t.id ? `s:${t.id}` : "");
+
+// En una clase en vivo, cada sentido muestra solo las frases elegidas al
+// abrirla, en ese orden. Sin elección guardada (sesiones anteriores a la
+// rotación, o frases que ya no existen), se muestran todas.
+async function onlyChosen(sessionId: string, senseIds: string[], words: WordRow[]): Promise<WordRow[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("session_sentences")
+    .select("sense_id, sentence_key, position")
+    .eq("session_id", sessionId)
+    .order("position");
+  if (error) throw error;
+  const chosen = new Map<string, string[]>();
+  for (const r of data ?? []) chosen.set(r.sense_id, [...(chosen.get(r.sense_id) ?? []), r.sentence_key]);
+  return words.map((w, i) => ({
+    ...w,
+    senses: w.senses.map((s) => {
+      const keys = s.id === senseIds[i] ? chosen.get(s.id) : undefined;
+      if (!keys) return s;
+      const picked = keys.flatMap((k) => s.sentences.filter((t) => keyOf(t) === k));
+      return picked.length ? { ...s, sentences: picked } : s;
+    }),
+  }));
+}
+
+/**
+ * Al abrir una clase, elige las frases de cada palabra (src/lib/rotation.ts)
+ * y las guarda con la sesión: cuántas dice la lección o, si no, su
+ * colección; primero las que esta clase no ha visto.
+ */
+export async function chooseSessionSentences(sessionId: string, lessonId: string): Promise<void> {
+  const supabase = await createClient();
+  const { data: lesson, error } = await supabase
+    .from("lessons")
+    .select(`examples_shown, collections(examples_shown), lesson_items(position, sense_id, senses(words(${WORD_SELECT})))`)
+    .eq("id", lessonId)
+    .single();
+  if (error) throw error;
+  const setting = lesson.examples_shown ?? (lesson.collections as unknown as { examples_shown: number } | null)?.examples_shown ?? 0;
+  const count = setting === 0 ? null : setting;
+
+  type ItemRow = { sense_id: string; senses: { words: WordRow } };
+  const rows = lesson.lesson_items as unknown as ItemRow[];
+  const senseIds = rows.map((r) => r.sense_id);
+  const words = await withTeacherSentences(rows.map((r) => r.senses.words));
+
+  const { data: history, error: historyError } = await supabase.rpc("sentence_history", { lesson: lessonId, senses: senseIds });
+  if (historyError) throw historyError;
+  const lastSeen = new Map<string, Map<string, number>>();
+  for (const h of (history ?? []) as { sense_id: string; sentence_key: string; last_shown: string }[]) {
+    const m = lastSeen.get(h.sense_id) ?? new Map<string, number>();
+    m.set(h.sentence_key, Date.parse(h.last_shown));
+    lastSeen.set(h.sense_id, m);
+  }
+
+  const toInsert = rows.flatMap((r, i) => {
+    const sense = words[i].senses.find((s) => s.id === r.sense_id);
+    const candidates = [...(sense?.sentences ?? [])]
+      .sort((a, b) => a.position - b.position)
+      .map((t) => ({ key: keyOf(t) }))
+      .filter((c) => c.key);
+    return pickSentences(candidates, lastSeen.get(r.sense_id) ?? new Map(), count).map((c, position) => ({
+      session_id: sessionId,
+      sense_id: r.sense_id,
+      sentence_key: c.key,
+      position: position + 1,
+    }));
+  });
+  if (!toInsert.length) return;
+  const { error: insertError } = await supabase.from("session_sentences").insert(toInsert);
+  if (insertError) throw insertError;
 }
 
 /** Vista previa del admin: una tarjeta por cada sentido de la palabra. */

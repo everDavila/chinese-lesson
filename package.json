@@ -25,7 +25,8 @@
     "db:dev:crear": "node --env-file=.env.local scripts/crear-base-dev.mjs",
     "db:dev:copiar": "node scripts/copiar-contenido.mjs",
     "dev:base-dev": "node --env-file=.env.dev.local node_modules/next/dist/bin/next dev -p 3001",
-    "test:recorridos:dev": "playwright test --project=recorridos-dev"
+    "test:recorridos:dev": "playwright test --project=recorridos-dev",
+    "test:unit": "node --experimental-strip-types --no-warnings --test tests/unit/*.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
