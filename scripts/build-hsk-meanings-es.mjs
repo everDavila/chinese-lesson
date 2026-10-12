@@ -27,6 +27,11 @@ const overrides = {
   226: "abajo; bajar; siguiente", 228: "salir del trabajo; terminar la jornada", 229: "terminar o salir de clase",
   235: "niño; forma de dirigirse a un niño", 238: "estudiante de primaria", 262: "algunos; unos cuantos",
   271: "estar en; encontrarse en", 287: "clasificador para animales y objetos de una pieza", 299: "hacer; preparar",
+  303: "blanco", 310: "bolígrafo; instrumento de escritura", 313: "sentir vergüenza; disculpa por una molestia leve",
+  319: "salir de casa", 375: "hotel", 379: "empezar el curso o semestre", 406: "así; de esa manera; entonces",
+  424: "centro comercial", 443: "clasificador para objetos largos y estrechos", 447: "afuera; parte exterior",
+  458: "bajar o venir hacia aquí", 460: "bajar o alejarse de aquí", 464: "apellido; apellidarse",
+  465: "nombre completo", 489: "así; de esta manera; de este tipo", 496: "caminar; ir a pie",
   347: "pasar; cruzar; celebrar", 351: "partícula de experiencia pasada", 357: "gastar; emplear", 358: "flor",
   332: "partícula que introduce el complemento de grado o resultado", 583: "obtener; conseguir", 587: "tener que; deber",
 };

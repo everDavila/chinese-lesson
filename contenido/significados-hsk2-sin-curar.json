@@ -1,0 +1,1413 @@
+{
+  "metadata": {
+    "level": 2,
+    "sourceId": "gushi",
+    "sourceUrl": "The official HSK 3.0 考试大纲, published November 2025.",
+    "attribution": "HSK 2 word list by Gushi (https://gushichinese.com/es/hsk-3.0/palabras/2), CC BY-SA 4.0",
+    "license": "CC BY-SA 4.0 — https://creativecommons.org/licenses/by-sa/4.0/",
+    "status": "unreviewed",
+    "generatedAt": "2026-10-12"
+  },
+  "meanings": [
+    {
+      "sourceOrder": 301,
+      "hanzi": "啊",
+      "pinyin": "a",
+      "meaningEs": "ah; oh; eh",
+      "sourceMeaningEs": "ah; oh; eh"
+    },
+    {
+      "sourceOrder": 302,
+      "hanzi": "爱好",
+      "pinyin": "àihào",
+      "meaningEs": "pasatiempo; aficionado a; gustar; interés",
+      "sourceMeaningEs": "pasatiempo; aficionado a; gustar; interés"
+    },
+    {
+      "sourceOrder": 303,
+      "hanzi": "白色",
+      "pinyin": "báisè",
+      "meaningEs": "blanco",
+      "sourceMeaningEs": "blanco; en sentido figurado reaccionario; anticomunista"
+    },
+    {
+      "sourceOrder": 304,
+      "hanzi": "班",
+      "pinyin": "bān",
+      "meaningEs": "clase; turno",
+      "sourceMeaningEs": "clase; turno"
+    },
+    {
+      "sourceOrder": 305,
+      "hanzi": "帮",
+      "pinyin": "bāng",
+      "meaningEs": "ayudar",
+      "sourceMeaningEs": "ayudar"
+    },
+    {
+      "sourceOrder": 306,
+      "hanzi": "帮忙",
+      "pinyin": "bāngmáng",
+      "meaningEs": "ayudar",
+      "sourceMeaningEs": "ayudar"
+    },
+    {
+      "sourceOrder": 307,
+      "hanzi": "包",
+      "pinyin": "bāo",
+      "meaningEs": "paquete; bolsa; envolver; incluir",
+      "sourceMeaningEs": "paquete; bolsa; envolver; incluir"
+    },
+    {
+      "sourceOrder": 308,
+      "hanzi": "本子",
+      "pinyin": "běnzi",
+      "meaningEs": "cuaderno; libro",
+      "sourceMeaningEs": "cuaderno; libro"
+    },
+    {
+      "sourceOrder": 309,
+      "hanzi": "比",
+      "pinyin": "bǐ",
+      "meaningEs": "comparar; que",
+      "sourceMeaningEs": "comparar; que"
+    },
+    {
+      "sourceOrder": 310,
+      "hanzi": "笔",
+      "pinyin": "bǐ",
+      "meaningEs": "bolígrafo; instrumento de escritura",
+      "sourceMeaningEs": "pluma; instrumento de escritura; trazo; palabra de medida para sumas de dinero"
+    },
+    {
+      "sourceOrder": 311,
+      "hanzi": "别",
+      "pinyin": "bié",
+      "meaningEs": "no hacer algo; otro; distinguir",
+      "sourceMeaningEs": "no hacer algo; otro; distinguir"
+    },
+    {
+      "sourceOrder": 312,
+      "hanzi": "不错",
+      "pinyin": "búcuò",
+      "meaningEs": "correcto; bien; no está mal; bastante bueno",
+      "sourceMeaningEs": "correcto; bien; no está mal; bastante bueno"
+    },
+    {
+      "sourceOrder": 313,
+      "hanzi": "不好意思",
+      "pinyin": "bù hǎoyìsi",
+      "meaningEs": "sentir vergüenza; disculpa por una molestia leve",
+      "sourceMeaningEs": "sentirse avergonzado; resultarle a uno embarazoso; sentir pena (por haber molestado a alguien)"
+    },
+    {
+      "sourceOrder": 314,
+      "hanzi": "长",
+      "pinyin": "cháng",
+      "meaningEs": "largo; longitud",
+      "sourceMeaningEs": "largo; longitud"
+    },
+    {
+      "sourceOrder": 315,
+      "hanzi": "车站",
+      "pinyin": "chēzhàn",
+      "meaningEs": "estación de ferrocarril; parada de autobús",
+      "sourceMeaningEs": "estación de ferrocarril; parada de autobús"
+    },
+    {
+      "sourceOrder": 316,
+      "hanzi": "出",
+      "pinyin": "chū",
+      "meaningEs": "salir; surgir",
+      "sourceMeaningEs": "salir; surgir"
+    },
+    {
+      "sourceOrder": 317,
+      "hanzi": "出国",
+      "pinyin": "chūguó",
+      "meaningEs": "ir al extranjero; salir del país",
+      "sourceMeaningEs": "ir al extranjero; salir del país"
+    },
+    {
+      "sourceOrder": 318,
+      "hanzi": "出来",
+      "pinyin": "chūlái",
+      "meaningEs": "salir; aparecer; surgir",
+      "sourceMeaningEs": "salir; aparecer; surgir"
+    },
+    {
+      "sourceOrder": 319,
+      "hanzi": "出门",
+      "pinyin": "chūmén",
+      "meaningEs": "salir de casa",
+      "sourceMeaningEs": "salir; irse de casa; emprender un viaje; fuera de casa; (de una mujer) casarse"
+    },
+    {
+      "sourceOrder": 320,
+      "hanzi": "出去",
+      "pinyin": "chūqù",
+      "meaningEs": "salir",
+      "sourceMeaningEs": "salir"
+    },
+    {
+      "sourceOrder": 321,
+      "hanzi": "床",
+      "pinyin": "chuáng",
+      "meaningEs": "cama",
+      "sourceMeaningEs": "cama"
+    },
+    {
+      "sourceOrder": 322,
+      "hanzi": "词",
+      "pinyin": "cí",
+      "meaningEs": "palabra; término",
+      "sourceMeaningEs": "palabra; término"
+    },
+    {
+      "sourceOrder": 323,
+      "hanzi": "次",
+      "pinyin": "cì",
+      "meaningEs": "palabra de medida para las veces que ocurre una acción",
+      "sourceMeaningEs": "palabra de medida para las veces que ocurre una acción"
+    },
+    {
+      "sourceOrder": 324,
+      "hanzi": "从",
+      "pinyin": "cóng",
+      "meaningEs": "desde",
+      "sourceMeaningEs": "desde"
+    },
+    {
+      "sourceOrder": 325,
+      "hanzi": "从小",
+      "pinyin": "cóngxiǎo",
+      "meaningEs": "desde la infancia; desde pequeño",
+      "sourceMeaningEs": "desde la infancia; desde pequeño"
+    },
+    {
+      "sourceOrder": 326,
+      "hanzi": "错",
+      "pinyin": "cuò",
+      "meaningEs": "error; equivocado",
+      "sourceMeaningEs": "error; equivocado"
+    },
+    {
+      "sourceOrder": 327,
+      "hanzi": "打",
+      "pinyin": "dǎ",
+      "meaningEs": "golpear; pegar; hacer",
+      "sourceMeaningEs": "golpear; pegar; hacer"
+    },
+    {
+      "sourceOrder": 328,
+      "hanzi": "打车",
+      "pinyin": "dǎchē",
+      "meaningEs": "tomar un taxi (en la ciudad); pedir un aventón",
+      "sourceMeaningEs": "tomar un taxi (en la ciudad); pedir un aventón"
+    },
+    {
+      "sourceOrder": 329,
+      "hanzi": "打开",
+      "pinyin": "dǎkāi",
+      "meaningEs": "abrir; mostrar (un boleto); encender; conectar",
+      "sourceMeaningEs": "abrir; mostrar (un boleto); encender; conectar"
+    },
+    {
+      "sourceOrder": 330,
+      "hanzi": "但",
+      "pinyin": "dàn",
+      "meaningEs": "pero",
+      "sourceMeaningEs": "pero"
+    },
+    {
+      "sourceOrder": 331,
+      "hanzi": "但是",
+      "pinyin": "dànshì",
+      "meaningEs": "pero; sin embargo",
+      "sourceMeaningEs": "pero; sin embargo"
+    },
+    {
+      "sourceOrder": 332,
+      "hanzi": "得",
+      "pinyin": "de",
+      "meaningEs": "partícula que introduce el complemento de grado o resultado",
+      "sourceMeaningEs": "enlaza un verbo con el modo en que se hace"
+    },
+    {
+      "sourceOrder": 333,
+      "hanzi": "地",
+      "pinyin": "de",
+      "meaningEs": "-mente",
+      "sourceMeaningEs": "-mente"
+    },
+    {
+      "sourceOrder": 334,
+      "hanzi": "等",
+      "pinyin": "děng",
+      "meaningEs": "esperar; etcétera; rango; igual",
+      "sourceMeaningEs": "esperar; etcétera; rango; igual"
+    },
+    {
+      "sourceOrder": 335,
+      "hanzi": "地铁",
+      "pinyin": "dìtiě",
+      "meaningEs": "metro (ferrocarril); subterráneo",
+      "sourceMeaningEs": "metro (ferrocarril); subterráneo"
+    },
+    {
+      "sourceOrder": 336,
+      "hanzi": "点",
+      "pinyin": "diǎn",
+      "meaningEs": "palabra de medida para las cantidades pequeñas",
+      "sourceMeaningEs": "palabra de medida para las cantidades pequeñas"
+    },
+    {
+      "sourceOrder": 337,
+      "hanzi": "懂",
+      "pinyin": "dǒng",
+      "meaningEs": "entender",
+      "sourceMeaningEs": "entender"
+    },
+    {
+      "sourceOrder": 338,
+      "hanzi": "动",
+      "pinyin": "dòng",
+      "meaningEs": "mover; movimiento; conmover",
+      "sourceMeaningEs": "mover; movimiento; conmover"
+    },
+    {
+      "sourceOrder": 339,
+      "hanzi": "饭馆",
+      "pinyin": "fànguǎn",
+      "meaningEs": "restaurante",
+      "sourceMeaningEs": "restaurante"
+    },
+    {
+      "sourceOrder": 340,
+      "hanzi": "飞",
+      "pinyin": "fēi",
+      "meaningEs": "volar; rápido",
+      "sourceMeaningEs": "volar; rápido"
+    },
+    {
+      "sourceOrder": 341,
+      "hanzi": "高",
+      "pinyin": "gāo",
+      "meaningEs": "alto; elevado",
+      "sourceMeaningEs": "alto; elevado"
+    },
+    {
+      "sourceOrder": 342,
+      "hanzi": "高中",
+      "pinyin": "gāozhōng",
+      "meaningEs": "bachillerato; abreviatura de 高级中学",
+      "sourceMeaningEs": "bachillerato; abreviatura de 高级中学"
+    },
+    {
+      "sourceOrder": 343,
+      "hanzi": "告诉",
+      "pinyin": "gàosu",
+      "meaningEs": "decir; informar",
+      "sourceMeaningEs": "decir; informar"
+    },
+    {
+      "sourceOrder": 344,
+      "hanzi": "个子",
+      "pinyin": "gèzi",
+      "meaningEs": "altura; estatura; complexión",
+      "sourceMeaningEs": "altura; estatura; complexión"
+    },
+    {
+      "sourceOrder": 345,
+      "hanzi": "跟",
+      "pinyin": "gēn",
+      "meaningEs": "con; y; seguir; talón",
+      "sourceMeaningEs": "con; y; seguir; talón"
+    },
+    {
+      "sourceOrder": 346,
+      "hanzi": "公交车",
+      "pinyin": "gōngjiāochē",
+      "meaningEs": "vehículo de transporte público; autobús urbano",
+      "sourceMeaningEs": "vehículo de transporte público; autobús urbano"
+    },
+    {
+      "sourceOrder": 347,
+      "hanzi": "过",
+      "pinyin": "guò",
+      "meaningEs": "pasar; cruzar; celebrar",
+      "sourceMeaningEs": "indica una experiencia pasada"
+    },
+    {
+      "sourceOrder": 348,
+      "hanzi": "过来",
+      "pinyin": "guòlái",
+      "meaningEs": "acercarse; arreglárselas; manejar; ser capaz de encargarse",
+      "sourceMeaningEs": "acercarse; arreglárselas; manejar; ser capaz de encargarse"
+    },
+    {
+      "sourceOrder": 349,
+      "hanzi": "过年",
+      "pinyin": "guònián",
+      "meaningEs": "celebrar el Año Nuevo chino",
+      "sourceMeaningEs": "celebrar el Año Nuevo chino"
+    },
+    {
+      "sourceOrder": 350,
+      "hanzi": "过去",
+      "pinyin": "guòqù",
+      "meaningEs": "en el pasado; antaño",
+      "sourceMeaningEs": "en el pasado; antaño"
+    },
+    {
+      "sourceOrder": 351,
+      "hanzi": "过",
+      "pinyin": "guo",
+      "meaningEs": "partícula de experiencia pasada",
+      "sourceMeaningEs": "pasar, transcurrir, exceder"
+    },
+    {
+      "sourceOrder": 352,
+      "hanzi": "还是",
+      "pinyin": "háishi",
+      "meaningEs": "o; todavía; no obstante; más vale",
+      "sourceMeaningEs": "o; todavía; no obstante; más vale"
+    },
+    {
+      "sourceOrder": 353,
+      "hanzi": "黑色",
+      "pinyin": "hēisè",
+      "meaningEs": "negro",
+      "sourceMeaningEs": "negro"
+    },
+    {
+      "sourceOrder": 354,
+      "hanzi": "红茶",
+      "pinyin": "hóngchá",
+      "meaningEs": "té negro",
+      "sourceMeaningEs": "té negro"
+    },
+    {
+      "sourceOrder": 355,
+      "hanzi": "红色",
+      "pinyin": "hóngsè",
+      "meaningEs": "rojo (color); revolucionario",
+      "sourceMeaningEs": "rojo (color); revolucionario"
+    },
+    {
+      "sourceOrder": 356,
+      "hanzi": "后面",
+      "pinyin": "hòumiàn",
+      "meaningEs": "detrás",
+      "sourceMeaningEs": "detrás"
+    },
+    {
+      "sourceOrder": 357,
+      "hanzi": "花",
+      "pinyin": "huā",
+      "meaningEs": "gastar; emplear",
+      "sourceMeaningEs": "flor; gastar; multicolor"
+    },
+    {
+      "sourceOrder": 358,
+      "hanzi": "花",
+      "pinyin": "huā",
+      "meaningEs": "flor",
+      "sourceMeaningEs": "dibujo ornamental; florido; (coloquial) lascivo; libidinoso"
+    },
+    {
+      "sourceOrder": 359,
+      "hanzi": "画",
+      "pinyin": "huà",
+      "meaningEs": "dibujo; dibujar; imagen; pintura",
+      "sourceMeaningEs": "dibujo; dibujar; imagen; pintura"
+    },
+    {
+      "sourceOrder": 360,
+      "hanzi": "坏",
+      "pinyin": "huài",
+      "meaningEs": "malo; roto; muchísimo",
+      "sourceMeaningEs": "malo; roto; muchísimo"
+    },
+    {
+      "sourceOrder": 361,
+      "hanzi": "回来",
+      "pinyin": "huílái",
+      "meaningEs": "regresar; volver",
+      "sourceMeaningEs": "regresar; volver"
+    },
+    {
+      "sourceOrder": 362,
+      "hanzi": "回去",
+      "pinyin": "huíqù",
+      "meaningEs": "regresar; volver",
+      "sourceMeaningEs": "regresar; volver"
+    },
+    {
+      "sourceOrder": 363,
+      "hanzi": "机场",
+      "pinyin": "jīchǎng",
+      "meaningEs": "aeropuerto; aeródromo",
+      "sourceMeaningEs": "aeropuerto; aeródromo"
+    },
+    {
+      "sourceOrder": 364,
+      "hanzi": "机票",
+      "pinyin": "jīpiào",
+      "meaningEs": "boleto de avión; pasaje aéreo",
+      "sourceMeaningEs": "boleto de avión; pasaje aéreo"
+    },
+    {
+      "sourceOrder": 365,
+      "hanzi": "记得",
+      "pinyin": "jìde",
+      "meaningEs": "recordar",
+      "sourceMeaningEs": "recordar"
+    },
+    {
+      "sourceOrder": 366,
+      "hanzi": "间",
+      "pinyin": "jiān",
+      "meaningEs": "cuarto; entre; espacio; palabra de medida para habitaciones",
+      "sourceMeaningEs": "cuarto; entre; espacio; palabra de medida para habitaciones"
+    },
+    {
+      "sourceOrder": 367,
+      "hanzi": "教",
+      "pinyin": "jiāo",
+      "meaningEs": "enseñar",
+      "sourceMeaningEs": "enseñar"
+    },
+    {
+      "sourceOrder": 368,
+      "hanzi": "教室",
+      "pinyin": "jiàoshì",
+      "meaningEs": "aula",
+      "sourceMeaningEs": "aula"
+    },
+    {
+      "sourceOrder": 369,
+      "hanzi": "介绍",
+      "pinyin": "jièshào",
+      "meaningEs": "presentar; recomendar; presentación",
+      "sourceMeaningEs": "presentar; recomendar; presentación"
+    },
+    {
+      "sourceOrder": 370,
+      "hanzi": "进",
+      "pinyin": "jìn",
+      "meaningEs": "entrar; adentro; avanzar",
+      "sourceMeaningEs": "entrar; adentro; avanzar"
+    },
+    {
+      "sourceOrder": 371,
+      "hanzi": "近",
+      "pinyin": "jìn",
+      "meaningEs": "cerca",
+      "sourceMeaningEs": "cerca"
+    },
+    {
+      "sourceOrder": 372,
+      "hanzi": "进来",
+      "pinyin": "jìnlái",
+      "meaningEs": "entrar",
+      "sourceMeaningEs": "entrar"
+    },
+    {
+      "sourceOrder": 373,
+      "hanzi": "进去",
+      "pinyin": "jìnqù",
+      "meaningEs": "entrar",
+      "sourceMeaningEs": "entrar"
+    },
+    {
+      "sourceOrder": 374,
+      "hanzi": "经常",
+      "pinyin": "jīngcháng",
+      "meaningEs": "a menudo; con frecuencia; a diario",
+      "sourceMeaningEs": "a menudo; con frecuencia; a diario"
+    },
+    {
+      "sourceOrder": 375,
+      "hanzi": "酒店",
+      "pinyin": "jiǔdiàn",
+      "meaningEs": "hotel",
+      "sourceMeaningEs": "hotel; restaurante; bodega (uso antiguo)"
+    },
+    {
+      "sourceOrder": 376,
+      "hanzi": "就",
+      "pinyin": "jiù",
+      "meaningEs": "enseguida; entonces; solo; exactamente; ya",
+      "sourceMeaningEs": "enseguida; entonces; solo; exactamente; ya"
+    },
+    {
+      "sourceOrder": 377,
+      "hanzi": "咖啡",
+      "pinyin": "kāfēi",
+      "meaningEs": "café",
+      "sourceMeaningEs": "café"
+    },
+    {
+      "sourceOrder": 378,
+      "hanzi": "开始",
+      "pinyin": "kāishǐ",
+      "meaningEs": "empezar; comenzar; comienzo",
+      "sourceMeaningEs": "empezar; comenzar; comienzo"
+    },
+    {
+      "sourceOrder": 379,
+      "hanzi": "开学",
+      "pinyin": "kāixué",
+      "meaningEs": "empezar el curso o semestre",
+      "sourceMeaningEs": "(de un estudiante) empezar la escuela; (de un semestre) comenzar; (antiguo) fundar una escuela; el inicio d…"
+    },
+    {
+      "sourceOrder": 380,
+      "hanzi": "考",
+      "pinyin": "kǎo",
+      "meaningEs": "probar; presentar un examen; reflexionar",
+      "sourceMeaningEs": "probar; presentar un examen; reflexionar"
+    },
+    {
+      "sourceOrder": 381,
+      "hanzi": "考试",
+      "pinyin": "kǎoshì",
+      "meaningEs": "examen; prueba; aplicar o presentar una prueba",
+      "sourceMeaningEs": "examen; prueba; aplicar o presentar una prueba"
+    },
+    {
+      "sourceOrder": 382,
+      "hanzi": "可能",
+      "pinyin": "kěnéng",
+      "meaningEs": "posible; probable; tal vez",
+      "sourceMeaningEs": "posible; probable; tal vez"
+    },
+    {
+      "sourceOrder": 383,
+      "hanzi": "裤子",
+      "pinyin": "kùzi",
+      "meaningEs": "pantalones; pantalón",
+      "sourceMeaningEs": "pantalones; pantalón"
+    },
+    {
+      "sourceOrder": 384,
+      "hanzi": "快",
+      "pinyin": "kuài",
+      "meaningEs": "veloz; pronto; contento",
+      "sourceMeaningEs": "veloz; pronto; contento"
+    },
+    {
+      "sourceOrder": 385,
+      "hanzi": "快乐",
+      "pinyin": "kuàilè",
+      "meaningEs": "feliz",
+      "sourceMeaningEs": "feliz"
+    },
+    {
+      "sourceOrder": 386,
+      "hanzi": "快要",
+      "pinyin": "kuàiyào",
+      "meaningEs": "a punto de (hacer algo); por (hacer algo)",
+      "sourceMeaningEs": "a punto de (hacer algo); por (hacer algo)"
+    },
+    {
+      "sourceOrder": 387,
+      "hanzi": "篮球",
+      "pinyin": "lánqiú",
+      "meaningEs": "baloncesto",
+      "sourceMeaningEs": "baloncesto"
+    },
+    {
+      "sourceOrder": 388,
+      "hanzi": "累",
+      "pinyin": "lèi",
+      "meaningEs": "agotado; cansado; agotador",
+      "sourceMeaningEs": "agotado; cansado; agotador"
+    },
+    {
+      "sourceOrder": 389,
+      "hanzi": "离",
+      "pinyin": "lí",
+      "meaningEs": "lejos de; dejar; partir",
+      "sourceMeaningEs": "lejos de; dejar; partir"
+    },
+    {
+      "sourceOrder": 390,
+      "hanzi": "里面",
+      "pinyin": "lǐmiàn",
+      "meaningEs": "dentro; interior",
+      "sourceMeaningEs": "dentro; interior"
+    },
+    {
+      "sourceOrder": 391,
+      "hanzi": "楼",
+      "pinyin": "lóu",
+      "meaningEs": "edificio; planta",
+      "sourceMeaningEs": "edificio; planta"
+    },
+    {
+      "sourceOrder": 392,
+      "hanzi": "路",
+      "pinyin": "lù",
+      "meaningEs": "camino; vía; línea; senda",
+      "sourceMeaningEs": "camino; vía; línea; senda"
+    },
+    {
+      "sourceOrder": 393,
+      "hanzi": "路上",
+      "pinyin": "lùshang",
+      "meaningEs": "en el camino; de camino; en ruta",
+      "sourceMeaningEs": "en el camino; de camino; en ruta"
+    },
+    {
+      "sourceOrder": 394,
+      "hanzi": "旅游",
+      "pinyin": "lǚyóu",
+      "meaningEs": "gira; turismo",
+      "sourceMeaningEs": "gira; turismo"
+    },
+    {
+      "sourceOrder": 395,
+      "hanzi": "绿茶",
+      "pinyin": "lǜchá",
+      "meaningEs": "té verde",
+      "sourceMeaningEs": "té verde"
+    },
+    {
+      "sourceOrder": 396,
+      "hanzi": "绿色",
+      "pinyin": "lǜsè",
+      "meaningEs": "verde",
+      "sourceMeaningEs": "verde"
+    },
+    {
+      "sourceOrder": 397,
+      "hanzi": "慢",
+      "pinyin": "màn",
+      "meaningEs": "lento",
+      "sourceMeaningEs": "lento"
+    },
+    {
+      "sourceOrder": 398,
+      "hanzi": "没意思",
+      "pinyin": "méi yìsi",
+      "meaningEs": "aburrido; sin interés",
+      "sourceMeaningEs": "aburrido; sin interés"
+    },
+    {
+      "sourceOrder": 399,
+      "hanzi": "每",
+      "pinyin": "měi",
+      "meaningEs": "cada",
+      "sourceMeaningEs": "cada"
+    },
+    {
+      "sourceOrder": 400,
+      "hanzi": "门",
+      "pinyin": "mén",
+      "meaningEs": "puerta; portón; rama; palabra de medida para cursos",
+      "sourceMeaningEs": "puerta; portón; rama; palabra de medida para cursos"
+    },
+    {
+      "sourceOrder": 401,
+      "hanzi": "门口",
+      "pinyin": "ménkǒu",
+      "meaningEs": "vano de puerta; portón",
+      "sourceMeaningEs": "vano de puerta; portón"
+    },
+    {
+      "sourceOrder": 402,
+      "hanzi": "门票",
+      "pinyin": "ménpiào",
+      "meaningEs": "boleto (para teatro, cine, etc.)",
+      "sourceMeaningEs": "boleto (para teatro, cine, etc.)"
+    },
+    {
+      "sourceOrder": 403,
+      "hanzi": "面",
+      "pinyin": "miàn",
+      "meaningEs": "cara; lado; superficie; fideos; harina",
+      "sourceMeaningEs": "cara; lado; superficie; fideos; harina"
+    },
+    {
+      "sourceOrder": 404,
+      "hanzi": "名",
+      "pinyin": "míng",
+      "meaningEs": "nombre; famoso; palabra de medida para personas",
+      "sourceMeaningEs": "nombre; famoso; palabra de medida para personas"
+    },
+    {
+      "sourceOrder": 405,
+      "hanzi": "拿",
+      "pinyin": "ná",
+      "meaningEs": "sostener; tomar",
+      "sourceMeaningEs": "sostener; tomar"
+    },
+    {
+      "sourceOrder": 406,
+      "hanzi": "那么",
+      "pinyin": "nàme",
+      "meaningEs": "así; de esa manera; entonces",
+      "sourceMeaningEs": "así; de esa manera; a tal punto; (antes de un número) ... más o menos; unos...; entonces; en ese caso"
+    },
+    {
+      "sourceOrder": 407,
+      "hanzi": "那样",
+      "pinyin": "nàyàng",
+      "meaningEs": "esa clase; ese tipo",
+      "sourceMeaningEs": "esa clase; ese tipo"
+    },
+    {
+      "sourceOrder": 408,
+      "hanzi": "奶茶",
+      "pinyin": "nǎichá",
+      "meaningEs": "té con leche",
+      "sourceMeaningEs": "té con leche"
+    },
+    {
+      "sourceOrder": 409,
+      "hanzi": "奶奶",
+      "pinyin": "nǎinai",
+      "meaningEs": "abuelita; (informal) abuela paterna",
+      "sourceMeaningEs": "abuelita; (informal) abuela paterna"
+    },
+    {
+      "sourceOrder": 410,
+      "hanzi": "男孩儿",
+      "pinyin": "nánháir",
+      "meaningEs": "forma erhua de 男孩",
+      "sourceMeaningEs": "forma erhua de 男孩"
+    },
+    {
+      "sourceOrder": 411,
+      "hanzi": "鸟",
+      "pinyin": "niǎo",
+      "meaningEs": "pájaro",
+      "sourceMeaningEs": "pájaro"
+    },
+    {
+      "sourceOrder": 412,
+      "hanzi": "女孩儿",
+      "pinyin": "nǚháir",
+      "meaningEs": "forma erhua de 女孩",
+      "sourceMeaningEs": "forma erhua de 女孩"
+    },
+    {
+      "sourceOrder": 413,
+      "hanzi": "旁边",
+      "pinyin": "pángbiān",
+      "meaningEs": "al lado, junto a",
+      "sourceMeaningEs": "al lado, junto a"
+    },
+    {
+      "sourceOrder": 414,
+      "hanzi": "跑",
+      "pinyin": "pǎo",
+      "meaningEs": "correr; huir; escapar",
+      "sourceMeaningEs": "correr; huir; escapar"
+    },
+    {
+      "sourceOrder": 415,
+      "hanzi": "跑步",
+      "pinyin": "pǎobù",
+      "meaningEs": "correr; trotar",
+      "sourceMeaningEs": "correr; trotar"
+    },
+    {
+      "sourceOrder": 416,
+      "hanzi": "票",
+      "pinyin": "piào",
+      "meaningEs": "boleto; voto",
+      "sourceMeaningEs": "boleto; voto"
+    },
+    {
+      "sourceOrder": 417,
+      "hanzi": "妻子",
+      "pinyin": "qīzi",
+      "meaningEs": "esposa",
+      "sourceMeaningEs": "esposa"
+    },
+    {
+      "sourceOrder": 418,
+      "hanzi": "起来",
+      "pinyin": "qǐlái",
+      "meaningEs": "levantarse, ponerse de pie, surgir, empezar",
+      "sourceMeaningEs": "levantarse, ponerse de pie, surgir, empezar"
+    },
+    {
+      "sourceOrder": 419,
+      "hanzi": "前面",
+      "pinyin": "qiánmiàn",
+      "meaningEs": "delante; adelante; la parte de adelante",
+      "sourceMeaningEs": "delante; adelante; la parte de adelante"
+    },
+    {
+      "sourceOrder": 420,
+      "hanzi": "晴",
+      "pinyin": "qíng",
+      "meaningEs": "buen tiempo; claro; soleado",
+      "sourceMeaningEs": "buen tiempo; claro; soleado"
+    },
+    {
+      "sourceOrder": 421,
+      "hanzi": "球",
+      "pinyin": "qiú",
+      "meaningEs": "pelota; esfera; globo",
+      "sourceMeaningEs": "pelota; esfera; globo"
+    },
+    {
+      "sourceOrder": 422,
+      "hanzi": "让",
+      "pinyin": "ràng",
+      "meaningEs": "dejar; hacer; ceder",
+      "sourceMeaningEs": "dejar; hacer; ceder"
+    },
+    {
+      "sourceOrder": 423,
+      "hanzi": "肉",
+      "pinyin": "ròu",
+      "meaningEs": "carne; carne del cuerpo; pulpa; blando",
+      "sourceMeaningEs": "carne; carne del cuerpo; pulpa; blando"
+    },
+    {
+      "sourceOrder": 424,
+      "hanzi": "商场",
+      "pinyin": "shāngchǎng",
+      "meaningEs": "centro comercial",
+      "sourceMeaningEs": "centro comercial; galería comercial; tienda departamental; emporio; el mundo de los negocios"
+    },
+    {
+      "sourceOrder": 425,
+      "hanzi": "上来",
+      "pinyin": "shànglái",
+      "meaningEs": "subir; acercarse; complemento verbal que indica éxito",
+      "sourceMeaningEs": "subir; acercarse; complemento verbal que indica éxito"
+    },
+    {
+      "sourceOrder": 426,
+      "hanzi": "上面",
+      "pinyin": "shàngmiàn",
+      "meaningEs": "encima de; arriba mencionado",
+      "sourceMeaningEs": "encima de; arriba mencionado"
+    },
+    {
+      "sourceOrder": 427,
+      "hanzi": "上去",
+      "pinyin": "shàngqù",
+      "meaningEs": "subir",
+      "sourceMeaningEs": "subir"
+    },
+    {
+      "sourceOrder": 428,
+      "hanzi": "上网",
+      "pinyin": "shàngwǎng",
+      "meaningEs": "navegar por la red; conectarse",
+      "sourceMeaningEs": "navegar por la red; conectarse"
+    },
+    {
+      "sourceOrder": 429,
+      "hanzi": "身体",
+      "pinyin": "shēntǐ",
+      "meaningEs": "salud; cuerpo (humano)",
+      "sourceMeaningEs": "salud; cuerpo (humano)"
+    },
+    {
+      "sourceOrder": 430,
+      "hanzi": "生日",
+      "pinyin": "shēngrì",
+      "meaningEs": "cumpleaños",
+      "sourceMeaningEs": "cumpleaños"
+    },
+    {
+      "sourceOrder": 431,
+      "hanzi": "时",
+      "pinyin": "shí",
+      "meaningEs": "tiempo; cuando; mientras",
+      "sourceMeaningEs": "tiempo; cuando; mientras"
+    },
+    {
+      "sourceOrder": 432,
+      "hanzi": "事情",
+      "pinyin": "shìqing",
+      "meaningEs": "asunto; cuestión; cosa; negocio",
+      "sourceMeaningEs": "asunto; cuestión; cosa; negocio"
+    },
+    {
+      "sourceOrder": 433,
+      "hanzi": "手",
+      "pinyin": "shǒu",
+      "meaningEs": "mano; persona hábil",
+      "sourceMeaningEs": "mano; persona hábil"
+    },
+    {
+      "sourceOrder": 434,
+      "hanzi": "手表",
+      "pinyin": "shǒubiǎo",
+      "meaningEs": "reloj de pulsera",
+      "sourceMeaningEs": "reloj de pulsera"
+    },
+    {
+      "sourceOrder": 435,
+      "hanzi": "书包",
+      "pinyin": "shūbāo",
+      "meaningEs": "mochila escolar; cartera; bolso de libros",
+      "sourceMeaningEs": "mochila escolar; cartera; bolso de libros"
+    },
+    {
+      "sourceOrder": 436,
+      "hanzi": "舒服",
+      "pinyin": "shūfu",
+      "meaningEs": "cómodo; sentirse bien",
+      "sourceMeaningEs": "cómodo; sentirse bien"
+    },
+    {
+      "sourceOrder": 437,
+      "hanzi": "送",
+      "pinyin": "sòng",
+      "meaningEs": "entregar; regalar; despedir",
+      "sourceMeaningEs": "entregar; regalar; despedir"
+    },
+    {
+      "sourceOrder": 438,
+      "hanzi": "虽然",
+      "pinyin": "suīrán",
+      "meaningEs": "aunque; si bien",
+      "sourceMeaningEs": "aunque; si bien"
+    },
+    {
+      "sourceOrder": 439,
+      "hanzi": "所以",
+      "pinyin": "suǒyǐ",
+      "meaningEs": "así; por lo tanto; en consecuencia",
+      "sourceMeaningEs": "así; por lo tanto; en consecuencia"
+    },
+    {
+      "sourceOrder": 440,
+      "hanzi": "疼",
+      "pinyin": "téng",
+      "meaningEs": "dolor; doler; amar con ternura",
+      "sourceMeaningEs": "dolor; doler; amar con ternura"
+    },
+    {
+      "sourceOrder": 441,
+      "hanzi": "踢",
+      "pinyin": "tī",
+      "meaningEs": "patear; jugar",
+      "sourceMeaningEs": "patear; jugar"
+    },
+    {
+      "sourceOrder": 442,
+      "hanzi": "题",
+      "pinyin": "tí",
+      "meaningEs": "tema; pregunta; problema",
+      "sourceMeaningEs": "tema; pregunta; problema"
+    },
+    {
+      "sourceOrder": 443,
+      "hanzi": "条",
+      "pinyin": "tiáo",
+      "meaningEs": "clasificador para objetos largos y estrechos",
+      "sourceMeaningEs": "palabra de medida para cosas largas y estrechas; artículo; cláusula"
+    },
+    {
+      "sourceOrder": 444,
+      "hanzi": "跳舞",
+      "pinyin": "tiàowǔ",
+      "meaningEs": "bailar",
+      "sourceMeaningEs": "bailar"
+    },
+    {
+      "sourceOrder": 445,
+      "hanzi": "头",
+      "pinyin": "tóu",
+      "meaningEs": "cabeza; parte de arriba; extremo; jefe",
+      "sourceMeaningEs": "cabeza; parte de arriba; extremo; jefe"
+    },
+    {
+      "sourceOrder": 446,
+      "hanzi": "外国",
+      "pinyin": "wàiguó",
+      "meaningEs": "país extranjero",
+      "sourceMeaningEs": "país extranjero"
+    },
+    {
+      "sourceOrder": 447,
+      "hanzi": "外面",
+      "pinyin": "wàimiàn",
+      "meaningEs": "afuera; parte exterior",
+      "sourceMeaningEs": "afuera (también se pronuncia así en este sentido); superficie; exterior; apariencia externa"
+    },
+    {
+      "sourceOrder": 448,
+      "hanzi": "完",
+      "pinyin": "wán",
+      "meaningEs": "terminar; estar acabado",
+      "sourceMeaningEs": "terminar; estar acabado"
+    },
+    {
+      "sourceOrder": 449,
+      "hanzi": "万",
+      "pinyin": "wàn",
+      "meaningEs": "diez mil",
+      "sourceMeaningEs": "diez mil"
+    },
+    {
+      "sourceOrder": 450,
+      "hanzi": "往",
+      "pinyin": "wǎng",
+      "meaningEs": "hacia; en el pasado",
+      "sourceMeaningEs": "hacia; en el pasado"
+    },
+    {
+      "sourceOrder": 451,
+      "hanzi": "网上",
+      "pinyin": "wǎngshang",
+      "meaningEs": "en línea",
+      "sourceMeaningEs": "en línea"
+    },
+    {
+      "sourceOrder": 452,
+      "hanzi": "忘",
+      "pinyin": "wàng",
+      "meaningEs": "olvidar",
+      "sourceMeaningEs": "olvidar"
+    },
+    {
+      "sourceOrder": 453,
+      "hanzi": "位",
+      "pinyin": "wèi",
+      "meaningEs": "palabra de medida cortés para personas; posición; asiento",
+      "sourceMeaningEs": "palabra de medida cortés para personas; posición; asiento"
+    },
+    {
+      "sourceOrder": 454,
+      "hanzi": "为什么",
+      "pinyin": "wèi shénme",
+      "meaningEs": "¿por qué?; ¿por qué razón?",
+      "sourceMeaningEs": "¿por qué?; ¿por qué razón?"
+    },
+    {
+      "sourceOrder": 455,
+      "hanzi": "希望",
+      "pinyin": "xīwàng",
+      "meaningEs": "esperar; desear; anhelar",
+      "sourceMeaningEs": "esperar; desear; anhelar"
+    },
+    {
+      "sourceOrder": 456,
+      "hanzi": "洗",
+      "pinyin": "xǐ",
+      "meaningEs": "lavar; enjuagar",
+      "sourceMeaningEs": "lavar; enjuagar"
+    },
+    {
+      "sourceOrder": 457,
+      "hanzi": "洗手间",
+      "pinyin": "xǐshǒujiān",
+      "meaningEs": "baño; sanitario; aseo",
+      "sourceMeaningEs": "baño; sanitario; aseo"
+    },
+    {
+      "sourceOrder": 458,
+      "hanzi": "下来",
+      "pinyin": "xiàlái",
+      "meaningEs": "bajar o venir hacia aquí",
+      "sourceMeaningEs": "bajar; marcador de acción completada; tras un verbo de movimiento, indica movimiento hacia abajo y hacia no…"
+    },
+    {
+      "sourceOrder": 459,
+      "hanzi": "下面",
+      "pinyin": "xiàmiàn",
+      "meaningEs": "debajo; bajo; siguiente; lo siguiente; hervir fideos",
+      "sourceMeaningEs": "debajo; bajo; siguiente; lo siguiente; hervir fideos"
+    },
+    {
+      "sourceOrder": 460,
+      "hanzi": "下去",
+      "pinyin": "xiàqù",
+      "meaningEs": "bajar o alejarse de aquí",
+      "sourceMeaningEs": "bajar; descender; seguir; continuar; (de un criado) retirarse"
+    },
+    {
+      "sourceOrder": 461,
+      "hanzi": "小孩儿",
+      "pinyin": "xiǎoháir",
+      "meaningEs": "niño; chico (hablado, erhua)",
+      "sourceMeaningEs": "niño; chico (hablado, erhua)"
+    },
+    {
+      "sourceOrder": 462,
+      "hanzi": "小时候",
+      "pinyin": "xiǎoshíhou",
+      "meaningEs": "en la infancia",
+      "sourceMeaningEs": "en la infancia"
+    },
+    {
+      "sourceOrder": 463,
+      "hanzi": "笑",
+      "pinyin": "xiào",
+      "meaningEs": "reír; sonreír",
+      "sourceMeaningEs": "reír; sonreír"
+    },
+    {
+      "sourceOrder": 464,
+      "hanzi": "姓",
+      "pinyin": "xìng",
+      "meaningEs": "apellido; apellidarse",
+      "sourceMeaningEs": "apellido; apellidarse"
+    },
+    {
+      "sourceOrder": 465,
+      "hanzi": "姓名",
+      "pinyin": "xìngmíng",
+      "meaningEs": "nombre completo",
+      "sourceMeaningEs": "apellido y nombre; nombre completo"
+    },
+    {
+      "sourceOrder": 466,
+      "hanzi": "颜色",
+      "pinyin": "yánsè",
+      "meaningEs": "color",
+      "sourceMeaningEs": "color"
+    },
+    {
+      "sourceOrder": 467,
+      "hanzi": "眼睛",
+      "pinyin": "yǎnjing",
+      "meaningEs": "ojo",
+      "sourceMeaningEs": "ojo"
+    },
+    {
+      "sourceOrder": 468,
+      "hanzi": "药",
+      "pinyin": "yào",
+      "meaningEs": "medicina; producto químico",
+      "sourceMeaningEs": "medicina; producto químico"
+    },
+    {
+      "sourceOrder": 469,
+      "hanzi": "药店",
+      "pinyin": "yàodiàn",
+      "meaningEs": "farmacia; droguería",
+      "sourceMeaningEs": "farmacia; droguería"
+    },
+    {
+      "sourceOrder": 470,
+      "hanzi": "爷爷",
+      "pinyin": "yéye",
+      "meaningEs": "(informal) padre del padre; abuelo paterno",
+      "sourceMeaningEs": "(informal) padre del padre; abuelo paterno"
+    },
+    {
+      "sourceOrder": 471,
+      "hanzi": "一会儿",
+      "pinyin": "yíhuìr",
+      "meaningEs": "un rato; un momento",
+      "sourceMeaningEs": "un rato; un momento"
+    },
+    {
+      "sourceOrder": 472,
+      "hanzi": "已经",
+      "pinyin": "yǐjīng",
+      "meaningEs": "ya",
+      "sourceMeaningEs": "ya"
+    },
+    {
+      "sourceOrder": 473,
+      "hanzi": "一起",
+      "pinyin": "yìqǐ",
+      "meaningEs": "juntos; en el mismo lugar",
+      "sourceMeaningEs": "juntos; en el mismo lugar"
+    },
+    {
+      "sourceOrder": 474,
+      "hanzi": "意思",
+      "pinyin": "yìsi",
+      "meaningEs": "significado; idea; opinión",
+      "sourceMeaningEs": "significado; idea; opinión"
+    },
+    {
+      "sourceOrder": 475,
+      "hanzi": "阴",
+      "pinyin": "yīn",
+      "meaningEs": "nublado (tiempo); yin; sombra; negativo",
+      "sourceMeaningEs": "nublado (tiempo); yin; sombra; negativo"
+    },
+    {
+      "sourceOrder": 476,
+      "hanzi": "因为",
+      "pinyin": "yīnwèi",
+      "meaningEs": "porque",
+      "sourceMeaningEs": "porque"
+    },
+    {
+      "sourceOrder": 477,
+      "hanzi": "游",
+      "pinyin": "yóu",
+      "meaningEs": "recorrido; nadar; viajar; deambular",
+      "sourceMeaningEs": "recorrido; nadar; viajar; deambular"
+    },
+    {
+      "sourceOrder": 478,
+      "hanzi": "游泳",
+      "pinyin": "yóuyǒng",
+      "meaningEs": "nadar",
+      "sourceMeaningEs": "nadar"
+    },
+    {
+      "sourceOrder": 479,
+      "hanzi": "有意思",
+      "pinyin": "yǒu yìsi",
+      "meaningEs": "interesante; significativo; ameno; divertido",
+      "sourceMeaningEs": "interesante; significativo; ameno; divertido"
+    },
+    {
+      "sourceOrder": 480,
+      "hanzi": "有时",
+      "pinyin": "yǒushí",
+      "meaningEs": "a veces; de vez en cuando",
+      "sourceMeaningEs": "a veces; de vez en cuando"
+    },
+    {
+      "sourceOrder": 481,
+      "hanzi": "右",
+      "pinyin": "yòu",
+      "meaningEs": "derecha",
+      "sourceMeaningEs": "derecha"
+    },
+    {
+      "sourceOrder": 482,
+      "hanzi": "右边",
+      "pinyin": "yòubian",
+      "meaningEs": "el lado derecho (en contraposición al izquierdo)",
+      "sourceMeaningEs": "el lado derecho (en contraposición al izquierdo)"
+    },
+    {
+      "sourceOrder": 483,
+      "hanzi": "鱼",
+      "pinyin": "yú",
+      "meaningEs": "pez",
+      "sourceMeaningEs": "pez"
+    },
+    {
+      "sourceOrder": 484,
+      "hanzi": "远",
+      "pinyin": "yuǎn",
+      "meaningEs": "lejos",
+      "sourceMeaningEs": "lejos"
+    },
+    {
+      "sourceOrder": 485,
+      "hanzi": "运动",
+      "pinyin": "yùndòng",
+      "meaningEs": "ejercicio (físico); movimiento; deportes; campaña",
+      "sourceMeaningEs": "ejercicio (físico); movimiento; deportes; campaña"
+    },
+    {
+      "sourceOrder": 486,
+      "hanzi": "站",
+      "pinyin": "zhàn",
+      "meaningEs": "estar de pie; estación; parada",
+      "sourceMeaningEs": "estar de pie; estación; parada"
+    },
+    {
+      "sourceOrder": 487,
+      "hanzi": "丈夫",
+      "pinyin": "zhàngfu",
+      "meaningEs": "marido; hombre",
+      "sourceMeaningEs": "marido; hombre"
+    },
+    {
+      "sourceOrder": 488,
+      "hanzi": "这么",
+      "pinyin": "zhème",
+      "meaningEs": "tanto; tanto así; ¿cuánto?; de esta manera; así",
+      "sourceMeaningEs": "tanto; tanto así; ¿cuánto?; de esta manera; así"
+    },
+    {
+      "sourceOrder": 489,
+      "hanzi": "这样",
+      "pinyin": "zhèyàng",
+      "meaningEs": "así; de esta manera; de este tipo",
+      "sourceMeaningEs": "de esta manera; así; tan; (antes de un sustantivo) este tipo de; tal"
+    },
+    {
+      "sourceOrder": 490,
+      "hanzi": "着",
+      "pinyin": "zhe",
+      "meaningEs": "acción en curso (sufijo verbal); estado continuo",
+      "sourceMeaningEs": "acción en curso (sufijo verbal); estado continuo"
+    },
+    {
+      "sourceOrder": 491,
+      "hanzi": "正",
+      "pinyin": "zhèng",
+      "meaningEs": "erguido; exactamente; correcto; en medio de",
+      "sourceMeaningEs": "erguido; exactamente; correcto; en medio de"
+    },
+    {
+      "sourceOrder": 492,
+      "hanzi": "周",
+      "pinyin": "zhōu",
+      "meaningEs": "semana; alrededor",
+      "sourceMeaningEs": "semana; alrededor"
+    },
+    {
+      "sourceOrder": 493,
+      "hanzi": "准备",
+      "pinyin": "zhǔnbèi",
+      "meaningEs": "preparar; alistarse",
+      "sourceMeaningEs": "preparar; alistarse"
+    },
+    {
+      "sourceOrder": 494,
+      "hanzi": "自己",
+      "pinyin": "zìjǐ",
+      "meaningEs": "uno mismo; sí mismo",
+      "sourceMeaningEs": "uno mismo; sí mismo"
+    },
+    {
+      "sourceOrder": 495,
+      "hanzi": "走",
+      "pinyin": "zǒu",
+      "meaningEs": "caminar; irse",
+      "sourceMeaningEs": "caminar; irse"
+    },
+    {
+      "sourceOrder": 496,
+      "hanzi": "走路",
+      "pinyin": "zǒulù",
+      "meaningEs": "caminar; ir a pie",
+      "sourceMeaningEs": "caminar; ir a pie; irse; partir; (informal) largarse; pirarse; (de alguien que es despedido o renuncia) dej…"
+    },
+    {
+      "sourceOrder": 497,
+      "hanzi": "足球",
+      "pinyin": "zúqiú",
+      "meaningEs": "fútbol; fútbol; una pelota de fútbol; un balón",
+      "sourceMeaningEs": "fútbol; fútbol; una pelota de fútbol; un balón"
+    },
+    {
+      "sourceOrder": 498,
+      "hanzi": "最",
+      "pinyin": "zuì",
+      "meaningEs": "el más; superlativo",
+      "sourceMeaningEs": "el más; superlativo"
+    },
+    {
+      "sourceOrder": 499,
+      "hanzi": "左",
+      "pinyin": "zuǒ",
+      "meaningEs": "izquierda",
+      "sourceMeaningEs": "izquierda"
+    },
+    {
+      "sourceOrder": 500,
+      "hanzi": "左边",
+      "pinyin": "zuǒbian",
+      "meaningEs": "el lado izquierdo; la izquierda",
+      "sourceMeaningEs": "el lado izquierdo; la izquierda"
+    }
+  ]
+}
