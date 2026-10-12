@@ -7,7 +7,7 @@ import { redirect } from "@/i18n/navigation";
 import { currentUserId, getLesson } from "@/lib/lessons";
 import { getSession } from "@/lib/sessions";
 
-export const metadata: Metadata = { title: "Hanzi" };
+export const metadata: Metadata = { title: "Renshi" };
 
 type Params = PageProps<"/[locale]/present/session/[sessionId]">["params"];
 

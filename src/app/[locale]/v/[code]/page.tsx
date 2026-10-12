@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { StudentVote } from "@/components/vote/student-vote";
 
-export const metadata: Metadata = { title: "Hanzi" };
+export const metadata: Metadata = { title: "Renshi" };
 
 type Params = PageProps<"/[locale]/v/[code]">["params"];
 

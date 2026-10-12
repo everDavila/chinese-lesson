@@ -5,7 +5,7 @@ import { Presentation } from "@/components/present/presentation";
 import { getWordPreview } from "@/lib/lessons";
 import { requireAdmin } from "@/lib/guard";
 
-export const metadata: Metadata = { title: "Hanzi" };
+export const metadata: Metadata = { title: "Renshi" };
 
 type Params = PageProps<"/[locale]/admin/words/[hanzi]/preview">["params"];
 

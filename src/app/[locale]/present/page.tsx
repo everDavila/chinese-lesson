@@ -3,7 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Presentation } from "@/components/present/presentation";
 import { getDemoLesson } from "@/lib/demo-lesson";
 
-export const metadata: Metadata = { title: "Hanzi" };
+export const metadata: Metadata = { title: "Renshi" };
 
 // Modo presentación de la demo pública, sin login. Sin navegación: la
 // lección entera llega precargada, así que sigue funcionando sin conexión.

@@ -1,13 +1,13 @@
 {
   "Common": {
-    "appName": "汉字",
+    "appName": "认识",
     "language": "界面语言",
     "signOut": "退出",
     "theme": "切换主题",
     "hskNote": "依据新版 HSK 3.0（2025），共九级。"
   },
   "Home": {
-    "demoBadge": "汉字 · 演示",
+    "demoBadge": "认识 · 演示",
     "myLessons": "我的课程",
     "noLessons": "你还没有课程。",
     "createDemo": "创建演示课程",
@@ -109,7 +109,7 @@
     "howToAdd": "添加方式",
     "search": "搜索",
     "paste": "粘贴列表",
-    "searchPlaceholder": "汉字、拼音（renshi）或词义",
+    "searchPlaceholder": "汉字、拼音（pengyou）或词义",
     "level": "等级",
     "all": "全部",
     "clearFilter": "清除筛选",

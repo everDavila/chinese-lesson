@@ -38,7 +38,7 @@ export function ManageShell({
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-2 sm:px-6">
         <nav className="flex items-center gap-1 text-sm">
           <Link href="/collections" className="mr-2 font-hanzi text-xl">
-            汉字
+            认识
           </Link>
           <Link href="/collections" className="rounded-md px-2 py-1 hover:bg-muted">
             {t("nav.collections")}

@@ -29,7 +29,7 @@ const notoSerifSC = Noto_Serif_SC({
 });
 
 export const metadata: Metadata = {
-  title: "Hanzi",
+  title: "Renshi",
   description: "Vocabulario chino en contexto para enseñar en clase.",
   other: { google: "notranslate" },
 };

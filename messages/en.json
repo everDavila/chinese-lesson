@@ -1,13 +1,13 @@
 {
   "Common": {
-    "appName": "Hanzi",
+    "appName": "Renshi",
     "language": "Interface language",
     "signOut": "Sign out",
     "theme": "Toggle theme",
     "hskNote": "Based on the new HSK 3.0 standard (2025), which has 9 levels."
   },
   "Home": {
-    "demoBadge": "Hanzi · demo",
+    "demoBadge": "Renshi · demo",
     "myLessons": "My lessons",
     "noLessons": "You don't have any lessons yet.",
     "createDemo": "Create the demo lesson",
@@ -109,7 +109,7 @@
     "howToAdd": "How to add",
     "search": "Search",
     "paste": "Paste list",
-    "searchPlaceholder": "Hanzi, pinyin (renshi) or meaning",
+    "searchPlaceholder": "Hanzi, pinyin (pengyou) or meaning",
     "level": "Level",
     "all": "All",
     "clearFilter": "Clear filter",

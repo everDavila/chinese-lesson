@@ -7,7 +7,7 @@ import { LoginForm } from "./login-form";
 export async function generateMetadata({ params }: PageProps<"/[locale]/login">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Login" });
-  return { title: `${t("title")} · Hanzi` };
+  return { title: `${t("title")} · Renshi` };
 }
 
 export default async function LoginPage({ params }: PageProps<"/[locale]/login">) {
@@ -18,7 +18,7 @@ export default async function LoginPage({ params }: PageProps<"/[locale]/login">
     <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-6 px-6 py-16">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="font-hanzi text-4xl">汉字</p>
+          <p className="font-hanzi text-4xl">认识</p>
           <h1 className="mt-2 text-2xl font-semibold">{t("title")}</h1>
           <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
         </div>

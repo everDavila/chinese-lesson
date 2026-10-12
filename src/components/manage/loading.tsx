@@ -8,7 +8,7 @@ export function ManageLoading() {
     <div className="flex flex-1 flex-col" aria-busy="true">
       <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-2 sm:px-6">
         <div className="flex items-center gap-3">
-          <span className="font-hanzi text-xl text-muted-foreground">汉字</span>
+          <span className="font-hanzi text-xl text-muted-foreground">认识</span>
           <span className={`${bar} h-4 w-28`} />
         </div>
         <span className={`${bar} h-9 w-24`} />

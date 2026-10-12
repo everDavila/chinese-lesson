@@ -62,7 +62,7 @@ export function StudentVote({ code }: { code: string }) {
   return (
     <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-6">
       <header className="flex items-center justify-between">
-        <span className="font-hanzi text-2xl">汉字</span>
+        <span className="font-hanzi text-2xl">认识</span>
         <div className="flex items-center gap-3">
           <span className="font-mono text-sm tracking-widest text-muted-foreground">{code}</span>
           <LanguageSwitcher />
@@ -142,7 +142,7 @@ export function CodeForm() {
   return (
     <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-10">
       <header className="flex items-center justify-between">
-        <span className="font-hanzi text-2xl">汉字</span>
+        <span className="font-hanzi text-2xl">认识</span>
         <LanguageSwitcher />
       </header>
       <h1 className="text-2xl font-semibold">{t("title")}</h1>
