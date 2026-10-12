@@ -12,11 +12,12 @@
 import { chromium } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 
-const name = process.argv[2];
+// El nombre puede ir antes o después de --dev (test:sesion:dev lo pone primero).
+const name = process.argv.slice(2).find((a) => !a.startsWith("--"));
 const dev = process.argv.includes("--dev");
 const dir = dev ? "tests/.auth-dev" : "tests/.auth";
 if (!["admin", "laoshi"].includes(name)) {
-  console.error("Uso: npm run test:sesion -- admin   (o laoshi)");
+  console.error("Uso: npm run test:sesion admin   (o laoshi; base de desarrollo: npm run test:sesion:dev admin)");
   process.exit(1);
 }
 const base = `http://localhost:${process.env.PLAYWRIGHT_PORT ?? (dev ? "3001" : "3000")}`;
