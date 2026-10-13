@@ -1,8 +1,32 @@
 # Frases pendientes de las plantillas por tema
 
-> Orden de trabajo para curación. 85 palabras de las 10 plantillas de
-> vocabulario por contexto siguen sin frases y en clase salen con la consigna
-> *"Inventen una frase con X"*.
+> Cobertura inicial de las frases pendientes de las plantillas por tema.
+> Esta rama completa una frase por cada uno de los 85 sentidos pendientes.
+> Ya se cargaron en `hanzi-dev`; todavía no se aplicaron en producción.
+> Todo sigue como `unreviewed`, pendiente de revisión humana.
+
+## Resultado (2026-10-13)
+
+- **85 frases originales:** HSK 4: 43 · HSK 5: 37 · HSK 6: 5.
+- La cantidad de una frase por palabra es solo para esta tarea. No se reduce
+  el contenido existente ni se cambia el máximo de tres del importador.
+- Son 85 sentidos distintos y 86 apariciones en las plantillas: `政府` está
+  tanto en Medio ambiente como en Sociedad y cultura.
+- Chino, pinyin y traducciones al español e inglés completos; `origin: ai`,
+  `source: codex-editorial`, `license: null`. La procedencia detallada permanece
+  en los JSON; la tabla `sentences` guarda `origin`, sin columna `source`.
+- Validadas con el temario oficial completo. Identificadores y campos léxicos
+  originales conservados. La validación automática no resuelve acepciones.
+- En `hanzi-dev`: 2654 → 2739 frases. Las 85 nuevas se verificaron campo por
+  campo; cero frases anteriores modificadas o eliminadas. Repetir los tres
+  lotes en simulación propone cero inserciones.
+- Respaldo previo, en la carpeta principal y fuera de Git:
+  `backups/supabase-2026-10-13T2101.json`.
+- **Pendiente:** aplicación en producción, contraste sistemático con BCC,
+  revisión humana nativa y prueba en clase. La glosa provisional de `成` no
+  describe su categoría `量`: el ejemplo usa `三成` (30 %); se dejó una nota
+  editorial en el JSON sin alterar el catálogo. Referencia de ese uso:
+  [漢典: 成](https://www.zdic.net/hans/成).
 
 ## De dónde sale la lista
 
@@ -77,17 +101,25 @@ curación HSK 1–3:
 ## Cómo comprobarlo antes de tocar la base
 
 ```bash
-npm run validate:content                                   # nivel del vocabulario
-npm run db:sync-hsk-examples contenido/temas-frases-hsk4.json   # simulación
+npm run validate:content -- contenido/temas-frases-hsk4.json
+npm run validate:content -- contenido/temas-frases-hsk5.json
+npm run validate:content -- contenido/temas-frases-hsk6.json
+node --env-file=.env.dev.local scripts/sync-hsk-examples.mjs contenido/temas-frases-hsk4.json # simulación en dev
 ```
 
-El importador resuelve cada sentido por `sourceId` + `sourceOrder`, solo actúa
+El importador resuelve cada sentido por `sourceId` + `sourceOrder` y comprueba
+hanzi y pinyin. Consulta solo los órdenes del lote en grupos de 100 para evitar
+el límite de respuestas de Supabase. Los UUID de dev y producción pueden ser
+distintos; no se usa `senseId` como identificador entre entornos. Solo actúa
 sobre sentidos `unreviewed`, no repite frases que ya existan y no pasa de tres
 por palabra. Solo para esta tarea se prepara una frase por palabra; el máximo del
 importador no cambia. Con `--apply` inserta.
 
 ```bash
-npm run db:sync-hsk-examples contenido/temas-frases-hsk4.json --apply
+node --env-file=.env.dev.local scripts/sync-hsk-examples.mjs contenido/temas-frases-hsk4.json --apply
 ```
 
-Probar en `hanzi-dev` antes de producción, con respaldo (`npm run db:backup`).
+Repetir para HSK 5 y 6. Probar en `hanzi-dev` antes de producción, con respaldo
+previo de la base correspondiente. Para dev:
+`node --env-file=.env.dev.local scripts/backup-db.mjs`.
+`npm run db:backup` usa `.env.local` (producción).

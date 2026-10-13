@@ -418,3 +418,43 @@ propias de la docente (拜拜); temas de Cline (rama aparte, toca el catálogo);
 P0 "sin conexión" en la votación y P1 `lang="zh-Hans"` de la auditoría de
 Cline; avisar a la profesora del dominio nuevo; borrar los worktrees ya unidos
 (`-hsk`, `-votacion`, `-busqueda`, `-renshi`); matar el Next huérfano del 3001.
+
+
+## 2026-10-13 — Una frase por sentido pendiente de las plantillas temáticas
+
+Ever redujo el alcance de esta tarea de tres a dos y finalmente a una frase
+por palabra para completar primero la cobertura; no es una nueva política
+general. En la rama `contenido-frases-temas` se completaron los JSON
+`contenido/temas-frases-hsk4.json`, `temas-frases-hsk5.json` y
+`temas-frases-hsk6.json`: 43 + 37 + 5 = 85 frases originales con pinyin,
+español e inglés, procedencia `ai` / `codex-editorial`, sin licencia externa.
+Los identificadores y campos léxicos originales se conservaron. Las 85 palabras
+cubren 86 apariciones en plantillas porque `政府` se repite en dos temas.
+
+Se simplificó el vocabulario que superaba el nivel de la entrada. `成` se usó
+como clasificador de décimas (`三成`, 30 %), según la categoría oficial `量`;
+su glosa provisional enumera otras acepciones y quedó señalada para revisión
+separada. `链接` se usó como verbo, según `动`. Todos los ejemplos permanecen
+`unreviewed`; el agente no aprueba contenido como revisión humana.
+
+La comprobación obligó a corregir dos problemas de las herramientas:
+`scripts/validate-content.mjs` solo incorporaba los niveles oficiales 1–3 y
+mezclaba los superiores con una tabla provisional; ahora usa el temario
+completo y su banda 7–9, sin heredar niveles provisionales de HSK 3.0.
+`scripts/sync-hsk-examples.mjs` leía intervalos de órdenes que superaban las
+1000 filas máximas de Supabase: HSK 5 aparentaba no tener `数据` y HSK 6
+aparentaba no tener `生态`. Ahora consulta los órdenes exactos en grupos de
+100 y comprueba hanzi y pinyin. Los 85 UUID de dev difieren de los de
+producción; la identidad entre bases se conserva por fuente, orden y lectura.
+
+Carga en `hanzi-dev` tras el respaldo completo de la carpeta principal
+`backups/supabase-2026-10-13T2101.json` (ignorado por Git): 2654 → 2739
+frases. Se verificaron las 85 nuevas campo por campo y se compararon todas las
+anteriores con el respaldo: ninguna modificada ni eliminada. La segunda
+simulación de los tres lotes devolvió cero inserciones. Pasaron las seis
+pruebas focalizadas de `tests/scripts/theme-content.test.mjs`, las tres
+validaciones por nivel, sintaxis de los scripts y ESLint.
+
+**No probado / pendiente:** contraste sistemático con BCC, revisión humana
+nativa, recorrido visual y uso en una clase real. No se aplicó contenido en
+producción ni se desplegó o subió `master`. El trabajo se conserva en su rama.

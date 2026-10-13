@@ -16,8 +16,11 @@ const levels = JSON.parse(readFileSync("data/hsk-levels.json", "utf8"));
 if (hskVersion === "3.0") {
   // El catálogo vigente es el temario oficial publicado en 2025 (efectivo
   // desde 2026), no la tabla provisional GF 0025-2021 de data/hsk-levels.json.
-  for (const level of [1, 2, 3]) {
-    const catalog = JSON.parse(readFileSync(`contenido/hsk3-level${level}.json`, "utf8"));
+  // No mezclar niveles de la tabla provisional con el temario vigente.
+  for (const entry of Object.values(levels)) delete entry.n;
+  for (const label of [1, 2, 3, 4, 5, 6, "7-9"]) {
+    const level = label === "7-9" ? 7 : label;
+    const catalog = JSON.parse(readFileSync(`contenido/hsk3-level${label}.json`, "utf8"));
     for (const word of catalog.words) {
       const current = levels[word.hanzi]?.n;
       levels[word.hanzi] = { ...(levels[word.hanzi] ?? {}), n: current ? Math.min(current, level) : level };

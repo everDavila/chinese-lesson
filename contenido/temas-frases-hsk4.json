@@ -4,7 +4,7 @@
     "level": 4,
     "sourceId": "cti-hsk3-2026",
     "status": "unreviewed",
-    "task": "rellenar sentences (1 por palabra, solo para esta tarea) y validar",
+    "task": "una frase por palabra completada para esta tarea; pendiente de revisión humana",
     "generatedAt": "2026-10-13T20:30:00.000Z",
     "requestedPerSense": 1,
     "why": "Palabras de las 10 plantillas de vocabulario por contexto que se colaron de nivel 4+ cuando el seed las eligio por tema. La curacion HSK 1-3 ya cubrio su nivel; estas quedaron fuera y hoy en clase salen con la consigna \"Inventen una frase con X\".",
@@ -42,7 +42,13 @@
       "npm run validate:content",
       "node --env-file=.env.local scripts/sync-hsk-examples.mjs contenido/temas-frases-hsk4.json   (simulacion, no escribe)",
       "... el mismo comando con --apply para insertar"
-    ]
+    ],
+    "draftedAt": "2026-10-13",
+    "editorialReview": {
+      "agent": "Codex",
+      "humanNativeReviewRequired": true,
+      "scope": "sentido objetivo, categoría, chino, pinyin y traducciones; validación automática de vocabulario por nivel"
+    }
   },
   "examples": [
     {
@@ -55,7 +61,17 @@
         "Medio ambiente"
       ],
       "senseId": "0df8d1c4-3ab2-4378-b346-1ef225a60fe7",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们应该保护环境。",
+          "pinyin": "Wǒmen yīnggāi bǎohù huánjìng.",
+          "es": "Debemos proteger el medio ambiente.",
+          "en": "We should protect the environment.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1057,
@@ -67,7 +83,17 @@
         "Trabajo"
       ],
       "senseId": "a2b9f31f-c47e-4859-bcf0-a09dada7cb79",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "你在公司的哪个部门工作？",
+          "pinyin": "Nǐ zài gōngsī de nǎ ge bùmén gōngzuò?",
+          "es": "¿En qué departamento de la empresa trabajas?",
+          "en": "Which department of the company do you work in?",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1155,
@@ -79,7 +105,17 @@
         "Medio ambiente"
       ],
       "senseId": "a18c489a-c890-4dd3-bef0-62d0c5cfcdf9",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "地球是我们共同的家。",
+          "pinyin": "Dìqiú shì wǒmen gòngtóng de jiā.",
+          "es": "La Tierra es nuestro hogar compartido.",
+          "en": "Earth is our shared home.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1171,
@@ -91,7 +127,17 @@
         "Salud y cuerpo"
       ],
       "senseId": "27ebed91-6b6b-4350-9138-b0359d7aa7e8",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我吃得太多，肚子有点疼。",
+          "pinyin": "Wǒ chī de tài duō, dùzi yǒudiǎn téng.",
+          "es": "Comí demasiado y me duele un poco el estómago.",
+          "en": "I ate too much, and my stomach hurts a little.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1188,
@@ -103,7 +149,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "57a53e4d-a357-496b-ae89-76a08fb830d7",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们都应该了解法律。",
+          "pinyin": "Wǒmen dōu yīnggāi liǎojiě fǎlǜ.",
+          "es": "Todos debemos conocer la ley.",
+          "en": "We should all understand the law.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1215,
@@ -115,7 +171,17 @@
         "Trabajo"
       ],
       "senseId": "199fa37c-b8c7-4865-b58b-5d74300f1317",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这次会议由我负责。",
+          "pinyin": "Zhè cì huìyì yóu wǒ fùzé.",
+          "es": "Yo estoy a cargo de esta reunión.",
+          "en": "I am in charge of this meeting.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1251,
@@ -127,7 +193,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "c8a7eec2-24d4-4586-a007-ba5acf86354c",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "他每天练功夫。",
+          "pinyin": "Tā měitiān liàn gōngfu.",
+          "es": "Él practica kung-fu todos los días.",
+          "en": "He practices kung fu every day.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1257,
@@ -139,7 +215,17 @@
         "Trabajo"
       ],
       "senseId": "f14611bb-fd1d-487e-83fa-2c6be1e4a346",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "公司每个月十号发工资。",
+          "pinyin": "Gōngsī měi ge yuè shí hào fā gōngzī.",
+          "es": "La empresa paga los sueldos el día diez de cada mes.",
+          "en": "The company pays salaries on the tenth of each month.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1280,
@@ -151,7 +237,17 @@
         "Medio ambiente"
       ],
       "senseId": "aa37b8be-d9dc-49f9-9814-72995ae676be",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这次国际会议讨论环境问题。",
+          "pinyin": "Zhè cì guójì huìyì tǎolùn huánjìng wèntí.",
+          "es": "En esta reunión internacional se debaten problemas ambientales.",
+          "en": "Environmental issues are discussed at this international meeting.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1334,
@@ -163,7 +259,17 @@
         "Trabajo"
       ],
       "senseId": "d7d4bbde-d199-4265-b8e1-d660b5f6edb2",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "今天工作不多，不用加班。",
+          "pinyin": "Jīntiān gōngzuò bù duō, bú yòng jiābān.",
+          "es": "Hoy hay poco trabajo; no hace falta trabajar horas extra.",
+          "en": "There is not much work today, so there is no need to work overtime.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1351,
@@ -175,7 +281,17 @@
         "Medio ambiente"
       ],
       "senseId": "f563a958-c224-44ce-9d43-f7f84db31e7c",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们要减少垃圾。",
+          "pinyin": "Wǒmen yào jiǎnshǎo lājī.",
+          "es": "Tenemos que reducir la basura.",
+          "en": "We need to reduce waste.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1396,
@@ -187,7 +303,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "60ab54b8-ae6d-494d-82c8-498bf64ffa76",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "旅游对这里的经济很重要。",
+          "pinyin": "Lǚyóu duì zhèlǐ de jīngjì hěn zhòngyào.",
+          "es": "El turismo es muy importante para la economía local.",
+          "en": "Tourism is very important to the local economy.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1397,
@@ -199,7 +325,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "251b27e6-4613-4f8e-9e51-165301c1ed24",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这是我第一次看京剧。",
+          "pinyin": "Zhè shì wǒ dì yī cì kàn jīngjù.",
+          "es": "Es la primera vez que veo ópera de Pekín.",
+          "en": "This is my first time watching Peking opera.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1399,
@@ -211,7 +347,17 @@
         "Trabajo"
       ],
       "senseId": "aa11de35-1a7a-4eb4-8417-13e681897590",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "她有三年的教学经验。",
+          "pinyin": "Tā yǒu sān nián de jiàoxué jīngyàn.",
+          "es": "Ella tiene tres años de experiencia docente.",
+          "en": "She has three years of teaching experience.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1425,
@@ -223,7 +369,17 @@
         "Tecnología"
       ],
       "senseId": "8e8db6ca-97df-436c-bb08-d3609297ee77",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "科技让我们的生活更方便。",
+          "pinyin": "Kējì ràng wǒmen de shēnghuó gèng fāngbiàn.",
+          "es": "La ciencia y la tecnología nos facilitan la vida.",
+          "en": "Science and technology make our lives more convenient.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1428,
@@ -235,7 +391,17 @@
         "Salud y cuerpo"
       ],
       "senseId": "f6c611bd-d848-4180-a5d2-bfca22c14a9e",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "他感冒了，一直咳嗽。",
+          "pinyin": "Tā gǎnmào le, yìzhí késou.",
+          "es": "Él está resfriado y no para de toser.",
+          "en": "He has a cold and keeps coughing.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1437,
@@ -247,7 +413,17 @@
         "Medio ambiente"
       ],
       "senseId": "e760898c-f8b6-4fd8-8681-cb1da0e5528c",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "山里的空气很好。",
+          "pinyin": "Shān lǐ de kōngqì hěn hǎo.",
+          "es": "El aire de la montaña es muy agradable.",
+          "en": "The mountain air is very pleasant.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1448,
@@ -259,7 +435,17 @@
         "Medio ambiente"
       ],
       "senseId": "1b0e2c1b-843b-4102-852d-a3562e614a53",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "请不要把垃圾扔在地上。",
+          "pinyin": "Qǐng bú yào bǎ lājī rēng zài dìshang.",
+          "es": "Por favor, no tires basura al suelo.",
+          "en": "Please do not throw trash on the ground.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1490,
@@ -271,7 +457,17 @@
         "Viajes"
       ],
       "senseId": "556232e8-7a28-4138-bae6-892e1452ae26",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们计划下个月去中国旅行。",
+          "pinyin": "Wǒmen jìhuà xià ge yuè qù Zhōngguó lǚxíng.",
+          "es": "Planeamos viajar a China el próximo mes.",
+          "en": "We plan to travel to China next month.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1507,
@@ -283,7 +479,17 @@
         "Tecnología"
       ],
       "senseId": "55743d08-57a5-4d9e-9db9-f85a4c7169a9",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我忘了电脑的密码。",
+          "pinyin": "Wǒ wàng le diànnǎo de mìmǎ.",
+          "es": "Olvidé la contraseña de la computadora.",
+          "en": "I forgot the computer password.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1510,
@@ -295,7 +501,17 @@
         "Trabajo"
       ],
       "senseId": "35e94d87-9a73-45d8-80f2-c9ff8a31dde0",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "明天我要去一家公司面试。",
+          "pinyin": "Míngtiān wǒ yào qù yì jiā gōngsī miànshì.",
+          "es": "Mañana voy a una empresa para una entrevista de trabajo.",
+          "en": "Tomorrow I am going to a company for a job interview.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1512,
@@ -307,7 +523,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "414ee37f-d54a-43fd-aa63-d313134abcbc",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们班有来自不同民族的学生。",
+          "pinyin": "Wǒmen bān yǒu láizì bùtóng mínzú de xuésheng.",
+          "es": "En nuestra clase hay estudiantes de distintos grupos étnicos.",
+          "en": "Our class has students from different ethnic groups.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1533,
@@ -319,7 +545,17 @@
         "Trabajo"
       ],
       "senseId": "1d8ffb60-9dac-40c5-8482-a79a31bf7cfc",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "她的工作能力很强。",
+          "pinyin": "Tā de gōngzuò nénglì hěn qiáng.",
+          "es": "Ella es muy competente en su trabajo.",
+          "en": "She is very capable at her job.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1537,
@@ -331,7 +567,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "db51c22f-6a20-4ba4-b5f1-43cd304bc656",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "爷爷奶奶住在农村。",
+          "pinyin": "Yéye nǎinai zhù zài nóngcūn.",
+          "es": "Mis abuelos viven en el campo.",
+          "en": "My grandparents live in the countryside.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1571,
@@ -343,7 +589,17 @@
         "Medio ambiente"
       ],
       "senseId": "bea7034d-4e58-40d9-8206-d94ef7dd1af8",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这里的气候很适合种茶。",
+          "pinyin": "Zhèlǐ de qìhòu hěn shìhé zhòng chá.",
+          "es": "El clima de aquí es muy adecuado para cultivar té.",
+          "en": "The climate here is well suited to growing tea.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1576,
@@ -355,7 +611,17 @@
         "Viajes"
       ],
       "senseId": "9c1063fe-2263-4a83-b223-049c528b3f92",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "去旅行前，我要先申请签证。",
+          "pinyin": "Qù lǚxíng qián, wǒ yào xiān shēnqǐng qiānzhèng.",
+          "es": "Antes de viajar, tengo que solicitar una visa.",
+          "en": "Before traveling, I need to apply for a visa.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1601,
@@ -367,7 +633,17 @@
         "Medio ambiente"
       ],
       "senseId": "955ef3a6-8867-40ae-9369-89a68e9207b7",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "全球很多城市都在减少垃圾。",
+          "pinyin": "Quánqiú hěn duō chéngshì dōu zài jiǎnshǎo lājī.",
+          "es": "Muchas ciudades del mundo están reduciendo la basura.",
+          "en": "Many cities around the world are reducing waste.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1614,
@@ -379,7 +655,17 @@
         "Trabajo"
       ],
       "senseId": "15e6ef54-110a-4dd2-989d-3d21b0081591",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们今天的任务是整理这些资料。",
+          "pinyin": "Wǒmen jīntiān de rènwu shì zhěnglǐ zhèxiē zīliào.",
+          "es": "Nuestra tarea de hoy es organizar estos materiales.",
+          "en": "Our task today is to organize these materials.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1639,
@@ -391,7 +677,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "d94dc8aa-d0bb-4bc1-b828-50fbb0861b7b",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "学校帮助学生了解社会。",
+          "pinyin": "Xuéxiào bāngzhù xuésheng liǎojiě shèhuì.",
+          "es": "La escuela ayuda a los estudiantes a conocer la sociedad.",
+          "en": "The school helps students understand society.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1673,
@@ -403,7 +699,17 @@
         "Tecnología"
       ],
       "senseId": "af9ecca5-78f7-4b84-b3a4-8857fc7cee99",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "老师发了一段介绍汉字的视频。",
+          "pinyin": "Lǎoshī fā le yí duàn jièshào hànzì de shìpín.",
+          "es": "La profesora envió un video que presenta los caracteres chinos.",
+          "en": "The teacher sent a video introducing Chinese characters.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1739,
@@ -415,7 +721,17 @@
         "Transporte"
       ],
       "senseId": "6c489002-1cf1-4761-9981-57683eb1cc79",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "请把车停在这里。",
+          "pinyin": "Qǐng bǎ chē tíng zài zhèlǐ.",
+          "es": "Por favor, estaciona el auto aquí.",
+          "en": "Please park the car here.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1777,
@@ -427,7 +743,17 @@
         "Tecnología"
       ],
       "senseId": "2b875aa9-8e80-4892-bc49-f76ecc9a66ce",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "请把文件发给我。",
+          "pinyin": "Qǐng bǎ wénjiàn fā gěi wǒ.",
+          "es": "Por favor, envíame el archivo.",
+          "en": "Please send me the file.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1780,
@@ -439,7 +765,17 @@
         "Medio ambiente"
       ],
       "senseId": "4c216b51-c32a-4cb4-b29a-c81ebd648072",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这些垃圾会污染河水。",
+          "pinyin": "Zhèxiē lājī huì wūrǎn héshuǐ.",
+          "es": "Esta basura puede contaminar el agua del río.",
+          "en": "This trash can pollute the river water.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1823,
@@ -451,7 +787,17 @@
         "Tecnología"
       ],
       "senseId": "11a54d16-2d93-45d1-a901-6229e4433844",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "你可以在学校的网站上找到这些信息。",
+          "pinyin": "Nǐ kěyǐ zài xuéxiào de wǎngzhàn shang zhǎodào zhèxiē xìnxī.",
+          "es": "Puedes encontrar esta información en la página web de la escuela.",
+          "en": "You can find this information on the school's website.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1840,
@@ -463,7 +809,17 @@
         "Trabajo"
       ],
       "senseId": "c756690d-7f47-43c4-b88b-98f892a7bce5",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "最近工作很多，我感觉压力很大。",
+          "pinyin": "Zuìjìn gōngzuò hěn duō, wǒ gǎnjué yālì hěn dà.",
+          "es": "Últimamente tengo mucho trabajo y me siento bajo mucha presión.",
+          "en": "I have a lot of work lately and feel under a lot of pressure.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1848,
@@ -475,7 +831,17 @@
         "Medio ambiente"
       ],
       "senseId": "e569cc31-f624-4a66-93de-780b29623c9c",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这条河的污染很严重。",
+          "pinyin": "Zhè tiáo hé de wūrǎn hěn yánzhòng.",
+          "es": "La contaminación de este río es muy grave.",
+          "en": "The pollution in this river is very serious.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1870,
@@ -487,7 +853,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "899ca059-160f-413b-8215-dcc94c6fa192",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我对中国艺术很感兴趣。",
+          "pinyin": "Wǒ duì Zhōngguó yìshù hěn gǎn xìngqù.",
+          "es": "Me interesa mucho el arte chino.",
+          "en": "I am very interested in Chinese art.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1920,
@@ -499,7 +875,17 @@
         "Medio ambiente"
       ],
       "senseId": "ee52eee9-0b10-496b-a811-ce8542a180ad",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "保护环境是每个人的责任。",
+          "pinyin": "Bǎohù huánjìng shì měi ge rén de zérèn.",
+          "es": "Proteger el medio ambiente es responsabilidad de todos.",
+          "en": "Protecting the environment is everyone's responsibility.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1921,
@@ -511,7 +897,17 @@
         "Medio ambiente"
       ],
       "senseId": "48c635b8-5808-4ce8-badf-2d38677dd786",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们想增加公园里的树。",
+          "pinyin": "Wǒmen xiǎng zēngjiā gōngyuán lǐ de shù.",
+          "es": "Queremos aumentar la cantidad de árboles en el parque.",
+          "en": "We want to increase the number of trees in the park.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1950,
@@ -523,7 +919,17 @@
         "Trabajo"
       ],
       "senseId": "859b892a-ba0d-4c3e-a306-79fa22604bb6",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "你的理想职业是什么？",
+          "pinyin": "Nǐ de lǐxiǎng zhíyè shì shénme?",
+          "es": "¿Cuál es tu profesión ideal?",
+          "en": "What is your ideal profession?",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1967,
@@ -535,7 +941,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "95161aed-ba60-4749-a9c5-a7f5c1fba811",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这位著名的作家今天来我们学校。",
+          "pinyin": "Zhè wèi zhùmíng de zuòjiā jīntiān lái wǒmen xuéxiào.",
+          "es": "Este famoso escritor viene hoy a nuestra escuela.",
+          "en": "This famous writer is coming to our school today.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1969,
@@ -547,7 +963,17 @@
         "Trabajo"
       ],
       "senseId": "5ab32ba9-b0f8-4067-85a1-6342a7adf006",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我的专业是中文。",
+          "pinyin": "Wǒ de zhuānyè shì Zhōngwén.",
+          "es": "Mi carrera es Lengua China.",
+          "en": "My major is Chinese.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 1981,
@@ -559,7 +985,17 @@
         "Medio ambiente"
       ],
       "senseId": "fe2a54e2-108d-42ef-8ed6-a81065866c75",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这里的自然环境很好。",
+          "pinyin": "Zhèlǐ de zìrán huánjìng hěn hǎo.",
+          "es": "El entorno natural de aquí es muy agradable.",
+          "en": "The natural environment here is very pleasant.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     }
   ]
 }

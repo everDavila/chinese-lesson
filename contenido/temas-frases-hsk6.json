@@ -4,7 +4,7 @@
     "level": 6,
     "sourceId": "cti-hsk3-2026",
     "status": "unreviewed",
-    "task": "rellenar sentences (1 por palabra, solo para esta tarea) y validar",
+    "task": "una frase por palabra completada para esta tarea; pendiente de revisión humana",
     "generatedAt": "2026-10-13T20:30:00.000Z",
     "requestedPerSense": 1,
     "why": "Palabras de las 10 plantillas de vocabulario por contexto que se colaron de nivel 4+ cuando el seed las eligio por tema. La curacion HSK 1-3 ya cubrio su nivel; estas quedaron fuera y hoy en clase salen con la consigna \"Inventen una frase con X\".",
@@ -38,6 +38,16 @@
       "npm run validate:content",
       "node --env-file=.env.local scripts/sync-hsk-examples.mjs contenido/temas-frases-hsk6.json   (simulacion, no escribe)",
       "... el mismo comando con --apply para insertar"
+    ],
+    "draftedAt": "2026-10-13",
+    "editorialReview": {
+      "agent": "Codex",
+      "humanNativeReviewRequired": true,
+      "scope": "sentido objetivo, categoría, chino, pinyin y traducciones; validación automática de vocabulario por nivel"
+    },
+    "editorialNotes": [
+      "成: se usa el clasificador de décimas indicado por la categoría 量 (三成 = 30 %). La glosa provisional del catálogo enumera otros sentidos y requiere corrección editorial separada.",
+      "链接: se usa como verbo, de acuerdo con la categoría 动 del catálogo."
     ]
   },
   "examples": [
@@ -51,7 +61,17 @@
         "Trabajo"
       ],
       "senseId": "b9e73723-321b-41aa-b672-715fe63ef4a4",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "今年公司的收入增加了三成。",
+          "pinyin": "Jīnnián gōngsī de shōurù zēngjiā le sān chéng.",
+          "es": "Este año los ingresos de la empresa aumentaron un treinta por ciento.",
+          "en": "The company's income increased by thirty percent this year.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 4446,
@@ -63,7 +83,17 @@
         "Tecnología"
       ],
       "senseId": "404441e5-2b1c-4c81-8edd-4f43cefae5e5",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这个页面链接到学校的网站。",
+          "pinyin": "Zhège yèmiàn liànjiē dào xuéxiào de wǎngzhàn.",
+          "es": "Esta página enlaza con el sitio web de la escuela.",
+          "en": "This page links to the school's website.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 4554,
@@ -75,7 +105,17 @@
         "Medio ambiente"
       ],
       "senseId": "97c3ae23-ea37-4fcb-9c6b-475ee24fd280",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这家公司正在开发新的能源。",
+          "pinyin": "Zhè jiā gōngsī zhèngzài kāifā xīn de néngyuán.",
+          "es": "Esta empresa está desarrollando nuevas fuentes de energía.",
+          "en": "This company is developing new sources of energy.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 4694,
@@ -87,7 +127,17 @@
         "Tecnología"
       ],
       "senseId": "dd9800dc-f485-4438-81f1-f7ffb30632a4",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们讨论了人工智能在教育中的应用。",
+          "pinyin": "Wǒmen tǎolùn le réngōng zhìnéng zài jiàoyù zhōng de yìngyòng.",
+          "es": "Hablamos de las aplicaciones de la inteligencia artificial en la educación.",
+          "en": "We discussed the applications of artificial intelligence in education.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 4773,
@@ -99,7 +149,17 @@
         "Medio ambiente"
       ],
       "senseId": "e62c47a0-8b92-420a-8eff-587a741375be",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "保护这片森林有助于维持当地的生态平衡。",
+          "pinyin": "Bǎohù zhè piàn sēnlín yǒuzhù yú wéichí dāngdì de shēngtài pínghéng.",
+          "es": "Proteger este bosque ayuda a mantener el equilibrio ecológico local.",
+          "en": "Protecting this forest helps maintain the local ecological balance.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     }
   ]
 }
