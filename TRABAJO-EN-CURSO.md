@@ -35,10 +35,14 @@ el script las lee de ahí. Al unir una tarea a `master`, su fila sale de la tabl
 `<agente>-chinese-lesson-<rama>`**, con el agente al frente, para que `ls`
 agrupe por dueño. Las de esta tabla son de antes del convenio y el script las
 marca con ⚠ «nombre fuera de convenio»: avisá, no las renombres si otro agente
-está trabajando ahí. Si tu rama ya está en otro worktree, el script se niega a
-crear otra carpeta y te dice cuál es.
+está trabajando ahí.
+
+**Es identificación, no candado:** cualquiera puede retomar la tarea de otro
+agente. Lo único que frena el script es duplicar la *misma rama* en dos
+carpetas (un `npm ci` en una rompe la otra); no impide que otro la continúe.
 
 | Agente | Rama | Carpeta | Puerto | Tarea | Estado (fecha) |
 |---|---|---|---|---|---|
 | Claude Code | `prueba-escritura` | `chinese-lesson-escritura` | 3006 | Práctica de escritura en `/lab/escritura` (Hanzi Writer: calcar o de memoria, niveles de tolerancia) | Hecha y probada con trazos simulados; falta que Ever la pruebe con el dedo en el celular y fijar los valores de cada nivel (2026-10-12) |
-| Codex | `contenido-hsk4-9` | `chinese-lesson-contenido-hsk4-9` | — | Catálogo HSK 4–9 (en producción); 2 commits más sobre la mascota de credenciales sin unir | Por confirmar con Codex (2026-10-12) |
+| Codex | `ux-voto-alumno` | `codex-chinese-lesson-ux-voto-alumno` | — | Rediseño de la votación del alumno (4 commits: responder sin interrupciones, nota HSK ocultada, verde al confirmar) con `design-qa.md` y capturas | Sin unir a `master`; quedó atrás del panda del código, el merge no es fast-forward (2026-10-13) |
+| Codex | `contenido-hsk4-9` | `chinese-lesson-contenido-hsk4-9` | — | Catálogo HSK 4–9 (en producción); 2 commits más sobre la mascota de credenciales sin unir | 23 archivos sin commitear en esta PC; por confirmar con Codex (2026-10-12) |
