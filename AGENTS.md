@@ -18,9 +18,15 @@
   desde `master`. Última versión estable etiquetada: `estable-2026-10-12`.
 - **Funciona:** docente en `/collections` (colecciones, plantillas HSK 1–3,
   lecciones, frases propias, copias editadas, sugerencias, rotación de frases,
-  clase en vivo con valoración y votación anónima de alumnos en `/v`); admin en
+  clase en vivo con valoración y votación anónima de alumnos en `/v`; el panda
+  guía y valida el código de acceso del alumno); admin en
   `/admin` (base común, editor de palabra, vista previa, plantillas, bandeja de
   sugerencias). Cuentas: Ever (`admin`) y la profesora (`teacher`).
+- **Plantillas de vocabulario por contexto:** 10 colecciones curadas (Comer
+  fuera, Vida diaria, Trabajo, Viajes, Transporte, Compras, Salud y cuerpo,
+  Tecnología, Medio ambiente, Sociedad y cultura) sobre el temario HSK 3.0
+  1–3, aplicadas en producción el 2026-10-13 (1317 ítems). Sin frases todavía:
+  cada palabra muestra hanzi + pinyin + glosa.
 - **Contenido HSK 1–3:** los 1000 sentidos oficiales tienen significado en
   español y 2637 frases (840 + 530 + 1267) con primera curación lingüística.
   Significados, matices y frases ya están en `hanzi-dev` y producción; siguen
