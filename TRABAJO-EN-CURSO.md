@@ -34,5 +34,4 @@ el script las lee de ahí. Al unir una tarea a `master`, su fila sale de la tabl
 | Agente | Rama | Carpeta | Puerto | Tarea | Estado (fecha) |
 |---|---|---|---|---|---|
 | Claude Code | `prueba-escritura` | `chinese-lesson-escritura` | 3006 | Práctica de escritura en `/lab/escritura` (Hanzi Writer: calcar o de memoria, niveles de tolerancia) | Hecha y probada con trazos simulados; falta que Ever la pruebe con el dedo en el celular y fijar los valores de cada nivel (2026-10-12) |
-| Cline | — | — | 3002 | Plantillas por tema (10 dominios, migración `20261012040000`) | **Cerrada.** Unida a `master` y aplicada en producción el 2026-10-13 (respaldo `backups/supabase-2026-10-13T1950.json`, 10 plantillas + 1317 ítems). Falta que la profe las vea |
-| Codex | `contenido-hsk4-9` | `chinese-lesson-hsk4-9` | — | Catálogo HSK 4–9 (en producción); 2 commits más sobre la mascota de credenciales sin unir | Por confirmar con Codex (2026-10-12) |
+| Codex | `contenido-hsk4-9` | `chinese-lesson-contenido-hsk4-9` | — | Catálogo HSK 4–9 (en producción); 2 commits más sobre la mascota de credenciales sin unir | Por confirmar con Codex (2026-10-12) |
