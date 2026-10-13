@@ -46,9 +46,12 @@ Trabajo 19 · Sociedad y cultura 19 · Salud y cuerpo 2 · Viajes 2 · Transport
 
 ## Qué rellenar
 
+La cantidad es específica de esta tarea para completar la cobertura inicial;
+no cambia la política general ni las frases ya curadas de otras colecciones.
+
 Cada ítem trae ya `hanzi`, `targetPinyin`, `meaningEs`, `category`,
 `inThemes`, `senseId` y `sourceOrder`. Solo hay que completar `sentences`
-(dos por palabra: **170 frases en total**) con esta forma, la misma de la
+(una por palabra: **85 frases en total**) con esta forma, la misma de la
 curación HSK 1–3:
 
 ```json
@@ -80,7 +83,7 @@ npm run db:sync-hsk-examples contenido/temas-frases-hsk4.json   # simulación
 
 El importador resuelve cada sentido por `sourceId` + `sourceOrder`, solo actúa
 sobre sentidos `unreviewed`, no repite frases que ya existan y no pasa de tres
-por palabra. Para esta tarea se preparan solo dos por palabra; el máximo del
+por palabra. Solo para esta tarea se prepara una frase por palabra; el máximo del
 importador no cambia. Con `--apply` inserta.
 
 ```bash
