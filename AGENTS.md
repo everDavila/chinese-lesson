@@ -11,6 +11,8 @@
   [IDEA.md](IDEA.md), arquitectura en [ARQUITECTURA.md](ARQUITECTURA.md): léelos
   antes de proponer algo grande.
 - Voz para hablar con Ever: [VOZ.md](VOZ.md).
+- Si llegas sin contexto: [EVOLUCION.md](EVOLUCION.md) cuenta cómo llegó el
+  proyecto hasta aquí, en una lectura.
 
 ## Estado actual
 - **Producción:** https://renshi.davila.uno (el producto se llama Renshi, 认识;
