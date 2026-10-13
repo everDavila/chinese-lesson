@@ -31,6 +31,12 @@
   distintos: unos se repiten entre temas). **231 de los 317 tienen frases** de
   la curación HSK 1–3 (3 por palabra); los 86 restantes salen con la consigna
   "Inventen una frase con X". Todas `unreviewed`, sin etiqueta visible en clase.
+- **Frases de temas (rama `contenido-frases-temas`):** redactadas 85 frases
+  originales, una por sentido solo para esta tarea (43 HSK 4, 37 HSK 5, 5 HSK
+  6), que cubren las 86 apariciones pendientes de las plantillas. Validadas y
+  cargadas en `hanzi-dev` con respaldo el 2026-10-13; todas `unreviewed`.
+  No aplicadas en producción ni unidas a `master`. Seguimiento en
+  [contenido/FRASES-TEMAS-PENDIENTES.md](contenido/FRASES-TEMAS-PENDIENTES.md).
 - **Contenido HSK 1–3:** los 1000 sentidos oficiales tienen significado en
   español y 2637 frases (840 + 530 + 1267) con primera curación lingüística.
   Significados, matices y frases ya están en `hanzi-dev` y producción; siguen

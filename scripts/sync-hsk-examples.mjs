@@ -24,9 +24,14 @@ async function api(route, { method = "GET", body, prefer } = {}) {
 }
 
 const sourceId = encodeURIComponent(batch.metadata.sourceId);
-const minOrder = Math.min(...batch.examples.map((row) => row.sourceOrder));
-const maxOrder = Math.max(...batch.examples.map((row) => row.sourceOrder));
-const senses = await api(`senses?select=id,status,catalog_source_order&catalog_source_id=eq.${sourceId}&catalog_source_order=gte.${minOrder}&catalog_source_order=lte.${maxOrder}`);
+// Los lotes temáticos tienen órdenes dispersos: leer un intervalo puede
+// superar el límite de 1000 filas de Supabase y ocultar sentidos existentes.
+const orders = [...new Set(batch.examples.map((row) => row.sourceOrder))];
+const senses = [];
+for (let i = 0; i < orders.length; i += 100) {
+  const selected = orders.slice(i, i + 100).join(",");
+  senses.push(...await api(`senses?select=id,status,catalog_source_order,pinyin,words(hanzi)&catalog_source_id=eq.${sourceId}&catalog_source_order=in.(${selected})`));
+}
 const senseByOrder = new Map(senses.map((sense) => [sense.catalog_source_order, sense]));
 const senseIds = senses.map((sense) => sense.id);
 const existing = [];
@@ -40,6 +45,11 @@ const skipped = [];
 for (const row of batch.examples) {
   const sense = senseByOrder.get(row.sourceOrder);
   if (!sense) throw new Error(`No existe el sentido oficial ${row.sourceOrder} (${row.hanzi}).`);
+  // Los UUID cambian entre bases creadas con seeds. La identidad editorial
+  // es fuente + orden + hanzi + lectura, no el UUID del entorno de origen.
+  if (sense.words?.hanzi !== row.hanzi || (row.targetPinyin && sense.pinyin !== row.targetPinyin)) {
+    throw new Error(`La identidad de ${row.hanzi} no coincide con el sentido oficial ${row.sourceOrder}.`);
+  }
   if (sense.status !== "unreviewed") {
     skipped.push(`${row.hanzi}: ${sense.status}`);
     continue;

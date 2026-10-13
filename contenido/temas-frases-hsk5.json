@@ -4,7 +4,7 @@
     "level": 5,
     "sourceId": "cti-hsk3-2026",
     "status": "unreviewed",
-    "task": "rellenar sentences (1 por palabra, solo para esta tarea) y validar",
+    "task": "una frase por palabra completada para esta tarea; pendiente de revisión humana",
     "generatedAt": "2026-10-13T20:30:00.000Z",
     "requestedPerSense": 1,
     "why": "Palabras de las 10 plantillas de vocabulario por contexto que se colaron de nivel 4+ cuando el seed las eligio por tema. La curacion HSK 1-3 ya cubrio su nivel; estas quedaron fuera y hoy en clase salen con la consigna \"Inventen una frase con X\".",
@@ -39,7 +39,13 @@
       "npm run validate:content",
       "node --env-file=.env.local scripts/sync-hsk-examples.mjs contenido/temas-frases-hsk5.json   (simulacion, no escribe)",
       "... el mismo comando con --apply para insertar"
-    ]
+    ],
+    "draftedAt": "2026-10-13",
+    "editorialReview": {
+      "agent": "Codex",
+      "humanNativeReviewRequired": true,
+      "scope": "sentido objetivo, categoría, chino, pinyin y traducciones; validación automática de vocabulario por nivel"
+    }
   },
   "examples": [
     {
@@ -52,7 +58,17 @@
         "Tecnología"
       ],
       "senseId": "f6da1b63-abcc-48bf-81c1-2d9bdb4217ca",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我在电脑上安装了一个新软件。",
+          "pinyin": "Wǒ zài diànnǎo shang ānzhuāng le yí ge xīn ruǎnjiàn.",
+          "es": "Instalé un programa nuevo en la computadora.",
+          "en": "I installed a new program on the computer.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2150,
@@ -64,7 +80,17 @@
         "Tecnología"
       ],
       "senseId": "585f0d1e-12c5-45a0-a3a8-71d69941bd30",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这个程序可以帮你整理文件。",
+          "pinyin": "Zhège chéngxù kěyǐ bāng nǐ zhěnglǐ wénjiàn.",
+          "es": "Este programa puede ayudarte a organizar archivos.",
+          "en": "This program can help you organize files.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2187,
@@ -76,7 +102,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "7db347e0-ae59-4a32-b76f-c224890c2b93",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "过年时，我们家有一起包饺子的传统。",
+          "pinyin": "Guò nián shí, wǒmen jiā yǒu yìqǐ bāo jiǎozi de chuántǒng.",
+          "es": "En mi familia tenemos la tradición de preparar juntos jiaozi para el Año Nuevo chino.",
+          "en": "Our family has a tradition of making dumplings together for Chinese New Year.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2406,
@@ -88,7 +124,17 @@
         "Tecnología"
       ],
       "senseId": "635acd07-8f01-4895-8b02-a2fdc7bdf4ea",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "请先更新软件，再打开文件。",
+          "pinyin": "Qǐng xiān gēngxīn ruǎnjiàn, zài dǎkāi wénjiàn.",
+          "es": "Primero actualiza el programa y luego abre el archivo.",
+          "en": "Please update the software first, then open the file.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2424,
@@ -100,7 +146,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "0a3a139d-bf0b-4c61-84a6-6096f1a453b7",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这本书介绍了古代中国人的生活。",
+          "pinyin": "Zhè běn shū jièshào le gǔdài Zhōngguó rén de shēnghuó.",
+          "es": "Este libro describe la vida de los chinos en la antigüedad.",
+          "en": "This book describes the lives of Chinese people in ancient times.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2434,
@@ -112,7 +168,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "1617a312-52fd-42c2-bbb9-453d377e0b9e",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "不同年代的人，生活观念可能不一样。",
+          "pinyin": "Bùtóng niándài de rén, shēnghuó guānniàn kěnéng bù yíyàng.",
+          "es": "Las personas de distintas épocas pueden tener diferentes ideas sobre cómo vivir.",
+          "en": "People from different eras may have different ideas about how to live.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2479,
@@ -124,7 +190,17 @@
         "Trabajo"
       ],
       "senseId": "fc0a4bf9-04a6-411a-8e28-0e9c4f5900d1",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "签合同之前，请仔细看看内容。",
+          "pinyin": "Qiān hétóng zhīqián, qǐng zǐxì kànkan nèiróng.",
+          "es": "Antes de firmar el contrato, lee su contenido con atención.",
+          "en": "Before signing the contract, read its contents carefully.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2481,
@@ -136,7 +212,17 @@
         "Medio ambiente"
       ],
       "senseId": "45c2346a-2d16-4682-b212-f909045d734b",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这两所学校合作开展环保活动。",
+          "pinyin": "Zhè liǎng suǒ xuéxiào hézuò kāizhǎn huánbǎo huódòng.",
+          "es": "Estas dos escuelas colaboran para organizar actividades de protección ambiental.",
+          "en": "These two schools work together to organize environmental protection activities.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2511,
@@ -148,7 +234,17 @@
         "Medio ambiente"
       ],
       "senseId": "2e04532d-711f-4d7a-a512-ce49e481a8a1",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这些旧报纸可以回收。",
+          "pinyin": "Zhèxiē jiù bàozhǐ kěyǐ huíshōu.",
+          "es": "Estos periódicos viejos se pueden reciclar.",
+          "en": "These old newspapers can be recycled.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2563,
@@ -160,7 +256,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "d7434ead-ba88-4da8-8f70-1407774cc25b",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这座老房子有很高的历史价值。",
+          "pinyin": "Zhè zuò lǎo fángzi yǒu hěn gāo de lìshǐ jiàzhí.",
+          "es": "Esta casa antigua tiene un gran valor histórico.",
+          "en": "This old house has great historical value.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2570,
@@ -172,7 +278,17 @@
         "Trabajo"
       ],
       "senseId": "0c90bbeb-94d7-4328-9701-7b2bf8cc8675",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我已经把简历发给那家公司了。",
+          "pinyin": "Wǒ yǐjīng bǎ jiǎnlì fā gěi nà jiā gōngsī le.",
+          "es": "Ya envié mi currículum a esa empresa.",
+          "en": "I have already sent my resume to that company.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2685,
@@ -184,7 +300,17 @@
         "Trabajo"
       ],
       "senseId": "1fd1dc13-da2c-41c0-a468-5a996f7b82de",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "老板同意我明天请假。",
+          "pinyin": "Lǎobǎn tóngyì wǒ míngtiān qǐngjià.",
+          "es": "Mi jefe me dio permiso para ausentarme mañana.",
+          "en": "My boss agreed to let me take tomorrow off.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2710,
@@ -196,7 +322,17 @@
         "Medio ambiente"
       ],
       "senseId": "7e71e37a-f8a3-426c-ac92-2471c3117590",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们可以利用雨水浇花。",
+          "pinyin": "Wǒmen kěyǐ lìyòng yǔshuǐ jiāo huā.",
+          "es": "Podemos aprovechar el agua de lluvia para regar las flores.",
+          "en": "We can use rainwater to water the flowers.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2846,
@@ -208,7 +344,17 @@
         "Tecnología"
       ],
       "senseId": "19d2f52e-7282-479b-9ddb-837c9b0b8635",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "手机屏幕太亮了，能调暗一点吗？",
+          "pinyin": "Shǒujī píngmù tài liàng le, néng tiáo àn yìdiǎn ma?",
+          "es": "La pantalla del celular está demasiado brillante; ¿puedes bajarle un poco el brillo?",
+          "en": "The phone screen is too bright. Can you dim it a little?",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2859,
@@ -220,7 +366,17 @@
         "Trabajo"
       ],
       "senseId": "fb4c72d4-2d5c-42e3-ae16-b1d3c1d8fe56",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "请在这里签你的名字。",
+          "pinyin": "Qǐng zài zhèlǐ qiān nǐ de míngzi.",
+          "es": "Por favor, firma con tu nombre aquí.",
+          "en": "Please sign your name here.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2920,
@@ -232,7 +388,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "9582df1c-6582-41e8-a009-b5dbbe947409",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这个城市的人口越来越多。",
+          "pinyin": "Zhège chéngshì de rénkǒu yuè lái yuè duō.",
+          "es": "La población de esta ciudad sigue creciendo.",
+          "en": "The population of this city keeps growing.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2921,
@@ -244,7 +410,17 @@
         "Medio ambiente"
       ],
       "senseId": "c1c8a9d0-199b-4b8f-a7ca-e7953e147a43",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "人类的生活离不开水。",
+          "pinyin": "Rénlèi de shēnghuó lí bu kāi shuǐ.",
+          "es": "Los seres humanos no pueden vivir sin agua.",
+          "en": "Human beings cannot live without water.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 2939,
@@ -256,7 +432,17 @@
         "Tecnología"
       ],
       "senseId": "75363fc4-4910-45e6-b121-260bc02cae5c",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这个软件可以翻译中文。",
+          "pinyin": "Zhège ruǎnjiàn kěyǐ fānyì Zhōngwén.",
+          "es": "Este programa puede traducir textos en chino.",
+          "en": "This software can translate Chinese texts.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3067,
@@ -268,7 +454,17 @@
         "Tecnología"
       ],
       "senseId": "7ad99135-db00-4f9e-ad69-55cf9c6da3bf",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "请先保存数据，再关电脑。",
+          "pinyin": "Qǐng xiān bǎocún shùjù, zài guān diànnǎo.",
+          "es": "Guarda los datos antes de apagar la computadora.",
+          "en": "Please save the data before turning off the computer.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3085,
@@ -280,7 +476,17 @@
         "Tecnología"
       ],
       "senseId": "4a7b8d3d-26eb-4c10-bd1c-a5ca1f13c1d6",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "你可以在网上搜索这本书的名字。",
+          "pinyin": "Nǐ kěyǐ zài wǎngshang sōusuǒ zhè běn shū de míngzi.",
+          "es": "Puedes buscar el título de este libro en internet.",
+          "en": "You can search for the title of this book online.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3179,
@@ -292,7 +498,17 @@
         "Tecnología"
       ],
       "senseId": "fcb71d1d-6282-4857-be6e-74f040902eae",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这里的网络不太稳定，视频打不开。",
+          "pinyin": "Zhèlǐ de wǎngluò bú tài wěndìng, shìpín dǎ bu kāi.",
+          "es": "La conexión a internet aquí no es muy estable y el video no se puede abrir.",
+          "en": "The internet connection here is not very stable, and the video will not open.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3196,
@@ -304,7 +520,17 @@
         "Medio ambiente"
       ],
       "senseId": "eefd73d7-b552-4bee-8686-e1ca6121dcf4",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我希望未来的城市有更多公园。",
+          "pinyin": "Wǒ xīwàng wèilái de chéngshì yǒu gèng duō gōngyuán.",
+          "es": "Espero que las ciudades del futuro tengan más parques.",
+          "en": "I hope the cities of the future will have more parks.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3200,
@@ -316,7 +542,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "80d27670-eac2-4d80-a2df-a311aa9fa3ce",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我喜欢读中国文学作品。",
+          "pinyin": "Wǒ xǐhuan dú Zhōngguó wénxué zuòpǐn.",
+          "es": "Me gusta leer obras de literatura china.",
+          "en": "I like reading works of Chinese literature.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3229,
@@ -328,7 +564,17 @@
         "Tecnología"
       ],
       "senseId": "39645b85-9f22-4e4c-90a5-743e586500a3",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "系统出了问题，我们暂时不能登录。",
+          "pinyin": "Xìtǒng chū le wèntí, wǒmen zànshí bù néng dēnglù.",
+          "es": "Hubo un problema con el sistema y por ahora no podemos iniciar sesión.",
+          "en": "There is a problem with the system, and we cannot log in for now.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3230,
@@ -340,7 +586,17 @@
         "Tecnología"
       ],
       "senseId": "9ac0562b-461a-49d5-9d35-9b7a716c41e4",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我把老师发的资料下载到手机上了。",
+          "pinyin": "Wǒ bǎ lǎoshī fā de zīliào xiàzài dào shǒujī shang le.",
+          "es": "Descargué en el celular los materiales que envió la profesora.",
+          "en": "I downloaded the materials the teacher sent onto my phone.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3239,
@@ -352,7 +608,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "d3158c1e-cbb4-46eb-8bb3-7c326654f938",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这座博物馆介绍现代艺术。",
+          "pinyin": "Zhè zuò bówùguǎn jièshào xiàndài yìshù.",
+          "es": "Este museo presenta el arte moderno.",
+          "en": "This museum introduces modern art.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3258,
@@ -364,7 +630,17 @@
         "Trabajo"
       ],
       "senseId": "8b38fad9-375b-4fa8-891b-3ac68fef3f6f",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我们正在讨论新项目的计划。",
+          "pinyin": "Wǒmen zhèngzài tǎolùn xīn xiàngmù de jìhuà.",
+          "es": "Estamos debatiendo el plan del nuevo proyecto.",
+          "en": "We are discussing the plan for the new project.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3272,
@@ -376,7 +652,17 @@
         "Trabajo"
       ],
       "senseId": "12ac3334-374f-4570-ac7d-59f046285a02",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "把文件分类以后，工作效率提高了。",
+          "pinyin": "Bǎ wénjiàn fēnlèi yǐhòu, gōngzuò xiàolǜ tígāo le.",
+          "es": "Organizar los archivos por categorías mejoró la eficiencia del trabajo.",
+          "en": "Organizing the files into categories improved work efficiency.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3366,
@@ -388,7 +674,17 @@
         "Medio ambiente"
       ],
       "senseId": "7a014e0e-22ec-4ed3-9dab-d99caaab847f",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "大家开始意识到节约用水的重要性。",
+          "pinyin": "Dàjiā kāishǐ yìshí dào jiéyuē yòng shuǐ de zhòngyàoxìng.",
+          "es": "Todos empiezan a darse cuenta de la importancia de ahorrar agua.",
+          "en": "Everyone is beginning to realize the importance of saving water.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3386,
@@ -400,7 +696,17 @@
         "Tecnología"
       ],
       "senseId": "b9b71558-91be-4ad6-90f4-826477957a42",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这个软件对电脑硬件的要求不高。",
+          "pinyin": "Zhège ruǎnjiàn duì diànnǎo yìngjiàn de yāoqiú bù gāo.",
+          "es": "Este programa no exige mucho al hardware de la computadora.",
+          "en": "This software does not have demanding computer hardware requirements.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3432,
@@ -412,7 +718,17 @@
         "Trabajo"
       ],
       "senseId": "43cf5e89-7386-4788-bf8b-82da4f057781",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "公司为新员工安排了培训。",
+          "pinyin": "Gōngsī wèi xīn yuángōng ānpái le péixùn.",
+          "es": "La empresa organizó una capacitación para los nuevos empleados.",
+          "en": "The company arranged training for the new employees.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3475,
@@ -424,7 +740,17 @@
         "Tecnología"
       ],
       "senseId": "7ce035f6-aa35-4dc5-8f87-1642833ed8f8",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "我用这个账号登录学校的网站。",
+          "pinyin": "Wǒ yòng zhège zhànghào dēnglù xuéxiào de wǎngzhàn.",
+          "es": "Uso esta cuenta para iniciar sesión en la página web de la escuela.",
+          "en": "I use this account to log in to the school's website.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3494,
@@ -437,7 +763,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "94565179-3be5-48ed-aed3-a56215de0404",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "当地政府计划在这里建一个公园。",
+          "pinyin": "Dāngdì zhèngfǔ jìhuà zài zhèlǐ jiàn yí ge gōngyuán.",
+          "es": "El gobierno local planea construir un parque aquí.",
+          "en": "The local government plans to build a park here.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3498,
@@ -449,7 +785,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "74dec2d8-b92e-48c1-bbf7-0d6bc0691d6c",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这门课讨论政治与社会的关系。",
+          "pinyin": "Zhè mén kè tǎolùn zhèngzhì yǔ shèhuì de guānxi.",
+          "es": "Esta asignatura estudia la relación entre la política y la sociedad.",
+          "en": "This course discusses the relationship between politics and society.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3512,
@@ -461,7 +807,17 @@
         "Sociedad y cultura"
       ],
       "senseId": "3b6a779f-cd0d-4ba2-a8cb-4b0e14cd4f24",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "公司有明确的请假制度。",
+          "pinyin": "Gōngsī yǒu míngquè de qǐngjià zhìdù.",
+          "es": "La empresa tiene normas claras para solicitar permisos de ausencia.",
+          "en": "The company has clear rules for requesting time off.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3516,
@@ -473,7 +829,17 @@
         "Tecnología"
       ],
       "senseId": "144f87fa-226d-4934-929e-e048a3b43738",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "这个智能设备可以用声音控制。",
+          "pinyin": "Zhège zhìnéng shèbèi kěyǐ yòng shēngyīn kòngzhì.",
+          "es": "Este dispositivo inteligente se puede controlar con la voz.",
+          "en": "This smart device can be controlled by voice.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     },
     {
       "sourceOrder": 3571,
@@ -485,7 +851,17 @@
         "Medio ambiente"
       ],
       "senseId": "b40099a6-0d7d-42b5-a206-33d413d0e364",
-      "sentences": []
+      "sentences": [
+        {
+          "zh": "水是宝贵的资源，我们应该节约用水。",
+          "pinyin": "Shuǐ shì bǎoguì de zīyuán, wǒmen yīnggāi jiéyuē yòng shuǐ.",
+          "es": "El agua es un recurso valioso; debemos ahorrar agua.",
+          "en": "Water is a valuable resource, and we should use it sparingly.",
+          "origin": "ai",
+          "source": "codex-editorial",
+          "license": null
+        }
+      ]
     }
   ]
 }
