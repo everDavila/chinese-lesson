@@ -1,0 +1,491 @@
+{
+  "metadata": {
+    "standard": "hsk-3.0",
+    "level": 5,
+    "sourceId": "cti-hsk3-2026",
+    "status": "unreviewed",
+    "task": "rellenar sentences (3 por palabra) y validar",
+    "generatedAt": "2026-10-13T20:30:00.000Z",
+    "requestedPerSense": 3,
+    "why": "Palabras de las 10 plantillas de vocabulario por contexto que se colaron de nivel 4+ cuando el seed las eligio por tema. La curacion HSK 1-3 ya cubrio su nivel; estas quedaron fuera y hoy en clase salen con la consigna \"Inventen una frase con X\".",
+    "count": 37,
+    "themes": {
+      "Tecnología": 13,
+      "Sociedad y cultura": 10,
+      "Medio ambiente": 8,
+      "Trabajo": 7
+    },
+    "sources": [
+      {
+        "id": "gushi",
+        "url": "https://gushichinese.com/es/hsk-3.0/downloads/",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "id": "tatoeba",
+        "url": "https://tatoeba.org",
+        "license": "CC BY 2.0 FR"
+      }
+    ],
+    "rules": [
+      "Respetar contenido/POLITICA-DE-CONTENIDO.md.",
+      "Vocabulario de la frase: nivel 5 o inferior; si hace falta una palabra superior, marcarla como apoyo con pinyin, glosa y nivel.",
+      "Frase corta, natural y contemporanea; declarar el registro si no es conversacion (trabajo, noticias, escritura formal).",
+      "origin: open_data si viene de Tatoeba/Gushi (con source, license y sourceSentenceId); ai si la redacta el agente (source: codex-editorial, license: null).",
+      "No marcar reviewed: entra como unreviewed hasta revision humana.",
+      "pinyin con tonos, separado por palabra; es y en obligatorios."
+    ],
+    "verify": [
+      "npm run validate:content",
+      "node --env-file=.env.local scripts/sync-hsk-examples.mjs contenido/temas-frases-hsk5.json   (simulacion, no escribe)",
+      "... el mismo comando con --apply para insertar"
+    ]
+  },
+  "examples": [
+    {
+      "sourceOrder": 2008,
+      "hanzi": "安装",
+      "targetPinyin": "ānzhuāng",
+      "meaningEs": "instalar; erigir; fijar; montar; instalación",
+      "category": "动",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "f6da1b63-abcc-48bf-81c1-2d9bdb4217ca",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2150,
+      "hanzi": "程序",
+      "targetPinyin": "chéngxù",
+      "meaningEs": "procedimientos; secuencia; orden; programa informático",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "585f0d1e-12c5-45a0-a3a8-71d69941bd30",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2187,
+      "hanzi": "传统",
+      "targetPinyin": "chuántǒng",
+      "meaningEs": "tradición; tradicional; convención; convencional",
+      "category": "名、形",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "7db347e0-ae59-4a32-b76f-c224890c2b93",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2406,
+      "hanzi": "更新",
+      "targetPinyin": "gēngxīn",
+      "meaningEs": "reemplazar lo viejo por lo nuevo; renovar; remodelar; actualizar; poner al día; regenerar",
+      "category": "动",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "635acd07-8f01-4895-8b02-a2fdc7bdf4ea",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2424,
+      "hanzi": "古代",
+      "targetPinyin": "gǔdài",
+      "meaningEs": "la antigüedad",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "0a3a139d-bf0b-4c61-84a6-6096f1a453b7",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2434,
+      "hanzi": "观念",
+      "targetPinyin": "guānniàn",
+      "meaningEs": "noción; pensamiento; concepto; sentido; visiones; ideología; impresiones generales",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "1617a312-52fd-42c2-bbb9-453d377e0b9e",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2479,
+      "hanzi": "合同",
+      "targetPinyin": "hétóng",
+      "meaningEs": "contrato; acuerdo",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "fc0a4bf9-04a6-411a-8e28-0e9c4f5900d1",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2481,
+      "hanzi": "合作",
+      "targetPinyin": "hézuò",
+      "meaningEs": "cooperar; colaborar; trabajar juntos",
+      "category": "动",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "45c2346a-2d16-4682-b212-f909045d734b",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2511,
+      "hanzi": "回收",
+      "targetPinyin": "huíshōu",
+      "meaningEs": "reciclar; recuperar; recobrar; retirar (un producto defectuoso)",
+      "category": "动",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "2e04532d-711f-4d7a-a512-ce49e481a8a1",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2563,
+      "hanzi": "价值",
+      "targetPinyin": "jiàzhí",
+      "meaningEs": "valor; valía; en sentido figurado valores (éticos, culturales, etc.)",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "d7434ead-ba88-4da8-8f70-1407774cc25b",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2570,
+      "hanzi": "简历",
+      "targetPinyin": "jiǎnlì",
+      "meaningEs": "currículum (CV); hoja de vida; notas biográficas",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "0c90bbeb-94d7-4328-9701-7b2bf8cc8675",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2685,
+      "hanzi": "老板",
+      "targetPinyin": "lǎobǎn",
+      "meaningEs": "Robam (marca); jefe; dueño del negocio",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "1fd1dc13-da2c-41c0-a468-5a996f7b82de",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2710,
+      "hanzi": "利用",
+      "targetPinyin": "lìyòng",
+      "meaningEs": "explotar; aprovechar; usar; sacar ventaja de; utilizar",
+      "category": "动",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "7e71e37a-f8a3-426c-ac92-2471c3117590",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2846,
+      "hanzi": "屏幕",
+      "targetPinyin": "píngmù",
+      "meaningEs": "pantalla (de TV, computadora o cine)",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "19d2f52e-7282-479b-9ddb-837c9b0b8635",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2859,
+      "hanzi": "签",
+      "targetPinyin": "qiān",
+      "meaningEs": "firmar",
+      "category": "动",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "fb4c72d4-2d5c-42e3-ae16-b1d3c1d8fe56",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2920,
+      "hanzi": "人口",
+      "targetPinyin": "rénkǒu",
+      "meaningEs": "población; gente",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "9582df1c-6582-41e8-a009-b5dbbe947409",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2921,
+      "hanzi": "人类",
+      "targetPinyin": "rénlèi",
+      "meaningEs": "humanidad; la raza humana; el género humano",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "c1c8a9d0-199b-4b8f-a7ca-e7953e147a43",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 2939,
+      "hanzi": "软件",
+      "targetPinyin": "ruǎnjiàn",
+      "meaningEs": "(computación) software",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "75363fc4-4910-45e6-b121-260bc02cae5c",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3067,
+      "hanzi": "数据",
+      "targetPinyin": "shùjù",
+      "meaningEs": "datos",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "7ad99135-db00-4f9e-ad69-55cf9c6da3bf",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3085,
+      "hanzi": "搜索",
+      "targetPinyin": "sōusuǒ",
+      "meaningEs": "buscar (en un lugar, una base de datos, en línea, etc.); buscar (algo)",
+      "category": "动",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "4a7b8d3d-26eb-4c10-bd1c-a5ca1f13c1d6",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3179,
+      "hanzi": "网络",
+      "targetPinyin": "wǎngluò",
+      "meaningEs": "internet; red (informática, de telecomunicaciones, de transporte, etc.)",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "fcb71d1d-6282-4857-be6e-74f040902eae",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3196,
+      "hanzi": "未来",
+      "targetPinyin": "wèilái",
+      "meaningEs": "futuro; mañana; próximo; venidero; pendiente",
+      "category": "形、名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "eefd73d7-b552-4bee-8686-e1ca6121dcf4",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3200,
+      "hanzi": "文学",
+      "targetPinyin": "wénxué",
+      "meaningEs": "literatura",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "80d27670-eac2-4d80-a2df-a311aa9fa3ce",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3229,
+      "hanzi": "系统",
+      "targetPinyin": "xìtǒng",
+      "meaningEs": "sistema",
+      "category": "名、形",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "39645b85-9f22-4e4c-90a5-743e586500a3",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3230,
+      "hanzi": "下载",
+      "targetPinyin": "xiàzài",
+      "meaningEs": "descargar",
+      "category": "动",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "9ac0562b-461a-49d5-9d35-9b7a716c41e4",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3239,
+      "hanzi": "现代",
+      "targetPinyin": "xiàndài",
+      "meaningEs": "Hyundai, empresa surcoreana; tiempos modernos; edad moderna; era moderna",
+      "category": "名、形",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "d3158c1e-cbb4-46eb-8bb3-7c326654f938",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3258,
+      "hanzi": "项目",
+      "targetPinyin": "xiàngmù",
+      "meaningEs": "elemento; proyecto; (deportes) prueba",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "8b38fad9-375b-4fa8-891b-3ac68fef3f6f",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3272,
+      "hanzi": "效率",
+      "targetPinyin": "xiàolǜ",
+      "meaningEs": "eficiencia",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "12ac3334-374f-4570-ac7d-59f046285a02",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3366,
+      "hanzi": "意识",
+      "targetPinyin": "yìshí",
+      "meaningEs": "conciencia; percatación; (normalmente seguido de 到) darse cuenta de; advertir",
+      "category": "动、名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "7a014e0e-22ec-4ed3-9dab-d99caaab847f",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3386,
+      "hanzi": "硬件",
+      "targetPinyin": "yìngjiàn",
+      "meaningEs": "hardware",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "b9b71558-91be-4ad6-90f4-826477957a42",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3432,
+      "hanzi": "员工",
+      "targetPinyin": "yuángōng",
+      "meaningEs": "plantilla; personal; empleado",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "43cf5e89-7386-4788-bf8b-82da4f057781",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3475,
+      "hanzi": "账号",
+      "targetPinyin": "zhànghào",
+      "meaningEs": "número de cuenta; cuenta; nombre de usuario",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "7ce035f6-aa35-4dc5-8f87-1642833ed8f8",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3494,
+      "hanzi": "政府",
+      "targetPinyin": "zhèngfǔ",
+      "meaningEs": "gobierno",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente",
+        "Sociedad y cultura"
+      ],
+      "senseId": "94565179-3be5-48ed-aed3-a56215de0404",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3498,
+      "hanzi": "政治",
+      "targetPinyin": "zhèngzhì",
+      "meaningEs": "política; político",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "74dec2d8-b92e-48c1-bbf7-0d6bc0691d6c",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3512,
+      "hanzi": "制度",
+      "targetPinyin": "zhìdù",
+      "meaningEs": "sistema (p. ej. político, administrativo, etc.); institución",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "3b6a779f-cd0d-4ba2-a8cb-4b0e14cd4f24",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3516,
+      "hanzi": "智能",
+      "targetPinyin": "zhìnéng",
+      "meaningEs": "inteligente; capaz; inteligente (teléfono, sistema, bomba, etc.)",
+      "category": "名、形",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "144f87fa-226d-4934-929e-e048a3b43738",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 3571,
+      "hanzi": "资源",
+      "targetPinyin": "zīyuán",
+      "meaningEs": "recurso natural (como el agua o los minerales); recurso (como la mano de obra o el turismo)",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "b40099a6-0d7d-42b5-a206-33d413d0e364",
+      "sentences": []
+    }
+  ]
+}

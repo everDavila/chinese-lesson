@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "standard": "hsk-3.0",
+    "level": 6,
+    "sourceId": "cti-hsk3-2026",
+    "status": "unreviewed",
+    "task": "rellenar sentences (3 por palabra) y validar",
+    "generatedAt": "2026-10-13T20:30:00.000Z",
+    "requestedPerSense": 3,
+    "why": "Palabras de las 10 plantillas de vocabulario por contexto que se colaron de nivel 4+ cuando el seed las eligio por tema. La curacion HSK 1-3 ya cubrio su nivel; estas quedaron fuera y hoy en clase salen con la consigna \"Inventen una frase con X\".",
+    "count": 5,
+    "themes": {
+      "Tecnología": 2,
+      "Medio ambiente": 2,
+      "Trabajo": 1
+    },
+    "sources": [
+      {
+        "id": "gushi",
+        "url": "https://gushichinese.com/es/hsk-3.0/downloads/",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "id": "tatoeba",
+        "url": "https://tatoeba.org",
+        "license": "CC BY 2.0 FR"
+      }
+    ],
+    "rules": [
+      "Respetar contenido/POLITICA-DE-CONTENIDO.md.",
+      "Vocabulario de la frase: nivel 6 o inferior; si hace falta una palabra superior, marcarla como apoyo con pinyin, glosa y nivel.",
+      "Frase corta, natural y contemporanea; declarar el registro si no es conversacion (trabajo, noticias, escritura formal).",
+      "origin: open_data si viene de Tatoeba/Gushi (con source, license y sourceSentenceId); ai si la redacta el agente (source: codex-editorial, license: null).",
+      "No marcar reviewed: entra como unreviewed hasta revision humana.",
+      "pinyin con tonos, separado por palabra; es y en obligatorios."
+    ],
+    "verify": [
+      "npm run validate:content",
+      "node --env-file=.env.local scripts/sync-hsk-examples.mjs contenido/temas-frases-hsk6.json   (simulacion, no escribe)",
+      "... el mismo comando con --apply para insertar"
+    ]
+  },
+  "examples": [
+    {
+      "sourceOrder": 3756,
+      "hanzi": "成",
+      "targetPinyin": "chéng",
+      "meaningEs": "convertirse en; completar; tener éxito; de acuerdo",
+      "category": "量",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "b9e73723-321b-41aa-b672-715fe63ef4a4",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 4446,
+      "hanzi": "链接",
+      "targetPinyin": "liànjiē",
+      "meaningEs": "enlazar; concatenar; enlace (en una página web); hipervínculo",
+      "category": "动",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "404441e5-2b1c-4c81-8edd-4f43cefae5e5",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 4554,
+      "hanzi": "能源",
+      "targetPinyin": "néngyuán",
+      "meaningEs": "fuentes de energía; energía",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "97c3ae23-ea37-4fcb-9c6b-475ee24fd280",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 4694,
+      "hanzi": "人工智能",
+      "targetPinyin": "réngōngzhìnéng",
+      "meaningEs": "inteligencia artificial (IA)",
+      "category": "NULL",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "dd9800dc-f485-4438-81f1-f7ffb30632a4",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 4773,
+      "hanzi": "生态",
+      "targetPinyin": "shēngtài",
+      "meaningEs": "ecología (el estudio de las interacciones entre los organismos y su entorno); estado ecológico (la condició…",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "e62c47a0-8b92-420a-8eff-587a741375be",
+      "sentences": []
+    }
+  ]
+}

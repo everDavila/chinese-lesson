@@ -1,0 +1,565 @@
+{
+  "metadata": {
+    "standard": "hsk-3.0",
+    "level": 4,
+    "sourceId": "cti-hsk3-2026",
+    "status": "unreviewed",
+    "task": "rellenar sentences (3 por palabra) y validar",
+    "generatedAt": "2026-10-13T20:30:00.000Z",
+    "requestedPerSense": 3,
+    "why": "Palabras de las 10 plantillas de vocabulario por contexto que se colaron de nivel 4+ cuando el seed las eligio por tema. La curacion HSK 1-3 ya cubrio su nivel; estas quedaron fuera y hoy en clase salen con la consigna \"Inventen una frase con X\".",
+    "count": 43,
+    "themes": {
+      "Medio ambiente": 13,
+      "Trabajo": 11,
+      "Sociedad y cultura": 9,
+      "Tecnología": 5,
+      "Salud y cuerpo": 2,
+      "Viajes": 2,
+      "Transporte": 1
+    },
+    "sources": [
+      {
+        "id": "gushi",
+        "url": "https://gushichinese.com/es/hsk-3.0/downloads/",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "id": "tatoeba",
+        "url": "https://tatoeba.org",
+        "license": "CC BY 2.0 FR"
+      }
+    ],
+    "rules": [
+      "Respetar contenido/POLITICA-DE-CONTENIDO.md.",
+      "Vocabulario de la frase: nivel 4 o inferior; si hace falta una palabra superior, marcarla como apoyo con pinyin, glosa y nivel.",
+      "Frase corta, natural y contemporanea; declarar el registro si no es conversacion (trabajo, noticias, escritura formal).",
+      "origin: open_data si viene de Tatoeba/Gushi (con source, license y sourceSentenceId); ai si la redacta el agente (source: codex-editorial, license: null).",
+      "No marcar reviewed: entra como unreviewed hasta revision humana.",
+      "pinyin con tonos, separado por palabra; es y en obligatorios."
+    ],
+    "verify": [
+      "npm run validate:content",
+      "node --env-file=.env.local scripts/sync-hsk-examples.mjs contenido/temas-frases-hsk4.json   (simulacion, no escribe)",
+      "... el mismo comando con --apply para insertar"
+    ]
+  },
+  "examples": [
+    {
+      "sourceOrder": 1014,
+      "hanzi": "保护",
+      "targetPinyin": "bǎohù",
+      "meaningEs": "proteger; defender",
+      "category": "动",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "0df8d1c4-3ab2-4378-b346-1ef225a60fe7",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1057,
+      "hanzi": "部门",
+      "targetPinyin": "bùmén",
+      "meaningEs": "departamento; rama; sección; división",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "a2b9f31f-c47e-4859-bcf0-a09dada7cb79",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1155,
+      "hanzi": "地球",
+      "targetPinyin": "dìqiú",
+      "meaningEs": "la Tierra; planeta",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "a18c489a-c890-4dd3-bef0-62d0c5cfcdf9",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1171,
+      "hanzi": "肚子",
+      "targetPinyin": "dùzi",
+      "meaningEs": "vientre; abdomen; estómago",
+      "category": "名",
+      "inThemes": [
+        "Salud y cuerpo"
+      ],
+      "senseId": "27ebed91-6b6b-4350-9138-b0359d7aa7e8",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1188,
+      "hanzi": "法律",
+      "targetPinyin": "fǎlǜ",
+      "meaningEs": "ley; estatuto",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "57a53e4d-a357-496b-ae89-76a08fb830d7",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1215,
+      "hanzi": "负责",
+      "targetPinyin": "fùzé",
+      "meaningEs": "responsable de (algo); a cargo de",
+      "category": "动、形",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "199fa37c-b8c7-4865-b58b-5d74300f1317",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1251,
+      "hanzi": "功夫",
+      "targetPinyin": "gōngfu",
+      "meaningEs": "kung-fu; destreza; arte; trabajo",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "c8a7eec2-24d4-4586-a007-ba5acf86354c",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1257,
+      "hanzi": "工资",
+      "targetPinyin": "gōngzī",
+      "meaningEs": "salario; paga; ingresos; sueldo",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "f14611bb-fd1d-487e-83fa-2c6be1e4a346",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1280,
+      "hanzi": "国际",
+      "targetPinyin": "guójì",
+      "meaningEs": "internacional",
+      "category": "形、名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "aa37b8be-d9dc-49f9-9814-72995ae676be",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1334,
+      "hanzi": "加班",
+      "targetPinyin": "jiābān",
+      "meaningEs": "trabajar horas extra",
+      "category": "动",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "d7d4bbde-d199-4265-b8e1-d660b5f6edb2",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1351,
+      "hanzi": "减少",
+      "targetPinyin": "jiǎnshǎo",
+      "meaningEs": "reducir; disminuir",
+      "category": "动",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "f563a958-c224-44ce-9d43-f7f84db31e7c",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1396,
+      "hanzi": "经济",
+      "targetPinyin": "jīngjì",
+      "meaningEs": "economía; económico",
+      "category": "名、（形）",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "60ab54b8-ae6d-494d-82c8-498bf64ffa76",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1397,
+      "hanzi": "京剧",
+      "targetPinyin": "jīngjù",
+      "meaningEs": "la ópera de Pekín",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "251b27e6-4613-4f8e-9e51-165301c1ed24",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1399,
+      "hanzi": "经验",
+      "targetPinyin": "jīngyàn",
+      "meaningEs": "experiencia",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "aa11de35-1a7a-4eb4-8417-13e681897590",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1425,
+      "hanzi": "科技",
+      "targetPinyin": "kējì",
+      "meaningEs": "ciencia y tecnología",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "8e8db6ca-97df-436c-bb08-d3609297ee77",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1428,
+      "hanzi": "咳嗽",
+      "targetPinyin": "késou",
+      "meaningEs": "toser",
+      "category": "动",
+      "inThemes": [
+        "Salud y cuerpo"
+      ],
+      "senseId": "f6c611bd-d848-4180-a5d2-bfca22c14a9e",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1437,
+      "hanzi": "空气",
+      "targetPinyin": "kōngqì",
+      "meaningEs": "aire",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "e760898c-f8b6-4fd8-8681-cb1da0e5528c",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1448,
+      "hanzi": "垃圾",
+      "targetPinyin": "lājī",
+      "meaningEs": "basura; desechos; desperdicios; (coloquial) de mala calidad; pron. de Taiwán",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "1b0e2c1b-843b-4102-852d-a3562e614a53",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1490,
+      "hanzi": "旅行",
+      "targetPinyin": "lǚxíng",
+      "meaningEs": "viajar",
+      "category": "动",
+      "inThemes": [
+        "Viajes"
+      ],
+      "senseId": "556232e8-7a28-4138-bae6-892e1452ae26",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1507,
+      "hanzi": "密码",
+      "targetPinyin": "mìmǎ",
+      "meaningEs": "contraseña; código secreto",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "55743d08-57a5-4d9e-9db9-f85a4c7169a9",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1510,
+      "hanzi": "面试",
+      "targetPinyin": "miànshì",
+      "meaningEs": "ser entrevistado (como candidato); entrevista",
+      "category": "动",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "35e94d87-9a73-45d8-80f2-c9ff8a31dde0",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1512,
+      "hanzi": "民族",
+      "targetPinyin": "mínzú",
+      "meaningEs": "nacionalidad; grupo étnico",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "414ee37f-d54a-43fd-aa63-d313134abcbc",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1533,
+      "hanzi": "能力",
+      "targetPinyin": "nénglì",
+      "meaningEs": "capacidad; capaz; habilidad",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "1d8ffb60-9dac-40c5-8482-a79a31bf7cfc",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1537,
+      "hanzi": "农村",
+      "targetPinyin": "nóngcūn",
+      "meaningEs": "zona rural; aldea",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "db51c22f-6a20-4ba4-b5f1-43cd304bc656",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1571,
+      "hanzi": "气候",
+      "targetPinyin": "qìhòu",
+      "meaningEs": "clima; atmósfera; tiempo",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "bea7034d-4e58-40d9-8206-d94ef7dd1af8",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1576,
+      "hanzi": "签证",
+      "targetPinyin": "qiānzhèng",
+      "meaningEs": "visa",
+      "category": "动、名",
+      "inThemes": [
+        "Viajes"
+      ],
+      "senseId": "9c1063fe-2263-4a83-b223-049c528b3f92",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1601,
+      "hanzi": "全球",
+      "targetPinyin": "quánqiú",
+      "meaningEs": "el mundo entero; mundial; global",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "955ef3a6-8867-40ae-9369-89a68e9207b7",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1614,
+      "hanzi": "任务",
+      "targetPinyin": "rènwu",
+      "meaningEs": "una misión; un encargo; una tarea",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "15e6ef54-110a-4dd2-989d-3d21b0081591",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1639,
+      "hanzi": "社会",
+      "targetPinyin": "shèhuì",
+      "meaningEs": "sociedad",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "d94dc8aa-d0bb-4bc1-b828-50fbb0861b7b",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1673,
+      "hanzi": "视频",
+      "targetPinyin": "shìpín",
+      "meaningEs": "video",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "af9ecca5-78f7-4b84-b3a4-8857fc7cee99",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1739,
+      "hanzi": "停",
+      "targetPinyin": "tíng",
+      "meaningEs": "parar; detener; estacionar; detiene",
+      "category": "动",
+      "inThemes": [
+        "Transporte"
+      ],
+      "senseId": "6c489002-1cf1-4761-9981-57683eb1cc79",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1777,
+      "hanzi": "文件",
+      "targetPinyin": "wénjiàn",
+      "meaningEs": "documento; archivo",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "2b875aa9-8e80-4892-bc49-f76ecc9a66ce",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1780,
+      "hanzi": "污染",
+      "targetPinyin": "wūrǎn",
+      "meaningEs": "contaminación; polución",
+      "category": "动",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "4c216b51-c32a-4cb4-b29a-c81ebd648072",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1823,
+      "hanzi": "信息",
+      "targetPinyin": "xìnxī",
+      "meaningEs": "información; noticias; mensaje",
+      "category": "名",
+      "inThemes": [
+        "Tecnología"
+      ],
+      "senseId": "11a54d16-2d93-45d1-a901-6229e4433844",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1840,
+      "hanzi": "压力",
+      "targetPinyin": "yālì",
+      "meaningEs": "presión; estrés",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "c756690d-7f47-43c4-b88b-98f892a7bce5",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1848,
+      "hanzi": "严重",
+      "targetPinyin": "yánzhòng",
+      "meaningEs": "grave; serio; crítico",
+      "category": "形",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "e569cc31-f624-4a66-93de-780b29623c9c",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1870,
+      "hanzi": "艺术",
+      "targetPinyin": "yìshù",
+      "meaningEs": "arte",
+      "category": "名",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "899ca059-160f-413b-8215-dcc94c6fa192",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1920,
+      "hanzi": "责任",
+      "targetPinyin": "zérèn",
+      "meaningEs": "responsabilidad; culpa; deber",
+      "category": "名",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "ee52eee9-0b10-496b-a811-ce8542a180ad",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1921,
+      "hanzi": "增加",
+      "targetPinyin": "zēngjiā",
+      "meaningEs": "aumentar; elevar; añadir",
+      "category": "动",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "48c635b8-5808-4ce8-badf-2d38677dd786",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1950,
+      "hanzi": "职业",
+      "targetPinyin": "zhíyè",
+      "meaningEs": "profesión; ocupación",
+      "category": "名",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "859b892a-ba0d-4c3e-a306-79fa22604bb6",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1967,
+      "hanzi": "著名",
+      "targetPinyin": "zhùmíng",
+      "meaningEs": "famoso; conocido; celebración",
+      "category": "形",
+      "inThemes": [
+        "Sociedad y cultura"
+      ],
+      "senseId": "95161aed-ba60-4749-a9c5-a7f5c1fba811",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1969,
+      "hanzi": "专业",
+      "targetPinyin": "zhuānyè",
+      "meaningEs": "profesión; campo de estudio especializado; especialidad",
+      "category": "名、形",
+      "inThemes": [
+        "Trabajo"
+      ],
+      "senseId": "5ab32ba9-b0f8-4067-85a1-6342a7adf006",
+      "sentences": []
+    },
+    {
+      "sourceOrder": 1981,
+      "hanzi": "自然",
+      "targetPinyin": "zìrán",
+      "meaningEs": "naturaleza; natural",
+      "category": "名、形、副",
+      "inThemes": [
+        "Medio ambiente"
+      ],
+      "senseId": "fe2a54e2-108d-42ef-8ed6-a81065866c75",
+      "sentences": []
+    }
+  ]
+}
