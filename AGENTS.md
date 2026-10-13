@@ -25,8 +25,10 @@
 - **Plantillas de vocabulario por contexto:** 10 colecciones curadas (Comer
   fuera, Vida diaria, Trabajo, Viajes, Transporte, Compras, Salud y cuerpo,
   Tecnología, Medio ambiente, Sociedad y cultura) sobre el temario HSK 3.0
-  1–3, aplicadas en producción el 2026-10-13 (1317 ítems). Sin frases todavía:
-  cada palabra muestra hanzi + pinyin + glosa.
+  1–3, aplicadas en producción el 2026-10-13 (317 ítems, 287 sentidos
+  distintos: unos se repiten entre temas). **231 de los 317 tienen frases** de
+  la curación HSK 1–3 (3 por palabra); los 86 restantes salen con la consigna
+  "Inventen una frase con X". Todas `unreviewed`, sin etiqueta visible en clase.
 - **Contenido HSK 1–3:** los 1000 sentidos oficiales tienen significado en
   español y 2637 frases (840 + 530 + 1267) con primera curación lingüística.
   Significados, matices y frases ya están en `hanzi-dev` y producción; siguen
