@@ -4,9 +4,9 @@
     "level": 6,
     "sourceId": "cti-hsk3-2026",
     "status": "unreviewed",
-    "task": "rellenar sentences (3 por palabra) y validar",
+    "task": "rellenar sentences (2 por palabra) y validar",
     "generatedAt": "2026-10-13T20:30:00.000Z",
-    "requestedPerSense": 3,
+    "requestedPerSense": 2,
     "why": "Palabras de las 10 plantillas de vocabulario por contexto que se colaron de nivel 4+ cuando el seed las eligio por tema. La curacion HSK 1-3 ya cubrio su nivel; estas quedaron fuera y hoy en clase salen con la consigna \"Inventen una frase con X\".",
     "count": 5,
     "themes": {

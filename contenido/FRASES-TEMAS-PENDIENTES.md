@@ -48,7 +48,8 @@ Trabajo 19 · Sociedad y cultura 19 · Salud y cuerpo 2 · Viajes 2 · Transport
 
 Cada ítem trae ya `hanzi`, `targetPinyin`, `meaningEs`, `category`,
 `inThemes`, `senseId` y `sourceOrder`. Solo hay que completar `sentences`
-(tres por palabra) con esta forma, la misma de la curación HSK 1–3:
+(dos por palabra: **170 frases en total**) con esta forma, la misma de la
+curación HSK 1–3:
 
 ```json
 {
@@ -79,7 +80,8 @@ npm run db:sync-hsk-examples contenido/temas-frases-hsk4.json   # simulación
 
 El importador resuelve cada sentido por `sourceId` + `sourceOrder`, solo actúa
 sobre sentidos `unreviewed`, no repite frases que ya existan y no pasa de tres
-por palabra. Con `--apply` inserta.
+por palabra. Para esta tarea se preparan solo dos por palabra; el máximo del
+importador no cambia. Con `--apply` inserta.
 
 ```bash
 npm run db:sync-hsk-examples contenido/temas-frases-hsk4.json --apply
