@@ -31,6 +31,13 @@ Una fila por tarea activa. La rama y la carpeta van entre comillas invertidas:
 el script las lee de ahí. Al unir una tarea a `master`, su fila sale de la tabla
 (queda en la bitácora).
 
+**La carpeta no se elige a mano: la deriva el script como
+`<agente>-chinese-lesson-<rama>`**, con el agente al frente, para que `ls`
+agrupe por dueño. Las de esta tabla son de antes del convenio y el script las
+marca con ⚠ «nombre fuera de convenio»: avisá, no las renombres si otro agente
+está trabajando ahí. Si tu rama ya está en otro worktree, el script se niega a
+crear otra carpeta y te dice cuál es.
+
 | Agente | Rama | Carpeta | Puerto | Tarea | Estado (fecha) |
 |---|---|---|---|---|---|
 | Claude Code | `prueba-escritura` | `chinese-lesson-escritura` | 3006 | Práctica de escritura en `/lab/escritura` (Hanzi Writer: calcar o de memoria, niveles de tolerancia) | Hecha y probada con trazos simulados; falta que Ever la pruebe con el dedo en el celular y fijar los valores de cada nivel (2026-10-12) |

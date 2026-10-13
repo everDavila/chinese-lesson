@@ -93,9 +93,14 @@
 2. **Commitea con rutas explícitas** (`git commit <archivos> -m …`), nunca un
    `git add` suelto separado del commit.
 3. **Varias sesiones o agentes a la vez: cada uno en su propia carpeta**
-   (`git worktree add ../chinese-lesson-<tarea> <rama>`) y su propio puerto. En
-   la misma carpeta se pisan: un `git switch` o un `npm ci` rompe el trabajo del
-   otro.
+   (`git worktree add ../<agente>-chinese-lesson-<tarea> <rama>`) y su propio
+   puerto. En la misma carpeta se pisan: un `git switch` o un `npm ci` rompe el
+   trabajo del otro.
+   **La carpeta lleva el agente al frente** (`codex-chinese-lesson-hsk4-9`, no
+   `chinese-lesson-codex-hsk4-9`): así `ls` agrupa por dueño y el nombre no se
+   confunde con el de la tarea. **No la escribas a mano**: la deriva
+   `npm run worktrees` de la columna Agente. Si la tuya no sigue el convenio, el
+   script te lo dice y no crea otra carpeta para una rama que ya está en uso.
    **Qué carpeta es la tuya:** [TRABAJO-EN-CURSO.md](TRABAJO-EN-CURSO.md) (una
    fila por agente: rama, carpeta, puerto, tarea y estado). Al empezar, búscate
    ahí; si la carpeta no existe en esta PC, `npm run worktrees` la crea desde la

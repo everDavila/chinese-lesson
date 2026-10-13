@@ -3,9 +3,10 @@
 //   npm run worktrees -- --instalar   … y corre npm ci en las nuevas
 //   npm run worktrees -- --estado     solo informa: existe, sin commitear, sin subir
 // (En PowerShell el "--" se pierde: node scripts/worktrees.mjs --estado.)
-// Las carpetas van junto a la principal (../chinese-lesson-<tarea>); a cada
-// nueva se le copian los .env y las sesiones de prueba de la principal, que
-// no viajan con git.
+// Las carpetas van junto a la principal y las nombra el script, no se escriben
+// a mano: `<agente>-chinese-lesson-<tarea>` (el agente al frente, para que `ls`
+// agrupe por dueño). La tabla solo dice agente y tarea; si la carpeta anotada
+// no empieza por ese prefijo, se avisa en vez de crear otra.
 import { execFileSync, spawnSync } from "node:child_process";
 import { cpSync, existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -39,12 +40,20 @@ const rows = table
   .split(/\r?\n/)
   .filter((l) => l.startsWith("|") && !/^\|\s*-/.test(l))
   .map((l) => l.split("|").slice(1, -1).map((c) => c.trim()))
-  .map(([agent, branch, folder, port]) => ({
-    agent,
-    branch: branch?.match(/`([^`]+)`/)?.[1],
-    folder: folder?.match(/`([^`]+)`/)?.[1],
-    port,
-  }))
+  .map(([agent, branch, folder, port]) => {
+    // "Claude Code" -> "claude", "Codex" -> "codex": minusculas y sin espacios.
+    const owner = agent?.toLowerCase().replace(/\s+/g, "-") ?? "";
+    return {
+      agent,
+      owner,
+      // Nombre canonico: el dueno al frente, para que `ls` agrupe por agente.
+      // Usa la rama limpia (sin las comillas invertidas de la celda).
+      expected: `${owner}-chinese-lesson-${branch?.match(/`([^`]+)`/)?.[1]}`,
+      branch: branch?.match(/`([^`]+)`/)?.[1],
+      folder: folder?.match(/`([^`]+)`/)?.[1],
+      port,
+    };
+  })
   .filter((r) => r.branch && r.folder);
 
 if (!rows.length) {
@@ -66,7 +75,12 @@ for (const r of rows) {
       dirty ? `${dirty} archivo(s) sin commitear` : "sin cambios pendientes",
       upstream ? (ahead ? `${ahead} commit(s) sin subir` : "rama subida") : "rama SIN SUBIR a GitHub",
     ];
-    const warn = dirty || !upstream || ahead;
+    // El nombre lo deriva el script: si la tabla anoto otro, avisa. Es lo que
+    // hizo que `npm run worktrees` no encontrara la carpeta de Codex.
+    if (r.folder !== r.expected) {
+      notes.push(`nombre fuera de convenio: deberia ser \`${r.expected}\``);
+    }
+    const warn = dirty || !upstream || ahead || r.folder !== r.expected;
     console.log(`${warn ? "⚠" : "✓"} ${head}\n    ${notes.join(" · ")}`);
     continue;
   }
@@ -82,6 +96,18 @@ for (const r of rows) {
     console.log(`✗ ${head}\n    la rama no está en GitHub: súbela desde la PC donde se trabajó (git push -u origin ${r.branch})`);
     continue;
   }
+
+  // Una rama solo puede estar en un worktree. Si otro ya la tiene, crear otra
+  // carpeta falla o deja dos copias de la misma rama: avisa en su lugar.
+  const ocupante = (tryGit(main, "worktree", "list", "--porcelain") ?? "")
+    .split("\n\n")
+    .find((b) => b.includes(`refs/heads/${r.branch}\n`) || b.endsWith(`refs/heads/${r.branch}`));
+  if (ocupante) {
+    const otra = ocupante.match(/^worktree (.+)$/m)?.[1];
+    console.log(`⚠ ${head}\n    la rama ${r.branch} ya está en \`${otra}\`: no se crea otra carpeta (revisa el nombre en la tabla)`);
+    continue;
+  }
+
   if (local) git(main, "worktree", "add", dir, r.branch);
   else git(main, "worktree", "add", "--track", "-b", r.branch, dir, `origin/${r.branch}`);
 
