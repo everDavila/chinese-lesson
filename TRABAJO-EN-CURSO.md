@@ -22,24 +22,41 @@ Cada agente, en su carpeta:
 2. Actualiza **solo su fila** de la tabla: en qué quedó y qué falta. Commitea
    este archivo en `master` con ruta explícita.
 
-`npm run worktrees -- --estado` lista, por fila, si la carpeta existe, si hay
-cambios sin commitear y si la rama tiene commits sin subir.
+`npm run worktrees -- --estado` solo inspecciona: no hace `fetch`, no crea
+carpetas ni copia archivos. Lista cambios pendientes y commits por subir o
+traer según las referencias locales (pueden estar desactualizadas). Comprueba
+que cada carpeta sea de este repositorio y tenga la rama indicada; los fallos
+se muestran como errores, nunca como una carpeta limpia.
+
+Sin `--estado`, hace `fetch` y crea las carpetas faltantes; solo en las nuevas
+copia los `.env` y las sesiones, y con `--instalar` instala dependencias. Si
+falla una comprobación o preparación, devuelve un código de salida de error.
+Prueba del script: `node --test tests/scripts/worktrees.test.mjs`.
 
 ## Tabla
 
-Una fila por tarea activa. La rama y la carpeta van entre comillas invertidas:
-el script las lee de ahí. Al unir una tarea a `master`, su fila sale de la tabla
-(queda en la bitácora).
+Una fila por tarea activa. La rama va entre comillas invertidas. Para una
+tarea nueva, deja `—` en Carpeta: el script calcula el nombre y puedes anotarlo
+después de crearla. Las carpetas antiguas van entre comillas invertidas. Al
+unir una tarea a `master`, su fila sale de la tabla (queda en la bitácora).
 
-**La carpeta no se elige a mano: la deriva el script como
-`<agente>-chinese-lesson-<rama>`**, con el agente al frente, para que `ls`
-agrupe por dueño. Las de esta tabla son de antes del convenio y el script las
-marca con ⚠ «nombre fuera de convenio»: avisá, no las renombres si otro agente
-está trabajando ahí.
+**La carpeta nueva no se elige a mano: la deriva el script como
+`<agente>-chinese-lesson-<rama>`**, con el agente en minúsculas y espacios
+convertidos en guiones (`Claude Code` → `claude-code`); las barras de la rama
+también se convierten en guiones. Así `ls` agrupa por dueño. Una carpeta antigua
+existente se conserva y se marca con ⚠ «nombre fuera de convenio»: avisa, no
+la renombres si otro agente está trabajando ahí. Si no existe, se crea con el
+nombre derivado, aunque la tabla todavía indique el antiguo.
+
+El script consulta siempre el registro de la carpeta principal, también al
+ejecutarse desde un worktree. Actualiza allí tu fila para evitar usar copias
+antiguas del registro.
 
 **Es identificación, no candado:** cualquiera puede retomar la tarea de otro
 agente. Lo único que frena el script es duplicar la *misma rama* en dos
-carpetas (un `npm ci` en una rompe la otra); no impide que otro la continúe.
+carpetas; no impide que otro la continúe. Cada worktree tiene sus propias
+dependencias: un `npm ci` en carpetas separadas no afecta al otro. Compartir
+carpeta sí permite pisarse archivos, dependencias y cambios de rama.
 
 | Agente | Rama | Carpeta | Puerto | Tarea | Estado (fecha) |
 |---|---|---|---|---|---|

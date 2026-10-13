@@ -1,128 +1,122 @@
-// Carpetas de trabajo de cada agente según TRABAJO-EN-CURSO.md.
-//   npm run worktrees                 crea las que falten en esta PC
-//   npm run worktrees -- --instalar   … y corre npm ci en las nuevas
-//   npm run worktrees -- --estado     solo informa: existe, sin commitear, sin subir
-// (En PowerShell el "--" se pierde: node scripts/worktrees.mjs --estado.)
-// Las carpetas van junto a la principal y las nombra el script, no se escriben
-// a mano: `<agente>-chinese-lesson-<tarea>` (el agente al frente, para que `ls`
-// agrupe por dueño). La tabla solo dice agente y tarea; si la carpeta anotada
-// no empieza por ese prefijo, se avisa en vez de crear otra.
+// Carpetas de trabajo según TRABAJO-EN-CURSO.md.
+//   npm run worktrees                 crea las que falten y copia .env/sesiones
+//   npm run worktrees -- --instalar   además corre npm ci en las nuevas
+//   npm run worktrees -- --estado     solo informa, sin fetch ni escrituras
 import { execFileSync, spawnSync } from "node:child_process";
-import { cpSync, existsSync, readFileSync } from "node:fs";
+import { cpSync, existsSync, readFileSync, realpathSync } from "node:fs";
 import path from "node:path";
 
 const args = process.argv.slice(2);
 const onlyStatus = args.includes("--estado");
 const install = args.includes("--instalar");
-
 const git = (cwd, ...a) => execFileSync("git", a, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
-const tryGit = (cwd, ...a) => {
-  try {
-    return git(cwd, ...a);
-  } catch {
-    return null;
-  }
+const reportError = (head, message) => {
+  console.log(`✗ ${head}\n    ${message}`);
+  process.exitCode = 1;
 };
 
-// La carpeta principal, aunque esto se corra desde un worktree.
-const main = path.dirname(path.resolve(git(process.cwd(), "rev-parse", "--path-format=absolute", "--git-common-dir")));
-const parent = path.dirname(main);
+function run() {
+  // El registro de la principal es compartido; los worktrees pueden tener copias viejas.
+  const main = path.dirname(path.resolve(git(process.cwd(), "rev-parse", "--path-format=absolute", "--git-common-dir")));
+  const parent = path.dirname(main);
+  const commonDir = realpathSync(git(main, "rev-parse", "--path-format=absolute", "--git-common-dir"));
+  const tablePath = path.join(main, "TRABAJO-EN-CURSO.md");
+  if (!existsSync(tablePath)) throw new Error("No encuentro TRABAJO-EN-CURSO.md en la carpeta principal.");
+  const table = readFileSync(tablePath, "utf8").split("## Tabla")[1] ?? "";
+  const rows = table.split(/\r?\n/)
+    .filter((line) => line.startsWith("|") && !/^\|\s*-/.test(line))
+    .map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()))
+    .map(([agent, branchCell, folderCell, port]) => {
+      // "Claude Code" -> "claude-code"; "Codex" -> "codex".
+      const owner = agent?.toLowerCase().replace(/\s+/g, "-") ?? "";
+      const branch = branchCell?.match(/`([^`]+)`/)?.[1];
+      return { agent, owner, branch, folder: folderCell?.match(/`([^`]+)`/)?.[1], port,
+        expected: `${owner}-chinese-lesson-${branch?.replace(/\//g, "-")}` };
+    })
+    .filter((row) => row.branch);
 
-// La tabla de esta carpeta (si se corre desde un worktree) o la de la principal.
-const here = git(process.cwd(), "rev-parse", "--show-toplevel");
-const tablePath = [here, main].map((d) => path.join(d, "TRABAJO-EN-CURSO.md")).find((f) => existsSync(f));
-if (!tablePath) {
-  console.log("No encuentro TRABAJO-EN-CURSO.md: ¿hiciste git pull?");
-  process.exit(1);
-}
-const table = readFileSync(tablePath, "utf8").split("## Tabla")[1] ?? "";
-const rows = table
-  .split(/\r?\n/)
-  .filter((l) => l.startsWith("|") && !/^\|\s*-/.test(l))
-  .map((l) => l.split("|").slice(1, -1).map((c) => c.trim()))
-  .map(([agent, branch, folder, port]) => {
-    // "Claude Code" -> "claude", "Codex" -> "codex": minusculas y sin espacios.
-    const owner = agent?.toLowerCase().replace(/\s+/g, "-") ?? "";
-    return {
-      agent,
-      owner,
-      // Nombre canonico: el dueno al frente, para que `ls` agrupe por agente.
-      // Usa la rama limpia (sin las comillas invertidas de la celda).
-      expected: `${owner}-chinese-lesson-${branch?.match(/`([^`]+)`/)?.[1]}`,
-      branch: branch?.match(/`([^`]+)`/)?.[1],
-      folder: folder?.match(/`([^`]+)`/)?.[1],
-      port,
-    };
-  })
-  .filter((r) => r.branch && r.folder);
+  if (!rows.length) {
+    console.log("TRABAJO-EN-CURSO.md no tiene filas con rama.");
+    return;
+  }
+  // No esconder fallos de fetch detrás de referencias locales posiblemente viejas.
+  if (!onlyStatus) git(main, "fetch", "--quiet", "origin");
+  const registered = git(main, "worktree", "list", "--porcelain").split("\n\n");
+  const refs = new Set(git(main, "for-each-ref", "--format=%(refname)", "refs/heads", "refs/remotes/origin").split("\n"));
+  const seenFolders = new Set();
 
-if (!rows.length) {
-  console.log("TRABAJO-EN-CURSO.md no tiene filas con rama y carpeta.");
-  process.exit(0);
-}
-
-if (!onlyStatus) tryGit(main, "fetch", "--quiet", "origin");
-
-for (const r of rows) {
-  const dir = path.join(parent, r.folder);
-  const head = `${r.agent} · ${r.branch} → ${r.folder}${r.port && r.port !== "—" ? ` · puerto ${r.port}` : ""}`;
-
-  if (existsSync(dir)) {
-    const dirty = (tryGit(dir, "status", "--porcelain") ?? "").split("\n").filter(Boolean).length;
-    const upstream = tryGit(dir, "rev-parse", "--abbrev-ref", "@{u}");
-    const ahead = upstream ? Number(tryGit(dir, "rev-list", "--count", "@{u}..HEAD") ?? 0) : null;
-    const notes = [
-      dirty ? `${dirty} archivo(s) sin commitear` : "sin cambios pendientes",
-      upstream ? (ahead ? `${ahead} commit(s) sin subir` : "rama subida") : "rama SIN SUBIR a GitHub",
-    ];
-    // El nombre lo deriva el script: si la tabla anoto otro, avisa. Es lo que
-    // hizo que `npm run worktrees` no encontrara la carpeta de Codex.
-    if (r.folder !== r.expected) {
-      notes.push(`nombre fuera de convenio: deberia ser \`${r.expected}\``);
+  for (const row of rows) {
+    const head = `${row.agent} · ${row.branch}${row.port && row.port !== "—" ? ` · puerto ${row.port}` : ""}`;
+    try {
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(row.owner)) throw new Error("Agente inválido para el nombre de carpeta.");
+      git(main, "check-ref-format", "--branch", row.branch);
+      for (const name of [row.expected, row.folder].filter(Boolean)) {
+        if (name === "." || name === ".." || /[/\\]/.test(name)) throw new Error("La carpeta debe ser un nombre, sin rutas.");
+      }
+      if (seenFolders.has(row.expected)) throw new Error("Nombre de carpeta duplicado en la tabla.");
+      seenFolders.add(row.expected);
+      const canonical = path.join(parent, row.expected);
+      const legacy = row.folder && row.folder !== row.expected ? path.join(parent, row.folder) : null;
+      if (legacy && existsSync(legacy) && existsSync(canonical)) throw new Error("Existen la carpeta antigua y la canónica; revisa la tabla.");
+      // Conservar una carpeta antigua existente, pero crear siempre con el nombre derivado.
+      const dir = legacy && existsSync(legacy) ? legacy : canonical;
+      const location = `${head} → ${path.basename(dir)}`;
+      if (existsSync(dir)) {
+        const top = git(dir, "rev-parse", "--show-toplevel");
+        const common = git(dir, "rev-parse", "--path-format=absolute", "--git-common-dir");
+        if (realpathSync(top) !== realpathSync(dir) || realpathSync(common) !== commonDir) {
+          throw new Error("La carpeta no es un worktree de este repositorio.");
+        }
+        const branch = git(dir, "symbolic-ref", "--quiet", "--short", "HEAD");
+        if (branch !== row.branch) throw new Error(`La carpeta tiene la rama ${branch}, pero la tabla indica ${row.branch}.`);
+        const dirty = git(dir, "status", "--porcelain").split("\n").filter(Boolean).length;
+        const upstream = git(dir, "for-each-ref", "--format=%(upstream)", `refs/heads/${row.branch}`);
+        const ahead = upstream ? Number(git(dir, "rev-list", "--count", `${upstream}..HEAD`)) : 0;
+        const behind = upstream ? Number(git(dir, "rev-list", "--count", `HEAD..${upstream}`)) : 0;
+        const notes = [dirty ? `${dirty} archivo(s) sin commitear` : "sin cambios pendientes",
+          upstream ? (ahead ? `${ahead} commit(s) sin subir` : "sin commits pendientes de subir") : "rama SIN UPSTREAM",
+          ...(behind ? [`${behind} commit(s) por traer`] : []),
+          ...(dir !== canonical ? [`nombre fuera de convenio: debería ser \`${row.expected}\`; no se renombra`] : [])];
+        console.log(`${dirty || !upstream || ahead || behind || dir !== canonical ? "⚠" : "✓"} ${location}\n    ${notes.join(" · ")}`);
+        continue;
+      }
+      const occupant = registered.find((block) => block.split("\n").includes(`branch refs/heads/${row.branch}`));
+      if (occupant) {
+        reportError(location, `La rama ya está en \`${occupant.match(/^worktree (.+)$/m)?.[1]}\`: no se crea otra carpeta.`);
+        continue;
+      }
+      if (onlyStatus) {
+        console.log(`· ${location}\n    no existe en esta PC`);
+        continue;
+      }
+      const local = refs.has(`refs/heads/${row.branch}`);
+      const remote = refs.has(`refs/remotes/origin/${row.branch}`);
+      if (!local && !remote) throw new Error(`La rama no existe localmente ni en GitHub: sube ${row.branch} desde la PC donde se trabajó.`);
+      if (local) git(main, "worktree", "add", canonical, row.branch);
+      else git(main, "worktree", "add", "--track", "-b", row.branch, canonical, `origin/${row.branch}`);
+      registered.push(`worktree ${canonical}\nbranch refs/heads/${row.branch}`);
+      const copied = [".env.local", ".env.dev.local", "tests/.auth", "tests/.auth-dev"].filter((file) => {
+        const from = path.join(main, file);
+        const to = path.join(canonical, file);
+        if (!existsSync(from) || existsSync(to)) return false;
+        cpSync(from, to, { recursive: true });
+        return true;
+      });
+      console.log(`+ ${location}\n    creada${copied.length ? `; copiados: ${copied.join(", ")}` : ""}`);
+      if (install) {
+        const result = spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", ["ci", "--no-audit", "--no-fund"], {
+          cwd: canonical, stdio: "inherit", shell: process.platform === "win32",
+        });
+        if (result.status !== 0) throw new Error("npm ci falló en la carpeta nueva.");
+      }
+    } catch (error) {
+      reportError(head, error.message);
     }
-    const warn = dirty || !upstream || ahead || r.folder !== r.expected;
-    console.log(`${warn ? "⚠" : "✓"} ${head}\n    ${notes.join(" · ")}`);
-    continue;
   }
+}
 
-  if (onlyStatus) {
-    console.log(`· ${head}\n    no existe en esta PC`);
-    continue;
-  }
-
-  const local = tryGit(main, "rev-parse", "--verify", "--quiet", `refs/heads/${r.branch}`);
-  const remote = tryGit(main, "rev-parse", "--verify", "--quiet", `refs/remotes/origin/${r.branch}`);
-  if (!local && !remote) {
-    console.log(`✗ ${head}\n    la rama no está en GitHub: súbela desde la PC donde se trabajó (git push -u origin ${r.branch})`);
-    continue;
-  }
-
-  // Una rama solo puede estar en un worktree. Si otro ya la tiene, crear otra
-  // carpeta falla o deja dos copias de la misma rama: avisa en su lugar.
-  const ocupante = (tryGit(main, "worktree", "list", "--porcelain") ?? "")
-    .split("\n\n")
-    .find((b) => b.includes(`refs/heads/${r.branch}\n`) || b.endsWith(`refs/heads/${r.branch}`));
-  if (ocupante) {
-    const otra = ocupante.match(/^worktree (.+)$/m)?.[1];
-    console.log(`⚠ ${head}\n    la rama ${r.branch} ya está en \`${otra}\`: no se crea otra carpeta (revisa el nombre en la tabla)`);
-    continue;
-  }
-
-  if (local) git(main, "worktree", "add", dir, r.branch);
-  else git(main, "worktree", "add", "--track", "-b", r.branch, dir, `origin/${r.branch}`);
-
-  // Lo que no viaja con git: claves y sesiones guardadas de las pruebas.
-  const copied = [".env.local", ".env.dev.local", "tests/.auth", "tests/.auth-dev"].filter((f) => {
-    const from = path.join(main, f);
-    const to = path.join(dir, f);
-    if (!existsSync(from) || existsSync(to)) return false;
-    cpSync(from, to, { recursive: true });
-    return true;
-  });
-  console.log(`+ ${head}\n    creada${copied.length ? `; copiados: ${copied.join(", ")}` : ""}`);
-
-  if (install) {
-    const r2 = spawnSync("npm", ["ci", "--no-audit", "--no-fund"], { cwd: dir, stdio: "inherit", shell: true });
-    if (r2.status !== 0) console.log(`    npm ci falló en ${r.folder}`);
-  }
+try {
+  run();
+} catch (error) {
+  reportError("No se pudo comprobar o preparar los worktrees", error.message);
 }
