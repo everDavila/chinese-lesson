@@ -1,8 +1,8 @@
 # Frases pendientes de las plantillas por tema
 
 > Cobertura inicial de las frases pendientes de las plantillas por tema.
-> Esta rama completa una frase por cada uno de los 85 sentidos pendientes.
-> Ya se cargaron en `hanzi-dev`; todavía no se aplicaron en producción.
+> Completada una frase por cada uno de los 85 sentidos pendientes.
+> Integradas en `master` y cargadas en `hanzi-dev` y producción.
 > Todo sigue como `unreviewed`, pendiente de revisión humana.
 
 ## Resultado (2026-10-13)
@@ -22,8 +22,13 @@
   lotes en simulación propone cero inserciones.
 - Respaldo previo, en la carpeta principal y fuera de Git:
   `backups/supabase-2026-10-13T2101.json`.
-- **Pendiente:** aplicación en producción, contraste sistemático con BCC,
-  revisión humana nativa y prueba en clase. La glosa provisional de `成` no
+- En producción: 2654 → 2739 frases. Las 85 nuevas verificadas campo por
+  campo, ninguna frase previa modificada o eliminada y cero duplicados al
+  repetir la simulación. **Las diez plantillas tienen sus 317 ítems con frases
+  y cero sin frases.** Respaldo previo:
+  `backups/supabase-2026-10-13T2239.json` (fuera de Git).
+- **Pendiente:** contraste sistemático con BCC, revisión humana nativa y
+  prueba en clase. La glosa provisional de `成` no
   describe su categoría `量`: el ejemplo usa `三成` (30 %); se dejó una nota
   editorial en el JSON sin alterar el catálogo. Referencia de ese uso:
   [漢典: 成](https://www.zdic.net/hans/成).
@@ -33,8 +38,9 @@
 Las 10 plantillas (`20261012040000_temas_contexto_seed.sql`) se armaron sobre
 "el temario HSK 3.0 1–3", pero el seed eligió algunas palabras por su sentido
 temático y resultaron ser de nivel 4+. No es contenido perdido: la curación de
-HSK 1–3 está completa, y de los 317 ítems de tema **231 ya tienen frases**
-(3 por palabra). Estas 85 son las que quedaron fuera por nivel.
+HSK 1–3 estaba completa, y de los 317 ítems de tema **231 ya tenían frases**
+(3 por palabra). Estos 85 sentidos eran los que quedaron fuera por nivel;
+la carga nueva completa las 86 apariciones pendientes.
 
 Consulta con la que se generó, por si hay que rehacerla:
 

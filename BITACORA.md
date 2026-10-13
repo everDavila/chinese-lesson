@@ -458,3 +458,27 @@ validaciones por nivel, sintaxis de los scripts y ESLint.
 **No probado / pendiente:** contraste sistemático con BCC, revisión humana
 nativa, recorrido visual y uso en una clase real. No se aplicó contenido en
 producción ni se desplegó o subió `master`. El trabajo se conserva en su rama.
+
+
+### 2026-10-13 — Integración de las frases temáticas en producción
+
+A pedido de Ever, `contenido-frases-temas` se integró en `master` mediante
+el merge `1b48328` (contenido y herramientas en `f3bf413`), conservando las
+propuestas nuevas de autoestudio y el registro principal. Pasaron las seis
+pruebas focalizadas y las tres validaciones de nivel sobre la integración.
+
+Tras el respaldo de producción `backups/supabase-2026-10-13T2239.json`, se
+simuló y aplicó cada lote: 43 + 37 + 5 = 85 frases. Producción pasó de 2654 a
+2739 frases. Se verificaron los UUID de los sentidos, hanzi y pinyin, chino,
+traducciones, `computed_level`, `origin: ai` y `status: unreviewed`. Comparadas
+las frases anteriores con el respaldo: ninguna modificada ni eliminada.
+Repetir la simulación devolvió cero inserciones en los tres niveles.
+
+La consulta de cobertura en producción confirmó diez colecciones temáticas,
+317 ítems con frases y cero ítems sin frases. Se actualizaron `AGENTS.md` y
+`contenido/FRASES-TEMAS-PENDIENTES.md`; se retiró únicamente la fila de esta
+tarea de `TRABAJO-EN-CURSO.md`, como corresponde al integrarla.
+
+**Pendiente / no probado:** revisión humana nativa, contraste sistemático con
+BCC, prueba visual de la clase con estos ejemplos y su uso con la profesora.
+Las frases siguen siendo borradores editoriales `unreviewed`.

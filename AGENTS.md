@@ -28,14 +28,15 @@
   fuera, Vida diaria, Trabajo, Viajes, Transporte, Compras, Salud y cuerpo,
   Tecnología, Medio ambiente, Sociedad y cultura) sobre el temario HSK 3.0
   1–3, aplicadas en producción el 2026-10-13 (317 ítems, 287 sentidos
-  distintos: unos se repiten entre temas). **231 de los 317 tienen frases** de
-  la curación HSK 1–3 (3 por palabra); los 86 restantes salen con la consigna
-  "Inventen una frase con X". Todas `unreviewed`, sin etiqueta visible en clase.
-- **Frases de temas (rama `contenido-frases-temas`):** redactadas 85 frases
-  originales, una por sentido solo para esta tarea (43 HSK 4, 37 HSK 5, 5 HSK
-  6), que cubren las 86 apariciones pendientes de las plantillas. Validadas y
-  cargadas en `hanzi-dev` con respaldo el 2026-10-13; todas `unreviewed`.
-  No aplicadas en producción ni unidas a `master`. Seguimiento en
+  distintos: unos se repiten entre temas). **Los 317 ítems tienen frases**:
+  231 de la curación HSK 1–3 (3 por palabra) y 86 apariciones cubiertas por
+  85 frases originales nuevas (una por sentido, `政府` está en dos temas).
+  Todas `unreviewed`, sin etiqueta visible en clase.
+- **Frases de temas:** integradas en `master` desde `contenido-frases-temas` y
+  cargadas en `hanzi-dev` y producción el 2026-10-13, con respaldo previo en
+  cada base. Son 43 HSK 4, 37 HSK 5 y 5 HSK 6; una por sentido solo para esta
+  tarea. Verificadas las 85 frases sin modificar ninguna anterior; siguen
+  `unreviewed`, pendientes de revisión humana. Seguimiento en
   [contenido/FRASES-TEMAS-PENDIENTES.md](contenido/FRASES-TEMAS-PENDIENTES.md).
 - **Contenido HSK 1–3:** los 1000 sentidos oficiales tienen significado en
   español y 2637 frases (840 + 530 + 1267) con primera curación lingüística.
