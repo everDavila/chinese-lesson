@@ -7,7 +7,9 @@
 - **Producción:** https://renshi.davila.uno (el producto se llama Renshi, 认识;
   https://hanzi.davila.uno redirige ahí y https://davila-hanzi.vercel.app sigue),
   desde `master`. Última versión estable etiquetada: `estable-2026-10-12`.
-- **Funciona:** docente en `/collections` (colecciones, plantillas HSK 1–3,
+- **Funciona:** inicio docente en `/` para preparar la clase (lecciones
+  recientes, biblioteca HSK/temas y acceso a edición); docente en
+  `/collections` (colecciones, plantillas HSK 1–3,
   lecciones, frases propias, copias editadas, sugerencias, rotación de frases,
   clase en vivo con valoración y votación anónima de alumnos en `/v`; el panda
   guía y valida el código de acceso del alumno); admin en

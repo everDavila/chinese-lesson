@@ -1,6 +1,6 @@
 # QA de diseño — inicio docente
 
-Fecha: 2026-10-16  
+Fecha: 2026-10-16
 Estado: **aprobado**
 
 ## Referencias
