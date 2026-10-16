@@ -64,3 +64,9 @@ next-env.d.ts
 
 # Caché de fuentes externas para construir lotes de contenido
 /.cache/
+
+# Capturas para la bitácora: se quedan en la PC, no se suben
+/bitacora-capturas/
+
+# Salida generada por Graphify
+/graphify-out/

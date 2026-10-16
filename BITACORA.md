@@ -12,7 +12,7 @@ para la bitácora pública de davila.uno sale de aquí, pero no vive aquí.
 palabra en frases, con descomposición en caracteres y notas culturales.
 Documentado en `IDEA.md` (requisitos 1–11) y `ARQUITECTURA.md`.
 
-**Decisiones del día** (detalle en la bitácora de `AGENTS.md`):
+**Decisiones del día** (resumen vigente en `DECISIONES.md`):
 - Stack: Next.js 16 + TypeScript + Tailwind v4 + shadcn/ui (Base UI) +
   next-intl + next-themes; Supabase (Auth + Postgres + RLS); Vercel por CLI.
   Se descartó repetir Vue + Firebase de Nimbus: Ever quiere explorar.

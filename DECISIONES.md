@@ -1,0 +1,34 @@
+# Historial de decisiones
+
+> Formato: `AAAA-MM-DD - decisión - motivo`. El historial narrativo y técnico
+> vive en [BITACORA.md](BITACORA.md). Las decisiones posteriores pueden
+> reemplazar a las anteriores.
+
+- 2026-10-10 - Plataforma web demostrativa, no app nativa - las clases son online.
+- 2026-10-10 - Next.js como framework - Ever ya trabaja con Next.js; sirve para PWA o webview más adelante.
+- 2026-10-10 - Contenido trilingüe (chino, español, inglés) y base curada propia con origen y estado de revisión por dato - la profesora es china y habla inglés; los alumnos son hispanohablantes.
+- 2026-10-10 - Supabase (Auth + Postgres + RLS) con keep-alive en GitHub Actions - hace falta login para profesoras; Ever prefiere explorar un stack nuevo en vez de repetir Vue + Firebase de Nimbus.
+- 2026-10-10 - Vercel con subdominio propio `hanzi.davila.uno`, gestionado solo por CLI; URL `davila-hanzi.vercel.app` (`hanzi.vercel.app` estaba tomado) - Next.js necesita servidor Node; un subdominio por proyecto no comparte origen con Nimbus; Ever no quiere pasos manuales ni URLs aleatorias.
+- 2026-10-10 - El MVP se centra en la enseñanza en clase (presentación, valoración de la profesora y votación anónima), no en el autoestudio - la demo es para mostrarle a la profesora cómo podría enseñar mejor.
+- 2026-10-10 - Datos de caracteres y radicales importados una vez a la base propia (sin API en vivo); IA solo para arrancar la biblioteca; votación tipo Kahoot (URL + código); rojo suave solo para la palabra clave; Tailwind v4 + shadcn/ui + next-intl + next-themes + Hanzi Writer - decisiones de Ever tras revisar el modo profesora.
+- 2026-10-10 - Interfaz según el idioma del navegador (zh, es o en; si no, inglés), con selector que se recuerda, separada del idioma del contenido; textos neutros de género - los docentes previstos son chinos, pero podrá haber hispanohablantes o anglohablantes.
+- 2026-10-10 - Modo oscuro con paleta "dorada": carbón frío casi negro, texto crema, acentos dorados; los hanzi conservan sus colores - aprobada por Ever tras compararla en paralelo.
+- 2026-10-11 - Colecciones → lecciones → ítems por sentido; plantillas curadas (HSK y libros, solo listas de palabras) que la docente copia; **solo admin edita la base común** - diseño de ARQUITECTURA.md §4.1, aprobado por Ever. La lista de Básico 1 (`contenido/colecciones/basico-1.json`) es la colección de la clase de su profesora; se arma cuando la base esté poblada.
+- 2026-10-11 - Ejemplos HSK cargados por nivel con un importador idempotente que solo inserta faltantes en sentidos `unreviewed`; temario oficial 2025/2026 para validar nivel, Gushi/Tatoeba como fuentes abiertas y complementos propios como `ai` - evita pisar contenido curado y conserva la procedencia.
+- 2026-10-11 - Contenido basado en GF 0025-2021/HSK 3.0, contrastado con el corpus BCC; HSK 2.0 solo como compatibilidad. Política en [contenido/POLITICA-DE-CONTENIDO.md](contenido/POLITICA-DE-CONTENIDO.md) - evita heredar vocabulario y ejemplos desactualizados.
+- 2026-10-11 - Niveles HSK como relación versionada por entrada/sentido, no por hanzi; propuestas de docentes separadas de la biblioteca global - una palabra cambia de nivel entre estándares y el temario repite formas con otra lectura (`只` zhī/zhǐ, `长` cháng/zhǎng).
+- 2026-10-11 - HSK 3.0 niveles 1–3: 300 + 200 + 500 entradas (temario oficial de 2025, vigente desde 2026-07) - no mezclar con las listas de HSK 2.0 ni las comunitarias.
+- 2026-10-11 - Cada ejemplo prioriza vocabulario de su nivel o inferior y admite pocas palabras superiores, marcadas como apoyo con hanzi, pinyin, significado y nivel al pasar el cursor o tocar; en colecciones de libro manda el vocabulario ya visto - frases naturales sin abandonar al principiante. **Las palabras de apoyo aún no están implementadas en la tarjeta.**
+- 2026-10-11 - Los ejemplos generados se muestran antes de la revisión humana, **sin etiqueta visible en clase**; `unreviewed` queda como dato editorial - si no, toda la demo salía con "Sin curar" delante de la profesora. Decisión de Ever.
+- 2026-10-11 - Las frases propias de la docente son privadas y salen siempre en sus clases; una "copia editada" sustituye a la original solo para ella y puede ocultar originales. Si el admin acepta una sugerencia, pasa a la base común (nueva o reemplazando la original, con el texto anterior en `revisions`); si la rechaza, sigue siendo suya - la docente no depende del admin para enseñar, y nadie más toca la base común.
+- 2026-10-11 - La docente no ve el estado editorial, solo cuántas frases saldrán en clase; las palabras sin frases no se presentan - coherente con quitar "Sin curar".
+- 2026-10-11 - Funciones de Vercel en `gru1` (São Paulo), junto a Supabase - en `iad1` cada consulta cruzaba el continente: `/collections` bajó de 1,3 s a 0,5 s.
+- 2026-10-11 - Base de desarrollo aparte (`hanzi-dev`): toda migración se prueba ahí con los recorridos antes de producción - local, producción y la carga de contenido compartían una sola base.
+- 2026-10-11 - Rotación de frases: la docente elige cuántas por palabra (2 por defecto); al abrir la clase se eligen primero las no vistas por esa colección y quedan fijas en la sesión - una palabra repasada no debe repetir los mismos ejemplos (idea de Ever).
+- 2026-10-11 - Los alumnos votan sin cuenta mediante dos funciones `security definer` con `execute` para `anon`, no con la clave secreta en Vercel - las claves secretas no se suben a servicios externos; RLS sigue cerrada para anon.
+- 2026-10-11 - "Cómo se forma" muestra solo las piezas con su pinyin, sin glosas ni "sonido aproximado"; sin datos fiables, no se muestra - la clase nombra la pieza ("el de kǒu"); el sonido del fonético confundía. Decisión de Ever.
+- 2026-10-11 - El admin entra directo a `/admin` - aterrizaba en la vista de la docente.
+- 2026-10-12 - Keep-alive: GitHub Actions llama dos veces por semana a `student_vote_state` en prod y dev con la clave publicable - Supabase pausa los proyectos gratuitos tras 7 días sin actividad; la función es pública y no escribe nada.
+- 2026-10-12 - HSK 4–9 usa el temario de examen 2025/2026: 1000 + 1600 + 1800 + 5600 entradas, con 7–9 como una sola banda oficial - no mezclar las 11.000 entradas del examen vigente con las 11.092 de GF 0025-2021 ni inventar niveles 7, 8 y 9 separados.
+- 2026-10-12 - Las palabras sin frases se presentan con la consigna "Inventen una frase con X"; las propias de la docente (cuando existan) saldrán sin consigna - con HSK 4–9, ~9900 palabras no tienen frases y la regla anterior las dejaba fuera de clase. Decisión de Ever.
+- 2026-10-12 - El producto se llama **Renshi** (认识, "conocer, reconocer"), en https://renshi.davila.uno; hanzi.davila.uno redirige (vercel.json). Los nombres internos (proyecto de Vercel `hanzi`, Supabase, repo) no cambian - "Hanzi" nombraba la categoría, no el producto; renombrar lo interno rompe configuración sin ganar nada. Decisión de Ever.

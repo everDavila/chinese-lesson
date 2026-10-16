@@ -2,10 +2,10 @@
 
 > Resumen para un agente que llega sin contexto. Cuenta **cómo llegó el
 > proyecto a donde está** en una sola lectura. No reemplaza nada: el estado
-> vigente está en [AGENTS.md](AGENTS.md), el detalle técnico por día en
+> vigente está en [ESTADO-ACTUAL.md](ESTADO-ACTUAL.md), el detalle técnico por día en
 > [BITACORA.md](BITACORA.md) y quién hace qué ahora en
 > [TRABAJO-EN-CURSO.md](TRABAJO-EN-CURSO.md). Si algo de aquí choca con el
-> código o el `git log`, manda el código (regla 5 de AGENTS.md).
+> código o el `git log`, manda el código (ver AGENTS.md).
 >
 > Escrito el 2026-10-13 sobre `master` en `2860530`.
 
@@ -13,7 +13,8 @@
 
 1. [VOZ.md](VOZ.md) — cómo hablarle a Ever. Obligatorio.
 2. Este archivo — el porqué de cada pieza.
-3. [AGENTS.md](AGENTS.md) — estado actual, stack, comandos, reglas, decisiones.
+3. [AGENTS.md](AGENTS.md) — reglas; [ESTADO-ACTUAL.md](ESTADO-ACTUAL.md) y
+   [DECISIONES.md](DECISIONES.md) solo si la tarea los necesita.
 4. [TRABAJO-EN-CURSO.md](TRABAJO-EN-CURSO.md) — qué ramas están vivas y de quién.
 5. Según la tarea: [IDEA.md](IDEA.md), [ARQUITECTURA.md](ARQUITECTURA.md),
    [contenido/POLITICA-DE-CONTENIDO.md](contenido/POLITICA-DE-CONTENIDO.md),
@@ -139,16 +140,6 @@ HSK 3.0 completo.
 El resto de ramas remotas (`fase-1*`, `rotacion-frases`, `votacion-alumnos`,
 `pruebas-dev`, `contenido-moderno`, `cline-temas`, `fix-panda-cursor`,
 `ux-panda-codigo`…) ya están en `master`: son historia.
-
-## Contradicciones conocidas en la documentación
-
-- `AGENTS.md` → "Estado actual" dice que el catálogo HSK 4–9 "todavía no está
-  en producción ni en `master`". El `git log` dice que **sí está en `master`**
-  (`44b7185`, `c0759d7` son ancestros) y la bitácora del 2026-10-12 dice que
-  se aplicó en producción con respaldo `supabase-2026-10-12T0723.json`. Falta
-  confirmarlo contra la base de producción antes de corregir `AGENTS.md`.
-- `BITACORA.md` llega hasta la madrugada del 2026-10-12; lo posterior solo
-  está en commits y en este archivo.
 
 ## Lo que aprendió el proyecto (y conviene no repetir)
 
