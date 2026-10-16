@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ArrowDown, ArrowUp, Copy, Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Copy, GripVertical, Pencil, Plus, Trash2 } from "lucide-react";
 import {
   addLessonAction,
   copyTemplateAction,
@@ -20,6 +20,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { CollectionListItem, CollectionSummary } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { useDragReorder } from "./drag-reorder";
 import { Empty, inputCls, ManageShell, NewTitleForm, SearchInput, useRunner, type Crumb } from "./shell";
 
 // Colecciones y lecciones. Las comparten la docente (sus colecciones) y el
@@ -197,6 +198,23 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
   const [editing, setEditing] = useState<string | null>(null);
   const base = collectionsBase(mode);
 
+  // Mismo arrastre que en el editor de lección: mover de la 2 a la 5 son tres
+  // intercambios con el vecino encadenados en la misma acción.
+  const reorder = useDragReorder(c.lessons.length, {
+    disabled: pending,
+    onReorder: (from, to) => {
+      const lessonId = c.lessons[from].id;
+      const delta: -1 | 1 = to > from ? 1 : -1;
+      run(async () => {
+        for (let step = 0; step < Math.abs(to - from); step++) {
+          const r = await moveLessonAction(c.id, lessonId, delta);
+          if (!r.ok) return r;
+        }
+        return { ok: true } as const;
+      });
+    },
+  });
+
   return (
     <ManageShell
       isAdmin={isAdmin}
@@ -266,8 +284,18 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
 
       {c.lessons.length ? (
         <ol className="flex flex-col gap-2">
-          {c.lessons.map((l, i) => (
-            <li key={l.id} className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-4">
+          {c.lessons.map((l, i) => {
+            const rowProps = reorder.row(i);
+            return (
+            <li
+              key={l.id}
+              {...rowProps}
+              className={cn(
+                "flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-4",
+                rowProps.className,
+                !pending && "cursor-grab active:cursor-grabbing",
+              )}
+            >
               <span className="w-6 text-center text-sm text-muted-foreground tabular-nums">{i + 1}</span>
               <div className="min-w-0 flex-1">
                 <Link href={`${base}/${c.id}/${l.id}`} className="font-medium hover:underline">
@@ -282,9 +310,21 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
                 <Button
                   variant="ghost"
                   size="icon"
+                  {...reorder.handle(i)}
+                  aria-label={t("dragHandle", { name: l.title })}
+                  title={t("dragHint")}
+                  disabled={pending}
+                >
+                  <GripVertical />
+                </Button>
+                {/* El navegador no arrastra con el dedo: en móvil siguen las flechas. */}
+                <Button
+                  variant="ghost"
+                  size="icon"
                   aria-label={t("moveUp")}
                   disabled={i === 0 || pending}
                   onClick={() => run(() => moveLessonAction(c.id, l.id, -1))}
+                  className="sm:hidden"
                 >
                   <ArrowUp />
                 </Button>
@@ -294,6 +334,7 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
                   aria-label={t("moveDown")}
                   disabled={i === c.lessons.length - 1 || pending}
                   onClick={() => run(() => moveLessonAction(c.id, l.id, 1))}
+                  className="sm:hidden"
                 >
                   <ArrowDown />
                 </Button>
@@ -308,7 +349,8 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
                 </Button>
               </div>
             </li>
-          ))}
+            );
+          })}
         </ol>
       ) : (
         <Empty>{t("noLessons")}</Empty>

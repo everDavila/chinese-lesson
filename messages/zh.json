@@ -94,6 +94,8 @@
     "addLesson": "添加课程",
     "moveUp": "上移",
     "moveDown": "下移",
+    "dragHandle": "重新排序 {name}",
+    "dragHint": "拖动以重新排序；使用键盘：↑ ↓ 移动",
     "deleteLesson": "删除课程",
     "confirmDeleteLesson": "删除「{title}」？",
     "noLessons": "这个课程集还没有课程。",

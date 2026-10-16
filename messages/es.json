@@ -94,6 +94,8 @@
     "addLesson": "Añadir lección",
     "moveUp": "Subir",
     "moveDown": "Bajar",
+    "dragHandle": "Reordenar {name}",
+    "dragHint": "Arrastra para reordenar; con el teclado: ↑ ↓ para mover",
     "deleteLesson": "Borrar lección",
     "confirmDeleteLesson": "¿Borrar «{title}»?",
     "noLessons": "Esta colección aún no tiene lecciones.",

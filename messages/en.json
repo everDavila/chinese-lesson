@@ -94,6 +94,8 @@
     "addLesson": "Add lesson",
     "moveUp": "Move up",
     "moveDown": "Move down",
+    "dragHandle": "Reorder {name}",
+    "dragHint": "Drag to reorder; with the keyboard: ↑ ↓ to move",
     "deleteLesson": "Delete lesson",
     "confirmDeleteLesson": "Delete “{title}”?",
     "noLessons": "This collection has no lessons yet.",

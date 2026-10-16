@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowDown, ArrowUp, MessageSquareText, Pencil, Plus, Presentation, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, GripVertical, MessageSquareText, Pencil, Plus, Presentation, Trash2 } from "lucide-react";
 import {
   addItemsAction,
   moveItemAction,
@@ -20,6 +20,7 @@ import { lookupWordsAction } from "@/actions/search";
 import type { EditableLesson } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { collectionsBase, useHomeCrumbs, type Mode } from "./collections";
+import { useDragReorder } from "./drag-reorder";
 import { Empty, inputCls, ManageShell, meaningFor, useRunner } from "./shell";
 import { HSK_LEVELS, hskLabel, useWordSearch } from "./use-word-search";
 
@@ -54,6 +55,23 @@ export function LessonEditor({
     if (senseIds.length) run(() => addItemsAction(lesson.id, senseIds));
   };
   const withoutSentences = lesson.items.filter((i) => i.classSentences === 0).length;
+
+  // Arrastrar a la posición destino: como moveItemAction cambia con el vecino,
+  // mover de la 2 a la 5 son tres intercambios encadenados en la misma acción.
+  const reorder = useDragReorder(lesson.items.length, {
+    disabled: pending,
+    onReorder: (from, to) => {
+      const senseId = lesson.items[from].senseId;
+      const delta: -1 | 1 = to > from ? 1 : -1;
+      run(async () => {
+        for (let step = 0; step < Math.abs(to - from); step++) {
+          const r = await moveItemAction(lesson.id, senseId, delta);
+          if (!r.ok) return r;
+        }
+        return { ok: true } as const;
+      });
+    },
+  });
 
   return (
     <ManageShell
@@ -126,8 +144,17 @@ export function LessonEditor({
                 const sense = it.senses.find((s) => s.id === it.senseId) ?? it.senses[0];
                 const sentencesHref =
                   mode === "teacher" ? `${lessonHref}/${it.senseId}` : `/admin/words/${encodeURIComponent(it.hanzi)}`;
+                const rowProps = reorder.row(i);
                 return (
-                  <li key={it.senseId} className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-3">
+                  <li
+                    key={it.senseId}
+                    {...rowProps}
+                    className={cn(
+                      "flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-3",
+                      rowProps.className,
+                      !pending && "cursor-grab active:cursor-grabbing",
+                    )}
+                  >
                     <span className="w-5 text-center text-sm text-muted-foreground tabular-nums">{i + 1}</span>
                     <span className="font-hanzi text-3xl">{it.hanzi}</span>
                     <div className="min-w-0 flex-1">
@@ -172,9 +199,21 @@ export function LessonEditor({
                       <Button
                         variant="ghost"
                         size="icon"
+                        {...reorder.handle(i)}
+                        aria-label={t("dragHandle", { name: it.hanzi })}
+                        title={t("dragHint")}
+                        disabled={pending}
+                      >
+                        <GripVertical />
+                      </Button>
+                      {/* El navegador no arrastra con el dedo: en móvil siguen las flechas. */}
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         aria-label={t("moveUp")}
                         disabled={i === 0 || pending}
                         onClick={() => run(() => moveItemAction(lesson.id, it.senseId, -1))}
+                        className="sm:hidden"
                       >
                         <ArrowUp />
                       </Button>
@@ -184,6 +223,7 @@ export function LessonEditor({
                         aria-label={t("moveDown")}
                         disabled={i === lesson.items.length - 1 || pending}
                         onClick={() => run(() => moveItemAction(lesson.id, it.senseId, 1))}
+                        className="sm:hidden"
                       >
                         <ArrowDown />
                       </Button>
