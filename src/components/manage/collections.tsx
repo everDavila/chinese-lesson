@@ -86,19 +86,23 @@ export function CollectionsScreen({
   mine,
   templates,
   looseLessons = [],
+  initialQuery = "",
+  createOnLoad = false,
 }: {
   mode: Mode;
   isAdmin: boolean;
   mine: CollectionListItem[];
   templates: CollectionListItem[];
   looseLessons?: { id: string; title: string; items: number }[];
+  initialQuery?: string;
+  createOnLoad?: boolean;
 }) {
   const t = useTranslations("Manage");
   const router = useRouter();
   const { pending, error, run } = useRunner();
   const crumbs = useHomeCrumbs(mode);
   const teacher = mode === "teacher";
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
   const q = query.trim().toLowerCase();
   const matches = (title: string) => !q || title.toLowerCase().includes(q);
   const shownMine = mine.filter((c) => matches(c.title));
@@ -117,6 +121,7 @@ export function CollectionsScreen({
           <SearchInput value={query} onChange={setQuery} label={teacher ? t("searchCollections") : t("searchTemplates")} />
         </div>
         <NewTitleForm
+          initialOpen={createOnLoad}
           placeholder={teacher ? t("newCollection") : t("newTemplate")}
           label={
             <>
@@ -188,6 +193,46 @@ export function CollectionsScreen({
 }
 
 /** Una colección: sus lecciones en orden. */
+/** Biblioteca de plantillas reales, separada del material que ya es de la docente. */
+export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templates: CollectionListItem[] }) {
+  const t = useTranslations("Manage");
+  const router = useRouter();
+  const { pending, error, run } = useRunner();
+  const [query, setQuery] = useState("");
+  const shown = templates.filter((item) => item.title.toLowerCase().includes(query.trim().toLowerCase()));
+  const groups = [
+    { title: t("hskLibrary"), hint: t("hskLibraryHint"), items: shown.filter((item) => /^HSK\s/i.test(item.title)) },
+    { title: t("topicLibrary"), hint: t("topicLibraryHint"), items: shown.filter((item) => !/^HSK\s/i.test(item.title)) },
+  ];
+
+  return (
+    <ManageShell isAdmin={isAdmin} crumbs={[]} title={t("libraryTitle")} error={error} wide>
+      <p className="max-w-3xl text-muted-foreground">{t("libraryHint")}</p>
+      <SearchInput value={query} onChange={setQuery} label={t("searchTemplates")} />
+      {groups.map((group) => group.items.length > 0 && (
+        <section key={group.title} className="space-y-3">
+          <div>
+            <h2 className="text-xl font-semibold">{group.title}</h2>
+            <p className="text-sm text-muted-foreground">{group.hint}</p>
+          </div>
+          <ul className="grid gap-3 md:grid-cols-2">
+            {group.items.map((item) => (
+              <CollectionCard
+                key={item.id}
+                c={item}
+                mode="teacher"
+                pending={pending}
+                onCopy={() => run(() => copyTemplateAction(item.id), (result) => router.push(`/collections/${result.id}`))}
+              />
+            ))}
+          </ul>
+        </section>
+      ))}
+      {shown.length === 0 && <Empty>{t("noMatches", { query: query.trim() })}</Empty>}
+    </ManageShell>
+  );
+}
+
 export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode; isAdmin: boolean; collection: CollectionSummary }) {
   const t = useTranslations("Manage");
   const [confirm, confirmDialog] = useConfirm();

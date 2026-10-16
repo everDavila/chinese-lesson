@@ -271,6 +271,28 @@ export async function listLooseLessons(): Promise<{ id: string; title: string; i
   return data.map((l) => ({ id: l.id, title: l.title, items: (l.lesson_items as { count: number }[])[0]?.count ?? 0 }));
 }
 
+/** Lecciones de la docente para retomar su preparación desde el inicio. */
+export async function listTeacherLessons(): Promise<
+  { id: string; title: string; collectionId: string; collectionTitle: string; items: number }[]
+> {
+  const supabase = await createClient();
+  const { data: claims } = await supabase.auth.getClaims();
+  const { data, error } = await supabase
+    .from("lessons")
+    .select("id, title, collection_id, collections(title), lesson_items(count)")
+    .eq("teacher_id", claims?.claims.sub ?? "")
+    .not("collection_id", "is", null)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return data.map((lesson) => ({
+    id: lesson.id,
+    title: lesson.title,
+    collectionId: lesson.collection_id as string,
+    collectionTitle: (lesson.collections as unknown as { title: string }).title,
+    items: (lesson.lesson_items as { count: number }[])[0]?.count ?? 0,
+  }));
+}
+
 // ── Lección (editor) ────────────────────────────────────────────────────
 export type LessonItemRow = {
   senseId: string;
