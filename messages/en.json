@@ -20,8 +20,13 @@
   },
   "TeacherWorkspace": {
     "home": "Home",
+    "workspaceLabel": "My workspace",
+    "lessons": "My lessons",
     "collections": "My collections",
     "library": "Renshi library",
+    "libraryLabel": "Renshi library",
+    "hsk": "HSK vocabulary",
+    "topics": "By topic",
     "search": "Search collections or lessons...",
     "navLabel": "Preparation workspace",
     "tagline": "Teach Chinese your way"

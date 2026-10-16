@@ -16,8 +16,9 @@ test("el inicio docente sirve para preparar y conserva los flujos reales", async
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 
-  await page.getByRole("link", { name: es.TeacherWorkspace.library }).first().click();
-  await expect(page).toHaveURL(/\/es\/library$/);
+  const libraryLink = page.viewportSize()!.width >= 1024 ? es.TeacherWorkspace.hsk : es.TeacherWorkspace.library;
+  await page.getByRole("link", { name: libraryLink }).first().click();
+  await expect(page).toHaveURL(/\/es\/library(?:#hsk)?$/);
   await expect(page.getByRole("heading", { level: 1, name: es.Manage.libraryTitle })).toBeVisible();
 
   await page.goto("/es");

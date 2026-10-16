@@ -38,7 +38,7 @@ export async function TeacherHome({
         <ActionCard href="/collections" icon={<FolderOpen />} title={t("collections")} hint={t("collectionsHint")} />
       </section>
 
-      <section className="space-y-4">
+      <section id="lessons" className="scroll-mt-24 space-y-4">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-2xl font-semibold">{t("continue")}</h2>
           <Link href="/collections" className="text-sm text-primary hover:underline">{t("seeAll")}</Link>

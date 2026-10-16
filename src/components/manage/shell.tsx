@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { FolderOpen, Home, Library, Search } from "lucide-react";
+import { BookOpen, FolderOpen, Home, Library, Search, Tags } from "lucide-react";
 import { signOut } from "@/actions/auth";
 import type { ActionError, Result } from "@/actions/manage";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -74,11 +74,13 @@ export function ManageShell({
           <Link href="/" className="px-3 font-hanzi text-2xl font-semibold tracking-wide">Renshi</Link>
           <p className="px-3 text-xs text-muted-foreground">{tw("tagline")}</p>
           <nav className="mt-8 flex flex-col gap-1" aria-label={tw("navLabel")}>
-            {nav.map(({ href, label, icon: Icon }) => (
-              <Link key={href} href={href} className={cn("flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-sidebar-accent", (pathname === href || (href !== "/" && pathname.startsWith(href))) && "bg-sidebar-accent text-primary")}>
-                <Icon className="size-5" aria-hidden /> {label}
-              </Link>
-            ))}
+            <WorkspaceLink href="/" label={tw("home")} icon={Home} active={pathname === "/"} />
+            <p className="mt-5 px-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">{tw("workspaceLabel")}</p>
+            <WorkspaceLink href="/#lessons" label={tw("lessons")} icon={BookOpen} />
+            <WorkspaceLink href="/collections" label={tw("collections")} icon={FolderOpen} active={pathname.startsWith("/collections")} />
+            <p className="mt-5 px-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">{tw("libraryLabel")}</p>
+            <WorkspaceLink href="/library#hsk" label={tw("hsk")} icon={Library} />
+            <WorkspaceLink href="/library#topics" label={tw("topics")} icon={Tags} />
             {isAdmin && <Link href="/admin" className="mt-4 rounded-lg px-3 py-2.5 text-sm hover:bg-sidebar-accent">{t("nav.admin")}</Link>}
           </nav>
         </aside>
@@ -141,6 +143,14 @@ export function ManageShell({
       </div>
       {content}
     </div>
+  );
+}
+
+function WorkspaceLink({ href, label, icon: Icon, active = false }: { href: "/" | "/#lessons" | "/collections" | "/library#hsk" | "/library#topics"; label: string; icon: typeof Home; active?: boolean }) {
+  return (
+    <Link href={href} className={cn("flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-sidebar-accent", active && "bg-sidebar-accent text-primary")}>
+      <Icon className="size-5" aria-hidden /> {label}
+    </Link>
   );
 }
 

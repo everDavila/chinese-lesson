@@ -20,8 +20,13 @@
   },
   "TeacherWorkspace": {
     "home": "首页",
+    "workspaceLabel": "我的工作区",
+    "lessons": "我的课程",
     "collections": "我的合集",
     "library": "Renshi 资源库",
+    "libraryLabel": "Renshi 资源库",
+    "hsk": "HSK 词汇",
+    "topics": "按主题",
     "search": "搜索合集或课程...",
     "navLabel": "备课空间",
     "tagline": "按你的方式教中文"

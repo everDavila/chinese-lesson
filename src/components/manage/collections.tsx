@@ -201,8 +201,8 @@ export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templa
   const [query, setQuery] = useState("");
   const shown = templates.filter((item) => item.title.toLowerCase().includes(query.trim().toLowerCase()));
   const groups = [
-    { title: t("hskLibrary"), hint: t("hskLibraryHint"), items: shown.filter((item) => /^HSK\s/i.test(item.title)) },
-    { title: t("topicLibrary"), hint: t("topicLibraryHint"), items: shown.filter((item) => !/^HSK\s/i.test(item.title)) },
+    { id: "hsk", title: t("hskLibrary"), hint: t("hskLibraryHint"), items: shown.filter((item) => /^HSK\s/i.test(item.title)) },
+    { id: "topics", title: t("topicLibrary"), hint: t("topicLibraryHint"), items: shown.filter((item) => !/^HSK\s/i.test(item.title)) },
   ];
 
   return (
@@ -210,7 +210,7 @@ export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templa
       <p className="max-w-3xl text-muted-foreground">{t("libraryHint")}</p>
       <SearchInput value={query} onChange={setQuery} label={t("searchTemplates")} />
       {groups.map((group) => group.items.length > 0 && (
-        <section key={group.title} className="space-y-3">
+        <section id={group.id} key={group.id} className="scroll-mt-24 space-y-3">
           <div>
             <h2 className="text-xl font-semibold">{group.title}</h2>
             <p className="text-sm text-muted-foreground">{group.hint}</p>
