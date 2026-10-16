@@ -177,10 +177,12 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
       <div ref={scrollRef} className="flex h-full w-full flex-col gap-4 overflow-y-auto">
         <header ref={headerRef} className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
           <div className="flex shrink-0 gap-1">
-            {item.characters.map((c) =>
+            {item.characters.map((c, i) =>
               c.strokes ? (
+                // Key con índice: un carácter repetido (爸爸) duplicaría la key y
+                // React no desmontaría la casilla vieja (fantasma en la tarjeta).
                 <StrokeArt
-                  key={c.char}
+                  key={`${i}-${c.char}`}
                   strokes={c.strokes}
                   roles={c.info?.strokeRoles ?? []}
                   mode="static"
@@ -188,7 +190,7 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
                   title={c.char}
                 />
               ) : (
-                <span key={c.char} className="font-hanzi text-6xl sm:text-7xl">{c.char}</span>
+                <span key={`${i}-${c.char}`} className="font-hanzi text-6xl sm:text-7xl">{c.char}</span>
               ),
             )}
           </div>
@@ -222,8 +224,10 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
           {formulas.length > 0 && (
             <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-10 gap-y-3 rounded-xl border border-border bg-background/60 px-5 py-3">
               <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
-              {formulas.map((f) => (
-                <p key={f.char} className="flex items-start gap-x-2 font-hanzi text-[clamp(1.25rem,2.2vw,2rem)] leading-none">
+              {formulas.map((f, i) => (
+                // Key con índice: dos caracteres repetidos darían dos fórmulas con
+                // la misma key (爸爸 → 两 fórmulas de 爸).
+                <p key={`${i}-${f.char}`} className="flex items-start gap-x-2 font-hanzi text-[clamp(1.25rem,2.2vw,2rem)] leading-none">
                   <Piece char={f.char} pinyin={f.pinyin} />
                   <span className="pt-[0.15em] text-[0.6em] text-muted-foreground">=</span>
                   {f.parts.map((p, i) => (
