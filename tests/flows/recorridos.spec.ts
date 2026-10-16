@@ -88,8 +88,10 @@ test.describe("profesora", () => {
   test.afterEach(keepSession(LAOSHI));
 
   test("copia la plantilla HSK 1 y la renombra", async ({ page }) => {
-    // El inicio lleva a la docente a sus colecciones.
+    // El inicio es el espacio de preparación; desde ahí entra a sus colecciones.
     await page.goto("/zh");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("你好");
+    await page.getByRole("link", { name: zh.TeacherWorkspace.collections }).first().click();
     await page.waitForURL(/\/zh\/collections$/);
     await expect(page.getByRole("heading", { level: 1, name: Z.nav.collections })).toBeVisible();
     await noMissingKeys(page);
