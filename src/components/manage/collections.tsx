@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ArrowDown, ArrowUp, Copy, GripVertical, Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Copy, GripVertical, Pencil, Plus, Trash2, Undo2 } from "lucide-react";
 import {
   addLessonAction,
   copyTemplateAction,
@@ -11,6 +11,7 @@ import {
   deleteLessonAction,
   moveLessonAction,
   renameCollectionAction,
+  resetCollectionOrderAction,
   setCollectionExamplesAction,
 } from "@/actions/manage";
 import { ExamplesSelect } from "./examples-select";
@@ -226,6 +227,20 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
           <Button variant="ghost" onClick={() => setEditing(c.title)}>
             <Pencil /> {t("rename")}
           </Button>
+          {c.copiedFrom && (
+            <Button
+              variant="ghost"
+              disabled={pending}
+              onClick={async () => {
+                if (await confirm({ title: t("confirmResetOrder", { title: c.title }), confirmLabel: t("resetOrder"), cancelLabel: t("cancel") })) {
+                  const r = await run(() => resetCollectionOrderAction(c.id));
+                  if (r?.ok) window.location.reload();
+                }
+              }}
+            >
+              <Undo2 /> {t("resetOrder")}
+            </Button>
+          )}
           <Button
             variant="ghost"
             disabled={pending}

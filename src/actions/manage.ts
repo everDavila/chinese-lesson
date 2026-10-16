@@ -204,6 +204,105 @@ export async function moveItemAction(lessonId: string, senseId: string, delta: -
   return { ok: true };
 }
 
+/**
+ * Vuelve al orden de la plantilla de origen (una lección): los ítems que la
+ * plantilla ya no tiene (añadidos por la docente) van al final, en su orden.
+ * Escrita en dos pasadas (negativas → finales) como swapPositions: `position`
+ * es única por lección y un cambio directo chocaría.
+ */
+export async function resetLessonOrderAction(lessonId: string): Promise<Result> {
+  const s = await session();
+  if (!s) return { ok: false, error: "auth" };
+  const { data: lesson } = await s.db.from("lessons").select("collection_id").eq("id", lessonId).maybeSingle();
+  const { data: collection } = lesson
+    ? await s.db.from("collections").select("copied_from").eq("id", lesson.collection_id ?? "").maybeSingle()
+    : { data: null };
+  const templateId = collection?.copied_from;
+  if (!templateId) return { ok: false, error: "invalid" };
+  type TL = { id: string; lesson_items: { position: number; sense_id: string }[] };
+  const { data: templateLessons } = await s.db
+    .from("lessons")
+    .select("id, lesson_items(position, sense_id)")
+    .eq("collection_id", templateId)
+    .order("position");
+  const { data: mine } = await s.db.from("lesson_items").select("sense_id, position").eq("lesson_id", lessonId).order("position");
+  if (!templateLessons?.length || !mine) return { ok: false, error: "failed" };
+  // La lección de origen es la que más sentidos comparte (aguanta renombres y
+  // palabras añadidas/quitas); empate: la primera de la plantilla.
+  const sorted = (tl: TL) => [...tl.lesson_items].sort((a, b) => a.position - b.position).map((i) => i.sense_id);
+  const myIds = new Set(mine.map((m) => m.sense_id));
+  let origin = (templateLessons as unknown as TL[])[0];
+  for (const tl of templateLessons as unknown as TL[]) {
+    const tlSenses = sorted(tl);
+    const oSenses = sorted(origin);
+    if (tlSenses.filter((id) => myIds.has(id)).length > oSenses.filter((id) => myIds.has(id)).length) origin = tl;
+  }
+  const originIds = sorted(origin);
+  // Supabase no ordena los anidados en el mismo select: se trae también
+  // position y se ordena aquí.
+  const target = [...originIds, ...mine.map((m) => m.sense_id).filter((id) => !originIds.includes(id))];
+  const error = await setPositions(s.db, "lesson_items", { lessonId }, target, mine);
+  if (error) return fail(error);
+  refresh();
+  return { ok: true };
+}
+
+/**
+ * Vuelve al orden de la plantilla de origen (la colección): empareja cada
+ * lección por sus sentidos, así aguanta renombres ("HSK 1 · 1" → "HSK 1 ·
+ * 1a"). Las lecciones nuevas o con otra plantilla van al final, en su orden.
+ */
+export async function resetCollectionOrderAction(collectionId: string): Promise<Result> {
+  const s = await session();
+  if (!s) return { ok: false, error: "auth" };
+  const { data: collection } = await s.db.from("collections").select("owner_id, copied_from").eq("id", collectionId).maybeSingle();
+  if (!collection || collection.owner_id !== s.profile.id || !collection.copied_from) return { ok: false, error: "invalid" };
+  type L = { id: string; position: number; lesson_items: { position: number; sense_id: string }[] };
+  const both = await Promise.all([
+    s.db.from("lessons").select("id, position, lesson_items(position, sense_id)").eq("collection_id", collection.copied_from).order("position"),
+    s.db.from("lessons").select("id, position, lesson_items(position, sense_id)").eq("collection_id", collectionId).order("position"),
+  ]);
+  const [origin, mine] = both.map((r) => (r.error || !r.data ? null : (r.data as unknown as L[])));
+  if (!origin || !mine) return { ok: false, error: "failed" };
+  const keyOf = (l: L) => [...l.lesson_items].sort((a, b) => a.position - b.position).map((i) => i.sense_id).join(",");
+  const target: string[] = [];
+  for (const o of origin) {
+    const oSenses = keyOf(o);
+    const match = mine.find((m) => !target.includes(m.id) && keyOf(m) === oSenses);
+    if (match) target.push(match.id);
+  }
+  for (const m of mine) if (!target.includes(m.id)) target.push(m.id);
+  const error = await setPositions(s.db, "lessons", { collectionId }, target, mine.map((m) => ({ id: m.id, position: m.position })));
+  if (error) return fail(error);
+  refresh();
+  return { ok: true };
+}
+
+// Nueva posición de cada fila (1..n) en dos pasadas: primero todas a
+// negativas para no chocar con la unicidad, luego a las definitivas.
+async function setPositions(
+  db: SupabaseClient,
+  table: "lessons" | "lesson_items",
+  scope: { lessonId: string } | { collectionId: string },
+  // ids en el orden objetivo; lesson_items se identifica por sense_id.
+  target: string[],
+  current: { id?: string; sense_id?: string; position: number }[],
+) {
+  const byId = new Map(current.map((r) => [(r.sense_id ?? r.id) as string, r]));
+  const rows = target.map((id) => byId.get(id)).filter((r): r is NonNullable<typeof r> => !!r);
+  for (const [n, row] of rows.entries()) {
+    const match = "lessonId" in scope ? { lesson_id: scope.lessonId, sense_id: row.sense_id } : { id: row.id };
+    const { error } = await db.from(table).update({ position: -(n + 1) }).match(match);
+    if (error) return error;
+  }
+  for (const [n, row] of rows.entries()) {
+    const match = "lessonId" in scope ? { lesson_id: scope.lessonId, sense_id: row.sense_id } : { id: row.id };
+    const { error } = await db.from(table).update({ position: n + 1 }).match(match);
+    if (error) return error;
+  }
+  return null;
+}
+
 export async function removeItemAction(lessonId: string, senseId: string): Promise<Result> {
   const s = await session();
   if (!s) return { ok: false, error: "auth" };

@@ -104,16 +104,19 @@ export function useRunner() {
   const t = useTranslations("Manage.errors");
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  const run = <T extends object>(fn: () => Promise<Result<T>>, onOk?: (r: { ok: true } & T) => void) =>
-    startTransition(async () => {
-      const r = await fn();
-      if (r.ok) {
-        setError(null);
-        onOk?.(r);
-      } else {
-        setError(t(r.error satisfies ActionError));
-      }
-    });
+  const run = <T extends object>(fn: () => Promise<Result<T>>, onOk?: (r: { ok: true } & T) => void): Promise<Result<T> | undefined> =>
+    new Promise((resolve) =>
+      startTransition(async () => {
+        const r = await fn();
+        if (r.ok) {
+          setError(null);
+          onOk?.(r);
+        } else {
+          setError(t(r.error satisfies ActionError));
+        }
+        resolve(r);
+      }),
+    );
   return { pending, error, setError, run };
 }
 
