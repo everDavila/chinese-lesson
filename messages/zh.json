@@ -172,6 +172,7 @@
     "checkError": "无法检查代码，请检查网络后重试。",
     "tryAnother": "换一个代码",
     "waiting": "等待老师开放一个词……",
+    "reconnecting": "网络连接中断，正在重试……",
     "question": "你对这个词的理解程度如何？",
     "ratings": [
       "不会",

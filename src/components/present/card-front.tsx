@@ -30,7 +30,7 @@ export function CardFront({ item, playing, speed, runId, showPinyin }: CardFront
 
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4">
-      <div className="flex">
+      <div lang="zh-Hans" className="flex">
         {item.characters.map((c, i) => (
           <CalligraphyGrid key={`${c.char}-${runId}`} className={cn("bg-background/60", i > 0 && "-ml-px")}>
             <div style={{ width: size, height: size }} className="p-[6%]">
@@ -57,7 +57,7 @@ export function CardFront({ item, playing, speed, runId, showPinyin }: CardFront
       </div>
 
       {/* Pinyin de la palabra entera, no sílaba por casilla. */}
-      <p className={cn("text-[clamp(1.75rem,3vw,2.5rem)] text-muted-foreground", !showPinyin && "invisible")}>
+      <p lang="zh-Latn" className={cn("text-[clamp(1.75rem,3vw,2.5rem)] text-muted-foreground", !showPinyin && "invisible")}>
         {sense.pinyin}
       </p>
 

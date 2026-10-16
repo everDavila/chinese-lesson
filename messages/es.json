@@ -172,6 +172,7 @@
     "checkError": "No pudimos comprobar el código. Revisa tu conexión e inténtalo otra vez.",
     "tryAnother": "Probar otro código",
     "waiting": "Esperando a que la profesora abra una palabra…",
+    "reconnecting": "Sin conexión, reintentando…",
     "question": "¿Qué tal entiendes esta palabra?",
     "ratings": [
       "No la sé",
