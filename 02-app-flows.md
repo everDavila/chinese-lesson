@@ -233,7 +233,7 @@ sequenceDiagram
 5. La presentación consulta conteos y muestra distribución/participación.
 6. D cierra la ronda o cambia de palabra.
 
-Estado pendiente: si el sondeo de resultados pierde red, la UI puede congelar el último conteo sin explicar la desconexión.
+Si dos sondeos consecutivos fallan, la UI conserva el último conteo y anuncia «Sin conexión, reintentando…» mediante `role="status"`; el aviso desaparece al recuperarse.
 
 ### 7.2 Lado del alumno
 
@@ -261,7 +261,7 @@ stateDiagram-v2
 6. `cast_student_vote` inserta o actualiza el voto de ese navegador.
 7. El sondeo detecta cambios de palabra sin recargar.
 
-Fallo pendiente: después de varios errores consecutivos debe aparecer «Sin conexión, reintentando…» con `role="status"`; hoy el primer estado puede quedarse en «…».
+Después de dos errores consecutivos aparece «Sin conexión, reintentando…» con `role="status"`; una respuesta correcta restablece el estado sin recargar.
 
 ## 8. Curación administrativa
 

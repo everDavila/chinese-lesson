@@ -103,10 +103,10 @@ Trabajos:
 - Administración de la base común, plantillas y bandeja de sugerencias.
 - Interfaz docente y pública en chino, español e inglés; administración en español; tema claro y oscuro.
 
-### 6.2 Preparado pero no integrado en `master` ni en producción
+### 6.2 Catálogo integrado con cobertura pedagógica parcial
 
 - Catálogo HSK 4–9 del temario 2025/2026: 1000 entradas de HSK 4, 1600 de HSK 5, 1800 de HSK 6 y 5600 de la banda conjunta 7–9.
-- Pinyin, categoría, glosa española básica y descomposición de caracteres para ese catálogo.
+- Está en `master` y producción desde el 2026-10-12, con pinyin, categoría, glosa española básica y descomposición de caracteres.
 - No incluye frases, matices ni notas culturales salvo las 85 frases temáticas HSK 4–6 ya requeridas por las plantillas de producción.
 
 ### 6.3 Fuera del MVP
@@ -172,7 +172,7 @@ Los estados son: **Hecho**, **Parcial**, **Pendiente** o **Exploración**.
 | PR-VOTE-02 | Ve solo el hanzi y pinyin necesarios para votar, no el significado. | Hecho | La respuesta no se filtra en la carga pública. |
 | PR-VOTE-03 | Elige entre «No la sé», «Me costó», «Bien» y «Fácil». | Hecho | Los objetivos táctiles son de al menos 44 px y el control expone semántica de radio. |
 | PR-VOTE-04 | Puede cambiar su respuesta durante la ronda sin sumar un voto nuevo. | Hecho | El mismo navegador hace `upsert` sobre un identificador anónimo. |
-| PR-VOTE-05 | La pantalla explica pérdida de conexión y reintento. | Pendiente | Tras varios fallos de sondeo aparece un estado accesible; al recuperar red vuelve al flujo sin recargar. |
+| PR-VOTE-05 | La pantalla explica pérdida de conexión y reintento. | Hecho | Tras dos fallos de sondeo aparece un estado accesible; al recuperar red vuelve al flujo sin recargar. |
 
 ### 7.6 Administración y contenido
 
@@ -182,7 +182,7 @@ Los estados son: **Hecho**, **Parcial**, **Pendiente** o **Exploración**.
 | PR-ADM-02 | Edita palabra, sentidos, frases, notas y estado editorial y puede previsualizar la tarjeta. | Hecho | Las operaciones destructivas fallan de forma comprensible si el dato está en uso. |
 | PR-ADM-03 | Crea y mantiene plantillas globales. | Hecho | Las docentes pueden leerlas y copiarlas, no modificarlas. |
 | PR-ADM-04 | Cada dato publicable conserva procedencia, estado y revisión. | Parcial | Fuentes y niveles están versionados; falta atribución por frase/campo y revisión por idioma. |
-| PR-ADM-05 | Se puede integrar HSK 4–9 sin inventar niveles separados para la banda 7–9. | Pendiente | La migración pasa en `hanzi-dev`, preserva UUID y no pisa contenido curado. |
+| PR-ADM-05 | Se integra HSK 4–9 sin inventar niveles separados para la banda 7–9. | Hecho | Las migraciones se probaron en `hanzi-dev` y se aplicaron en producción con respaldo previo. |
 
 ### 7.7 Idioma, accesibilidad y presentación
 
@@ -191,7 +191,7 @@ Los estados son: **Hecho**, **Parcial**, **Pendiente** o **Exploración**.
 | PR-UX-01 | La interfaz docente y pública usa el idioma del navegador entre `zh`, `es` y `en`, con inglés como fallback y selector recordado; admin permanece en español. | Hecho | Las tres traducciones de las superficies multilingües mantienen las mismas claves. |
 | PR-UX-02 | El idioma de interfaz es independiente del idioma pedagógico del contenido. | Parcial | La UI ya es independiente; la preferencia de idioma de contenido por clase aún no existe. |
 | PR-UX-03 | El producto funciona con teclado, reducción de movimiento y foco visible. | Hecho | Los controles propios y de biblioteca muestran foco y la animación respeta `prefers-reduced-motion`. |
-| PR-UX-04 | Hanzi, frases y pinyin declaran su idioma para tecnologías asistivas. | Pendiente | `zh-Hans` y `zh-Latn` se aplican en todas las superficies pedagógicas. |
+| PR-UX-04 | Hanzi, frases y pinyin declaran su idioma para tecnologías asistivas. | Hecho | `zh-Hans` y `zh-Latn` se aplican en las superficies pedagógicas de clase y voto. |
 | PR-UX-05 | La clase prioriza escritorio compartido y la votación prioriza móvil. | Hecho | No hay scroll horizontal en los tamaños cubiertos por las pruebas. |
 
 ## 8. Reglas de negocio
@@ -230,14 +230,13 @@ Indicadores técnicos de apoyo:
 ## 10. Riesgos y preguntas abiertas
 
 - Falta validación lingüística nativa de la biblioteca marcada `unreviewed`.
-- El sondeo de votación todavía no comunica bien una caída de red.
+- El aviso de desconexión tiene prueba unitaria, pero falta comprobarlo en navegadores y redes móviles reales.
 - No se ha probado la votación con una clase real y muchos celulares simultáneos.
 - La atribución de frases abiertas todavía no está modelada por frase.
 - El rol `reviewer` está definido, pero la autorización efectiva de edición común se concentra en `admin`.
-- La rama HSK 4–9 debe reconciliarse con `master` y volver a probarse antes de producción.
 - El idioma de contenido por clase, las palabras de apoyo y las solicitudes de vocabulario siguen sin diseño final.
 - Escritura, producción de frases y repetición espaciada son hipótesis de autoestudio, no compromisos del MVP.
 
 ## 11. Criterio de producto terminado para el MVP
 
-El MVP no significa “todo el chino cargado”. Significa que una docente puede elegir contenido fiable, preparar una lección, impartirla y recoger una señal grupal sin soporte técnico ni exposición de datos. Para declararlo cerrado faltan, como mínimo, una prueba con la profesora real, una prueba de votación con un grupo real, resolución de los fallos de conectividad visibles y registro explícito de los aprendizajes de esa validación.
+El MVP no significa “todo el chino cargado”. Significa que una docente puede elegir contenido fiable, preparar una lección, impartirla y recoger una señal grupal sin soporte técnico ni exposición de datos. Para declararlo validado faltan, como mínimo, una prueba con la profesora real, una prueba de votación con un grupo real y el registro explícito de los aprendizajes de esa validación.

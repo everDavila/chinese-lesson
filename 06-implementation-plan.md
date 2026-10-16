@@ -1,6 +1,6 @@
 # Plan de implementación — Renshi
 
-> Corte: 2026-10-15.
+> Corte: 2026-10-16.
 > Objetivo: llevar el producto actual desde una demo funcional a una clase real validada, antes de ampliar el alcance.
 > Regla: cada migración pasa primero por `hanzi-dev` con respaldo y recorridos; producción requiere aprobación explícita.
 
@@ -23,22 +23,21 @@ No conviene reconstruirlo. El trabajo siguiente debe reducir riesgo en una clase
 - Valoración docente y votación anónima sincronizada.
 - Administración de palabras, plantillas y sugerencias.
 - HSK 1–3 con significado español y frases; diez colecciones temáticas con cobertura.
+- Catálogo HSK 4–9 integrado en `master` y producción, con cobertura pedagógica todavía parcial.
 - Interfaz `zh/es/en`, temas claro/oscuro y recorridos Playwright.
+- Aviso accesible de desconexión en alumno y docente, recuperación automática e idioma semántico del chino y pinyin.
 
-### 1.2 Trabajo preparado pero no desplegado
+### 1.2 Experimentos no integrados
 
-- Rama `contenido-hsk4-9` con catálogo HSK 4–9, migraciones, glosas y caracteres probados en `hanzi-dev`.
 - Experimento `prueba-escritura`, pendiente de prueba con dedo y de diseño pedagógico.
 - Rediseño `ux-voto-alumno`, no integrado y atrasado respecto al panda actual; debe evaluarse por ideas, no fusionarse a ciegas.
 
 ### 1.3 Riesgos que bloquean declarar el MVP validado
 
-1. El alumno puede quedar en espera muda cuando pierde red.
-2. La vista docente puede congelar conteos sin indicar desconexión.
-3. Falta probar la votación con una clase real y varios teléfonos.
-4. La profesora real todavía no ha recorrido el producto completo.
-5. Hanzi y pinyin no declaran idioma en todas las superficies para lector de pantalla.
-6. El contenido sigue `unreviewed` hasta revisión humana.
+1. Falta probar la votación con una clase real y varios teléfonos, incluida una pérdida de red real.
+2. La profesora real todavía no ha recorrido el producto completo.
+3. Falta una pasada manual con lector de pantalla y zoom 200/400 %.
+4. El contenido sigue `unreviewed` hasta revisión humana.
 
 ## 2. Orden de ejecución
 
@@ -51,8 +50,7 @@ flowchart TD
     F --> P2
     D -- Sí --> P3[3. Seguridad de edición y UX]
     P3 --> P4[4. Trazabilidad editorial]
-    P4 --> P5[5. Integrar HSK 4–9]
-    P5 --> P6[6. Enriquecimiento pedagógico]
+    P4 --> P6[6. Enriquecimiento pedagógico]
     P6 --> P7[7. Decidir autoestudio]
 ```
 
@@ -83,6 +81,8 @@ Salida: una persona nueva puede explicar qué existe, cómo fluye, cómo se dise
 ## 4. Fase 1 — Robustecer clase y votación
 
 **Prioridad: P0.** No cambia el concepto; evita fallos silenciosos durante la clase.
+
+**Estado:** implementación y pruebas automáticas completadas el 2026-10-16; queda la validación manual incluida en la fase 2.
 
 ### 4.1 Estado de red del alumno
 
@@ -264,41 +264,15 @@ Si se conserva, añadir pruebas RLS positivas y negativas específicas.
 
 **Criterio de salida:** se puede responder quién aportó/revisó una frase, bajo qué licencia y en qué idioma, sin inferirlo por el archivo de origen.
 
-## 8. Fase 5 — Integrar el catálogo HSK 4–9
+## 8. Fase 5 — Catálogo HSK 4–9 completado
 
-**Prioridad: P2, después de validar la clase y la trazabilidad necesaria.**
+El catálogo ya está en `master` y producción desde el 2026-10-12. Las migraciones se probaron primero en `hanzi-dev`, se respaldó producción y se verificaron los conteos y la búsqueda.
 
-La rama ya fue probada en desarrollo, pero no se asume que siga compatible con `master`.
+Se mantienen estas restricciones:
 
-### 8.1 Reconciliación
-
-1. Comparar rama con `master` actual.
-2. Separar cambios reales de modos de archivo o residuos de otras tareas.
-3. Rebasar o fusionar en un worktree aislado sin arrastrar los dos commits no relacionados de mascota/credenciales.
-4. Verificar que las migraciones mantienen orden y que no chocan con temas/frases añadidos después.
-5. Revisar que la banda 7–9 conserve su etiqueta oficial.
-
-### 8.2 Validación en `hanzi-dev`
-
-1. Respaldar desarrollo.
-2. Aplicar migraciones desde cero y sobre base existente.
-3. Ejecutar `validate:hsk`, `test:db`, unitarias y recorridos.
-4. Verificar conteos esperados: 1000 + 1600 + 1800 + 5600 entradas nuevas.
-5. Verificar 3088 caracteres y ocultamiento de descomposiciones incompletas.
-6. Buscar casos con hanzi repetido, lecturas múltiples y banda 7–9.
-7. Confirmar rendimiento de `/admin` y editor de lección.
-
-### 8.3 Integración y producción
-
-1. Integrar a `master` con commits atómicos y documentación actualizada.
-2. Crear respaldo de producción.
-3. Aplicar migraciones/import con aprobación explícita.
-4. Verificar conteos, búsqueda, lección y RPC pública.
-5. Confirmar que palabras sin frases muestran la consigna y no desaparecen.
-
-No declarar HSK 4–9 «curado»: las glosas/descomposiciones son borradores y la gran mayoría no tiene frases.
-
-**Criterio de salida:** catálogo completo buscable y seleccionable en producción, sin degradar HSK 1–3 ni afirmar una cobertura pedagógica inexistente.
+- no declarar HSK 4–9 «curado»: las glosas y descomposiciones son borradores;
+- la gran mayoría de sus sentidos no tiene frases, matices ni notas culturales;
+- toda ampliación o corrección de datos vuelve a pasar por respaldo, `hanzi-dev` y validación antes de producción.
 
 ## 9. Fase 6 — Enriquecimiento pedagógico
 
@@ -370,9 +344,7 @@ Salida posible: **no construirlo**. La demo puede cumplir su propósito como her
 
 | Prioridad | Trabajo | Dependencia | Evidencia de cierre |
 |---|---|---|---|
-| P0 | Reconexión visible en alumno | Ninguna | Tests de fallo/recuperación + captura móvil. |
-| P0 | Reconexión visible en resultados docente | Ninguna | Conteo marcado como desactualizado y recuperación probada. |
-| P0 | `lang` chino/pinyin | Ninguna | Auditoría DOM + lector de pantalla manual. |
+| P0 | Validar reconexión e idioma semántico en dispositivos reales | Fase 1 implementada | Captura móvil, recuperación probada y pasada con lector de pantalla. |
 | P0 | Prueba profesora real | Fase 1 | Recorrido observado y hallazgos clasificados. |
 | P0 | Prueba multi-dispositivo | Fase 1 | Resultados de carga y aislamiento de sesiones. |
 | P1 | Diálogos propios | Validación central | Recorridos de borrar/cancelar/confirmar. |
@@ -380,7 +352,6 @@ Salida posible: **no construirlo**. La demo puede cumplir su propósito como her
 | P1 | Nueva colección/lección clara | Feedback docente | Test de estado vacío y creación. |
 | P1 | Procedencia por frase | Diseño de esquema/licencia | Migración + página/export de créditos. |
 | P1 | Resolver rol reviewer | Flujo editorial | Matriz RLS y tests. |
-| P2 | Integrar HSK 4–9 | Reconciliación de rama | Conteos, tests y producción verificada. |
 | P2 | Palabras de apoyo | Modelo + diseño | Hover/foco/toque y contenido validado. |
 | P2 | Solicitudes de palabras | Flujo admin | Solicitud privada y resolución trazable. |
 | Explorar | Escritura | Prueba con dedo | Decisión documentada. |

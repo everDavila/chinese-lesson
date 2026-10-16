@@ -267,10 +267,10 @@ Agregar analítica o monitoreo externo requiere decisión de privacidad; no se i
 - El estado de revisión es por entidad, no todavía por campo e idioma.
 - `reviewer` existe, pero la edición global efectiva exige `admin`.
 - Procedencia de frase no está normalizada por cada `sentence`.
-- El sondeo no expone todavía un estado robusto de desconexión.
+- El sondeo expone desconexión tras dos fallos consecutivos y se recupera automáticamente; falta validarlo con redes móviles reales.
 - Web Speech API varía entre navegador y sistema operativo.
 - No existe límite de peticiones específico por IP para la votación.
-- HSK 4–9 debe integrarse desde su rama después de reconciliarla y repetir la validación en desarrollo.
+- HSK 4–9 está integrado en `master` y producción; su contenido sigue siendo borrador editorial salvo lo revisado explícitamente.
 
 ## 18. Definición técnica de terminado
 
