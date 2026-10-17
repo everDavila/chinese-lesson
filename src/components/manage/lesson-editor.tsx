@@ -17,7 +17,7 @@ import { useConfirm } from "@/components/ui/confirm-dialog";
 import { startSessionAction } from "@/actions/class";
 import { Button } from "@/components/ui/button";
 import { MultiSelect } from "@/components/ui/multi-select";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { lookupWordsAction } from "@/actions/search";
 import type { EditableLesson } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -25,6 +25,11 @@ import { collectionsBase, useHomeCrumbs, type Mode } from "./collections";
 import { useDragReorder } from "./drag-reorder";
 import { Empty, inputCls, ManageShell, meaningFor, useRunner } from "./shell";
 import { HSK_LEVELS, hskLabel, useWordSearch } from "./use-word-search";
+import { MoveLessonControl } from "./move-lesson";
+
+/** Dirección de una lección propia: dentro de su colección o, si es suelta, en Mis lecciones. */
+export const teacherLessonHref = (collectionId: string | null, lessonId: string) =>
+  collectionId ? `/collections/${collectionId}/${lessonId}` : `/lessons/${lessonId}`;
 
 /** Separa una lista pegada ("你 好\n吗，我") en hanzi; ignora números y signos. */
 function parsePastedList(text: string): string[] {
@@ -37,11 +42,15 @@ export function LessonEditor({
   isAdmin,
   collection,
   lesson,
+  myCollections = [],
 }: {
   mode: Mode;
   isAdmin: boolean;
-  collection: { id: string; title: string };
+  /** Null: lección suelta (sin colección). */
+  collection: { id: string; title: string } | null;
   lesson: EditableLesson;
+  /** Colecciones de la docente, para «Mover a colección». */
+  myCollections?: { id: string; title: string }[];
 }) {
   const t = useTranslations("Manage");
   const locale = useLocale();
@@ -50,7 +59,11 @@ export function LessonEditor({
   const [tab, setTab] = useState<"search" | "paste">("search");
   const [renaming, setRenaming] = useState<{ title: string; description: string } | null>(null);
   const base = collectionsBase(mode);
-  const lessonHref = `${base}/${collection.id}/${lesson.id}`;
+  const router = useRouter();
+  const lessonHref = mode === "teacher" ? teacherLessonHref(collection?.id ?? null, lesson.id) : `${base}/${collection?.id}/${lesson.id}`;
+  const lessonCrumbs = collection
+    ? [...crumbs, { label: collection.title, href: `${base}/${collection.id}` }, { label: lesson.title }]
+    : [{ label: t("myLessons"), href: "/lessons" }, { label: lesson.title }];
 
   const inLesson = new Set(lesson.items.map((i) => i.hanzi));
   const add = (senseIds: string[]) => {
@@ -80,7 +93,7 @@ export function LessonEditor({
     <ManageShell
       isAdmin={isAdmin}
       wide
-      crumbs={[...crumbs, { label: collection.title, href: `${base}/${collection.id}` }, { label: lesson.title }]}
+      crumbs={lessonCrumbs}
       title={lesson.title}
       subtitle={lesson.description}
       error={error}
@@ -100,6 +113,14 @@ export function LessonEditor({
             >
               <Undo2 /> {t("resetOrder")}
             </Button>
+          )}
+          {mode === "teacher" && (
+            <MoveLessonControl
+              lessonId={lesson.id}
+              currentCollectionId={collection?.id ?? null}
+              collections={myCollections}
+              onMoved={(target) => router.replace(teacherLessonHref(target, lesson.id))}
+            />
           )}
           {mode === "teacher" && (
             <form action={startSessionAction.bind(null, lesson.id)}>
@@ -151,8 +172,9 @@ export function LessonEditor({
 
       {mode === "teacher" && (
         <ExamplesSelect
-          value={lesson.examplesShown}
-          inherited={lesson.collectionExamplesShown}
+          // Suelta: no hay colección de la que heredar; sin ajuste salen todas (0).
+          value={collection ? lesson.examplesShown : (lesson.examplesShown ?? 0)}
+          inherited={collection ? lesson.collectionExamplesShown : undefined}
           disabled={pending}
           onChange={(n) => run(() => setLessonExamplesAction(lesson.id, n))}
         />

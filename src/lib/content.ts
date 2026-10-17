@@ -428,7 +428,8 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
     description: data.description,
     collectionId: data.collection_id,
     template: data.teacher_id === null,
-    copiedFrom: (data.collections as unknown as CollectionRef)?.copied_from !== null,
+    // Una lección suelta no tiene colección: tampoco es copia de una plantilla.
+    copiedFrom: Boolean((data.collections as unknown as CollectionRef)?.copied_from),
     examplesShown: data.examples_shown,
     collectionExamplesShown: (data.collections as unknown as { examples_shown: number } | null)?.examples_shown ?? 0,
     items: rows.map((r) => {

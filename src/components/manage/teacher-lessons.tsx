@@ -4,25 +4,51 @@ import { useState } from "react";
 import { PencilLine, Play, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { startSessionAction } from "@/actions/class";
+import { addLessonAction } from "@/actions/manage";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { Empty, ManageShell, SearchInput } from "./shell";
+import { Empty, ManageShell, NewTitleForm, SearchInput, useRunner } from "./shell";
 import { PinButton } from "./pin-button";
 
 type Lesson = { id: string; title: string; collectionId: string; collectionTitle: string; items: number; updatedAt: string };
 type LooseLesson = { id: string; title: string; items: number };
 
-export function TeacherLessonsScreen({ isAdmin, lessons, loose, pinnedIds }: { isAdmin: boolean; lessons: Lesson[]; loose: LooseLesson[]; pinnedIds: string[] }) {
+export function TeacherLessonsScreen({
+  isAdmin,
+  lessons,
+  loose,
+  pinnedIds,
+  createOnLoad = false,
+}: {
+  isAdmin: boolean;
+  lessons: Lesson[];
+  loose: LooseLesson[];
+  pinnedIds: string[];
+  /** Abre el formulario de «Nueva lección» (desde el menú «Crear»). */
+  createOnLoad?: boolean;
+}) {
   const t = useTranslations("TeacherLessons");
+  const tm = useTranslations("Manage");
+  const router = useRouter();
+  const { pending, error, run } = useRunner();
   const [query, setQuery] = useState("");
   const match = (title: string) => title.toLowerCase().includes(query.trim().toLowerCase());
   const shown = lessons.filter((lesson) => match(`${lesson.title} ${lesson.collectionTitle}`));
   const shownLoose = loose.filter((lesson) => match(lesson.title));
 
   return (
-    <ManageShell isAdmin={isAdmin} crumbs={[]} title={t("title")} wide actions={<Link href="/collections?create=1" className={buttonVariants()}><Plus /> {t("newCollection")}</Link>}>
+    <ManageShell isAdmin={isAdmin} crumbs={[]} title={t("title")} wide error={error} actions={<Link href="/collections?create=1" className={buttonVariants({ variant: "outline" })}><Plus /> {t("newCollection")}</Link>}>
       <p className="max-w-3xl text-muted-foreground">{t("intro")}</p>
+      {/* Una lección no necesita colección: se crea suelta y se puede mover después. */}
+      <NewTitleForm
+        initialOpen={createOnLoad}
+        placeholder={t("newLessonName")}
+        descriptionPlaceholder={tm("newLessonDesc")}
+        label={<><Plus /> {t("newLesson")}</>}
+        disabled={pending}
+        onCreate={(title, description) => run(() => addLessonAction(null, title, description), (r) => router.push(`/lessons/${r.id}`))}
+      />
       <SearchInput value={query} onChange={setQuery} label={t("search")} />
       {shown.length > 0 && <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{shown.map((lesson) => (
         <li key={lesson.id} className="relative flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
@@ -37,7 +63,10 @@ export function TeacherLessonsScreen({ isAdmin, lessons, loose, pinnedIds }: { i
       {shownLoose.length > 0 && <section className="space-y-3"><h2 className="text-xl font-semibold">{t("loose")}</h2><ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{shownLoose.map((lesson) => (
         <li key={lesson.id} className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
           <div><h3 className="font-semibold">{lesson.title}</h3><p className="text-sm text-muted-foreground">{t("words", { count: lesson.items })}</p></div>
-          <form className="mt-auto pt-5" action={startSessionAction.bind(null, lesson.id)}><Button className="w-full" type="submit" disabled={!lesson.items}><Play /> {t("present")}</Button></form>
+          <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
+            <Link href={`/lessons/${lesson.id}`} className={cn(buttonVariants({ variant: "outline" }), "w-full")}><PencilLine /> {t("edit")}</Link>
+            <form action={startSessionAction.bind(null, lesson.id)}><Button className="w-full" type="submit" disabled={!lesson.items}><Play /> {t("present")}</Button></form>
+          </div>
         </li>
       ))}</ul></section>}
       {shown.length === 0 && shownLoose.length === 0 && <Empty>{query.trim() ? t("noMatches") : t("empty")}</Empty>}

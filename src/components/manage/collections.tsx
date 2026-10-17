@@ -15,6 +15,7 @@ import {
   setCollectionExamplesAction,
 } from "@/actions/manage";
 import { ExamplesSelect } from "./examples-select";
+import { MoveLessonControl } from "./move-lesson";
 import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -219,7 +220,18 @@ export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templa
   );
 }
 
-export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode; isAdmin: boolean; collection: CollectionSummary }) {
+export function CollectionScreen({
+  mode,
+  isAdmin,
+  collection: c,
+  myCollections = [],
+}: {
+  mode: Mode;
+  isAdmin: boolean;
+  collection: CollectionSummary;
+  /** Colecciones de la docente, para «Mover a colección» en cada lección. */
+  myCollections?: { id: string; title: string }[];
+}) {
   const t = useTranslations("Manage");
   const [confirm, confirmDialog] = useConfirm();
   const router = useRouter();
@@ -362,6 +374,9 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
                   {l.hanzi.length > 0 && <span className="font-hanzi"> · {l.hanzi.slice(0, 12).join(" ")}</span>}
                 </p>
               </div>
+              {mode === "teacher" && (
+                <MoveLessonControl lessonId={l.id} currentCollectionId={c.id} collections={myCollections} compact />
+              )}
               <div className="flex gap-1">
                 <Button
                   variant="ghost"

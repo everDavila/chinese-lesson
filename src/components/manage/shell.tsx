@@ -113,7 +113,7 @@ export function ManageShell({
                   <ChevronDown className="size-4 transition-transform group-open:rotate-180" aria-hidden />
                 </summary>
                 <div className="absolute top-full right-0 z-30 mt-2 min-w-52 rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-lg">
-                  <Link href="/collections" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-muted">
+                  <Link href="/lessons?create=1" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-muted">
                     <FilePlus2 className="size-4 text-primary" aria-hidden /> {tw("createLesson")}
                   </Link>
                   <Link href="/collections?create=1" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-muted">
@@ -261,7 +261,8 @@ export function NewTitleForm({
     );
   return (
     <form
-      className="flex basis-full flex-wrap gap-2 rounded-xl border border-border bg-card p-3"
+      // w-full y no basis-full: dentro de una columna, basis-full es toda la altura.
+      className="flex w-full flex-wrap gap-2 rounded-xl border border-border bg-card p-3"
       onSubmit={(e) => {
         e.preventDefault();
         if (title.trim()) {

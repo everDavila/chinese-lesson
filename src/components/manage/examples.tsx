@@ -34,7 +34,8 @@ export function ExamplesScreen({
   data,
 }: {
   isAdmin: boolean;
-  collection: { id: string; title: string };
+  /** Null: la palabra es de una lección suelta (sin colección). */
+  collection: { id: string; title: string } | null;
   lesson: { id: string; title: string };
   data: SenseExamples;
 }) {
@@ -48,7 +49,7 @@ export function ExamplesScreen({
   const open = (e: Omit<Editing, "initial">) => setEditing({ ...e, initial: e.value });
   const translation = (s: { es: string; en: string }) => (locale === "es" ? s.es || s.en : s.en || s.es);
   const copyOf = new Map(data.own.filter((o) => o.basedOn && o.status !== "accepted").map((o) => [o.basedOn!, o]));
-  const lessonHref = `/collections/${collection.id}/${lesson.id}`;
+  const lessonHref = collection ? `/collections/${collection.id}/${lesson.id}` : `/lessons/${lesson.id}`;
 
   const save = (e: Editing) =>
     run(
@@ -75,8 +76,7 @@ export function ExamplesScreen({
     <ManageShell
       isAdmin={isAdmin}
       crumbs={[
-        ...crumbs,
-        { label: collection.title, href: `/collections/${collection.id}` },
+        ...(collection ? [...crumbs, { label: collection.title, href: `/collections/${collection.id}` }] : [{ label: t("myLessons"), href: "/lessons" }]),
         { label: lesson.title, href: lessonHref },
         { label: data.hanzi },
       ]}

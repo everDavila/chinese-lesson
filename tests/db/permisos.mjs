@@ -284,3 +284,17 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   catch { console.log("✓ anon NO lee el catálogo HSK"); }
   if (!ok) process.exitCode = 1;
 }
+
+// ── Lecciones sueltas y mover entre colecciones (hoja de ruta, prioridad 1) ─
+{
+  const suelta = (await as(T1, `insert into lessons (teacher_id, collection_id, title) values ('${T1}', null, 'Suelta') returning id`)).rows[0].id;
+  console.log("✓ la docente crea una lección sin colección");
+  const mia = (await as(T1, `insert into collections (owner_id, title) values ('${T1}', 'Clase B') returning id`)).rows[0].id;
+  const ajena = (await as(T2, `insert into collections (owner_id, title) values ('${T2}', 'De otra') returning id`)).rows[0].id;
+  await expectOk("la mueve a su colección", T1, `update lessons set collection_id = '${mia}', position = 1 where id = '${suelta}' returning collection_id`);
+  await expectOk("la vuelve a dejar suelta", T1, `update lessons set collection_id = null, position = null where id = '${suelta}' returning id`);
+  await expectFail("NO la mueve a la colección de otra docente", T1, `update lessons set collection_id = '${ajena}', position = 1 where id = '${suelta}'`);
+  const sigue = (await as(T1, `select collection_id from lessons where id = '${suelta}'`)).rows[0];
+  if (sigue.collection_id === null) console.log("✓ tras el intento rechazado, la lección sigue suelta");
+  else { console.log("✗ la lección cambió de colección", sigue); process.exitCode = 1; }
+}

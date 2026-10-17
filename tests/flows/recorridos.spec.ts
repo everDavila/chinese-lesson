@@ -27,6 +27,7 @@ const OWN = "我爱自动测试。";
 const COPY = "我爱自动测试的副本。";
 const Z = zh.Manage;
 const H = zh.HskLibrary;
+const TL = zh.TeacherLessons;
 const SHOTS = "tests/screens/recorridos";
 
 test.skip(!existsSync(ADMIN) || !existsSync(LAOSHI), "Faltan las sesiones: npm run test:sesion -- admin / laoshi");
@@ -46,8 +47,10 @@ async function cleanup() {
   const db = admin();
   // Borrar la colección arrastra sus lecciones, ítems, sesiones y valoraciones.
   const c = await db.from("collections").delete().like("title", `${MARK}%`);
+  // Las lecciones sueltas (sin colección) no caen con la colección.
+  const l = await db.from("lessons").delete().like("title", `${MARK}%`);
   const e = await db.from("teacher_examples").delete().like("zh", "%自动测试%");
-  if (c.error || e.error) throw new Error(`Limpieza: ${c.error?.message ?? e.error?.message}`);
+  if (c.error || l.error || e.error) throw new Error(`Limpieza: ${c.error?.message ?? l.error?.message ?? e.error?.message}`);
 }
 test.beforeAll(cleanup);
 test.afterAll(cleanup);
@@ -340,6 +343,40 @@ test.describe("profesora tras la revisión", () => {
     await expect(own.getByText(Z.exampleStatus.rejected)).toBeVisible();
     await expect(own.getByText(MARK)).toBeVisible();
     await expect(own.getByRole("button", { name: Z.suggest })).toBeVisible();
+  });
+
+  test("crea una lección sin colección y la mueve entre colecciones", async ({ page }) => {
+    const title = `${MARK} suelta ${Date.now()}`;
+    const collectionId = collectionUrl.match(/collections\/([0-9a-f-]{36})/)![1];
+    // Crear desde Mis lecciones, sin colección.
+    await page.goto("/zh/lessons");
+    await page.waitForLoadState("networkidle");
+    await page.getByRole("button", { name: TL.newLesson }).click();
+    await page.getByRole("textbox", { name: TL.newLessonName }).fill(title);
+    await page.getByRole("button", { name: Z.create, exact: true }).click();
+    await page.waitForURL(/\/zh\/lessons\/[0-9a-f-]{36}$/);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(title);
+    await page.getByRole("textbox", { name: Z.search }).fill("renshi");
+    await page.getByRole("button", { name: Z.addWord.replace("{hanzi}", "认识") }).click();
+    await expect(page.getByRole("heading", { level: 2, name: new RegExp(`${Z.words}.*1`) })).toBeVisible();
+    await shoot(page, "11-leccion-suelta");
+
+    // Mover desde el editor a la colección de prueba: cambia la dirección.
+    await page.getByRole("combobox", { name: Z.moveToLabel }).selectOption(collectionId);
+    await page.waitForURL((u) => u.pathname.startsWith(`/zh/collections/${collectionId}/`));
+    await expect(page.getByRole("heading", { level: 2, name: new RegExp(`${Z.words}.*1`) })).toBeVisible();
+
+    // En la colección aparece; desde su fila vuelve a quedar suelta.
+    await page.goto(collectionUrl);
+    const row = page.getByRole("listitem").filter({ hasText: title });
+    await expect(row).toHaveCount(1);
+    await row.getByRole("combobox", { name: Z.moveToLabel }).selectOption("");
+    await expect(page.getByRole("listitem").filter({ hasText: title })).toHaveCount(0);
+
+    // En Mis lecciones, entre las sueltas, con su palabra.
+    await page.goto("/zh/lessons");
+    await expect(page.getByRole("heading", { name: TL.loose })).toBeVisible();
+    await expect(page.getByRole("listitem").filter({ hasText: title })).toContainText(TL.words.replace("{count}", "1"));
   });
 
   test("borra la colección con el diálogo de confirmación propio", async ({ page }) => {

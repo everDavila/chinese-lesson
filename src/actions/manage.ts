@@ -69,10 +69,24 @@ export async function deleteCollectionAction(id: string): Promise<Result> {
   return { ok: true };
 }
 
-export async function addLessonAction(collectionId: string, title: string, description?: string): Promise<Result<{ id: string }>> {
+/**
+ * Crea una lección. Sin colección (`collectionId` null) es una lección suelta
+ * de la docente: no hace falta crear una colección para dar clase.
+ */
+export async function addLessonAction(collectionId: string | null, title: string, description?: string): Promise<Result<{ id: string }>> {
   const s = await session();
   if (!s) return { ok: false, error: "auth" };
   if (!title.trim()) return { ok: false, error: "invalid" };
+  if (!collectionId) {
+    const { data, error } = await s.db
+      .from("lessons")
+      .insert({ title: title.trim(), description: description?.trim() || null, collection_id: null, teacher_id: s.profile.id, position: null })
+      .select("id")
+      .single();
+    if (error) return fail(error) as Result<{ id: string }>;
+    refresh();
+    return { ok: true, id: data.id };
+  }
   const { data: c } = await s.db.from("collections").select("owner_id").eq("id", collectionId).single();
   const { data: last } = await s.db
     .from("lessons")
@@ -96,6 +110,42 @@ export async function addLessonAction(collectionId: string, title: string, descr
   if (error) return fail(error) as Result<{ id: string }>;
   refresh();
   return { ok: true, id: data.id };
+}
+
+/**
+ * Mueve una lección propia a otra colección propia, o la deja suelta
+ * (`targetCollectionId` null). Solo cambia a qué colección pertenece y su
+ * posición (al final de la destino): sus palabras, frases propias, clases y
+ * votos siguen colgando de la misma lección. La rotación de frases recuerda por
+ * colección, así que en la destino la lección empieza sin historial (decisión
+ * de Ever, 2026-10-17). RLS solo admite colecciones de la misma docente.
+ */
+export async function moveLessonToCollectionAction(
+  lessonId: string,
+  targetCollectionId: string | null,
+): Promise<Result<{ collectionId: string | null }>> {
+  const s = await session();
+  if (!s) return { ok: false, error: "auth" };
+  const { data: lesson } = await s.db.from("lessons").select("teacher_id, collection_id").eq("id", lessonId).maybeSingle();
+  if (!lesson || lesson.teacher_id !== s.profile.id) return { ok: false, error: "auth" };
+  if ((lesson.collection_id ?? null) === targetCollectionId) return { ok: true, collectionId: targetCollectionId };
+  let position: number | null = null;
+  if (targetCollectionId) {
+    const { data: target } = await s.db.from("collections").select("owner_id").eq("id", targetCollectionId).maybeSingle();
+    if (!target || target.owner_id !== s.profile.id) return { ok: false, error: "auth" };
+    const { data: last } = await s.db
+      .from("lessons")
+      .select("position")
+      .eq("collection_id", targetCollectionId)
+      .order("position", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    position = (last?.position ?? 0) + 1;
+  }
+  const { error } = await s.db.from("lessons").update({ collection_id: targetCollectionId, position }).eq("id", lessonId);
+  if (error) return fail(error) as Result<{ collectionId: string | null }>;
+  refresh();
+  return { ok: true, collectionId: targetCollectionId };
 }
 
 export async function renameLessonAction(id: string, title: string, description?: string): Promise<Result> {

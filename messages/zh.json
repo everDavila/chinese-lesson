@@ -117,7 +117,9 @@
     "present": "授课",
     "loose": "独立课程",
     "empty": "你还没有自己的课程。请从 Renshi 资源库复制合集，或新建合集。",
-    "noMatches": "没有符合搜索条件的课程。"
+    "noMatches": "没有符合搜索条件的课程。",
+    "newLesson": "新建课程",
+    "newLessonName": "课程名称"
   },
   "Login": {
     "title": "教师登录",
@@ -276,7 +278,11 @@
     "examplesPerWord": "课上每个词显示的例句：",
     "examplesAll": "全部",
     "examplesInherit": "与课程集相同（{n}）",
-    "examplesHint": "例句更多时，每次上课优先显示这个班还没见过的。"
+    "examplesHint": "例句更多时，每次上课优先显示这个班还没见过的。",
+    "moveTo": "移到",
+    "moveToLabel": "把课程移到另一个课程集",
+    "noCollection": "不放入课程集（单独课程）",
+    "myLessons": "我的课程"
   },
   "Vote": {
     "title": "投票",

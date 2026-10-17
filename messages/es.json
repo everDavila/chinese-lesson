@@ -117,7 +117,9 @@
     "present": "Presentar",
     "loose": "Lecciones sueltas",
     "empty": "Aún no tienes lecciones propias. Copia una colección desde Biblioteca Renshi o crea una colección.",
-    "noMatches": "Ninguna lección coincide con la búsqueda."
+    "noMatches": "Ninguna lección coincide con la búsqueda.",
+    "newLesson": "Nueva lección",
+    "newLessonName": "Nombre de la lección"
   },
   "Login": {
     "title": "Acceso docente",
@@ -276,7 +278,11 @@
     "examplesPerWord": "Frases por palabra en clase:",
     "examplesAll": "Todas",
     "examplesInherit": "Como la colección ({n})",
-    "examplesHint": "Si hay más, cada clase muestra primero las que aún no vio."
+    "examplesHint": "Si hay más, cada clase muestra primero las que aún no vio.",
+    "moveTo": "Mover a",
+    "moveToLabel": "Mover la lección a otra colección",
+    "noCollection": "Sin colección (suelta)",
+    "myLessons": "Mis lecciones"
   },
   "Vote": {
     "title": "Votar",
