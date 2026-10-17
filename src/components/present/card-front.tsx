@@ -32,7 +32,9 @@ export function CardFront({ item, playing, speed, runId, showPinyin }: CardFront
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4">
       <div className="flex">
         {item.characters.map((c, i) => (
-          <CalligraphyGrid key={`${c.char}-${runId}`} className={cn("bg-background/60", i > 0 && "-ml-px")}>
+          // La key lleva el índice: en palabras repetidas (爸爸) el carácter solo
+          // duplicaría la key y React dejaría la casilla vieja pegada en el DOM.
+          <CalligraphyGrid key={`${i}-${c.char}-${runId}`} className={cn("bg-background/60", i > 0 && "-ml-px")}>
             <div style={{ width: size, height: size }} className="p-[6%]">
               {c.strokes ? (
                 <StrokeArt

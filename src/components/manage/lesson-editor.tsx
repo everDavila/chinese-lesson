@@ -2,16 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowDown, ArrowUp, MessageSquareText, Pencil, Plus, Presentation, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, GripVertical, MessageSquareText, Pencil, Plus, Presentation, Trash2, Undo2 } from "lucide-react";
 import {
   addItemsAction,
   moveItemAction,
   removeItemAction,
   renameLessonAction,
+  resetLessonOrderAction,
   setItemSenseAction,
   setLessonExamplesAction,
 } from "@/actions/manage";
 import { ExamplesSelect } from "./examples-select";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { startSessionAction } from "@/actions/class";
 import { Button } from "@/components/ui/button";
 import { MultiSelect } from "@/components/ui/multi-select";
@@ -20,6 +22,7 @@ import { lookupWordsAction } from "@/actions/search";
 import type { EditableLesson } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { collectionsBase, useHomeCrumbs, type Mode } from "./collections";
+import { useDragReorder } from "./drag-reorder";
 import { Empty, inputCls, ManageShell, meaningFor, useRunner } from "./shell";
 import { HSK_LEVELS, hskLabel, useWordSearch } from "./use-word-search";
 
@@ -45,7 +48,7 @@ export function LessonEditor({
   const crumbs = useHomeCrumbs(mode);
   const { pending, error, run } = useRunner();
   const [tab, setTab] = useState<"search" | "paste">("search");
-  const [renaming, setRenaming] = useState<string | null>(null);
+  const [renaming, setRenaming] = useState<{ title: string; description: string } | null>(null);
   const base = collectionsBase(mode);
   const lessonHref = `${base}/${collection.id}/${lesson.id}`;
 
@@ -54,6 +57,24 @@ export function LessonEditor({
     if (senseIds.length) run(() => addItemsAction(lesson.id, senseIds));
   };
   const withoutSentences = lesson.items.filter((i) => i.classSentences === 0).length;
+  const [confirmReset, resetDialog] = useConfirm();
+
+  // Arrastrar a la posición destino: como moveItemAction cambia con el vecino,
+  // mover de la 2 a la 5 son tres intercambios encadenados en la misma acción.
+  const reorder = useDragReorder(lesson.items.length, {
+    disabled: pending,
+    onReorder: (from, to) => {
+      const senseId = lesson.items[from].senseId;
+      const delta: -1 | 1 = to > from ? 1 : -1;
+      run(async () => {
+        for (let step = 0; step < Math.abs(to - from); step++) {
+          const r = await moveItemAction(lesson.id, senseId, delta);
+          if (!r.ok) return r;
+        }
+        return { ok: true } as const;
+      });
+    },
+  });
 
   return (
     <ManageShell
@@ -61,12 +82,25 @@ export function LessonEditor({
       wide
       crumbs={[...crumbs, { label: collection.title, href: `${base}/${collection.id}` }, { label: lesson.title }]}
       title={lesson.title}
+      subtitle={lesson.description}
       error={error}
       actions={
         <>
-          <Button variant="ghost" onClick={() => setRenaming(lesson.title)}>
+          <Button variant="ghost" onClick={() => setRenaming({ title: lesson.title, description: lesson.description ?? "" })}>
             <Pencil /> {t("rename")}
           </Button>
+          {lesson.copiedFrom && (
+            <Button
+              variant="ghost"
+              disabled={pending}
+              onClick={async () => {
+                if (await confirmReset({ title: t("confirmResetOrder", { title: lesson.title }), confirmLabel: t("resetOrder"), cancelLabel: t("cancel") }))
+                  run(() => resetLessonOrderAction(lesson.id));
+              }}
+            >
+              <Undo2 /> {t("resetOrder")}
+            </Button>
+          )}
           {mode === "teacher" && (
             <form action={startSessionAction.bind(null, lesson.id)}>
               <Button
@@ -83,25 +117,35 @@ export function LessonEditor({
     >
       {renaming !== null && (
         <form
-          className="flex gap-2"
+          className="flex flex-col gap-2 rounded-xl border border-border bg-card p-3"
           onSubmit={(e) => {
             e.preventDefault();
-            run(() => renameLessonAction(lesson.id, renaming), () => setRenaming(null));
+            run(() => renameLessonAction(lesson.id, renaming.title, renaming.description), () => setRenaming(null));
           }}
         >
           <input
             autoFocus
-            value={renaming}
-            onChange={(e) => setRenaming(e.target.value)}
+            value={renaming.title}
+            onChange={(e) => setRenaming({ ...renaming, title: e.target.value })}
             aria-label={t("newName")}
-            className={cn(inputCls, "flex-1")}
+            className={cn(inputCls, "w-full")}
           />
-          <Button type="submit" disabled={pending}>
-            {t("save")}
-          </Button>
-          <Button type="button" variant="ghost" onClick={() => setRenaming(null)}>
-            {t("cancel")}
-          </Button>
+          <textarea
+            value={renaming.description}
+            onChange={(e) => setRenaming({ ...renaming, description: e.target.value })}
+            placeholder={t("addDescription")}
+            aria-label={t("description")}
+            rows={2}
+            className={cn(inputCls, "h-auto w-full resize-y py-2")}
+          />
+          <div className="flex gap-2">
+            <Button type="submit" disabled={pending}>
+              {t("save")}
+            </Button>
+            <Button type="button" variant="ghost" onClick={() => setRenaming(null)}>
+              {t("cancel")}
+            </Button>
+          </div>
         </form>
       )}
 
@@ -126,8 +170,17 @@ export function LessonEditor({
                 const sense = it.senses.find((s) => s.id === it.senseId) ?? it.senses[0];
                 const sentencesHref =
                   mode === "teacher" ? `${lessonHref}/${it.senseId}` : `/admin/words/${encodeURIComponent(it.hanzi)}`;
+                const rowProps = reorder.row(i);
                 return (
-                  <li key={it.senseId} className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-3">
+                  <li
+                    key={it.senseId}
+                    {...rowProps}
+                    className={cn(
+                      "flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-3",
+                      rowProps.className,
+                      !pending && "cursor-grab active:cursor-grabbing",
+                    )}
+                  >
                     <span className="w-5 text-center text-sm text-muted-foreground tabular-nums">{i + 1}</span>
                     <span className="font-hanzi text-3xl">{it.hanzi}</span>
                     <div className="min-w-0 flex-1">
@@ -172,9 +225,21 @@ export function LessonEditor({
                       <Button
                         variant="ghost"
                         size="icon"
+                        {...reorder.handle(i)}
+                        aria-label={t("dragHandle", { name: it.hanzi })}
+                        title={t("dragHint")}
+                        disabled={pending}
+                      >
+                        <GripVertical />
+                      </Button>
+                      {/* El navegador no arrastra con el dedo: en móvil siguen las flechas. */}
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         aria-label={t("moveUp")}
                         disabled={i === 0 || pending}
                         onClick={() => run(() => moveItemAction(lesson.id, it.senseId, -1))}
+                        className="sm:hidden"
                       >
                         <ArrowUp />
                       </Button>
@@ -184,6 +249,7 @@ export function LessonEditor({
                         aria-label={t("moveDown")}
                         disabled={i === lesson.items.length - 1 || pending}
                         onClick={() => run(() => moveItemAction(lesson.id, it.senseId, 1))}
+                        className="sm:hidden"
                       >
                         <ArrowDown />
                       </Button>
@@ -204,6 +270,7 @@ export function LessonEditor({
           ) : (
             <Empty>{t("emptyLesson")}</Empty>
           )}
+          {resetDialog}
         </section>
 
         {/* Añadir */}

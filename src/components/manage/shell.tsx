@@ -18,6 +18,7 @@ export function ManageShell({
   isAdmin,
   crumbs,
   title,
+  subtitle,
   actions,
   error,
   children,
@@ -26,6 +27,8 @@ export function ManageShell({
   isAdmin: boolean;
   crumbs: Crumb[];
   title: React.ReactNode;
+  /** Descripción opcional bajo el título; sin ella no queda hueco. */
+  subtitle?: React.ReactNode;
   actions?: React.ReactNode;
   error?: string | null;
   children: React.ReactNode;
@@ -52,9 +55,12 @@ export function ManageShell({
           ))}
         </nav>
       )}
-      {(title || actions) && (
+      {(title || subtitle || actions) && (
         <header className="flex flex-wrap items-center justify-between gap-3">
-          {title && <h1 className="min-w-0 text-3xl font-semibold">{title}</h1>}
+          <div className="min-w-0">
+            {title && <h1 className="text-3xl font-semibold">{title}</h1>}
+            {subtitle && <p className="mt-1 whitespace-pre-wrap text-muted-foreground">{subtitle}</p>}
+          </div>
           {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
         </header>
       )}
@@ -199,16 +205,19 @@ export function useRunner() {
   const t = useTranslations("Manage.errors");
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  const run = <T extends object>(fn: () => Promise<Result<T>>, onOk?: (r: { ok: true } & T) => void) =>
-    startTransition(async () => {
-      const r = await fn();
-      if (r.ok) {
-        setError(null);
-        onOk?.(r);
-      } else {
-        setError(t(r.error satisfies ActionError));
-      }
-    });
+  const run = <T extends object>(fn: () => Promise<Result<T>>, onOk?: (r: { ok: true } & T) => void): Promise<Result<T> | undefined> =>
+    new Promise((resolve) =>
+      startTransition(async () => {
+        const r = await fn();
+        if (r.ok) {
+          setError(null);
+          onOk?.(r);
+        } else {
+          setError(t(r.error satisfies ActionError));
+        }
+        resolve(r);
+      }),
+    );
   return { pending, error, setError, run };
 }
 
@@ -221,23 +230,28 @@ export const inputCls = "h-9 min-w-0 rounded-lg border border-input bg-backgroun
  */
 export function NewTitleForm({
   placeholder,
+  descriptionPlaceholder,
   label,
   disabled,
   onCreate,
   initialOpen = false,
 }: {
   placeholder: string;
+  /** Si se pasa, se ofrece una descripción opcional junto al nombre. */
+  descriptionPlaceholder?: string;
   label: React.ReactNode;
   disabled?: boolean;
-  onCreate: (title: string) => void;
+  onCreate: (title: string, description?: string) => void;
   initialOpen?: boolean;
 }) {
   const t = useTranslations("Manage");
   const [open, setOpen] = useState(initialOpen);
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const close = () => {
     setOpen(false);
     setTitle("");
+    setDescription("");
   };
   if (!open)
     return (
@@ -251,7 +265,7 @@ export function NewTitleForm({
       onSubmit={(e) => {
         e.preventDefault();
         if (title.trim()) {
-          onCreate(title.trim());
+          onCreate(title.trim(), description.trim() || undefined);
           close();
         }
       }}
@@ -265,6 +279,16 @@ export function NewTitleForm({
         aria-label={placeholder}
         className={cn(inputCls, "min-w-48 flex-1")}
       />
+      {descriptionPlaceholder && (
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder={descriptionPlaceholder}
+          aria-label={descriptionPlaceholder}
+          rows={2}
+          className={cn(inputCls, "h-auto w-full resize-y py-2")}
+        />
+      )}
       <Button type="submit" disabled={!title.trim() || disabled}>
         {t("create")}
       </Button>

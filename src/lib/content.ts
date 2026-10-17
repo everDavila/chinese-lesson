@@ -177,6 +177,8 @@ export async function getEditableWord(hanzi: string): Promise<EditableWord | nul
 // ── Colecciones ─────────────────────────────────────────────────────────
 export type LessonSummary = { id: string; title: string; position: number; hanzi: string[] };
 export type CollectionSummary = {
+  /** Descripción opcional; null cuando aún no existe. */
+  description?: string | null;
   id: string;
   title: string;
   template: boolean;
@@ -190,6 +192,7 @@ export type CollectionSummary = {
 type CollectionRow = {
   id: string;
   title: string;
+  description: string | null;
   owner_id: string | null;
   source_note: string | null;
   copied_from: string | null;
@@ -197,12 +200,13 @@ type CollectionRow = {
   lessons: { id: string; title: string; position: number | null; lesson_items: { position: number; senses: { words: { hanzi: string } } }[] }[];
 };
 const COLLECTION_SELECT =
-  "id, title, owner_id, source_note, copied_from, examples_shown, lessons(id, title, position, lesson_items(position, senses(words(hanzi))))";
+  "id, title, description, owner_id, source_note, copied_from, examples_shown, lessons(id, title, position, lesson_items(position, senses(words(hanzi))))";
 
 function toCollection(c: CollectionRow): CollectionSummary {
   return {
     id: c.id,
     title: c.title,
+    description: c.description,
     template: c.owner_id === null,
     source: c.source_note ?? "",
     copiedFrom: c.copied_from,
@@ -229,7 +233,7 @@ export async function listCollections(kind: "mine" | "templates"): Promise<Colle
   const supabase = await createClient();
   let query = supabase
     .from("collections")
-    .select("id, title, owner_id, source_note, copied_from, lessons(lesson_items(count))")
+    .select("id, title, description, owner_id, source_note, copied_from, lessons(lesson_items(count))")
     .order("created_at");
   if (kind === "templates") query = query.is("owner_id", null);
   else {
@@ -242,6 +246,7 @@ export async function listCollections(kind: "mine" | "templates"): Promise<Colle
   return (data as unknown as Row[]).map((c) => ({
     id: c.id,
     title: c.title,
+    description: c.description,
     template: c.owner_id === null,
     source: c.source_note ?? "",
     copiedFrom: c.copied_from,
@@ -337,9 +342,13 @@ export type LessonItemRow = {
 };
 export type EditableLesson = {
   id: string;
+  /** Descripción opcional; null cuando aún no existe. */
+  description?: string | null;
   title: string;
   collectionId: string | null;
   template: boolean;
+  /** La colección es una copia: hay plantilla con orden original al que volver. */
+  copiedFrom: boolean;
   /** Frases por palabra en esta lección; null = como la colección; 0 = todas. */
   examplesShown: number | null;
   /** Lo que dice la colección (0 = todas). */
@@ -352,7 +361,7 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
   const { data, error } = await supabase
     .from("lessons")
     .select(
-      `id, title, collection_id, teacher_id, examples_shown, collections(examples_shown),
+      `id, title, description, collection_id, teacher_id, examples_shown, collections(examples_shown, copied_from),
        lesson_items(position, sense_id,
          senses(words(id, hanzi, hsk_level, status,
            senses(id, position, pinyin, category, meaning_es, meaning_en, sentences(id)))))`,
@@ -369,14 +378,17 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
       words: Omit<SummaryRow, "senses"> & { senses: (Omit<SummaryRow["senses"][number], "sentences"> & { sentences: { id: string }[] })[] };
     };
   };
+  type CollectionRef = { examples_shown: number; copied_from: string | null } | null;
   const rows = [...(data.lesson_items as unknown as Row[])].sort((a, b) => a.position - b.position);
   const own = await ownSentenceCounts(rows.map((r) => r.sense_id));
 
   return {
     id: data.id,
     title: data.title,
+    description: data.description,
     collectionId: data.collection_id,
     template: data.teacher_id === null,
+    copiedFrom: (data.collections as unknown as CollectionRef)?.copied_from !== null,
     examplesShown: data.examples_shown,
     collectionExamplesShown: (data.collections as unknown as { examples_shown: number } | null)?.examples_shown ?? 0,
     items: rows.map((r) => {
