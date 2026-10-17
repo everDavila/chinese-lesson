@@ -38,6 +38,11 @@ No leas todos estos archivos por defecto:
 3. Verifica cualquier documento previo contra el código actual.
 4. Para Next.js, lee la guía relevante de `node_modules/next/dist/docs/` antes
    de escribir código; esta versión tiene cambios incompatibles.
+5. **Antes de implementar una funcionalidad, lee
+   [REGLAS-DESARROLLO.md](REGLAS-DESARROLLO.md):** reutiliza lo que ya existe
+   (componentes del proyecto, shadcn/ui, dependencias instaladas) antes de
+   construir desde cero, y explica a Ever cualquier dependencia nueva
+   importante antes de añadirla.
 
 Lo grande o riesgoso —auth, modelo de datos o cambios globales— va en una rama
 o worktree aparte. Lo pequeño puede ir directo. Antes de cambiar de PC o cerrar
