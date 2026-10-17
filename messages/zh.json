@@ -105,7 +105,16 @@
     "noResults": "这个等级里没有与「{query}」匹配的词。",
     "searchFailed": "加载失败，请检查网络。",
     "copyTemplate": "把 HSK {level} 复制为课程",
-    "copyTemplateHint": "临时选项：把这个等级复制成每课 15 个词的课程，方便编辑和演示；以后可以直接从这张表创建课程。"
+    "copyTemplateHint": "临时选项：把这个等级复制成每课 15 个词的课程，方便编辑和演示；以后可以直接从这张表创建课程。",
+    "selectPage": "选择本页的词语",
+    "selectWord": "选择 {hanzi}（{pinyin}）",
+    "selectionTitle": "已选",
+    "selectedCount": "已选 {count} 个词",
+    "selectionHint": "翻页或切换等级时会保留。",
+    "showSelection": "查看已选",
+    "hideSelection": "收起",
+    "clearSelection": "全部取消",
+    "removeFromSelection": "从已选中移除 {hanzi}"
   },
   "TeacherLessons": {
     "title": "我的课程",

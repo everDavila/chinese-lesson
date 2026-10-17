@@ -17,8 +17,12 @@ inicio docente. **Sin despliegue a producción todavía.**
    Hecho: «Nueva lección» en Mis lecciones y en «Crear»; «Mover a colección» en
    el editor y en cada lección de una colección. La rotación sigue a la
    colección (al mover, la lección empieza sin historial en la destino).
-2. **Selección múltiple en la tabla del catálogo**, persistente entre páginas,
-   basada en `sense_id`.
+2. ✅ *(en desarrollo, rama `integrar-inicio`, 2026-10-17)* **Selección
+   múltiple en la tabla del catálogo**, persistente entre páginas, basada en
+   `sense_id`. Hecho: casilla por fila y de página (con estado a medias); la
+   selección se conserva entre páginas, niveles y al recargar (sessionStorage
+   de la pestaña); barra con «Ver selección» y «Quitar todas». Todavía sin
+   acciones: las agregan las prioridades 3 y 4.
 3. **Presentar desde el catálogo** (todo el nivel o la selección) sin crear una
    lección visible.
 4. **Durante la presentación, "Guardar como lección"**, sin obligar a asignar

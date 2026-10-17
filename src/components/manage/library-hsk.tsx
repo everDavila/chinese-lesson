@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
 import { usePathname, useRouter as useNextRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Copy } from "lucide-react";
+import { Copy, X } from "lucide-react";
 import { copyTemplateAction } from "@/actions/manage";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Pagination,
   PaginationContent,
@@ -21,6 +22,7 @@ import type { CatalogPage } from "@/lib/content";
 import { categoryLabel, studentLabels } from "@/lib/student-labels";
 import { cn } from "@/lib/utils";
 import { ManageShell, SearchInput, meaningFor, useRunner } from "./shell";
+import { catalogSelection, type SelectedEntry } from "./catalog-selection";
 
 // Biblioteca HSK: el temario oficial completo por nivel, sin lecciones
 // artificiales. Cada fila es una ENTRADA (sentido) en su orden oficial; una
@@ -113,6 +115,14 @@ export function HskCatalogScreen({
   const { pending, error, run } = useRunner();
   const labels = studentLabels(locale === "es" ? "es" : "en");
   const [text, setText] = useState(query);
+  // Selección por sense_id: se mantiene entre páginas y niveles (catalog-selection).
+  const selection = useSyncExternalStore(catalogSelection.subscribe, catalogSelection.getSnapshot, catalogSelection.getServerSnapshot);
+  const selected = new Set(selection.map((e) => e.senseId));
+  const [showSelection, setShowSelection] = useState(false);
+  const entryOf = (row: CatalogPage["rows"][number]): SelectedEntry | null =>
+    row.senseId ? { senseId: row.senseId, hanzi: row.hanzi, pinyin: row.pinyin, level, order: row.order } : null;
+  const pageEntries = data.rows.flatMap((row) => entryOf(row) ?? []);
+  const pageSelected = pageEntries.filter((e) => selected.has(e.senseId)).length;
   const typed = useRef(false);
 
   const last = Math.max(1, Math.ceil(data.total / size));
@@ -203,6 +213,21 @@ export function HskCatalogScreen({
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="w-8">
+                <Checkbox
+                  aria-label={t("selectPage")}
+                  // A medias (algunas de la página): un guion en vez del ✓. El
+                  // componente no deja cambiar el icono; Base UI marca el estado
+                  // con data-indeterminate y se resuelve con clases.
+                  className="data-indeterminate:border-primary data-indeterminate:bg-primary data-indeterminate:before:absolute data-indeterminate:before:h-0.5 data-indeterminate:before:w-2 data-indeterminate:before:rounded-full data-indeterminate:before:bg-primary-foreground [&[data-indeterminate]_svg]:hidden"
+                  checked={pageEntries.length > 0 && pageSelected === pageEntries.length}
+                  indeterminate={pageSelected > 0 && pageSelected < pageEntries.length}
+                  disabled={!pageEntries.length}
+                  onCheckedChange={(on) =>
+                    on ? catalogSelection.add(pageEntries) : catalogSelection.remove(pageEntries.map((e) => e.senseId))
+                  }
+                />
+              </TableHead>
               <TableHead className="hidden sm:table-cell">#</TableHead>
               <TableHead>{t("colWord")}</TableHead>
               <TableHead>{t("colPinyin")}</TableHead>
@@ -214,8 +239,28 @@ export function HskCatalogScreen({
           </TableHeader>
           <TableBody>
             {data.rows.map((row) => (
-              <TableRow key={row.order} className="align-top" data-testid="catalog-row">
-                <TableCell className="hidden text-muted-foreground tabular-nums sm:table-cell">{row.order}</TableCell>
+              <TableRow
+                key={row.order}
+                className="align-top"
+                data-testid="catalog-row"
+                data-state={row.senseId && selected.has(row.senseId) ? "selected" : undefined}
+              >
+                <TableCell>
+                  <Checkbox
+                    aria-label={t("selectWord", { hanzi: row.hanzi, pinyin: row.pinyin })}
+                    checked={!!row.senseId && selected.has(row.senseId)}
+                    disabled={!row.senseId}
+                    onCheckedChange={(on) => {
+                      const entry = entryOf(row);
+                      if (!entry) return;
+                      if (on) catalogSelection.add([entry]);
+                      else catalogSelection.remove([entry.senseId]);
+                    }}
+                  />
+                </TableCell>
+                <TableCell className="hidden text-muted-foreground tabular-nums sm:table-cell" data-testid="catalog-order">
+                  {row.order}
+                </TableCell>
                 <TableCell className="font-hanzi text-xl">{row.hanzi}</TableCell>
                 <TableCell className="whitespace-normal">
                   <span className="font-medium">{row.pinyin}</span>
@@ -251,7 +296,7 @@ export function HskCatalogScreen({
             ))}
             {!data.rows.length && (
               <TableRow>
-                <TableCell colSpan={7} className="py-6 text-center text-muted-foreground">
+                <TableCell colSpan={8} className="py-6 text-center text-muted-foreground">
                   {t("noResults", { query })}
                 </TableCell>
               </TableRow>
@@ -305,6 +350,43 @@ export function HskCatalogScreen({
         </Pagination>
       )}
       {template && <p className="text-sm text-muted-foreground">{t("copyTemplateHint")}</p>}
+
+      {/* Barra de la selección: fija abajo mientras haya algo elegido. */}
+      {selection.length > 0 && (
+        <section
+          aria-label={t("selectionTitle")}
+          className="sticky bottom-4 z-20 flex flex-col gap-3 rounded-xl border border-border bg-popover p-3 text-popover-foreground shadow-lg"
+        >
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="font-medium" aria-live="polite" data-testid="selection-count">
+              {t("selectedCount", { count: selection.length })}
+            </p>
+            <span className="hidden text-sm text-muted-foreground sm:inline">{t("selectionHint")}</span>
+            <div className="ml-auto flex gap-2">
+              <Button variant="outline" size="sm" aria-expanded={showSelection} onClick={() => setShowSelection((v) => !v)}>
+                {showSelection ? t("hideSelection") : t("showSelection")}
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => catalogSelection.clear()}>
+                {t("clearSelection")}
+              </Button>
+            </div>
+          </div>
+          {showSelection && (
+            <ul className="flex max-h-48 flex-wrap gap-1.5 overflow-y-auto">
+              {selection.map((e) => (
+                <li key={e.senseId} className="flex items-center gap-1 rounded-md bg-muted py-0.5 pr-0.5 pl-2 text-sm">
+                  <span className="font-hanzi">{e.hanzi}</span>
+                  <span className="text-muted-foreground">{e.pinyin}</span>
+                  <span className="text-xs text-muted-foreground">HSK {levelName(e.level)}</span>
+                  <Button variant="ghost" size="icon-xs" aria-label={t("removeFromSelection", { hanzi: e.hanzi })} onClick={() => catalogSelection.remove([e.senseId])}>
+                    <X />
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
     </ManageShell>
   );
 }

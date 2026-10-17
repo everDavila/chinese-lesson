@@ -105,7 +105,16 @@
     "noResults": "Nada coincide con «{query}» en este nivel.",
     "searchFailed": "No se pudo cargar. Revisa la conexión.",
     "copyTemplate": "Copiar HSK {level} en lecciones",
-    "copyTemplateHint": "Opción temporal: copia este nivel en lecciones de 15 palabras para editarlas y presentarlas, hasta que puedas crear lecciones desde esta tabla."
+    "copyTemplateHint": "Opción temporal: copia este nivel en lecciones de 15 palabras para editarlas y presentarlas, hasta que puedas crear lecciones desde esta tabla.",
+    "selectPage": "Seleccionar las palabras de esta página",
+    "selectWord": "Seleccionar {hanzi} ({pinyin})",
+    "selectionTitle": "Selección",
+    "selectedCount": "{count, plural, one {# palabra seleccionada} other {# palabras seleccionadas}}",
+    "selectionHint": "Se mantiene al cambiar de página o de nivel.",
+    "showSelection": "Ver selección",
+    "hideSelection": "Ocultar",
+    "clearSelection": "Quitar todas",
+    "removeFromSelection": "Quitar {hanzi} de la selección"
   },
   "TeacherLessons": {
     "title": "Mis lecciones",

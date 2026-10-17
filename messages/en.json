@@ -105,7 +105,16 @@
     "noResults": "Nothing matches “{query}” in this level.",
     "searchFailed": "Couldn't load. Check your connection.",
     "copyTemplate": "Copy HSK {level} as lessons",
-    "copyTemplateHint": "Temporary option: copy this level as 15-word lessons to edit and present them, until you can create lessons from this table."
+    "copyTemplateHint": "Temporary option: copy this level as 15-word lessons to edit and present them, until you can create lessons from this table.",
+    "selectPage": "Select the words on this page",
+    "selectWord": "Select {hanzi} ({pinyin})",
+    "selectionTitle": "Selection",
+    "selectedCount": "{count, plural, one {# word selected} other {# words selected}}",
+    "selectionHint": "Kept when you change page or level.",
+    "showSelection": "Show selection",
+    "hideSelection": "Hide",
+    "clearSelection": "Clear all",
+    "removeFromSelection": "Remove {hanzi} from the selection"
   },
   "TeacherLessons": {
     "title": "My lessons",
