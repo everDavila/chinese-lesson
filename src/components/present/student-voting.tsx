@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { votingResultsAction, type VotingResults } from "@/actions/vote";
 import { Button } from "@/components/ui/button";
 import { combinedVerdict, teacherVerdict, votesVerdict, type Verdict } from "@/lib/semaphore";
+import { CONNECTION_WARNING_AFTER, nextConnectionFailures } from "@/lib/polling";
 import type { StudentLabels } from "@/lib/student-labels";
 import { cn } from "@/lib/utils";
 import type { Rating } from "./group-rating";
@@ -76,12 +77,19 @@ export function StudentVoting({
   labels: StudentLabels;
 }) {
   const [results, setResults] = useState<VotingResults>(null);
+  const [connectionFailures, setConnectionFailures] = useState(0);
+  const polling = useRef(false);
 
   const refresh = useCallback(async () => {
+    if (polling.current) return;
+    polling.current = true;
     try {
       setResults(await votingResultsAction(sessionId, senseId));
+      setConnectionFailures((failures) => nextConnectionFailures(failures, true));
     } catch {
-      // Sin red: se reintenta en el siguiente sondeo.
+      setConnectionFailures((failures) => nextConnectionFailures(failures, false));
+    } finally {
+      polling.current = false;
     }
   }, [sessionId, senseId]);
 
@@ -105,6 +113,9 @@ export function StudentVoting({
   return (
     <section className="rounded-xl border border-border bg-background/60 px-5 py-3" aria-label={labels.votingTitle}>
       <h2 className="font-medium">{labels.votingTitle}</h2>
+      {connectionFailures >= CONNECTION_WARNING_AFTER && (
+        <p role="status" className="text-sm text-destructive">{labels.votingReconnecting}</p>
+      )}
       {!results && !live && <p className="text-sm text-muted-foreground">{labels.votingHint}</p>}
 
       {(results || live) && (

@@ -16,6 +16,7 @@ import { castVoteAction, studentStateAction, type StudentState } from "@/actions
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { PandaCodeMascot } from "@/components/vote/panda-code-mascot";
 import { Link, useRouter } from "@/i18n/navigation";
+import { CONNECTION_WARNING_AFTER, nextConnectionFailures } from "@/lib/polling";
 import { cn } from "@/lib/utils";
 
 // Página del alumno (mobile-first: vota desde el celular que usa para Zoom).
@@ -39,13 +40,20 @@ export function StudentVote({ code }: { code: string }) {
   // Voto elegido por ronda: al abrirse otra palabra, se empieza de cero.
   const [chosen, setChosen] = useState<Record<string, number>>({});
   const [error, setError] = useState(false);
+  const [connectionFailures, setConnectionFailures] = useState(0);
+  const polling = useRef(false);
   const [pending, startTransition] = useTransition();
 
   const poll = useCallback(async () => {
+    if (polling.current) return;
+    polling.current = true;
     try {
       setState(await studentStateAction(code));
+      setConnectionFailures((failures) => nextConnectionFailures(failures, true));
     } catch {
-      // Sin red: se reintenta en el siguiente sondeo.
+      setConnectionFailures((failures) => nextConnectionFailures(failures, false));
+    } finally {
+      polling.current = false;
     }
   }, [code]);
   useEffect(() => {
@@ -74,12 +82,18 @@ export function StudentVote({ code }: { code: string }) {
   return (
     <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-6">
       <header className="flex items-center justify-between">
-        <span className="font-hanzi text-2xl">认识</span>
+        <span lang="zh-Hans" className="font-hanzi text-2xl">认识</span>
         <div className="flex items-center gap-3">
           <span className="font-mono text-sm tracking-widest text-muted-foreground">{code}</span>
           <LanguageSwitcher />
         </div>
       </header>
+
+      {connectionFailures >= CONNECTION_WARNING_AFTER && (
+        <p role="status" className="text-center text-sm text-destructive">
+          {t("reconnecting")}
+        </p>
+      )}
 
       {state === null ? (
         <p className="text-muted-foreground" aria-busy>
@@ -101,8 +115,8 @@ export function StudentVote({ code }: { code: string }) {
       ) : (
         <section className="flex flex-col gap-5" aria-live="polite">
           <div className="text-center">
-            <p className="font-hanzi text-7xl leading-tight">{state.hanzi}</p>
-            <p className="text-2xl text-muted-foreground">{state.pinyin}</p>
+            <p lang="zh-Hans" className="font-hanzi text-7xl leading-tight">{state.hanzi}</p>
+            <p lang="zh-Latn" className="text-2xl text-muted-foreground">{state.pinyin}</p>
           </div>
           <h1 className="text-center text-lg font-medium">{t("question")}</h1>
           <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label={t("question")}>
@@ -233,7 +247,7 @@ export function CodeForm() {
   return (
     <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-4 px-4 py-6 sm:py-10">
       <header className="flex items-center justify-between">
-        <span className="font-hanzi text-2xl">认识</span>
+        <span lang="zh-Hans" className="font-hanzi text-2xl">认识</span>
         <LanguageSwitcher />
       </header>
       <section className="space-y-1 text-center">

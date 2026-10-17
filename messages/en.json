@@ -337,6 +337,7 @@
     "checkError": "We couldn't check the code. Check your connection and try again.",
     "tryAnother": "Try another code",
     "waiting": "Waiting for the teacher to open a word…",
+    "reconnecting": "Connection lost, retrying…",
     "question": "How well do you understand this word?",
     "ratings": [
       "Don't know it",

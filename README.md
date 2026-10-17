@@ -88,8 +88,6 @@ Para no prometer lo que no existe, esto **todavía no está**:
 - [ ] Palabras propias de la docente, para lo que no está en el temario (拜拜).
 - [ ] Práctica de escritura: calcar o de memoria, con la tolerancia ajustable
       por nivel (en prueba).
-- [ ] Plantillas por tema: comer fuera, viajes, trabajo… (en la base de
-      desarrollo).
 - [ ] Probar la votación con una clase real y muchos celulares a la vez.
 
 ## 🛠️ Stack
@@ -125,7 +123,7 @@ npm run dev:base-dev         # servidor contra la base de desarrollo, puerto 300
 
 | Comando | Qué comprueba |
 |---|---|
-| `npm run test:unit` | Rotación de frases, semáforo y categorías |
+| `npm run test:unit` | Rotación de frases, semáforo, categorías y estado de conexión |
 | `npm run test:db` | Migraciones y permisos (RLS) en una base local con PGlite |
 | `npm run test:visual` | La tarjeta en 4 tamaños de pantalla, claro y oscuro, con contraste y foco de teclado |
 | `npm run test:recorridos:dev` | Recorridos con sesión real: docente, alumno anónimo y admin |
@@ -150,9 +148,13 @@ editorial en [contenido/POLITICA-DE-CONTENIDO.md](contenido/POLITICA-DE-CONTENID
 
 | Archivo | Contenido |
 |---|---|
+| [HOJA-DE-RUTA.md](HOJA-DE-RUTA.md) | Prioridades vigentes |
 | [IDEA.md](IDEA.md) | De dónde salió la idea, argumentos y referencias |
 | [ARQUITECTURA.md](ARQUITECTURA.md) | Modelo de datos, pantallas y fases |
-| [AGENTS.md](AGENTS.md) | Estado actual, reglas y decisiones (fuente de verdad para los agentes de IA) |
+| [AGENTS.md](AGENTS.md) | Reglas breves compartidas por los agentes de IA |
+| [ESTADO-ACTUAL.md](ESTADO-ACTUAL.md) | Estado operativo vigente |
+| [docs/especificacion-2026-10-15/](docs/especificacion-2026-10-15/README.md) | Especificación de referencia (fotografía del 15-oct, no se actualiza) |
+| [DECISIONES.md](DECISIONES.md) | Decisiones de producto y arquitectura |
 | [BITACORA.md](BITACORA.md) | Registro técnico día a día: qué cambió, por qué y qué quedó sin probar |
 | [IDEAS-POR-CONTRASTAR.md](IDEAS-POR-CONTRASTAR.md) | Ideas y hallazgos todavía sin decidir |
 | [DIAGNOSTICO-MODO-CLASE.md](DIAGNOSTICO-MODO-CLASE.md) | Diagnóstico del modo clase, evaluación grupal y votación anónima |

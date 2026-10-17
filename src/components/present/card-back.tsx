@@ -21,7 +21,7 @@ function Highlighted({ text, keyword, small }: { text: string; keyword: string; 
         <span key={i}>
           {part}
           {i < parts.length - 1 && (
-            <span className={cn("whitespace-nowrap", small ? "text-keyword-text" : "text-keyword")}>{keyword}</span>
+            <span lang="zh-Hans" className={cn("whitespace-nowrap", small ? "text-keyword-text" : "text-keyword")}>{keyword}</span>
           )}
         </span>
       ))}
@@ -61,6 +61,7 @@ function SentenceRow({
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <button
             type="button"
+            lang="zh-Hans"
             onClick={() => setRevealed((r) => !r)}
             className="text-left font-hanzi text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight"
             aria-expanded={visible}
@@ -78,7 +79,7 @@ function SentenceRow({
           </Button>
         </div>
         {showPinyin && (
-          <p className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sentence.pinyin}</p>
+          <p lang="zh-Latn" className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sentence.pinyin}</p>
         )}
         {visible && (
           <p className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)]">
@@ -120,8 +121,8 @@ function buildFormula(char: string, info: LessonItem["characters"][number]["info
 function Piece({ char, pinyin, className }: { char: string; pinyin: string | null; className?: string }) {
   return (
     <span className="inline-flex flex-col items-center">
-      <span className={className}>{char}</span>
-      <span className="mt-1 font-sans text-[0.45em] text-muted-foreground">{pinyin ?? " "}</span>
+      <span lang="zh-Hans" className={className}>{char}</span>
+      <span lang="zh-Latn" className="mt-1 font-sans text-[0.45em] text-muted-foreground">{pinyin ?? " "}</span>
     </span>
   );
 }
@@ -170,8 +171,8 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
           compact ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >
-        <span className="shrink-0 font-hanzi text-2xl whitespace-nowrap">{word.hanzi}</span>
-        <span className="shrink-0 text-lg whitespace-nowrap">{sense.pinyin}</span>
+        <span lang="zh-Hans" className="shrink-0 font-hanzi text-2xl whitespace-nowrap">{word.hanzi}</span>
+        <span lang="zh-Latn" className="shrink-0 text-lg whitespace-nowrap">{sense.pinyin}</span>
         <span className="min-w-0 truncate text-muted-foreground">{sense.meaning[lang]}</span>
       </div>
       <div ref={scrollRef} className="flex h-full w-full flex-col gap-4 overflow-y-auto">
@@ -190,13 +191,13 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
                   title={c.char}
                 />
               ) : (
-                <span key={`${i}-${c.char}`} className="font-hanzi text-6xl sm:text-7xl">{c.char}</span>
+                <span key={`${i}-${c.char}`} lang="zh-Hans" className="font-hanzi text-6xl sm:text-7xl">{c.char}</span>
               ),
             )}
           </div>
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <p className="text-[clamp(1.625rem,4vw,3.5rem)] leading-none [overflow-wrap:anywhere]">{sense.pinyin}</p>
+              <p lang="zh-Latn" className="text-[clamp(1.625rem,4vw,3.5rem)] leading-none [overflow-wrap:anywhere]">{sense.pinyin}</p>
               <Button variant="ghost" size="icon-lg" aria-label={labels.listenWord} onClick={() => speakChinese(word.hanzi)}>
                 <Volume2 />
               </Button>
@@ -252,7 +253,7 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
           {sense.sentences.length === 0 ? (
             <section className="rounded-xl border border-dashed border-border bg-background/60 px-5 py-4">
               <p className="text-[clamp(1.125rem,1.8vw,1.5rem)] font-medium">
-                {labels.inventTitle} <span className="font-hanzi text-keyword-text">{word.hanzi}</span>
+                {labels.inventTitle} <span lang="zh-Hans" className="font-hanzi text-keyword-text">{word.hanzi}</span>
               </p>
               <p className="mt-1 text-sm text-muted-foreground">{labels.inventHint}</p>
             </section>
@@ -306,7 +307,7 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
                       <li key={i}>
                         {s.meaning[lang]}
                         {s.sentences[0] && (
-                          <span className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} small /></span>
+                          <span lang="zh-Hans" className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} small /></span>
                         )}
                       </li>
                     ))}

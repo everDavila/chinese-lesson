@@ -30,7 +30,7 @@ export function CardFront({ item, playing, speed, runId, showPinyin }: CardFront
 
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4">
-      <div className="flex">
+      <div lang="zh-Hans" className="flex">
         {item.characters.map((c, i) => (
           // La key lleva el índice: en palabras repetidas (爸爸) el carácter solo
           // duplicaría la key y React dejaría la casilla vieja pegada en el DOM.
@@ -59,7 +59,7 @@ export function CardFront({ item, playing, speed, runId, showPinyin }: CardFront
       </div>
 
       {/* Pinyin de la palabra entera, no sílaba por casilla. */}
-      <p className={cn("text-[clamp(1.75rem,3vw,2.5rem)] text-muted-foreground", !showPinyin && "invisible")}>
+      <p lang="zh-Latn" className={cn("text-[clamp(1.75rem,3vw,2.5rem)] text-muted-foreground", !showPinyin && "invisible")}>
         {sense.pinyin}
       </p>
 
