@@ -127,28 +127,28 @@ function SentenceRow({
             <Highlighted text={sentence.zh} keyword={keyword} />
           </p>
           <div className="grid grid-cols-3 gap-2 sm:flex sm:shrink-0">
-            <Button variant="ghost" className="min-h-11 w-full sm:size-9 sm:min-h-0 sm:px-0" aria-label={labels.listenSentence} onClick={() => speakChinese(sentence.zh)}>
-              <Volume2 /> <span className="sm:sr-only">{labels.listenSentence}</span>
+            <Button variant="outline" className="h-12 w-full px-0 sm:size-9" aria-label={labels.listenSentence} onClick={() => speakChinese(sentence.zh)}>
+              <Volume2 className="size-5 sm:size-4" />
             </Button>
             <Button
-              variant={pinyinVisible ? "secondary" : "ghost"}
-              className="min-h-11 w-full sm:size-9 sm:min-h-0 sm:px-0"
+              variant={pinyinVisible ? "secondary" : "outline"}
+              className="h-12 w-full px-0 sm:size-9"
               aria-label={pinyinVisible ? labels.hidePinyin : labels.showPinyin}
               aria-pressed={pinyinVisible}
               aria-controls={pinyinId}
               onClick={() => setPinyinOverride(!pinyinVisible)}
             >
-              <Type /> <span className="sm:sr-only">{labels.pinyin}</span>
+              <Type className="size-5 sm:size-4" />
             </Button>
             <Button
-              variant={translationVisible ? "secondary" : "ghost"}
-              className="min-h-11 w-full sm:size-9 sm:min-h-0 sm:px-0"
+              variant={translationVisible ? "secondary" : "outline"}
+              className="h-12 w-full px-0 sm:size-9"
               aria-label={translationVisible ? labels.hideTranslation : labels.showTranslation}
               aria-pressed={translationVisible}
               aria-controls={translationId}
               onClick={() => setTranslationOverride(!translationVisible)}
             >
-              <Languages /> <span className="sm:sr-only">{labels.translation}</span>
+              <Languages className="size-5 sm:size-4" />
             </Button>
           </div>
         </div>
