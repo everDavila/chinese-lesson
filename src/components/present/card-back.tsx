@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Volume2 } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
+import { Popover } from "@base-ui/react/popover";
+import { ChevronDown, Languages, Type, Volume2, X } from "lucide-react";
 import { StrokeArt } from "@/components/hanzi/stroke-art";
 import { Button } from "@/components/ui/button";
-import type { LessonItem, Sentence } from "@/lib/lesson-types";
+import type { LessonItem, NoteTerm, Sentence } from "@/lib/lesson-types";
 import { categoryLabel, studentLabels, type ContentLanguage, type StudentLabels } from "@/lib/student-labels";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,71 @@ import { cn } from "@/lib/utils";
 // Resalta la palabra clave (rojo suave, único uso del rojo) en frases, matices
 // y notas culturales. En texto chico (`small`) usa un rojo algo más oscuro:
 // el suave no llega al contraste 4.5:1 que pide el texto normal.
-function Highlighted({ text, keyword, small }: { text: string; keyword: string; small?: boolean }) {
+function NoteTermHelp({ term, lang, labels }: { term: NoteTerm; lang: ContentLanguage; labels: StudentLabels }) {
+  return (
+    <Popover.Root>
+      <Popover.Trigger
+        openOnHover
+        delay={350}
+        closeDelay={150}
+        className="rounded-sm font-hanzi text-foreground underline decoration-primary decoration-dotted underline-offset-4 outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        {term.hanzi}
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Positioner sideOffset={8} className="z-50">
+          <Popover.Popup className="w-[min(18rem,calc(100vw-2rem))] rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-xl outline-none">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <Popover.Title className="font-hanzi text-2xl">{term.hanzi}</Popover.Title>
+                <p className="text-sm text-muted-foreground">{term.pinyin}</p>
+              </div>
+              <div className="flex gap-1">
+                <Button variant="ghost" size="icon" aria-label={labels.listenWord} onClick={() => speakChinese(term.hanzi)}>
+                  <Volume2 />
+                </Button>
+                <Popover.Close className="inline-flex size-8 items-center justify-center rounded-lg hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring" aria-label={labels.close}>
+                  <X className="size-4" />
+                </Popover.Close>
+              </div>
+            </div>
+            <Popover.Description className="mt-2 text-sm">
+              {term.meaning[lang]}
+              {term.hsk > 0 && <span className="mt-1 block text-xs text-muted-foreground">HSK {term.hsk === 7 ? "7–9" : term.hsk}</span>}
+            </Popover.Description>
+          </Popover.Popup>
+        </Popover.Positioner>
+      </Popover.Portal>
+    </Popover.Root>
+  );
+}
+
+function Highlighted({
+  text,
+  keyword,
+  small,
+  noteTerms,
+  lang,
+  labels,
+}: {
+  text: string;
+  keyword: string;
+  small?: boolean;
+  noteTerms?: Record<string, NoteTerm>;
+  lang?: ContentLanguage;
+  labels?: StudentLabels;
+}) {
+  if (noteTerms && lang && labels) {
+    return (
+      <>
+        {text.split(/(\p{Script=Han}+)/gu).map((part, i) => {
+          if (part === keyword) return <span key={i} className={cn("whitespace-nowrap", small ? "text-keyword-text" : "text-keyword")}>{part}</span>;
+          const term = noteTerms[part];
+          return term ? <NoteTermHelp key={i} term={term} lang={lang} labels={labels} /> : <span key={i}>{part}</span>;
+        })}
+      </>
+    );
+  }
   const parts = text.split(keyword);
   return (
     <>
@@ -46,9 +111,12 @@ function SentenceRow({
   lang: ContentLanguage;
   labels: StudentLabels;
 }) {
-  // Con las traducciones apagadas, un clic en la frase revela solo esa.
-  const [revealed, setRevealed] = useState(false);
-  const visible = showTranslations || revealed;
+  const [pinyinOverride, setPinyinOverride] = useState<boolean | null>(null);
+  const [translationOverride, setTranslationOverride] = useState<boolean | null>(null);
+  const pinyinVisible = pinyinOverride ?? showPinyin;
+  const translationVisible = translationOverride ?? showTranslations;
+  const pinyinId = useId();
+  const translationId = useId();
   // El estado de revisión de la frase (sentences.status) no se muestra aquí:
   // es información editorial interna, no material de clase. No existe aún
   // vista de admin que lo exponga, así que hoy vive solo en la base.
@@ -58,30 +126,41 @@ function SentenceRow({
         {index + 1}
       </span>
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-          <button
-            type="button"
-            onClick={() => setRevealed((r) => !r)}
-            className="text-left font-hanzi text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight"
-            aria-expanded={visible}
-            title={showTranslations ? undefined : labels.revealTranslation}
-          >
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <p className="text-left font-hanzi text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight">
             <Highlighted text={sentence.zh} keyword={keyword} />
-          </button>
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label={labels.listenSentence}
-            onClick={() => speakChinese(sentence.zh)}
-          >
-            <Volume2 />
-          </Button>
+          </p>
+          <div className="grid grid-cols-3 gap-2 sm:flex sm:shrink-0">
+            <Button variant="ghost" className="min-h-11 w-full sm:size-9 sm:min-h-0 sm:px-0" aria-label={labels.listenSentence} onClick={() => speakChinese(sentence.zh)}>
+              <Volume2 /> <span className="sm:sr-only">{labels.listenSentence}</span>
+            </Button>
+            <Button
+              variant={pinyinVisible ? "secondary" : "ghost"}
+              className="min-h-11 w-full sm:size-9 sm:min-h-0 sm:px-0"
+              aria-label={pinyinVisible ? labels.hidePinyin : labels.showPinyin}
+              aria-pressed={pinyinVisible}
+              aria-controls={pinyinId}
+              onClick={() => setPinyinOverride(!pinyinVisible)}
+            >
+              <Type /> <span className="sm:sr-only">{labels.pinyin}</span>
+            </Button>
+            <Button
+              variant={translationVisible ? "secondary" : "ghost"}
+              className="min-h-11 w-full sm:size-9 sm:min-h-0 sm:px-0"
+              aria-label={translationVisible ? labels.hideTranslation : labels.showTranslation}
+              aria-pressed={translationVisible}
+              aria-controls={translationId}
+              onClick={() => setTranslationOverride(!translationVisible)}
+            >
+              <Languages /> <span className="sm:sr-only">{labels.translation}</span>
+            </Button>
+          </div>
         </div>
-        {showPinyin && (
-          <p className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sentence.pinyin}</p>
+        {pinyinVisible && (
+          <p id={pinyinId} className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sentence.pinyin}</p>
         )}
-        {visible && (
-          <p className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)]">
+        {translationVisible && (
+          <p id={translationId} className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)]">
             {sentence[lang]}
             {/* El inglés de apoyo se pliega en celular: alarga cada frase al doble
                 (auditoría UX, P1). En pantalla grande, donde presenta la docente, sigue. */}
@@ -132,10 +211,11 @@ type CardBackProps = {
   showTranslations: boolean;
   /** Idioma del contenido para los alumnos (no el de la interfaz). */
   lang: ContentLanguage;
+  noteTerms?: Record<string, NoteTerm>;
   footer?: React.ReactNode;
 };
 
-export function CardBack({ item, showPinyin, showTranslations, lang, footer }: CardBackProps) {
+export function CardBack({ item, showPinyin, showTranslations, lang, noteTerms, footer }: CardBackProps) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const labels = studentLabels(lang);
   const { word, senseIndex } = item;
@@ -289,13 +369,13 @@ export function CardBack({ item, showPinyin, showTranslations, lang, footer }: C
               {sense.nuance && (
                 <div>
                   <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.nuance}</h3>
-                  <p><Highlighted text={sense.nuance[lang]} keyword={word.hanzi} small /></p>
+                  <p><Highlighted text={sense.nuance[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} /></p>
                 </div>
               )}
               {word.culturalNote && (
                 <div>
                   <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.culturalNote}</h3>
-                  <p><Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} small /></p>
+                  <p><Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} /></p>
                 </div>
               )}
               {otherSenses.length > 0 && (
