@@ -253,14 +253,12 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   for (let lvl = 1; lvl <= 7; lvl++) {
     const official = (await as(T1, `select source_order from word_levels where standard = 'hsk-3.0' and level = ${lvl} order by source_order`)).rows.map((r) => r.source_order);
     const seen = [];
-    let after = 0;
     let first = null;
-    for (let guard = 0; guard < 100; guard++) {
-      const r = await cat(`${lvl}, '', 200, ${after}`);
+    for (let off = 0; off < 20000; off += 200) {
+      const r = await cat(`${lvl}, '', 200, ${off}`);
       first ??= r.total;
       seen.push(...r.rows.map((x) => x.order));
-      if (r.next == null) break;
-      after = r.next;
+      if (off + 200 >= r.total) break;
     }
     const same = seen.length === official.length && seen.every((o, i) => o === official[i]) && first === official.length;
     if (!same) { ok = false; console.log(`✗ HSK nivel ${lvl}: páginas ${seen.length} (únicas ${new Set(seen).size}) vs temario ${official.length}, total ${first}`); }

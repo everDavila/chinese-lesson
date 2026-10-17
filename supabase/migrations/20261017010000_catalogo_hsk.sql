@@ -21,18 +21,20 @@ as $$
   ) x;
 $$;
 
--- Una página del nivel `lvl` (7 = banda 7–9), después de `after_order`.
--- Búsqueda por hanzi, significado o pinyin: sin tonos busca amplio ("dei" →
--- děi); con tonos, exacto ("dé" no trae děi). Paginación por cursor: la
--- siguiente página pide after_order = next. Devuelve { total, next, rows }:
--- total = entradas del nivel que cumplen la búsqueda; next = null al final.
--- En cada fila, `levels` son todos los niveles del temario donde aparece la
--- palabra (la entrada sigue siendo una sola fila, en su nivel).
-create or replace function public.hsk_catalog(
+-- Una página del nivel `lvl` (7 = banda 7–9): `lim` filas desde la posición
+-- `off`, en orden oficial. Paginación por posición (la biblioteca numera las
+-- páginas); el orden es source_order, único, así que una página siempre
+-- trae las mismas filas. Búsqueda por hanzi, significado o pinyin: sin tonos
+-- busca amplio ("dei" → děi); con tonos, exacto ("dé" no trae děi).
+-- Devuelve { total, rows }: total = entradas del nivel que cumplen la
+-- búsqueda. En cada fila, `levels` son todos los niveles del temario donde
+-- aparece la palabra (la entrada sigue siendo una sola fila, en su nivel).
+drop function if exists public.hsk_catalog(int, text, int, int);
+create function public.hsk_catalog(
   lvl int,
   q text default '',
-  lim int default 50,
-  after_order int default 0
+  lim int default 25,
+  off int default 0
 )
 returns jsonb
 language sql
@@ -68,18 +70,12 @@ as $$
   ),
   page as (
     select * from matched
-    where source_order > coalesce(after_order, 0)
     order by source_order
-    limit greatest(1, least(coalesce(lim, 50), 200))
+    limit greatest(1, least(coalesce(lim, 25), 200))
+    offset greatest(0, coalesce(off, 0))
   )
   select jsonb_build_object(
     'total', (select count(*) from matched),
-    'next', (
-      select case
-        when exists (select 1 from matched where source_order > (select max(source_order) from page))
-        then (select max(source_order) from page)
-      end
-    ),
     'rows', coalesce((
       select jsonb_agg(jsonb_build_object(
         'order', page.source_order,

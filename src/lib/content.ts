@@ -122,14 +122,15 @@ export type CatalogRow = {
   /** Todos los niveles del temario donde aparece la palabra. */
   levels: number[];
 };
-export type CatalogPage = { total: number; next: number | null; rows: CatalogRow[] };
+export type CatalogPage = { total: number; rows: CatalogRow[] };
 
-export const CATALOG_PAGE = 50;
+/** Tamaños de página de la tabla; el primero es el de entrada. */
+export const CATALOG_PAGE_SIZES = [25, 50, 100] as const;
 
-/** Una página del nivel, en orden oficial, a partir de `after` (cursor). */
-export async function hskCatalog(level: number, query = "", after = 0): Promise<CatalogPage> {
+/** La página `page` (desde 1) del nivel, en orden oficial, de `size` filas. */
+export async function hskCatalog(level: number, query = "", page = 1, size = 25): Promise<CatalogPage> {
   const supabase = await createClient();
-  const { data, error } = await supabase.rpc("hsk_catalog", { lvl: level, q: query, lim: CATALOG_PAGE, after_order: after });
+  const { data, error } = await supabase.rpc("hsk_catalog", { lvl: level, q: query, lim: size, off: (page - 1) * size });
   if (error) throw error;
   return data as CatalogPage;
 }

@@ -38,7 +38,7 @@ test("el inicio docente sirve para preparar y conserva los flujos reales", async
   const hsk1 = page.getByRole("listitem").filter({ hasText: /^HSK 1/ });
   await hsk1.getByRole("link", { name: new RegExp(es.HskLibrary.viewVocabulary) }).click();
   await expect(page).toHaveURL(/\/es\/library\/hsk\/nivel\/1$/);
-  await expect(page.getByTestId("catalog-row")).toHaveCount(50);
+  await expect(page.getByTestId("catalog-row")).toHaveCount(25);
   await expect(page.getByRole("button", { name: es.HskLibrary.copyTemplate.replace("{level}", "1") })).toBeVisible();
   await page.screenshot({ path: `tests/screens/${testInfo.project.name}/hsk-nivel.png`, fullPage: true });
 

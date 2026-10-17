@@ -6,7 +6,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SECRET_KEY);
-const PAGE = 50; // el tamaño que usa la biblioteca
+const PAGE = 25; // el tamaño de entrada de la biblioteca
 
 async function official(level) {
   const out = [];
@@ -32,18 +32,16 @@ if (countsError) throw countsError;
 for (let level = 1; level <= 7; level++) {
   const expected = await official(level);
   const seen = [];
-  let after = 0;
   let total = null;
   let pages = 0;
   const started = Date.now();
-  for (;;) {
-    const { data, error } = await db.rpc("hsk_catalog", { lvl: level, q: "", lim: PAGE, after_order: after });
+  for (let off = 0; ; off += PAGE) {
+    const { data, error } = await db.rpc("hsk_catalog", { lvl: level, q: "", lim: PAGE, off });
     if (error) throw error;
     pages++;
     total ??= data.total;
     seen.push(...data.rows.map((r) => r.order));
-    if (data.next == null) break;
-    after = data.next;
+    if (off + PAGE >= data.total) break;
   }
   const ms = Math.round((Date.now() - started) / pages);
   const exact = seen.length === expected.length && seen.every((o, i) => o === expected[i]);
