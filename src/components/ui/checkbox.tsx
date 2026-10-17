@@ -25,4 +25,12 @@ function Checkbox({ className, ...props }: CheckboxPrimitive.Root.Props) {
   )
 }
 
-export { Checkbox }
+/**
+ * Estado "a medias" (casilla que agrupa a otras): un guion en vez del ✓. El
+ * componente no deja cambiar el icono; Base UI marca el estado con
+ * data-indeterminate y se resuelve con clases.
+ */
+const checkboxIndeterminateCls =
+  "data-indeterminate:border-primary data-indeterminate:bg-primary data-indeterminate:before:absolute data-indeterminate:before:h-0.5 data-indeterminate:before:w-2 data-indeterminate:before:rounded-full data-indeterminate:before:bg-primary-foreground [&[data-indeterminate]_svg]:hidden"
+
+export { Checkbox, checkboxIndeterminateCls }

@@ -4,6 +4,7 @@ import { refresh } from "next/cache";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { EditableWord } from "@/lib/content";
 import { getProfile } from "@/lib/content";
+import { inChunks } from "@/lib/in-chunks";
 import { createClient } from "@/lib/supabase/server";
 
 // Escrituras de las vistas de admin y docente. Cada acción comprueba la
@@ -392,10 +393,21 @@ async function setPositions(
 }
 
 export async function removeItemAction(lessonId: string, senseId: string): Promise<Result> {
+  return removeItemsAction(lessonId, [senseId]);
+}
+
+/** Quita varias palabras de una vez (selección del editor); en tandas por el largo de la URL. */
+export async function removeItemsAction(lessonId: string, senseIds: string[]): Promise<Result> {
   const s = await session();
   if (!s) return { ok: false, error: "auth" };
-  const { error } = await s.db.from("lesson_items").delete().eq("lesson_id", lessonId).eq("sense_id", senseId);
-  if (error) return fail(error);
+  if (!senseIds.length) return { ok: true };
+  try {
+    await inChunks([...new Set(senseIds)], (part) =>
+      s.db.from("lesson_items").delete().eq("lesson_id", lessonId).in("sense_id", part).select("sense_id"),
+    );
+  } catch (error) {
+    return fail(error as { code?: string; message?: string });
+  }
   refresh();
   return { ok: true };
 }

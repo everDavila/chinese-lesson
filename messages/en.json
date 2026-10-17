@@ -248,7 +248,6 @@
     "all": "All",
     "clearFilter": "Clear filter",
     "selected": "{count} selected",
-    "addWord": "Add {hanzi}",
     "noResults": "No results.",
     "searchFailed": "Search failed. Check your connection.",
     "moreResults": "Showing {shown} of {total}; refine your search.",
@@ -318,7 +317,15 @@
     "restore": "Restore",
     "looseLabel": "No collection",
     "confirmDeleteForever": "Delete “{title}” permanently?",
-    "lessonsCount": "{count, plural, one {# lesson} other {# lessons}}"
+    "lessonsCount": "{count, plural, one {# lesson} other {# lessons}}",
+    "selectResults": "Select all results",
+    "selectHanzi": "Select {hanzi}",
+    "selectAllWords": "Select all words",
+    "alreadyInShort": "Added",
+    "clearSelection": "Clear selection",
+    "selectedN": "{count, plural, one {# word selected} other {# words selected}}",
+    "removeN": "Remove {count, plural, one {# word} other {# words}}",
+    "confirmRemoveN": "Remove {count, plural, one {# word} other {# words}} from “{title}”?"
   },
   "Vote": {
     "title": "Vote",

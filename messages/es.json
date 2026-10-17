@@ -248,7 +248,6 @@
     "all": "Todos",
     "clearFilter": "Quitar filtro",
     "selected": "{count} seleccionados",
-    "addWord": "Añadir {hanzi}",
     "noResults": "Sin resultados.",
     "searchFailed": "No se pudo buscar. Revisa la conexión.",
     "moreResults": "Mostrando {shown} de {total}; afina la búsqueda.",
@@ -318,7 +317,15 @@
     "restore": "Restaurar",
     "looseLabel": "Sin colección",
     "confirmDeleteForever": "¿Borrar definitivamente «{title}»?",
-    "lessonsCount": "{count, plural, one {# lección} other {# lecciones}}"
+    "lessonsCount": "{count, plural, one {# lección} other {# lecciones}}",
+    "selectResults": "Seleccionar todos los resultados",
+    "selectHanzi": "Seleccionar {hanzi}",
+    "selectAllWords": "Seleccionar todas las palabras",
+    "alreadyInShort": "Ya está",
+    "clearSelection": "Desmarcar",
+    "selectedN": "{count, plural, one {# palabra seleccionada} other {# palabras seleccionadas}}",
+    "removeN": "Quitar {count, plural, one {# palabra} other {# palabras}}",
+    "confirmRemoveN": "¿Quitar {count, plural, one {# palabra} other {# palabras}} de «{title}»?"
   },
   "Vote": {
     "title": "Votar",

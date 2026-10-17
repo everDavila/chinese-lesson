@@ -248,7 +248,6 @@
     "all": "全部",
     "clearFilter": "清除筛选",
     "selected": "已选 {count} 项",
-    "addWord": "添加 {hanzi}",
     "noResults": "没有结果。",
     "searchFailed": "搜索失败，请检查网络。",
     "moreResults": "显示 {total} 个中的 {shown} 个，请缩小搜索范围。",
@@ -318,7 +317,15 @@
     "restore": "恢复",
     "looseLabel": "不属于任何课程集",
     "confirmDeleteForever": "要永久删除「{title}」吗？",
-    "lessonsCount": "{count} 节课"
+    "lessonsCount": "{count} 节课",
+    "selectResults": "选择全部结果",
+    "selectHanzi": "选择 {hanzi}",
+    "selectAllWords": "选择全部词语",
+    "alreadyInShort": "已添加",
+    "clearSelection": "取消选择",
+    "selectedN": "已选 {count} 个词",
+    "removeN": "移除 {count} 个词",
+    "confirmRemoveN": "要从「{title}」中移除 {count} 个词吗？"
   },
   "Vote": {
     "title": "投票",

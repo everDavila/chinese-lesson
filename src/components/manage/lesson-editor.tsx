@@ -7,6 +7,7 @@ import {
   addItemsAction,
   moveItemAction,
   removeItemAction,
+  removeItemsAction,
   renameLessonAction,
   resetLessonOrderAction,
   setItemSenseAction,
@@ -16,6 +17,7 @@ import { ExamplesSelect } from "./examples-select";
 import { useConfirm } from "@/components/ui/confirm-dialog";
 import { startSessionAction } from "@/actions/class";
 import { Button } from "@/components/ui/button";
+import { Checkbox, checkboxIndeterminateCls } from "@/components/ui/checkbox";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { Link, useRouter } from "@/i18n/navigation";
 import { lookupWordsAction } from "@/actions/search";
@@ -67,11 +69,30 @@ export function LessonEditor({
     : [{ label: t("myLessons"), href: "/lessons" }, { label: lesson.title }];
 
   const inLesson = new Set(lesson.items.map((i) => i.hanzi));
-  const add = (senseIds: string[]) => {
-    if (senseIds.length) run(() => addItemsAction(lesson.id, senseIds));
+  const add = (senseIds: string[], onOk?: () => void) => {
+    if (senseIds.length) run(() => addItemsAction(lesson.id, senseIds), onOk);
   };
   const withoutSentences = lesson.items.filter((i) => i.classSentences === 0).length;
   const [confirmReset, resetDialog] = useConfirm();
+  // Palabras marcadas para quitar de golpe; se ignoran las que ya no están.
+  const [marked, setMarked] = useState<Set<string>>(new Set());
+  const markedIds = lesson.items.filter((i) => marked.has(i.senseId)).map((i) => i.senseId);
+  const toggleMark = (senseId: string, on: boolean) =>
+    setMarked((prev) => {
+      const next = new Set(prev);
+      if (on) next.add(senseId);
+      else next.delete(senseId);
+      return next;
+    });
+  const removeMarked = async () => {
+    const ok = await confirmReset({
+      title: t("confirmRemoveN", { count: markedIds.length, title: lesson.title }),
+      confirmLabel: t("removeN", { count: markedIds.length }),
+      cancelLabel: t("cancel"),
+      destructive: true,
+    });
+    if (ok) run(() => removeItemsAction(lesson.id, markedIds), () => setMarked(new Set()));
+  };
 
   // Arrastrar a la posición destino: como moveItemAction cambia con el vecino,
   // mover de la 2 a la 5 son tres intercambios encadenados en la misma acción.
@@ -193,9 +214,21 @@ export function LessonEditor({
       <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,26rem)]">
         {/* Palabras de la lección */}
         <section className="flex min-w-0 flex-col gap-2">
-          <h2 className="text-lg font-semibold">
-            {t("words")} <span className="text-muted-foreground">({lesson.items.length})</span>
-          </h2>
+          <div className="flex items-center gap-3 px-3">
+            {lesson.items.length > 0 && (
+              <Checkbox
+                aria-label={t("selectAllWords")}
+                className={checkboxIndeterminateCls}
+                checked={markedIds.length === lesson.items.length}
+                indeterminate={markedIds.length > 0 && markedIds.length < lesson.items.length}
+                disabled={pending}
+                onCheckedChange={(on) => setMarked(new Set(on ? lesson.items.map((i) => i.senseId) : []))}
+              />
+            )}
+            <h2 className="text-lg font-semibold">
+              {t("words")} <span className="text-muted-foreground">({lesson.items.length})</span>
+            </h2>
+          </div>
           {lesson.items.length ? (
             <ol className="flex flex-col gap-2">
               {lesson.items.map((it, i) => {
@@ -213,7 +246,14 @@ export function LessonEditor({
                       !pending && "cursor-grab active:cursor-grabbing",
                     )}
                   >
-                    <span className="w-5 text-center text-sm text-muted-foreground tabular-nums">{i + 1}</span>
+                    <Checkbox
+                      aria-label={t("selectHanzi", { hanzi: it.hanzi })}
+                      checked={marked.has(it.senseId)}
+                      disabled={pending}
+                      onCheckedChange={(on) => toggleMark(it.senseId, on)}
+                    />
+                    {/* En celular la casilla ocupa el lugar del número: el significado necesita el ancho. */}
+                    <span className="hidden w-5 text-center text-sm text-muted-foreground tabular-nums sm:inline">{i + 1}</span>
                     <span className="font-hanzi text-3xl">{it.hanzi}</span>
                     <div className="min-w-0 flex-1">
                       <p className="text-sm">
@@ -302,6 +342,17 @@ export function LessonEditor({
           ) : (
             <Empty>{t("emptyLesson")}</Empty>
           )}
+          {markedIds.length > 0 && (
+            <div className="sticky bottom-4 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border bg-popover p-3 text-popover-foreground shadow-lg">
+              <span className="flex-1 text-sm">{t("selectedN", { count: markedIds.length })}</span>
+              <Button variant="ghost" onClick={() => setMarked(new Set())}>
+                {t("clearSelection")}
+              </Button>
+              <Button variant="destructive" disabled={pending} onClick={removeMarked}>
+                <Trash2 /> {t("removeN", { count: markedIds.length })}
+              </Button>
+            </div>
+          )}
           {resetDialog}
         </section>
 
@@ -324,7 +375,7 @@ export function LessonEditor({
             ))}
           </div>
           {tab === "search" ? (
-            <SearchPanel inLesson={inLesson} pending={pending} onAdd={(id) => add([id])} />
+            <SearchPanel inLesson={inLesson} pending={pending} onAdd={add} />
           ) : (
             <PastePanel inLesson={inLesson} pending={pending} onAdd={add} />
           )}
@@ -341,15 +392,29 @@ function SearchPanel({
 }: {
   inLesson: Set<string>;
   pending: boolean;
-  onAdd: (senseId: string) => void;
+  onAdd: (senseIds: string[], onOk: () => void) => void;
 }) {
   const t = useTranslations("Manage");
   const locale = useLocale();
   const [q, setQ] = useState("");
+  // Lo marcado se conserva al cambiar la búsqueda: se arma la lista con varias
+  // búsquedas y se añade de golpe (un solo viaje al servidor).
+  const [picked, setPicked] = useState<Set<string>>(new Set());
   const [hsk, setHsk] = useState<number[]>([]);
   // La búsqueda la hace la base: el catálogo completo no viaja al navegador.
   const { result, loading, failed } = useWordSearch(q, hsk);
   const results = result?.rows ?? [];
+  const pickable = results.filter((w) => w.senses[0] && !inLesson.has(w.hanzi)).map((w) => w.senses[0].id);
+  const pickedHere = pickable.filter((id) => picked.has(id)).length;
+  const toggle = (ids: string[], on: boolean) =>
+    setPicked((prev) => {
+      const next = new Set(prev);
+      for (const id of ids) {
+        if (on) next.add(id);
+        else next.delete(id);
+      }
+      return next;
+    });
   return (
     <div className="flex flex-col gap-3">
       <input
@@ -369,32 +434,64 @@ function SearchPanel({
         className="self-start"
         options={HSK_LEVELS.map((n) => ({ value: n, label: `HSK ${hskLabel(n)}`, count: result?.levels[n] }))}
       />
+      {pickable.length > 0 && (
+        <label className="flex items-center gap-2 px-2 text-sm text-muted-foreground">
+          <Checkbox
+            className={checkboxIndeterminateCls}
+            checked={pickedHere === pickable.length}
+            indeterminate={pickedHere > 0 && pickedHere < pickable.length}
+            onCheckedChange={(on) => toggle(pickable, on)}
+          />
+          {t("selectResults")}
+        </label>
+      )}
       <ul className={cn("flex max-h-[28rem] flex-col gap-1 overflow-y-auto transition-opacity", loading && "opacity-60")} aria-busy={loading}>
-        {results.map((w) => (
-          <li key={w.id} className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-muted">
-            <span className="font-hanzi text-xl">{w.hanzi}</span>
-            <span className="min-w-0 flex-1 truncate text-sm">
-              <span className="font-medium">{w.senses[0]?.pinyin}</span>{" "}
-              <span className="text-muted-foreground">{w.senses[0] ? meaningFor(locale, w.senses[0]) : ""}</span>
-            </span>
-            <span className="text-xs whitespace-nowrap text-muted-foreground">HSK {hskLabel(w.hsk)}</span>
-            <Button
-              size="icon-sm"
-              variant="outline"
-              aria-label={t("addWord", { hanzi: w.hanzi })}
-              disabled={inLesson.has(w.hanzi) || pending || !w.senses[0]}
-              onClick={() => w.senses[0] && onAdd(w.senses[0].id)}
-            >
-              <Plus />
-            </Button>
-          </li>
-        ))}
+        {results.map((w) => {
+          const senseId = w.senses[0]?.id;
+          const already = inLesson.has(w.hanzi);
+          return (
+            <li key={w.id}>
+              <label
+                className={cn(
+                  "flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-muted",
+                  senseId && picked.has(senseId) && "bg-muted",
+                )}
+                title={already ? t("alreadyIn") : undefined}
+              >
+                <Checkbox
+                  aria-label={t("selectHanzi", { hanzi: w.hanzi })}
+                  checked={already || (!!senseId && picked.has(senseId))}
+                  disabled={already || !senseId}
+                  onCheckedChange={(on) => senseId && toggle([senseId], on)}
+                />
+                <span className="font-hanzi text-xl">{w.hanzi}</span>
+                <span className="min-w-0 flex-1 truncate text-sm">
+                  <span className="font-medium">{w.senses[0]?.pinyin}</span>{" "}
+                  <span className="text-muted-foreground">{w.senses[0] ? meaningFor(locale, w.senses[0]) : ""}</span>
+                </span>
+                <span className="text-xs whitespace-nowrap text-muted-foreground">
+                  {already ? t("alreadyInShort") : `HSK ${hskLabel(w.hsk)}`}
+                </span>
+              </label>
+            </li>
+          );
+        })}
         {failed && <li className="p-2 text-sm text-destructive">{t("searchFailed")}</li>}
         {!failed && !loading && result && !results.length && <li className="p-2 text-sm text-muted-foreground">{t("noResults")}</li>}
         {result && result.total > results.length && (
           <li className="p-2 text-xs text-muted-foreground">{t("moreResults", { shown: results.length, total: result.total })}</li>
         )}
       </ul>
+      {picked.size > 0 && (
+        <div className="flex flex-wrap items-center gap-2 border-t border-border pt-3">
+          <Button variant="ghost" onClick={() => setPicked(new Set())}>
+            {t("clearSelection")}
+          </Button>
+          <Button className="flex-1" disabled={pending} onClick={() => onAdd([...picked], () => setPicked(new Set()))}>
+            <Plus /> {t("addN", { count: picked.size })}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

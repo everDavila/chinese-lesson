@@ -8,7 +8,7 @@ import { copyTemplateAction } from "@/actions/manage";
 import { presentLevelAction, presentSelectionAction } from "@/actions/class";
 import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox, checkboxIndeterminateCls } from "@/components/ui/checkbox";
 import {
   Pagination,
   PaginationContent,
@@ -246,10 +246,7 @@ export function HskCatalogScreen({
               <TableHead className="w-8">
                 <Checkbox
                   aria-label={t("selectPage")}
-                  // A medias (algunas de la página): un guion en vez del ✓. El
-                  // componente no deja cambiar el icono; Base UI marca el estado
-                  // con data-indeterminate y se resuelve con clases.
-                  className="data-indeterminate:border-primary data-indeterminate:bg-primary data-indeterminate:before:absolute data-indeterminate:before:h-0.5 data-indeterminate:before:w-2 data-indeterminate:before:rounded-full data-indeterminate:before:bg-primary-foreground [&[data-indeterminate]_svg]:hidden"
+                  className={checkboxIndeterminateCls}
                   checked={pageEntries.length > 0 && pageSelected === pageEntries.length}
                   indeterminate={pageSelected > 0 && pageSelected < pageEntries.length}
                   disabled={!pageEntries.length}

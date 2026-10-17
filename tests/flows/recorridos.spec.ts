@@ -127,7 +127,7 @@ test.describe("profesora", () => {
 
     // Buscar y pegar consultan a la base (el catálogo no viaja entero).
     await page.getByRole("textbox", { name: Z.search }).fill("renshi");
-    await expect(page.getByRole("button", { name: Z.addWord.replace("{hanzi}", "认识") })).toBeVisible();
+    await expect(page.getByRole("checkbox", { name: Z.selectHanzi.replace("{hanzi}", "认识"), exact: true })).toBeVisible();
     await page.getByRole("tab", { name: Z.paste }).click();
     await page.getByRole("textbox", { name: Z.paste }).fill("你 好 龘");
     await expect(page.getByRole("button", { name: Z.addN.replace("{count}", "2") })).toBeVisible();
@@ -356,10 +356,22 @@ test.describe("profesora tras la revisión", () => {
     await page.getByRole("button", { name: Z.create, exact: true }).click();
     await page.waitForURL(/\/zh\/lessons\/[0-9a-f-]{36}$/);
     await expect(page.getByRole("heading", { level: 1 })).toContainText(title);
+    // Marcar en dos búsquedas distintas y añadir las dos de golpe.
+    const pick = (hanzi: string) => page.getByRole("checkbox", { name: Z.selectHanzi.replace("{hanzi}", hanzi), exact: true });
     await page.getByRole("textbox", { name: Z.search }).fill("renshi");
-    await page.getByRole("button", { name: Z.addWord.replace("{hanzi}", "认识") }).click();
-    await expect(page.getByRole("heading", { level: 2, name: new RegExp(`${Z.words}.*1`) })).toBeVisible();
+    await pick("认识").click();
+    await page.getByRole("textbox", { name: Z.search }).fill("pengyou");
+    await pick("朋友").click();
+    await page.getByRole("button", { name: Z.addN.replace("{count}", "2") }).click();
+    await expect(page.getByRole("heading", { level: 2, name: new RegExp(`${Z.words}.*2`) })).toBeVisible();
     await shoot(page, "11-leccion-suelta");
+
+    // Quitar en bloque desde la lista de la lección, con confirmación.
+    await page.locator("ol").getByRole("checkbox", { name: Z.selectHanzi.replace("{hanzi}", "朋友"), exact: true }).click();
+    await shoot(page, "11-quitar-seleccion");
+    await page.getByRole("button", { name: Z.removeN.replace("{count}", "1") }).click();
+    await page.getByRole("alertdialog").getByRole("button", { name: Z.removeN.replace("{count}", "1") }).click();
+    await expect(page.getByRole("heading", { level: 2, name: new RegExp(`${Z.words}.*1`) })).toBeVisible();
 
     // Mover desde el editor a la colección de prueba: cambia la dirección.
     await page.getByRole("combobox", { name: Z.moveToLabel }).selectOption(collectionId);
