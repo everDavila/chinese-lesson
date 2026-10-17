@@ -24,7 +24,9 @@ test("foco de teclado visible en los botones hechos a mano", async ({ page }) =>
   await page.keyboard.press("Space");
   await page.waitForTimeout(700);
   await expectFocusRing(page, page.getByRole("radio").first(), "valoración de la profesora");
-  await expectFocusRing(page, page.locator(".transform-3d ol > li button[aria-expanded]").first(), "botón de la frase");
+  // La frase ya no se revela tocando el chino (ayudas-frase-notas): el botón a
+  // mano que queda en el reverso es «Más detalles».
+  await expectFocusRing(page, page.locator(".transform-3d section > button[aria-expanded]").first(), "botón de más detalles");
 
   await page.goto("/es/v");
   await page.getByRole("textbox").fill("ABC234");

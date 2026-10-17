@@ -225,8 +225,8 @@ test.describe("profesora", () => {
       await page.locator(".transform-3d").waitFor();
       await page.keyboard.press("Space");
       await page.waitForTimeout(700);
-      // El botón de la frase (el del altavoz tiene aria-label; este, aria-expanded).
-      const shown = (await page.locator(".transform-3d ol > li button[aria-expanded]").allInnerTexts()).map((t) => t.trim());
+      // El chino de cada frase (desde ayudas-frase-notas ya no es un botón).
+      const shown = (await page.locator(".transform-3d ol > li p[lang=\"zh-Hans\"]").allInnerTexts()).map((t) => t.trim());
       await page.getByRole("button", { name: zh.Controls.endClass }).click();
       await page.waitForURL((u) => !u.pathname.includes("/present"));
       return shown;
