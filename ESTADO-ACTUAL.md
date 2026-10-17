@@ -50,6 +50,12 @@
   Significados, matices y frases ya están en `hanzi-dev` y producción; siguen
   `unreviewed` hasta aprobación humana. La curación conservó UUID y corrigió
   178 filas HSK 1, 86 HSK 2 y 273 HSK 3.
+- **Español latinoamericano (2026-10-17):** las 36 frases de producción que
+  conservaban `vosotros` o vocabulario peninsular fueron corregidas también en
+  `hanzi-dev` y en los seis lotes fuente HSK 1–3. Conservan UUID, origen
+  `open_data` y estado `unreviewed`; inventario y criterio en
+  [contenido/REVISION-ESPANOL-LATINOAMERICANO-2026-10-17.md](contenido/REVISION-ESPANOL-LATINOAMERICANO-2026-10-17.md).
+  La política y `npm run validate:spanish` evitan reintroducir esas formas.
 - **Catálogo HSK 4–9:** el temario oficial 2025/2026 añade 1000 entradas en
   HSK 4, 1600 en HSK 5, 1800 en HSK 6 y 5600 en la banda conjunta HSK 7–9.
   Está en `master` (`44b7185`, `c0759d7`) y la bitácora registra su carga en

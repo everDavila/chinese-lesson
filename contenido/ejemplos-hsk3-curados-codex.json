@@ -214,7 +214,7 @@
         {
           "zh": "再拿把椅子！",
           "pinyin": "Zài ná bǎ yǐzi!",
-          "es": "¡Coge otra silla!",
+          "es": "¡Trae otra silla!",
           "en": "Fetch another chair.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -1292,7 +1292,7 @@
         {
           "zh": "这辆车是我爸爸的， 不过不久后就我自己的。",
           "pinyin": "Zhè liàng chē shì wǒ bàba de,  bùguò bù jiǔ hòu jiù wǒ zìjǐ de.",
-          "es": "Este coche es de mi padre, pero dentro de poco será mío.",
+          "es": "Este auto es de mi padre, pero dentro de poco será mío.",
           "en": "This car is my father's, but soon it will be mine.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -2401,7 +2401,7 @@
         {
           "zh": "你们要带我去哪？",
           "pinyin": "Nǐmen yào dài wǒqù nǎ?",
-          "es": "¿Adónde me lleváis?",
+          "es": "¿Adónde me llevan?",
           "en": "Where are you going to take me?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -4244,7 +4244,7 @@
         {
           "zh": "你们对外语感兴趣吗？",
           "pinyin": "Nǐmen duì wàiyǔ gǎn xìngqù ma?",
-          "es": "¿Os interesan las lenguas extranjeras?",
+          "es": "¿Les interesan los idiomas extranjeros?",
           "en": "Are you interested in foreign languages?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -4876,7 +4876,7 @@
         {
           "zh": "在你们国家吃什么？",
           "pinyin": "Zài nǐmen guójiā chī shénme?",
-          "es": "¿Qué coméis en vuestro país?",
+          "es": "¿Qué comen en su país?",
           "en": "What do you eat in your country?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -6889,7 +6889,7 @@
         {
           "zh": "我有辆老旧的车。",
           "pinyin": "Wǒ yǒu liàng lǎojiù de chē.",
-          "es": "Tengo un coche viejo.",
+          "es": "Tengo un auto viejo.",
           "en": "I have an old car.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -7608,7 +7608,7 @@
         {
           "zh": "我有辆老旧的车。",
           "pinyin": "Wǒ yǒu liàng lǎojiù de chē.",
-          "es": "Tengo un coche viejo.",
+          "es": "Tengo un auto viejo.",
           "en": "I have an old car.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -7880,7 +7880,7 @@
         {
           "zh": "我有一辆车。",
           "pinyin": "Wǒ yǒu yī liàng chē.",
-          "es": "Tengo un coche.",
+          "es": "Tengo un auto.",
           "en": "I have a car.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -7890,7 +7890,7 @@
         {
           "zh": "我不要一辆车。",
           "pinyin": "Wǒ bù yào yī liàng chē.",
-          "es": "No necesito un coche.",
+          "es": "No necesito un auto.",
           "en": "I don't need a car.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -9409,7 +9409,7 @@
         {
           "zh": "我有一辆新的红色汽车。",
           "pinyin": "Wǒ yǒu yī liàng xīn de hóngsè qìchē.",
-          "es": "Tengo un coche rojo nuevo.",
+          "es": "Tengo un auto rojo nuevo.",
           "en": "I have a new red car.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -11174,7 +11174,7 @@
         {
           "zh": "你们是同事。",
           "pinyin": "Nǐmen shì tóngshì.",
-          "es": "Sois compañeros de trabajo.",
+          "es": "Son compañeros de trabajo.",
           "en": "You are colleagues.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -12714,7 +12714,7 @@
         {
           "zh": "行。",
           "pinyin": "Xíng.",
-          "es": "Vale.",
+          "es": "Está bien.",
           "en": "Never mind.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -15320,7 +15320,7 @@
         {
           "zh": "他卖车子。",
           "pinyin": "Tā mài chēzi.",
-          "es": "Él vende coches.",
+          "es": "Él vende autos.",
           "en": "He sells cars.",
           "origin": "open_data",
           "source": "tatoeba",
