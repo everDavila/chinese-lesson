@@ -114,7 +114,13 @@
     "showSelection": "查看已选",
     "hideSelection": "收起",
     "clearSelection": "全部取消",
-    "removeFromSelection": "从已选中移除 {hanzi}"
+    "removeFromSelection": "从已选中移除 {hanzi}",
+    "presentLevelCount": "演示整个等级（{count}）",
+    "presentLevel": "演示整个等级",
+    "presentLevelConfirm": "要演示整个 HSK {level} 吗？一节课共 {count} 个词。",
+    "presentSelection": "演示已选（{count}）",
+    "presentTooMany": "一次最多演示 {max} 个词。",
+    "cancel": "取消"
   },
   "TeacherLessons": {
     "title": "我的课程",

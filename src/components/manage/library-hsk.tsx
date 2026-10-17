@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
 import { usePathname, useRouter as useNextRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Copy, X } from "lucide-react";
+import { Copy, Play, X } from "lucide-react";
 import { copyTemplateAction } from "@/actions/manage";
+import { presentLevelAction, presentSelectionAction } from "@/actions/class";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -80,6 +82,10 @@ export function pageList(current: number, last: number): (number | "gap")[] {
 }
 
 const DEBOUNCE_MS = 300;
+/** Por encima de esto, presentar el nivel pide confirmación. */
+const BIG_LEVEL = 500;
+/** Tope de la selección que se puede presentar (igual que en presentSelectionAction). */
+const MAX_PRESENT = 1000;
 
 /**
  * Vocabulario completo de un nivel: tabla (shadcn Table) con búsqueda, 25/50/
@@ -94,6 +100,7 @@ export function HskCatalogScreen({
   size,
   sizes,
   data,
+  levelTotal,
   template,
 }: {
   isAdmin: boolean;
@@ -103,6 +110,8 @@ export function HskCatalogScreen({
   size: number;
   sizes: number[];
   data: CatalogPage;
+  /** Entradas del nivel completo (sin la búsqueda): lo que presenta «Presentar el nivel». */
+  levelTotal: number;
   /** Plantilla en lecciones de 15 de este nivel (solo HSK 1–3): copia temporal. */
   template: { id: string; title: string } | null;
 }) {
@@ -119,6 +128,21 @@ export function HskCatalogScreen({
   const selection = useSyncExternalStore(catalogSelection.subscribe, catalogSelection.getSnapshot, catalogSelection.getServerSnapshot);
   const selected = new Set(selection.map((e) => e.senseId));
   const [showSelection, setShowSelection] = useState(false);
+  const totalEntries = levelTotal;
+  // Presentar abre una clase con una lección rápida (oculta) y navega a ella.
+  const [presenting, startPresenting] = useTransition();
+  const [confirm, confirmDialog] = useConfirm();
+  const presentLevel = async () => {
+    if (totalEntries > BIG_LEVEL) {
+      const ok = await confirm({
+        title: t("presentLevelConfirm", { count: totalEntries, level: levelName(level) }),
+        confirmLabel: t("presentLevel"),
+        cancelLabel: t("cancel"),
+      });
+      if (!ok) return;
+    }
+    startPresenting(() => presentLevelAction(level));
+  };
   const entryOf = (row: CatalogPage["rows"][number]): SelectedEntry | null =>
     row.senseId ? { senseId: row.senseId, hanzi: row.hanzi, pinyin: row.pinyin, level, order: row.order } : null;
   const pageEntries = data.rows.flatMap((row) => entryOf(row) ?? []);
@@ -168,16 +192,21 @@ export function HskCatalogScreen({
       title={<>HSK {levelName(level)} <span className="ml-2 align-middle text-sm font-medium text-primary">{t("readOnly")}</span></>}
       error={error}
       actions={
-        template && (
-          <Button
-            variant="outline"
-            disabled={pending}
-            title={t("copyTemplateHint")}
-            onClick={() => run(() => copyTemplateAction(template.id), (r) => router.push(`/collections/${r.id}`))}
-          >
-            <Copy /> {t("copyTemplate", { level: levelName(level) })}
+        <>
+          {template && (
+            <Button
+              variant="outline"
+              disabled={pending}
+              title={t("copyTemplateHint")}
+              onClick={() => run(() => copyTemplateAction(template.id), (r) => router.push(`/collections/${r.id}`))}
+            >
+              <Copy /> {t("copyTemplate", { level: levelName(level) })}
+            </Button>
+          )}
+          <Button disabled={presenting || !totalEntries} onClick={presentLevel}>
+            <Play /> {t("presentLevelCount", { count: totalEntries })}
           </Button>
-        )
+        </>
       }
     >
       <p className="max-w-3xl text-muted-foreground">{t("catalogIntro")}</p>
@@ -350,6 +379,7 @@ export function HskCatalogScreen({
         </Pagination>
       )}
       {template && <p className="text-sm text-muted-foreground">{t("copyTemplateHint")}</p>}
+      {confirmDialog}
 
       {/* Barra de la selección: fija abajo mientras haya algo elegido. */}
       {selection.length > 0 && (
@@ -362,7 +392,15 @@ export function HskCatalogScreen({
               {t("selectedCount", { count: selection.length })}
             </p>
             <span className="hidden text-sm text-muted-foreground sm:inline">{t("selectionHint")}</span>
-            <div className="ml-auto flex gap-2">
+            <div className="ml-auto flex flex-wrap gap-2">
+              <Button
+                size="sm"
+                disabled={presenting || selection.length > MAX_PRESENT}
+                title={selection.length > MAX_PRESENT ? t("presentTooMany", { max: MAX_PRESENT }) : undefined}
+                onClick={() => startPresenting(() => presentSelectionAction(selection.map((e) => e.senseId)))}
+              >
+                <Play /> {t("presentSelection", { count: selection.length })}
+              </Button>
               <Button variant="outline" size="sm" aria-expanded={showSelection} onClick={() => setShowSelection((v) => !v)}>
                 {showSelection ? t("hideSelection") : t("showSelection")}
               </Button>

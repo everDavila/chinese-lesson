@@ -5,6 +5,7 @@ import { componentMeanings, readStrokes } from "./hanzi-data";
 import type { CharacterInfo, Lesson, Sense, Word } from "./lesson-types";
 import { pickSentences } from "./rotation";
 import { createClient } from "./supabase/server";
+import { allPages, inChunks } from "./in-chunks";
 
 // Lecciones de la profesora en Supabase. Devuelve los mismos tipos que la
 // lección de demo local, así la presentación no distingue el origen.
@@ -156,13 +157,14 @@ async function withTeacherSentences(rows: WordRow[]): Promise<WordRow[]> {
   const supabase = await createClient();
   const senseIds = rows.flatMap((w) => w.senses.map((s) => s.id));
   if (!senseIds.length) return rows;
-  const [{ data: mine }, { data: hidden }] = await Promise.all([
-    supabase
-      .from("teacher_examples")
-      .select("id, sense_id, zh, pinyin, translation_es, translation_en, based_on_sentence_id")
-      .in("sense_id", senseIds)
-      .neq("status", "accepted")
-      .order("created_at"),
+  const [mine, { data: hidden }] = await Promise.all([
+    inChunks(senseIds, (part) =>
+      supabase
+        .from("teacher_examples")
+        .select("id, sense_id, zh, pinyin, translation_es, translation_en, based_on_sentence_id, created_at")
+        .in("sense_id", part)
+        .neq("status", "accepted"),
+    ).then((rows) => rows.sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)))),
     supabase.from("teacher_hidden_sentences").select("sentence_id"),
   ]);
   if (!mine?.length && !hidden?.length) return rows;
@@ -198,11 +200,9 @@ async function withTeacherSentences(rows: WordRow[]): Promise<WordRow[]> {
 async function buildLesson(title: string, items: { senseId: string; word: WordRow }[]): Promise<Lesson> {
   const supabase = await createClient();
   const chars = [...new Set(items.flatMap((it) => [...it.word.hanzi]))];
-  const { data: charRows, error: charError } = await supabase
-    .from("characters")
-    .select("char, pinyin, radical, decomposition, components, etymology, stroke_roles")
-    .in("char", chars);
-  if (charError) throw charError;
+  const charRows = await inChunks(chars, (part) =>
+    supabase.from("characters").select("char, pinyin, radical, decomposition, components, etymology, stroke_roles").in("char", part),
+  );
   const charInfo = new Map(
     (charRows as CharacterRow[]).map((c) => [
       c.char,
@@ -241,18 +241,28 @@ async function buildLesson(title: string, items: { senseId: string; word: WordRo
  * plantillas), con sus frases propias. Las palabras sin ninguna frase se
  * quedan fuera: una tarjeta vacía no sirve en clase. null si no existe.
  */
+type ItemRow = { position: number; sense_id: string; senses: { words: WordRow } };
+
+/** Ítems de una lección en orden, con su palabra; paginados (más de 1000 en un nivel completo). */
+async function lessonItems(lessonId: string): Promise<ItemRow[]> {
+  const supabase = await createClient();
+  const rows = await allPages((from, to) =>
+    supabase
+      .from("lesson_items")
+      .select(`position, sense_id, senses(words(${WORD_SELECT}))`)
+      .eq("lesson_id", lessonId)
+      .order("position")
+      .range(from, to),
+  );
+  return rows as unknown as ItemRow[];
+}
+
 export async function getLesson(lessonId: string, opts: { sessionId?: string } = {}): Promise<Lesson | null> {
   const supabase = await createClient();
-  const { data: lesson, error } = await supabase
-    .from("lessons")
-    .select(`title, lesson_items(position, sense_id, senses(words(${WORD_SELECT})))`)
-    .eq("id", lessonId)
-    .maybeSingle();
+  const { data: lesson, error } = await supabase.from("lessons").select("title").eq("id", lessonId).maybeSingle();
   if (error) throw error;
   if (!lesson) return null;
-
-  type ItemRow = { position: number; sense_id: string; senses: { words: WordRow } };
-  const rows = [...(lesson.lesson_items as unknown as ItemRow[])].sort((a, b) => a.position - b.position);
+  const rows = await lessonItems(lessonId);
   let words = await withTeacherSentences(rows.map((r) => r.senses.words));
   if (opts.sessionId) words = await onlyChosen(opts.sessionId, rows.map((r) => r.sense_id), words);
   const items = rows
@@ -269,12 +279,15 @@ const keyOf = (t: SentenceRow) => t.key ?? (t.id ? `s:${t.id}` : "");
 // rotación, o frases que ya no existen), se muestran todas.
 async function onlyChosen(sessionId: string, senseIds: string[], words: WordRow[]): Promise<WordRow[]> {
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("session_sentences")
-    .select("sense_id, sentence_key, position")
-    .eq("session_id", sessionId)
-    .order("position");
-  if (error) throw error;
+  const data = await allPages((from, to) =>
+    supabase
+      .from("session_sentences")
+      .select("sense_id, sentence_key, position")
+      .eq("session_id", sessionId)
+      .order("sense_id")
+      .order("position")
+      .range(from, to),
+  );
   const chosen = new Map<string, string[]>();
   for (const r of data ?? []) chosen.set(r.sense_id, [...(chosen.get(r.sense_id) ?? []), r.sentence_key]);
   return words.map((w, i) => ({
@@ -297,19 +310,20 @@ export async function chooseSessionSentences(sessionId: string, lessonId: string
   const supabase = await createClient();
   const { data: lesson, error } = await supabase
     .from("lessons")
-    .select(`examples_shown, collections(examples_shown), lesson_items(position, sense_id, senses(words(${WORD_SELECT})))`)
+    .select("examples_shown, collections(examples_shown)")
     .eq("id", lessonId)
     .single();
   if (error) throw error;
   const setting = lesson.examples_shown ?? (lesson.collections as unknown as { examples_shown: number } | null)?.examples_shown ?? 0;
   const count = setting === 0 ? null : setting;
 
-  type ItemRow = { sense_id: string; senses: { words: WordRow } };
-  const rows = lesson.lesson_items as unknown as ItemRow[];
+  const rows = await lessonItems(lessonId);
   const senseIds = rows.map((r) => r.sense_id);
   const words = await withTeacherSentences(rows.map((r) => r.senses.words));
 
-  const { data: history, error: historyError } = await supabase.rpc("sentence_history", { lesson: lessonId, senses: senseIds });
+  const { data: history, error: historyError } = await allPages<{ sense_id: string; sentence_key: string; last_shown: string }>((from, to) =>
+    supabase.rpc("sentence_history", { lesson: lessonId, senses: senseIds }).order("sense_id").order("sentence_key").range(from, to),
+  ).then((data) => ({ data, error: null }), (e: unknown) => ({ data: null, error: e }));
   if (historyError) throw historyError;
   const lastSeen = new Map<string, Map<string, number>>();
   for (const h of (history ?? []) as { sense_id: string; sentence_key: string; last_shown: string }[]) {

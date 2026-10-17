@@ -298,3 +298,12 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   if (sigue.collection_id === null) console.log("✓ tras el intento rechazado, la lección sigue suelta");
   else { console.log("✗ la lección cambió de colección", sigue); process.exitCode = 1; }
 }
+
+// ── Presentación rápida (hoja de ruta, prioridad 3) ─────────────────────
+{
+  const rapida = (await as(T1, `insert into lessons (teacher_id, collection_id, title, quick) values ('${T1}', null, 'HSK 1 · hoy', true) returning id`)).rows[0].id;
+  console.log("✓ la docente crea una lección rápida (suelta y oculta)");
+  const col = (await as(T1, `insert into collections (owner_id, title) values ('${T1}', 'Con rápida') returning id`)).rows[0].id;
+  await expectFail("una lección rápida NO puede estar en una colección", T1, `update lessons set collection_id = '${col}', position = 1 where id = '${rapida}'`);
+  await expectOk("guardarla quita la marca (prioridad 4)", T1, `update lessons set quick = false where id = '${rapida}' returning quick`);
+}

@@ -379,6 +379,56 @@ test.describe("profesora tras la revisión", () => {
     await expect(page.getByRole("listitem").filter({ hasText: title })).toContainText(TL.words.replace("{count}", "1"));
   });
 
+  test("presenta desde el catálogo una selección y un nivel, sin lección visible", async ({ page }) => {
+    const sessions: string[] = [];
+    const present = async () => {
+      await page.waitForURL(/\/present\/session\/[0-9a-f-]{36}/, { timeout: 60_000 });
+      sessions.push(page.url().match(/session\/([0-9a-f-]{36})/)![1]);
+      await page.locator(".transform-3d").waitFor();
+    };
+    const endClass = async () => {
+      await page.getByRole("button", { name: zh.Controls.endClass }).click();
+      await page.waitForURL((u) => !u.pathname.includes("/present"));
+    };
+    try {
+      // Selección de dos palabras de HSK 2.
+      await page.goto("/zh/library/hsk/nivel/2");
+      await page.evaluate(() => sessionStorage.clear());
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+      const boxes = page.getByTestId("catalog-row").getByRole("checkbox");
+      await boxes.nth(0).click();
+      await boxes.nth(1).click();
+      await page.getByRole("button", { name: H.presentSelection.replace("{count}", "2") }).click();
+      await present();
+      await expect(page.locator("nav select option")).toHaveCount(2);
+      await shoot(page, "12-presentar-seleccion");
+      await endClass();
+
+      // Un nivel completo (HSK 1: 300, sin confirmación).
+      await page.goto("/zh/library/hsk/nivel/1");
+      await page.waitForLoadState("networkidle");
+      await page.getByRole("button", { name: H.presentLevelCount.replace("{count}", "300") }).click();
+      await present();
+      await expect(page.locator("nav select option")).toHaveCount(300);
+      await endClass();
+
+      // Las lecciones rápidas no son material propio: no salen en Mis lecciones.
+      await page.goto("/zh/lessons");
+      // Su título termina en la fecha ("HSK 1 · 2026-10-17"); las de la colección copiada son "HSK 1 · 1".
+      await expect(page.getByRole("listitem").filter({ hasText: /(Selección · \d+|HSK [0-9–]+) · \d{4}-\d{2}-\d{2}/ })).toHaveCount(0);
+    } finally {
+      // Borra las lecciones rápidas de la prueba (arrastra sus clases).
+      if (sessions.length) {
+        const db = admin();
+        const { data } = await db.from("class_sessions").select("lesson_id").in("id", sessions);
+        const ids = (data ?? []).map((s) => s.lesson_id as string);
+        if (ids.length) await db.from("lessons").delete().in("id", ids).eq("quick", true);
+      }
+      await page.evaluate(() => sessionStorage.clear()).catch(() => {});
+    }
+  });
+
   test("borra la colección con el diálogo de confirmación propio", async ({ page }) => {
     await page.goto(collectionUrl);
     // Cancelar no borra nada.

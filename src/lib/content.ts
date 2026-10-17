@@ -1,6 +1,7 @@
 import "server-only";
 
 import { createClient } from "./supabase/server";
+import { inChunks } from "./in-chunks";
 
 // Lecturas de las vistas de admin y docente: catálogo, colecciones y frases.
 // Las escrituras van en src/actions/manage.ts. RLS decide qué ve cada cuenta.
@@ -302,7 +303,7 @@ export async function getCollection(id: string): Promise<CollectionSummary | nul
   return data ? toCollection(data as unknown as CollectionRow) : null;
 }
 
-/** Lecciones antiguas sin colección (la lección de demo de la fase 1). */
+/** Lecciones sueltas de la docente (sin colección), sin las de presentación rápida. */
 export async function listLooseLessons(): Promise<{ id: string; title: string; items: number }[]> {
   const supabase = await createClient();
   const { data: claims } = await supabase.auth.getClaims();
@@ -311,6 +312,8 @@ export async function listLooseLessons(): Promise<{ id: string; title: string; i
     .select("id, title, lesson_items(count)")
     .is("collection_id", null)
     .eq("teacher_id", claims?.claims.sub ?? "")
+    // Las de presentación rápida (desde el catálogo) no son material propio.
+    .eq("quick", false)
     .order("created_at");
   if (error) throw error;
   return data.map((l) => ({ id: l.id, title: l.title, items: (l.lesson_items as { count: number }[])[0]?.count ?? 0 }));
@@ -461,8 +464,10 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
 // aceptadas ya son originales: no se cuentan dos veces.
 async function ownSentenceCounts(senseIds: string[]) {
   const supabase = await createClient();
-  const [{ data: mine }, { data: hidden }] = await Promise.all([
-    supabase.from("teacher_examples").select("sense_id, based_on_sentence_id, status").in("sense_id", senseIds).neq("status", "accepted"),
+  const [mine, { data: hidden }] = await Promise.all([
+    inChunks(senseIds, (part) =>
+      supabase.from("teacher_examples").select("sense_id, based_on_sentence_id, status").in("sense_id", part).neq("status", "accepted"),
+    ),
     supabase.from("teacher_hidden_sentences").select("sentence_id"),
   ]);
   const bySense = new Map<string, number>();

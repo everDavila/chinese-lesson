@@ -114,7 +114,13 @@
     "showSelection": "Ver selección",
     "hideSelection": "Ocultar",
     "clearSelection": "Quitar todas",
-    "removeFromSelection": "Quitar {hanzi} de la selección"
+    "removeFromSelection": "Quitar {hanzi} de la selección",
+    "presentLevelCount": "Presentar el nivel ({count})",
+    "presentLevel": "Presentar el nivel",
+    "presentLevelConfirm": "¿Presentar HSK {level} completo? Son {count} palabras en una sola clase.",
+    "presentSelection": "Presentar selección ({count})",
+    "presentTooMany": "Se pueden presentar hasta {max} palabras a la vez.",
+    "cancel": "Cancelar"
   },
   "TeacherLessons": {
     "title": "Mis lecciones",

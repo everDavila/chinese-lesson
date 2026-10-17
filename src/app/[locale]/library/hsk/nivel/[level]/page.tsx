@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { HskCatalogScreen } from "@/components/manage/library-hsk";
 import { ManageLoading } from "@/components/manage/loading";
-import { CATALOG_PAGE_SIZES, hskCatalog, listCollections } from "@/lib/content";
+import { CATALOG_PAGE_SIZES, hskCatalog, hskLevelCounts, listCollections } from "@/lib/content";
 import { requireProfile } from "@/lib/guard";
 
 type Params = PageProps<"/[locale]/library/hsk/nivel/[level]">["params"];
@@ -27,7 +27,7 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
   const size = (CATALOG_PAGE_SIZES as readonly number[]).includes(sizeParam) ? sizeParam : CATALOG_PAGE_SIZES[0];
   const requested = Math.max(1, Math.floor(Number(one(sp.pagina)) || 1));
 
-  const [profile, templates] = await Promise.all([requireProfile(), listCollections("templates")]);
+  const [profile, templates, counts] = await Promise.all([requireProfile(), listCollections("templates"), hskLevelCounts()]);
   let data = await hskCatalog(level, query, requested, size);
   // Una página que ya no existe (otro tamaño, otra búsqueda): la última.
   const last = Math.max(1, Math.ceil(data.total / size));
@@ -47,6 +47,7 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
       size={size}
       sizes={[...CATALOG_PAGE_SIZES]}
       data={data}
+      levelTotal={counts[level] ?? 0}
       template={template && { id: template.id, title: template.title }}
     />
   );
