@@ -20,6 +20,7 @@
 No leas todos estos archivos por defecto:
 
 - Estado vigente: [ESTADO-ACTUAL.md](ESTADO-ACTUAL.md).
+- Prioridades pendientes: [HOJA-DE-RUTA.md](HOJA-DE-RUTA.md).
 - Cómo llegó el proyecto aquí: [EVOLUCION.md](EVOLUCION.md).
 - Trabajo y ramas activas: [TRABAJO-EN-CURSO.md](TRABAJO-EN-CURSO.md).
 - Historial de decisiones: [DECISIONES.md](DECISIONES.md).
