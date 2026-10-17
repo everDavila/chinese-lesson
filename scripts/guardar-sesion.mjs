@@ -29,17 +29,18 @@ await page.goto(`${base}/es/login`);
 console.log(`Base ${dev ? "de DESARROLLO" : "de PRODUCCIÓN"} · ${base}`);
 console.log(`Inicia sesión con la cuenta "${name}" en la ventana que se abrió (tienes 5 minutos).`);
 
-// Con la clave correcta, el login lleva a /admin (admin) o a /collections.
-await page.waitForURL(/\/(collections|admin)/, { timeout: 5 * 60_000 });
+// Con la clave correcta, el login lleva fuera de /login (el admin a /admin; la
+// docente a su inicio, cuya ruta ha cambiado: no se fija cuál).
+await page.waitForURL((u) => !u.pathname.endsWith("/login"), { timeout: 5 * 60_000 });
 console.log("Sesión iniciada: compruebo el rol en /admin…");
 
 // Comprueba que la cuenta es la que se pidió: el admin ve «Base común»; a
-// cualquier otra cuenta /admin la devuelve a /collections. Se espera a una
-// de las dos cosas (la primera carga en desarrollo puede tardar).
+// cualquier otra cuenta /admin la saca de /admin. Se espera a una de las dos
+// cosas (la primera carga en desarrollo puede tardar).
 await page.goto(`${base}/es/admin`);
 const isAdmin = await Promise.race([
   page.getByRole("heading", { name: "Base común" }).waitFor({ timeout: 120_000 }).then(() => true),
-  page.waitForURL(/\/collections/, { timeout: 120_000 }).then(() => false),
+  page.waitForURL((u) => !u.pathname.includes("/admin"), { timeout: 120_000 }).then(() => false),
 ]);
 if ((name === "admin") !== isAdmin) {
   console.error(

@@ -38,9 +38,13 @@ test("el inicio docente sirve para preparar y conserva los flujos reales", async
   await expect(page).toHaveURL(/\/es\/lessons$/);
   await expect(page.getByRole("heading", { level: 1, name: es.TeacherLessons.title })).toBeVisible();
 
-  await page.goto("/es");
-  await page.getByText(es.Manage.create, { exact: true }).click();
-  await page.getByRole("link", { name: es.TeacherWorkspace.createCollection }).click();
-  await expect(page).toHaveURL(/\/es\/collections\?create=1$/);
-  await expect(page.getByRole("textbox", { name: es.Manage.newCollection })).toBeVisible();
+  // El menú «Crear» de la cabecera es solo de escritorio; en celular se crea
+  // desde «Mis colecciones».
+  if (desktop) {
+    await page.goto("/es");
+    await page.getByText(es.Manage.create, { exact: true }).click();
+    await page.getByRole("link", { name: es.TeacherWorkspace.createCollection }).click();
+    await expect(page).toHaveURL(/\/es\/collections\?create=1$/);
+    await expect(page.getByRole("textbox", { name: es.Manage.newCollection })).toBeVisible();
+  }
 });

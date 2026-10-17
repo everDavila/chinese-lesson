@@ -91,7 +91,7 @@ test.describe("profesora", () => {
   test("copia la plantilla HSK 1 y la renombra", async ({ page }) => {
     // El inicio separa el trabajo propio de la biblioteca original.
     await page.goto("/zh");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("你好");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(zh.TeacherHome.homeTitle);
     await page.getByRole("link", { name: zh.TeacherWorkspace.hsk }).click();
     await page.waitForURL(/\/zh\/library\/hsk$/);
     await expect(page.getByRole("heading", { level: 1, name: H.title })).toBeVisible();
@@ -202,7 +202,8 @@ test.describe("profesora", () => {
     await page.setViewportSize({ width: 1440, height: 900 });
 
     await page.getByRole("button", { name: zh.Controls.endClass }).click();
-    await page.waitForURL(/\/collections$/);
+    // Terminar la clase vuelve al inicio docente.
+    await page.waitForURL((u) => !u.pathname.includes("/present"));
   });
 
   test("con 1 frase por palabra, dos clases seguidas muestran frases distintas", async ({ page }) => {
@@ -221,7 +222,7 @@ test.describe("profesora", () => {
       // El botón de la frase (el del altavoz tiene aria-label; este, aria-expanded).
       const shown = (await page.locator(".transform-3d ol > li button[aria-expanded]").allInnerTexts()).map((t) => t.trim());
       await page.getByRole("button", { name: zh.Controls.endClass }).click();
-      await page.waitForURL(/\/collections$/);
+      await page.waitForURL((u) => !u.pathname.includes("/present"));
       return shown;
     };
     const first = await giveClass();
