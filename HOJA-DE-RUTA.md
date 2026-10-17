@@ -11,9 +11,12 @@ inicio docente. **Sin despliegue a producción todavía.**
 
 ## Prioridades
 
-1. **Crear lecciones directamente**, sin obligar a crear una colección. Después,
-   permitir **mover lecciones entre colecciones** sin duplicar palabras ni
-   alterar el historial.
+1. ✅ *(en desarrollo, rama `integrar-inicio`, 2026-10-17)* **Crear lecciones
+   directamente**, sin obligar a crear una colección. Después, permitir **mover
+   lecciones entre colecciones** sin duplicar palabras ni alterar el historial.
+   Hecho: «Nueva lección» en Mis lecciones y en «Crear»; «Mover a colección» en
+   el editor y en cada lección de una colección. La rotación sigue a la
+   colección (al mover, la lección empieza sin historial en la destino).
 2. **Selección múltiple en la tabla del catálogo**, persistente entre páginas,
    basada en `sense_id`.
 3. **Presentar desde el catálogo** (todo el nivel o la selección) sin crear una
