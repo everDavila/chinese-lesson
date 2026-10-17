@@ -261,10 +261,10 @@ Funciones (security definer, con RLS por dentro):
 
 ### Cómo arma una lección la docente
 
-La ruta de entrada autenticada (`/`) es el espacio de preparación: resume las
-lecciones propias recientes y la biblioteca común. La acción principal de cada
-lección abre su editor; presentar queda como acción secundaria. `/library`
-separa las plantillas HSK y temáticas, y al usarlas llama a
+La ruta de entrada autenticada (`/`) es el espacio de preparación: muestra
+lecciones y colecciones fijadas por la docente y sus lecciones recientes.
+Solo las lecciones se presentan; una colección fijada se abre para elegir una
+de sus lecciones. `/library` separa las plantillas HSK y temáticas, y al usarlas llama a
 `copy_collection`: la docente siempre trabaja sobre su copia privada. El
 panda no forma parte de esta cabecera; queda reservado al acceso del alumno.
 

@@ -20,6 +20,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import type { CollectionListItem, CollectionSummary } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Empty, inputCls, ManageShell, NewTitleForm, SearchInput, useRunner, type Crumb } from "./shell";
+import { PinButton } from "./pin-button";
 
 // Colecciones y lecciones. Las comparten la docente (sus colecciones) y el
 // admin (plantillas): cambia la base de las rutas y qué se puede copiar.
@@ -43,16 +44,19 @@ function CollectionCard({
   mode,
   onCopy,
   pending,
+  pinned,
 }: {
   c: CollectionListItem;
   mode: Mode;
   onCopy?: () => void;
   pending?: boolean;
+  pinned?: boolean;
 }) {
   const t = useTranslations("Manage");
   return (
     <li className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
-      <div className="min-w-0">
+      <div className="flex min-w-0 items-start gap-2">
+        <div className="min-w-0 flex-1">
         {onCopy ? (
           <p className="font-medium">{c.title}</p>
         ) : (
@@ -64,6 +68,8 @@ function CollectionCard({
           {t("lessonsWords", { lessons: c.lessons, words: c.words })}
           {c.source ? ` · ${c.source}` : ""}
         </p>
+        </div>
+        {mode === "teacher" && !onCopy && <PinButton kind="collection" id={c.id} pinned={Boolean(pinned)} />}
       </div>
       <div className="mt-auto pt-5">
       {onCopy ? (
@@ -85,12 +91,14 @@ export function CollectionsScreen({
   mode,
   isAdmin,
   mine,
+  pinnedIds = [],
   initialQuery = "",
   createOnLoad = false,
 }: {
   mode: Mode;
   isAdmin: boolean;
   mine: CollectionListItem[];
+  pinnedIds?: string[];
   initialQuery?: string;
   createOnLoad?: boolean;
 }) {
@@ -137,7 +145,7 @@ export function CollectionsScreen({
         {shownMine.length ? (
           <ul className="grid gap-3 md:grid-cols-2">
             {shownMine.map((c) => (
-              <CollectionCard key={c.id} c={c} mode={mode} />
+              <CollectionCard key={c.id} c={c} mode={mode} pinned={pinnedIds.includes(c.id)} />
             ))}
           </ul>
         ) : (

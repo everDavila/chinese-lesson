@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { TeacherHome } from "@/components/manage/teacher-home";
+import { TeacherDashboard } from "@/components/manage/teacher-dashboard";
 import { Link, redirect } from "@/i18n/navigation";
 import { getDemoLesson } from "@/lib/demo-lesson";
-import { getProfile, listCollections, listTeacherLessons } from "@/lib/content";
+import { getProfile, listTeacherLessons, listTeacherPins } from "@/lib/content";
 
 // Inicio. Sin sesión: la lección de demo local. Con sesión: /admin o el espacio
 // de preparación docente. Lo que lee la sesión va dentro de <Suspense> (Cache
@@ -24,8 +24,8 @@ async function HomeContent() {
   const profile = await getProfile();
   if (profile?.role === "admin") redirect({ href: "/admin", locale: await getLocale() });
   if (profile) {
-    const [lessons, templates] = await Promise.all([listTeacherLessons(), listCollections("templates")]);
-    return <TeacherHome isAdmin={false} name={profile.displayName} lessons={lessons} templates={templates} />;
+    const [lessons, pins] = await Promise.all([listTeacherLessons(), listTeacherPins()]);
+    return <TeacherDashboard isAdmin={false} lessons={lessons} pins={pins} />;
   }
   return <Guest />;
 }

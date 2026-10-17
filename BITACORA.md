@@ -515,3 +515,20 @@ presentación. **No probado:** copiar una plantilla desde esta pantalla no se
 ejecutó en el recorrido visual para no escribir en producción; el mismo RPC ya
 está cubierto por los recorridos funcionales existentes. Falta validación con
 la profesora y despliegue.
+
+## 2026-10-17 — Inicio docente reducido a fijados y recientes
+
+El inicio se redujo a dos bloques: accesos fijados por la profesora y sus
+lecciones recientes. Se retiraron el saludo grande, las tarjetas de creación y
+la biblioteca del contenido principal; esas funciones siguen en la cabecera y
+el menú lateral. Una lección fijada se puede presentar o editar. Una colección
+fijada solo se abre: la unidad de una clase sigue siendo la lección y no se
+crean sesiones ambiguas con cientos de palabras.
+
+La migración `20261017000000_inicio_docente_fijados.sql` añade fechas reales de
+última edición y `teacher_pins`, una relación privada protegida por RLS que
+referencia el material existente sin duplicarlo. Se respaldó y migró
+`hanzi-dev`; crear y borrar un fijado de prueba funcionó. Pasaron ESLint, las
+18 pruebas unitarias y el build. **No probado:** el recorrido visual autenticado
+quedó bloqueado porque la sesión local de `laoshi` venció. La migración no se
+aplicó en producción.

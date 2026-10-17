@@ -1,7 +1,7 @@
 # QA de diseño — inicio docente
 
-Fecha: 2026-10-16
-Estado: **aprobado**
+Fecha: 2026-10-17
+Estado: **bloqueado para la revisión del nuevo Inicio**
 
 ## Referencias
 
@@ -22,3 +22,15 @@ Estado: **aprobado**
 - Playwright, tema oscuro: 1440 × 900 y 390 × 844.
 - Inicio, biblioteca y apertura directa del formulario de nueva colección: 2/2 recorridos aprobados.
 - Capturas: `tests/screens/desktop-dark/inicio-docente.png` y `tests/screens/phone-dark/inicio-docente.png` (ignoradas por Git).
+
+## Refactor de fijados y recientes
+
+- Fuente visual: captura compartida en la conversación (Inicio con Acceso rápido y Lecciones recientes), 739 × 547 px.
+- Implementación: `src/components/manage/teacher-dashboard.tsx`, escritorio oscuro previsto a 1440 × 900 y móvil a 390 × 844.
+- Estado: migración verificada en `hanzi-dev`, build correcto.
+- Comparación visual: bloqueada. La sesión guardada de `laoshi` venció y el navegador mostró la demo pública, no el Inicio autenticado; por eso no existe una captura comparable válida.
+- Tipografía, espaciado, colores, iconos y contenido: revisados en código, pero no aprobados visualmente sin render autenticado.
+- Interacciones pendientes de captura: fijar/desfijar, abrir colección, presentar y editar lección.
+- Consola: sin errores de la nueva interfaz; el recorrido se detuvo antes de renderizarla por falta de autenticación.
+
+final result: blocked
