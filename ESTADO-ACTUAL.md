@@ -16,13 +16,19 @@
   guía y valida el código de acceso del alumno); admin en
   `/admin` (base común, editor de palabra, vista previa, plantillas, bandeja de
   sugerencias). Cuentas: Ever (`admin`) y la profesora (`teacher`).
-- **Biblioteca HSK por nivel completo (2026-10-17, solo en desarrollo):** en la
-  rama `integrar-inicio` (inicio docente de Codex + biblioteca nueva), probada
-  contra `hanzi-dev`. Migración `20261017010000_catalogo_hsk.sql` aplicada en
-  `hanzi-dev`, **no en producción**. Validación: `node --env-file=<env>
-  scripts/validar-catalogo-hsk.mjs` (los 7 niveles exactos en dev). Pendiente
-  de autorización de Ever para producción (respaldo → migraciones
-  `20261017000000` y `20261017010000` → push).
+- **En producción desde el 2026-10-17** (rama `integrar-inicio`, autorizada por
+  Ever; respaldo `backups/supabase-2026-10-17T2337.json`; migraciones
+  `20261017000000`–`20261017030000` aplicadas antes del push): inicio docente
+  con fijados y recientes; biblioteca HSK por nivel completo con paginación
+  (`hsk_catalog`, los 7 niveles validados en producción con
+  `scripts/validar-catalogo-hsk.mjs`); lecciones sin colección y mover entre
+  colecciones; selección en el catálogo y presentar nivel o selección como
+  lección rápida (`lessons.quick`, confirma por encima de 100 palabras);
+  «Quitar» = archivar (`archived_at`, página `/archived`) o borrar; selección
+  en bloque en el editor; ayudas por frase (audio, pinyin, traducción) y
+  palabras citadas en notas; aviso de conexión perdida en la votación; español
+  latinoamericano en las frases. `/lab/escritura` está publicada pero sin
+  probar con el dedo en celular.
 - **Descripciones opcionales (2026-10-16):** colecciones y lecciones admiten
   descripción editable (detalle, alta y copia desde plantillas; la búsqueda de
   la lista la tiene en cuenta; las tarjetas no la muestran). La migración

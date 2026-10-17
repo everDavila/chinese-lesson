@@ -532,3 +532,31 @@ referencia el material existente sin duplicarlo. Se respaldó y migró
 18 pruebas unitarias y el build. **No probado:** el recorrido visual autenticado
 quedó bloqueado porque la sesión local de `laoshi` venció. La migración no se
 aplicó en producción.
+
+## 2026-10-17 — Integración a producción: biblioteca por nivel, lecciones sueltas y ramas de Codex
+
+**Qué subió.** La rama `integrar-inicio` llegó a `master` por avance directo
+(`a353133..1cf2aa5`) con: inicio docente de Codex, biblioteca HSK por nivel
+completo (`hsk_catalog`, paginación shadcn), prioridades 1–3 de la hoja de
+ruta, «Quitar» = archivar o borrar, selección en bloque en el editor, y las
+ramas `contenido-hsk4-9`, `contenido-espanol-latinoamericano`,
+`prueba-escritura`, `pendientes-prioritarios` (aviso de conexión; los 6
+documentos de especificación quedaron como fotografía en
+`docs/especificacion-2026-10-15/`) y `ayudas-frase-notas`.
+
+**Orden en producción.** Respaldo (`backups/supabase-2026-10-17T2337.json`) →
+`db push` de 4 migraciones (`20261017000000`–`20261017030000`) →
+`validar-catalogo-hsk.mjs` (7 niveles exactos) → push a `master` → Vercel
+listo. Antes, contra `hanzi-dev`: recorridos 11/11, visuales 120/120, 20
+pruebas unitarias. El español peninsular se comprobó en solo lectura: 0 de 2739
+frases en dev y en producción.
+
+**Conflictos resueltos.** `lessons.ts`: la consulta de palabras citadas en
+notas va en tandas (`inChunks`) para no romper con HSK 7–9. `card-back.tsx`:
+estructura de `ayudas-frase-notas` con los `lang` de `pendientes-prioritarios`.
+Dos pruebas buscaban el botón viejo «tocar el chino para revelar».
+
+**Sin probar / pendiente.** `/lab/escritura` con el dedo en celular; la
+tarjeta nueva en clase real; `ux-voto-alumno` descartada por ahora (choca con
+el aviso de conexión); registro de cuentas abierto en Supabase (Ever lo cierra
+en el panel).
