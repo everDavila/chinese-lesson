@@ -212,7 +212,7 @@ async function buildLesson(title: string, items: { senseId: string; word: WordRo
     noteCandidates.length
       ? supabase
           .from("words")
-          .select("hanzi, hsk_level, senses(position, pinyin, meaning_es, meaning_en)")
+          .select("hanzi, senses(position, pinyin, meaning_es, meaning_en)")
           .in("hanzi", noteCandidates)
       : Promise.resolve({ data: [], error: null }),
   ]);
@@ -238,7 +238,6 @@ async function buildLesson(title: string, items: { senseId: string; word: WordRo
       hanzi: row.hanzi,
       pinyin: firstSense.pinyin,
       meaning: { es: firstSense.meaning_es ?? "", en: firstSense.meaning_en ?? "" },
-      hsk: row.hsk_level ?? 0,
     };
     return [[row.hanzi, term]];
   }));

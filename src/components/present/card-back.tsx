@@ -29,10 +29,7 @@ function NoteTermHelp({ term, lang, labels }: { term: NoteTerm; lang: ContentLan
         <Popover.Positioner sideOffset={8} className="z-50">
           <Popover.Popup className="w-[min(18rem,calc(100vw-2rem))] rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-xl outline-none">
             <div className="flex items-start justify-between gap-3">
-              <div>
-                <Popover.Title className="font-hanzi text-2xl">{term.hanzi}</Popover.Title>
-                <p className="text-sm text-muted-foreground">{term.pinyin}</p>
-              </div>
+              <Popover.Title className="text-lg font-medium">{term.pinyin}</Popover.Title>
               <div className="flex gap-1">
                 <Button variant="ghost" size="icon" aria-label={labels.listenWord} onClick={() => speakChinese(term.hanzi)}>
                   <Volume2 />
@@ -44,7 +41,6 @@ function NoteTermHelp({ term, lang, labels }: { term: NoteTerm; lang: ContentLan
             </div>
             <Popover.Description className="mt-2 text-sm">
               {term.meaning[lang]}
-              {term.hsk > 0 && <span className="mt-1 block text-xs text-muted-foreground">HSK {term.hsk === 7 ? "7–9" : term.hsk}</span>}
             </Popover.Description>
           </Popover.Popup>
         </Popover.Positioner>

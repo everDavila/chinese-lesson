@@ -71,7 +71,6 @@ export type NoteTerm = {
   hanzi: string;
   pinyin: string;
   meaning: Bilingual;
-  hsk: number;
 };
 
 export type Lesson = {
