@@ -13,6 +13,13 @@
   guía y valida el código de acceso del alumno); admin en
   `/admin` (base común, editor de palabra, vista previa, plantillas, bandeja de
   sugerencias). Cuentas: Ever (`admin`) y la profesora (`teacher`).
+- **Descripciones opcionales (2026-10-16):** colecciones y lecciones admiten
+  descripción editable (detalle, alta y copia desde plantillas; la búsqueda de
+  la lista la tiene en cuenta; las tarjetas no la muestran). La migración
+  `20261016000000_lesson_description.sql` (añade `lessons.description` y hace
+  que `copy_collection` la copie) está en `master`; **pendiente aplicarla en
+  `hanzi-dev` y producción con respaldo previo**, o las pantallas de gestión
+  fallarán al consultar la columna.
 - **Plantillas de vocabulario por contexto:** 10 colecciones curadas (Comer
   fuera, Vida diaria, Trabajo, Viajes, Transporte, Compras, Salud y cuerpo,
   Tecnología, Medio ambiente, Sociedad y cultura) sobre el temario HSK 3.0
