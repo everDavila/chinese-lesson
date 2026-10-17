@@ -2,7 +2,8 @@ import "server-only";
 
 import lessonJson from "../../contenido/leccion-demo.json";
 import { componentMeanings, readStrokes } from "./hanzi-data";
-import type { CharacterInfo, Lesson, Sense, Word } from "./lesson-types";
+import type { CharacterInfo, Lesson, NoteTerm, Sense, Word } from "./lesson-types";
+import { noteTermCandidates } from "./note-terms";
 import { pickSentences } from "./rotation";
 import { createClient } from "./supabase/server";
 
@@ -198,11 +199,25 @@ async function withTeacherSentences(rows: WordRow[]): Promise<WordRow[]> {
 async function buildLesson(title: string, items: { senseId: string; word: WordRow }[]): Promise<Lesson> {
   const supabase = await createClient();
   const chars = [...new Set(items.flatMap((it) => [...it.word.hanzi]))];
-  const { data: charRows, error: charError } = await supabase
-    .from("characters")
-    .select("char, pinyin, radical, decomposition, components, etymology, stroke_roles")
-    .in("char", chars);
+  const noteCandidates = noteTermCandidates(items.flatMap(({ word }) => [
+    word.cultural_note_es,
+    word.cultural_note_en,
+    ...word.senses.flatMap((sense) => [sense.nuance_es, sense.nuance_en]),
+  ]));
+  const [{ data: charRows, error: charError }, { data: noteRows, error: noteError }] = await Promise.all([
+    supabase
+      .from("characters")
+      .select("char, pinyin, radical, decomposition, components, etymology, stroke_roles")
+      .in("char", chars),
+    noteCandidates.length
+      ? supabase
+          .from("words")
+          .select("hanzi, hsk_level, senses(position, pinyin, meaning_es, meaning_en)")
+          .in("hanzi", noteCandidates)
+      : Promise.resolve({ data: [], error: null }),
+  ]);
   if (charError) throw charError;
+  if (noteError) throw noteError;
   const charInfo = new Map(
     (charRows as CharacterRow[]).map((c) => [
       c.char,
@@ -216,6 +231,17 @@ async function buildLesson(title: string, items: { senseId: string; word: WordRo
       } satisfies CharacterInfo,
     ]),
   );
+  const noteTerms = Object.fromEntries((noteRows ?? []).flatMap((row) => {
+    const firstSense = [...row.senses].sort((a, b) => a.position - b.position)[0];
+    if (!firstSense) return [];
+    const term: NoteTerm = {
+      hanzi: row.hanzi,
+      pinyin: firstSense.pinyin,
+      meaning: { es: firstSense.meaning_es ?? "", en: firstSense.meaning_en ?? "" },
+      hsk: row.hsk_level ?? 0,
+    };
+    return [[row.hanzi, term]];
+  }));
 
   return {
     title,
@@ -233,6 +259,7 @@ async function buildLesson(title: string, items: { senseId: string; word: WordRo
       };
     }),
     componentMeanings: componentMeanings(),
+    noteTerms,
   };
 }
 
