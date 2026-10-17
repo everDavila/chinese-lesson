@@ -53,6 +53,11 @@ una tarea, commitea, sube la rama y actualiza solo tu fila de trabajo.
   despliegue a `master`, salvo petición explícita de Ever.
 - Toda migración se prueba primero en `hanzi-dev`, con respaldo previo mediante
   `npm run db:backup`. Vercel no lleva la clave secreta de Supabase.
+- **Si un commit trae una migración, se aplica en producción antes de subirlo a
+  `master`** (respaldo → `db push` → push), porque `master` se despliega solo:
+  si el código llega primero, pide columnas o funciones que aún no existen. El
+  2026-10-17 el editor de lecciones falló ~2 h por eso. Antes de subir:
+  `node --env-file=.env.local scripts/db.mjs migration list` sin pendientes.
 - Vercel y Supabase están en São Paulo (`gru1` / `sa-east-1`). Los despliegues
   se gestionan solo por CLI; `master` despliega a producción.
 
