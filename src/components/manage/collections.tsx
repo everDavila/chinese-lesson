@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ArrowDown, ArrowUp, Copy, GripVertical, Pencil, Plus, Trash2, Undo2 } from "lucide-react";
+import { Archive, ArrowDown, ArrowUp, Copy, GripVertical, Pencil, Plus, Trash2, Undo2 } from "lucide-react";
 import {
   addLessonAction,
   copyTemplateAction,
@@ -16,6 +16,7 @@ import {
 } from "@/actions/manage";
 import { ExamplesSelect } from "./examples-select";
 import { MoveLessonControl } from "./move-lesson";
+import { RemoveButton } from "./remove-button";
 import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -73,6 +74,7 @@ function CollectionCard({
         </p>
         </div>
         {mode === "teacher" && !onCopy && <PinButton kind="collection" id={c.id} pinned={Boolean(pinned)} />}
+        {mode === "teacher" && !onCopy && <RemoveButton kind="collection" id={c.id} title={c.title} classes={c.classes} lessons={c.lessons} compact />}
       </div>
       <div className="mt-auto pt-5">
       {onCopy ? (
@@ -123,6 +125,13 @@ export function CollectionsScreen({
       crumbs={teacher ? [] : crumbs.slice(0, -1)}
       title={teacher ? t("nav.collections") : t("templates")}
       error={error}
+      actions={
+        teacher && (
+          <Link href="/archived" className={buttonVariants({ variant: "ghost" })}>
+            <Archive /> {t("archivedLink")}
+          </Link>
+        )
+      }
     >
       <div className="flex flex-wrap items-start gap-2">
         <div className="min-w-56 flex-1">
@@ -283,16 +292,27 @@ export function CollectionScreen({
               <Undo2 /> {t("resetOrder")}
             </Button>
           )}
-          <Button
-            variant="ghost"
-            disabled={pending}
-            onClick={async () => {
-              if (await confirm({ title: t("confirmDeleteCollection", { title: c.title }), confirmLabel: t("delete"), cancelLabel: t("cancel"), destructive: true }))
-                run(() => deleteCollectionAction(c.id), () => router.push(base));
-            }}
-          >
-            <Trash2 /> {t("delete")}
-          </Button>
+          {mode === "teacher" ? (
+            <RemoveButton
+              kind="collection"
+              id={c.id}
+              title={c.title}
+              classes={c.lessons.reduce((n, l) => n + l.classes, 0)}
+              lessons={c.lessons.length}
+              onDone={() => router.push(base)}
+            />
+          ) : (
+            <Button
+              variant="ghost"
+              disabled={pending}
+              onClick={async () => {
+                if (await confirm({ title: t("confirmDeleteCollection", { title: c.title }), confirmLabel: t("delete"), cancelLabel: t("cancel"), destructive: true }))
+                  run(() => deleteCollectionAction(c.id), () => router.push(base));
+              }}
+            >
+              <Trash2 /> {t("delete")}
+            </Button>
+          )}
         </>
       }
     >
@@ -409,15 +429,19 @@ export function CollectionScreen({
                 >
                   <ArrowDown />
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label={t("deleteLesson")}
-                  disabled={pending}
-                  onClick={async () => (await confirm({ title: t("confirmDeleteLesson", { title: l.title }), confirmLabel: t("delete"), cancelLabel: t("cancel"), destructive: true })) && run(() => deleteLessonAction(l.id))}
-                >
-                  <Trash2 />
-                </Button>
+                {mode === "teacher" ? (
+                  <RemoveButton kind="lesson" id={l.id} title={l.title} classes={l.classes} compact />
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={t("deleteLesson")}
+                    disabled={pending}
+                    onClick={async () => (await confirm({ title: t("confirmDeleteLesson", { title: l.title }), confirmLabel: t("delete"), cancelLabel: t("cancel"), destructive: true })) && run(() => deleteLessonAction(l.id))}
+                  >
+                    <Trash2 />
+                  </Button>
+                )}
               </div>
             </li>
             );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PencilLine, Play, Plus } from "lucide-react";
+import { Archive, PencilLine, Play, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { startSessionAction } from "@/actions/class";
 import { addLessonAction } from "@/actions/manage";
@@ -10,9 +10,10 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { Empty, ManageShell, NewTitleForm, SearchInput, useRunner } from "./shell";
 import { PinButton } from "./pin-button";
+import { RemoveButton } from "./remove-button";
 
-type Lesson = { id: string; title: string; collectionId: string; collectionTitle: string; items: number; updatedAt: string };
-type LooseLesson = { id: string; title: string; items: number };
+type Lesson = { id: string; title: string; collectionId: string; collectionTitle: string; items: number; classes: number; updatedAt: string };
+type LooseLesson = { id: string; title: string; items: number; classes: number };
 
 export function TeacherLessonsScreen({
   isAdmin,
@@ -38,7 +39,7 @@ export function TeacherLessonsScreen({
   const shownLoose = loose.filter((lesson) => match(lesson.title));
 
   return (
-    <ManageShell isAdmin={isAdmin} crumbs={[]} title={t("title")} wide error={error} actions={<Link href="/collections?create=1" className={buttonVariants({ variant: "outline" })}><Plus /> {t("newCollection")}</Link>}>
+    <ManageShell isAdmin={isAdmin} crumbs={[]} title={t("title")} wide error={error} actions={<><Link href="/archived" className={buttonVariants({ variant: "ghost" })}><Archive /> {tm("archivedLink")}</Link><Link href="/collections?create=1" className={buttonVariants({ variant: "outline" })}><Plus /> {t("newCollection")}</Link></>}>
       <p className="max-w-3xl text-muted-foreground">{t("intro")}</p>
       {/* Una lección no necesita colección: se crea suelta y se puede mover después. */}
       <NewTitleForm
@@ -52,8 +53,11 @@ export function TeacherLessonsScreen({
       <SearchInput value={query} onChange={setQuery} label={t("search")} />
       {shown.length > 0 && <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{shown.map((lesson) => (
         <li key={lesson.id} className="relative flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
-          <div className="pr-10"><h2 className="font-semibold">{lesson.title}</h2><p className="text-sm text-muted-foreground">{lesson.collectionTitle} · {t("words", { count: lesson.items })}</p></div>
-          <div className="absolute top-3 right-3"><PinButton kind="lesson" id={lesson.id} pinned={pinnedIds.includes(lesson.id)} /></div>
+          <div className="pr-20"><h2 className="font-semibold">{lesson.title}</h2><p className="text-sm text-muted-foreground">{lesson.collectionTitle} · {t("words", { count: lesson.items })}</p></div>
+          <div className="absolute top-3 right-3 flex">
+            <PinButton kind="lesson" id={lesson.id} pinned={pinnedIds.includes(lesson.id)} />
+            <RemoveButton kind="lesson" id={lesson.id} title={lesson.title} classes={lesson.classes} compact />
+          </div>
           <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
             <Link href={`/collections/${lesson.collectionId}/${lesson.id}`} className={cn(buttonVariants({ variant: "outline" }), "w-full")}><PencilLine /> {t("edit")}</Link>
             <form action={startSessionAction.bind(null, lesson.id)}><Button className="w-full" type="submit" disabled={!lesson.items}><Play /> {t("present")}</Button></form>
@@ -61,8 +65,9 @@ export function TeacherLessonsScreen({
         </li>
       ))}</ul>}
       {shownLoose.length > 0 && <section className="space-y-3"><h2 className="text-xl font-semibold">{t("loose")}</h2><ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{shownLoose.map((lesson) => (
-        <li key={lesson.id} className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
-          <div><h3 className="font-semibold">{lesson.title}</h3><p className="text-sm text-muted-foreground">{t("words", { count: lesson.items })}</p></div>
+        <li key={lesson.id} className="relative flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
+          <div className="pr-10"><h3 className="font-semibold">{lesson.title}</h3><p className="text-sm text-muted-foreground">{t("words", { count: lesson.items })}</p></div>
+          <div className="absolute top-3 right-3"><RemoveButton kind="lesson" id={lesson.id} title={lesson.title} classes={lesson.classes} compact /></div>
           <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
             <Link href={`/lessons/${lesson.id}`} className={cn(buttonVariants({ variant: "outline" }), "w-full")}><PencilLine /> {t("edit")}</Link>
             <form action={startSessionAction.bind(null, lesson.id)}><Button className="w-full" type="submit" disabled={!lesson.items}><Play /> {t("present")}</Button></form>

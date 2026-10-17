@@ -82,8 +82,9 @@ export function pageList(current: number, last: number): (number | "gap")[] {
 }
 
 const DEBOUNCE_MS = 300;
-/** Por encima de esto, presentar el nivel pide confirmación. */
-const BIG_LEVEL = 500;
+/** Por encima de esto, presentar pide confirmación (nivel o selección): una
+ * clase real trabaja 10–30 palabras; nadie aprende más de 100 en una. */
+const BIG_LEVEL = 100;
 /** Tope de la selección que se puede presentar (igual que en presentSelectionAction). */
 const MAX_PRESENT = 1000;
 
@@ -397,7 +398,17 @@ export function HskCatalogScreen({
                 size="sm"
                 disabled={presenting || selection.length > MAX_PRESENT}
                 title={selection.length > MAX_PRESENT ? t("presentTooMany", { max: MAX_PRESENT }) : undefined}
-                onClick={() => startPresenting(() => presentSelectionAction(selection.map((e) => e.senseId)))}
+                onClick={async () => {
+                  if (selection.length > BIG_LEVEL) {
+                    const ok = await confirm({
+                      title: t("presentSelectionConfirm", { count: selection.length }),
+                      confirmLabel: t("presentSelection", { count: selection.length }),
+                      cancelLabel: t("cancel"),
+                    });
+                    if (!ok) return;
+                  }
+                  startPresenting(() => presentSelectionAction(selection.map((e) => e.senseId)));
+                }}
               >
                 <Play /> {t("presentSelection", { count: selection.length })}
               </Button>

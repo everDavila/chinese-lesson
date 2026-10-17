@@ -167,6 +167,29 @@ export async function deleteLessonAction(id: string): Promise<Result> {
   return { ok: true };
 }
 
+/**
+ * Archiva (o restaura) una lección o una colección propia: desaparece de las
+ * listas de la docente pero conserva clases, votos e historial de frases.
+ * Borrar, en cambio, se lleva ese historial (deleteLessonAction /
+ * deleteCollectionAction). Migración 20261017030000.
+ */
+export async function setArchivedAction(kind: "lesson" | "collection", id: string, archived: boolean): Promise<Result> {
+  const s = await session();
+  if (!s) return { ok: false, error: "auth" };
+  const table = kind === "lesson" ? "lessons" : "collections";
+  const owner = kind === "lesson" ? "teacher_id" : "owner_id";
+  const { data, error } = await s.db
+    .from(table)
+    .update({ archived_at: archived ? new Date().toISOString() : null })
+    .eq("id", id)
+    .eq(owner, s.profile.id)
+    .select("id");
+  if (error) return fail(error);
+  if (!data?.length) return { ok: false, error: "auth" };
+  refresh();
+  return { ok: true };
+}
+
 export async function setTeacherPinAction(kind: "lesson" | "collection", id: string, pinned: boolean): Promise<Result> {
   const s = await session();
   if (!s) return { ok: false, error: "auth" };

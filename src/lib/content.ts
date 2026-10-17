@@ -216,7 +216,9 @@ export async function getEditableWord(hanzi: string): Promise<EditableWord | nul
 }
 
 // ── Colecciones ─────────────────────────────────────────────────────────
-export type LessonSummary = { id: string; title: string; position: number; hanzi: string[] };
+export type LessonSummary = { id: string; title: string; position: number; hanzi: string[]; /** Clases dadas con ella. */ classes: number };
+/** Conteo embebido de PostgREST ({ count }[]) → número. */
+const countOf = (x: unknown) => (x as { count: number }[] | undefined)?.[0]?.count ?? 0;
 export type CollectionSummary = {
   /** Descripción opcional; null cuando aún no existe. */
   description?: string | null;
@@ -238,10 +240,17 @@ type CollectionRow = {
   source_note: string | null;
   copied_from: string | null;
   examples_shown: number;
-  lessons: { id: string; title: string; position: number | null; lesson_items: { position: number; senses: { words: { hanzi: string } } }[] }[];
+  lessons: {
+    id: string;
+    title: string;
+    position: number | null;
+    archived_at: string | null;
+    class_sessions: { count: number }[];
+    lesson_items: { position: number; senses: { words: { hanzi: string } } }[];
+  }[];
 };
 const COLLECTION_SELECT =
-  "id, title, description, owner_id, source_note, copied_from, examples_shown, lessons(id, title, position, lesson_items(position, senses(words(hanzi))))";
+  "id, title, description, owner_id, source_note, copied_from, examples_shown, lessons(id, title, position, archived_at, class_sessions(count), lesson_items(position, senses(words(hanzi))))";
 
 function toCollection(c: CollectionRow): CollectionSummary {
   return {
@@ -252,19 +261,27 @@ function toCollection(c: CollectionRow): CollectionSummary {
     source: c.source_note ?? "",
     copiedFrom: c.copied_from,
     examplesShown: c.examples_shown,
+    // Las lecciones archivadas no se listan (siguen en la base con su historial).
     lessons: [...c.lessons]
+      .filter((l) => !l.archived_at)
       .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
       .map((l) => ({
         id: l.id,
         title: l.title,
         position: l.position ?? 0,
         hanzi: [...l.lesson_items].sort((a, b) => a.position - b.position).map((i) => i.senses.words.hanzi),
+        classes: countOf(l.class_sessions),
       })),
   };
 }
 
 /** Una colección en una lista: solo los totales. */
-export type CollectionListItem = Omit<CollectionSummary, "lessons" | "examplesShown"> & { lessons: number; words: number };
+export type CollectionListItem = Omit<CollectionSummary, "lessons" | "examplesShown"> & {
+  lessons: number;
+  words: number;
+  /** Clases dadas con sus lecciones (para avisar al borrar). */
+  classes: number;
+};
 
 /**
  * Plantillas (de todos) o las colecciones propias. Solo cuenta lecciones y
@@ -274,26 +291,33 @@ export async function listCollections(kind: "mine" | "templates"): Promise<Colle
   const supabase = await createClient();
   let query = supabase
     .from("collections")
-    .select("id, title, description, owner_id, source_note, copied_from, lessons(lesson_items(count))")
+    .select("id, title, description, owner_id, source_note, copied_from, lessons(archived_at, lesson_items(count), class_sessions(count))")
     .order("created_at");
   if (kind === "templates") query = query.is("owner_id", null);
   else {
     const { data } = await supabase.auth.getClaims();
-    query = query.eq("owner_id", data?.claims.sub ?? "");
+    // Las archivadas salen de la lista (y de «Mover a colección»).
+    query = query.eq("owner_id", data?.claims.sub ?? "").is("archived_at", null);
   }
   const { data, error } = await query;
   if (error) throw error;
-  type Row = Omit<CollectionRow, "lessons"> & { lessons: { lesson_items: { count: number }[] }[] };
-  return (data as unknown as Row[]).map((c) => ({
-    id: c.id,
-    title: c.title,
-    description: c.description,
-    template: c.owner_id === null,
-    source: c.source_note ?? "",
-    copiedFrom: c.copied_from,
-    lessons: c.lessons.length,
-    words: c.lessons.reduce((n, l) => n + (l.lesson_items[0]?.count ?? 0), 0),
-  }));
+  type Row = Omit<CollectionRow, "lessons"> & {
+    lessons: { archived_at: string | null; lesson_items: { count: number }[]; class_sessions: { count: number }[] }[];
+  };
+  return (data as unknown as Row[]).map((c) => {
+    const live = c.lessons.filter((l) => !l.archived_at);
+    return {
+      id: c.id,
+      title: c.title,
+      description: c.description,
+      template: c.owner_id === null,
+      source: c.source_note ?? "",
+      copiedFrom: c.copied_from,
+      lessons: live.length,
+      words: live.reduce((n, l) => n + (l.lesson_items[0]?.count ?? 0), 0),
+      classes: c.lessons.reduce((n, l) => n + countOf(l.class_sessions), 0),
+    };
+  });
 }
 
 export async function getCollection(id: string): Promise<CollectionSummary | null> {
@@ -304,42 +328,93 @@ export async function getCollection(id: string): Promise<CollectionSummary | nul
 }
 
 /** Lecciones sueltas de la docente (sin colección), sin las de presentación rápida. */
-export async function listLooseLessons(): Promise<{ id: string; title: string; items: number }[]> {
+export async function listLooseLessons(): Promise<{ id: string; title: string; items: number; classes: number }[]> {
   const supabase = await createClient();
   const { data: claims } = await supabase.auth.getClaims();
   const { data, error } = await supabase
     .from("lessons")
-    .select("id, title, lesson_items(count)")
+    .select("id, title, lesson_items(count), class_sessions(count)")
     .is("collection_id", null)
+    .is("archived_at", null)
     .eq("teacher_id", claims?.claims.sub ?? "")
     // Las de presentación rápida (desde el catálogo) no son material propio.
     .eq("quick", false)
     .order("created_at");
   if (error) throw error;
-  return data.map((l) => ({ id: l.id, title: l.title, items: (l.lesson_items as { count: number }[])[0]?.count ?? 0 }));
+  return data.map((l) => ({ id: l.id, title: l.title, items: countOf(l.lesson_items), classes: countOf(l.class_sessions) }));
 }
 
 /** Lecciones de la docente para retomar su preparación desde el inicio. */
 export async function listTeacherLessons(): Promise<
-  { id: string; title: string; collectionId: string; collectionTitle: string; items: number; updatedAt: string }[]
+  { id: string; title: string; collectionId: string; collectionTitle: string; items: number; classes: number; updatedAt: string }[]
 > {
   const supabase = await createClient();
   const { data: claims } = await supabase.auth.getClaims();
   const { data, error } = await supabase
     .from("lessons")
-    .select("id, title, collection_id, updated_at, collections(title), lesson_items(count)")
+    .select("id, title, collection_id, updated_at, collections(title, archived_at), lesson_items(count), class_sessions(count)")
     .eq("teacher_id", claims?.claims.sub ?? "")
     .not("collection_id", "is", null)
+    .is("archived_at", null)
     .order("updated_at", { ascending: false });
   if (error) throw error;
-  return data.map((lesson) => ({
+  // Archivar una colección oculta también sus lecciones.
+  const live = data.filter((l) => !(l.collections as unknown as { archived_at: string | null }).archived_at);
+  return live.map((lesson) => ({
     id: lesson.id,
     title: lesson.title,
     collectionId: lesson.collection_id as string,
     collectionTitle: (lesson.collections as unknown as { title: string }).title,
-    items: (lesson.lesson_items as { count: number }[])[0]?.count ?? 0,
+    items: countOf(lesson.lesson_items),
+    classes: countOf(lesson.class_sessions),
     updatedAt: lesson.updated_at,
   }));
+}
+
+/** Lo que la docente archivó: lecciones (con su colección, si tienen) y colecciones. */
+export async function listArchived(): Promise<{
+  lessons: { id: string; title: string; collectionTitle: string | null; items: number; classes: number; archivedAt: string }[];
+  collections: { id: string; title: string; lessons: number; classes: number; archivedAt: string }[];
+}> {
+  const supabase = await createClient();
+  const { data: claims } = await supabase.auth.getClaims();
+  const me = claims?.claims.sub ?? "";
+  const [lessons, collections] = await Promise.all([
+    supabase
+      .from("lessons")
+      .select("id, title, archived_at, collections(title), lesson_items(count), class_sessions(count)")
+      .eq("teacher_id", me)
+      .not("archived_at", "is", null)
+      .order("archived_at", { ascending: false }),
+    supabase
+      .from("collections")
+      .select("id, title, archived_at, lessons(class_sessions(count))")
+      .eq("owner_id", me)
+      .not("archived_at", "is", null)
+      .order("archived_at", { ascending: false }),
+  ]);
+  if (lessons.error) throw lessons.error;
+  if (collections.error) throw collections.error;
+  return {
+    lessons: lessons.data.map((l) => ({
+      id: l.id,
+      title: l.title,
+      collectionTitle: (l.collections as unknown as { title: string } | null)?.title ?? null,
+      items: countOf(l.lesson_items),
+      classes: countOf(l.class_sessions),
+      archivedAt: l.archived_at as string,
+    })),
+    collections: collections.data.map((c) => {
+      const ls = c.lessons as unknown as { class_sessions: { count: number }[] }[];
+      return {
+        id: c.id,
+        title: c.title,
+        lessons: ls.length,
+        classes: ls.reduce((n, l) => n + countOf(l.class_sessions), 0),
+        archivedAt: c.archived_at as string,
+      };
+    }),
+  };
 }
 
 export type TeacherPin =
@@ -396,6 +471,8 @@ export type EditableLesson = {
   examplesShown: number | null;
   /** Lo que dice la colección (0 = todas). */
   collectionExamplesShown: number;
+  /** Clases dadas con ella (para avisar al borrar). */
+  classes: number;
   items: LessonItemRow[];
 };
 
@@ -404,7 +481,7 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
   const { data, error } = await supabase
     .from("lessons")
     .select(
-      `id, title, description, collection_id, teacher_id, examples_shown, collections(examples_shown, copied_from),
+      `id, title, description, collection_id, teacher_id, examples_shown, class_sessions(count), collections(examples_shown, copied_from),
        lesson_items(position, sense_id,
          senses(words(id, hanzi, hsk_level, status,
            senses(id, position, pinyin, category, meaning_es, meaning_en, sentences(id)))))`,
@@ -434,6 +511,7 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
     // Una lección suelta no tiene colección: tampoco es copia de una plantilla.
     copiedFrom: Boolean((data.collections as unknown as CollectionRef)?.copied_from),
     examplesShown: data.examples_shown,
+    classes: countOf(data.class_sessions),
     collectionExamplesShown: (data.collections as unknown as { examples_shown: number } | null)?.examples_shown ?? 0,
     items: rows.map((r) => {
       const w = r.senses.words;

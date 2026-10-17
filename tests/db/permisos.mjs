@@ -307,3 +307,14 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   await expectFail("una lección rápida NO puede estar en una colección", T1, `update lessons set collection_id = '${col}', position = 1 where id = '${rapida}'`);
   await expectOk("guardarla quita la marca (prioridad 4)", T1, `update lessons set quick = false where id = '${rapida}' returning quick`);
 }
+
+// ── Archivar (lecciones y colecciones propias) ──────────────────────────
+{
+  const mia = (await as(T1, `insert into collections (owner_id, title) values ('${T1}', 'Para archivar') returning id`)).rows[0].id;
+  const ajena = (await as(T2, `insert into collections (owner_id, title) values ('${T2}', 'Ajena') returning id`)).rows[0].id;
+  await expectOk("la docente archiva su colección", T1, `update collections set archived_at = now() where id = '${mia}' returning id`);
+  await expectOk("y la restaura", T1, `update collections set archived_at = null where id = '${mia}' returning id`);
+  const r = await as(T1, `update collections set archived_at = now() where id = '${ajena}' returning id`);
+  if (r.rows.length === 0) console.log("✓ NO archiva la colección de otra docente (0 filas)");
+  else { console.log("✗ archivó una colección ajena"); process.exitCode = 1; }
+}

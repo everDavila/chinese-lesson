@@ -120,7 +120,8 @@
     "presentLevelConfirm": "¿Presentar HSK {level} completo? Son {count} palabras en una sola clase.",
     "presentSelection": "Presentar selección ({count})",
     "presentTooMany": "Se pueden presentar hasta {max} palabras a la vez.",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "presentSelectionConfirm": "¿Presentar {count} palabras en una sola clase? Es mucho más de lo que se aprende en una clase."
   },
   "TeacherLessons": {
     "title": "Mis lecciones",
@@ -297,7 +298,27 @@
     "moveTo": "Mover a",
     "moveToLabel": "Mover la lección a otra colección",
     "noCollection": "Sin colección (suelta)",
-    "myLessons": "Mis lecciones"
+    "myLessons": "Mis lecciones",
+    "remove": "Quitar",
+    "removeNamed": "Quitar «{title}»",
+    "removeTitle": "¿Qué hacemos con «{title}»?",
+    "archive": "Archivar",
+    "deleteForever": "Borrar definitivamente",
+    "archiveLessonHint": "Archivar: desaparece de tus listas pero conserva sus clases, votos y frases vistas. La puedes restaurar desde Archivadas.",
+    "archiveCollectionHint": "Archivar: la colección y sus lecciones desaparecen de tus listas pero conservan sus clases y votos. La puedes restaurar desde Archivadas.",
+    "deleteLessonHint": "Borrar definitivamente: la lección se elimina para siempre.",
+    "deleteCollectionHint": "Borrar definitivamente: se eliminan para siempre la colección y {lessons, plural, one {su lección} other {sus # lecciones}}.",
+    "removeHistory": "{count, plural, =0 {No tiene clases dadas.} one {Tiene # clase dada: al borrar se pierde también su historial (votos y frases vistas).} other {Tiene # clases dadas: al borrar se pierde también su historial (votos y frases vistas).}}",
+    "archivedLink": "Archivadas",
+    "archivedTitle": "Archivadas",
+    "archivedIntro": "Lo que quitaste de tus listas sin borrarlo. Conserva sus clases y votos; puedes restaurarlo o borrarlo definitivamente.",
+    "archivedEmpty": "No tienes nada archivado.",
+    "archivedCollections": "Colecciones",
+    "archivedLessons": "Lecciones",
+    "restore": "Restaurar",
+    "looseLabel": "Sin colección",
+    "confirmDeleteForever": "¿Borrar definitivamente «{title}»?",
+    "lessonsCount": "{count, plural, one {# lección} other {# lecciones}}"
   },
   "Vote": {
     "title": "Votar",

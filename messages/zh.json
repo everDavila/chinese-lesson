@@ -120,7 +120,8 @@
     "presentLevelConfirm": "要演示整个 HSK {level} 吗？一节课共 {count} 个词。",
     "presentSelection": "演示已选（{count}）",
     "presentTooMany": "一次最多演示 {max} 个词。",
-    "cancel": "取消"
+    "cancel": "取消",
+    "presentSelectionConfirm": "要在一节课里演示 {count} 个词吗？这远远超过一节课能学的量。"
   },
   "TeacherLessons": {
     "title": "我的课程",
@@ -297,7 +298,27 @@
     "moveTo": "移到",
     "moveToLabel": "把课程移到另一个课程集",
     "noCollection": "不放入课程集（单独课程）",
-    "myLessons": "我的课程"
+    "myLessons": "我的课程",
+    "remove": "移除",
+    "removeNamed": "移除「{title}」",
+    "removeTitle": "要怎么处理「{title}」？",
+    "archive": "归档",
+    "deleteForever": "永久删除",
+    "archiveLessonHint": "归档：从你的列表中隐藏，但保留它的上课记录、投票和已看过的例句。可以在“已归档”中恢复。",
+    "archiveCollectionHint": "归档：课程集和其中的课程从你的列表中隐藏，但保留上课记录和投票。可以在“已归档”中恢复。",
+    "deleteLessonHint": "永久删除：这节课将被永久删除。",
+    "deleteCollectionHint": "永久删除：课程集和其中的 {lessons} 节课都将被永久删除。",
+    "removeHistory": "{count, plural, =0 {还没有用它上过课。} other {已经用它上过 # 次课：删除后，上课记录（投票和已看过的例句）也会一并删除。}}",
+    "archivedLink": "已归档",
+    "archivedTitle": "已归档",
+    "archivedIntro": "你从列表中移除但没有删除的内容。上课记录和投票都会保留；可以恢复，也可以永久删除。",
+    "archivedEmpty": "没有归档的内容。",
+    "archivedCollections": "课程集",
+    "archivedLessons": "课程",
+    "restore": "恢复",
+    "looseLabel": "不属于任何课程集",
+    "confirmDeleteForever": "要永久删除「{title}」吗？",
+    "lessonsCount": "{count} 节课"
   },
   "Vote": {
     "title": "投票",

@@ -26,6 +26,7 @@ import { useDragReorder } from "./drag-reorder";
 import { Empty, inputCls, ManageShell, meaningFor, useRunner } from "./shell";
 import { HSK_LEVELS, hskLabel, useWordSearch } from "./use-word-search";
 import { MoveLessonControl } from "./move-lesson";
+import { RemoveButton } from "./remove-button";
 
 /** Dirección de una lección propia: dentro de su colección o, si es suelta, en Mis lecciones. */
 export const teacherLessonHref = (collectionId: string | null, lessonId: string) =>
@@ -120,6 +121,15 @@ export function LessonEditor({
               currentCollectionId={collection?.id ?? null}
               collections={myCollections}
               onMoved={(target) => router.replace(teacherLessonHref(target, lesson.id))}
+            />
+          )}
+          {mode === "teacher" && (
+            <RemoveButton
+              kind="lesson"
+              id={lesson.id}
+              title={lesson.title}
+              classes={lesson.classes}
+              onDone={() => router.push(collection ? `/collections/${collection.id}` : "/lessons")}
             />
           )}
           {mode === "teacher" && (

@@ -25,10 +25,12 @@ inicio docente. **Sin despliegue a producción todavía.**
    acciones: las agregan las prioridades 3 y 4.
 3. ✅ *(en desarrollo, rama `integrar-inicio`, 2026-10-17)* **Presentar desde
    el catálogo** (todo el nivel o la selección) sin crear una lección visible.
-   Hecho: «Presentar el nivel» (confirma si pasa de 500 palabras) y «Presentar
-   selección» (hasta 1000); crean una lección rápida (`lessons.quick`) que no
-   sale en Mis lecciones. HSK 7–9 completo (5600) abre en ~37 s desde un
-   servidor local.
+   Hecho: «Presentar el nivel» y «Presentar selección» confirman si pasan de
+   100 palabras; la selección admite hasta 1000. Crean una lección rápida
+   (`lessons.quick`) que no sale en Mis lecciones. HSK 7–9 completo (5600) abre
+   en ~37 s desde un servidor local.
+   Además: «Quitar» colecciones y lecciones (archivar o borrar definitivamente),
+   con la página «Archivadas» para restaurar.
 4. **Durante la presentación, "Guardar como lección"**, sin obligar a asignar
    colección.
 5. **Reorganizar "Mis lecciones" y "Mis colecciones"**, separando la biblioteca

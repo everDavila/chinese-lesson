@@ -405,10 +405,11 @@ test.describe("profesora tras la revisión", () => {
       await shoot(page, "12-presentar-seleccion");
       await endClass();
 
-      // Un nivel completo (HSK 1: 300, sin confirmación).
+      // Un nivel completo (HSK 1: 300): pasa de 100, así que pide confirmación.
       await page.goto("/zh/library/hsk/nivel/1");
       await page.waitForLoadState("networkidle");
       await page.getByRole("button", { name: H.presentLevelCount.replace("{count}", "300") }).click();
+      await page.getByRole("alertdialog").getByRole("button", { name: H.presentLevel, exact: true }).click();
       await present();
       await expect(page.locator("nav select option")).toHaveCount(300);
       await endClass();
@@ -429,19 +430,42 @@ test.describe("profesora tras la revisión", () => {
     }
   });
 
-  test("borra la colección con el diálogo de confirmación propio", async ({ page }) => {
-    await page.goto(collectionUrl);
-    // Cancelar no borra nada.
-    await page.getByRole("button", { name: Z.delete, exact: true }).click();
+  test("quita la colección: archivar, restaurar y borrar definitivamente", async ({ page }) => {
+    const title = await (async () => {
+      await page.goto(collectionUrl);
+      return (await page.getByRole("heading", { level: 1 }).innerText()).trim();
+    })();
     const dialog = page.getByRole("alertdialog");
+    // Quitar abre la elección; cancelar no hace nada.
+    await page.getByRole("button", { name: Z.remove, exact: true }).click();
     await expect(dialog).toContainText(MARK);
-    await page.screenshot({ path: `${SHOTS}/10-confirmar-borrado.png` });
+    await expect(dialog.getByRole("button", { name: Z.archive })).toBeVisible();
+    await expect(dialog.getByRole("button", { name: Z.deleteForever })).toBeVisible();
+    await page.screenshot({ path: `${SHOTS}/10-quitar.png` });
     await dialog.getByRole("button", { name: Z.cancel }).click();
     await expect(dialog).toHaveCount(0);
     await expect(page.getByRole("heading", { level: 1 })).toContainText(MARK);
-    // Confirmar borra y vuelve a la lista.
-    await page.getByRole("button", { name: Z.delete, exact: true }).click();
-    await page.getByRole("alertdialog").getByRole("button", { name: Z.delete, exact: true }).click();
+
+    // Archivar: sale de Mis colecciones y aparece en Archivadas.
+    await page.getByRole("button", { name: Z.remove, exact: true }).click();
+    await dialog.getByRole("button", { name: Z.archive }).click();
+    await page.waitForURL(/\/collections$/);
+    await expect(page.getByRole("main").getByText(title, { exact: true })).toHaveCount(0);
+    await page.goto("/zh/archived");
+    const archivedRow = page.getByRole("listitem").filter({ hasText: title });
+    await expect(archivedRow).toHaveCount(1);
+    await shoot(page, "10-archivadas");
+
+    // Restaurar: vuelve a Mis colecciones con sus lecciones.
+    await archivedRow.getByRole("button", { name: Z.restore }).click();
+    await expect(page.getByRole("listitem").filter({ hasText: title })).toHaveCount(0);
+    await page.goto(collectionUrl);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(MARK);
+    await expect(page.getByRole("link", { name: "HSK 1 · 1", exact: true })).toBeVisible();
+
+    // Borrar definitivamente: vuelve a la lista y ya no existe.
+    await page.getByRole("button", { name: Z.remove, exact: true }).click();
+    await dialog.getByRole("button", { name: Z.deleteForever }).click();
     await page.waitForURL(/\/collections$/);
     // Solo en el contenido: el anunciador de rutas de Next (oculto, para
     // lectores de pantalla) repite el título de la página anterior.

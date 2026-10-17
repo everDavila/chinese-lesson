@@ -120,7 +120,8 @@
     "presentLevelConfirm": "Present all of HSK {level}? That is {count} words in a single class.",
     "presentSelection": "Present selection ({count})",
     "presentTooMany": "You can present up to {max} words at a time.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "presentSelectionConfirm": "Present {count} words in a single class? That is far more than a class can learn."
   },
   "TeacherLessons": {
     "title": "My lessons",
@@ -297,7 +298,27 @@
     "moveTo": "Move to",
     "moveToLabel": "Move the lesson to another collection",
     "noCollection": "No collection (standalone)",
-    "myLessons": "My lessons"
+    "myLessons": "My lessons",
+    "remove": "Remove",
+    "removeNamed": "Remove “{title}”",
+    "removeTitle": "What should we do with “{title}”?",
+    "archive": "Archive",
+    "deleteForever": "Delete permanently",
+    "archiveLessonHint": "Archive: it disappears from your lists but keeps its classes, votes and seen sentences. You can restore it from Archived.",
+    "archiveCollectionHint": "Archive: the collection and its lessons disappear from your lists but keep their classes and votes. You can restore it from Archived.",
+    "deleteLessonHint": "Delete permanently: the lesson is removed forever.",
+    "deleteCollectionHint": "Delete permanently: the collection and {lessons, plural, one {its lesson} other {its # lessons}} are removed forever.",
+    "removeHistory": "{count, plural, =0 {No classes have been given with it.} one {# class has been given: deleting also removes its history (votes and seen sentences).} other {# classes have been given: deleting also removes their history (votes and seen sentences).}}",
+    "archivedLink": "Archived",
+    "archivedTitle": "Archived",
+    "archivedIntro": "What you removed from your lists without deleting it. It keeps its classes and votes; you can restore it or delete it permanently.",
+    "archivedEmpty": "Nothing archived.",
+    "archivedCollections": "Collections",
+    "archivedLessons": "Lessons",
+    "restore": "Restore",
+    "looseLabel": "No collection",
+    "confirmDeleteForever": "Delete “{title}” permanently?",
+    "lessonsCount": "{count, plural, one {# lesson} other {# lessons}}"
   },
   "Vote": {
     "title": "Vote",
