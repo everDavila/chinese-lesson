@@ -244,3 +244,45 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   try { await asAnon(`select search_words('ceshi')`); console.log("✗ anon pudo buscar en el catálogo"); process.exitCode = 1; }
   catch { console.log("✓ anon NO busca en el catálogo"); }
 }
+
+// ── Catálogo HSK por nivel (migración 20261017010000) ───────────────────
+{
+  const cat = async (args) => (await as(T1, `select hsk_catalog(${args}) as r`)).rows[0].r;
+  // Cada nivel, página a página: la unión es exactamente el temario, en orden.
+  let ok = true;
+  for (let lvl = 1; lvl <= 7; lvl++) {
+    const official = (await as(T1, `select source_order from word_levels where standard = 'hsk-3.0' and level = ${lvl} order by source_order`)).rows.map((r) => r.source_order);
+    const seen = [];
+    let after = 0;
+    let first = null;
+    for (let guard = 0; guard < 100; guard++) {
+      const r = await cat(`${lvl}, '', 200, ${after}`);
+      first ??= r.total;
+      seen.push(...r.rows.map((x) => x.order));
+      if (r.next == null) break;
+      after = r.next;
+    }
+    const same = seen.length === official.length && seen.every((o, i) => o === official[i]) && first === official.length;
+    if (!same) { ok = false; console.log(`✗ HSK nivel ${lvl}: páginas ${seen.length} (únicas ${new Set(seen).size}) vs temario ${official.length}, total ${first}`); }
+  }
+  if (ok) console.log("✓ catálogo HSK: la unión de páginas de cada nivel es el temario exacto, en orden, sin repetidos");
+
+  const counts = (await as(T1, `select hsk_catalog_counts() as r`)).rows[0].r;
+  const realCounts = Object.fromEntries((await as(T1, `select level, count(*)::int n from word_levels where standard = 'hsk-3.0' group by level`)).rows.map((r) => [r.level, r.n]));
+  if (Object.entries(realCounts).every(([l, n]) => counts[l] === n)) console.log(`✓ conteo por nivel → ${JSON.stringify(counts)}`);
+  else { console.log("✗ conteo por nivel", counts, realCounts); process.exitCode = 1; }
+
+  const pin = (r) => r.rows.filter((x) => x.hanzi === "得").map((x) => x.pinyin).sort();
+  const dei = await cat(`3, 'dei'`);
+  const deTone = await cat(`3, 'dé'`);
+  const han = await cat(`3, '得'`);
+  if (pin(han).length === 2 && pin(dei).join() === "děi" && pin(deTone).join() === "dé") console.log(`✓ búsqueda: 得 en HSK 3 → ${pin(han).join(", ")}; "dei" → děi; "dé" (con tono) → dé`);
+  else { console.log("✗ búsqueda con tonos", pin(han), pin(dei), pin(deTone)); process.exitCode = 1; }
+  const lv = han.rows.find((x) => x.hanzi === "得")?.levels ?? [];
+  if (lv.includes(2) && lv.includes(3)) console.log(`✓ 得 muestra todos sus niveles → ${JSON.stringify(lv)}`);
+  else { console.log("✗ niveles de 得", lv); process.exitCode = 1; }
+
+  try { await asAnon(`select hsk_catalog(1)`); console.log("✗ anon pudo leer el catálogo"); process.exitCode = 1; }
+  catch { console.log("✓ anon NO lee el catálogo HSK"); }
+  if (!ok) process.exitCode = 1;
+}

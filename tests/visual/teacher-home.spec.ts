@@ -1,10 +1,14 @@
 import { existsSync } from "node:fs";
-import { expect, test } from "@playwright/test";
+import { expect as baseExpect, test } from "@playwright/test";
 import es from "../../messages/es.json";
 
 const auth = `${process.env.HANZI_AUTH_DIR ?? "tests/.auth"}/laoshi.json`;
 test.skip(!existsSync(auth), "Falta la sesión de laoshi");
 test.use({ storageState: auth });
+// Recorre varias pantallas: con 8 tamaños en paralelo, 30 s no alcanzan.
+test.describe.configure({ timeout: 90_000 });
+// El servidor de desarrollo compila cada ruta la primera vez: 5 s no alcanzan.
+const expect = baseExpect.configure({ timeout: 20_000 });
 
 test("el inicio docente sirve para preparar y conserva los flujos reales", async ({ page }, testInfo) => {
   await page.goto("/es");
@@ -18,19 +22,25 @@ test("el inicio docente sirve para preparar y conserva los flujos reales", async
 
   const desktop = page.viewportSize()!.width >= 1024;
   const libraryLink = desktop ? es.TeacherWorkspace.hsk : es.TeacherWorkspace.library;
+  // Pulsar antes de que la página se hidrate pierde el clic.
+  await page.waitForLoadState("networkidle");
   await page.getByRole("link", { name: libraryLink }).first().click();
-  await expect(page).toHaveURL(desktop ? /\/es\/library\/hsk$/ : /\/es\/library$/);
-  await expect(page.getByRole("heading", { level: 1, name: desktop ? es.HskLibrary.title : es.Manage.libraryTitle })).toBeVisible();
-  if (desktop) await page.screenshot({ path: `tests/screens/${testInfo.project.name}/biblioteca-hsk.png`, fullPage: true });
-  const hsk1 = page.getByRole("listitem").filter({ hasText: "HSK 1" });
-  await hsk1.getByRole("link", { name: new RegExp(es.HskLibrary.seeLessons) }).click();
-  await expect(page).toHaveURL(/\/es\/library\/hsk\/[0-9a-f-]{36}$/);
-  await expect(page.getByRole("button", { name: es.HskLibrary.copyCollection })).toBeVisible();
-  await page.screenshot({ path: `tests/screens/${testInfo.project.name}/hsk-coleccion.png`, fullPage: true });
-  await page.getByRole("link", { name: es.HskLibrary.viewWords }).first().click();
-  await expect(page).toHaveURL(/\/es\/library\/hsk\/[0-9a-f-]{36}\/[0-9a-f-]{36}$/);
-  await expect(page.getByText(es.HskLibrary.readOnly).first()).toBeVisible();
-  if (desktop) await page.screenshot({ path: `tests/screens/${testInfo.project.name}/hsk-leccion.png`, fullPage: true });
+  if (!desktop) {
+    // En celular se entra por Biblioteca → Vocabulario HSK.
+    await expect(page).toHaveURL(/\/es\/library$/);
+    await page.getByRole("link", { name: new RegExp(es.HskLibrary.viewVocabulary) }).click();
+  }
+  await expect(page).toHaveURL(/\/es\/library\/hsk$/);
+  await expect(page.getByRole("heading", { level: 1, name: es.HskLibrary.title })).toBeVisible();
+  // Siete niveles con su cantidad real, sin lecciones generadas.
+  await expect(page.getByRole("listitem").filter({ hasText: /^HSK/ })).toHaveCount(7);
+  await page.screenshot({ path: `tests/screens/${testInfo.project.name}/biblioteca-hsk.png`, fullPage: true });
+  const hsk1 = page.getByRole("listitem").filter({ hasText: /^HSK 1/ });
+  await hsk1.getByRole("link", { name: new RegExp(es.HskLibrary.viewVocabulary) }).click();
+  await expect(page).toHaveURL(/\/es\/library\/hsk\/nivel\/1$/);
+  await expect(page.getByTestId("catalog-row")).toHaveCount(50);
+  await expect(page.getByRole("button", { name: es.HskLibrary.copyTemplate.replace("{level}", "1") })).toBeVisible();
+  await page.screenshot({ path: `tests/screens/${testInfo.project.name}/hsk-nivel.png`, fullPage: true });
 
   await page.goto("/es/collections");
   await expect(page.getByRole("button", { name: es.Manage.useTemplate })).toHaveCount(0);

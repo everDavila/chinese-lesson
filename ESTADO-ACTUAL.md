@@ -16,6 +16,13 @@
   guía y valida el código de acceso del alumno); admin en
   `/admin` (base común, editor de palabra, vista previa, plantillas, bandeja de
   sugerencias). Cuentas: Ever (`admin`) y la profesora (`teacher`).
+- **Biblioteca HSK por nivel completo (2026-10-17, solo en desarrollo):** en la
+  rama `integrar-inicio` (inicio docente de Codex + biblioteca nueva), probada
+  contra `hanzi-dev`. Migración `20261017010000_catalogo_hsk.sql` aplicada en
+  `hanzi-dev`, **no en producción**. Validación: `node --env-file=<env>
+  scripts/validar-catalogo-hsk.mjs` (los 7 niveles exactos en dev). Pendiente
+  de autorización de Ever para producción (respaldo → migraciones
+  `20261017000000` y `20261017010000` → push).
 - **Descripciones opcionales (2026-10-16):** colecciones y lecciones admiten
   descripción editable (detalle, alta y copia desde plantillas; la búsqueda de
   la lista la tiene en cuenta; las tarjetas no la muestran). La migración

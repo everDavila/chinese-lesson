@@ -170,30 +170,39 @@ export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templa
   const router = useRouter();
   const { pending, error, run } = useRunner();
   const [query, setQuery] = useState("");
-  const shown = templates.filter((item) => item.title.toLowerCase().includes(query.trim().toLowerCase()));
-  const groups = [
-    { id: "hsk", title: t("hskLibrary"), hint: t("hskLibraryHint"), items: shown.filter((item) => /^HSK\s/i.test(item.title)) },
-    { id: "topics", title: t("topicLibrary"), hint: t("topicLibraryHint"), items: shown.filter((item) => !/^HSK\s/i.test(item.title)) },
-  ];
+  const q = query.trim().toLowerCase();
+  // Las plantillas HSK (lecciones de 15) ya no se listan aquí: el vocabulario
+  // HSK se consulta completo por nivel en /library/hsk.
+  const topics = templates.filter((item) => !/^HSK\s/i.test(item.title) && item.title.toLowerCase().includes(q));
+  const showHsk = !q || "hsk".includes(q) || th("title").toLowerCase().includes(q);
 
   return (
     <ManageShell isAdmin={isAdmin} crumbs={[]} title={t("libraryTitle")} error={error} wide>
       <p className="max-w-3xl text-muted-foreground">{t("libraryHint")}</p>
       <SearchInput value={query} onChange={setQuery} label={t("searchTemplates")} />
-      {groups.map((group) => group.items.length > 0 && (
-        <section id={group.id} key={group.id} className="scroll-mt-24 space-y-3">
+      {showHsk && (
+        <section id="hsk" className="scroll-mt-24 space-y-3">
           <div>
-            <h2 className="text-xl font-semibold">{group.title}</h2>
-            <p className="text-sm text-muted-foreground">{group.hint}</p>
+            <h2 className="text-xl font-semibold">{t("hskLibrary")}</h2>
+            <p className="text-sm text-muted-foreground">{t("hskLibraryHint")}</p>
           </div>
           <ul className="grid gap-3 md:grid-cols-2">
-            {group.items.map((item) => group.id === "hsk" ? (
-              <li key={item.id} className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{t("lessonsWords", { lessons: item.lessons, words: item.words })}</p>
-                <Link href={`/library/hsk/${item.id}`} className={cn(buttonVariants({ variant: "outline" }), "mt-auto w-full")}>{th("seeLessons")} →</Link>
-              </li>
-            ) : (
+            <li className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
+              <h3 className="text-lg font-semibold">{th("title")}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{th("allLevelsHint")}</p>
+              <Link href="/library/hsk" className={cn(buttonVariants({ variant: "outline" }), "mt-auto w-full")}>{th("viewVocabulary")} →</Link>
+            </li>
+          </ul>
+        </section>
+      )}
+      {topics.length > 0 && (
+        <section id="topics" className="scroll-mt-24 space-y-3">
+          <div>
+            <h2 className="text-xl font-semibold">{t("topicLibrary")}</h2>
+            <p className="text-sm text-muted-foreground">{t("topicLibraryHint")}</p>
+          </div>
+          <ul className="grid gap-3 md:grid-cols-2">
+            {topics.map((item) => (
               <CollectionCard
                 key={item.id}
                 c={item}
@@ -204,8 +213,8 @@ export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templa
             ))}
           </ul>
         </section>
-      ))}
-      {shown.length === 0 && <Empty>{t("noMatches", { query: query.trim() })}</Empty>}
+      )}
+      {!showHsk && topics.length === 0 && <Empty>{t("noMatches", { query: query.trim() })}</Empty>}
     </ManageShell>
   );
 }

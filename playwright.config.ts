@@ -23,6 +23,8 @@ process.env.HANZI_ENV_FILE ??= devRun ? ".env.dev.local" : ".env.local";
 const baseURL = `http://localhost:${port}`;
 
 export default defineConfig({
+  // Renueva las sesiones guardadas una sola vez antes de correr en paralelo.
+  globalSetup: "./tests/global-setup.ts",
   testDir: "tests",
   outputDir: "tests/.results",
   reporter: "list",

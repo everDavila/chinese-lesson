@@ -98,10 +98,13 @@ test.describe("profesora", () => {
     await noMissingKeys(page);
     await shoot(page, "1-biblioteca-hsk");
 
-    const hsk1 = page.getByRole("listitem").filter({ hasText: "HSK 1" });
-    await hsk1.getByRole("link", { name: new RegExp(H.seeLessons) }).click();
-    await page.waitForURL(/\/zh\/library\/hsk\/[0-9a-f-]{36}$/);
-    await page.getByRole("button", { name: H.copyCollection }).click();
+    // El nivel se consulta completo (sin lecciones de 15); copiar la plantilla
+    // en lecciones sigue disponible mientras no se creen lecciones desde aquí.
+    const hsk1 = page.getByRole("listitem").filter({ hasText: /^HSK 1/ });
+    await hsk1.getByRole("link", { name: new RegExp(H.viewVocabulary) }).click();
+    await page.waitForURL(/\/zh\/library\/hsk\/nivel\/1$/);
+    await expect(page.getByTestId("catalog-row")).toHaveCount(50);
+    await page.getByRole("button", { name: H.copyTemplate.replace("{level}", "1") }).click();
     await page.waitForURL(/\/zh\/collections\/[0-9a-f-]{36}$/);
 
     await page.getByRole("button", { name: Z.rename }).click();

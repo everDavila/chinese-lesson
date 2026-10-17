@@ -103,6 +103,45 @@ export async function lookupWords(hanzi: string[]): Promise<{ hanzi: string; sen
   });
 }
 
+// ── Catálogo oficial HSK (biblioteca) ───────────────────────────────────
+// Por ENTRADA del temario (word_levels), no por palabra: una palabra puede
+// estar en varios niveles y cada entrada conserva su sentido. El nivel 7 de
+// la base es la banda 7–9. Migración 20261017010000.
+
+export type CatalogRow = {
+  /** Orden oficial (source_order): único, identifica la fila y pagina. */
+  order: number;
+  wordId: string;
+  senseId: string | null;
+  hanzi: string;
+  pinyin: string;
+  category: string;
+  meaningEs: string;
+  meaningEn: string;
+  sentences: number;
+  /** Todos los niveles del temario donde aparece la palabra. */
+  levels: number[];
+};
+export type CatalogPage = { total: number; next: number | null; rows: CatalogRow[] };
+
+export const CATALOG_PAGE = 50;
+
+/** Una página del nivel, en orden oficial, a partir de `after` (cursor). */
+export async function hskCatalog(level: number, query = "", after = 0): Promise<CatalogPage> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("hsk_catalog", { lvl: level, q: query, lim: CATALOG_PAGE, after_order: after });
+  if (error) throw error;
+  return data as CatalogPage;
+}
+
+/** Entradas del temario por nivel ({ 1: 300, …, 7: 5600 }). */
+export async function hskLevelCounts(): Promise<Record<number, number>> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("hsk_catalog_counts");
+  if (error) throw error;
+  return data as Record<number, number>;
+}
+
 // ── Palabra completa (editor del admin) ─────────────────────────────────
 export type EditableSentence = { id?: string; zh: string; pinyin: string; es: string; en: string };
 export type EditableSense = {
