@@ -1,12 +1,13 @@
 import { Suspense } from "react";
 import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { TeacherDashboard } from "@/components/manage/teacher-dashboard";
 import { Link, redirect } from "@/i18n/navigation";
 import { getDemoLesson } from "@/lib/demo-lesson";
-import { getProfile } from "@/lib/content";
+import { getProfile, listTeacherLessons, listTeacherPins } from "@/lib/content";
 
-// Inicio. Sin sesión: la lección de demo local. Con sesión: /admin o las colecciones
-// del docente. Lo que lee la sesión va dentro de <Suspense> (Cache
+// Inicio. Sin sesión: la lección de demo local. Con sesión: /admin o el espacio
+// de preparación docente. Lo que lee la sesión va dentro de <Suspense> (Cache
 // Components: el resto es estático).
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -19,9 +20,13 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 }
 
 async function HomeContent() {
-  // Con sesión: el admin a la base común, la docente a sus colecciones.
+  // Con sesión: el admin a la base común; la docente prepara desde aquí.
   const profile = await getProfile();
-  if (profile) redirect({ href: profile.role === "admin" ? "/admin" : "/collections", locale: await getLocale() });
+  if (profile?.role === "admin") redirect({ href: "/admin", locale: await getLocale() });
+  if (profile) {
+    const [lessons, pins] = await Promise.all([listTeacherLessons(), listTeacherPins()]);
+    return <TeacherDashboard isAdmin={false} lessons={lessons} pins={pins} />;
+  }
   return <Guest />;
 }
 

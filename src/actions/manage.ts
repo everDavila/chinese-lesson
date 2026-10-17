@@ -117,6 +117,20 @@ export async function deleteLessonAction(id: string): Promise<Result> {
   return { ok: true };
 }
 
+export async function setTeacherPinAction(kind: "lesson" | "collection", id: string, pinned: boolean): Promise<Result> {
+  const s = await session();
+  if (!s) return { ok: false, error: "auth" };
+  if (!id) return { ok: false, error: "invalid" };
+  const column = kind === "lesson" ? "lesson_id" : "collection_id";
+  const query = s.db.from("teacher_pins");
+  const { error } = pinned
+    ? await query.insert({ teacher_id: s.profile.id, [column]: id })
+    : await query.delete().eq("teacher_id", s.profile.id).eq(column, id);
+  if (error) return fail(error);
+  refresh();
+  return { ok: true };
+}
+
 // Intercambia la posición de dos filas pasando por una temporal negativa:
 // las columnas de orden son únicas y un cambio directo chocaría.
 async function swapPositions(

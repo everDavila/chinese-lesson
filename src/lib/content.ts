@@ -276,6 +276,59 @@ export async function listLooseLessons(): Promise<{ id: string; title: string; i
   return data.map((l) => ({ id: l.id, title: l.title, items: (l.lesson_items as { count: number }[])[0]?.count ?? 0 }));
 }
 
+/** Lecciones de la docente para retomar su preparación desde el inicio. */
+export async function listTeacherLessons(): Promise<
+  { id: string; title: string; collectionId: string; collectionTitle: string; items: number; updatedAt: string }[]
+> {
+  const supabase = await createClient();
+  const { data: claims } = await supabase.auth.getClaims();
+  const { data, error } = await supabase
+    .from("lessons")
+    .select("id, title, collection_id, updated_at, collections(title), lesson_items(count)")
+    .eq("teacher_id", claims?.claims.sub ?? "")
+    .not("collection_id", "is", null)
+    .order("updated_at", { ascending: false });
+  if (error) throw error;
+  return data.map((lesson) => ({
+    id: lesson.id,
+    title: lesson.title,
+    collectionId: lesson.collection_id as string,
+    collectionTitle: (lesson.collections as unknown as { title: string }).title,
+    items: (lesson.lesson_items as { count: number }[])[0]?.count ?? 0,
+    updatedAt: lesson.updated_at,
+  }));
+}
+
+export type TeacherPin =
+  | { kind: "lesson"; id: string; title: string; collectionId: string; collectionTitle: string; items: number }
+  | { kind: "collection"; id: string; title: string; lessons: number; words: number };
+
+/** Accesos fijados por la docente, resueltos contra su material real. */
+export async function listTeacherPins(): Promise<TeacherPin[]> {
+  const supabase = await createClient();
+  const { data: claims } = await supabase.auth.getClaims();
+  const teacherId = claims?.claims.sub ?? "";
+  const [{ data: pins, error }, lessons, collections] = await Promise.all([
+    supabase.from("teacher_pins").select("lesson_id, collection_id, created_at").eq("teacher_id", teacherId).order("created_at"),
+    listTeacherLessons(),
+    listCollections("mine"),
+  ]);
+  if (error) throw error;
+  const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+  const collectionsById = new Map(collections.map((collection) => [collection.id, collection]));
+  const result: TeacherPin[] = [];
+  for (const pin of pins ?? []) {
+    if (pin.lesson_id) {
+      const lesson = lessonsById.get(pin.lesson_id);
+      if (lesson) result.push({ kind: "lesson", ...lesson });
+      continue;
+    }
+    const collection = pin.collection_id ? collectionsById.get(pin.collection_id) : undefined;
+    if (collection) result.push({ kind: "collection", ...collection });
+  }
+  return result;
+}
+
 // ── Lección (editor) ────────────────────────────────────────────────────
 export type LessonItemRow = {
   senseId: string;

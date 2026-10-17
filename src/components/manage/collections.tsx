@@ -16,13 +16,13 @@ import {
 } from "@/actions/manage";
 import { ExamplesSelect } from "./examples-select";
 import { useConfirm } from "@/components/ui/confirm-dialog";
-import { startSessionAction } from "@/actions/class";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { CollectionListItem, CollectionSummary } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { useDragReorder } from "./drag-reorder";
 import { Empty, inputCls, ManageShell, NewTitleForm, SearchInput, useRunner, type Crumb } from "./shell";
+import { PinButton } from "./pin-button";
 
 // Colecciones y lecciones. Las comparten la docente (sus colecciones) y el
 // admin (plantillas): cambia la base de las rutas y qué se puede copiar.
@@ -46,16 +46,19 @@ function CollectionCard({
   mode,
   onCopy,
   pending,
+  pinned,
 }: {
   c: CollectionListItem;
   mode: Mode;
   onCopy?: () => void;
   pending?: boolean;
+  pinned?: boolean;
 }) {
   const t = useTranslations("Manage");
   return (
-    <li className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4">
-      <div className="min-w-0">
+    <li className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
+      <div className="flex min-w-0 items-start gap-2">
+        <div className="min-w-0 flex-1">
         {onCopy ? (
           <p className="font-medium">{c.title}</p>
         ) : (
@@ -67,16 +70,20 @@ function CollectionCard({
           {t("lessonsWords", { lessons: c.lessons, words: c.words })}
           {c.source ? ` · ${c.source}` : ""}
         </p>
+        </div>
+        {mode === "teacher" && !onCopy && <PinButton kind="collection" id={c.id} pinned={Boolean(pinned)} />}
       </div>
+      <div className="mt-auto pt-5">
       {onCopy ? (
-        <Button variant="outline" onClick={onCopy} disabled={pending}>
+        <Button className="w-full" variant="outline" onClick={onCopy} disabled={pending}>
           <Copy /> {t("useTemplate")}
         </Button>
       ) : (
-        <Link href={`${collectionsBase(mode)}/${c.id}`} className={buttonVariants({ variant: "ghost" })}>
+        <Link href={`${collectionsBase(mode)}/${c.id}`} className={cn(buttonVariants({ variant: "outline" }), "w-full")}>
           {t("open")}
         </Link>
       )}
+      </div>
     </li>
   );
 }
@@ -86,28 +93,28 @@ export function CollectionsScreen({
   mode,
   isAdmin,
   mine,
-  templates,
-  looseLessons = [],
+  pinnedIds = [],
+  initialQuery = "",
+  createOnLoad = false,
 }: {
   mode: Mode;
   isAdmin: boolean;
   mine: CollectionListItem[];
-  templates: CollectionListItem[];
-  looseLessons?: { id: string; title: string; items: number }[];
+  pinnedIds?: string[];
+  initialQuery?: string;
+  createOnLoad?: boolean;
 }) {
   const t = useTranslations("Manage");
   const router = useRouter();
   const { pending, error, run } = useRunner();
   const crumbs = useHomeCrumbs(mode);
   const teacher = mode === "teacher";
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
   const q = query.trim().toLowerCase();
-  // La búsqueda mira nombre y descripción; las lecciones sueltas no tienen.
+  // La búsqueda mira nombre y descripción.
   const matches = (title: string, description?: string | null) =>
     !q || title.toLowerCase().includes(q) || (description ?? "").toLowerCase().includes(q);
   const shownMine = mine.filter((c) => matches(c.title, c.description));
-  const shownLoose = looseLessons.filter((l) => matches(l.title));
-  const shownTemplates = templates.filter((c) => matches(c.title, c.description));
 
   return (
     <ManageShell
@@ -121,6 +128,7 @@ export function CollectionsScreen({
           <SearchInput value={query} onChange={setQuery} label={teacher ? t("searchCollections") : t("searchTemplates")} />
         </div>
         <NewTitleForm
+          initialOpen={createOnLoad}
           placeholder={teacher ? t("newCollection") : t("newTemplate")}
           descriptionPlaceholder={teacher ? t("newCollectionDesc") : t("newTemplateDesc")}
           label={
@@ -140,9 +148,9 @@ export function CollectionsScreen({
 
       <section className="flex flex-col gap-3">
         {shownMine.length ? (
-          <ul className="flex flex-col gap-2">
+          <ul className="grid gap-3 md:grid-cols-2">
             {shownMine.map((c) => (
-              <CollectionCard key={c.id} c={c} mode={mode} />
+              <CollectionCard key={c.id} c={c} mode={mode} pinned={pinnedIds.includes(c.id)} />
             ))}
           </ul>
         ) : (
@@ -150,49 +158,58 @@ export function CollectionsScreen({
         )}
       </section>
 
-      {teacher && shownLoose.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold">{t("looseLessons")}</h2>
-          <ul className="flex flex-col gap-2">
-            {shownLoose.map((l) => (
-              <li key={l.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4">
-                <div>
-                  <p className="font-medium">{l.title}</p>
-                  <p className="text-sm text-muted-foreground">{t("wordsCount", { count: l.items })}</p>
-                </div>
-                <form action={startSessionAction.bind(null, l.id)}>
-                  <Button type="submit">{t("startClass")}</Button>
-                </form>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {teacher && shownTemplates.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <div>
-            <h2 className="text-xl font-semibold">{t("fromTemplate")}</h2>
-            <p className="text-sm text-muted-foreground">{t("fromTemplateHint")}</p>
-          </div>
-          <ul className="flex flex-col gap-2">
-            {shownTemplates.map((c) => (
-              <CollectionCard
-                key={c.id}
-                c={c}
-                mode={mode}
-                pending={pending}
-                onCopy={() => run(() => copyTemplateAction(c.id), (r) => router.push(`/collections/${r.id}`))}
-              />
-            ))}
-          </ul>
-        </section>
-      )}
     </ManageShell>
   );
 }
 
 /** Una colección: sus lecciones en orden. */
+/** Biblioteca de plantillas reales, separada del material que ya es de la docente. */
+export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templates: CollectionListItem[] }) {
+  const t = useTranslations("Manage");
+  const th = useTranslations("HskLibrary");
+  const router = useRouter();
+  const { pending, error, run } = useRunner();
+  const [query, setQuery] = useState("");
+  const shown = templates.filter((item) => item.title.toLowerCase().includes(query.trim().toLowerCase()));
+  const groups = [
+    { id: "hsk", title: t("hskLibrary"), hint: t("hskLibraryHint"), items: shown.filter((item) => /^HSK\s/i.test(item.title)) },
+    { id: "topics", title: t("topicLibrary"), hint: t("topicLibraryHint"), items: shown.filter((item) => !/^HSK\s/i.test(item.title)) },
+  ];
+
+  return (
+    <ManageShell isAdmin={isAdmin} crumbs={[]} title={t("libraryTitle")} error={error} wide>
+      <p className="max-w-3xl text-muted-foreground">{t("libraryHint")}</p>
+      <SearchInput value={query} onChange={setQuery} label={t("searchTemplates")} />
+      {groups.map((group) => group.items.length > 0 && (
+        <section id={group.id} key={group.id} className="scroll-mt-24 space-y-3">
+          <div>
+            <h2 className="text-xl font-semibold">{group.title}</h2>
+            <p className="text-sm text-muted-foreground">{group.hint}</p>
+          </div>
+          <ul className="grid gap-3 md:grid-cols-2">
+            {group.items.map((item) => group.id === "hsk" ? (
+              <li key={item.id} className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{t("lessonsWords", { lessons: item.lessons, words: item.words })}</p>
+                <Link href={`/library/hsk/${item.id}`} className={cn(buttonVariants({ variant: "outline" }), "mt-auto w-full")}>{th("seeLessons")} →</Link>
+              </li>
+            ) : (
+              <CollectionCard
+                key={item.id}
+                c={item}
+                mode="teacher"
+                pending={pending}
+                onCopy={() => run(() => copyTemplateAction(item.id), (result) => router.push(`/collections/${result.id}`))}
+              />
+            ))}
+          </ul>
+        </section>
+      ))}
+      {shown.length === 0 && <Empty>{t("noMatches", { query: query.trim() })}</Empty>}
+    </ManageShell>
+  );
+}
+
 export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode; isAdmin: boolean; collection: CollectionSummary }) {
   const t = useTranslations("Manage");
   const [confirm, confirmDialog] = useConfirm();

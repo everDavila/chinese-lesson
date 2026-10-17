@@ -482,3 +482,53 @@ tarea de `TRABAJO-EN-CURSO.md`, como corresponde al integrarla.
 **Pendiente / no probado:** revisión humana nativa, contraste sistemático con
 BCC, prueba visual de la clase con estos ejemplos y su uso con la profesora.
 Las frases siguen siendo borradores editoriales `unreviewed`.
+
+
+## 2026-10-16 — Inicio docente para preparar la clase
+
+La entrada autenticada de la profesora dejó de enviarla directamente a una
+lista: ahora `/` es su espacio de preparación. Conserva la estética carbón,
+crema y dorado aprobada, muestra Renshi en la cabecera y organiza el trabajo
+en tres niveles: acciones principales, lecciones propias para continuar y
+biblioteca común. El panda no aparece en la cabecera y se retiró el bloque
+redundante de accesos rápidos de la referencia.
+
+La pantalla usa únicamente datos existentes. `listTeacherLessons` recupera
+las lecciones de la cuenta y sus conteos; “Continuar” abre el editor actual y
+presentar sigue disponible como acción secundaria mediante la sesión real.
+La nueva ruta `/library` separa plantillas HSK y temáticas y reutiliza
+`copy_collection`, de modo que no hay otro modelo ni escrituras paralelas.
+El buscador de la cabecera conduce al filtro real de colecciones y el acceso
+“Nueva colección” abre directamente el formulario existente.
+
+Se actualizaron los tres idiomas, el recorrido autenticado que antes esperaba
+una redirección automática y una prueba visual específica. Pasaron ESLint,
+las 18 pruebas unitarias, la compilación de producción y dos recorridos
+Playwright en oscuro (1440 × 900 y 390 × 844), incluidos biblioteca, creación
+y ausencia de desbordamiento horizontal. La comparación queda en
+`design-qa.md`; las capturas se generaron en `tests/screens/`.
+
+**Decisiones y límites:** no se inventaron “editada hoy”, una próxima clase,
+HSK 4–9 disponibles ni imágenes sin procedencia, porque esos datos no existen
+en el modelo o en producción. Tampoco se cambió auth, RLS, migraciones ni la
+presentación. **No probado:** copiar una plantilla desde esta pantalla no se
+ejecutó en el recorrido visual para no escribir en producción; el mismo RPC ya
+está cubierto por los recorridos funcionales existentes. Falta validación con
+la profesora y despliegue.
+
+## 2026-10-17 — Inicio docente reducido a fijados y recientes
+
+El inicio se redujo a dos bloques: accesos fijados por la profesora y sus
+lecciones recientes. Se retiraron el saludo grande, las tarjetas de creación y
+la biblioteca del contenido principal; esas funciones siguen en la cabecera y
+el menú lateral. Una lección fijada se puede presentar o editar. Una colección
+fijada solo se abre: la unidad de una clase sigue siendo la lección y no se
+crean sesiones ambiguas con cientos de palabras.
+
+La migración `20261017000000_inicio_docente_fijados.sql` añade fechas reales de
+última edición y `teacher_pins`, una relación privada protegida por RLS que
+referencia el material existente sin duplicarlo. Se respaldó y migró
+`hanzi-dev`; crear y borrar un fijado de prueba funcionó. Pasaron ESLint, las
+18 pruebas unitarias y el build. **No probado:** el recorrido visual autenticado
+quedó bloqueado porque la sesión local de `laoshi` venció. La migración no se
+aplicó en producción.
