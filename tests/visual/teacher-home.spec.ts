@@ -16,10 +16,27 @@ test("el inicio docente sirve para preparar y conserva los flujos reales", async
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 
-  const libraryLink = page.viewportSize()!.width >= 1024 ? es.TeacherWorkspace.hsk : es.TeacherWorkspace.library;
+  const desktop = page.viewportSize()!.width >= 1024;
+  const libraryLink = desktop ? es.TeacherWorkspace.hsk : es.TeacherWorkspace.library;
   await page.getByRole("link", { name: libraryLink }).first().click();
-  await expect(page).toHaveURL(/\/es\/library(?:#hsk)?$/);
-  await expect(page.getByRole("heading", { level: 1, name: es.Manage.libraryTitle })).toBeVisible();
+  await expect(page).toHaveURL(desktop ? /\/es\/library\/hsk$/ : /\/es\/library$/);
+  await expect(page.getByRole("heading", { level: 1, name: desktop ? es.HskLibrary.title : es.Manage.libraryTitle })).toBeVisible();
+  if (desktop) await page.screenshot({ path: `tests/screens/${testInfo.project.name}/biblioteca-hsk.png`, fullPage: true });
+  const hsk1 = page.getByRole("listitem").filter({ hasText: "HSK 1" });
+  await hsk1.getByRole("link", { name: new RegExp(es.HskLibrary.seeLessons) }).click();
+  await expect(page).toHaveURL(/\/es\/library\/hsk\/[0-9a-f-]{36}$/);
+  await expect(page.getByRole("button", { name: es.HskLibrary.copyCollection })).toBeVisible();
+  await page.screenshot({ path: `tests/screens/${testInfo.project.name}/hsk-coleccion.png`, fullPage: true });
+  await page.getByRole("link", { name: es.HskLibrary.viewWords }).first().click();
+  await expect(page).toHaveURL(/\/es\/library\/hsk\/[0-9a-f-]{36}\/[0-9a-f-]{36}$/);
+  await expect(page.getByText(es.HskLibrary.readOnly).first()).toBeVisible();
+  if (desktop) await page.screenshot({ path: `tests/screens/${testInfo.project.name}/hsk-leccion.png`, fullPage: true });
+
+  await page.goto("/es/collections");
+  await expect(page.getByRole("button", { name: es.Manage.useTemplate })).toHaveCount(0);
+  await page.getByRole("link", { name: es.TeacherWorkspace.lessons }).first().click();
+  await expect(page).toHaveURL(/\/es\/lessons$/);
+  await expect(page.getByRole("heading", { level: 1, name: es.TeacherLessons.title })).toBeVisible();
 
   await page.goto("/es");
   await page.getByRole("link", { name: new RegExp(es.TeacherHome.newCollection) }).first().click();

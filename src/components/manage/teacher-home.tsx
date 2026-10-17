@@ -41,7 +41,7 @@ export async function TeacherHome({
       <section id="lessons" className="scroll-mt-24 space-y-4">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-2xl font-semibold">{t("continue")}</h2>
-          <Link href="/collections" className="text-sm text-primary hover:underline">{t("seeAll")}</Link>
+          <Link href="/lessons" className="text-sm text-primary hover:underline">{t("seeAll")}</Link>
         </div>
         {lessons.length ? (
           <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -78,8 +78,8 @@ export async function TeacherHome({
           <h2 className="text-2xl font-semibold">{t("library")}</h2>
           <Link href="/library" className="text-sm text-primary hover:underline">{t("seeLibrary")}</Link>
         </div>
-        {hsk.length > 0 && <LibraryRow title={t("hsk")} items={hsk.slice(0, 3)} />}
-        {topics.length > 0 && <LibraryRow title={t("topics")} items={topics.slice(0, 3)} />}
+        {hsk.length > 0 && <LibraryRow title={t("hsk")} items={hsk.slice(0, 3)} kind="hsk" />}
+        {topics.length > 0 && <LibraryRow title={t("topics")} items={topics.slice(0, 3)} kind="topics" />}
       </section>
     </ManageShell>
   );
@@ -95,7 +95,7 @@ function ActionCard({ href, icon, title, hint }: { href: "/collections" | "/coll
   );
 }
 
-async function LibraryRow({ title, items }: { title: string; items: CollectionListItem[] }) {
+async function LibraryRow({ title, items, kind }: { title: string; items: CollectionListItem[]; kind: "hsk" | "topics" }) {
   const t = await getTranslations("TeacherHome");
   return (
     <div>
@@ -103,7 +103,7 @@ async function LibraryRow({ title, items }: { title: string; items: CollectionLi
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => (
           <li key={item.id}>
-            <Link href="/library" className="block rounded-xl border border-border bg-card p-4 transition-colors hover:bg-accent">
+            <Link href={kind === "hsk" ? `/library/hsk/${item.id}` : "/library#topics"} className="block rounded-xl border border-border bg-card p-4 transition-colors hover:bg-accent">
               <p className="font-semibold">{item.title}</p>
               <p className="mt-1 text-sm text-muted-foreground">{t("lessonsWords", { lessons: item.lessons, words: item.words })}</p>
             </Link>

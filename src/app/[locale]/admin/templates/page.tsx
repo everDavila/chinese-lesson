@@ -16,5 +16,5 @@ export default function Page() {
 async function Content() {
   await requireAdmin();
   const templates = await listCollections("templates");
-  return <CollectionsScreen mode="admin" isAdmin mine={templates} templates={[]} />;
+  return <CollectionsScreen mode="admin" isAdmin mine={templates} />;
 }

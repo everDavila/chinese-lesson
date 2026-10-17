@@ -15,7 +15,6 @@ import {
 } from "@/actions/manage";
 import { ExamplesSelect } from "./examples-select";
 import { useConfirm } from "@/components/ui/confirm-dialog";
-import { startSessionAction } from "@/actions/class";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { CollectionListItem, CollectionSummary } from "@/lib/content";
@@ -52,7 +51,7 @@ function CollectionCard({
 }) {
   const t = useTranslations("Manage");
   return (
-    <li className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4">
+    <li className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
       <div className="min-w-0">
         {onCopy ? (
           <p className="font-medium">{c.title}</p>
@@ -66,15 +65,17 @@ function CollectionCard({
           {c.source ? ` · ${c.source}` : ""}
         </p>
       </div>
+      <div className="mt-auto pt-5">
       {onCopy ? (
-        <Button variant="outline" onClick={onCopy} disabled={pending}>
+        <Button className="w-full" variant="outline" onClick={onCopy} disabled={pending}>
           <Copy /> {t("useTemplate")}
         </Button>
       ) : (
-        <Link href={`${collectionsBase(mode)}/${c.id}`} className={buttonVariants({ variant: "ghost" })}>
+        <Link href={`${collectionsBase(mode)}/${c.id}`} className={cn(buttonVariants({ variant: "outline" }), "w-full")}>
           {t("open")}
         </Link>
       )}
+      </div>
     </li>
   );
 }
@@ -84,16 +85,12 @@ export function CollectionsScreen({
   mode,
   isAdmin,
   mine,
-  templates,
-  looseLessons = [],
   initialQuery = "",
   createOnLoad = false,
 }: {
   mode: Mode;
   isAdmin: boolean;
   mine: CollectionListItem[];
-  templates: CollectionListItem[];
-  looseLessons?: { id: string; title: string; items: number }[];
   initialQuery?: string;
   createOnLoad?: boolean;
 }) {
@@ -106,8 +103,6 @@ export function CollectionsScreen({
   const q = query.trim().toLowerCase();
   const matches = (title: string) => !q || title.toLowerCase().includes(q);
   const shownMine = mine.filter((c) => matches(c.title));
-  const shownLoose = looseLessons.filter((l) => matches(l.title));
-  const shownTemplates = templates.filter((c) => matches(c.title));
 
   return (
     <ManageShell
@@ -140,7 +135,7 @@ export function CollectionsScreen({
 
       <section className="flex flex-col gap-3">
         {shownMine.length ? (
-          <ul className="flex flex-col gap-2">
+          <ul className="grid gap-3 md:grid-cols-2">
             {shownMine.map((c) => (
               <CollectionCard key={c.id} c={c} mode={mode} />
             ))}
@@ -150,44 +145,6 @@ export function CollectionsScreen({
         )}
       </section>
 
-      {teacher && shownLoose.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold">{t("looseLessons")}</h2>
-          <ul className="flex flex-col gap-2">
-            {shownLoose.map((l) => (
-              <li key={l.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4">
-                <div>
-                  <p className="font-medium">{l.title}</p>
-                  <p className="text-sm text-muted-foreground">{t("wordsCount", { count: l.items })}</p>
-                </div>
-                <form action={startSessionAction.bind(null, l.id)}>
-                  <Button type="submit">{t("startClass")}</Button>
-                </form>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {teacher && shownTemplates.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <div>
-            <h2 className="text-xl font-semibold">{t("fromTemplate")}</h2>
-            <p className="text-sm text-muted-foreground">{t("fromTemplateHint")}</p>
-          </div>
-          <ul className="flex flex-col gap-2">
-            {shownTemplates.map((c) => (
-              <CollectionCard
-                key={c.id}
-                c={c}
-                mode={mode}
-                pending={pending}
-                onCopy={() => run(() => copyTemplateAction(c.id), (r) => router.push(`/collections/${r.id}`))}
-              />
-            ))}
-          </ul>
-        </section>
-      )}
     </ManageShell>
   );
 }
@@ -196,6 +153,7 @@ export function CollectionsScreen({
 /** Biblioteca de plantillas reales, separada del material que ya es de la docente. */
 export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templates: CollectionListItem[] }) {
   const t = useTranslations("Manage");
+  const th = useTranslations("HskLibrary");
   const router = useRouter();
   const { pending, error, run } = useRunner();
   const [query, setQuery] = useState("");
@@ -216,7 +174,13 @@ export function LibraryScreen({ isAdmin, templates }: { isAdmin: boolean; templa
             <p className="text-sm text-muted-foreground">{group.hint}</p>
           </div>
           <ul className="grid gap-3 md:grid-cols-2">
-            {group.items.map((item) => (
+            {group.items.map((item) => group.id === "hsk" ? (
+              <li key={item.id} className="flex min-h-40 flex-col rounded-xl border border-border bg-card p-5">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{t("lessonsWords", { lessons: item.lessons, words: item.words })}</p>
+                <Link href={`/library/hsk/${item.id}`} className={cn(buttonVariants({ variant: "outline" }), "mt-auto w-full")}>{th("seeLessons")} →</Link>
+              </li>
+            ) : (
               <CollectionCard
                 key={item.id}
                 c={item}

@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { BookOpen, FolderOpen, Home, Library, Search, Tags } from "lucide-react";
+import { BookOpen, ChevronDown, FilePlus2, FolderOpen, FolderPlus, Home, Library, LogOut, Plus, Search, Tags } from "lucide-react";
 import { signOut } from "@/actions/auth";
 import type { ActionError, Result } from "@/actions/manage";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -65,6 +65,7 @@ export function ManageShell({
   if (!adminArea) {
     const nav = [
       { href: "/" as const, label: tw("home"), icon: Home },
+      { href: "/lessons" as const, label: tw("lessons"), icon: BookOpen },
       { href: "/collections" as const, label: tw("collections"), icon: FolderOpen },
       { href: "/library" as const, label: tw("library"), icon: Library },
     ];
@@ -76,31 +77,51 @@ export function ManageShell({
           <nav className="mt-8 flex flex-col gap-1" aria-label={tw("navLabel")}>
             <WorkspaceLink href="/" label={tw("home")} icon={Home} active={pathname === "/"} />
             <p className="mt-5 px-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">{tw("workspaceLabel")}</p>
-            <WorkspaceLink href="/#lessons" label={tw("lessons")} icon={BookOpen} />
+            <WorkspaceLink href="/lessons" label={tw("lessons")} icon={BookOpen} active={pathname.startsWith("/lessons")} />
             <WorkspaceLink href="/collections" label={tw("collections")} icon={FolderOpen} active={pathname.startsWith("/collections")} />
             <p className="mt-5 px-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">{tw("libraryLabel")}</p>
-            <WorkspaceLink href="/library#hsk" label={tw("hsk")} icon={Library} />
+            <WorkspaceLink href="/library/hsk" label={tw("hsk")} icon={Library} active={pathname.startsWith("/library/hsk")} />
             <WorkspaceLink href="/library#topics" label={tw("topics")} icon={Tags} />
             {isAdmin && <Link href="/admin" className="mt-4 rounded-lg px-3 py-2.5 text-sm hover:bg-sidebar-accent">{t("nav.admin")}</Link>}
           </nav>
         </aside>
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="sticky top-0 z-20 border-b border-border bg-background/95 px-4 py-3 backdrop-blur sm:px-6">
-            <div className="mx-auto flex max-w-7xl items-center gap-3">
+            <div className="mx-auto flex max-w-7xl items-center gap-3 lg:gap-5">
               <Link href="/" className="mr-auto font-hanzi text-xl font-semibold lg:hidden">Renshi</Link>
               <form
                 role="search"
-                className="relative hidden max-w-2xl flex-1 sm:block"
+                className="relative hidden max-w-3xl flex-1 sm:block"
                 onSubmit={(event) => {
                   event.preventDefault();
                   router.push({ pathname: "/collections", query: search.trim() ? { q: search.trim() } : {} });
                 }}
               >
-                <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-                <input value={search} onChange={(event) => setSearch(event.target.value)} type="search" placeholder={tw("search")} aria-label={tw("search")} className="h-10 w-full rounded-xl border border-input bg-card pl-9 pr-3 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50" />
+                <Search className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" aria-hidden />
+                <input value={search} onChange={(event) => setSearch(event.target.value)} type="search" placeholder={tw("search")} aria-label={tw("search")} className="h-12 w-full rounded-2xl border border-input bg-card pl-12 pr-4 text-base outline-none transition-colors focus-visible:border-primary/60 focus-visible:ring-3 focus-visible:ring-ring/30" />
               </form>
-              <LanguageSwitcher />
-              <form action={signOut}><Button type="submit" variant="ghost">{tc("signOut")}</Button></form>
+              <details className="group relative hidden md:block">
+                <summary className="flex h-12 cursor-pointer list-none items-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
+                  <Plus className="size-5" aria-hidden /> {t("create")}
+                  <ChevronDown className="size-4 transition-transform group-open:rotate-180" aria-hidden />
+                </summary>
+                <div className="absolute top-full right-0 z-30 mt-2 min-w-52 rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-lg">
+                  <Link href="/collections" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-muted">
+                    <FilePlus2 className="size-4 text-primary" aria-hidden /> {tw("createLesson")}
+                  </Link>
+                  <Link href="/collections?create=1" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-muted">
+                    <FolderPlus className="size-4 text-primary" aria-hidden /> {tw("createCollection")}
+                  </Link>
+                </div>
+              </details>
+              <div className="ml-auto flex shrink-0 items-center gap-1">
+                <LanguageSwitcher />
+                <form action={signOut}>
+                  <Button type="submit" variant="ghost" size="lg">
+                    <LogOut aria-hidden /> <span className="hidden sm:inline">{tc("signOut")}</span>
+                  </Button>
+                </form>
+              </div>
             </div>
             <nav className="mx-auto mt-3 flex max-w-7xl gap-1 overflow-x-auto lg:hidden" aria-label={tw("navLabel")}>
               {nav.map(({ href, label, icon: Icon }) => (
@@ -146,7 +167,7 @@ export function ManageShell({
   );
 }
 
-function WorkspaceLink({ href, label, icon: Icon, active = false }: { href: "/" | "/#lessons" | "/collections" | "/library#hsk" | "/library#topics"; label: string; icon: typeof Home; active?: boolean }) {
+function WorkspaceLink({ href, label, icon: Icon, active = false }: { href: "/" | "/lessons" | "/collections" | "/library/hsk" | "/library#topics"; label: string; icon: typeof Home; active?: boolean }) {
   return (
     <Link href={href} className={cn("flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-sidebar-accent", active && "bg-sidebar-accent text-primary")}>
       <Icon className="size-5" aria-hidden /> {label}

@@ -26,6 +26,7 @@ const MARK = "Prueba automática";
 const OWN = "我爱自动测试。";
 const COPY = "我爱自动测试的副本。";
 const Z = zh.Manage;
+const H = zh.HskLibrary;
 const SHOTS = "tests/screens/recorridos";
 
 test.skip(!existsSync(ADMIN) || !existsSync(LAOSHI), "Faltan las sesiones: npm run test:sesion -- admin / laoshi");
@@ -88,17 +89,19 @@ test.describe("profesora", () => {
   test.afterEach(keepSession(LAOSHI));
 
   test("copia la plantilla HSK 1 y la renombra", async ({ page }) => {
-    // El inicio es el espacio de preparación; desde ahí entra a sus colecciones.
+    // El inicio separa el trabajo propio de la biblioteca original.
     await page.goto("/zh");
     await expect(page.getByRole("heading", { level: 1 })).toContainText("你好");
-    await page.getByRole("link", { name: zh.TeacherWorkspace.collections }).first().click();
-    await page.waitForURL(/\/zh\/collections$/);
-    await expect(page.getByRole("heading", { level: 1, name: Z.nav.collections })).toBeVisible();
+    await page.getByRole("link", { name: zh.TeacherWorkspace.hsk }).click();
+    await page.waitForURL(/\/zh\/library\/hsk$/);
+    await expect(page.getByRole("heading", { level: 1, name: H.title })).toBeVisible();
     await noMissingKeys(page);
-    await shoot(page, "1-colecciones");
+    await shoot(page, "1-biblioteca-hsk");
 
-    const hsk1 = page.getByRole("listitem").filter({ hasText: "HSK 1" }).filter({ has: page.getByRole("button", { name: Z.useTemplate }) });
-    await hsk1.getByRole("button", { name: Z.useTemplate }).click();
+    const hsk1 = page.getByRole("listitem").filter({ hasText: "HSK 1" });
+    await hsk1.getByRole("link", { name: new RegExp(H.seeLessons) }).click();
+    await page.waitForURL(/\/zh\/library\/hsk\/[0-9a-f-]{36}$/);
+    await page.getByRole("button", { name: H.copyCollection }).click();
     await page.waitForURL(/\/zh\/collections\/[0-9a-f-]{36}$/);
 
     await page.getByRole("button", { name: Z.rename }).click();
