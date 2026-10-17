@@ -67,8 +67,15 @@ export type LessonItem = {
   characters: CharacterCard[];
 };
 
+export type NoteTerm = {
+  hanzi: string;
+  pinyin: string;
+  meaning: Bilingual;
+};
+
 export type Lesson = {
   title: string;
   items: LessonItem[];
   componentMeanings: Record<string, Bilingual>;
+  noteTerms?: Record<string, NoteTerm>;
 };

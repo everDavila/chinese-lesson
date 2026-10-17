@@ -259,6 +259,7 @@ export function Presentation({
                 showPinyin={showPinyin}
                 showTranslations={showTranslations}
                 lang={contentLanguage}
+                noteTerms={lesson.noteTerms}
                 footer={
                   <>
                     <GroupRating value={ratings[itemKey]} onChange={setRating} labels={labels} />
