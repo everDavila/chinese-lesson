@@ -47,6 +47,11 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
   para copiar frases sin revisar derechos.
 - Los ejemplos deben reflejar situaciones contemporáneas y declarar el registro
   cuando sea relevante: conversación, aula, trabajo, noticias o escritura formal.
+- El español de significados, ejemplos y notas es neutro latinoamericano. Se
+  evita el tratamiento `vosotros`, el vocabulario marcadamente peninsular y el
+  voseo regional; se prefieren formas ampliamente comprensibles como `ustedes`,
+  `auto`, `computadora` y `celular`. Una variante regional solo se conserva si
+  es el objeto explícito de la explicación y queda identificada como tal.
 - Como regla, el vocabulario de un ejemplo HSK no supera el nivel de la entrada:
   HSK 1 usa nivel 1; HSK 2, niveles 1-2; HSK 3, niveles 1-3. Se admite un número
   limitado de palabras superiores cuando sean necesarias para un contexto

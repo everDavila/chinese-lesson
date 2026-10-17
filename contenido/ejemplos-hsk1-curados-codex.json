@@ -524,7 +524,7 @@
         {
           "zh": "你们有什么菜？",
           "pinyin": "Nǐmen yǒu shénme cài?",
-          "es": "¿Qué tipos de verdura tenéis?",
+          "es": "¿Qué tipos de verdura tienen?",
           "en": "What kind of food do you have?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -649,7 +649,7 @@
         {
           "zh": "您有车吗？",
           "pinyin": "Nín yǒu chē ma?",
-          "es": "¿Tiene usted un coche?",
+          "es": "¿Tiene usted un auto?",
           "en": "Do you have a car?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -659,7 +659,7 @@
         {
           "zh": "你有车吗？",
           "pinyin": "Nǐ yǒu chē ma?",
-          "es": "¿Tienes coche?",
+          "es": "¿Tienes auto?",
           "en": "Do you have a car?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -669,7 +669,7 @@
         {
           "zh": "这是谁的车？",
           "pinyin": "Zhè shì shéi de chē?",
-          "es": "¿De quién es este coche?",
+          "es": "¿De quién es este auto?",
           "en": "Whose car is this?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -1218,7 +1218,7 @@
         {
           "zh": "电脑是新的。",
           "pinyin": "Diànnǎo shì xīn de.",
-          "es": "El ordenador es nuevo.",
+          "es": "La computadora es nueva.",
           "en": "The computer is new.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -1228,7 +1228,7 @@
         {
           "zh": "这是我的电脑。",
           "pinyin": "Zhè shì wǒ de diànnǎo.",
-          "es": "Este es mi ordenador.",
+          "es": "Esta es mi computadora.",
           "en": "This is my computer.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -2457,7 +2457,7 @@
         {
           "zh": "好。",
           "pinyin": "Hǎo.",
-          "es": "Vale.",
+          "es": "Está bien.",
           "en": "Terrific!",
           "origin": "open_data",
           "source": "tatoeba",
@@ -3166,7 +3166,7 @@
         {
           "zh": "我姐姐没有车。",
           "pinyin": "Wǒ jiějie méiyǒu chē.",
-          "es": "Mi hermana no tiene coche.",
+          "es": "Mi hermana no tiene auto.",
           "en": "My sister doesn't have a car.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -4008,7 +4008,7 @@
         {
           "zh": "卖车是我的工作。",
           "pinyin": "Mài chē shì wǒ de gōngzuò.",
-          "es": "Vender coches es mi trabajo.",
+          "es": "Vender autos es mi trabajo.",
           "en": "Selling motorcars is my business.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -4216,7 +4216,7 @@
         {
           "zh": "我妹妹没有车。",
           "pinyin": "Wǒ mèimei méiyǒu chē.",
-          "es": "Mi hermana no tiene coche.",
+          "es": "Mi hermana no tiene auto.",
           "en": "My sister doesn't have a car.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -4252,7 +4252,7 @@
         {
           "zh": "你们呢？",
           "pinyin": "Nǐmen ne?",
-          "es": "¿Y vosotros?",
+          "es": "¿Y ustedes?",
           "en": "How about you?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -5049,7 +5049,7 @@
         {
           "zh": "你们呢？",
           "pinyin": "Nǐmen ne?",
-          "es": "¿Y vosotros?",
+          "es": "¿Y ustedes?",
           "en": "How about you?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -5059,7 +5059,7 @@
         {
           "zh": "你们有吗？",
           "pinyin": "Nǐmen yǒu ma?",
-          "es": "¿Lo tenéis?",
+          "es": "¿Lo tienen?",
           "en": "Do you have it?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -5847,7 +5847,7 @@
         {
           "zh": "你们认识吗？",
           "pinyin": "Nǐmen rènshi ma?",
-          "es": "¿Os conocéis?",
+          "es": "¿Se conocen?",
           "en": "Do you know each other?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -6464,7 +6464,7 @@
         {
           "zh": "你有手机吗？",
           "pinyin": "Nǐ yǒu shǒujī ma?",
-          "es": "¿Tienes un móvil?",
+          "es": "¿Tienes un celular?",
           "en": "Do you have a cellphone?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -6474,7 +6474,7 @@
         {
           "zh": "您有手机吗？",
           "pinyin": "Nín yǒu shǒujī ma?",
-          "es": "¿Tiene móvil?",
+          "es": "¿Tiene celular?",
           "en": "Do you have a cellphone?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -8288,7 +8288,7 @@
         {
           "zh": "电脑是新的。",
           "pinyin": "Diànnǎo shì xīn de.",
-          "es": "El ordenador es nuevo.",
+          "es": "La computadora es nueva.",
           "en": "The computer is new.",
           "origin": "open_data",
           "source": "tatoeba",

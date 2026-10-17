@@ -501,7 +501,7 @@
         {
           "zh": "你能开车去车站吗？",
           "pinyin": "Nǐ néng kāichē qù chēzhàn ma?",
-          "es": "¿Me llevas en coche a la estación?",
+          "es": "¿Me llevas en auto a la estación?",
           "en": "Could you drive to the station?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -589,7 +589,7 @@
         {
           "zh": "她从车里出来了。",
           "pinyin": "Tā cóng chē lǐ chūlái le.",
-          "es": "Salió del coche.",
+          "es": "Salió del auto.",
           "en": "She got out of the car.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -896,7 +896,7 @@
         {
           "zh": "打开电脑。",
           "pinyin": "Dǎkāi diànnǎo.",
-          "es": "Enciende el ordenador.",
+          "es": "Enciende la computadora.",
           "en": "Turn on the computer.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -947,7 +947,7 @@
         {
           "zh": "打开电脑。",
           "pinyin": "Dǎkāi diànnǎo.",
-          "es": "Enciende el ordenador.",
+          "es": "Enciende la computadora.",
           "en": "Turn on the computer.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -1219,7 +1219,7 @@
         {
           "zh": "你们懂吗？",
           "pinyin": "Nǐmen dǒng ma?",
-          "es": "¿Lo pilláis?",
+          "es": "¿Entienden?",
           "en": "Do you understand?",
           "origin": "open_data",
           "source": "tatoeba",
@@ -1994,7 +1994,7 @@
         {
           "zh": "我的手机坏了。",
           "pinyin": "Wǒ de shǒujī huàile.",
-          "es": "Mi móvil está roto.",
+          "es": "Mi celular está roto.",
           "en": "My phone is broken.",
           "origin": "open_data",
           "source": "tatoeba",
@@ -3434,7 +3434,7 @@
         {
           "zh": "你拿吗?",
           "pinyin": "Nǐ ná ma?",
-          "es": "¿Lo coges?",
+          "es": "¿Lo tomas?",
           "en": "Did you take it?",
           "origin": "open_data",
           "source": "tatoeba",
