@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { BookOpen, ChevronDown, FilePlus2, FolderOpen, FolderPlus, Home, Library, LogOut, Plus, Search, Tags } from "lucide-react";
+import { BookOpen, ChevronDown, CircleUserRound, FilePlus2, FolderOpen, FolderPlus, Home, Library, LogOut, Plus, Search, Tags } from "lucide-react";
 import { signOut } from "@/actions/auth";
 import type { ActionError, Result } from "@/actions/manage";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -34,6 +34,7 @@ export function ManageShell({
   const t = useTranslations("Manage");
   const tc = useTranslations("Common");
   const tw = useTranslations("TeacherWorkspace");
+  const th = useTranslations("TeacherHome");
   const pathname = usePathname();
   const router = useRouter();
   const [search, setSearch] = useState("");
@@ -116,11 +117,20 @@ export function ManageShell({
               </details>
               <div className="ml-auto flex shrink-0 items-center gap-1">
                 <LanguageSwitcher />
-                <form action={signOut}>
-                  <Button type="submit" variant="ghost" size="lg">
-                    <LogOut aria-hidden /> <span className="hidden sm:inline">{tc("signOut")}</span>
-                  </Button>
-                </form>
+                <details className="group relative">
+                  <summary className="flex h-12 cursor-pointer list-none items-center gap-2 rounded-xl px-2 text-sm font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
+                    <CircleUserRound className="size-8 text-muted-foreground" aria-hidden />
+                    <span className="hidden sm:inline">{th("teacher")}</span>
+                    <ChevronDown className="size-4 text-muted-foreground transition-transform group-open:rotate-180" aria-hidden />
+                  </summary>
+                  <div className="absolute top-full right-0 z-30 mt-2 min-w-44 rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-lg">
+                    <form action={signOut}>
+                      <Button type="submit" variant="ghost" className="w-full justify-start">
+                        <LogOut aria-hidden /> {tc("signOut")}
+                      </Button>
+                    </form>
+                  </div>
+                </details>
               </div>
             </div>
             <nav className="mx-auto mt-3 flex max-w-7xl gap-1 overflow-x-auto lg:hidden" aria-label={tw("navLabel")}>
