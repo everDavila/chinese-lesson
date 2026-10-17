@@ -27,13 +27,13 @@ function fail(error: { code?: string; message?: string } | null): Result {
 
 // ── Colecciones y lecciones ─────────────────────────────────────────────
 
-export async function createCollectionAction(title: string, template: boolean): Promise<Result<{ id: string }>> {
+export async function createCollectionAction(title: string, template: boolean, description?: string): Promise<Result<{ id: string }>> {
   const s = await session();
   if (!s) return { ok: false, error: "auth" };
   if (!title.trim()) return { ok: false, error: "invalid" };
   const { data, error } = await s.db
     .from("collections")
-    .insert({ title: title.trim(), owner_id: template ? null : s.profile.id })
+    .insert({ title: title.trim(), description: description?.trim() ?? null, owner_id: template ? null : s.profile.id })
     .select("id")
     .single();
   if (error) return fail(error) as Result<{ id: string }>;
@@ -50,11 +50,11 @@ export async function copyTemplateAction(templateId: string): Promise<Result<{ i
   return { ok: true, id: data as string };
 }
 
-export async function renameCollectionAction(id: string, title: string): Promise<Result> {
+export async function renameCollectionAction(id: string, title: string, description?: string): Promise<Result> {
   const s = await session();
   if (!s) return { ok: false, error: "auth" };
   if (!title.trim()) return { ok: false, error: "invalid" };
-  const { error } = await s.db.from("collections").update({ title: title.trim() }).eq("id", id);
+  const { error } = await s.db.from("collections").update({ title: title.trim(), description: description?.trim() ?? null }).eq("id", id);
   if (error) return fail(error);
   refresh();
   return { ok: true };
@@ -69,7 +69,7 @@ export async function deleteCollectionAction(id: string): Promise<Result> {
   return { ok: true };
 }
 
-export async function addLessonAction(collectionId: string, title: string): Promise<Result<{ id: string }>> {
+export async function addLessonAction(collectionId: string, title: string, description?: string): Promise<Result<{ id: string }>> {
   const s = await session();
   if (!s) return { ok: false, error: "auth" };
   if (!title.trim()) return { ok: false, error: "invalid" };
@@ -85,6 +85,7 @@ export async function addLessonAction(collectionId: string, title: string): Prom
     .from("lessons")
     .insert({
       title: title.trim(),
+      description: description?.trim() ?? null,
       collection_id: collectionId,
       // Las lecciones de plantilla no tienen dueña.
       teacher_id: c?.owner_id ? s.profile.id : null,
@@ -97,11 +98,11 @@ export async function addLessonAction(collectionId: string, title: string): Prom
   return { ok: true, id: data.id };
 }
 
-export async function renameLessonAction(id: string, title: string): Promise<Result> {
+export async function renameLessonAction(id: string, title: string, description?: string): Promise<Result> {
   const s = await session();
   if (!s) return { ok: false, error: "auth" };
   if (!title.trim()) return { ok: false, error: "invalid" };
-  const { error } = await s.db.from("lessons").update({ title: title.trim() }).eq("id", id);
+  const { error } = await s.db.from("lessons").update({ title: title.trim(), description: description?.trim() ?? null }).eq("id", id);
   if (error) return fail(error);
   refresh();
   return { ok: true };

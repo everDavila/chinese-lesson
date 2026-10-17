@@ -102,10 +102,12 @@ export function CollectionsScreen({
   const teacher = mode === "teacher";
   const [query, setQuery] = useState("");
   const q = query.trim().toLowerCase();
-  const matches = (title: string) => !q || title.toLowerCase().includes(q);
-  const shownMine = mine.filter((c) => matches(c.title));
+  // La búsqueda mira nombre y descripción; las lecciones sueltas no tienen.
+  const matches = (title: string, description?: string | null) =>
+    !q || title.toLowerCase().includes(q) || (description ?? "").toLowerCase().includes(q);
+  const shownMine = mine.filter((c) => matches(c.title, c.description));
   const shownLoose = looseLessons.filter((l) => matches(l.title));
-  const shownTemplates = templates.filter((c) => matches(c.title));
+  const shownTemplates = templates.filter((c) => matches(c.title, c.description));
 
   return (
     <ManageShell
@@ -120,15 +122,16 @@ export function CollectionsScreen({
         </div>
         <NewTitleForm
           placeholder={teacher ? t("newCollection") : t("newTemplate")}
+          descriptionPlaceholder={teacher ? t("newCollectionDesc") : t("newTemplateDesc")}
           label={
             <>
               <Plus /> {teacher ? t("createCollection") : t("createTemplate")}
             </>
           }
           disabled={pending}
-          onCreate={(title) =>
+          onCreate={(title, description) =>
             run(
-              () => createCollectionAction(title, !teacher),
+              () => createCollectionAction(title, !teacher, description),
               (r) => router.push(`${collectionsBase(mode)}/${r.id}`),
             )
           }
@@ -196,7 +199,7 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
   const router = useRouter();
   const { pending, error, run } = useRunner();
   const crumbs = useHomeCrumbs(mode);
-  const [editing, setEditing] = useState<string | null>(null);
+  const [editing, setEditing] = useState<{ title: string; description: string } | null>(null);
   const base = collectionsBase(mode);
 
   // Mismo arrastre que en el editor de lección: mover de la 2 a la 5 son tres
@@ -221,10 +224,11 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
       isAdmin={isAdmin}
       crumbs={[...crumbs, { label: c.title }]}
       title={c.title}
+      subtitle={c.description}
       error={error}
       actions={
         <>
-          <Button variant="ghost" onClick={() => setEditing(c.title)}>
+          <Button variant="ghost" onClick={() => setEditing({ title: c.title, description: c.description ?? "" })}>
             <Pencil /> {t("rename")}
           </Button>
           {c.copiedFrom && (
@@ -256,25 +260,35 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
     >
       {editing !== null && (
         <form
-          className="flex gap-2"
+          className="flex flex-col gap-2 rounded-xl border border-border bg-card p-3"
           onSubmit={(e) => {
             e.preventDefault();
-            run(() => renameCollectionAction(c.id, editing), () => setEditing(null));
+            run(() => renameCollectionAction(c.id, editing.title, editing.description), () => setEditing(null));
           }}
         >
           <input
             autoFocus
-            value={editing}
-            onChange={(e) => setEditing(e.target.value)}
+            value={editing.title}
+            onChange={(e) => setEditing({ ...editing, title: e.target.value })}
             aria-label={t("newName")}
-            className={cn(inputCls, "flex-1")}
+            className={cn(inputCls, "w-full")}
           />
-          <Button type="submit" disabled={pending}>
-            {t("save")}
-          </Button>
-          <Button type="button" variant="ghost" onClick={() => setEditing(null)}>
-            {t("cancel")}
-          </Button>
+          <textarea
+            value={editing.description}
+            onChange={(e) => setEditing({ ...editing, description: e.target.value })}
+            placeholder={t("addDescription")}
+            aria-label={t("description")}
+            rows={2}
+            className={cn(inputCls, "h-auto w-full resize-y py-2")}
+          />
+          <div className="flex gap-2">
+            <Button type="submit" disabled={pending}>
+              {t("save")}
+            </Button>
+            <Button type="button" variant="ghost" onClick={() => setEditing(null)}>
+              {t("cancel")}
+            </Button>
+          </div>
         </form>
       )}
       {c.copiedFrom && <p className="text-sm text-muted-foreground">{t("copyNote")}</p>}
@@ -288,13 +302,14 @@ export function CollectionScreen({ mode, isAdmin, collection: c }: { mode: Mode;
 
       <NewTitleForm
         placeholder={t("newLesson", { n: c.lessons.length + 1 })}
+        descriptionPlaceholder={t("newLessonDesc")}
         label={
           <>
             <Plus /> {t("addLesson")}
           </>
         }
         disabled={pending}
-        onCreate={(title) => run(() => addLessonAction(c.id, title), (r) => router.push(`${base}/${c.id}/${r.id}`))}
+        onCreate={(title, description) => run(() => addLessonAction(c.id, title, description), (r) => router.push(`${base}/${c.id}/${r.id}`))}
       />
 
       {c.lessons.length ? (

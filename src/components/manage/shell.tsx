@@ -18,6 +18,7 @@ export function ManageShell({
   isAdmin,
   crumbs,
   title,
+  subtitle,
   actions,
   error,
   children,
@@ -26,6 +27,8 @@ export function ManageShell({
   isAdmin: boolean;
   crumbs: Crumb[];
   title: React.ReactNode;
+  /** Descripción opcional bajo el título; sin ella no queda hueco. */
+  subtitle?: React.ReactNode;
   actions?: React.ReactNode;
   error?: string | null;
   children: React.ReactNode;
@@ -76,7 +79,10 @@ export function ManageShell({
           </nav>
         )}
         <header className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="min-w-0 text-3xl font-semibold">{title}</h1>
+          <div className="min-w-0">
+            <h1 className="text-3xl font-semibold">{title}</h1>
+            {subtitle && <p className="mt-1 whitespace-pre-wrap text-muted-foreground">{subtitle}</p>}
+          </div>
           {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
         </header>
         {error && (
@@ -129,21 +135,26 @@ export const inputCls = "h-9 min-w-0 rounded-lg border border-input bg-backgroun
  */
 export function NewTitleForm({
   placeholder,
+  descriptionPlaceholder,
   label,
   disabled,
   onCreate,
 }: {
   placeholder: string;
+  /** Si se pasa, se ofrece una descripción opcional junto al nombre. */
+  descriptionPlaceholder?: string;
   label: React.ReactNode;
   disabled?: boolean;
-  onCreate: (title: string) => void;
+  onCreate: (title: string, description?: string) => void;
 }) {
   const t = useTranslations("Manage");
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const close = () => {
     setOpen(false);
     setTitle("");
+    setDescription("");
   };
   if (!open)
     return (
@@ -157,7 +168,7 @@ export function NewTitleForm({
       onSubmit={(e) => {
         e.preventDefault();
         if (title.trim()) {
-          onCreate(title.trim());
+          onCreate(title.trim(), description.trim() || undefined);
           close();
         }
       }}
@@ -171,6 +182,16 @@ export function NewTitleForm({
         aria-label={placeholder}
         className={cn(inputCls, "min-w-48 flex-1")}
       />
+      {descriptionPlaceholder && (
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder={descriptionPlaceholder}
+          aria-label={descriptionPlaceholder}
+          rows={2}
+          className={cn(inputCls, "h-auto w-full resize-y py-2")}
+        />
+      )}
       <Button type="submit" disabled={!title.trim() || disabled}>
         {t("create")}
       </Button>
