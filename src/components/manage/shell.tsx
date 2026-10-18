@@ -79,8 +79,7 @@ export function ManageShell({
     return (
       <div className="flex min-h-screen flex-1 bg-background">
         <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar px-4 py-5 lg:flex">
-          <Link href="/" className="px-3 font-hanzi text-2xl font-semibold tracking-wide">Renshi</Link>
-          <p className="px-3 text-xs text-muted-foreground">{tw("tagline")}</p>
+          <Link href="/" lang="zh-Hans" aria-label="Renshi" className="px-3 font-hanzi text-2xl font-semibold tracking-wide">认识</Link>
           <nav className="mt-8 flex flex-col gap-1" aria-label={tw("navLabel")}>
             <WorkspaceLink href="/" label={tw("home")} icon={Home} active={pathname === "/"} />
             <p className="mt-5 px-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">{tw("workspaceLabel")}</p>
@@ -95,7 +94,7 @@ export function ManageShell({
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="sticky top-0 z-20 border-b border-border bg-background/95 px-4 py-3 backdrop-blur sm:px-6">
             <div className="mx-auto flex max-w-7xl items-center gap-3 lg:gap-5">
-              <Link href="/" className="mr-auto font-hanzi text-xl font-semibold lg:hidden">Renshi</Link>
+              <Link href="/" lang="zh-Hans" aria-label="Renshi" className="mr-auto font-hanzi text-xl font-semibold lg:hidden">认识</Link>
               <form
                 role="search"
                 className="relative hidden max-w-3xl flex-1 sm:block"

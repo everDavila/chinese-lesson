@@ -30,8 +30,7 @@
     "search": "Search collections or lessons...",
     "createLesson": "Create lesson",
     "createCollection": "Create collection",
-    "navLabel": "Preparation workspace",
-    "tagline": "Teach Chinese your way"
+    "navLabel": "Preparation workspace"
   },
   "TeacherHome": {
     "eyebrow": "Your preparation workspace",

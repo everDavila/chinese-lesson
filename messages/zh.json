@@ -30,8 +30,7 @@
     "search": "搜索合集或课程...",
     "createLesson": "新建课程",
     "createCollection": "新建合集",
-    "navLabel": "备课空间",
-    "tagline": "按你的方式教中文"
+    "navLabel": "备课空间"
   },
   "TeacherHome": {
     "eyebrow": "你的备课空间",
