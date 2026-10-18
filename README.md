@@ -53,15 +53,23 @@ sequenceDiagram
 - Anverso con la **animación del orden de trazos** sobre la cuadrícula 米字格.
 - Reverso con pinyin, significado y **cómo se forma**: 知 zhī = 矢 shǐ + 口 kǒu,
   con el radical en verde y la parte fonética en azul.
-- **Frases de ejemplo** con la palabra resaltada, pinyin y traducción a demanda,
-  y audio.
+- **Frases de ejemplo** con la palabra resaltada y, en cada frase, tres botones:
+  escuchar, pinyin y traducción. Se revela solo lo que la clase necesita.
+- Si una nota cita otra palabra (*"para gustos cotidianos es más natural
+  喜欢"*), al tocarla aparece su pinyin, significado y audio.
 - Si una palabra todavía no tiene frases, la tarjeta propone *"Inventen una
   frase con…"*: usarla enseña más que reconocerla.
 
 **La profesora**
-- Colecciones y lecciones propias, o copiadas de plantillas HSK en un clic.
-- Busca en todo el catálogo por hanzi, pinyin sin tonos (`pengyou`) o
-  significado, o pega la lista de palabras de su libro.
+- Un **inicio** con sus lecciones y colecciones fijadas y lo último que editó.
+- La **biblioteca HSK** muestra cada nivel completo en orden oficial, con
+  búsqueda y páginas de 25, 50 o 100. Marca palabras de varias páginas y niveles
+  y **presenta la selección** (o el nivel entero) sin armar una lección antes.
+- Lecciones **con o sin colección**, que se mueven de una colección a otra.
+- En el editor busca por hanzi, pinyin sin tonos (`pengyou`) o significado,
+  **marca varias y las añade de golpe**, o pega la lista de palabras de su libro.
+- Lo que ya no usa lo **archiva** (se restaura cuando quiera, con su historial)
+  o lo **borra** definitivamente.
 - Escribe sus **frases propias** (privadas) o hace su versión de una frase de la
   base. Si se la sugiere al admin y la acepta, pasa a la base de todos.
 - Elige cuántas frases salen por palabra; cada clase **rota** y muestra
@@ -71,23 +79,25 @@ sequenceDiagram
 - Votan desde el celular **sin cuenta y de forma anónima**, con un código de
   seis casillas.
 - La votación **sigue a la clase**: cuando la profesora pasa de palabra, el
-  celular cambia solo.
+  celular cambia solo. Si se pierde la conexión, el celular lo avisa.
 
 **El contenido**
 - Las **10 896 palabras de HSK 3.0** (niveles 1–6 y la banda avanzada 7–9),
   con significado en español.
-- Unas 2650 frases curadas para HSK 1–3, más trazos y descomposición para los
-  caracteres de todos los niveles.
+- Unas 2700 frases de ejemplo (HSK 1–3 y temas), traducidas en **español neutro
+  latinoamericano** (un validador impide que vuelvan `vosotros` o `coche`), más
+  trazos y descomposición para los caracteres de todos los niveles.
 - El admin cura la base común; las docentes nunca la editan directamente.
 
 ## 🧭 Lo que viene
 
 Para no prometer lo que no existe, esto **todavía no está**:
 
+- [ ] **Guardar como lección** lo que se presentó desde el catálogo.
 - [ ] Frases de ejemplo para HSK 4–9 (hoy salen con la consigna).
 - [ ] Palabras propias de la docente, para lo que no está en el temario (拜拜).
 - [ ] Práctica de escritura: calcar o de memoria, con la tolerancia ajustable
-      por nivel (en prueba).
+      por nivel (prototipo en `/lab/escritura`, falta probarla con el dedo).
 - [ ] Probar la votación con una clase real y muchos celulares a la vez.
 
 ## 🛠️ Stack
@@ -138,6 +148,7 @@ script.
 |---|---|---|
 | Temario y niveles | HSK 3.0 oficial (2025/2026) | lista oficial |
 | Glosas en español | [Gushi](https://gushichinese.com/es/hsk-3.0/downloads) | CC BY-SA 4.0 |
+| Frases de ejemplo abiertas | [Gushi](https://gushichinese.com/es/hsk-3.0/downloads) y [Tatoeba](https://tatoeba.org) | CC BY-SA 4.0 · CC BY 2.0 FR |
 | Descomposición de caracteres | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) | LGPL v3 o posterior |
 | Trazos | [hanzi-writer-data](https://github.com/chanind/hanzi-writer-data) | Arphic Public License |
 
