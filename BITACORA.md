@@ -560,3 +560,55 @@ Dos pruebas buscaban el botón viejo «tocar el chino para revelar».
 tarjeta nueva en clase real; `ux-voto-alumno` descartada por ahora (choca con
 el aviso de conexión); registro de cuentas abierto en Supabase (Ever lo cierra
 en el panel).
+
+## 2026-10-18 — Tres agentes, una rama y la marca en hanzi
+
+**Contexto.** Entre el 17 y el 18 trabajaron en paralelo Claude Code, Codex y
+Cline, cada uno en su worktree. Antes de subir nada, Ever pidió ver todas las
+ramas y decidir qué entraba.
+
+**Decisiones de Ever en el camino.**
+- El umbral para confirmar una presentación grande era 500 palabras. Ever
+  preguntó por qué; era arbitrario. Quedó en 100: "nadie aprende más de 100
+  hanzi en una sola clase".
+- «Quitar» no debía obligar a elegir entre perder historial o llenarse de
+  basura: ahora pregunta **archivar o borrar**. Lo archivado se restaura desde
+  «Archivadas» con sus clases y votos.
+- En el editor, agregar palabras de una en una era lento (cada «+» iba y volvía
+  del servidor). Ahora se marcan varias, incluso en búsquedas distintas, y se
+  añaden o quitan de golpe.
+
+**Triage de ramas.** Diez ramas tenían trabajo fuera de `master`. Se ordenaron
+de menos a más conflictivas y se marcó, para cada una, qué la detendría sin Ever
+frente a la PC (aprobar un diseño, probar en el celular, autorizar producción).
+Entraron cinco; `ux-voto-alumno` se descartó por ahora porque chocaba con el
+aviso de conexión de otra rama en el mismo componente. Los seis documentos de
+especificación de Codex se guardaron como **fotografía** en
+`docs/especificacion-2026-10-15/`: su plan competía con `HOJA-DE-RUTA.md` y dos
+planes vigentes confunden a los agentes.
+
+**Verificar antes de creer.** Codex reportó que había corregido 36 frases en
+español peninsular en producción. Se comprobó en solo lectura: 0 de 2739 frases
+con `vosotros`, `coche` u `ordenador`, en dev y en producción. Ever preguntó
+cuántas veces Codex había roto el código: ninguna caída de producción es suya
+hasta donde se puede saber (git no registra qué agente hace cada commit). La
+única caída, el editor ~2 h el 17, vino de subir código antes que su migración,
+y su commit no tiene el estilo de Codex. Lo que sí deja Codex son cabos sueltos:
+pruebas sin actualizar y estados reportados antes de tiempo.
+
+**A producción.** Con la autorización de Ever: respaldo, 4 migraciones,
+validación del catálogo (los 9 niveles exactos, ~120 ms por página), push y
+Vercel listo. Después, dos ajustes pequeños directos a `master`: la marca de la
+barra lateral pasó de «Renshi» a **认识**, sin el lema "Enseña chino, a tu
+manera" (pedido de Ever), y el README se puso al día con lo publicado.
+
+**Revisado y aceptado tal cual.** La ayuda emergente de Codex para palabras
+citadas en notas (en la nota de 爱, tocar 喜欢 muestra xǐhuan, "gustar" y
+audio). Se vio que el recuadro sale algo desplazado y en celular roza el borde;
+Ever decidió dejarlo así.
+
+**Sin probar / pendiente.** `/lab/escritura` con el dedo; la tarjeta nueva en
+una clase real; cerrar el registro de cuentas en Supabase (Ever, en el panel);
+la carpeta principal del repo quedó atrás de `master` por un cambio sin
+commitear de otro agente en `TRABAJO-EN-CURSO.md`. Siguiente prioridad: P4,
+«Guardar como lección» lo presentado desde el catálogo.
