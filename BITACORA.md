@@ -597,7 +597,7 @@ y su commit no tiene el estilo de Codex. Lo que sí deja Codex son cabos sueltos
 pruebas sin actualizar y estados reportados antes de tiempo.
 
 **A producción.** Con la autorización de Ever: respaldo, 4 migraciones,
-validación del catálogo (los 9 niveles exactos, ~120 ms por página), push y
+validación del catálogo (HSK 1–6 y la banda 7–9, exactos; ~120 ms por página), push y
 Vercel listo. Después, dos ajustes pequeños directos a `master`: la marca de la
 barra lateral pasó de «Renshi» a **认识**, sin el lema "Enseña chino, a tu
 manera" (pedido de Ever), y el README se puso al día con lo publicado.
