@@ -1,6 +1,5 @@
 import "server-only";
 
-import lessonJson from "../../contenido/leccion-demo.json";
 import { componentMeanings, readStrokes } from "./hanzi-data";
 import type { CharacterInfo, Lesson, NoteTerm, Sense, Word } from "./lesson-types";
 import { noteTermCandidates } from "./note-terms";
@@ -8,8 +7,8 @@ import { pickSentences } from "./rotation";
 import { createClient } from "./supabase/server";
 import { allPages, inChunks } from "./in-chunks";
 
-// Lecciones de la profesora en Supabase. Devuelve los mismos tipos que la
-// lección de demo local, así la presentación no distingue el origen.
+// Lecciones de Supabase: las de la profesora y la demo pública (la lección de
+// ejemplo). Todas se arman igual, así la presentación no distingue el origen.
 
 type SentenceRow = {
   /** Ausente en las frases propias de la docente. */
@@ -73,38 +72,6 @@ export async function listLessons(): Promise<LessonSummary[]> {
     created_at: l.created_at,
     items: (l.lesson_items as unknown as { count: number }[])[0]?.count ?? 0,
   }));
-}
-
-/** Crea la lección de demo con el primer sentido de cada palabra del seed. */
-export async function createDemoLesson(teacherId: string): Promise<string> {
-  const supabase = await createClient();
-  const hanzi = lessonJson.words.map((w) => w.hanzi);
-
-  const { data: senses, error: sensesError } = await supabase
-    .from("senses")
-    .select("id, position, words!inner(hanzi)")
-    .eq("position", 1)
-    .in("words.hanzi", hanzi);
-  if (sensesError) throw sensesError;
-
-  const byHanzi = new Map(
-    (senses ?? []).map((s) => [(s.words as unknown as { hanzi: string }).hanzi, s.id as string]),
-  );
-  const missing = hanzi.filter((h) => !byHanzi.has(h));
-  if (missing.length) throw new Error(`Faltan en la base: ${missing.join(" ")}. ¿Se aplicó el seed?`);
-
-  const { data: lesson, error: lessonError } = await supabase
-    .from("lessons")
-    .insert({ teacher_id: teacherId, title: lessonJson.lesson.title })
-    .select("id")
-    .single();
-  if (lessonError) throw lessonError;
-
-  const { error: itemsError } = await supabase.from("lesson_items").insert(
-    hanzi.map((h, i) => ({ lesson_id: lesson.id, sense_id: byHanzi.get(h), position: i + 1 })),
-  );
-  if (itemsError) throw itemsError;
-  return lesson.id;
 }
 
 function toWord(row: WordRow): Word {
@@ -198,14 +165,21 @@ async function withTeacherSentences(rows: WordRow[]): Promise<WordRow[]> {
   }));
 }
 
-async function buildLesson(title: string, items: { senseId: string; word: WordRow }[]): Promise<Lesson> {
-  const supabase = await createClient();
-  const chars = [...new Set(items.flatMap((it) => [...it.word.hanzi]))];
-  const noteCandidates = noteTermCandidates(items.flatMap(({ word }) => [
+type NoteWordRow = { hanzi: string; senses: { position: number; pinyin: string; meaning_es: string | null; meaning_en: string | null }[] | null };
+type LessonItemInput = { senseId: string; word: WordRow };
+
+const noteCandidatesOf = (items: LessonItemInput[]) =>
+  noteTermCandidates(items.flatMap(({ word }) => [
     word.cultural_note_es,
     word.cultural_note_en,
     ...word.senses.flatMap((sense) => [sense.nuance_es, sense.nuance_en]),
   ]));
+
+async function buildLesson(title: string, items: LessonItemInput[]): Promise<Lesson> {
+  const supabase = await createClient();
+  const noteCandidates = noteCandidatesOf(items);
+  // Caracteres de las palabras y, para las citas, los sueltos (su pinyin si no son palabra).
+  const chars = [...new Set([...items.flatMap((it) => [...it.word.hanzi]), ...noteCandidates.filter((c) => c.length === 1)])];
   // En tandas: una clase de un nivel completo pasa del largo de URL de PostgREST.
   const [charRows, noteRows] = await Promise.all([
     inChunks(chars, (part) =>
@@ -215,8 +189,30 @@ async function buildLesson(title: string, items: { senseId: string; word: WordRo
       supabase.from("words").select("hanzi, senses(position, pinyin, meaning_es, meaning_en)").in("hanzi", part),
     ),
   ]);
+  return assembleLesson(title, items, charRows as CharacterRow[], noteRows as NoteWordRow[]);
+}
+
+/** Lo que devuelve public_demo_lesson(): la lección de ejemplo, sin sesión. */
+export type DemoPayload = {
+  title: string;
+  items: { sense_id: string; word: WordRow }[];
+  characters: CharacterRow[];
+  note_words: NoteWordRow[];
+};
+
+/** La demo pública, armada igual que una clase (los mismos tipos y ayudas). */
+export function demoLessonFrom(payload: DemoPayload): Lesson {
+  return assembleLesson(
+    payload.title,
+    payload.items.map((i) => ({ senseId: i.sense_id, word: i.word })),
+    payload.characters,
+    payload.note_words,
+  );
+}
+
+function assembleLesson(title: string, items: LessonItemInput[], charRows: CharacterRow[], noteRows: NoteWordRow[]): Lesson {
   const charInfo = new Map(
-    (charRows as CharacterRow[]).map((c) => [
+    charRows.map((c) => [
       c.char,
       {
         pinyin: c.pinyin,
@@ -228,16 +224,21 @@ async function buildLesson(title: string, items: { senseId: string; word: WordRo
       } satisfies CharacterInfo,
     ]),
   );
-  const noteTerms = Object.fromEntries((noteRows ?? []).flatMap((row) => {
-    const firstSense = [...row.senses].sort((a, b) => a.position - b.position)[0];
-    if (!firstSense) return [];
-    const term: NoteTerm = {
+  const noteTerms: Record<string, NoteTerm> = {};
+  // Un carácter citado que no es palabra del catálogo: al menos su pinyin.
+  const wanted = new Set(noteCandidatesOf(items));
+  for (const c of charRows) {
+    if (wanted.has(c.char) && c.pinyin?.[0]) noteTerms[c.char] = { hanzi: c.char, pinyin: c.pinyin[0], meaning: { es: "", en: "" } };
+  }
+  for (const row of noteRows ?? []) {
+    const firstSense = [...(row.senses ?? [])].sort((a, b) => a.position - b.position)[0];
+    if (!firstSense) continue;
+    noteTerms[row.hanzi] = {
       hanzi: row.hanzi,
       pinyin: firstSense.pinyin,
       meaning: { es: firstSense.meaning_es ?? "", en: firstSense.meaning_en ?? "" },
     };
-    return [[row.hanzi, term]];
-  }));
+  }
 
   return {
     title,

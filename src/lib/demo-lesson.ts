@@ -1,40 +1,21 @@
 import "server-only";
 
-import lessonJson from "../../contenido/leccion-demo.json";
-import charactersJson from "../../data/characters.json";
-import { componentMeanings, readStrokes } from "./hanzi-data";
-import type { CharacterInfo, Lesson, Word } from "./lesson-types";
+import { createClient } from "@supabase/supabase-js";
+import { cacheLife } from "next/cache";
+import type { Lesson } from "./lesson-types";
+import { demoLessonFrom, type DemoPayload } from "./lessons";
 
-// Carga la lección de demo desde los archivos del repo. Es el sustituto
-// provisional de Supabase: misma forma de datos, sin base de datos.
+// La demo pública es la lección de ejemplo de la base (la misma que recibe
+// cada docente). Sin sesión: la lee public_demo_lesson(), que devuelve solo
+// esa lección. Se guarda en caché unas horas; un cambio de contenido llega solo.
 
-const characters = charactersJson as Record<string, CharacterInfo>;
-
-export function getDemoLesson(): Lesson {
-  return {
-    title: lessonJson.lesson.title,
-    // En la demo se enseña el primer sentido de cada palabra; los demás se
-    // ven en "Más detalles". En la app, el sentido lo elige la profesora.
-    items: (lessonJson.words as Word[]).map((word) => ({
-      // La lección local no tiene flujo editorial todavía. Mostrar sus
-      // frases como borradores evita hacerlas pasar por contenido aprobado.
-      word: {
-        ...word,
-        senses: word.senses.map((sense) => ({
-          ...sense,
-          sentences: sense.sentences.map((sentence) => ({
-            ...sentence,
-            status: sentence.status ?? "unreviewed",
-          })),
-        })),
-      },
-      senseIndex: 0,
-      characters: [...word.hanzi].map((char) => ({
-        char,
-        info: characters[char] ?? null,
-        strokes: readStrokes(char),
-      })),
-    })),
-    componentMeanings: componentMeanings(),
-  };
+export async function getDemoLesson(): Promise<Lesson | null> {
+  "use cache";
+  cacheLife("hours");
+  const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const { data, error } = await db.rpc("public_demo_lesson");
+  if (error) throw error;
+  return data ? demoLessonFrom(data as DemoPayload) : null;
 }

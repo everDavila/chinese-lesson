@@ -1,6 +1,6 @@
 // Tipos del contenido de una lección tal como lo consume la interfaz.
-// Coinciden con contenido/leccion-demo.json y data/characters.json; cuando
-// el contenido venga de Supabase, el cargador devolverá estos mismos tipos.
+// Los arma src/lib/lessons.ts desde Supabase, igual para las clases y para
+// la demo pública (la lección de ejemplo).
 
 export type Bilingual = { es: string; en: string };
 

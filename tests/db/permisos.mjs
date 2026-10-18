@@ -318,3 +318,42 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   if (r.rows.length === 0) console.log("✓ NO archiva la colección de otra docente (0 filas)");
   else { console.log("✗ archivó una colección ajena"); process.exitCode = 1; }
 }
+
+// ── Lección de ejemplo (2026-10-18) ─────────────────────────────────────
+{
+  // La original: suelta del admin, marcada como demo pública, con la palabra de prueba
+  // y una nota que cita otra palabra (龘龘) y un carácter suelto.
+  await db.exec(`
+    insert into words (id, hanzi, hsk_level) values ('00000000-0000-0000-0000-00000000aaa2','龘龘',1);
+    insert into senses (id, word_id, position, pinyin, meaning_es) values ('00000000-0000-0000-0000-00000000bbb2','00000000-0000-0000-0000-00000000aaa2',1,'dádá','prueba');
+    update senses set nuance_es = 'Más corto: 龘龘一下。' where id = '00000000-0000-0000-0000-00000000bbbb';
+    insert into lessons (id, teacher_id, title, public_demo) values ('00000000-0000-0000-0000-0000000000e1','${A}','Lección de ejemplo',true);
+    insert into lesson_items (lesson_id, sense_id, position) values ('00000000-0000-0000-0000-0000000000e1','00000000-0000-0000-0000-00000000bbbb',1);
+  `);
+  await expectFail("NO puede haber dos lecciones de demo", A, `insert into lessons (teacher_id, title, public_demo) values ('${A}','Otra',true)`);
+  const dada = (await db.query(`select give_example_lesson('${T1}') as id`)).rows[0].id;
+  if (dada) console.log("✓ la docente recibe su copia de la lección de ejemplo");
+  else { console.log("✗ no recibió la copia"); process.exitCode = 1; }
+  await expectOk("la copia es suya, suelta y con sus palabras", T1,
+    `select l.title, l.collection_id, count(i.*)::int as items from lessons l join lesson_items i on i.lesson_id = l.id where l.id = '${dada}' group by l.title, l.collection_id`);
+  await expectOk("puede borrarla", T1, `delete from lessons where id = '${dada}' returning id`);
+  const otra = (await db.query(`select give_example_lesson('${T1}') as id`)).rows[0].id;
+  if (otra === null) console.log("✓ borrada, no se le vuelve a dar");
+  else { console.log("✗ se le dio otra copia"); process.exitCode = 1; }
+  if ((await db.query(`select give_example_lesson('${A}') as id`)).rows[0].id === null) console.log("✓ el admin no recibe copia");
+  else { console.log("✗ el admin recibió copia"); process.exitCode = 1; }
+  const T3 = "00000000-0000-0000-0000-0000000000b3";
+  await db.exec(`insert into auth.users (id, email) values ('${T3}','t3@x')`);
+  const nuevas = (await as(T3, `select count(*)::int n from lessons where teacher_id = '${T3}'`)).rows[0].n;
+  if (nuevas === 1) console.log("✓ una docente nueva la recibe al crearse");
+  else { console.log("✗ la docente nueva tiene", nuevas, "lecciones"); process.exitCode = 1; }
+  await expectFail("otra docente NO ve la original", T2, `select id from lessons where public_demo`);
+
+  const demo = (await asAnon(`select public_demo_lesson() as d`)).rows[0].d;
+  const citas = (demo?.note_words ?? []).map((w) => w.hanzi);
+  if (demo?.title === "Lección de ejemplo" && demo.items.length === 1 && demo.items[0].word.hanzi === "测试词" && citas.includes("龘龘"))
+    console.log(`✓ anon lee la demo pública (1 palabra; la nota cita → ${citas.join(", ")})`);
+  else { console.log("✗ demo pública", JSON.stringify(demo)); process.exitCode = 1; }
+  try { await asAnon(`select hanzi from words`); console.log("✗ anon leyó el catálogo"); process.exitCode = 1; }
+  catch { console.log("✓ anon sigue sin leer el catálogo directamente"); }
+}

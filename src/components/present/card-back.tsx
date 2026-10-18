@@ -7,6 +7,7 @@ import { StrokeArt } from "@/components/hanzi/stroke-art";
 import { Button } from "@/components/ui/button";
 import type { LessonItem, NoteTerm, Sentence } from "@/lib/lesson-types";
 import { categoryLabel, studentLabels, type ContentLanguage, type StudentLabels } from "@/lib/student-labels";
+import { segmentHan } from "@/lib/note-terms";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 
@@ -39,9 +40,8 @@ function NoteTermHelp({ term, lang, labels }: { term: NoteTerm; lang: ContentLan
                 </Popover.Close>
               </div>
             </div>
-            <Popover.Description className="mt-2 text-sm">
-              {term.meaning[lang]}
-            </Popover.Description>
+            {/* Un carácter citado que no es palabra del catálogo solo trae su pinyin. */}
+            {term.meaning[lang] && <Popover.Description className="mt-2 text-sm">{term.meaning[lang]}</Popover.Description>}
           </Popover.Popup>
         </Popover.Positioner>
       </Popover.Portal>
@@ -67,11 +67,16 @@ function Highlighted({
   if (noteTerms && lang && labels) {
     return (
       <>
-        {text.split(/(\p{Script=Han}+)/gu).map((part, i) => {
-          if (part === keyword) return <span key={i} className={cn("whitespace-nowrap", small ? "text-keyword-text" : "text-keyword")}>{part}</span>;
-          const term = noteTerms[part];
-          return term ? <NoteTermHelp key={i} term={term} lang={lang} labels={labels} /> : <span key={i}>{part}</span>;
-        })}
+        {text.split(/(\p{Script=Han}+)/gu).map((part, i) =>
+          // Una cita larga (一边吃饭一边聊天) se parte en sus palabras; cada una abre su ayuda.
+          segmentHan(part, (piece) => piece === keyword || piece in noteTerms).map((piece, j) => {
+            const key = `${i}-${j}`;
+            if (piece.text === keyword)
+              return <span key={key} className={cn("whitespace-nowrap", small ? "text-keyword-text" : "text-keyword")}>{piece.text}</span>;
+            const term = piece.term ? noteTerms[piece.text] : undefined;
+            return term ? <NoteTermHelp key={key} term={term} lang={lang} labels={labels} /> : <span key={key}>{piece.text}</span>;
+          }),
+        )}
       </>
     );
   }
