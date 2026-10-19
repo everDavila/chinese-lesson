@@ -30,7 +30,9 @@ revisión en desarrollo). Sigue la 4.
    en ~37 s desde un servidor local.
    Además: «Quitar» colecciones y lecciones (archivar o borrar definitivamente),
    con la página «Archivadas» para restaurar.
-4. **Durante la presentación, "Guardar como lección"**, sin obligar a asignar
+4. *(en parte, en producción 2026-10-19: «Guardar lección» desde la selección
+   del catálogo; falta guardar una lección rápida durante la presentación)*
+   **Durante la presentación, "Guardar como lección"**, sin obligar a asignar
    colección.
 5. **Reorganizar "Mis lecciones" y "Mis colecciones"**, separando la biblioteca
    oficial de lo que crea o copia la docente.

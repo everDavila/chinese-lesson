@@ -16,6 +16,13 @@
   guía y valida el código de acceso del alumno); admin en
   `/admin` (base común, editor de palabra, vista previa, plantillas, bandeja de
   sugerencias). Cuentas: Ever (`admin`) y la profesora (`teacher`).
+- **En producción desde el 2026-10-19** (respaldo `backups/supabase-2026-10-19T0555.json`, migración
+  `20261018000000` antes del push): Lección de ejemplo en la base (demo pública
+  de `/present` y la portada; copia suelta para cada docente, una vez), citas de
+  matices y notas partidas en palabras con ayuda, estilo tinta china opcional en
+  el anverso, portada pública para profesoras (solo en español), «Guardar
+  lección» desde la selección del catálogo, modo claro por defecto con botón de
+  tema en toda la web, `/creditos` y «Pedir acceso» (correo) en el login.
 - **En producción desde el 2026-10-17** (rama `integrar-inicio`, autorizada por
   Ever; respaldo `backups/supabase-2026-10-17T2337.json`; migraciones
   `20261017000000`–`20261017030000` aplicadas antes del push): inicio docente
