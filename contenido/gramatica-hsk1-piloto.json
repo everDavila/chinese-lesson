@@ -1,0 +1,311 @@
+{
+  "metadata": {
+    "purpose": "Piloto de /lab/gramatica: armar frases a partir de un punto de gramática. No entra en Supabase.",
+    "level": 1,
+    "standard": "hsk-3.0",
+    "points": {
+      "source": "gushi",
+      "title": "HSK 1 grammar syllabus (Spanish)",
+      "url": "https://gushichinese.com/es/hsk-3.0/downloads/hsk-3.0-grammar-1.json",
+      "page": "https://gushichinese.com/es/hsk-3.0/gramatica/1",
+      "basedOn": "Temario oficial HSK 3.0 (考试大纲), noviembre de 2025",
+      "updated": "2026-10-17",
+      "retrievedAt": "2026-10-18",
+      "license": "CC BY-SA 4.0",
+      "attribution": "HSK 1 grammar syllabus by Gushi (https://gushichinese.com/es/hsk-3.0/gramatica/1), CC BY-SA 4.0",
+      "note": "point, pattern, explanation y example se copian sin cambios."
+    },
+    "prompts": {
+      "origin": "ai",
+      "status": "unreviewed",
+      "note": "Consignas, respuestas aceptadas y errores típicos redactados por Claude Code; vocabulario limitado a HSK 3.0 nivel 1. Falta revisión humana."
+    },
+    "fields": {
+      "uses": "Piezas que la frase debe contener, en ese orden. Una lista dentro de la lista significa «cualquiera de estas».",
+      "avoid": "Texto que delata un error típico de este punto, con la explicación que se muestra."
+    }
+  },
+  "points": [
+    {
+      "id": "xiang-yao",
+      "point": "能愿动词“想、要”",
+      "title": "想 / 要 + verbo: querer hacer algo",
+      "pattern": "",
+      "explanation": "Los verbos modales 想 y 要 antes de un verbo expresan querer o tener la intención de hacer algo.",
+      "example": { "zh": "我想喝茶。", "es": "Quiero beber té." },
+      "prompts": [
+        {
+          "es": "Quiero ir a China.",
+          "hint": "Usa 想",
+          "answers": ["我想去中国。"],
+          "uses": ["想", "去中国"]
+        },
+        {
+          "es": "Quiero comer arroz.",
+          "hint": "Usa 想",
+          "answers": ["我想吃米饭。"],
+          "uses": ["想", "吃米饭"]
+        }
+      ]
+    },
+    {
+      "id": "hen-adjetivo",
+      "point": "程度副词“很、太、非常、真、有点儿”",
+      "title": "很 + adjetivo: el adjetivo no lleva 是",
+      "pattern": "",
+      "explanation": "Los adverbios de grado van antes de los adjetivos; un predicado adjetivo a secas suele llevar 很.",
+      "example": { "zh": "我今天很忙。", "es": "Hoy estoy muy ocupado." },
+      "prompts": [
+        {
+          "es": "Mi maestra es muy buena.",
+          "hint": "Usa 很",
+          "answers": ["我的老师很好。", "我老师很好。"],
+          "uses": ["老师", "很好"],
+          "avoid": [{ "text": "是很", "why": "Con un adjetivo no se usa 是: 很 hace de enlace (我很忙, no 我是很忙)." }]
+        },
+        {
+          "es": "Esta manzana es muy grande.",
+          "hint": "Usa 很",
+          "answers": ["这个苹果很大。"],
+          "uses": ["苹果", "很大"],
+          "avoid": [{ "text": "是很", "why": "Con un adjetivo no se usa 是: 很 hace de enlace." }]
+        }
+      ]
+    },
+    {
+      "id": "dou",
+      "point": "范围副词“都”",
+      "title": "都: todos, los dos",
+      "pattern": "",
+      "explanation": "El adverbio 都 antes del verbo significa \"todos / ambos\" y abarca todo lo mencionado antes.",
+      "example": { "zh": "我们都是学生。", "es": "Todos somos estudiantes." },
+      "prompts": [
+        {
+          "es": "Todos somos amigos.",
+          "hint": "Usa 都",
+          "answers": ["我们都是朋友。"],
+          "uses": ["我们", "都", "是朋友"],
+          "avoid": [{ "text": "都我们", "why": "都 va después de lo que abarca y antes del verbo: 我们都是…" }]
+        },
+        {
+          "es": "Mi papá y mi mamá son maestros (los dos).",
+          "hint": "Usa 都",
+          "answers": ["我爸爸妈妈都是老师。", "我爸爸和妈妈都是老师。", "我爸爸和我妈妈都是老师。", "爸爸妈妈都是老师。"],
+          "uses": ["爸爸", "妈妈", "都", "是老师"]
+        }
+      ]
+    },
+    {
+      "id": "zai-lugar",
+      "point": "介词“在”（引出时间、处所）",
+      "title": "在 + lugar + verbo",
+      "pattern": "在＋处所＋动词",
+      "explanation": "La preposición 在 introduce el lugar o el momento de una acción, antes del verbo.",
+      "example": { "zh": "我在学校学习。", "es": "Estudio en la escuela." },
+      "prompts": [
+        {
+          "es": "Estudio chino en casa.",
+          "hint": "Usa 在: el lugar va antes del verbo",
+          "answers": ["我在家学习中文。", "我在家学中文。", "我在家学习汉语。", "我在家学汉语。"],
+          "uses": ["在家", "学"]
+        },
+        {
+          "es": "Mi papá trabaja en el hospital.",
+          "hint": "Usa 在: el lugar va antes del verbo",
+          "answers": ["我爸爸在医院工作。"],
+          "uses": ["爸爸", "在医院", "工作"]
+        }
+      ]
+    },
+    {
+      "id": "mei",
+      "point": "否定副词“没（有）”",
+      "title": "没 (有): lo que no pasó",
+      "pattern": "",
+      "explanation": "没(有) niega la posesión y las acciones completadas: \"no tener / no hizo\".",
+      "example": { "zh": "我没有钱。", "es": "No tengo dinero." },
+      "prompts": [
+        {
+          "es": "Ayer no fui a la escuela.",
+          "hint": "Usa 没",
+          "answers": ["我昨天没去学校。", "昨天我没去学校。", "我昨天没有去学校。", "昨天我没有去学校。"],
+          "uses": ["昨天", "没", "去学校"],
+          "avoid": [
+            { "text": "了", "why": "Con 没 la acción no ocurrió: la frase no lleva 了." },
+            { "text": "不去", "why": "不 niega lo habitual o lo que no quieres hacer; para lo que no pasó se usa 没." }
+          ]
+        },
+        {
+          "es": "Mi amigo no vino.",
+          "hint": "Usa 没",
+          "answers": ["我朋友没来。", "我的朋友没来。", "我朋友没有来。", "我的朋友没有来。"],
+          "uses": ["朋友", "没", "来"],
+          "avoid": [{ "text": "了", "why": "Con 没 la acción no ocurrió: la frase no lleva 了." }]
+        }
+      ]
+    },
+    {
+      "id": "le-completado",
+      "point": "动态助词“了”",
+      "title": "verbo + 了: acción completada",
+      "pattern": "动词＋了（＋宾语）",
+      "explanation": "La partícula de aspecto 了 justo tras el verbo marca una acción completada.",
+      "example": { "zh": "我买了三本书。", "es": "Compré tres libros." },
+      "prompts": [
+        {
+          "es": "Compré dos tazas.",
+          "hint": "Usa 了 después del verbo",
+          "answers": ["我买了两个杯子。"],
+          "uses": ["买了", "两", "杯子"],
+          "avoid": [{ "text": "二个", "why": "Delante de una palabra de medida se dice 两, no 二." }]
+        },
+        {
+          "es": "Ayer vi una película.",
+          "hint": "Usa 了 después del verbo",
+          "answers": ["我昨天看了一个电影。", "昨天我看了一个电影。", "我昨天看了电影。", "昨天我看了电影。"],
+          "uses": ["昨天", "看了", "电影"]
+        }
+      ]
+    },
+    {
+      "id": "ma",
+      "point": "语气助词“吗”",
+      "title": "… 吗？: pregunta de sí o no",
+      "pattern": "……＋吗？",
+      "explanation": "El 吗 final de oración convierte una afirmación en una pregunta de sí o no.",
+      "example": { "zh": "你是学生吗？", "es": "¿Eres estudiante?" },
+      "prompts": [
+        {
+          "es": "¿Usted es maestra?",
+          "hint": "Usa 吗 y la forma cortés de «tú»",
+          "answers": ["您是老师吗？"],
+          "uses": ["您", "是老师", "吗"],
+          "avoid": [{ "text": "是不是", "why": "是不是 ya hace la pregunta; con 吗 se usa solo 是." }]
+        },
+        {
+          "es": "¿Te gusta tomar té?",
+          "hint": "Usa 吗",
+          "answers": ["你喜欢喝茶吗？"],
+          "uses": ["喜欢", "喝茶", "吗"]
+        }
+      ]
+    },
+    {
+      "id": "v-bu-v",
+      "point": "正反问句",
+      "title": "verbo + 不 + verbo: ¿sí o no?",
+      "pattern": "动词＋不＋动词",
+      "explanation": "Una pregunta de sí o no formada yuxtaponiendo las formas positiva y negativa del verbo o adjetivo.",
+      "example": { "zh": "你去不去？", "es": "¿Vas o no vas?" },
+      "prompts": [
+        {
+          "es": "¿Mañana vas a la escuela o no?",
+          "hint": "Pregunta con 去不去",
+          "answers": ["你明天去不去学校？", "明天你去不去学校？"],
+          "uses": ["明天", "去不去", "学校"],
+          "avoid": [{ "text": "吗", "why": "去不去 ya es una pregunta: no se le suma 吗." }]
+        },
+        {
+          "es": "¿Tienes tiempo o no?",
+          "hint": "Pregunta con 有 + negación + 有",
+          "answers": ["你有没有时间？"],
+          "uses": ["有没有", "时间"],
+          "avoid": [
+            { "text": "有不有", "why": "La negación de 有 es 没有, así que se dice 有没有." },
+            { "text": "吗", "why": "有没有 ya es una pregunta: no se le suma 吗." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ba-sugerencia",
+      "point": "语气助词“吧”",
+      "title": "… 吧: sugerencia o suposición",
+      "pattern": "",
+      "explanation": "El 吧 final de oración hace una sugerencia o marca una suposición que el hablante espera acertada.",
+      "example": { "zh": "我们回家吧。", "es": "Vayamos a casa." },
+      "prompts": [
+        {
+          "es": "Vamos a comer.",
+          "hint": "Propón con 吧",
+          "answers": ["我们去吃饭吧。", "我们吃饭吧。"],
+          "uses": ["我们", "吃饭", "吧"]
+        },
+        {
+          "es": "Eres estudiante, ¿no?",
+          "hint": "Supón con 吧",
+          "answers": ["你是学生吧？"],
+          "uses": ["是学生", "吧"],
+          "avoid": [{ "text": "吗", "why": "Con 吗 preguntas sin suponer nada; 吧 dice «supongo que sí»." }]
+        }
+      ]
+    },
+    {
+      "id": "liangci",
+      "point": "名量词（本、个、家、口、块、件、只、元；杯）",
+      "title": "número + palabra de medida + sustantivo",
+      "pattern": "",
+      "explanation": "Una palabra de medida debe ir entre un número o un demostrativo y su sustantivo; 个 es la más general.",
+      "example": { "zh": "我买了三个苹果。", "es": "Compré tres manzanas." },
+      "prompts": [
+        {
+          "es": "Tengo tres libros.",
+          "hint": "Libros se cuentan con 本",
+          "answers": ["我有三本书。"],
+          "uses": ["有", "三本书"],
+          "avoid": [{ "text": "三书", "why": "Entre el número y el sustantivo va la palabra de medida: 三本书." }]
+        },
+        {
+          "es": "Quiero un vaso de agua.",
+          "hint": "Usa 杯",
+          "answers": ["我要一杯水。", "我想要一杯水。", "我想喝一杯水。", "我要喝一杯水。"],
+          "uses": ["一杯水"]
+        }
+      ]
+    },
+    {
+      "id": "liandong",
+      "point": "连动句1",
+      "title": "去 / 来 + lugar + verbo: ir a hacer algo",
+      "pattern": "主语＋动词1（＋宾语）＋动词2（＋宾语）",
+      "explanation": "Dos verbos en sucesión comparten un sujeto; el primero es a menudo 去/来 indicando propósito o medio.",
+      "example": { "zh": "我去商店买苹果。", "es": "Voy a la tienda a comprar manzanas." },
+      "prompts": [
+        {
+          "es": "Voy al restaurante a comer.",
+          "hint": "Primero 去 + lugar, después lo que vas a hacer",
+          "answers": ["我去饭店吃饭。"],
+          "uses": ["去饭店", "吃饭"]
+        },
+        {
+          "es": "Mi amigo viene a China a estudiar.",
+          "hint": "Primero 来 + lugar, después lo que viene a hacer",
+          "answers": ["我朋友来中国学习。", "我的朋友来中国学习。"],
+          "uses": ["朋友", "来中国", "学习"]
+        }
+      ]
+    },
+    {
+      "id": "qing-buyao",
+      "point": "祈使句（请／不要）",
+      "title": "请 / 不要: pedir y prohibir",
+      "pattern": "不要＋动词",
+      "explanation": "Los imperativos usan 请 para peticiones corteses y 不要 para decir a alguien que no haga algo.",
+      "example": { "zh": "不要说话。", "es": "No hables." },
+      "prompts": [
+        {
+          "es": "No mires el celular.",
+          "hint": "Usa 不要",
+          "answers": ["不要看手机。", "你不要看手机。"],
+          "uses": ["不要", "看手机"]
+        },
+        {
+          "es": "Por favor, siéntese.",
+          "hint": "Usa 请",
+          "answers": ["请坐。"],
+          "uses": ["请", "坐"]
+        }
+      ]
+    }
+  ]
+}
