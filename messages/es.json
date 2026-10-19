@@ -15,7 +15,7 @@
     "startClass": "Empezar clase",
     "teacherAccess": "Acceso docente",
     "presentDemo": "Presentar la lección",
-    "shortcuts": "Atajos en la presentación: ← → palabra · Espacio girar · P pausa · R repetir · Y pinyin · T traducciones · 1–4 valorar · F pantalla completa",
+    "shortcuts": "Atajos en la presentación: ← → palabra · Espacio girar · P pausa · R repetir · Y pinyin · T traducciones · 1–4 valorar · F pantalla completa · I tinta china",
     "demoIntro": "Cada palabra se enseña en contexto: primero el carácter y sus trazos; al girar la tarjeta, cómo se forma, frases reales y cuándo se usa. La profesora presenta, la clase lo comenta y valoran juntos cuánto se entendió."
   },
   "TeacherWorkspace": {
@@ -168,7 +168,8 @@
     "votingError": "No se pudo actualizar la votación. Revisa la conexión.",
     "flipHint": "Clic o Espacio para girar",
     "flip": "Girar la tarjeta (Espacio)",
-    "flipBack": "Volver al anverso (Espacio)"
+    "flipBack": "Volver al anverso (Espacio)",
+    "ink": "Tinta"
   },
   "Manage": {
     "nav": {

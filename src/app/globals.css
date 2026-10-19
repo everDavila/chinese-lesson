@@ -242,4 +242,8 @@
     animation: none;
     stroke-dashoffset: 0;
   }
+  /* Estilo tinta: sin la punta del pincel recorriendo el trazo. */
+  .brush-tip {
+    display: none;
+  }
 }

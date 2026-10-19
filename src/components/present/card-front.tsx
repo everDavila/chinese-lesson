@@ -11,9 +11,11 @@ type CardFrontProps = {
   speed: number;
   runId: number;
   showPinyin: boolean;
+  /** Estilo tinta china: solo aquí, en el carácter grande que se anima. */
+  ink: boolean;
 };
 
-export function CardFront({ item, playing, speed, runId, showPinyin }: CardFrontProps) {
+export function CardFront({ item, playing, speed, runId, showPinyin, ink }: CardFrontProps) {
   const sense = item.word.senses[item.senseIndex];
 
   // Los caracteres se animan uno tras otro: cada uno empieza donde acaba el anterior.
@@ -34,14 +36,15 @@ export function CardFront({ item, playing, speed, runId, showPinyin }: CardFront
         {item.characters.map((c, i) => (
           // La key lleva el índice: en palabras repetidas (爸爸) el carácter solo
           // duplicaría la key y React dejaría la casilla vieja pegada en el DOM.
-          <CalligraphyGrid key={`${i}-${c.char}-${runId}`} className={cn("bg-background/60", i > 0 && "-ml-px")}>
+          <CalligraphyGrid key={`${i}-${c.char}-${runId}-${ink}`} paper={ink} className={cn("bg-background/60", i > 0 && "-ml-px")}>
             <div style={{ width: size, height: size }} className="p-[6%]">
               {c.strokes ? (
                 <StrokeArt
                   strokes={c.strokes}
                   roles={c.info?.strokeRoles ?? []}
                   mode="animate"
-                  tone="subtle"
+                  tone={ink ? "ink" : "subtle"}
+                  ink={ink}
                   playing={playing}
                   speed={speed}
                   startDelay={starts[i]}

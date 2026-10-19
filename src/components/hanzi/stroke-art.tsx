@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useEffect, useId, useRef } from "react";
 import type { StrokeData, StrokeRole } from "@/lib/lesson-types";
 
 // Dibuja un carácter con los datos de hanzi-writer-data (sistema de
@@ -51,9 +51,31 @@ type StrokeArtProps = {
   speed?: number;
   startDelay?: number;
   tone?: StrokeTone;
+  /** Solo al animar: bordes de pincel, tinta corrida, zonas secas y la punta del pincel. */
+  ink?: boolean;
   className?: string;
   title?: string;
 };
+
+// Tinta china con filtros SVG (unidades de la cuadrícula de 1024): el borde se
+// deforma con ruido grueso, se corre con un desenfoque leve y un ruido fino
+// deja zonas más secas. La punta del pincel recorre la mediana del trazo con
+// la misma curva que la animación de la tinta (ease-in-out).
+const EASE_IN_OUT = "0.42 0 0.58 1";
+
+function InkFilter({ id }: { id: string }) {
+  return (
+    <filter id={id} x="-10%" y="-10%" width="120%" height="120%" colorInterpolationFilters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="2" result="edge" />
+      <feDisplacementMap in="SourceGraphic" in2="edge" scale="10" xChannelSelector="R" yChannelSelector="G" result="rough" />
+      <feGaussianBlur in="rough" stdDeviation="1.6" result="bleed" />
+      {/* Carga de tinta: manchas amplias algo más claras, casi todo sólido. */}
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="9" result="load" />
+      <feColorMatrix in="load" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.65" result="loadAlpha" />
+      <feComposite in="bleed" in2="loadAlpha" operator="in" />
+    </filter>
+  );
+}
 
 export function StrokeArt({
   strokes,
@@ -63,11 +85,22 @@ export function StrokeArt({
   speed = 1,
   startDelay = 0,
   tone = "full",
+  ink = false,
   className,
   title,
 }: StrokeArtProps) {
   const id = useId();
+  const svgRef = useRef<SVGSVGElement>(null);
   const colorOf = (i: number) => ROLE_COLOR[tone][roles[i] ?? "other"];
+
+  // La punta del pincel es SMIL (animateMotion): se pausa con el SVG entero,
+  // igual que la animación CSS de la tinta.
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!ink || !svg) return;
+    if (playing) svg.unpauseAnimations();
+    else svg.pauseAnimations();
+  }, [ink, playing]);
 
   if (mode === "static") {
     return (
@@ -82,42 +115,64 @@ export function StrokeArt({
   }
 
   const { timings } = strokeTimings(strokes, speed, startDelay);
+  const medianPath = (points: [number, number][]) => `M ${points.map((p) => p.join(" ")).join(" L ")}`;
   return (
-    <svg viewBox="0 0 1024 1024" className={className} role="img" aria-label={title}>
+    <svg ref={svgRef} viewBox="0 0 1024 1024" className={className} role="img" aria-label={title}>
       <defs>
         {strokes.strokes.map((d, i) => (
           <clipPath key={i} id={`${id}-clip-${i}`}>
             <path d={d} />
           </clipPath>
         ))}
+        {ink && <InkFilter id={`${id}-ink`} />}
       </defs>
       <g transform="translate(0, 900) scale(1, -1)">
         {strokes.strokes.map((d, i) => (
           <path key={i} d={d} fill="var(--stroke-ghost)" />
         ))}
-        {strokes.medians.map((points, i) => {
-          const { length, delay, duration } = timings[i];
-          return (
-            <path
-              key={i}
-              className="stroke-draw"
-              d={`M ${points.map((p) => p.join(" ")).join(" L ")}`}
-              clipPath={`url(#${id}-clip-${i})`}
-              fill="none"
-              stroke={colorOf(i)}
-              strokeWidth={200}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeDasharray={length + 200}
-              strokeDashoffset={length + 200}
-              style={{
-                animationDuration: `${duration}s`,
-                animationDelay: `${delay}s`,
-                animationPlayState: playing ? "running" : "paused",
-              }}
-            />
-          );
-        })}
+        <g filter={ink ? `url(#${id}-ink)` : undefined}>
+          {strokes.medians.map((points, i) => {
+            const { length, delay, duration } = timings[i];
+            return (
+              <path
+                key={i}
+                className="stroke-draw"
+                d={medianPath(points)}
+                clipPath={`url(#${id}-clip-${i})`}
+                fill="none"
+                stroke={colorOf(i)}
+                strokeWidth={200}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeDasharray={length + 200}
+                strokeDashoffset={length + 200}
+                style={{
+                  animationDuration: `${duration}s`,
+                  animationDelay: `${delay}s`,
+                  animationPlayState: playing ? "running" : "paused",
+                }}
+              />
+            );
+          })}
+        </g>
+        {ink &&
+          strokes.medians.map((points, i) => {
+            const { delay, duration } = timings[i];
+            return (
+              <circle key={i} className="brush-tip" r={30} fill="var(--keyword)" opacity={0}>
+                <animateMotion
+                  path={medianPath(points)}
+                  begin={`${delay}s`}
+                  dur={`${duration}s`}
+                  calcMode="spline"
+                  keyPoints="0;1"
+                  keyTimes="0;1"
+                  keySplines={EASE_IN_OUT}
+                />
+                <set attributeName="opacity" to="1" begin={`${delay}s`} dur={`${duration}s`} />
+              </circle>
+            );
+          })}
       </g>
     </svg>
   );

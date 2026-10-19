@@ -4,6 +4,7 @@ import { startTransition, useCallback, useEffect, useRef, useState, useSyncExter
 import {
   ArrowLeft,
   ArrowRight,
+  Brush,
   Expand,
   Languages,
   Moon,
@@ -23,6 +24,7 @@ import { CardBack } from "./card-back";
 import { CardFront } from "./card-front";
 import { GroupRating, type Rating } from "./group-rating";
 import { StudentVoting, VotingBar } from "./student-voting";
+import { inkStyleStore } from "./ink-style-store";
 import { ratingsStore } from "./ratings-store";
 import { endSessionAction, rateSenseAction } from "@/actions/class";
 import { closeVotingAction, openVotingAction, votingLiveAction } from "@/actions/vote";
@@ -59,6 +61,7 @@ export function Presentation({
   const [runId, setRunId] = useState(0);
   const [showPinyin, setShowPinyin] = useState(false);
   const [showTranslations, setShowTranslations] = useState(false);
+  const ink = useSyncExternalStore(inkStyleStore.subscribe, inkStyleStore.getSnapshot, inkStyleStore.getServerSnapshot);
   const { resolvedTheme, setTheme } = useTheme();
 
   const item = lesson.items[index];
@@ -182,6 +185,10 @@ export function Presentation({
         case "F":
           toggleFullscreen();
           break;
+        case "i":
+        case "I":
+          inkStyleStore.toggle();
+          break;
         case "v":
         case "V":
           toggleVoting();
@@ -238,6 +245,7 @@ export function Presentation({
                 speed={speed}
                 runId={runId}
                 showPinyin={showPinyin}
+                ink={ink}
               />
               <p className="pb-3 text-center text-sm text-muted-foreground">{t("flipHint")}</p>
             </section>
@@ -309,6 +317,11 @@ export function Presentation({
           <Button variant={showPinyin ? "secondary" : "ghost"} onClick={() => setShowPinyin((v) => !v)} aria-pressed={showPinyin} aria-label={`${t("pinyin")} (Y)`}>
             <Type /> {t("pinyin")}
           </Button>
+          {side === "front" && (
+            <Button variant={ink ? "secondary" : "ghost"} onClick={inkStyleStore.toggle} aria-pressed={ink} aria-label={`${t("ink")} (I)`}>
+              <Brush /> {t("ink")}
+            </Button>
+          )}
           {side === "back" && (
             <Button variant={showTranslations ? "secondary" : "ghost"} onClick={() => setShowTranslations((v) => !v)} aria-pressed={showTranslations} aria-label={`${t("translations")} (T)`}>
               <Languages /> {t("translations")}
