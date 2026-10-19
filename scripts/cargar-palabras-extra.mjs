@@ -35,7 +35,8 @@ const charRows = chars
     const row = local[c];
     if (row)
       return { char: c, pinyin: row.pinyin, radical: row.radical, decomposition: row.decomposition, components: row.components, etymology: row.etymology, stroke_roles: row.strokeRoles };
-    if (MANUAL[c]) return { char: c, pinyin: MANUAL[c].pinyin };
+    // Mismas columnas que las demás filas: en un lote, una columna ausente llega como null.
+    if (MANUAL[c]) return { char: c, pinyin: MANUAL[c].pinyin, radical: null, decomposition: null, components: [], etymology: null, stroke_roles: [] };
     return null;
   });
 const sinDatos = chars.filter((c, i) => !have.has(c) && !charRows[chars.filter((x) => !have.has(x)).indexOf(c)]);
