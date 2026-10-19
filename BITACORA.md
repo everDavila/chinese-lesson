@@ -737,3 +737,22 @@ un celular real ni con teclado pinyin, ni en una clase. La revisión no corrige
 chino: compara cadenas, y un error que no esté declarado pasa como amarillo.
 Si el piloto sirve en clase: etiquetar frases por punto de gramática (tabla
 nueva + migración), y más adelante corrección con IA.
+
+## 2026-10-19 — El laboratorio, a la vista
+
+Ever pidió que lo que probamos se vea y que sirva para pedir ideas. Nace
+`/lab`: un índice con los experimentos **en prueba** (Escritura, Gramática) y
+los **implementados** (Tinta china, El alumno vota), en la cabecera de la
+portada, en el menú docente y en el pie. Cada página lleva su franja según el
+estado: amarilla «Piloto en prueba» o verde «Ya forma parte de Renshi», con
+enlace a dónde se usa. Lo implementado se queda en el laboratorio para contar
+cómo llegó: la votación tiene su línea de tiempo (campo de texto → sigue a la
+tarjeta → seis casillas → el panda → cursor que avanza → aviso de conexión) y
+el formulario real del panda para probarlo con un código inventado.
+
+Se unió la rama `lab-gramatica` de otra sesión, que traía la franja y la regla
+de los pilotos; la regla quedó completada en REGLAS-DESARROLLO.md (publicar,
+registrar en `src/lib/labs.ts`, quedarse al implementarse; sin ideas ni
+descartados). El índice termina con «Proponer una idea» (correo).
+
+**Sin probar:** Escritura y Gramática siguen solo en español.

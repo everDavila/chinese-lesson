@@ -5,7 +5,8 @@
     "signOut": "Sign out",
     "theme": "Toggle theme",
     "hskNote": "Based on the new HSK 3.0 standard (2025), which has 9 levels.",
-    "credits": "Credits"
+    "credits": "Credits",
+    "lab": "Lab"
   },
   "Home": {
     "demoBadge": "Renshi · demo",
@@ -31,7 +32,8 @@
     "search": "Search collections or lessons...",
     "createLesson": "Create lesson",
     "createCollection": "Create collection",
-    "navLabel": "Preparation workspace"
+    "navLabel": "Preparation workspace",
+    "lab": "Lab"
   },
   "TeacherHome": {
     "eyebrow": "Your preparation workspace",
@@ -395,7 +397,8 @@
     "voteSaved": "Vote saved.",
     "mottoTranslation": "Knowing a word is good. In a sentence, better.",
     "idea": "Have an idea for Renshi? Write to us",
-    "stats": "10,896 HSK 3.0 words · ~2,700 example sentences"
+    "stats": "10,896 HSK 3.0 words · ~2,700 example sentences",
+    "lab": "Lab"
   },
   "Contact": {
     "accessSubject": "I'd like access to Renshi",
@@ -416,5 +419,56 @@
     "strokes": "Strokes and stroke order",
     "strokesWho": "hanzi-writer-data (based on the Arphic fonts)",
     "lgpl": "LGPL v3 or later"
+  },
+  "Lab": {
+    "title": "Lab",
+    "intro": "This is where we try ideas before they reach Renshi. Some are still being tested; others are already part of the app and stay here to tell how they got there.",
+    "banner": "Lab",
+    "bannerTesting": "Pilot being tested, not the final version",
+    "bannerImplemented": "Already part of Renshi",
+    "bannerIndex": "Renshi experiments",
+    "seeInRenshi": "See it in Renshi",
+    "testing": "Being tested",
+    "implemented": "Implemented",
+    "testingTag": "Testing",
+    "implementedTag": "Implemented",
+    "open": "Open",
+    "ideasTitle": "What would you like us to try?",
+    "ideasText": "If you teach or learn Chinese and have an idea that would help in class, tell us. The best ideas start here.",
+    "ideasButton": "Suggest an idea",
+    "unavailable": "The demo isn't available right now.",
+    "inkStyle": "Chinese ink",
+    "plainStyle": "Plain (default)",
+    "replay": "Replay the strokes",
+    "tryPanda": "Try it",
+    "tryPandaHint": "Type a made-up six-letter code: the panda follows the active box and reacts if the class doesn't exist.",
+    "votingSteps": {
+      "2026-10-11": "Anonymous voting: students join with a code in a text field, no account needed.",
+      "2026-10-12a": "Voting follows the card the teacher is showing, and the code stays visible to the class.",
+      "2026-10-12b": "The code becomes six boxes: a missing letter is obvious right away.",
+      "2026-10-12c": "The panda arrives: it watches the active box and reacts if the code doesn't exist.",
+      "2026-10-12d": "After fixing a letter, the cursor moves on by itself.",
+      "2026-10-16": "If the phone loses its connection, it says so."
+    },
+    "items": {
+      "escritura": {
+        "title": "Writing",
+        "summary": "Students trace the character with a finger: tracing or from memory, with three tolerance levels."
+      },
+      "gramatica": {
+        "title": "Grammar",
+        "summary": "Build sentences with 12 HSK 1 grammar points, with a mode to project in class."
+      },
+      "tinta": {
+        "title": "Chinese ink",
+        "summary": "The character is drawn with brush edges, bleeding ink and rice paper.",
+        "body": "In class, the “Ink” button (or the I key) switches the plain stroke to Chinese ink. Here are both, side by side."
+      },
+      "votacion": {
+        "title": "Students vote",
+        "summary": "Anonymous voting from the phone, with the panda that guides the code.",
+        "body": "It started as a text field and grew with every test class. This is how it became what students use today."
+      }
+    }
   }
 }

@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { BookOpen, ChevronDown, CircleUserRound, FilePlus2, FolderOpen, FolderPlus, Home, Library, LogOut, Plus, Search, Tags } from "lucide-react";
+import { BookOpen, ChevronDown, CircleUserRound, FilePlus2, FlaskConical, FolderOpen, FolderPlus, Home, Library, LogOut, Plus, Search, Tags } from "lucide-react";
 import { signOut } from "@/actions/auth";
 import type { ActionError, Result } from "@/actions/manage";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -89,6 +89,10 @@ export function ManageShell({
             <p className="mt-5 px-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">{tw("libraryLabel")}</p>
             <WorkspaceLink href="/library/hsk" label={tw("hsk")} icon={Library} active={pathname.startsWith("/library/hsk")} />
             <WorkspaceLink href="/library#topics" label={tw("topics")} icon={Tags} />
+            {/* Secundario: lo que probamos antes de que llegue a Renshi. */}
+            <div className="mt-5">
+              <WorkspaceLink href="/lab" label={tw("lab")} icon={FlaskConical} active={pathname.startsWith("/lab")} />
+            </div>
             {isAdmin && <Link href="/admin" className="mt-4 rounded-lg px-3 py-2.5 text-sm hover:bg-sidebar-accent">{t("nav.admin")}</Link>}
           </nav>
         </aside>
@@ -185,7 +189,7 @@ export function ManageShell({
   );
 }
 
-function WorkspaceLink({ href, label, icon: Icon, active = false }: { href: "/" | "/lessons" | "/collections" | "/library/hsk" | "/library#topics"; label: string; icon: typeof Home; active?: boolean }) {
+function WorkspaceLink({ href, label, icon: Icon, active = false }: { href: "/" | "/lessons" | "/collections" | "/library/hsk" | "/library#topics" | "/lab"; label: string; icon: typeof Home; active?: boolean }) {
   return (
     <Link href={href} className={cn("flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-sidebar-accent", active && "bg-sidebar-accent text-primary")}>
       <Icon className="size-5" aria-hidden /> {label}

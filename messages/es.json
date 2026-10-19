@@ -5,7 +5,8 @@
     "signOut": "Salir",
     "theme": "Cambiar tema",
     "hskNote": "Basado en el nuevo HSK 3.0 (2025), que contempla 9 niveles.",
-    "credits": "Créditos"
+    "credits": "Créditos",
+    "lab": "Laboratorio"
   },
   "Home": {
     "demoBadge": "Renshi · demo",
@@ -31,7 +32,8 @@
     "search": "Buscar colecciones o lecciones...",
     "createLesson": "Crear lección",
     "createCollection": "Crear colección",
-    "navLabel": "Espacio de preparación"
+    "navLabel": "Espacio de preparación",
+    "lab": "Laboratorio"
   },
   "TeacherHome": {
     "eyebrow": "Tu espacio de preparación",
@@ -395,7 +397,8 @@
     "voteSaved": "Voto registrado.",
     "mottoTranslation": "Conocer una palabra está bien. En una frase, mejor.",
     "idea": "¿Tienes una idea para Renshi? Escríbenos",
-    "stats": "10 896 palabras HSK 3.0 · ~2700 frases de ejemplo"
+    "stats": "10 896 palabras HSK 3.0 · ~2700 frases de ejemplo",
+    "lab": "Laboratorio"
   },
   "Contact": {
     "accessSubject": "Quiero acceso a Renshi",
@@ -416,5 +419,56 @@
     "strokes": "Trazos y su orden",
     "strokesWho": "hanzi-writer-data (a partir de las fuentes Arphic)",
     "lgpl": "LGPL v3 o posterior"
+  },
+  "Lab": {
+    "title": "Laboratorio",
+    "intro": "Aquí probamos ideas antes de que lleguen a Renshi. Algunas siguen en prueba; otras ya forman parte de la app y se quedan aquí para contar cómo llegaron.",
+    "banner": "Laboratorio",
+    "bannerTesting": "Piloto en prueba, no es la versión final",
+    "bannerImplemented": "Ya forma parte de Renshi",
+    "bannerIndex": "Experimentos de Renshi",
+    "seeInRenshi": "Verlo en Renshi",
+    "testing": "En prueba",
+    "implemented": "Implementados",
+    "testingTag": "En prueba",
+    "implementedTag": "Implementado",
+    "open": "Abrir",
+    "ideasTitle": "¿Qué te gustaría que probemos?",
+    "ideasText": "Si enseñas o aprendes chino y se te ocurre algo que ayudaría en clase, cuéntanos. Las mejores ideas empiezan aquí.",
+    "ideasButton": "Proponer una idea",
+    "unavailable": "La demostración no está disponible ahora mismo.",
+    "inkStyle": "Tinta china",
+    "plainStyle": "Liso (por defecto)",
+    "replay": "Repetir el trazo",
+    "tryPanda": "Pruébalo",
+    "tryPandaHint": "Escribe un código inventado de seis letras: el panda sigue la casilla activa y reacciona si la clase no existe.",
+    "votingSteps": {
+      "2026-10-11": "Votación anónima: el alumno entra con un código en un campo de texto, sin cuenta.",
+      "2026-10-12a": "La votación sigue a la tarjeta que muestra la profesora, y el código queda a la vista de la clase.",
+      "2026-10-12b": "El código pasa a seis casillas: se ve enseguida si falta una letra.",
+      "2026-10-12c": "Llega el panda: mira la casilla activa y reacciona si el código no existe.",
+      "2026-10-12d": "Al corregir una letra, el cursor avanza solo a la siguiente.",
+      "2026-10-16": "Si el celular pierde la conexión, lo avisa."
+    },
+    "items": {
+      "escritura": {
+        "title": "Escritura",
+        "summary": "El alumno traza el carácter con el dedo: calcando o de memoria, con tres niveles de tolerancia."
+      },
+      "gramatica": {
+        "title": "Gramática",
+        "summary": "Armar frases con 12 puntos de gramática de HSK 1, con un modo para proyectar en clase."
+      },
+      "tinta": {
+        "title": "Tinta china",
+        "summary": "El carácter se dibuja con bordes de pincel, tinta corrida y papel de arroz.",
+        "body": "En la clase, el botón «Tinta» (o la tecla I) cambia el trazo liso por tinta china. Aquí están los dos, lado a lado."
+      },
+      "votacion": {
+        "title": "El alumno vota",
+        "summary": "Votación anónima desde el celular, con el panda que guía el código.",
+        "body": "Empezó como un campo de texto y fue creciendo con cada clase de prueba. Así llegó a lo que usan hoy los alumnos."
+      }
+    }
   }
 }

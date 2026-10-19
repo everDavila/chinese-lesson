@@ -10,7 +10,6 @@ import { Highlighted } from "@/components/present/card-back";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "@/i18n/navigation";
-import { mailto } from "@/lib/contact";
 import type { Bilingual, LessonItem, NoteTerm, Sentence } from "@/lib/lesson-types";
 import { studentLabels, type ContentLanguage } from "@/lib/student-labels";
 import { speakChinese } from "@/lib/speech";
@@ -45,7 +44,6 @@ function Eyebrow({ n, children }: { n: string; children: React.ReactNode }) {
 
 export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerms?: Record<string, NoteTerm> }) {
   const t = useTranslations("Landing");
-  const tc = useTranslations("Contact");
   const lang = useContentLanguage();
   const labels = studentLabels(lang);
   const sense = item?.word.senses[item.senseIndex];
@@ -59,6 +57,7 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
         </Link>
         <nav className="flex items-center gap-1 text-sm sm:gap-2">
           <a href="#como-funciona" className="hidden rounded-md px-2 py-1 hover:bg-muted md:inline">{t("howItWorks")}</a>
+          <Link href="/lab" className="rounded-md px-2 py-1 whitespace-nowrap hover:bg-muted">{t("lab")}</Link>
           <Link href="/login" className="rounded-lg border border-border px-3 py-1.5 whitespace-nowrap hover:bg-muted">{t("login")}</Link>
           <ThemeToggle />
           <LanguageSwitcher />
@@ -165,7 +164,7 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
         <Link href="/present" className={cn(cta, "mt-6")}>
           <Play className="size-4 fill-current" /> {t("ctaDemo")}
         </Link>
-        <a href={mailto(tc("ideaSubject"), tc("ideaBody"))} className="text-sm text-keyword-text underline-offset-4 hover:underline">{t("idea")}</a>
+        <Link href="/lab#ideas" className="text-sm text-keyword-text underline-offset-4 hover:underline">{t("idea")}</Link>
         <p className="mt-6 text-xs text-muted-foreground">{t("stats")}</p>
       </section>
     </div>

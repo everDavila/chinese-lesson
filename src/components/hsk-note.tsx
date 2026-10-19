@@ -21,6 +21,10 @@ export function HskNote() {
       <Link href="/creditos" className="underline-offset-2 hover:underline">
         {t("credits")}
       </Link>
+      {" · "}
+      <Link href="/lab" className="underline-offset-2 hover:underline">
+        {t("lab")}
+      </Link>
     </footer>
   );
 }

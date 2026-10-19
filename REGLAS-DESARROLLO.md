@@ -41,6 +41,16 @@ que saber que un piloto no es Renshi terminado.
   no se quita ni se tapa.
 - Si un experimento tiene que vivir fuera de `/lab` (por ejemplo, dentro de
   una lección), muestra la misma franja de forma visible mientras sea piloto.
+- **Se publica** en cuanto funciona, aunque no esté terminado: el laboratorio
+  es para que otros lo vean y propongan ideas (regla de Ever, 2026-10-19).
+- **Se registra** en `src/lib/labs.ts` (slug, estado, fecha) con su título y
+  resumen en `messages/*.json` → `Lab.items`; así aparece en el índice `/lab`,
+  que está en la cabecera de la portada, en el menú docente y en el pie.
+- **Se queda** en el laboratorio aunque se implemente: cambia su estado a
+  `implemented`, la franja pasa a «Ya forma parte de Renshi» y enlaza a dónde se
+  usa (`usedIn`). Si tiene historia, se cuenta en su página (ver `/lab/votacion`).
+- Las ideas que no se programaron y los experimentos descartados no van al
+  laboratorio.
 
 ## Antes de desarrollar un componente nuevo
 

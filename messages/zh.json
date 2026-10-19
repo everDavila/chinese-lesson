@@ -5,7 +5,8 @@
     "signOut": "退出",
     "theme": "切换主题",
     "hskNote": "依据新版 HSK 3.0（2025），共九级。",
-    "credits": "致谢"
+    "credits": "致谢",
+    "lab": "实验室"
   },
   "Home": {
     "demoBadge": "认识 · 演示",
@@ -31,7 +32,8 @@
     "search": "搜索合集或课程...",
     "createLesson": "新建课程",
     "createCollection": "新建合集",
-    "navLabel": "备课空间"
+    "navLabel": "备课空间",
+    "lab": "实验室"
   },
   "TeacherHome": {
     "eyebrow": "你的备课空间",
@@ -395,7 +397,8 @@
     "voteSaved": "已投票。",
     "mottoTranslation": "",
     "idea": "对认识有什么建议？写信告诉我们",
-    "stats": "HSK 3.0 词汇 10 896 个 · 例句约 2700 句"
+    "stats": "HSK 3.0 词汇 10 896 个 · 例句约 2700 句",
+    "lab": "实验室"
   },
   "Contact": {
     "accessSubject": "申请使用认识",
@@ -416,5 +419,56 @@
     "strokes": "笔画与笔顺",
     "strokesWho": "hanzi-writer-data（基于文鼎字体）",
     "lgpl": "LGPL v3 或更新版本"
+  },
+  "Lab": {
+    "title": "实验室",
+    "intro": "新想法在进入认识之前，先在这里试验。有些还在测试中；有些已经成为应用的一部分，留在这里讲述它们是怎么来的。",
+    "banner": "实验室",
+    "bannerTesting": "试验中，不是最终版本",
+    "bannerImplemented": "已加入认识",
+    "bannerIndex": "认识的实验",
+    "seeInRenshi": "在认识中查看",
+    "testing": "测试中",
+    "implemented": "已实现",
+    "testingTag": "测试中",
+    "implementedTag": "已实现",
+    "open": "打开",
+    "ideasTitle": "你希望我们试试什么？",
+    "ideasText": "如果你在教或学中文，有对课堂有帮助的想法，请告诉我们。好点子都从这里开始。",
+    "ideasButton": "提个建议",
+    "unavailable": "演示暂时无法使用。",
+    "inkStyle": "水墨",
+    "plainStyle": "普通（默认）",
+    "replay": "重播笔顺",
+    "tryPanda": "试一试",
+    "tryPandaHint": "随便输入一个六位代码：熊猫会跟着当前格子，如果课堂不存在会有反应。",
+    "votingSteps": {
+      "2026-10-11": "匿名投票：学生用代码在文本框里加入，无需账号。",
+      "2026-10-12a": "投票跟着老师展示的卡片走，代码一直显示给全班。",
+      "2026-10-12b": "代码改成六个格子：少一个字母一眼就能看出。",
+      "2026-10-12c": "熊猫登场：它看着当前格子，代码不存在时会有反应。",
+      "2026-10-12d": "改正一个字母后，光标自动跳到下一个。",
+      "2026-10-16": "手机断网时会提示。"
+    },
+    "items": {
+      "escritura": {
+        "title": "书写",
+        "summary": "学生用手指写汉字：描红或默写，有三种容错程度。"
+      },
+      "gramatica": {
+        "title": "语法",
+        "summary": "用 HSK 1 的 12 个语法点组句，可在课堂上投屏。"
+      },
+      "tinta": {
+        "title": "水墨",
+        "summary": "汉字以毛笔笔锋、晕染的墨迹和宣纸呈现。",
+        "body": "上课时，点“水墨”按钮（或按 I 键）可把普通笔画换成水墨。这里把两种并排展示。"
+      },
+      "votacion": {
+        "title": "学生投票",
+        "summary": "用手机匿名投票，熊猫引导输入代码。",
+        "body": "它最初只是一个文本框，在每次试课中不断改进，才成为学生今天使用的样子。"
+      }
+    }
   }
 }
