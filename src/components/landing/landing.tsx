@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, BookOpen, Languages, Lightbulb, Mail, Play, RotateCcw, Type, Volume2 } from "lucide-react";
+import { ArrowRight, BookOpen, Languages, Lightbulb, Play, RotateCcw, Type, Volume2 } from "lucide-react";
 import { CalligraphyGrid } from "@/components/hanzi/calligraphy-grid";
 import { StrokeArt, strokeTimings } from "@/components/hanzi/stroke-art";
 import { Highlighted } from "@/components/present/card-back";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "@/i18n/navigation";
+import { IDEA_MAIL } from "@/lib/contact";
 import type { LessonItem, NoteTerm, Sentence } from "@/lib/lesson-types";
 import { studentLabels } from "@/lib/student-labels";
 import { speakChinese } from "@/lib/speech";
@@ -17,16 +18,8 @@ import { cn } from "@/lib/utils";
 // Ever, aligerada). Español primero: los textos se traducen cuando estén
 // validados. Usa la palabra 认识 de la Lección de ejemplo con los componentes
 // reales; sin demo (base caída) quedan los textos y los botones. Las fuentes
-// y licencias están en /creditos (enlace del pie).
-
-const CONTACT = "renshi@davila.uno";
-const mailto = (subject: string, body: string) =>
-  `mailto:${CONTACT}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-const ACCESS_MAIL = mailto(
-  "Quiero acceso a Renshi",
-  "Hola:\n\nEnseño chino y me gustaría probar Renshi.\n\n¿A quién enseño? (niveles, clases por videollamada o presenciales):\n\n¿Qué uso hoy para preparar el vocabulario?\n\nGracias.",
-);
-const IDEA_MAIL = mailto("Una idea para Renshi", "Hola:\n\nEnseño o aprendo chino y me gustaría que Renshi…\n");
+// y licencias están en /creditos (enlace del pie). Pedir acceso está en el
+// login: ahí llega quien quiere entrar y aún no tiene cuenta.
 
 // Botón principal de la portada: rojo de la marca en claro y en oscuro.
 const cta =
@@ -55,7 +48,6 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
         </Link>
         <nav className="flex items-center gap-1 text-sm sm:gap-3">
           <a href="#como-funciona" className="hidden rounded-md px-2 py-1 hover:bg-muted sm:inline">Cómo funciona</a>
-          <a href={ACCESS_MAIL} className="rounded-md px-2 py-1 hover:bg-muted">Pedir acceso</a>
           <Link href="/login" className="rounded-lg border border-border px-3 py-1.5 hover:bg-muted">Ingresar</Link>
           <ThemeToggle />
         </nav>
@@ -186,10 +178,9 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
             <dd className="order-first font-hanzi text-4xl font-semibold text-keyword-text">~2700</dd>
           </div>
         </dl>
-        <p className="mt-6 max-w-lg text-muted-foreground">¿Enseñas chino? El acceso es por invitación: escríbenos y te contamos.</p>
-        <a href={ACCESS_MAIL} className={cta}>
-          <Mail className="size-4" /> Pedir acceso
-        </a>
+        <Link href="/present" className={cn(cta, "mt-6")}>
+          <Play className="size-4 fill-current" /> Ver una clase de ejemplo
+        </Link>
         <a href={IDEA_MAIL} className="text-sm text-keyword-text underline-offset-4 hover:underline">¿Tienes una idea para Renshi? Escríbenos</a>
       </section>
     </div>

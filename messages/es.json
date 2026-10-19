@@ -149,7 +149,9 @@
     "submitting": "Entrando…",
     "missing": "Escribe tu correo y tu contraseña.",
     "invalid": "Correo o contraseña incorrectos.",
-    "demoLink": "Ver la lección de demo sin entrar"
+    "demoLink": "Ver la lección de demo sin entrar",
+    "noAccount": "¿Enseñas chino y aún no tienes cuenta? El acceso es por invitación.",
+    "requestAccess": "Pedir acceso"
   },
   "Controls": {
     "label": "Controles de la presentación",

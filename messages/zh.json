@@ -149,7 +149,9 @@
     "submitting": "正在登录…",
     "missing": "请输入邮箱和密码。",
     "invalid": "邮箱或密码不正确。",
-    "demoLink": "不登录，直接看演示课程"
+    "demoLink": "不登录，直接看演示课程",
+    "noAccount": "您教中文但还没有账号？目前仅限邀请使用。",
+    "requestAccess": "申请使用"
   },
   "Controls": {
     "label": "演示控制",

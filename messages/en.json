@@ -149,7 +149,9 @@
     "submitting": "Signing in…",
     "missing": "Enter your email and password.",
     "invalid": "Wrong email or password.",
-    "demoLink": "See the demo lesson without signing in"
+    "demoLink": "See the demo lesson without signing in",
+    "noAccount": "Do you teach Chinese and don't have an account yet? Access is by invitation.",
+    "requestAccess": "Request access"
   },
   "Controls": {
     "label": "Presentation controls",
