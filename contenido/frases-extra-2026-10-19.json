@@ -1,0 +1,35 @@
+{
+  "nota": "Frases para palabras del catálogo que no tenían ninguna (pedido de Ever, 2026-10-19). Simples, con ambientación peruana y latinoamericana; mandarín de Beijing. Generadas, sin revisar. Se cargan con scripts/agregar-frases.mjs: solo se agregan frases que no existan y notas en campos vacíos.",
+  "palabras": [
+    {
+      "hanzi": "岁数",
+      "nuance_es": "Se usa sobre todo para preguntar la edad de personas mayores, con respeto: 您多大岁数了？ A un niño se le pregunta 你几岁了？",
+      "nuance_en": "Used mainly to ask older people their age, respectfully: 您多大岁数了？ To a child you say 你几岁了？",
+      "sentences": [
+        { "zh": "你爷爷多大岁数了？", "pinyin": "Nǐ yéye duō dà suìshu le?", "es": "¿Qué edad tiene tu abuelo?", "en": "How old is your grandpa?" },
+        { "zh": "我奶奶岁数大了，住在利马。", "pinyin": "Wǒ nǎinai suìshu dà le, zhù zài Lìmǎ.", "es": "Mi abuela ya es mayor y vive en Lima.", "en": "My grandma is elderly and lives in Lima." }
+      ]
+    },
+    {
+      "hanzi": "孙子",
+      "nuance_es": "孙子 es el hijo del hijo; el hijo de la hija es 外孙. En el habla coloquial del norte también se usa como insulto, así que en clase va en contexto familiar.",
+      "nuance_en": "孙子 is a son's son; a daughter's son is 外孙. In colloquial northern speech it's also used as an insult, so in class keep it in a family context.",
+      "sentences": [
+        { "zh": "我的孙子今年五岁。", "pinyin": "Wǒ de sūnzi jīnnián wǔ suì.", "es": "Mi nieto tiene cinco años.", "en": "My grandson is five this year." },
+        { "zh": "周末奶奶和孙子一起去公园。", "pinyin": "Zhōumò nǎinai hé sūnzi yìqǐ qù gōngyuán.", "es": "El fin de semana la abuela y su nieto van juntos al parque.", "en": "At the weekend, grandma and her grandson go to the park together." }
+      ]
+    },
+    {
+      "hanzi": "摩托车",
+      "nuance_es": "Con motos y bicicletas el verbo es 骑 (ir montado); con autos, 开. El clasificador es 辆: 一辆摩托车.",
+      "nuance_en": "Motorbikes and bicycles take 骑 (to ride); cars take 开. The measure word is 辆: 一辆摩托车.",
+      "cultural_es": "摩托车 es un préstamo de «motor». En China, al taxi en moto se le dice coloquialmente 摩的 (mótuódī): lo más parecido al mototaxi peruano.",
+      "cultural_en": "摩托车 is a loanword from \"motor\". In China a motorbike taxi is colloquially called 摩的 (mótuódī): the closest thing to a Peruvian mototaxi.",
+      "sentences": [
+        { "zh": "我哥哥有一辆摩托车。", "pinyin": "Wǒ gēge yǒu yí liàng mótuōchē.", "es": "Mi hermano mayor tiene una moto.", "en": "My older brother has a motorbike." },
+        { "zh": "你会骑摩托车吗？", "pinyin": "Nǐ huì qí mótuōchē ma?", "es": "¿Sabes manejar moto?", "en": "Can you ride a motorbike?" },
+        { "zh": "在利马，很多人骑摩托车送外卖。", "pinyin": "Zài Lìmǎ, hěn duō rén qí mótuōchē sòng wàimài.", "es": "En Lima, mucha gente reparte comida a domicilio en moto.", "en": "In Lima, lots of people deliver food by motorbike." }
+      ]
+    }
+  ]
+}
