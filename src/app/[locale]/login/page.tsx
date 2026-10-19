@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { ACCESS_MAIL } from "@/lib/contact";
+import { mailto } from "@/lib/contact";
 import { Link } from "@/i18n/navigation";
 import { LoginForm } from "./login-form";
 
@@ -16,6 +16,7 @@ export default async function LoginPage({ params }: PageProps<"/[locale]/login">
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Login");
+  const tc = await getTranslations("Contact");
   return (
     <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-6 px-6 py-16">
       <header>
@@ -33,7 +34,7 @@ export default async function LoginPage({ params }: PageProps<"/[locale]/login">
       {/* Acceso por invitación: se pide por correo (sin registro abierto). */}
       <p className="rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground">
         {t("noAccount")}{" "}
-        <a href={ACCESS_MAIL} className="font-medium text-foreground underline underline-offset-4">
+        <a href={mailto(tc("accessSubject"), tc("accessBody"))} className="font-medium text-foreground underline underline-offset-4">
           {t("requestAccess")}
         </a>
       </p>
