@@ -663,3 +663,77 @@ quedan ~1350 por escribir.
 **Sin probar / pendiente.** La sesión de prueba de laoshi en hanzi-dev se
 perdió y bloqueó la última corrida de pruebas autenticadas; el despliegue
 espera a que pasen. Textos de la portada solo en español hasta validarlos.
+
+## 2026-10-19 — Piloto de gramática: armar la frase, no recitar la regla
+
+**Origen.** Ever vio que Gushi publica, además de palabras y caracteres, un
+«plan de gramática» HSK 3.0. Se revisó: 428 puntos por nivel (HSK 1: 45 · 2:
+48 · 3: 59 · 4: 67 · 5: 64 · 6: 49 · 7–9: 96), en CSV/JSON, CC BY-SA 4.0,
+con `point`, `pattern` (a veces vacío), categoría, una explicación en español
+y **un solo ejemplo** por punto. Su JSON declara como fuente el temario de
+noviembre de 2025 (考试大纲), no la norma GF 0025-2021; eso explicaría la
+diferencia con los ~572 puntos que se recordaban de la norma (sin verificar
+contra el documento). Hasta hoy Renshi solo usaba de Gushi glosas y frases;
+ningún dato de gramática.
+
+**Cómo encaja (análisis antes de construir).** La unidad de Renshi es
+palabra → sentido → frases; la gramática no existe como dato. Se plantearon
+tres niveles: (1) usar la explicación para los sentidos de palabras
+gramaticales (了, 过, 把…), sin migración; (2) etiquetar frases con su punto
+de gramática, que además corregiría `computed_level` (una frase con palabras
+HSK 1 y 把 hoy pasa por fácil); (3) lecciones de gramática, que tocan el
+modelo de datos. Ever preguntó por tarjetas de solo gramática y por **armar
+frases tipeando**. Decisión: la tarjeta «regla delante, definición detrás»
+repite el error de Quizlet; el frente siempre es una frase. Producir es lo que
+más vale y lo difícil es corregir: en chino hay varias frases válidas.
+
+**Implementado** (rama `lab-gramatica`, worktree
+`claude-code-chinese-lesson-lab-gramatica`, puerto 3008):
+- `fdd5091` — `/lab/gramatica`, sin base ni enlace desde la app.
+  `contenido/gramatica-hsk1-piloto.json`: 12 puntos de HSK 1 (想/要,
+  很 + adjetivo, 都, 在 + lugar, 没, 了, 吗, 去不去, 吧, clasificadores,
+  去/来 + lugar + verbo, 请/不要) con explicación y ejemplo de Gushi copiados
+  sin cambios y atribución; 24 consignas en español escritas con IA
+  (`origin: ai`, `unreviewed`). `src/lib/grammar-check.ts` revisa en tres
+  niveles: verde si coincide con una respuesta modelo; rojo si cae en un error
+  típico declarado (了 con 没, 是 delante de adjetivo, 二 delante de
+  clasificador, 吗 tras 去不去, 有不有); amarillo si usa las piezas del patrón
+  en orden pero no es una modelo: «puede estar bien», nunca «está mal». Modo
+  «Proyectar en clase»: consigna grande, sin campo; los alumnos responden por
+  el chat de Zoom, así que las respuestas en vivo no necesitan migración.
+  `GrammarLab` reutiliza `Button` y los colores `rating-1/2/3` de la
+  valoración.
+- `89b83b1` + `62a8291` — **Franja «Laboratorio · Piloto en prueba»** en
+  `src/app/[locale]/lab/layout.tsx`, para todo `/lab` (también
+  `/lab/escritura`). Pedido de Ever: graba la pantalla y el video tiene que
+  dejar claro que es un experimento. Regla nueva en `REGLAS-DESARROLLO.md`
+  («Pilotos y experimentos»): todo piloto va en `/lab`; si vive fuera, lleva
+  la misma franja. (`62a8291` existe porque la edición de la regla no se aplicó
+  en el commit anterior.)
+- `7e1c190` (en `master` local) — fila en `TRABAJO-EN-CURSO.md`.
+
+**Verificado.** Vocabulario de las 24 respuestas contra
+`contenido/hsk3-level1.json`: todo HSK 1 salvo 没 y 杯, que son los propios
+puntos de gramática de nivel 1; 饭馆 se cambió por 饭店. 7 pruebas nuevas
+(`tests/unit/grammar-check.test.ts`, una comprueba que cada respuesta modelo
+cumple sus piezas y no cae en sus errores); 27/27 en `test:unit`. Lint y tipos
+limpios en los archivos nuevos (el `tsc` completo da errores de `PageProps`
+en un worktree recién creado, porque Next aún no generó sus tipos). En
+Chrome: verde, rojo con explicación, modo proyectar y franja; se corrigió que
+la revisión anterior siguiera visible al proyectar.
+
+**Capturas** (`bitacora-capturas/2026-10-19/`):
+- `01-gramatica-respuesta-modelo.jpg` — Franja de laboratorio y frase
+  correcta en verde. / Lab banner and a correct sentence in green.
+- `02-gramatica-error-tipico-mei-le.jpg` — 没 con 了: error típico explicado
+  en rojo (baja resolución). / 没 with 了: typical mistake explained in red
+  (low resolution).
+- Captura pendiente: modo «Proyectar en clase» con las respuestas modelo (la
+  captura se colgó en Chrome).
+
+**Sin probar / pendiente.** Las 24 consignas, respuestas aceptadas y errores
+típicos no tienen revisión humana (idealmente de la profesora). No se probó en
+un celular real ni con teclado pinyin, ni en una clase. La revisión no corrige
+chino: compara cadenas, y un error que no esté declarado pasa como amarillo.
+Si el piloto sirve en clase: etiquetar frases por punto de gramática (tabla
+nueva + migración), y más adelante corrección con IA.

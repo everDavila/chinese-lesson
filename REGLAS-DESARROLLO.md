@@ -31,6 +31,17 @@
   mediante sus APIs.
 - Mantener la coherencia visual y funcional de Renshi.
 
+## Pilotos y experimentos
+
+Regla de Ever (2026-10-19): Ever graba la pantalla, y quien vea el video tiene
+que saber que un piloto no es Renshi terminado.
+
+- Todo piloto o experimento vive bajo `/lab/<nombre>`. Ahí hereda sola la
+  franja «Laboratorio · Piloto en prueba» de `src/app/[locale]/lab/layout.tsx`;
+  no se quita ni se tapa.
+- Si un experimento tiene que vivir fuera de `/lab` (por ejemplo, dentro de
+  una lección), muestra la misma franja de forma visible mientras sea piloto.
+
 ## Antes de desarrollar un componente nuevo
 
 Identifica y explica:
