@@ -28,6 +28,9 @@ await run("simulación de Supabase", `
   create function auth.uid() returns uuid language sql stable as
     $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
   grant usage on schema public, auth to authenticated;
+  -- Como Supabase: toda función nueva de public es ejecutable por anon y
+  -- authenticated salvo que la migración lo revoque explícitamente.
+  alter default privileges in schema public grant execute on functions to anon, authenticated;
   grant execute on function auth.uid() to authenticated;
 `);
 const dir = "supabase/migrations";
@@ -382,4 +385,12 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   const demo = (await asAnon(`select public_demo_lesson() as d`)).rows[0].d;
   if (demo?.title === "Lección de ejemplo") console.log("✓ la demo pública sigue igual con la función común");
   else { console.log("✗ demo pública", JSON.stringify(demo)?.slice(0, 120)); process.exitCode = 1; }
+}
+
+// ── Funciones internas cerradas (2026-10-19) ────────────────────────────
+// Solo anon: los datos de prueba conceden a mano todas las funciones a
+// authenticated. En Supabase, con sesión responden 403 (verificado en dev).
+for (const fn of [`give_example_lesson('${T2}')`, `lesson_payload('00000000-0000-0000-0000-000000000000')`]) {
+  try { await asAnon(`select ${fn}`); console.log(`✗ anon pudo llamar a ${fn.split("(")[0]}`); process.exitCode = 1; }
+  catch { console.log(`✓ anon NO llama a ${fn.split("(")[0]}`); }
 }
