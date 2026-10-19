@@ -1,0 +1,177 @@
+{
+  "nota": "Palabras pedidas por Ever (2026-10-19) para una lección de idiomas y pasatiempos. Mandarín de Beijing; no son entradas propias del temario HSK 3.0, así que van sin nivel. Contenido generado (origin ai) y sin revisar. Se carga con scripts/cargar-palabras-extra.mjs.",
+  "palabras": [
+    {
+      "hanzi": "哪里哪里",
+      "pinyin": "nǎlǐ nǎlǐ",
+      "category": "set phrase",
+      "es": "no es para tanto (respuesta modesta a un elogio)",
+      "en": "not at all (a modest reply to a compliment)",
+      "nuance_es": "Se responde así a un elogio; no significa «dónde, dónde». Suena algo formal: entre jóvenes también se oye 没有没有 o, cada vez más, un simple 谢谢.",
+      "nuance_en": "A modest reply to a compliment; it doesn't mean \"where, where\". It sounds a bit formal: young people also say 没有没有 or, more and more, just 谢谢.",
+      "cultural_es": "En Beijing también se oye 哪儿的话 (nǎr de huà) con el mismo sentido. Rechazar un elogio con modestia es la respuesta esperada.",
+      "cultural_en": "In Beijing you'll also hear 哪儿的话 (nǎr de huà) with the same meaning. Modestly declining a compliment is the expected response.",
+      "sentences": [
+        { "zh": "哪里哪里，我还要多学习。", "pinyin": "Nǎlǐ nǎlǐ, wǒ hái yào duō xuéxí.", "es": "No es para tanto, todavía tengo que aprender mucho.", "en": "Not at all, I still have a lot to learn." },
+        { "zh": "你做的菜真好吃！——哪里哪里。", "pinyin": "Nǐ zuò de cài zhēn hǎochī! —— Nǎlǐ nǎlǐ.", "es": "¡Lo que cocinas está riquísimo! —No es para tanto.", "en": "Your cooking is delicious! — Oh, not at all." }
+      ]
+    },
+    {
+      "hanzi": "回家",
+      "pinyin": "huí jiā",
+      "category": "verb",
+      "es": "volver a casa",
+      "en": "to go home",
+      "nuance_es": "回家 es el trayecto: volver a casa. 到家 es haber llegado.",
+      "nuance_en": "回家 is the journey: going home. 到家 means you've arrived.",
+      "sentences": [
+        { "zh": "我六点回家。", "pinyin": "Wǒ liù diǎn huí jiā.", "es": "Vuelvo a casa a las seis.", "en": "I go home at six." },
+        { "zh": "你什么时候回家？", "pinyin": "Nǐ shénme shíhou huí jiā?", "es": "¿Cuándo vuelves a casa?", "en": "When are you going home?" },
+        { "zh": "下课以后我回家吃饭。", "pinyin": "Xià kè yǐhòu wǒ huí jiā chī fàn.", "es": "Después de clase vuelvo a casa a comer.", "en": "After class I go home to eat." }
+      ]
+    },
+    {
+      "hanzi": "数数",
+      "pinyin": "shǔ shù",
+      "category": "verb",
+      "es": "contar (números)",
+      "en": "to count",
+      "nuance_es": "El primer 数 se lee shǔ (contar, verbo) y el segundo shù (número).",
+      "nuance_en": "The first 数 is read shǔ (to count, a verb) and the second shù (number).",
+      "sentences": [
+        { "zh": "孩子在学数数。", "pinyin": "Háizi zài xué shǔ shù.", "es": "El niño está aprendiendo a contar.", "en": "The child is learning to count." },
+        { "zh": "我们一起数数：一、二、三！", "pinyin": "Wǒmen yìqǐ shǔ shù: yī, èr, sān!", "es": "¡Contemos juntos: uno, dos, tres!", "en": "Let's count together: one, two, three!" }
+      ]
+    },
+    {
+      "hanzi": "打篮球",
+      "pinyin": "dǎ lánqiú",
+      "category": "verb",
+      "es": "jugar básquet",
+      "en": "to play basketball",
+      "nuance_es": "Con los deportes que se juegan con las manos se usa 打: 打篮球, 打排球, 打网球.",
+      "nuance_en": "Sports played with the hands take 打: 打篮球, 打排球, 打网球.",
+      "sentences": [
+        { "zh": "我喜欢打篮球。", "pinyin": "Wǒ xǐhuan dǎ lánqiú.", "es": "Me gusta jugar básquet.", "en": "I like playing basketball." },
+        { "zh": "他们周末一起打篮球。", "pinyin": "Tāmen zhōumò yìqǐ dǎ lánqiú.", "es": "Los fines de semana juegan básquet juntos.", "en": "They play basketball together at the weekend." }
+      ]
+    },
+    {
+      "hanzi": "孙女儿",
+      "pinyin": "sūnnǚr",
+      "category": "noun",
+      "es": "nieta (hija del hijo)",
+      "en": "granddaughter (son's daughter)",
+      "nuance_es": "孙女 es la hija del hijo; la hija de la hija es 外孙女.",
+      "nuance_en": "孙女 is a son's daughter; a daughter's daughter is 外孙女.",
+      "cultural_es": "Con 儿 (sūnnǚr) es típico de Beijing y del norte; en el sur de China y en Taiwán se dice 孙女.",
+      "cultural_en": "With 儿 (sūnnǚr) it's typical of Beijing and the north; in southern China and Taiwan people say 孙女.",
+      "sentences": [
+        { "zh": "这是我的孙女儿。", "pinyin": "Zhè shì wǒ de sūnnǚr.", "es": "Ella es mi nieta.", "en": "This is my granddaughter." },
+        { "zh": "奶奶很爱她的孙女儿。", "pinyin": "Nǎinai hěn ài tā de sūnnǚr.", "es": "La abuela quiere mucho a su nieta.", "en": "Grandma loves her granddaughter very much." }
+      ]
+    },
+    {
+      "hanzi": "日语",
+      "pinyin": "Rìyǔ",
+      "category": "noun",
+      "es": "japonés (idioma)",
+      "en": "Japanese (language)",
+      "cultural_es": "En China continental, 语 es el idioma en general y 文 (日文) se asocia más a lo escrito; en Taiwán, 日文 es lo habitual también al hablar.",
+      "cultural_en": "In mainland China, 语 is the language in general and 文 (日文) leans towards the written language; in Taiwan, 日文 is common in speech too.",
+      "sentences": [
+        { "zh": "她会说日语。", "pinyin": "Tā huì shuō Rìyǔ.", "es": "Ella sabe hablar japonés.", "en": "She can speak Japanese." },
+        { "zh": "我想学日语。", "pinyin": "Wǒ xiǎng xué Rìyǔ.", "es": "Quiero aprender japonés.", "en": "I want to learn Japanese." }
+      ]
+    },
+    {
+      "hanzi": "到家",
+      "pinyin": "dào jiā",
+      "category": "verb",
+      "es": "llegar a casa",
+      "en": "to get home",
+      "nuance_es": "到家 es haber llegado; 回家 es el trayecto. También se usa para algo excelente: 他的中文很到家 (su chino es impecable).",
+      "nuance_en": "到家 means you've arrived; 回家 is the journey. It also describes something excellent: 他的中文很到家 (his Chinese is impeccable).",
+      "sentences": [
+        { "zh": "我到家了。", "pinyin": "Wǒ dào jiā le.", "es": "Ya llegué a casa.", "en": "I'm home." },
+        { "zh": "你到家以后给我打电话。", "pinyin": "Nǐ dào jiā yǐhòu gěi wǒ dǎ diànhuà.", "es": "Llámame cuando llegues a casa.", "en": "Call me when you get home." }
+      ]
+    },
+    {
+      "hanzi": "韩语",
+      "pinyin": "Hányǔ",
+      "category": "noun",
+      "es": "coreano (idioma)",
+      "en": "Korean (language)",
+      "cultural_es": "En China continental se dice 韩语; en Taiwán, 韩文. Para el coreano de Corea del Norte se usa 朝鲜语.",
+      "cultural_en": "Mainland China says 韩语; Taiwan says 韩文. For North Korean, 朝鲜语 is used.",
+      "sentences": [
+        { "zh": "他在学韩语。", "pinyin": "Tā zài xué Hányǔ.", "es": "Él está aprendiendo coreano.", "en": "He is learning Korean." },
+        { "zh": "韩语难不难？", "pinyin": "Hányǔ nán bu nán?", "es": "¿El coreano es difícil?", "en": "Is Korean difficult?" }
+      ]
+    },
+    {
+      "hanzi": "英语",
+      "pinyin": "Yīngyǔ",
+      "category": "noun",
+      "es": "inglés (idioma)",
+      "en": "English (language)",
+      "cultural_es": "En China continental, 英语 es el idioma en general y 英文 se asocia más a lo escrito; en Taiwán, 英文 es lo habitual también al hablar.",
+      "cultural_en": "In mainland China, 英语 is the language in general and 英文 leans towards the written language; in Taiwan, 英文 is common in speech too.",
+      "sentences": [
+        { "zh": "我会说一点儿英语。", "pinyin": "Wǒ huì shuō yìdiǎnr Yīngyǔ.", "es": "Hablo un poco de inglés.", "en": "I speak a little English." },
+        { "zh": "我们的英语老师是美国人。", "pinyin": "Wǒmen de Yīngyǔ lǎoshī shì Měiguó rén.", "es": "Nuestro profesor de inglés es estadounidense.", "en": "Our English teacher is American." }
+      ]
+    },
+    {
+      "hanzi": "踢足球",
+      "pinyin": "tī zúqiú",
+      "category": "verb",
+      "es": "jugar fútbol",
+      "en": "to play football",
+      "nuance_es": "Al fútbol se «patea»: 踢. Con los deportes que se juegan con las manos se usa 打 (打篮球).",
+      "nuance_en": "Football is \"kicked\": 踢. Sports played with the hands take 打 (打篮球).",
+      "sentences": [
+        { "zh": "我们下午去踢足球吧。", "pinyin": "Wǒmen xiàwǔ qù tī zúqiú ba.", "es": "Vamos a jugar fútbol en la tarde.", "en": "Let's go and play football this afternoon." },
+        { "zh": "他踢足球踢得很好。", "pinyin": "Tā tī zúqiú tī de hěn hǎo.", "es": "Él juega muy bien al fútbol.", "en": "He plays football very well." }
+      ]
+    },
+    {
+      "hanzi": "法语",
+      "pinyin": "Fǎyǔ",
+      "category": "noun",
+      "es": "francés (idioma)",
+      "en": "French (language)",
+      "sentences": [
+        { "zh": "她的法语说得很好。", "pinyin": "Tā de Fǎyǔ shuō de hěn hǎo.", "es": "Ella habla muy bien francés.", "en": "She speaks French very well." },
+        { "zh": "你学法语多长时间了？", "pinyin": "Nǐ xué Fǎyǔ duō cháng shíjiān le?", "es": "¿Cuánto tiempo llevas aprendiendo francés?", "en": "How long have you been learning French?" }
+      ]
+    },
+    {
+      "hanzi": "西班牙语",
+      "pinyin": "Xībānyáyǔ",
+      "category": "noun",
+      "es": "español (idioma)",
+      "en": "Spanish (language)",
+      "cultural_es": "Se dice 西班牙语 aunque se hable en toda América Latina; en conversación también se acorta a 西语.",
+      "cultural_en": "It's called 西班牙语 even though it's spoken across Latin America; in conversation it's often shortened to 西语.",
+      "sentences": [
+        { "zh": "我会说西班牙语。", "pinyin": "Wǒ huì shuō Xībānyáyǔ.", "es": "Hablo español.", "en": "I can speak Spanish." },
+        { "zh": "西班牙语和汉语都很有意思。", "pinyin": "Xībānyáyǔ hé Hànyǔ dōu hěn yǒu yìsi.", "es": "El español y el chino son muy interesantes.", "en": "Spanish and Chinese are both very interesting." }
+      ]
+    },
+    {
+      "hanzi": "唱歌",
+      "pinyin": "chàng gē",
+      "category": "verb",
+      "es": "cantar",
+      "en": "to sing",
+      "cultural_es": "«Ir a cantar» (去唱歌) suele significar ir al KTV, el karaoke: un plan muy común entre amigos y compañeros de trabajo.",
+      "cultural_en": "\"Going to sing\" (去唱歌) usually means going to KTV, karaoke: a very common outing with friends and colleagues.",
+      "sentences": [
+        { "zh": "她很喜欢唱歌。", "pinyin": "Tā hěn xǐhuan chàng gē.", "es": "A ella le encanta cantar.", "en": "She loves singing." },
+        { "zh": "周末我们去唱歌吧！", "pinyin": "Zhōumò wǒmen qù chàng gē ba!", "es": "¡Vamos a cantar el fin de semana!", "en": "Let's go and sing at the weekend!" }
+      ]
+    }
+  ]
+}

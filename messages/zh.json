@@ -342,7 +342,8 @@
     "copyLink": "复制链接",
     "copied": "已复制",
     "openLink": "打开",
-    "stopSharing": "停止分享"
+    "stopSharing": "停止分享",
+    "noHsk": "非 HSK"
   },
   "Vote": {
     "title": "投票",

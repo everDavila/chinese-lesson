@@ -263,7 +263,7 @@ export function LessonEditor({
                         <span className="text-muted-foreground">{sense ? meaningFor(locale, sense) : "—"}</span>
                       </p>
                       <div className="mt-1 flex min-w-0 flex-wrap items-center gap-2">
-                        <span className="text-xs text-muted-foreground">HSK {hskLabel(it.hsk)}</span>
+                        <span className="text-xs text-muted-foreground">{it.hsk ? `HSK ${hskLabel(it.hsk)}` : t("noHsk")}</span>
                         <Link
                           href={sentencesHref}
                           className={cn(
@@ -472,7 +472,7 @@ function SearchPanel({
                   <span className="text-muted-foreground">{w.senses[0] ? meaningFor(locale, w.senses[0]) : ""}</span>
                 </span>
                 <span className="text-xs whitespace-nowrap text-muted-foreground">
-                  {already ? t("alreadyInShort") : `HSK ${hskLabel(w.hsk)}`}
+                  {already ? t("alreadyInShort") : w.hsk ? `HSK ${hskLabel(w.hsk)}` : t("noHsk")}
                 </span>
               </label>
             </li>

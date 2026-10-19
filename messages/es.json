@@ -342,7 +342,8 @@
     "copyLink": "Copiar enlace",
     "copied": "Copiado",
     "openLink": "Abrir",
-    "stopSharing": "Dejar de compartir"
+    "stopSharing": "Dejar de compartir",
+    "noHsk": "Sin HSK"
   },
   "Vote": {
     "title": "Votar",

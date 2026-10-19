@@ -283,7 +283,8 @@ export function CardBack({ item, showPinyin, showTranslations, lang, noteTerms, 
               </Button>
               <span title={labels.hskNote} className="rounded-md bg-muted px-2 py-0.5 text-sm text-muted-foreground">
                 {/* HSK 3.0 agrupa 7, 8 y 9 en una banda: en la base es 7. */}
-                HSK {word.hsk === 7 ? "7–9" : word.hsk}
+                {/* Sin nivel: palabras fuera del temario (sin HSK, no «HSK 0»). */}
+                {word.hsk ? `HSK ${word.hsk === 7 ? "7–9" : word.hsk}` : labels.noHsk}
                 {sense.category && ` · ${categoryLabel(sense.category, labels)}`}
               </span>
             </div>
