@@ -1,5 +1,6 @@
 "use server";
 
+import { randomBytes } from "node:crypto";
 import { refresh } from "next/cache";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { EditableWord } from "@/lib/content";
@@ -579,4 +580,17 @@ export async function setLessonExamplesAction(id: string, count: number | null):
   if (error) return fail(error);
   refresh();
   return { ok: true };
+}
+
+/** Comparte la lección con un enlace público (/l/<código>) o lo anula. */
+export async function setLessonShareAction(lessonId: string, on: boolean): Promise<Result<{ token: string | null }>> {
+  const s = await session();
+  if (!s) return { ok: false, error: "auth" };
+  // 20 caracteres al azar (base64url): imposible de adivinar.
+  const token = on ? randomBytes(15).toString("base64url") : null;
+  const { data, error } = await s.db.from("lessons").update({ share_token: token }).eq("id", lessonId).select("id");
+  if (error) return fail(error) as Result<{ token: string | null }>;
+  if (!data?.length) return { ok: false, error: "invalid" };
+  refresh();
+  return { ok: true, token };
 }

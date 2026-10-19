@@ -135,9 +135,13 @@ async function withTeacherSentences(rows: WordRow[]): Promise<WordRow[]> {
     ).then((rows) => rows.sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)))),
     supabase.from("teacher_hidden_sentences").select("sentence_id"),
   ]);
-  if (!mine?.length && !hidden?.length) return rows;
-  const hiddenIds = new Set((hidden ?? []).map((h) => h.sentence_id as string));
-  const own = (mine ?? []) as OwnExample[];
+  return mergeOwnSentences(rows, (mine ?? []) as OwnExample[], (hidden ?? []).map((h) => h.sentence_id as string));
+}
+
+/** Combina las frases de la docente con las de la base (clases y lección compartida). */
+function mergeOwnSentences(rows: WordRow[], own: OwnExample[], hidden: string[]): WordRow[] {
+  if (!own.length && !hidden.length) return rows;
+  const hiddenIds = new Set(hidden);
   const asRow = (e: OwnExample, position: number): SentenceRow => ({
     key: `t:${e.id}`,
     position,
@@ -198,13 +202,21 @@ export type DemoPayload = {
   items: { sense_id: string; word: WordRow }[];
   characters: CharacterRow[];
   note_words: NoteWordRow[];
+  /** Lo que puso la docente de la lección (lección compartida). */
+  own_examples?: OwnExample[];
+  hidden?: string[];
 };
 
-/** La demo pública, armada igual que una clase (los mismos tipos y ayudas). */
+/** Una lección sin sesión (demo pública o compartida), armada igual que una clase. */
 export function demoLessonFrom(payload: DemoPayload): Lesson {
+  const words = mergeOwnSentences(
+    payload.items.map((i) => i.word),
+    payload.own_examples ?? [],
+    payload.hidden ?? [],
+  );
   return assembleLesson(
     payload.title,
-    payload.items.map((i) => ({ senseId: i.sense_id, word: i.word })),
+    payload.items.map((i, n) => ({ senseId: i.sense_id, word: words[n] })),
     payload.characters,
     payload.note_words,
   );

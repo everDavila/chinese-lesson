@@ -473,6 +473,8 @@ export type EditableLesson = {
   collectionExamplesShown: number;
   /** Clases dadas con ella (para avisar al borrar). */
   classes: number;
+  /** Código del enlace público (/l/<código>); null si no está compartida. */
+  shareToken: string | null;
   items: LessonItemRow[];
 };
 
@@ -481,7 +483,7 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
   const { data, error } = await supabase
     .from("lessons")
     .select(
-      `id, title, description, collection_id, teacher_id, examples_shown, class_sessions(count), collections(examples_shown, copied_from),
+      `id, title, description, collection_id, teacher_id, examples_shown, share_token, class_sessions(count), collections(examples_shown, copied_from),
        lesson_items(position, sense_id,
          senses(words(id, hanzi, hsk_level, status,
            senses(id, position, pinyin, category, meaning_es, meaning_en, sentences(id)))))`,
@@ -512,6 +514,7 @@ export async function getEditableLesson(id: string): Promise<EditableLesson | nu
     copiedFrom: Boolean((data.collections as unknown as CollectionRef)?.copied_from),
     examplesShown: data.examples_shown,
     classes: countOf(data.class_sessions),
+    shareToken: data.share_token ?? null,
     collectionExamplesShown: (data.collections as unknown as { examples_shown: number } | null)?.examples_shown ?? 0,
     items: rows.map((r) => {
       const w = r.senses.words;

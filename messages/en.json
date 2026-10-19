@@ -333,7 +333,16 @@
     "clearSelection": "Clear selection",
     "selectedN": "{count, plural, one {# word selected} other {# words selected}}",
     "removeN": "Remove {count, plural, one {# word} other {# words}}",
-    "confirmRemoveN": "Remove {count, plural, one {# word} other {# words}} from “{title}”?"
+    "confirmRemoveN": "Remove {count, plural, one {# word} other {# words}} from “{title}”?",
+    "share": "Share",
+    "shared": "Shared",
+    "shareTitle": "Public link to the lesson",
+    "shareHint": "Anyone with the link will see the lesson in presentation mode, with your own sentences, no voting and no access to anything else. You can stop sharing whenever you want.",
+    "shareLink": "Lesson link",
+    "copyLink": "Copy link",
+    "copied": "Copied",
+    "openLink": "Open",
+    "stopSharing": "Stop sharing"
   },
   "Vote": {
     "title": "Vote",

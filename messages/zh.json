@@ -333,7 +333,16 @@
     "clearSelection": "取消选择",
     "selectedN": "已选 {count} 个词",
     "removeN": "移除 {count} 个词",
-    "confirmRemoveN": "要从「{title}」中移除 {count} 个词吗？"
+    "confirmRemoveN": "要从「{title}」中移除 {count} 个词吗？",
+    "share": "分享",
+    "shared": "已分享",
+    "shareTitle": "课程公开链接",
+    "shareHint": "拿到链接的人可以用演示模式查看这节课，包括你自己的例句；没有投票，也看不到其他内容。你随时可以停止分享。",
+    "shareLink": "课程链接",
+    "copyLink": "复制链接",
+    "copied": "已复制",
+    "openLink": "打开",
+    "stopSharing": "停止分享"
   },
   "Vote": {
     "title": "投票",

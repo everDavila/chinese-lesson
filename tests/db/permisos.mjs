@@ -357,3 +357,29 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   try { await asAnon(`select hanzi from words`); console.log("✗ anon leyó el catálogo"); process.exitCode = 1; }
   catch { console.log("✓ anon sigue sin leer el catálogo directamente"); }
 }
+
+// ── Compartir una lección con enlace público (2026-10-19) ───────────────
+{
+  const leccion = (await as(T1, `insert into lessons (teacher_id, title) values ('${T1}', 'Para compartir') returning id`)).rows[0].id;
+  await as(T1, `insert into lesson_items (lesson_id, sense_id, position) values ('${leccion}', '00000000-0000-0000-0000-00000000bbbb', 1)`);
+  await db.exec(`insert into teacher_examples (teacher_id, sense_id, zh, status) values ('${T1}', '00000000-0000-0000-0000-00000000bbbb', '我的句子。', 'draft')`);
+  const code = "abcdefghijklmnop1234";
+  await expectFail("otra docente NO comparte una lección ajena", T2, `update lessons set share_token = 'zzzzzzzzzzzzzzzzzzzz' where id = '${leccion}'`);
+  await expectFail("un código corto no vale", T1, `update lessons set share_token = 'corto' where id = '${leccion}'`);
+  await expectOk("la docente comparte su lección", T1, `update lessons set share_token = '${code}' where id = '${leccion}' returning title`);
+  const shared = (await asAnon(`select shared_lesson('${code}') as d`)).rows[0].d;
+  if (shared?.title === "Para compartir" && shared.items.length === 1 && shared.own_examples.some((e) => e.zh === "我的句子。"))
+    console.log("✓ anon ve la lección compartida, con las frases propias de la docente");
+  else { console.log("✗ lección compartida", JSON.stringify(shared)); process.exitCode = 1; }
+  const wrong = (await asAnon(`select shared_lesson('nonononononononono') as d`)).rows[0].d;
+  if (wrong === null) console.log("✓ un código que no existe no devuelve nada");
+  else { console.log("✗ código inventado devolvió algo"); process.exitCode = 1; }
+  try { await asAnon(`select lesson_payload('${leccion}')`); console.log("✗ anon llamó a lesson_payload"); process.exitCode = 1; }
+  catch { console.log("✓ anon NO puede pedir cualquier lección por id"); }
+  await expectOk("deja de compartir", T1, `update lessons set share_token = null where id = '${leccion}' returning id`);
+  if ((await asAnon(`select shared_lesson('${code}') as d`)).rows[0].d === null) console.log("✓ al dejar de compartir, el enlace muere");
+  else { console.log("✗ el enlace sigue vivo"); process.exitCode = 1; }
+  const demo = (await asAnon(`select public_demo_lesson() as d`)).rows[0].d;
+  if (demo?.title === "Lección de ejemplo") console.log("✓ la demo pública sigue igual con la función común");
+  else { console.log("✗ demo pública", JSON.stringify(demo)?.slice(0, 120)); process.exitCode = 1; }
+}

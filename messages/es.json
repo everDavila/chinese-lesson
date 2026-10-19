@@ -333,7 +333,16 @@
     "clearSelection": "Desmarcar",
     "selectedN": "{count, plural, one {# palabra seleccionada} other {# palabras seleccionadas}}",
     "removeN": "Quitar {count, plural, one {# palabra} other {# palabras}}",
-    "confirmRemoveN": "¿Quitar {count, plural, one {# palabra} other {# palabras}} de «{title}»?"
+    "confirmRemoveN": "¿Quitar {count, plural, one {# palabra} other {# palabras}} de «{title}»?",
+    "share": "Compartir",
+    "shared": "Compartida",
+    "shareTitle": "Enlace público de la lección",
+    "shareHint": "Quien tenga el enlace verá la lección en modo presentación, con tus frases propias, sin votación ni acceso a nada más. Puedes dejar de compartirla cuando quieras.",
+    "shareLink": "Enlace de la lección",
+    "copyLink": "Copiar enlace",
+    "copied": "Copiado",
+    "openLink": "Abrir",
+    "stopSharing": "Dejar de compartir"
   },
   "Vote": {
     "title": "Votar",
