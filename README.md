@@ -20,6 +20,10 @@ Vocabulario chino **en contexto**, hecho para enseñar en clase por videollamada
 
 ## 🀄 El problema
 
+Para enseñar vocabulario por videollamada, la profesora arma tarjetas en
+**Quizlet** y diapositivas en **PowerPoint**. Lleva horas, se repite igual en
+cada clase y no le dice si el grupo entendió. Renshi viene a reemplazar eso.
+
 Las tarjetas de vocabulario de siempre muestran palabras sueltas:
 `认识 → conocer`. Así no se distinguen sinónimos aparentes (房子 / 家), no se
 ven los distintos usos de una palabra (家 también es clasificador: 一家公司) y
@@ -28,6 +32,16 @@ partículas como 了 o 过 son imposibles de entender.
 Renshi enseña cada palabra **dentro de frases**, con lo que el chino necesita y
 una tarjeta normal no tiene: el orden de los trazos, de qué piezas está hecho
 cada carácter y cómo se usa de verdad.
+
+**Frente a Quizlet y un PPT**
+
+| | Quizlet + PPT | Renshi |
+|---|---|---|
+| Preparar | Tarjeta por tarjeta, diapositiva por diapositiva | Elegir del HSK 3.0 o pegar la lista del libro: frases, pinyin y audio ya vienen |
+| La palabra | Sola, con una foto | En frases reales, con matiz y nota cultural |
+| El carácter | Imagen fija | Se dibuja trazo a trazo; de qué piezas está hecho |
+| Repasar | Siempre lo mismo | Las frases rotan: primero las que el grupo no vio |
+| ¿Entendieron? | Preguntar en voz alta | Votan desde el celular, anónimos y sin cuenta |
 
 ## 🎴 Cómo es una clase
 
