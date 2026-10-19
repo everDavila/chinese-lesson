@@ -120,7 +120,10 @@
     "presentSelection": "演示已选（{count}）",
     "presentTooMany": "一次最多演示 {max} 个词。",
     "cancel": "取消",
-    "presentSelectionConfirm": "要在一节课里演示 {count} 个词吗？这远远超过一节课能学的量。"
+    "presentSelectionConfirm": "要在一节课里演示 {count} 个词吗？这远远超过一节课能学的量。",
+    "saveSelection": "保存为课程",
+    "saveSelectionName": "课程名称",
+    "save": "保存"
   },
   "TeacherLessons": {
     "title": "我的课程",

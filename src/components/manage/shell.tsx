@@ -234,6 +234,9 @@ export function NewTitleForm({
   disabled,
   onCreate,
   initialOpen = false,
+  variant,
+  size,
+  submitLabel,
 }: {
   placeholder: string;
   /** Si se pasa, se ofrece una descripción opcional junto al nombre. */
@@ -242,6 +245,11 @@ export function NewTitleForm({
   disabled?: boolean;
   onCreate: (title: string, description?: string) => void;
   initialOpen?: boolean;
+  /** Botón que abre el formulario (por defecto, el principal). */
+  variant?: "outline";
+  size?: "sm";
+  /** Texto del botón de enviar (por defecto «Crear»). */
+  submitLabel?: string;
 }) {
   const t = useTranslations("Manage");
   const [open, setOpen] = useState(initialOpen);
@@ -254,7 +262,7 @@ export function NewTitleForm({
   };
   if (!open)
     return (
-      <Button className="self-start" disabled={disabled} onClick={() => setOpen(true)}>
+      <Button className="self-start" variant={variant} size={size} disabled={disabled} onClick={() => setOpen(true)}>
         {label}
       </Button>
     );
@@ -290,7 +298,7 @@ export function NewTitleForm({
         />
       )}
       <Button type="submit" disabled={!title.trim() || disabled}>
-        {t("create")}
+        {submitLabel ?? t("create")}
       </Button>
       <Button type="button" variant="ghost" onClick={close}>
         {t("cancel")}

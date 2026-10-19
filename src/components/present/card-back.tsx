@@ -49,7 +49,7 @@ function NoteTermHelp({ term, lang, labels }: { term: NoteTerm; lang: ContentLan
   );
 }
 
-function Highlighted({
+export function Highlighted({
   text,
   keyword,
   small,
@@ -185,7 +185,7 @@ const IDC = /[⿰-⿻]/g;
  * se aplana en sus caracteres (旦 + 寸). Si falta una pieza (？) o no hay
  * datos, no hay fórmula: una a medias enseñaría algo falso.
  */
-function buildFormula(char: string, info: LessonItem["characters"][number]["info"]): Formula[] {
+export function buildFormula(char: string, info: LessonItem["characters"][number]["info"]): Formula[] {
   const comps = info?.components ?? [];
   if (!comps.length || comps.some((p) => p.char.includes("？"))) return [];
   const parts = comps.flatMap((p): Part[] =>
@@ -197,7 +197,7 @@ function buildFormula(char: string, info: LessonItem["characters"][number]["info
 }
 
 /** Una pieza: el hanzi y, debajo, su pinyin chiquito (el nombre con que se dice en clase). */
-function Piece({ char, pinyin, className }: { char: string; pinyin: string | null; className?: string }) {
+export function Piece({ char, pinyin, className }: { char: string; pinyin: string | null; className?: string }) {
   return (
     <span className="inline-flex flex-col items-center">
       <span lang="zh-Hans" className={className}>{char}</span>

@@ -120,7 +120,10 @@
     "presentSelection": "Present selection ({count})",
     "presentTooMany": "You can present up to {max} words at a time.",
     "cancel": "Cancel",
-    "presentSelectionConfirm": "Present {count} words in a single class? That is far more than a class can learn."
+    "presentSelectionConfirm": "Present {count} words in a single class? That is far more than a class can learn.",
+    "saveSelection": "Save lesson",
+    "saveSelectionName": "Lesson name",
+    "save": "Save"
   },
   "TeacherLessons": {
     "title": "My lessons",

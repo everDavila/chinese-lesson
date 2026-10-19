@@ -120,7 +120,10 @@
     "presentSelection": "Presentar selección ({count})",
     "presentTooMany": "Se pueden presentar hasta {max} palabras a la vez.",
     "cancel": "Cancelar",
-    "presentSelectionConfirm": "¿Presentar {count} palabras en una sola clase? Es mucho más de lo que se aprende en una clase."
+    "presentSelectionConfirm": "¿Presentar {count} palabras en una sola clase? Es mucho más de lo que se aprende en una clase.",
+    "saveSelection": "Guardar lección",
+    "saveSelectionName": "Nombre de la lección",
+    "save": "Guardar"
   },
   "TeacherLessons": {
     "title": "Mis lecciones",

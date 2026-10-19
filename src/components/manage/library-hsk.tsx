@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
 import { usePathname, useRouter as useNextRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Copy, Play, X } from "lucide-react";
-import { copyTemplateAction } from "@/actions/manage";
+import { Bookmark, Copy, Play, X } from "lucide-react";
+import { addItemsAction, addLessonAction, copyTemplateAction } from "@/actions/manage";
 import { presentLevelAction, presentSelectionAction } from "@/actions/class";
 import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import type { CatalogPage } from "@/lib/content";
 import { categoryLabel, studentLabels } from "@/lib/student-labels";
 import { cn } from "@/lib/utils";
-import { ManageShell, SearchInput, meaningFor, useRunner } from "./shell";
+import { ManageShell, NewTitleForm, SearchInput, meaningFor, useRunner } from "./shell";
 import { catalogSelection, type SelectedEntry } from "./catalog-selection";
 
 // Biblioteca HSK: el temario oficial completo por nivel, sin lecciones
@@ -409,6 +409,31 @@ export function HskCatalogScreen({
               >
                 <Play /> {t("presentSelection", { count: selection.length })}
               </Button>
+              <NewTitleForm
+                variant="outline"
+                size="sm"
+                label={<><Bookmark /> {t("saveSelection")}</>}
+                placeholder={t("saveSelectionName")}
+                submitLabel={t("save")}
+                disabled={pending || presenting}
+                onCreate={(title) => {
+                  const ids = selection.map((e) => e.senseId);
+                  // Lección suelta en Mis lecciones (hoja de ruta, prioridad 4): crear y
+                  // añadir de golpe, con las acciones de siempre.
+                  run(
+                    async () => {
+                      const created = await addLessonAction(null, title);
+                      if (!created.ok) return created;
+                      const added = await addItemsAction(created.id, ids);
+                      return added.ok ? { ok: true as const, id: created.id } : added;
+                    },
+                    ({ id }) => {
+                      catalogSelection.clear();
+                      router.push(`/lessons/${id}`);
+                    },
+                  );
+                }}
+              />
               <Button variant="outline" size="sm" aria-expanded={showSelection} onClick={() => setShowSelection((v) => !v)}>
                 {showSelection ? t("hideSelection") : t("showSelection")}
               </Button>
