@@ -4,7 +4,8 @@
     "language": "界面语言",
     "signOut": "退出",
     "theme": "切换主题",
-    "hskNote": "依据新版 HSK 3.0（2025），共九级。"
+    "hskNote": "依据新版 HSK 3.0（2025），共九级。",
+    "credits": "致谢"
   },
   "Home": {
     "demoBadge": "认识 · 演示",

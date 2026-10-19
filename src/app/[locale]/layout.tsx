@@ -58,7 +58,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {/* Claro por defecto; el botón de tema de cada cabecera cambia a oscuro. */}
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             {children}
             {/* usePathname fuera de Suspense bloquea el prerender (Cache Components). */}
             <Suspense fallback={null}>

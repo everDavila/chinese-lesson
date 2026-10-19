@@ -6,6 +6,7 @@ import { BookOpen, ChevronDown, CircleUserRound, FilePlus2, FolderOpen, FolderPl
 import { signOut } from "@/actions/auth";
 import type { ActionError, Result } from "@/actions/manage";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -121,6 +122,7 @@ export function ManageShell({
                 </div>
               </details>
               <div className="ml-auto flex shrink-0 items-center gap-1">
+                <ThemeToggle />
                 <LanguageSwitcher />
                 <details className="group relative">
                   <summary className="flex h-12 cursor-pointer list-none items-center gap-2 rounded-xl px-2 text-sm font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
@@ -169,6 +171,7 @@ export function ManageShell({
           )}
         </nav>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <LanguageSwitcher />
           <form action={signOut}>
             <Button type="submit" variant="ghost">

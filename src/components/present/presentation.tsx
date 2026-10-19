@@ -7,18 +7,16 @@ import {
   Brush,
   Expand,
   Languages,
-  Moon,
   Pause,
   Play,
   RotateCcw,
-  Sun,
   Undo2,
   Type,
   X,
 } from "lucide-react";
-import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import type { Lesson } from "@/lib/lesson-types";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import { CardBack } from "./card-back";
 import { CardFront } from "./card-front";
@@ -52,7 +50,6 @@ export function Presentation({
   exitHref?: string;
 }) {
   const t = useTranslations("Controls");
-  const tc = useTranslations("Common");
   const labels = studentLabels(contentLanguage);
   const [index, setIndex] = useState(0);
   const [side, setSide] = useState<"front" | "back">("front");
@@ -62,7 +59,6 @@ export function Presentation({
   const [showPinyin, setShowPinyin] = useState(false);
   const [showTranslations, setShowTranslations] = useState(false);
   const ink = useSyncExternalStore(inkStyleStore.subscribe, inkStyleStore.getSnapshot, inkStyleStore.getServerSnapshot);
-  const { resolvedTheme, setTheme } = useTheme();
 
   const item = lesson.items[index];
   const itemKey = item.senseId ?? `${item.word.hanzi}#${item.senseIndex}`;
@@ -387,16 +383,7 @@ export function Presentation({
               />
             </>
           )}
-          <Button
-            variant="ghost"
-            size="icon-lg"
-            aria-label={tc("theme")}
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-          >
-            {/* Los dos iconos y CSS decide: el tema no se conoce en el servidor. */}
-            <Sun className="hidden dark:block" />
-            <Moon className="dark:hidden" />
-          </Button>
+          <ThemeToggle size="icon-lg" />
           <Button variant="ghost" size="icon-lg" aria-label={t("fullscreen")} onClick={toggleFullscreen}>
             <Expand />
           </Button>

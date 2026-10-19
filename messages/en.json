@@ -4,7 +4,8 @@
     "language": "Interface language",
     "signOut": "Sign out",
     "theme": "Toggle theme",
-    "hskNote": "Based on the new HSK 3.0 standard (2025), which has 9 levels."
+    "hskNote": "Based on the new HSK 3.0 standard (2025), which has 9 levels.",
+    "credits": "Credits"
   },
   "Home": {
     "demoBadge": "Renshi · demo",
