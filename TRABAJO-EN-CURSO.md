@@ -61,4 +61,5 @@ carpeta sí permite pisarse archivos, dependencias y cambios de rama.
 | Agente | Rama | Carpeta | Puerto | Tarea | Estado (fecha) |
 |---|---|---|---|---|---|
 | Codex | `ux-voto-alumno` | `codex-chinese-lesson-ux-voto-alumno` | — | Rediseño de la votación del alumno (4 commits: responder sin interrupciones, nota HSK ocultada, verde al confirmar) con `design-qa.md` y capturas | Descartada por ahora (Ever, 2026-10-17): choca con el aviso de conexión de `pendientes-prioritarios` en el mismo componente |
+| Codex | `landing-publica` | — | 3006 | Portada pública de Renshi basada en la propuesta visual elegida, con una sección 3 menos densa | En construcción desde `master` (2026-10-18) |
 | Cline | `inicio-profesor` | `cline-chinese-lesson-inicio-profesor` | 3003 | Home del profesor previo a clase: pantalla donde ve sus recursos (colecciones, plantillas, lecciones) antes de presentar | Creado el worktree desde `master` (f79a28a), `.env`/sesiones copiados, `npm ci` OK (2026-10-16) |
