@@ -612,3 +612,54 @@ una clase real; cerrar el registro de cuentas en Supabase (Ever, en el panel);
 la carpeta principal del repo quedó atrás de `master` por un cambio sin
 commitear de otro agente en `TRABAJO-EN-CURSO.md`. Siguiente prioridad: P4,
 «Guardar como lección» lo presentado desde el catálogo.
+
+## 2026-10-19 — Demo real, tinta china y una portada para profesoras
+
+**El foco.** Comparando con Gushi (estudio individual, HSK 3.0 en español,
+de donde salen nuestras glosas) quedó claro el lugar de Renshi: no compite con
+las apps para estudiar solo, **reemplaza lo que la profesora arma hoy con
+Quizlet y un PowerPoint** para la clase en vivo. Ever lo fijó como foco:
+cada mejora se mide por cuánto mejora esa clase. Otras apps encontradas
+(Chinesimple, HSKLord, Hack Chinese, HanyuGuide) son para estudiar solo o para
+asignar tareas; ninguna junta presentar, frases, trazo y votación en vivo.
+
+**Una sola Lección de ejemplo, en la base.** La demo pública dejaba de ser un
+JSON local: ahora es una lección del admin marcada `public_demo` (migración
+`20261018000000`), que `/present` y la portada leen con una función pública que
+devuelve solo esa lección, sin abrir el catálogo a anónimos. Cada profesora
+recibe una copia suelta una sola vez, que puede editar, archivar o borrar.
+
+**Citas que se tocan.** De 237 fragmentos chinos citados en matices y notas,
+solo 106 coincidían con una palabra del catálogo. Ahora se parten en palabras
+(东市 → 东 · 市; 一边吃饭一边聊天 → 一边 · 吃饭 · 一边 · 聊天) y cada pieza abre
+su ayuda. Apareció por una pregunta de Ever: «东西 tiene nota y no veo nada».
+
+**Tinta china.** El anverso ofrece trazo liso o tinta (filtros SVG: borde de
+pincel, tinta corrida, carga desigual, papel de arroz y una punta roja que
+recorre el trazo). Botón «Tinta» o tecla I. La primera versión parecía lija;
+la segunda, tinta. Misma fluidez con la CPU frenada ×4.
+
+**La portada.** Ever trajo una referencia; se armó con los componentes reales
+y datos de 认识, y luego se aligeró dos veces: primero quitando repeticiones
+(la tarjeta salía tres veces), después con un brief editorial que recortó cerca
+de la mitad del texto. Cuatro ajustes al brief: «Sin registro» a secas sugería
+que todo Renshi era abierto; «trazos» en una sección que ya no los muestra;
+«Pregunta. Ellos responden.» pasó a «Pregunta si entendieron» porque los
+alumnos no responden una pregunta, dicen cuánto entendieron; y la nota cultural
+se pliega con «Ver más» en vez de recortarse. Pedir acceso (por correo a
+renshi@davila.uno, sin formulario) pasó al login, donde llega quien quiere
+entrar.
+
+**Transversal.** Modo claro por defecto con botón ☀/🌙 en toda la web. El pie
+enlaza el temario oficial (chinesetest.cn) y una página de créditos: Gushi,
+Tatoeba, Make Me a Hanzi y hanzi-writer-data no son oficiales, y por eso mismo
+sus licencias obligan a citarlos. «Guardar lección» desde la selección del
+catálogo reutiliza dos acciones existentes.
+
+**Contenido pendiente.** HSK 4–6 casi no tiene frases (43, 37 y 5 palabras de
+1000, 1600 y 1800). Gushi publica un ejemplo para 3054 de esas 4400 palabras;
+quedan ~1350 por escribir.
+
+**Sin probar / pendiente.** La sesión de prueba de laoshi en hanzi-dev se
+perdió y bloqueó la última corrida de pruebas autenticadas; el despliegue
+espera a que pasen. Textos de la portada solo en español hasta validarlos.
