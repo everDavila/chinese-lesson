@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, BookOpen, Languages, Lightbulb, Play, RotateCcw, Type, Volume2 } from "lucide-react";
 import { CalligraphyGrid } from "@/components/hanzi/calligraphy-grid";
 import { StrokeArt, strokeTimings } from "@/components/hanzi/stroke-art";
@@ -57,11 +57,11 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
       <section className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 pt-6 pb-16 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:pt-12">
         <div className="flex flex-col gap-6">
           <h1 className="font-hanzi text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.1] font-semibold">
-            Enseña vocabulario chino <span className="text-keyword-text">en contexto,</span> sin armar tarjetas ni diapositivas.
+            Enseña vocabulario chino <span className="text-keyword-text">en contexto,</span> sin crear tarjetas ni diapositivas.
           </h1>
           <p className="max-w-xl text-lg text-muted-foreground">
-            Elige las palabras del HSK 3.0 o pega la lista de tu libro. Renshi prepara las frases, el pinyin, el audio y
-            el trazo de cada carácter. Tú compartes pantalla y enseñas.
+            Elige palabras del HSK 3.0 o pega las de tu libro. Renshi prepara las frases, el audio y los trazos. Tú
+            enseñas.
           </p>
           <div className="flex flex-wrap items-center gap-5">
             <Link href="/present" className={cta}>
@@ -84,12 +84,9 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
             <h2 className={h2}>
               Elige las palabras.
               <br />
-              Lo demás ya está preparado.
+              Renshi hace el resto.
             </h2>
-            <p className="max-w-md text-muted-foreground">
-              Marca vocabulario del HSK 3.0 o pega la lista de tu libro. Preséntalo en el momento o guárdalo como lección
-              para la próxima clase.
-            </p>
+            <p className="max-w-md text-muted-foreground">Del HSK o de tu libro, directo a clase.</p>
           </div>
           <CatalogPreview />
         </div>
@@ -99,22 +96,19 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
         <div className="flex flex-col gap-4">
           <Eyebrow n="02">Enseñar</Eyebrow>
-          <h2 className={h2}>La palabra en frases, no sola.</h2>
-          <p className="max-w-2xl text-muted-foreground">
-            Frases reales, matices y notas culturales. Tú decides cuándo mostrar el pinyin o la traducción, y en cada
-            clase las frases rotan: primero salen las que tu grupo aún no vio.
-          </p>
+          <h2 className={h2}>Una palabra. Mucho más que una traducción.</h2>
+          <p className="max-w-2xl text-muted-foreground">Frases, matices y cultura. Todo en contexto.</p>
         </div>
         {item && sense && (
           <div className="mt-10 grid gap-4 lg:grid-cols-2">
             <div className="rounded-2xl border border-border bg-card p-5">
-              <p className="mb-1 text-sm font-medium">Frases en contexto</p>
-              <p className="mb-2 text-xs text-muted-foreground">Prueba los botones: audio, pinyin y traducción.</p>
+              <p className="mb-2 text-sm font-medium">Frases en contexto</p>
               <ol>
                 {sense.sentences.slice(0, 3).map((s, i) => (
                   <SentencePreview key={i} index={i} sentence={s} keyword={item.word.hanzi} />
                 ))}
               </ol>
+              <p className="mt-2 text-xs text-muted-foreground">Cada clase muestra primero frases que el grupo aún no ha visto.</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-5">
               <p className="mb-3 flex items-center gap-2 text-sm font-medium"><BookOpen className="size-4" /> Notas y uso</p>
@@ -126,12 +120,12 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
               {item.word.culturalNote && (
                 <div className="mt-4 rounded-xl bg-keyword/10 p-4">
                   <p className="mb-1 flex items-center gap-2 text-sm font-medium text-keyword-text"><Lightbulb className="size-4" /> Nota cultural</p>
-                  <p>
+                  <ClampedText>
                     <Highlighted text={item.word.culturalNote.es} keyword={item.word.hanzi} small noteTerms={noteTerms} lang="es" labels={labels} />
-                  </p>
+                  </ClampedText>
                 </div>
               )}
-              <p className="mt-3 text-xs text-muted-foreground">Toca las palabras subrayadas: muestran su pinyin y significado.</p>
+              <p className="mt-3 text-xs text-muted-foreground">Toca las palabras subrayadas.</p>
             </div>
           </div>
         )}
@@ -142,48 +136,54 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
         <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="flex flex-col gap-4">
             <Eyebrow n="03">Participar</Eyebrow>
-            <h2 className={h2}>Sabes si entendieron.</h2>
-            <ol className="mt-2 flex flex-col gap-4">
-              {[
-                ["Activas la votación", "En la clase aparece un código de seis letras."],
-                ["Tus alumnos entran desde el celular", "En renshi.davila.uno/v, sin cuenta y de forma anónima."],
-                ["Votan cada palabra mientras explicas", "La votación sigue a la palabra que muestras, y tú ves cuántos la entendieron."],
-              ].map(([title, text], i) => (
-                <li key={i} className="flex gap-4">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[oklch(0.5_0.15_25)] text-sm font-semibold text-white">{i + 1}</span>
-                  <div>
-                    <p className="font-medium">{title}</p>
-                    <p className="text-muted-foreground">{text}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <h2 className={h2}>
+              Pregunta si entendieron.
+              <br />
+              Ellos responden.
+            </h2>
+            <p className="max-w-md text-muted-foreground">Tus alumnos votan desde el celular, sin cuenta y de forma anónima.</p>
           </div>
           {item && sense && <PhonePreview item={item} />}
         </div>
       </section>
 
-      {/* Cierre: la idea, las cifras y el acceso. */}
-      <section className="mx-auto flex w-full max-w-4xl flex-col items-center gap-4 px-4 py-16 text-center sm:px-6">
+      {/* Cierre: el lema, las cifras (secundarias) y la clase de ejemplo. */}
+      <section className="mx-auto flex w-full max-w-4xl flex-col items-center gap-3 px-4 py-16 text-center sm:px-6">
         <p lang="zh-Hans" className="font-hanzi text-[clamp(1.5rem,3vw,2.25rem)]">认识一个词，不如认识一句话。</p>
         <p lang="zh-Latn" className="text-muted-foreground">Rènshi yí ge cí, bùrú rènshi yí jù huà.</p>
-        <p className="text-muted-foreground">Conocer una palabra está bien; conocerla dentro de una frase es mejor.</p>
-        <dl className="mt-6 flex flex-wrap justify-center gap-x-12 gap-y-4">
-          <div className="flex flex-col">
-            <dt className="text-sm text-muted-foreground">palabras de HSK 3.0</dt>
-            <dd className="order-first font-hanzi text-4xl font-semibold text-keyword-text">10 896</dd>
-          </div>
-          <div className="flex flex-col">
-            <dt className="text-sm text-muted-foreground">frases de ejemplo, y creciendo</dt>
-            <dd className="order-first font-hanzi text-4xl font-semibold text-keyword-text">~2700</dd>
-          </div>
-        </dl>
+        <p className="text-muted-foreground">Conocer una palabra está bien. En una frase, mejor.</p>
         <Link href="/present" className={cn(cta, "mt-6")}>
           <Play className="size-4 fill-current" /> Ver una clase de ejemplo
         </Link>
         <a href={IDEA_MAIL} className="text-sm text-keyword-text underline-offset-4 hover:underline">¿Tienes una idea para Renshi? Escríbenos</a>
+        <p className="mt-6 text-xs text-muted-foreground">10 896 palabras HSK 3.0 · ~2700 frases de ejemplo</p>
       </section>
     </div>
+  );
+}
+
+// Texto largo cortado a dos líneas, con «Ver más» si no cabe (la nota
+// cultural): el contenido no se recorta, solo se pliega.
+function ClampedText({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [open, setOpen] = useState(false);
+  const [overflows, setOverflows] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => setOverflows(el.scrollHeight > el.clientHeight + 1));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <>
+      <p ref={ref} className={cn(!open && "line-clamp-2")}>{children}</p>
+      {(overflows || open) && (
+        <button type="button" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="mt-1 text-sm text-keyword-text underline-offset-4 hover:underline">
+          {open ? "Ver menos" : "Ver más"}
+        </button>
+      )}
+    </>
   );
 }
 
