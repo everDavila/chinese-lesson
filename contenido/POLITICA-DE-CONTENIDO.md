@@ -64,6 +64,16 @@ comparar cobertura o detectar candidatos; no se importan a Supabase.
 - En colecciones propias o basadas en libros manda el vocabulario acumulado ya
   visto en esa colección, porque el orden del libro no coincide necesariamente
   con HSK.
+- Cada ejemplo usa la palabra **en el significado del sentido al que
+  pertenece** (regla de Ever, 2026-10-20). No vale que el carácter aparezca
+  dentro de otra palabra: para 家 = «casa», 大家好 o 谢谢大家 no sirven, porque
+  ahí 家 es parte de 大家 («todos»), y la tarjeta pintaría de rojo un 家 que no
+  significa casa. Esas frases van a la palabra que sí usan (大家) o se quitan.
+- Todo sentido con frases tiene una **frase maestra** (estrella en el editor
+  del admin): la que mejor muestra el significado principal, con la palabra
+  sola y en su uso más típico. Sale en todas las clases y siempre primera, así
+  que es la primera que se revisa. Si ninguna frase cumple, se escribe una
+  antes de publicar la palabra.
 - Se evita enseñar equivalencias palabra por palabra cuando el sentido depende
   de aspecto, partícula, clasificador, colocación o contexto cultural.
 - Simplificado, tradicional y variantes se almacenan explícitamente; nunca se
