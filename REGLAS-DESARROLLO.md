@@ -48,7 +48,12 @@ que saber que un piloto no es Renshi terminado.
   que está en la cabecera de la portada, en el menú docente y en el pie.
 - **Se queda** en el laboratorio aunque se implemente: cambia su estado a
   `implemented`, la franja pasa a «Ya forma parte de Renshi» y enlaza a dónde se
-  usa (`usedIn`). Si tiene historia, se cuenta en su página (ver `/lab/votacion`).
+  usa (`usedIn`).
+- **Cada versión que se probó** suma una entrada a su historia en
+  `src/lib/labs.ts` (fecha y texto en `Lab.items.<slug>.history`), con
+  `implemented: true` en el paso que lo llevó a Renshi. La página la muestra
+  como línea de tiempo y el índice ordena por la fecha más reciente. Los
+  ajustes menores y los trámites (publicar, mover al laboratorio) no cuentan.
 - Las ideas que no se programaron y los experimentos descartados no van al
   laboratorio.
 

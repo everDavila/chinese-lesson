@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowRight, CheckCircle2, FlaskConical, Lightbulb } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { Suspense } from "react";
+import { FlaskConical, Lightbulb } from "lucide-react";
+import { LabList, type LabCard } from "@/components/lab/lab-list";
 import { mailto } from "@/lib/contact";
 import { LABS } from "@/lib/labs";
-import { cn } from "@/lib/utils";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/lab">): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/lab">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Lab" });
   return { title: `${t("title")} · Renshi` };
@@ -19,50 +21,37 @@ export default async function LabIndex({ params }: PageProps<"/[locale]/lab">) {
   setRequestLocale(locale);
   const t = await getTranslations("Lab");
   const tc = await getTranslations("Contact");
+  const cards: LabCard[] = LABS.map((l) => ({
+    slug: l.slug,
+    status: l.status,
+    title: t(`items.${l.slug}.title`),
+    summary: t(`items.${l.slug}.summary`),
+    since: l.since,
+    implementedOn: l.implementedOn,
+  }));
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-10 px-4 py-10 sm:px-6">
       <header className="flex flex-col gap-3">
         <h1 className="flex items-center gap-3 font-hanzi text-4xl font-semibold">
-          <FlaskConical className="size-8 text-keyword-text" aria-hidden /> {t("title")}
+          <FlaskConical className="size-8 text-keyword-text" aria-hidden />{" "}
+          {t("title")}
         </h1>
         <p className="max-w-2xl text-muted-foreground">{t("intro")}</p>
       </header>
 
-      {/* Una tarjeta horizontal por experimento, una debajo de otra; el estado
-          al final de cada una, alineado como una columna (idea de Ever). */}
-      <ul className="flex flex-col gap-3">
-        {LABS.map((l) => (
-          <li key={l.slug}>
-            <Link
-              href={`/lab/${l.slug}`}
-              className="group flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-keyword-text sm:flex-row sm:items-center sm:gap-6"
-            >
-              <span className="flex min-w-0 flex-1 flex-col gap-1">
-                <span className="font-hanzi text-xl font-semibold">{t(`items.${l.slug}.title`)}</span>
-                <span className="text-sm text-muted-foreground">{t(`items.${l.slug}.summary`)}</span>
-              </span>
-              <span className="flex shrink-0 items-center gap-4 sm:w-56 sm:justify-end">
-                <span
-                  className={cn(
-                    "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium whitespace-nowrap text-black",
-                    l.status === "implemented" ? "bg-rating-3" : "bg-rating-2",
-                  )}
-                >
-                  {l.status === "implemented" ? <CheckCircle2 className="size-3.5" aria-hidden /> : <FlaskConical className="size-3.5" aria-hidden />}
-                  {l.status === "implemented" ? t("implementedTag") : t("testingTag")}
-                </span>
-                <span className="inline-flex items-center gap-1 text-sm font-medium text-keyword-text">
-                  {t("open")} <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-                </span>
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {/* Tarjetas horizontales, de la novedad más reciente a la más antigua, con
+          su fecha y filtros por estado (?estado=…). */}
+      <Suspense fallback={null}>
+        <LabList labs={cards} />
+      </Suspense>
 
-      <section id="ideas" className="scroll-mt-16 flex flex-col items-start gap-3 rounded-2xl border border-dashed border-border bg-card/60 p-6">
+      <section
+        id="ideas"
+        className="scroll-mt-16 flex flex-col items-start gap-3 rounded-2xl border border-dashed border-border bg-card/60 p-6"
+      >
         <h2 className="flex items-center gap-2 font-hanzi text-2xl font-semibold">
-          <Lightbulb className="size-6 text-keyword-text" aria-hidden /> {t("ideasTitle")}
+          <Lightbulb className="size-6 text-keyword-text" aria-hidden />{" "}
+          {t("ideasTitle")}
         </h2>
         <p className="text-muted-foreground">{t("ideasText")}</p>
         <a

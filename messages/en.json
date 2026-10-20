@@ -456,42 +456,62 @@
     "replay": "Replay the strokes",
     "tryPanda": "Try it",
     "tryPandaHint": "Type a made-up six-letter code: the panda follows the active box and reacts if the class doesn't exist.",
-    "votingSteps": {
-      "2026-10-11": "Anonymous voting: students join with a code in a text field, no account needed.",
-      "2026-10-12a": "Voting follows the card the teacher is showing, and the code stays visible to the class.",
-      "2026-10-12b": "The code becomes six boxes: a missing letter is obvious right away.",
-      "2026-10-12c": "The panda arrives: it watches the active box and reacts if the code doesn't exist.",
-      "2026-10-12d": "After fixing a letter, the cursor moves on by itself.",
-      "2026-10-16": "If the phone loses its connection, it says so."
-    },
     "items": {
       "escritura": {
         "title": "Writing",
-        "summary": "Students trace the character with a finger: tracing or from memory, with three tolerance levels."
+        "summary": "Students trace the character with a finger: tracing or from memory, with three tolerance levels.",
+        "history": {
+          "start": "First test: students trace with a finger, tracing or from memory, with three tolerance levels."
+        }
       },
       "gramatica": {
         "title": "Grammar",
-        "summary": "Build sentences with 12 HSK 1 grammar points, with a mode to project in class."
+        "summary": "Build sentences with 12 HSK 1 grammar points, with a mode to project in class.",
+        "history": {
+          "start": "Pilot: build sentences with 12 HSK 1 grammar points, with prompts and a mode to project in class."
+        }
       },
       "tinta": {
         "title": "Chinese ink",
         "summary": "The character is drawn with brush edges, bleeding ink and rice paper.",
-        "body": "In class, the “Ink” button (or the I key) switches the plain stroke to Chinese ink. Here are both, side by side."
+        "body": "In class, the “Ink” button (or the I key) switches the plain stroke to Chinese ink. Here are both, side by side.",
+        "history": {
+          "start": "First version with SVG filters: brush edges and a dry texture. The grain looked like sandpaper.",
+          "soft": "Second version: an almost solid stroke, bleeding ink, uneven load, rice paper and the red brush tip.",
+          "class": "Reaches the class as an option: the “Ink” button or the I key."
+        }
       },
       "votacion": {
         "title": "Students vote",
         "summary": "Anonymous voting from the phone, with the panda that guides the code.",
-        "body": "It started as a text field and grew with every test class. This is how it became what students use today."
+        "body": "It started as a text field and grew with every test class. This is how it became what students use today.",
+        "history": {
+          "start": "Anonymous voting: students join with a code in a text field, no account needed.",
+          "follows": "Voting follows the card the teacher is showing, and the code stays visible to the class.",
+          "boxes": "The code becomes six boxes: a missing letter is obvious right away.",
+          "panda": "The panda arrives: it watches the active box and reacts if the code doesn't exist.",
+          "connection": "If the phone loses its connection, it says so."
+        }
       },
       "frases": {
         "title": "Sentences in another language",
         "summary": "Back-of-card sentences start in Chinese, Spanish or English: the class tries to say them in Chinese, then reveal.",
-        "body": "On the back of the card, the presentation bar has a selector “Sentences in: 中文 · ES · EN” (key L). In Chinese you reveal the Spanish and English translation; in Spanish or English the class tries to say the sentence in Chinese and reveals it with the 中 button, with pinyin as a hint."
+        "body": "On the back of the card, the presentation bar has a selector “Sentences in: 中文 · ES · EN” (key L). In Chinese you reveal the Spanish and English translation; in Spanish or English the class tries to say the sentence in Chinese and reveals it with the 中 button, with pinyin as a hint.",
+        "history": {
+          "start": "First version: “Sentences in 中文 · ES · EN” (key L). In Chinese, the translation shows Spanish and English; in Spanish or English, the class says the sentence in Chinese, then reveals it."
+        }
       }
     },
     "frasesStep1": "Open the sample class and flip the card (Space).",
     "frasesStep2": "In the bottom bar, pick “ES” or “EN” under “Sentences in” (or press L).",
     "frasesStep3": "Each sentence shows 🔊, 中 and pinyin: listen, try to say it in Chinese, then reveal with 中.",
-    "tryInDemo": "Try it in the sample class"
+    "tryInDemo": "Try it in the sample class",
+    "historyTitle": "How it got here",
+    "filterLabel": "Filter by status",
+    "filterAll": "All",
+    "filterTesting": "Testing",
+    "filterImplemented": "Implemented",
+    "testingSince": "Since {date}",
+    "implementedOn": "Implemented on {date}"
   }
 }
