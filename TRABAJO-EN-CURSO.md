@@ -4,6 +4,14 @@
 > repo**: al cambiar de PC, cada agente busca aquí su fila y sigue donde quedó.
 > Las carpetas (worktrees) no viajan con git; las ramas sí, si están subidas.
 
+## Aviso para la otra PC (2026-10-20)
+
+**No hay nada pendiente: solo `git pull` en `chinese-lesson`.** Todo lo de hoy
+ya está en `master`, en producción (https://renshi.davila.uno) y con la
+migración `20261020000000_frase_maestra` aplicada en producción y en
+`hanzi-dev`. No apliques migraciones ni retomes `rediseno-tarjeta-profesor` ni
+`admin-editor-frases`: están integradas. No hace falta crear worktrees.
+
 ## Al empezar en una PC
 
 1. `git pull` en la carpeta principal (`chinese-lesson`).
