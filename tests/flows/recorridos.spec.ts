@@ -280,7 +280,8 @@ test.describe("votación de alumnos", () => {
     await phone.screenshot({ path: `${SHOTS}/9-alumno-siguiente-palabra.png` });
     await page.keyboard.press("ArrowLeft");
     await expect(phone.getByText("爱").first()).toBeVisible({ timeout: 10_000 });
-    // Cambiar de palabra mantiene la cara: seguimos en el reverso, con sus votos.
+    // En clase en vivo, cambiar de palabra vuelve al anverso (por defecto).
+    await page.keyboard.press("Space");
     await expect(page.getByTestId("votes-total")).toHaveText(/^1 /, { timeout: 10_000 });
 
     // Pausada la votación, el alumno vuelve a esperar.

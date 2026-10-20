@@ -5,6 +5,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Brush,
+  CopyCheck,
   Expand,
   Languages,
   Pause,
@@ -22,6 +23,7 @@ import { CardBack } from "./card-back";
 import { CardFront } from "./card-front";
 import { GroupRating, type Rating } from "./group-rating";
 import { StudentVoting, VotingBar } from "./student-voting";
+import { advanceStore } from "./advance-store";
 import { inkStyleStore } from "./ink-style-store";
 import { ratingsStore } from "./ratings-store";
 import { endSessionAction, rateSenseAction } from "@/actions/class";
@@ -59,6 +61,10 @@ export function Presentation({
   const [showPinyin, setShowPinyin] = useState(false);
   const [showTranslations, setShowTranslations] = useState(false);
   const ink = useSyncExternalStore(inkStyleStore.subscribe, inkStyleStore.getSnapshot, inkStyleStore.getServerSnapshot);
+  // Al pasar de palabra: en clase en vivo vuelve al anverso; en la demo o un
+  // enlace compartido (repaso), mantiene la cara. La docente lo cambia (tecla A).
+  const advanceContext = session ? "class" : "review";
+  const advance = useSyncExternalStore(advanceStore.subscribe, advanceStore.snapshot(advanceContext), advanceStore.serverSnapshot(advanceContext));
 
   const item = lesson.items[index];
   const itemKey = item.senseId ?? `${item.word.hanzi}#${item.senseIndex}`;
@@ -127,13 +133,13 @@ export function Presentation({
   const goTo = useCallback(
     (i: number) => {
       setIndex(Math.max(0, Math.min(count - 1, i)));
-      // Se queda en la cara actual: repasando en el reverso, la siguiente
-      // palabra se abre por el reverso (pedido de Ever); el trazo se dibuja al
-      // girar al anverso.
+      // «Mantener cara»: repasando en el reverso, la siguiente palabra se abre
+      // por el reverso; el trazo se dibuja al girar al anverso.
+      if (advance === "front") setSide("front");
       setPlaying(true);
       setRunId((r) => r + 1);
     },
-    [count],
+    [count, advance],
   );
 
   const flip = () => setSide((s) => (s === "front" ? "back" : "front"));
@@ -182,6 +188,10 @@ export function Presentation({
         case "f":
         case "F":
           toggleFullscreen();
+          break;
+        case "a":
+        case "A":
+          advanceStore.toggle(advanceContext);
           break;
         case "i":
         case "I":
@@ -320,6 +330,14 @@ export function Presentation({
               <Brush /> {t("ink")}
             </Button>
           )}
+          <Button
+            variant="ghost"
+            onClick={() => advanceStore.toggle(advanceContext)}
+            aria-label={`${advance === "keep" ? t("advanceKeep") : t("advanceFront")} (A)`}
+            title={t("advanceHint")}
+          >
+            {advance === "keep" ? <CopyCheck /> : <RotateCcw />} {advance === "keep" ? t("advanceKeep") : t("advanceFront")}
+          </Button>
           {side === "back" && (
             <Button variant={showTranslations ? "secondary" : "ghost"} onClick={() => setShowTranslations((v) => !v)} aria-pressed={showTranslations} aria-label={`${t("translations")} (T)`}>
               <Languages /> {t("translations")}

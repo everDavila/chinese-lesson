@@ -19,5 +19,10 @@ test("demo: las citas de la nota se parten y abren su ayuda", async ({ page }, t
   await page.keyboard.press("Escape");
   await page.getByRole("button", { name: /Palabra siguiente/ }).click();
   await expect(page.getByRole("button", { name: /Más detalles/ })).toBeVisible();
+  // Con la tecla A cambia a «volver al anverso»: la siguiente palabra se abre por el anverso.
+  await page.keyboard.press("a");
+  await expect(page.getByRole("button", { name: /Al avanzar: anverso/ })).toBeVisible();
+  await page.getByRole("button", { name: /Palabra siguiente/ }).click();
+  await expect(page.getByRole("button", { name: /Más detalles/ })).toHaveCount(0);
   await page.screenshot({ path: `tests/screens/${testInfo.project.name}/demo-cita.png` });
 });
