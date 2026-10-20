@@ -25,6 +25,7 @@ import { GroupRating, type Rating } from "./group-rating";
 import { StudentVoting, VotingBar } from "./student-voting";
 import { advanceStore } from "./advance-store";
 import { inkStyleStore } from "./ink-style-store";
+import { SENTENCE_MODES, sentenceModeStore } from "./sentence-mode-store";
 import { ratingsStore } from "./ratings-store";
 import { endSessionAction, rateSenseAction } from "@/actions/class";
 import { closeVotingAction, openVotingAction, votingLiveAction } from "@/actions/vote";
@@ -61,6 +62,8 @@ export function Presentation({
   const [showPinyin, setShowPinyin] = useState(false);
   const [showTranslations, setShowTranslations] = useState(false);
   const ink = useSyncExternalStore(inkStyleStore.subscribe, inkStyleStore.getSnapshot, inkStyleStore.getServerSnapshot);
+  // En qué idioma empiezan las frases del reverso (tecla L).
+  const sentenceMode = useSyncExternalStore(sentenceModeStore.subscribe, sentenceModeStore.getSnapshot, sentenceModeStore.getServerSnapshot);
   // Al pasar de palabra: en clase en vivo vuelve al anverso; en la demo o un
   // enlace compartido (repaso), mantiene la cara. La docente lo cambia (tecla A).
   const advanceContext = session ? "class" : "review";
@@ -193,6 +196,10 @@ export function Presentation({
         case "A":
           advanceStore.toggle(advanceContext);
           break;
+        case "l":
+        case "L":
+          sentenceModeStore.next();
+          break;
         case "i":
         case "I":
           inkStyleStore.toggle();
@@ -274,6 +281,7 @@ export function Presentation({
                 item={item}
                 showPinyin={showPinyin}
                 showTranslations={showTranslations}
+                sentenceMode={sentenceMode}
                 lang={contentLanguage}
                 noteTerms={lesson.noteTerms}
                 footer={
@@ -339,8 +347,23 @@ export function Presentation({
             {advance === "keep" ? <CopyCheck /> : <RotateCcw />} {advance === "keep" ? t("advanceKeep") : t("advanceFront")}
           </Button>
           {side === "back" && (
-            <Button variant={showTranslations ? "secondary" : "ghost"} onClick={() => setShowTranslations((v) => !v)} aria-pressed={showTranslations} aria-label={`${t("translations")} (T)`}>
-              <Languages /> {t("translations")}
+            <div className="flex rounded-lg border border-border p-0.5" role="group" aria-label={`${t("sentencesIn")} (L)`} title={t("sentencesHint")}>
+              {SENTENCE_MODES.map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  aria-pressed={sentenceMode === m}
+                  onClick={() => sentenceModeStore.set(m)}
+                  className={cn("rounded-md px-2.5 py-1 text-sm", sentenceMode === m ? "bg-primary text-primary-foreground" : "text-muted-foreground")}
+                >
+                  {m === "zh" ? <span lang="zh-Hans">中文</span> : m.toUpperCase()}
+                </button>
+              ))}
+            </div>
+          )}
+          {side === "back" && (
+            <Button variant={showTranslations ? "secondary" : "ghost"} onClick={() => setShowTranslations((v) => !v)} aria-pressed={showTranslations} aria-label={`${sentenceMode === "zh" ? t("translations") : t("chinese")} (T)`}>
+              {sentenceMode === "zh" ? <Languages /> : <span lang="zh-Hans" className="font-hanzi">中</span>} {sentenceMode === "zh" ? t("translations") : t("chinese")}
             </Button>
           )}
         </div>

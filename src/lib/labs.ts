@@ -15,6 +15,7 @@ export type Lab = {
 export const LABS: Lab[] = [
   { slug: "escritura", status: "testing", since: "2026-10-12" },
   { slug: "gramatica", status: "testing", since: "2026-10-19" },
+  { slug: "frases", status: "testing", since: "2026-10-20" },
   { slug: "tinta", status: "implemented", usedIn: "/present", since: "2026-10-18" },
   { slug: "votacion", status: "implemented", usedIn: "/v", since: "2026-10-11" },
 ];

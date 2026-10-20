@@ -9,6 +9,7 @@ import type { LessonItem, NoteTerm, Sentence } from "@/lib/lesson-types";
 import { categoryLabel, studentLabels, type ContentLanguage, type StudentLabels } from "@/lib/student-labels";
 import { segmentHan } from "@/lib/note-terms";
 import { speakChinese } from "@/lib/speech";
+import type { SentenceMode } from "./sentence-mode-store";
 import { cn } from "@/lib/utils";
 
 
@@ -103,24 +104,53 @@ function SentenceRow({
   showTranslations,
   lang,
   labels,
+  mode,
 }: {
   sentence: Sentence;
   keyword: string;
   index: number;
   showPinyin: boolean;
+  /** En modo 中文 revela las traducciones; en ES/EN, el chino. */
   showTranslations: boolean;
   lang: ContentLanguage;
   labels: StudentLabels;
+  mode: SentenceMode;
 }) {
   const [pinyinOverride, setPinyinOverride] = useState<boolean | null>(null);
-  const [translationOverride, setTranslationOverride] = useState<boolean | null>(null);
+  const [revealOverride, setRevealOverride] = useState<boolean | null>(null);
   const pinyinVisible = pinyinOverride ?? showPinyin;
-  const translationVisible = translationOverride ?? showTranslations;
+  const revealed = revealOverride ?? showTranslations;
   const pinyinId = useId();
-  const translationId = useId();
+  const revealId = useId();
+  // Frases en español o inglés primero: la clase intenta decirla en chino y
+  // se revela. Si la frase no tiene ese idioma (p. ej. una propia sin
+  // traducir), se usa el otro; si no tiene ninguno, se muestra en chino.
+  const prompt = mode === "zh" ? "" : sentence[mode] || sentence[mode === "es" ? "en" : "es"];
+  const chineseFirst = mode === "zh" || !prompt;
+  const other: ContentLanguage = lang === "es" ? "en" : "es";
+  const btn = "h-12 w-full px-0 sm:size-9";
+  const pinyinButton = (
+    <Button
+      variant={pinyinVisible ? "secondary" : "outline"}
+      className={btn}
+      aria-label={pinyinVisible ? labels.hidePinyin : labels.showPinyin}
+      aria-pressed={pinyinVisible}
+      aria-controls={pinyinId}
+      onClick={() => setPinyinOverride(!pinyinVisible)}
+    >
+      <Type className="size-5 sm:size-4" />
+    </Button>
+  );
+  const pinyinLine = pinyinVisible && (
+    <p id={pinyinId} lang="zh-Latn" className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sentence.pinyin}</p>
+  );
+  const chinese = (
+    <p lang="zh-Hans" className="text-left font-hanzi text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight">
+      <Highlighted text={sentence.zh} keyword={keyword} />
+    </p>
+  );
   // El estado de revisión de la frase (sentences.status) no se muestra aquí:
-  // es información editorial interna, no material de clase. No existe aún
-  // vista de admin que lo exponga, así que hoy vive solo en la base.
+  // es información editorial interna, no material de clase.
   return (
     <li className="flex gap-4 border-t border-border py-4 first:border-t-0">
       <span className="mt-2 flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-sm text-muted-foreground">
@@ -128,45 +158,59 @@ function SentenceRow({
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <p lang="zh-Hans" className="text-left font-hanzi text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight">
-            <Highlighted text={sentence.zh} keyword={keyword} />
-          </p>
+          {chineseFirst ? chinese : <p className="text-left text-[clamp(1.25rem,2.4vw,2rem)] leading-snug">{prompt}</p>}
+          {/* Audio siempre primero. En 中文: pinyin y traducción; en ES/EN: chino y pinyin. */}
           <div className="grid grid-cols-3 gap-2 sm:flex sm:shrink-0">
-            <Button variant="outline" className="h-12 w-full px-0 sm:size-9" aria-label={labels.listenSentence} onClick={() => speakChinese(sentence.zh)}>
+            <Button variant="outline" className={btn} aria-label={labels.listenSentence} onClick={() => speakChinese(sentence.zh)}>
               <Volume2 className="size-5 sm:size-4" />
             </Button>
-            <Button
-              variant={pinyinVisible ? "secondary" : "outline"}
-              className="h-12 w-full px-0 sm:size-9"
-              aria-label={pinyinVisible ? labels.hidePinyin : labels.showPinyin}
-              aria-pressed={pinyinVisible}
-              aria-controls={pinyinId}
-              onClick={() => setPinyinOverride(!pinyinVisible)}
-            >
-              <Type className="size-5 sm:size-4" />
-            </Button>
-            <Button
-              variant={translationVisible ? "secondary" : "outline"}
-              className="h-12 w-full px-0 sm:size-9"
-              aria-label={translationVisible ? labels.hideTranslation : labels.showTranslation}
-              aria-pressed={translationVisible}
-              aria-controls={translationId}
-              onClick={() => setTranslationOverride(!translationVisible)}
-            >
-              <Languages className="size-5 sm:size-4" />
-            </Button>
+            {chineseFirst ? (
+              <>
+                {pinyinButton}
+                <Button
+                  variant={revealed ? "secondary" : "outline"}
+                  className={btn}
+                  aria-label={revealed ? labels.hideTranslation : labels.showTranslation}
+                  aria-pressed={revealed}
+                  aria-controls={revealId}
+                  onClick={() => setRevealOverride(!revealed)}
+                >
+                  <Languages className="size-5 sm:size-4" />
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant={revealed ? "secondary" : "outline"}
+                  className={btn}
+                  aria-label={revealed ? labels.hideChinese : labels.showChinese}
+                  aria-pressed={revealed}
+                  aria-controls={revealId}
+                  onClick={() => setRevealOverride(!revealed)}
+                >
+                  <span lang="zh-Hans" className="font-hanzi text-lg sm:text-base">中</span>
+                </Button>
+                {pinyinButton}
+              </>
+            )}
           </div>
         </div>
-        {pinyinVisible && (
-          <p id={pinyinId} lang="zh-Latn" className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)] text-muted-foreground">{sentence.pinyin}</p>
-        )}
-        {translationVisible && (
-          <p id={translationId} className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)]">
-            {sentence[lang]}
-            {/* El inglés de apoyo se pliega en celular: alarga cada frase al doble
-                (auditoría UX, P1). En pantalla grande, donde presenta la docente, sigue. */}
-            {lang !== "en" && <span className="hidden text-muted-foreground sm:inline"> · {sentence.en}</span>}
-          </p>
+        {chineseFirst ? (
+          <>
+            {pinyinLine}
+            {/* Traducción en los dos idiomas: a veces se entiende mejor en inglés (Ever). */}
+            {revealed && (
+              <div id={revealId} className="mt-1 text-[clamp(1rem,1.6vw,1.375rem)]">
+                {sentence[lang] && <p>{sentence[lang]}</p>}
+                {sentence[other] && <p className="text-muted-foreground">{sentence[other]}</p>}
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            {revealed && <div id={revealId} className="mt-2">{chinese}</div>}
+            {pinyinLine}
+          </>
         )}
       </div>
     </li>
@@ -210,13 +254,15 @@ type CardBackProps = {
   item: LessonItem;
   showPinyin: boolean;
   showTranslations: boolean;
+  /** En qué idioma empiezan las frases (barra de la presentación). */
+  sentenceMode?: SentenceMode;
   /** Idioma del contenido para los alumnos (no el de la interfaz). */
   lang: ContentLanguage;
   noteTerms?: Record<string, NoteTerm>;
   footer?: React.ReactNode;
 };
 
-export function CardBack({ item, showPinyin, showTranslations, lang, noteTerms, footer }: CardBackProps) {
+export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "zh", lang, noteTerms, footer }: CardBackProps) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const labels = studentLabels(lang);
   const { word, senseIndex } = item;
@@ -342,7 +388,8 @@ export function CardBack({ item, showPinyin, showTranslations, lang, noteTerms, 
           <ol className="rounded-xl border border-border bg-background/60 px-5">
             {sense.sentences.map((s, i) => (
               <SentenceRow
-                key={`${word.hanzi}-${senseIndex}-${i}`}
+                key={`${word.hanzi}-${senseIndex}-${i}-${sentenceMode}`}
+                mode={sentenceMode}
                 sentence={s}
                 keyword={word.hanzi}
                 index={i}

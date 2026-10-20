@@ -30,7 +30,7 @@ test("tarjeta: anverso y reverso", async ({ page }, testInfo) => {
   }
 });
 
-test("reverso: barra compacta al bajar y segundo idioma plegado en celular", async ({ page }, testInfo) => {
+test("reverso: barra compacta al bajar y traducción en español e inglés", async ({ page }, testInfo) => {
   const phone = testInfo.project.name.startsWith("phone");
   await page.goto("/es/present");
   await page.locator(".transform-3d").waitFor();
@@ -58,11 +58,11 @@ test("reverso: barra compacta al bajar y segundo idioma plegado en celular", asy
   if (phone) expect(scrolled, "en celular el reverso de 知道 se desplaza").toBe(true);
   await page.screenshot({ path: `tests/screens/${testInfo.project.name}/reverso-abajo.png` });
 
-  // La traducción inglesa de apoyo (tras " · ") solo se ve desde sm.
+  // La traducción muestra español e inglés, en todos los tamaños (2026-10-20:
+  // a veces se entiende mejor en inglés).
   await page.keyboard.press("t");
-  const support = page.locator("li span.text-muted-foreground", { hasText: /^ · / }).first();
-  if (phone) await expect(support).toBeHidden();
-  else await expect(support).toBeVisible();
+  const first = page.locator(".transform-3d ol > li").first();
+  await expect(first.locator("p.text-muted-foreground").last()).toBeVisible();
 });
 
 test("cómo se forma: piezas con su pinyin, sin glosas", async ({ page }, testInfo) => {

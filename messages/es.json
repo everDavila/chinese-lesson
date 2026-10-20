@@ -17,7 +17,7 @@
     "startClass": "Empezar clase",
     "teacherAccess": "Acceso docente",
     "presentDemo": "Presentar la lección",
-    "shortcuts": "Atajos en la presentación: ← → palabra · Espacio girar · P pausa · R repetir · Y pinyin · T traducciones · 1–4 valorar · F pantalla completa · I tinta china · A al avanzar",
+    "shortcuts": "Atajos en la presentación: ← → palabra · Espacio girar · P pausa · R repetir · Y pinyin · T traducciones · 1–4 valorar · F pantalla completa · I tinta china · A al avanzar · L idioma de las frases",
     "demoIntro": "Cada palabra se enseña en contexto: primero el carácter y sus trazos; al girar la tarjeta, cómo se forma, frases reales y cuándo se usa. La profesora presenta, la clase lo comenta y valoran juntos cuánto se entendió."
   },
   "TeacherWorkspace": {
@@ -180,7 +180,10 @@
     "ink": "Tinta",
     "advanceFront": "Al avanzar: anverso",
     "advanceKeep": "Al avanzar: misma cara",
-    "advanceHint": "Qué pasa al pasar de palabra: volver al anverso (ver el trazo) o quedarse en la cara actual (repasar). Tecla A."
+    "advanceHint": "Qué pasa al pasar de palabra: volver al anverso (ver el trazo) o quedarse en la cara actual (repasar). Tecla A.",
+    "sentencesIn": "Frases en",
+    "sentencesHint": "Idioma en que empiezan las frases: en chino (se revela la traducción) o en español / inglés (la clase intenta decirla en chino y se revela). Tecla L.",
+    "chinese": "Chino"
   },
   "Manage": {
     "nav": {
@@ -479,7 +482,16 @@
         "title": "El alumno vota",
         "summary": "Votación anónima desde el celular, con el panda que guía el código.",
         "body": "Empezó como un campo de texto y fue creciendo con cada clase de prueba. Así llegó a lo que usan hoy los alumnos."
+      },
+      "frases": {
+        "title": "Frases en otro idioma",
+        "summary": "Las frases del reverso empiezan en chino, español o inglés: la clase intenta decirlas en chino y se revelan.",
+        "body": "En el reverso, la barra de la presentación tiene un selector «Frases en: 中文 · ES · EN» (tecla L). En chino se revela la traducción en español e inglés; en español o inglés, la clase intenta decir la frase en chino y se revela con el botón 中, con el pinyin como pista."
       }
-    }
+    },
+    "frasesStep1": "Abre la clase de ejemplo y gira la tarjeta (Espacio).",
+    "frasesStep2": "En la barra de abajo, elige «ES» o «EN» en «Frases en» (o pulsa L).",
+    "frasesStep3": "Cada frase muestra 🔊, 中 y pinyin: escuchen, intenten decirla en chino y revelen con 中.",
+    "tryInDemo": "Probar en la clase de ejemplo"
   }
 }
