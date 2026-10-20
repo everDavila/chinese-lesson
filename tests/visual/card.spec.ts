@@ -30,7 +30,7 @@ test("tarjeta: anverso y reverso", async ({ page }, testInfo) => {
   }
 });
 
-test("reverso: cabecera fija, frase maestra y traducción en español e inglés", async ({ page }, testInfo) => {
+test("reverso: cabecera fija, sin frase maestra automática y traducción en español e inglés", async ({ page }, testInfo) => {
   const phone = testInfo.project.name.startsWith("phone");
   await page.goto("/es/present");
   await page.locator(".transform-3d").waitFor();
@@ -40,7 +40,7 @@ test("reverso: cabecera fija, frase maestra y traducción en español e inglés"
   await page.keyboard.press("Space");
   await page.waitForTimeout(700);
 
-  await expect(page.getByText("Frase maestra", { exact: true })).toBeVisible();
+  await expect(page.getByText("Frase maestra", { exact: true })).toHaveCount(0);
   if (!phone) {
     const header = page.getByTestId("card-word-header");
     const before = await header.boundingBox();
