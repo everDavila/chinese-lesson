@@ -32,6 +32,8 @@ const LABELS = {
     hideTranslation: "Ocultar traducción",
     close: "Cerrar",
     howItsBuilt: "Cómo se forma",
+    examples: "Frases en contexto",
+    masterSentence: "Frase maestra",
     hskNote: "Basado en el nuevo HSK 3.0 (2025), que contempla 9 niveles.",
     noHsk: "Sin HSK",
     // Palabra del catálogo sin frases: la tarjeta propone crear una en clase.
@@ -84,6 +86,8 @@ const LABELS = {
     hideTranslation: "Hide translation",
     close: "Close",
     howItsBuilt: "How it's built",
+    examples: "Sentences in context",
+    masterSentence: "Master sentence",
     hskNote: "Based on the new HSK 3.0 standard (2025), which has 9 levels.",
     noHsk: "Not in HSK",
     inventTitle: "Make up a sentence with",

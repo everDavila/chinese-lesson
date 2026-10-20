@@ -61,6 +61,8 @@ export function Presentation({
   const [runId, setRunId] = useState(0);
   const [showPinyin, setShowPinyin] = useState(false);
   const [showTranslations, setShowTranslations] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const controlsRef = useRef<HTMLElement>(null);
   const ink = useSyncExternalStore(inkStyleStore.subscribe, inkStyleStore.getSnapshot, inkStyleStore.getServerSnapshot);
   // En qué idioma empiezan las frases del reverso (tecla L).
   const sentenceMode = useSyncExternalStore(sentenceModeStore.subscribe, sentenceModeStore.getSnapshot, sentenceModeStore.getServerSnapshot);
@@ -157,6 +159,32 @@ export function Presentation({
     else document.documentElement.requestFullscreen?.();
   };
 
+  // En una computadora compartiendo pantalla, la barra desaparece cuando la
+  // docente deja de usar el ratón. Teclado, foco y tacto siempre la conservan.
+  useEffect(() => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    let timer: number | undefined;
+    const reveal = () => {
+      setControlsVisible(true);
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        if (!controlsRef.current?.contains(document.activeElement)) setControlsVisible(false);
+      }, 3000);
+    };
+    reveal();
+    window.addEventListener("pointermove", reveal, { passive: true });
+    window.addEventListener("pointerdown", reveal, { passive: true });
+    window.addEventListener("keydown", reveal);
+    window.addEventListener("focusin", reveal);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("pointermove", reveal);
+      window.removeEventListener("pointerdown", reveal);
+      window.removeEventListener("keydown", reveal);
+      window.removeEventListener("focusin", reveal);
+    };
+  }, []);
+
   // Atajos de teclado (DIAGNOSTICO-MODO-CLASE.md §F.10).
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -221,7 +249,7 @@ export function Presentation({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goTo, index, side, ratings, itemKey, setRating, toggleVoting]);
+  }, [goTo, index, side, ratings, itemKey, setRating, toggleVoting, advanceContext]);
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
@@ -286,7 +314,7 @@ export function Presentation({
                 noteTerms={lesson.noteTerms}
                 footer={
                   <>
-                    <GroupRating value={ratings[itemKey]} onChange={setRating} labels={labels} />
+                    <GroupRating value={ratings[itemKey]} onChange={setRating} labels={labels} compact />
                     {session && item.senseId && (
                       <StudentVoting
                         sessionId={session.id}
@@ -311,8 +339,12 @@ export function Presentation({
       )}
       {/* Controles al estilo Quizlet: ← n / total → al centro, siempre visibles. */}
       <nav
+        ref={controlsRef}
         aria-label={t("label")}
-        className="grid grid-cols-2 items-center gap-x-4 gap-y-2 px-[3vw] pt-1 pb-4 md:grid-cols-[1fr_auto_1fr]"
+        className={cn(
+          "grid grid-cols-2 items-center gap-x-4 gap-y-2 px-[3vw] pt-1 pb-4 transition-[opacity,transform] duration-200 motion-reduce:transition-none md:grid-cols-[1fr_auto_1fr]",
+          !controlsVisible && "md:pointer-events-none md:translate-y-2 md:opacity-0",
+        )}
       >
         {/* En móvil: flechas arriba a lo ancho; caras y pinyin a la izquierda y
             el resto a la derecha en la fila de abajo. */}

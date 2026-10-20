@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useId, useState } from "react";
 import { Popover } from "@base-ui/react/popover";
 import { ChevronDown, Languages, Type, Volume2, X } from "lucide-react";
 import { StrokeArt } from "@/components/hanzi/stroke-art";
@@ -105,6 +105,7 @@ function SentenceRow({
   lang,
   labels,
   mode,
+  master,
 }: {
   sentence: Sentence;
   keyword: string;
@@ -115,6 +116,7 @@ function SentenceRow({
   lang: ContentLanguage;
   labels: StudentLabels;
   mode: SentenceMode;
+  master: boolean;
 }) {
   const [pinyinOverride, setPinyinOverride] = useState<boolean | null>(null);
   const [revealOverride, setRevealOverride] = useState<boolean | null>(null);
@@ -152,11 +154,12 @@ function SentenceRow({
   // El estado de revisión de la frase (sentences.status) no se muestra aquí:
   // es información editorial interna, no material de clase.
   return (
-    <li className="flex gap-4 border-t border-border py-4 first:border-t-0">
+    <li className={cn("flex gap-4 border-t border-border px-5 py-4 first:border-t-0", master && "bg-primary/8")}>
       <span className="mt-2 flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-sm text-muted-foreground">
         {index + 1}
       </span>
       <div className="min-w-0 flex-1">
+        {master && <p className="mb-1 text-xs font-medium tracking-wide text-primary uppercase">{labels.masterSentence}</p>}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           {chineseFirst ? chinese : <p className="text-left text-[clamp(1.25rem,2.4vw,2rem)] leading-snug">{prompt}</p>}
           {/* Audio siempre primero. En 中文: pinyin y traducción; en ES/EN: chino y pinyin. */}
@@ -262,47 +265,53 @@ type CardBackProps = {
   footer?: React.ReactNode;
 };
 
+type Detail = "nuance" | "uses" | "culture";
+
+function DetailDisclosure({
+  label,
+  open,
+  onToggle,
+  children,
+}: {
+  label: string;
+  open: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="border-b border-border last:border-b-0">
+      <button
+        type="button"
+        className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left font-medium"
+        onClick={onToggle}
+        aria-expanded={open}
+      >
+        {label}
+        <ChevronDown className={cn("size-4 shrink-0 transition-transform", open && "rotate-180")} />
+      </button>
+      {open && <div className="px-4 pb-4 text-sm leading-relaxed">{children}</div>}
+    </section>
+  );
+}
+
 export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "zh", lang, noteTerms, footer }: CardBackProps) {
-  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [detail, setDetail] = useState<Detail | null>(null);
   const labels = studentLabels(lang);
   const { word, senseIndex } = item;
   const sense = word.senses[senseIndex];
   const otherSenses = word.senses.filter((_, i) => i !== senseIndex);
   const formulas = item.characters.flatMap((c) => buildFormula(c.char, c.info));
 
-  // Al bajar por las frases, la cabecera grande se va: una barra compacta con
-  // la palabra queda fija arriba (auditoría UX, P1). Va en un contenedor de
-  // alto 0 para no mover el contenido al aparecer.
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLElement>(null);
-  const [compact, setCompact] = useState(false);
-  useEffect(() => {
-    const root = scrollRef.current;
-    const header = headerRef.current;
-    if (!root || !header) return;
-    const observer = new IntersectionObserver(([entry]) => setCompact(!entry.isIntersecting), { root });
-    observer.observe(header);
-    return () => observer.disconnect();
-  }, []);
+  // En escritorio solo se desplazan las dos zonas inferiores: la palabra y su
+  // composición permanecen visibles mientras la docente recorre la ficha.
+  const hasDetails = Boolean(sense.nuance || word.culturalNote || otherSenses.length);
 
   return (
-    <div className="relative mx-auto h-full w-full max-w-6xl">
-      {/* La barra va fuera de la zona que se desplaza: dentro de la cara girada
-          en 3D, un sticky queda detrás de la lista de frases. */}
-      <div
-        aria-hidden={!compact}
-        data-testid="card-compact-header"
-        className={cn(
-          "absolute inset-x-0 top-0 z-10 flex items-baseline gap-3 rounded-lg border border-border bg-card px-4 py-2 shadow-sm transition-opacity",
-          compact ? "opacity-100" : "pointer-events-none opacity-0",
-        )}
-      >
-        <span lang="zh-Hans" className="shrink-0 font-hanzi text-2xl whitespace-nowrap">{word.hanzi}</span>
-        <span lang="zh-Latn" className="shrink-0 text-lg whitespace-nowrap">{sense.pinyin}</span>
-        <span className="min-w-0 truncate text-muted-foreground">{sense.meaning[lang]}</span>
-      </div>
-      <div ref={scrollRef} className="flex h-full w-full flex-col gap-4 overflow-y-auto">
-        <header ref={headerRef} className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+    <div className="mx-auto h-full w-full max-w-6xl">
+      {/* Bajo lg, filas de alto natural: con filas auto y h-full, el grid
+          aplasta a 0 las secciones con overflow-hidden cuando no cabe todo. */}
+      <div className="grid h-full min-h-0 auto-rows-max gap-4 overflow-y-auto lg:auto-rows-auto lg:grid-cols-[minmax(0,1.85fr)_minmax(17rem,1fr)] lg:grid-rows-[auto_auto_minmax(0,1fr)] lg:overflow-hidden">
+        <header data-testid="card-word-header" className={cn("flex flex-col items-start gap-4 border-b border-border pb-4 sm:flex-row sm:items-center sm:gap-6 lg:col-start-1 lg:row-start-1", formulas.length === 0 && "lg:col-span-2")}>
           <div className="flex shrink-0 gap-1">
             {item.characters.map((c, i) =>
               c.strokes ? (
@@ -313,7 +322,7 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
                   strokes={c.strokes}
                   roles={c.info?.strokeRoles ?? []}
                   mode="static"
-                  className="size-[clamp(3.75rem,9vw,7.5rem)] rounded-lg border border-grid-line bg-card p-2"
+                  className="size-[clamp(4rem,8vw,7rem)] rounded-lg border border-grid-line bg-card p-2"
                   title={c.char}
                 />
               ) : (
@@ -341,21 +350,18 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
           </div>
         </header>
 
-        {/* Desde xl hay ancho de sobra: composición y frases lado a lado (auditoría UX,
-            P2). La composición, angosta; las frases, que son lo principal, anchas. */}
-        {/* Sin fórmula que mostrar, las frases usan todo el ancho. */}
-        <div className={cn("grid gap-4", formulas.length > 0 && "xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] xl:items-start")}>
+        <div className="grid gap-4 lg:contents">
           {/* Cómo se forma: la fórmula en color (radical verde, fonético azul)
               con el pinyin de cada pieza debajo, para poder nombrarla en clase
               ("el de kǒu"). Sin glosas. Si los datos de un carácter están
               incompletos, su fórmula no se muestra: a medias enseñaría mal. */}
           {formulas.length > 0 && (
-            <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-10 gap-y-3 rounded-xl border border-border bg-background/60 px-5 py-3">
-              <h3 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h3>
+            <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-10 gap-y-3 border-b border-border pb-4 lg:col-start-2 lg:row-start-1 lg:border-l lg:pl-6 lg:pr-24">
+              <h2 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h2>
               {formulas.map((f, i) => (
                 // Key con índice: dos caracteres repetidos darían dos fórmulas con
                 // la misma key (爸爸 → 两 fórmulas de 爸).
-                <p key={`${i}-${f.char}`} className="flex items-start gap-x-2 font-hanzi text-[clamp(1.25rem,2.2vw,2rem)] leading-none">
+                <p key={`${i}-${f.char}`} className="flex items-start gap-x-2 font-hanzi text-[clamp(1.4rem,2.4vw,2.25rem)] leading-none">
                   <Piece char={f.char} pinyin={f.pinyin} />
                   <span className="pt-[0.15em] text-[0.6em] text-muted-foreground">=</span>
                   {f.parts.map((p, i) => (
@@ -377,60 +383,47 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
               hueco, una consigna para la clase. Usar la palabra enseña más que
               reconocerla. (Las palabras propias de la docente, cuando existan,
               saldrán sin consigna: decisión de Ever.) */}
-          {sense.sentences.length === 0 ? (
-            <section className="rounded-xl border border-dashed border-border bg-background/60 px-5 py-4">
-              <p className="text-[clamp(1.125rem,1.8vw,1.5rem)] font-medium">
-                {labels.inventTitle} <span lang="zh-Hans" className="font-hanzi text-keyword-text">{word.hanzi}</span>
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">{labels.inventHint}</p>
-            </section>
-          ) : (
-          <ol className="rounded-xl border border-border bg-background/60 px-5">
-            {sense.sentences.map((s, i) => (
-              <SentenceRow
-                key={`${word.hanzi}-${senseIndex}-${i}-${sentenceMode}`}
-                mode={sentenceMode}
-                sentence={s}
-                keyword={word.hanzi}
-                index={i}
-                showPinyin={showPinyin}
-                showTranslations={showTranslations}
-                lang={lang}
-                labels={labels}
-              />
-            ))}
-          </ol>
-          )}
+          <section data-testid="card-examples" aria-label={labels.examples} className="min-w-0 lg:col-start-1 lg:row-start-2 lg:row-span-2 lg:overflow-y-auto lg:pr-1">
+            <h2 className="mb-2 font-medium">{labels.examples}</h2>
+            {sense.sentences.length === 0 ? (
+              <section className="rounded-xl border border-dashed border-border bg-background/60 px-5 py-4">
+                <p className="text-[clamp(1.125rem,1.8vw,1.5rem)] font-medium">
+                  {labels.inventTitle} <span lang="zh-Hans" className="font-hanzi text-keyword-text">{word.hanzi}</span>
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">{labels.inventHint}</p>
+              </section>
+            ) : (
+              <ol className="overflow-hidden rounded-xl border border-border bg-background/60">
+                {sense.sentences.map((s, i) => (
+                  <SentenceRow
+                    key={`${word.hanzi}-${senseIndex}-${i}-${sentenceMode}`}
+                    mode={sentenceMode}
+                    sentence={s}
+                    keyword={word.hanzi}
+                    index={i}
+                    master={i === 0}
+                    showPinyin={showPinyin}
+                    showTranslations={showTranslations}
+                    lang={lang}
+                    labels={labels}
+                  />
+                ))}
+              </ol>
+            )}
+          </section>
         </div>
 
-        <section className="rounded-xl border border-border bg-background/60">
-          <button
-            type="button"
-            className="flex w-full items-center justify-between px-5 py-3 text-left"
-            onClick={() => setDetailsOpen((o) => !o)}
-            aria-expanded={detailsOpen}
-          >
-            <span className="font-medium">{labels.moreDetails}</span>
-            <ChevronDown className={cn("size-5 transition-transform", detailsOpen && "rotate-180")} />
-          </button>
-          {detailsOpen && (
-            <div className="grid gap-5 border-t border-border px-5 py-4 md:grid-cols-2">
+        {hasDetails && (
+          <section className="overflow-hidden rounded-xl border border-border bg-background/60 lg:col-start-2 lg:row-start-2 lg:ml-4">
+            <div>
               {sense.nuance && (
-                <div>
-                  <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.nuance}</h3>
-                  <p><Highlighted text={sense.nuance[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} /></p>
-                </div>
-              )}
-              {word.culturalNote && (
-                <div>
-                  <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.culturalNote}</h3>
-                  <p><Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} /></p>
-                </div>
+                <DetailDisclosure label={labels.nuance} open={detail === "nuance"} onToggle={() => setDetail(detail === "nuance" ? null : "nuance")}>
+                  <Highlighted text={sense.nuance[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} />
+                </DetailDisclosure>
               )}
               {otherSenses.length > 0 && (
-                <div>
-                  <h3 className="mb-1 text-sm font-medium text-muted-foreground">{labels.otherUses}</h3>
-                  <ul className="space-y-1">
+                <DetailDisclosure label={labels.otherUses} open={detail === "uses"} onToggle={() => setDetail(detail === "uses" ? null : "uses")}>
+                  <ul className="space-y-2">
                     {otherSenses.map((s, i) => (
                       <li key={i}>
                         {s.meaning[lang]}
@@ -440,13 +433,18 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
                       </li>
                     ))}
                   </ul>
-                </div>
+                </DetailDisclosure>
+              )}
+              {word.culturalNote && (
+                <DetailDisclosure label={labels.culturalNote} open={detail === "culture"} onToggle={() => setDetail(detail === "culture" ? null : "culture")}>
+                  <Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} />
+                </DetailDisclosure>
               )}
             </div>
-          )}
-        </section>
+          </section>
+        )}
 
-        {footer}
+        <div className="space-y-4 lg:col-start-2 lg:row-start-3 lg:ml-4 lg:min-h-0 lg:overflow-y-auto">{footer}</div>
       </div>
     </div>
   );

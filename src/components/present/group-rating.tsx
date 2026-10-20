@@ -27,10 +27,12 @@ export function GroupRating({
   value,
   onChange,
   labels,
+  compact = false,
 }: {
   value: Rating | undefined;
   onChange: (rating: Rating | undefined) => void;
   labels: StudentLabels;
+  compact?: boolean;
 }) {
   return (
     <section className="rounded-xl border border-border bg-background/60 px-5 py-3" aria-label={labels.groupTitle}>
@@ -51,7 +53,7 @@ export function GroupRating({
         {/* En celular, 2×2 a todo el ancho con botones de 44 px (auditoría
             UX, P0); desde sm, una fila a la derecha. */}
         <div
-          className="grid w-full grid-cols-2 gap-2 sm:ml-auto sm:flex sm:w-auto"
+          className={cn("grid w-full grid-cols-2 gap-2", !compact && "sm:ml-auto sm:flex sm:w-auto")}
           role="radiogroup"
           aria-label={labels.groupTitle}
         >
@@ -64,7 +66,8 @@ export function GroupRating({
               data-active={value === r.value}
               onClick={() => onChange(value === r.value ? undefined : r.value)}
               className={cn(
-                "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-muted data-[active=true]:font-medium sm:justify-start",
+                "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-muted data-[active=true]:font-medium",
+                !compact && "sm:justify-start",
                 r.className,
               )}
             >
