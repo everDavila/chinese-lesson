@@ -42,3 +42,22 @@ test("se presentan en orden de enseñanza aunque se elijan en otro", () => {
 test("count 0 o negativo se trata como 1", () => {
   assert.equal(pickSentences(frases, new Map(), 0).length, 1);
 });
+
+test("la frase maestra sale siempre, primera, y las demás rotan", () => {
+  const conMaestra = frases.map((f) => ({ ...f, master: f.key === "c" }));
+  const visto = new Map<string, number>();
+  const clases: string[] = [];
+  for (let dia = 1; dia <= 3; dia++) {
+    const elegidas = pickSentences(conMaestra, visto, 2);
+    clases.push(keys(elegidas));
+    for (const f of elegidas) visto.set(f.key, dia);
+  }
+  // c en todas; la otra rota: a, b, d.
+  assert.deepEqual(clases, ["ca", "cb", "cd"]);
+});
+
+test("con 1 frase por palabra sale solo la maestra; con todas, la maestra va primera", () => {
+  const conMaestra = frases.map((f) => ({ ...f, master: f.key === "d" }));
+  assert.equal(keys(pickSentences(conMaestra, new Map([["d", 9]]), 1)), "d");
+  assert.equal(keys(pickSentences(conMaestra, new Map(), null)), "dabc");
+});

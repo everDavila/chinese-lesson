@@ -305,7 +305,13 @@ test.describe("admin", () => {
 
     // Solo se mira: no se guarda nada (Codex puede estar llenando la base).
     await page.goto(`/es/admin/words/${encodeURIComponent("爱")}`);
-    await expect(page.getByRole("heading", { level: 2, name: "Sentido 1" })).toBeVisible();
+    // Cada sentido es una sección con los mismos nombres que la tarjeta, y cada
+    // frase se puede subir, bajar y marcar como maestra (2026-10-20).
+    const sense = page.getByRole("region", { name: "Sentido 1" });
+    await expect(sense).toBeVisible();
+    await expect(sense.getByRole("heading", { name: "Matiz" })).toBeVisible();
+    await expect(sense.getByRole("button", { name: "Subir la frase 1" })).toBeDisabled();
+    await expect(sense.getByRole("button", { name: /Hacer maestra|Frase maestra/ }).first()).toBeVisible();
     await expect(page.getByRole("button", { name: "Guardar" })).toBeDisabled();
     await shoot(page, "7-editor");
 

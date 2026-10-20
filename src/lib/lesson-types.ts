@@ -13,6 +13,8 @@ export type Sentence = {
   en: string;
   /** Estado editorial: los borradores de IA deben verse como tales en clase. */
   status?: "unreviewed" | "reviewed" | "corrected";
+  /** Frase maestra: la marca el admin con una estrella; sale siempre y primera. */
+  master?: boolean;
 };
 
 export type Sense = {

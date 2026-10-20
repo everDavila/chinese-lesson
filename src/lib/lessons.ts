@@ -21,6 +21,8 @@ type SentenceRow = {
   translation_es: string | null;
   translation_en: string | null;
   status: "unreviewed" | "reviewed" | "corrected";
+  /** Estrella del admin; ausente en las frases propias de la docente. */
+  is_master?: boolean;
 };
 type SenseRow = {
   id: string;
@@ -89,8 +91,9 @@ function toWord(row: WordRow): Word {
           category: s.category ?? "",
           meaning: { es: s.meaning_es ?? "", en: s.meaning_en ?? "" },
           nuance: bilingual(s.nuance_es, s.nuance_en),
+          // La maestra va primera; las demás, en orden de enseñanza.
           sentences: [...s.sentences]
-            .sort((a, b) => a.position - b.position)
+            .sort((a, b) => Number(Boolean(b.is_master)) - Number(Boolean(a.is_master)) || a.position - b.position)
             .map((t) => ({
               key: t.key ?? (t.id ? `s:${t.id}` : undefined),
               zh: t.zh,
@@ -98,6 +101,7 @@ function toWord(row: WordRow): Word {
               es: t.translation_es ?? "",
               en: t.translation_en ?? "",
               status: t.status,
+              master: Boolean(t.is_master),
             })),
         }),
       ),
@@ -106,7 +110,7 @@ function toWord(row: WordRow): Word {
 
 const WORD_SELECT = `hanzi, hsk_level, cultural_note_es, cultural_note_en,
   senses(id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en,
-    sentences(id, position, zh, pinyin, translation_es, translation_en, status))`;
+    sentences(id, position, zh, pinyin, translation_es, translation_en, status, is_master))`;
 
 type OwnExample = {
   id: string;
@@ -160,7 +164,8 @@ function mergeOwnSentences(rows: WordRow[], own: OwnExample[], hidden: string[])
         .sort((a, b) => a.position - b.position)
         .flatMap((t) => {
           const copy = ownHere.find((e) => e.based_on_sentence_id === t.id);
-          if (copy) return [asRow(copy, t.position)];
+          // La copia de la docente hereda la estrella de la original.
+          if (copy) return [{ ...asRow(copy, t.position), is_master: t.is_master }];
           return t.id && hiddenIds.has(t.id) ? [] : [t];
         });
       const extra = ownHere.filter((e) => !e.based_on_sentence_id || !originalIds.has(e.based_on_sentence_id));
@@ -372,7 +377,7 @@ export async function chooseSessionSentences(sessionId: string, lessonId: string
     const sense = words[i].senses.find((s) => s.id === r.sense_id);
     const candidates = [...(sense?.sentences ?? [])]
       .sort((a, b) => a.position - b.position)
-      .map((t) => ({ key: keyOf(t) }))
+      .map((t) => ({ key: keyOf(t), master: Boolean(t.is_master) }))
       .filter((c) => c.key);
     return pickSentences(candidates, lastSeen.get(r.sense_id) ?? new Map(), count).map((c, position) => ({
       session_id: sessionId,

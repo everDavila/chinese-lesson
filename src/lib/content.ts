@@ -145,7 +145,7 @@ export async function hskLevelCounts(): Promise<Record<number, number>> {
 }
 
 // ── Palabra completa (editor del admin) ─────────────────────────────────
-export type EditableSentence = { id?: string; zh: string; pinyin: string; es: string; en: string };
+export type EditableSentence = { id?: string; zh: string; pinyin: string; es: string; en: string; /** Frase maestra (estrella). */ master?: boolean };
 export type EditableSense = {
   id?: string;
   pinyin: string;
@@ -173,13 +173,13 @@ export async function getEditableWord(hanzi: string): Promise<EditableWord | nul
     .select(
       `id, hanzi, hsk_level, status, cultural_note_es, cultural_note_en,
        senses(id, position, pinyin, category, meaning_es, meaning_en, nuance_es, nuance_en,
-         sentences(id, position, zh, pinyin, translation_es, translation_en))`,
+         sentences(id, position, zh, pinyin, translation_es, translation_en, is_master))`,
     )
     .eq("hanzi", hanzi)
     .maybeSingle();
   if (error) throw error;
   if (!data) return null;
-  type S = { id: string; position: number; zh: string; pinyin: string; translation_es: string | null; translation_en: string | null };
+  type S = { id: string; position: number; zh: string; pinyin: string; translation_es: string | null; translation_en: string | null; is_master: boolean };
   type Se = {
     id: string;
     position: number;
@@ -210,7 +210,7 @@ export async function getEditableWord(hanzi: string): Promise<EditableWord | nul
         nuanceEn: s.nuance_en ?? "",
         sentences: [...s.sentences]
           .sort((a, b) => a.position - b.position)
-          .map((t) => ({ id: t.id, zh: t.zh, pinyin: t.pinyin, es: t.translation_es ?? "", en: t.translation_en ?? "" })),
+          .map((t) => ({ id: t.id, zh: t.zh, pinyin: t.pinyin, es: t.translation_es ?? "", en: t.translation_en ?? "", master: t.is_master })),
       })),
   };
 }
