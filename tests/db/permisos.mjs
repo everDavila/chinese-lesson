@@ -134,6 +134,21 @@ await expectOk("admin guarda la palabra con dos frases", A,
 await expectFail("docente NO puede usar save_word", T1, `select save_word('${payload([])}'::jsonb)`);
 const frases = await as(A, `select id, zh, position from sentences where sense_id = '${S}' order by position`);
 const f2 = frases.rows[1];
+// Frase maestra (2026-10-20): la estrella viaja con la frase al reordenar y
+// solo puede haber una por sentido.
+const f1 = frases.rows[0];
+const both = (m1, m2, order = [f1, f2]) =>
+  payload(order.map((f) => ({ id: f.id, zh: f.zh, pinyin: "x", is_master: f === f1 ? m1 : m2 })));
+await expectOk("admin marca la segunda como maestra y la sube al primer lugar", A,
+  `select save_word('${both(false, true, [f2, f1])}'::jsonb)`);
+const m = await as(A, `select zh, position, is_master from sentences where sense_id = '${S}' order by position`);
+const okMaster = m.rows[0].zh === f2.zh && m.rows[0].is_master && !m.rows[1].is_master;
+console.log(`${okMaster ? "✓" : "✗"} la maestra queda primera y es la única → ${JSON.stringify(m.rows)}`);
+if (!okMaster) process.exitCode = 1;
+await expectOk("cambiar la estrella a la otra frase no choca con el índice único", A,
+  `select save_word('${both(true, false)}'::jsonb)`);
+await expectFail("no puede haber dos maestras en un sentido", A,
+  `update sentences set is_master = true where sense_id = '${S}' returning id`);
 await expectOk("admin reordena y borra frases al guardar", A,
   `select save_word('${payload([{ id: f2.id, zh: f2.zh, pinyin: "Wǒ yǒu cèshìcí." }])}'::jsonb)`);
 await expectOk("queda solo la segunda, en posición 1", A,

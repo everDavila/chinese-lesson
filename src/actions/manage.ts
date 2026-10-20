@@ -439,6 +439,7 @@ export async function saveWordAction(word: EditableWord): Promise<Result> {
           pinyin: t.pinyin,
           translation_es: t.es,
           translation_en: t.en,
+          is_master: Boolean(t.master),
         })),
       })),
     },

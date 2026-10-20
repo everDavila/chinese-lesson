@@ -411,9 +411,9 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
                     sentence={s}
                     keyword={word.hanzi}
                     index={i}
-                    // Sin marca explícita no hay frase maestra: con la rotación, la
-                    // primera de cada clase puede ser cualquiera (2026-10-20).
-                    master={false}
+                    // Solo la que el admin marcó con estrella: con la rotación, la
+                    // primera de cada clase podría ser cualquiera (2026-10-20).
+                    master={Boolean(s.master)}
                     showPinyin={showPinyin}
                     showTranslations={showTranslations}
                     lang={lang}
