@@ -15,5 +15,9 @@ test("demo: las citas de la nota se parten y abren su ayuda", async ({ page }, t
   await dong.scrollIntoViewIfNeeded();
   await dong.click();
   await expect(page.getByRole("dialog").getByText("dōng", { exact: true })).toBeVisible();
+  // Pasar de palabra en el reverso se queda en el reverso (para repasar significados).
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: /Palabra siguiente/ }).click();
+  await expect(page.getByRole("button", { name: /Más detalles/ })).toBeVisible();
   await page.screenshot({ path: `tests/screens/${testInfo.project.name}/demo-cita.png` });
 });

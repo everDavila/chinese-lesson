@@ -127,7 +127,9 @@ export function Presentation({
   const goTo = useCallback(
     (i: number) => {
       setIndex(Math.max(0, Math.min(count - 1, i)));
-      setSide("front");
+      // Se queda en la cara actual: repasando en el reverso, la siguiente
+      // palabra se abre por el reverso (pedido de Ever); el trazo se dibuja al
+      // girar al anverso.
       setPlaying(true);
       setRunId((r) => r + 1);
     },
