@@ -1,6 +1,6 @@
 // Selección de palabras del catálogo HSK, por sense_id. Sobrevive a cambiar de
 // página, de nivel o recargar (sessionStorage: se borra al cerrar la pestaña)
-// y se comparte entre niveles. Mismo patrón que ratings-store: store externo
+// y se comparte entre niveles. Mismo patrón que advance-store: store externo
 // para useSyncExternalStore, sin setState en efectos ni desajustes de
 // hidratación (en el servidor siempre está vacía).
 

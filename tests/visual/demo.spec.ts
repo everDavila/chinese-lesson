@@ -10,7 +10,7 @@ test("demo: las citas de la nota se parten y abren su ayuda", async ({ page }, t
   await page.waitForLoadState("networkidle");
   await page.getByRole("button", { name: /Palabra siguiente/ }).click();
   await page.keyboard.press("Space");
-  await page.getByRole("button", { name: /Más detalles/ }).click();
+  await page.getByRole("button", { name: "Nota cultural", exact: true }).click();
   const dong = page.locator("button").filter({ hasText: /^东$/ }).first();
   await dong.scrollIntoViewIfNeeded();
   await dong.click();
@@ -18,11 +18,11 @@ test("demo: las citas de la nota se parten y abren su ayuda", async ({ page }, t
   // Pasar de palabra en el reverso se queda en el reverso (para repasar significados).
   await page.keyboard.press("Escape");
   await page.getByRole("button", { name: /Palabra siguiente/ }).click();
-  await expect(page.getByRole("button", { name: /Más detalles/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Frases en contexto" })).toBeVisible();
   // Con la tecla A cambia a «volver al anverso»: la siguiente palabra se abre por el anverso.
   await page.keyboard.press("a");
   await expect(page.getByRole("button", { name: /Al avanzar: anverso/ })).toBeVisible();
   await page.getByRole("button", { name: /Palabra siguiente/ }).click();
-  await expect(page.getByRole("button", { name: /Más detalles/ })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Frases en contexto" })).toHaveCount(0);
   await page.screenshot({ path: `tests/screens/${testInfo.project.name}/demo-cita.png` });
 });

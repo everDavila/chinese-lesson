@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { votingResultsAction, type VotingResults } from "@/actions/vote";
 import { Button } from "@/components/ui/button";
-import { combinedVerdict, teacherVerdict, votesVerdict, type Verdict } from "@/lib/semaphore";
+import { votesVerdict, type Verdict } from "@/lib/semaphore";
 import { CONNECTION_WARNING_AFTER, nextConnectionFailures } from "@/lib/polling";
 import type { StudentLabels } from "@/lib/student-labels";
 import { cn } from "@/lib/utils";
-import type { Rating } from "./group-rating";
+import { SECTION_TITLE } from "./card-back";
 
 // Votación de los alumnos (fase 2). La docente la activa una vez por clase
 // con la barra de arriba (VotingBar, tecla V) y desde ahí sigue a la tarjeta:
@@ -62,26 +62,27 @@ export function VotingBar({
   );
 }
 
-/** Votos de esta palabra en la clase, bajo la valoración de la docente. */
+/**
+ * Comprensión del grupo: los votos de esta palabra en la clase. Sin sesión
+ * (clase de ejemplo, enlace compartido) no hay votos: solo explica cómo se vota.
+ */
 export function StudentVoting({
-  sessionId,
-  senseId,
+  session,
   live,
-  teacherRating,
   labels,
 }: {
-  sessionId: string;
-  senseId: string;
+  session?: { id: string; senseId: string };
   live: boolean;
-  teacherRating?: Rating;
   labels: StudentLabels;
 }) {
+  const sessionId = session?.id;
+  const senseId = session?.senseId;
   const [results, setResults] = useState<VotingResults>(null);
   const [connectionFailures, setConnectionFailures] = useState(0);
   const polling = useRef(false);
 
   const refresh = useCallback(async () => {
-    if (polling.current) return;
+    if (!sessionId || !senseId || polling.current) return;
     polling.current = true;
     try {
       setResults(await votingResultsAction(sessionId, senseId));
@@ -97,59 +98,51 @@ export function StudentVoting({
   // los últimos resultados de esta palabra; con la votación activa, se sondea.
   useEffect(() => {
     const first = window.setTimeout(() => void refresh(), 0);
-    const id = live ? window.setInterval(() => void refresh(), POLL_MS) : undefined;
+    const id = live && sessionId ? window.setInterval(() => void refresh(), POLL_MS) : undefined;
     return () => {
       window.clearTimeout(first);
       window.clearInterval(id);
     };
-  }, [live, refresh]);
+  }, [live, sessionId, refresh]);
 
   const counts = results?.counts ?? [0, 0, 0, 0];
   const total = counts.reduce((a, b) => a + b, 0);
   const votes = votesVerdict(counts);
-  const combined = teacherRating ? combinedVerdict(votes, teacherVerdict(teacherRating)) : null;
   const verdictText = (v: Verdict) => (v === "nodata" ? labels.votingNoData : labels.verdicts[v]);
 
   return (
-    <section className="rounded-xl border border-border bg-background/60 px-5 py-3" aria-label={labels.votingTitle}>
-      <h2 className="font-medium">{labels.votingTitle}</h2>
-      {connectionFailures >= CONNECTION_WARNING_AFTER && (
-        <p role="status" className="text-sm text-destructive">{labels.votingReconnecting}</p>
-      )}
-      {!results && !live && <p className="text-sm text-muted-foreground">{labels.votingHint}</p>}
+    <section aria-label={labels.groupTitle}>
+      <h2 className={cn("mb-2", SECTION_TITLE)}>{labels.groupTitle}</h2>
+      <div className="flex flex-col gap-3 rounded-xl border border-border bg-background/60 px-5 py-4">
+        {connectionFailures >= CONNECTION_WARNING_AFTER && (
+          <p role="status" className="text-sm text-destructive">{labels.votingReconnecting}</p>
+        )}
+        {!results && !live && <p className="text-sm text-muted-foreground">{labels.votingHint}</p>}
 
-      {(results || live) && (
-        <div className="mt-3 flex flex-col gap-2" aria-live="polite">
-          <div className="flex h-3 overflow-hidden rounded-full bg-muted" aria-hidden>
-            {counts.map((n, i) => (
-              <span key={i} className={BAR[i]} style={{ width: total ? `${(n / total) * 100}%` : 0 }} />
-            ))}
-          </div>
-          <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-            <span className="font-medium" data-testid="votes-total">
-              {labels.votesCount(total)}
-            </span>
-            {counts.map((n, i) => (
-              <span key={i} className="text-muted-foreground">
-                {labels.ratings[i]}: {n}
+        {sessionId && (results || live) && (
+          <div className="flex flex-col gap-2" aria-live="polite">
+            <div className="flex h-3 overflow-hidden rounded-full bg-muted" aria-hidden>
+              {counts.map((n, i) => (
+                <span key={i} className={BAR[i]} style={{ width: total ? `${(n / total) * 100}%` : 0 }} />
+              ))}
+            </div>
+            <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+              <span className="font-medium" data-testid="votes-total">
+                {labels.votesCount(total)}
               </span>
-            ))}
-          </p>
-          <p className="flex flex-wrap items-center gap-x-4 text-sm">
-            <span className="inline-flex items-center gap-2">
+              {counts.map((n, i) => (
+                <span key={i} className="text-muted-foreground">
+                  {labels.ratings[i]}: {n}
+                </span>
+              ))}
+            </p>
+            <p className="inline-flex items-center gap-2 text-sm">
               <span className={cn("size-2.5 rounded-full", DOT[votes])} />
               {verdictText(votes)}
-            </span>
-            {combined && (
-              <span className="inline-flex items-center gap-2 text-muted-foreground">
-                {labels.votingCombined}:
-                <span className={cn("size-2.5 rounded-full", DOT[combined])} />
-                {verdictText(combined)}
-              </span>
-            )}
-          </p>
-        </div>
-      )}
+            </p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

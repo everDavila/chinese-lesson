@@ -23,10 +23,9 @@ test("foco de teclado visible en los botones hechos a mano", async ({ page }) =>
   await page.waitForLoadState("networkidle");
   await page.keyboard.press("Space");
   await page.waitForTimeout(700);
-  await expectFocusRing(page, page.getByRole("radio").first(), "valoración de la profesora");
-  // La frase ya no se revela tocando el chino (ayudas-frase-notas): el botón a
-  // mano que queda en el reverso es «Más detalles».
-  await expectFocusRing(page, page.locator(".transform-3d section > button[aria-expanded]").first(), "botón de más detalles");
+  // La valoración de la profesora ya no está en la tarjeta (2026-10-20): los
+  // botones hechos a mano que quedan en el reverso son los de cada detalle.
+  await expectFocusRing(page, page.getByRole("button", { name: "Matiz", exact: true }), "botón de detalle");
 
   await page.goto("/es/v");
   await page.getByRole("textbox").fill("ABC234");
@@ -40,8 +39,8 @@ test("contraste WCAG del rojo de la palabra clave", async ({ page }, testInfo) =
   await page.getByRole("combobox").selectOption({ index: 3 }); // 知道: matiz y nota con la palabra
   await page.keyboard.press("Space");
   await page.waitForTimeout(700);
-  // Matiz y nota cultural: la palabra clave en texto de tamaño normal.
-  await page.getByRole("button", { name: "Más detalles de la palabra" }).click();
+  // Matiz: la palabra clave en texto de tamaño normal.
+  await page.getByRole("button", { name: "Matiz", exact: true }).click();
 
   const results = await page.locator(".text-keyword, .text-keyword-text").evaluateAll((els) => {
     const canvas = document.createElement("canvas");

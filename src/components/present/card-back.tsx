@@ -154,7 +154,14 @@ function SentenceRow({
   // El estado de revisión de la frase (sentences.status) no se muestra aquí:
   // es información editorial interna, no material de clase.
   return (
-    <li className={cn("flex gap-4 border-t border-border px-5 py-4 first:border-t-0", master && "bg-primary/8")}>
+    // La frase maestra resalta con el fondo claro de la tarjeta y una franja
+    // de acento; el rojo queda solo para la palabra clave.
+    <li
+      className={cn(
+        "relative flex gap-4 border-t border-border px-5 py-4 first:border-t-0",
+        master && "bg-card before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-primary/70",
+      )}
+    >
       <span className="mt-2 flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-sm text-muted-foreground">
         {index + 1}
       </span>
@@ -267,6 +274,9 @@ type CardBackProps = {
 
 type Detail = "nuance" | "uses" | "culture";
 
+/** Título de cada zona del reverso: el mismo en las dos columnas para que alineen. */
+export const SECTION_TITLE = "text-sm font-medium text-muted-foreground";
+
 function DetailDisclosure({
   label,
   open,
@@ -282,14 +292,14 @@ function DetailDisclosure({
     <section className="border-b border-border last:border-b-0">
       <button
         type="button"
-        className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left font-medium"
+        className="flex w-full items-center justify-between gap-3 px-5 py-3.5 text-left font-medium"
         onClick={onToggle}
         aria-expanded={open}
       >
         {label}
         <ChevronDown className={cn("size-4 shrink-0 transition-transform", open && "rotate-180")} />
       </button>
-      {open && <div className="px-4 pb-4 text-sm leading-relaxed">{children}</div>}
+      {open && <div className="px-5 pb-4 text-sm leading-relaxed">{children}</div>}
     </section>
   );
 }
@@ -310,7 +320,7 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
     <div className="mx-auto h-full w-full max-w-6xl">
       {/* Bajo lg, filas de alto natural: con filas auto y h-full, el grid
           aplasta a 0 las secciones con overflow-hidden cuando no cabe todo. */}
-      <div className="grid h-full min-h-0 auto-rows-max gap-4 overflow-y-auto lg:auto-rows-auto lg:grid-cols-[minmax(0,1.85fr)_minmax(17rem,1fr)] lg:grid-rows-[auto_auto_minmax(0,1fr)] lg:overflow-hidden">
+      <div className="grid h-full min-h-0 auto-rows-max gap-4 overflow-y-auto lg:auto-rows-auto lg:grid-cols-[minmax(0,1.85fr)_minmax(17rem,1fr)] lg:grid-rows-[auto_minmax(0,1fr)] lg:overflow-hidden">
         <header data-testid="card-word-header" className={cn("flex flex-col items-start gap-4 border-b border-border pb-4 sm:flex-row sm:items-center sm:gap-6 lg:col-start-1 lg:row-start-1", formulas.length === 0 && "lg:col-span-2")}>
           <div className="flex shrink-0 gap-1">
             {item.characters.map((c, i) =>
@@ -357,7 +367,7 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
               incompletos, su fórmula no se muestra: a medias enseñaría mal. */}
           {formulas.length > 0 && (
             <section aria-label={labels.howItsBuilt} className="flex flex-wrap gap-x-10 gap-y-3 border-b border-border pb-4 lg:col-start-2 lg:row-start-1 lg:border-l lg:pl-6 lg:pr-24">
-              <h2 className="w-full text-sm font-medium text-muted-foreground">{labels.howItsBuilt}</h2>
+              <h2 className={cn("w-full", SECTION_TITLE)}>{labels.howItsBuilt}</h2>
               {formulas.map((f, i) => (
                 // Key con índice: dos caracteres repetidos darían dos fórmulas con
                 // la misma key (爸爸 → 两 fórmulas de 爸).
@@ -383,8 +393,8 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
               hueco, una consigna para la clase. Usar la palabra enseña más que
               reconocerla. (Las palabras propias de la docente, cuando existan,
               saldrán sin consigna: decisión de Ever.) */}
-          <section data-testid="card-examples" aria-label={labels.examples} className="min-w-0 lg:col-start-1 lg:row-start-2 lg:row-span-2 lg:overflow-y-auto lg:pr-1">
-            <h2 className="mb-2 font-medium">{labels.examples}</h2>
+          <section data-testid="card-examples" aria-label={labels.examples} className="min-w-0 lg:col-start-1 lg:row-start-2 lg:overflow-y-auto lg:pr-1">
+            <h2 className={cn("mb-2", SECTION_TITLE)}>{labels.examples}</h2>
             {sense.sentences.length === 0 ? (
               <section className="rounded-xl border border-dashed border-border bg-background/60 px-5 py-4">
                 <p className="text-[clamp(1.125rem,1.8vw,1.5rem)] font-medium">
@@ -413,38 +423,43 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
           </section>
         </div>
 
-        {hasDetails && (
-          <section className="overflow-hidden rounded-xl border border-border bg-background/60 lg:col-start-2 lg:row-start-2 lg:ml-4">
-            <div>
-              {sense.nuance && (
-                <DetailDisclosure label={labels.nuance} open={detail === "nuance"} onToggle={() => setDetail(detail === "nuance" ? null : "nuance")}>
-                  <Highlighted text={sense.nuance[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} />
-                </DetailDisclosure>
-              )}
-              {otherSenses.length > 0 && (
-                <DetailDisclosure label={labels.otherUses} open={detail === "uses"} onToggle={() => setDetail(detail === "uses" ? null : "uses")}>
-                  <ul className="space-y-2">
-                    {otherSenses.map((s, i) => (
-                      <li key={i}>
-                        {s.meaning[lang]}
-                        {s.sentences[0] && (
-                          <span lang="zh-Hans" className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} small /></span>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </DetailDisclosure>
-              )}
-              {word.culturalNote && (
-                <DetailDisclosure label={labels.culturalNote} open={detail === "culture"} onToggle={() => setDetail(detail === "culture" ? null : "culture")}>
-                  <Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} />
-                </DetailDisclosure>
-              )}
-            </div>
-          </section>
-        )}
-
-        <div className="space-y-4 lg:col-start-2 lg:row-start-3 lg:ml-4 lg:min-h-0 lg:overflow-y-auto">{footer}</div>
+        {/* Columna derecha: detalles y comprensión del grupo, cada uno con su
+            título como «Frases en contexto», así las dos columnas empiezan a la
+            misma altura. En escritorio se desplaza sola si no cabe. */}
+        <aside className="flex min-w-0 flex-col gap-4 lg:col-start-2 lg:row-start-2 lg:ml-4 lg:min-h-0 lg:overflow-y-auto">
+          {hasDetails && (
+            <section aria-label={labels.moreDetails}>
+              <h2 className={cn("mb-2", SECTION_TITLE)}>{labels.moreDetails}</h2>
+              <div className="overflow-hidden rounded-xl border border-border bg-background/60">
+                {sense.nuance && (
+                  <DetailDisclosure label={labels.nuance} open={detail === "nuance"} onToggle={() => setDetail(detail === "nuance" ? null : "nuance")}>
+                    <Highlighted text={sense.nuance[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} />
+                  </DetailDisclosure>
+                )}
+                {otherSenses.length > 0 && (
+                  <DetailDisclosure label={labels.otherUses} open={detail === "uses"} onToggle={() => setDetail(detail === "uses" ? null : "uses")}>
+                    <ul className="space-y-2">
+                      {otherSenses.map((s, i) => (
+                        <li key={i}>
+                          {s.meaning[lang]}
+                          {s.sentences[0] && (
+                            <span lang="zh-Hans" className="font-hanzi text-muted-foreground"> · <Highlighted text={s.sentences[0].zh} keyword={word.hanzi} small /></span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </DetailDisclosure>
+                )}
+                {word.culturalNote && (
+                  <DetailDisclosure label={labels.culturalNote} open={detail === "culture"} onToggle={() => setDetail(detail === "culture" ? null : "culture")}>
+                    <Highlighted text={word.culturalNote[lang]} keyword={word.hanzi} small noteTerms={noteTerms} lang={lang} labels={labels} />
+                  </DetailDisclosure>
+                )}
+              </div>
+            </section>
+          )}
+          {footer}
+        </aside>
       </div>
     </div>
   );

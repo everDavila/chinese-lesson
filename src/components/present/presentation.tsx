@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -21,23 +21,21 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import { CardBack } from "./card-back";
 import { CardFront } from "./card-front";
-import { GroupRating, type Rating } from "./group-rating";
 import { StudentVoting, VotingBar } from "./student-voting";
 import { advanceStore } from "./advance-store";
 import { inkStyleStore } from "./ink-style-store";
 import { SENTENCE_MODES, sentenceModeStore } from "./sentence-mode-store";
-import { ratingsStore } from "./ratings-store";
-import { endSessionAction, rateSenseAction } from "@/actions/class";
+import { endSessionAction } from "@/actions/class";
 import { closeVotingAction, openVotingAction, votingLiveAction } from "@/actions/vote";
 import { Link } from "@/i18n/navigation";
 import { studentLabels, type ContentLanguage } from "@/lib/student-labels";
 import { useTranslations } from "next-intl";
 
-type LiveSession = { id: string; joinCode: string; ratings: Record<string, Rating> };
+type LiveSession = { id: string; joinCode: string };
 
 /**
- * Sin `session`: lección de demo, valoraciones en el navegador.
- * Con `session`: clase en vivo, valoraciones guardadas en Supabase.
+ * Sin `session`: lección de demo, sin votación.
+ * Con `session`: clase en vivo; la comprensión del grupo sale de los votos.
  */
 export function Presentation({
   lesson,
@@ -75,40 +73,7 @@ export function Presentation({
   const itemKey = item.senseId ?? `${item.word.hanzi}#${item.senseIndex}`;
   const count = lesson.items.length;
 
-  const localRatings = useSyncExternalStore(
-    ratingsStore.subscribe,
-    ratingsStore.getSnapshot,
-    ratingsStore.getServerSnapshot,
-  );
-  const [sessionRatings, setSessionRatings] = useState<Record<string, Rating>>(session?.ratings ?? {});
   const [saveError, setSaveError] = useState<string | null>(null);
-  const ratings = session ? sessionRatings : localRatings;
-
-  const setRating = useCallback(
-    (rating: Rating | undefined) => {
-      if (!session || !item.senseId) {
-        ratingsStore.set(itemKey, rating);
-        return;
-      }
-      // Optimista: se marca al instante y se guarda en segundo plano.
-      const senseId = item.senseId;
-      setSessionRatings((prev) => {
-        const next = { ...prev };
-        if (rating) next[senseId] = rating;
-        else delete next[senseId];
-        return next;
-      });
-      setSaveError(null);
-      startTransition(async () => {
-        try {
-          await rateSenseAction(session.id, senseId, rating ?? null);
-        } catch {
-          setSaveError(t("saveError"));
-        }
-      });
-    },
-    [session, item.senseId, itemKey, t],
-  );
 
   // Votación de los alumnos: se activa una vez y sigue a la tarjeta. Al
   // recargar, sigue activa si la sesión tenía una ronda abierta.
@@ -236,20 +201,11 @@ export function Presentation({
         case "V":
           toggleVoting();
           break;
-        case "1":
-        case "2":
-        case "3":
-        case "4":
-          if (side === "back") {
-            const r = Number(e.key) as Rating;
-            setRating(ratings[itemKey] === r ? undefined : r);
-          }
-          break;
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goTo, index, side, ratings, itemKey, setRating, toggleVoting, advanceContext]);
+  }, [goTo, index, side, toggleVoting, advanceContext]);
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
@@ -313,18 +269,13 @@ export function Presentation({
                 lang={contentLanguage}
                 noteTerms={lesson.noteTerms}
                 footer={
-                  <>
-                    <GroupRating value={ratings[itemKey]} onChange={setRating} labels={labels} compact />
-                    {session && item.senseId && (
-                      <StudentVoting
-                        sessionId={session.id}
-                        senseId={item.senseId}
-                        live={voting}
-                        teacherRating={ratings[itemKey]}
-                        labels={labels}
-                      />
-                    )}
-                  </>
+                  // Comprensión del grupo: solo los votos de los alumnos. La
+                  // docente ya no valora a mano (decisión de Ever, 2026-10-20).
+                  <StudentVoting
+                    session={session && item.senseId ? { id: session.id, senseId: item.senseId } : undefined}
+                    live={voting}
+                    labels={labels}
+                  />
                 }
               />
             </section>
