@@ -11,8 +11,8 @@ export const metadata: Metadata = { title: "Renshi" };
 
 type Params = PageProps<"/[locale]/present/session/[sessionId]">["params"];
 
-// Clase en vivo: la lección viene de Supabase y las valoraciones se guardan
-// en la sesión (teacher_ratings). RLS garantiza que solo su docente la ve.
+// Clase en vivo: la lección viene de Supabase y la votación de los alumnos
+// se guarda en la sesión. RLS garantiza que solo su docente la ve.
 export default function SessionPage({ params }: { params: Params }) {
   return (
     <Suspense fallback={<div className="h-dvh" aria-busy />}>
@@ -34,7 +34,7 @@ async function SessionContent({ params }: { params: Params }) {
   return (
     <Presentation
       lesson={lesson}
-      session={{ id: session.id, joinCode: session.joinCode, ratings: session.ratings }}
+      session={{ id: session.id, joinCode: session.joinCode }}
     />
   );
 }

@@ -30,7 +30,7 @@ test("tarjeta: anverso y reverso", async ({ page }, testInfo) => {
   }
 });
 
-test("reverso: barra compacta al bajar y traducción en español e inglés", async ({ page }, testInfo) => {
+test("reverso: cabecera fija, frase maestra y traducción en español e inglés", async ({ page }, testInfo) => {
   const phone = testInfo.project.name.startsWith("phone");
   await page.goto("/es/present");
   await page.locator(".transform-3d").waitFor();
@@ -40,22 +40,14 @@ test("reverso: barra compacta al bajar y traducción en español e inglés", asy
   await page.keyboard.press("Space");
   await page.waitForTimeout(700);
 
-  const bar = page.getByTestId("card-compact-header");
-  await expect(bar).toHaveAttribute("aria-hidden", "true");
-  // Baja hasta el final del reverso: la cabecera grande sale de vista.
-  // Si el reverso cabe entero (pantallas grandes), no hay nada que bajar y la
-  // barra no debe aparecer.
-  const scrolled = await bar.evaluate((el) => {
-    // La barra y la zona que se desplaza son hermanas; la cabecera grande es
-    // lo primero de esa zona.
-    const scroller = el.parentElement!.querySelector(".overflow-y-auto")!;
-    scroller.scrollTop = scroller.scrollHeight;
-    const header = scroller.querySelector("header")!;
-    return scroller.scrollTop > header.offsetTop + header.offsetHeight;
-  });
-  await expect(bar).toHaveAttribute("aria-hidden", scrolled ? "false" : "true");
-  await page.waitForTimeout(300); // fin de la transición de opacidad
-  if (phone) expect(scrolled, "en celular el reverso de 知道 se desplaza").toBe(true);
+  await expect(page.getByText("Frase maestra", { exact: true })).toBeVisible();
+  if (!phone) {
+    const header = page.getByTestId("card-word-header");
+    const before = await header.boundingBox();
+    await page.getByTestId("card-examples").evaluate((el) => { el.scrollTop = el.scrollHeight; });
+    const after = await header.boundingBox();
+    expect(after?.y).toBe(before?.y);
+  }
   await page.screenshot({ path: `tests/screens/${testInfo.project.name}/reverso-abajo.png` });
 
   // La traducción muestra español e inglés, en todos los tamaños (2026-10-20:
@@ -87,4 +79,28 @@ test("cómo se forma: piezas con su pinyin, sin glosas", async ({ page }, testIn
   await page.waitForTimeout(700);
   for (const text of ["彳", "旦", "寸"]) await expect(section.getByText(text, { exact: true })).toBeVisible();
   await expect(section.getByText(/⿱/)).toHaveCount(0);
+});
+
+test("reverso: solo un detalle queda abierto", async ({ page }) => {
+  await page.goto("/es/present");
+  await page.locator(".transform-3d").waitFor();
+  await page.waitForLoadState("networkidle");
+  await page.keyboard.press("Space");
+
+  const nuance = page.getByRole("button", { name: "Matiz", exact: true });
+  const culture = page.getByRole("button", { name: "Nota cultural", exact: true });
+  await nuance.click();
+  await expect(nuance).toHaveAttribute("aria-expanded", "true");
+  await culture.click();
+  await expect(nuance).toHaveAttribute("aria-expanded", "false");
+  await expect(culture).toHaveAttribute("aria-expanded", "true");
+});
+
+test("la barra se oculta con el ratón inactivo y el teclado la recupera", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name.startsWith("phone"));
+  await page.goto("/es/present");
+  const controls = page.getByRole("navigation");
+  await expect(controls).toHaveClass(/opacity-0/, { timeout: 5_000 });
+  await page.keyboard.press("Space");
+  await expect(controls).not.toHaveClass(/opacity-0/);
 });

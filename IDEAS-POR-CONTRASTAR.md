@@ -24,6 +24,7 @@ comprobar antes de hacerla. Cuando se decida, pasa a la bitácora de
 | **Panda al mostrar u ocultar la contraseña** | El panda ya acompaña el ingreso del código del alumno; el acceso de la docente sigue siendo neutro. | Si aporta claridad o solo distracción; no reaccionar al contenido escrito, respetar privacidad y movimiento reducido. |
 | **Fijar una frase preferida** para que salga siempre | Complemento de la rotación de frases. | Si la docente lo necesita de verdad tras probar la rotación. |
 | **Pedir palabras al admin** desde "Pegar lista" | Hoy una palabra fuera del catálogo solo sale tachada. | Tabla de peticiones y bandeja en `/admin`. |
+| **Palabras para reforzar según la votación** en la lección de la docente | Desde el 2026-10-20 la comprensión del grupo sale solo de los votos de los alumnos (idea de Ever): con varias clases, la lección puede recomendar qué palabras repasar. | Cuántos votos y clases hacen falta para que la recomendación valga; si se cuenta la última clase o el acumulado; dónde se muestra (lista de la lección, inicio docente). Los votos ya se guardan por sesión y sentido. |
 
 ## Autoestudio del alumno (propuestas de Ever, 2026-10-13)
 

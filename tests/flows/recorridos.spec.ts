@@ -186,7 +186,7 @@ test.describe("profesora", () => {
     await expect(page.getByText(OWN)).toBeVisible();
     await page.screenshot({ path: `${SHOTS}/5-clase.png` });
 
-    // La misma clase en un celular: anverso, reverso y la valoración al final.
+    // La misma clase en un celular: anverso, reverso y la comprensión del grupo al final.
     await page.setViewportSize({ width: 390, height: 844 });
     await page.keyboard.press("Space");
     await page.waitForTimeout(500);
@@ -196,15 +196,13 @@ test.describe("profesora", () => {
     await page.screenshot({ path: `${SHOTS}/5-clase-celular-reverso.png` });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow, "scroll horizontal en la clase (celular)").toBeLessThanOrEqual(1);
-    // Valoración en 2×2 con botones de al menos 44 px (auditoría UX, P0).
-    const radios = page.getByRole("radiogroup").getByRole("radio");
-    await radios.first().scrollIntoViewIfNeeded();
-    await page.screenshot({ path: `${SHOTS}/5-clase-celular-valoracion.png` });
-    const boxes = await radios.evaluateAll((els) => els.map((e) => e.getBoundingClientRect()).map((r) => ({ x: Math.round(r.x), y: Math.round(r.y), h: r.height })));
-    expect(boxes).toHaveLength(4);
-    for (const b of boxes) expect(b.h, "alto del botón de valoración").toBeGreaterThanOrEqual(44);
-    expect(new Set(boxes.map((b) => b.y)).size, "dos filas").toBe(2);
-    expect(new Set(boxes.map((b) => b.x)).size, "dos columnas").toBe(2);
+    // Comprensión del grupo: solo los votos de los alumnos, sin valoración a
+    // mano de la docente (2026-10-20). En celular no debe quedar aplastada.
+    const group = page.getByRole("region", { name: /Comprensión del grupo|Group understanding/ });
+    await group.scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `${SHOTS}/5-clase-celular-comprension.png` });
+    expect((await group.boundingBox())?.height, "alto de la comprensión del grupo").toBeGreaterThan(40);
+    await expect(page.getByRole("radiogroup")).toHaveCount(0);
     await page.setViewportSize({ width: 1440, height: 900 });
 
     await page.getByRole("button", { name: zh.Controls.endClass }).click();
