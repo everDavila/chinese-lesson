@@ -756,3 +756,57 @@ registrar en `src/lib/labs.ts`, quedarse al implementarse; sin ideas ni
 descartados). El índice termina con «Proponer una idea» (correo).
 
 **Sin probar:** Escritura y Gramática siguen solo en español.
+
+## 2026-10-20 — La tarjeta docente se ordena y la frase maestra pasa a ser una decisión
+
+**Rediseño del reverso (empezado por Codex, terminado por Claude Code).**
+Desde `lg`, la palabra y «Cómo se forma» quedan fijas arriba y solo se
+desplazan las frases; Matiz, Otros usos y Nota cultural pasan a un panel a la
+derecha (solo uno abierto); la barra de controles se oculta tras 3 s sin
+ratón (no en táctil). Al terminarlo apareció un bug en celular: el panel de
+detalles medía 0 px porque el grid con `h-full` y filas `auto` aplasta las
+secciones con `overflow-hidden`; se arregló con `auto-rows-max` bajo `lg`
+(`752fcc2`). Después, a pedido de Ever: las dos columnas llevan título con el
+mismo estilo para que empiecen a la misma altura (`5e2ae42`).
+
+**Comprensión del grupo = solo votos.** Salen los cuatro botones de la
+docente, las teclas 1–4 y el veredicto combinado; la tarjeta muestra la barra
+y el conteo de los votos de los alumnos. `teacher_ratings` queda sin escribir
+pero no se borra. Idea anotada en `IDEAS-POR-CONTRASTAR.md`: recomendar en la
+lección qué palabras reforzar según los votos.
+
+**La frase maestra.** Codex la había definido como «la primera frase». Con la
+rotación entre clases, eso marcaba cualquier frase (en 家 salía 大家好, donde
+家 no es «casa»): se quitó ese mismo día (`4504dd1`) y volvió como estrella del
+admin (`394ea4c`): columna `sentences.is_master` con índice único parcial (una
+por sentido), `save_word` la guarda y `lesson_payload` la devuelve. La rotación
+la incluye siempre y primera, dentro de las N frases por palabra; la copia de
+una docente hereda la estrella.
+
+**Editor de palabra del admin rediseñado.** Ever no encontraba Matiz ni Otros
+usos: existían, pero como «Matiz de uso» dentro de cada «Sentido N», y «Otros
+usos» son los demás sentidos. Ahora usa los nombres de la tarjeta, cada
+sentido dice su significado en la cabecera, sin cajas anidadas; las frases
+llevan flechas para el orden (a la izquierda) y quitar aparte (a la derecha).
+Regla nueva en `contenido/POLITICA-DE-CONTENIDO.md`: cada ejemplo usa la
+palabra en el sentido al que pertenece y todo sentido tiene frase maestra.
+
+**Producción.** Respaldo → `db push` de `20261020000000_frase_maestra` →
+merge `907d639` → despliegue en Vercel, en ese orden. Probado antes contra
+`hanzi-dev`: recorridos 11/11, suite visual 142/142, `test:db` y unitarias.
+
+**Tropiezo del día.** Al descartar dos worktrees de Codex que Ever solo quería
+dejar fuera de la conversación, se borraron archivos sin respaldo: el `tar`
+falló y el borrado corrió igual. Ever decidió no recuperarlos. Quedó en la
+memoria de los agentes: «descartar» no es borrar.
+
+**Sin probar / pendiente:** ninguna palabra de producción tiene estrella aún;
+la barra que se oculta a los 3 s no se probó en una clase real.
+
+**Capturas** (`bitacora-capturas/2026-10-20/`):
+1. `01-reverso-antes-columnas-descuadradas.png` — Reverso antes: el panel derecho empezaba más arriba. / Card back before: the right panel started higher.
+2. `02-reverso-despues-columnas-alineadas.png` — Reverso después: las dos columnas alineadas. / Card back after: both columns aligned.
+3. `03-comprension-del-grupo-con-votos.png` — La docente ve el voto del alumno en vivo. / The teacher sees the student's vote live.
+4. `04-editor-admin-antes.png` — Editor del admin antes: cajas dentro de cajas. / Admin editor before: boxes inside boxes.
+5. `05-editor-admin-despues-estrella-y-flechas.png` — Después: estrella de frase maestra y flechas de orden. / After: master-sentence star and order arrows.
+6. `06-tarjeta-con-frase-maestra.png` — 我想家 como frase maestra en la tarjeta. / 我想家 as the master sentence on the card.
