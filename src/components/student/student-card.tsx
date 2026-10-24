@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef, useState, useSyncExternalStore } from "react";
-import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Volume2 } from "lucide-react";
+import { Popover } from "@base-ui/react/popover";
+import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Settings, Volume2 } from "lucide-react";
 import { CardBack } from "@/components/present/card-back";
 import { Button } from "@/components/ui/button";
 import type { Lesson } from "@/lib/lesson-types";
@@ -65,12 +66,10 @@ export function StudentCard({ lesson }: { lesson: Lesson }) {
   const [run, setRun] = useState(0);
   const [listOpen, setListOpen] = useState(false);
   const [state, setState] = useState<{ key: string; progress: CellsProgress } | null>(null);
-  const [choice, setChoice] = useState<{ key: string; rating: Rating } | null>(null);
 
   const count = lesson.items.length;
   const item = lesson.items[index];
   const itemKey = item.senseId ?? `${item.word.hanzi}#${item.senseIndex}`;
-  const sense = item.word.senses[item.senseIndex];
   const chars = item.characters.map((c) => c.char);
   const guide = prefs.mode === "random" ? coin(`${itemKey}:${run}`) : prefs.mode === "guide";
   const cellsKey = `${itemKey}:${run}:${guide}`;
@@ -78,7 +77,6 @@ export function StudentCard({ lesson }: { lesson: Lesson }) {
   const current = state?.key === cellsKey ? state.progress : null;
   const finished = current !== null && current.completed === current.total;
   const suggested = current ? suggestRating(current.mistakes, current.total, current.revealed) : 3;
-  const selected = choice?.key === cellsKey ? choice.rating : suggested;
 
   const go = (next: number) => {
     setIndex(Math.min(Math.max(next, 0), count - 1));
@@ -90,9 +88,9 @@ export function StudentCard({ lesson }: { lesson: Lesson }) {
     setRun((r) => r + 1);
     setSide("front");
   };
-  const rate = () => {
+  const rate = (rating: Rating) => {
     progressStore.save(itemKey, {
-      rating: selected,
+      rating,
       mistakes: current?.mistakes ?? 0,
       mode: guide ? "guide" : "free",
       gaveUp: current?.revealed ?? false,
@@ -144,151 +142,154 @@ export function StudentCard({ lesson }: { lesson: Lesson }) {
     );
   }
 
+  const segment =
+    "flex cursor-pointer items-center rounded-full px-4 py-1.5 text-sm font-medium transition-colors has-checked:bg-primary has-checked:text-primary-foreground has-focus-visible:ring-2 has-focus-visible:ring-ring hover:bg-muted has-checked:hover:bg-primary";
+
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <header className="flex items-center gap-3 px-4 py-3 sm:px-6">
-        <Button variant="outline" size="icon" aria-label="Lista de palabras" onClick={() => setView("list")}>
-          <ArrowLeft />
-        </Button>
-        <span className="font-medium">Lista de palabras</span>
-      </header>
+      {side === "front" ? (
+        <header className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 py-3 sm:px-6">
+          <div>
+            <Button variant="ghost" onClick={() => setView("list")}>
+              <ArrowLeft /> Lista
+            </Button>
+          </div>
+          <fieldset className="flex gap-1 rounded-full border border-border bg-card p-1">
+            <legend className="sr-only">Modo de práctica</legend>
+            {MODES.map((m) => (
+              <label key={m.value} className={segment}>
+                <input
+                  type="radio"
+                  name="modo"
+                  className="sr-only"
+                  checked={prefs.mode === m.value}
+                  onChange={() => {
+                    prefsStore.set({ ...prefs, mode: m.value });
+                    setRun((r) => r + 1);
+                  }}
+                />
+                {m.label}
+              </label>
+            ))}
+          </fieldset>
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" size="icon" aria-label="Escuchar la palabra" onClick={() => speakChinese(item.word.hanzi)}>
+              <Volume2 />
+            </Button>
+            <Popover.Root>
+              <Popover.Trigger
+                aria-label="Ajustes"
+                className="inline-flex size-8 items-center justify-center rounded-lg border border-border bg-background hover:bg-muted"
+              >
+                <Settings className="size-4" />
+              </Popover.Trigger>
+              <Popover.Portal>
+                <Popover.Positioner sideOffset={6} align="end" className="z-50">
+                  <Popover.Popup className="w-64 rounded-lg border border-border bg-popover p-3 text-popover-foreground shadow-lg outline-none">
+                    <fieldset className="flex flex-col gap-1">
+                      <legend className="mb-1 text-sm font-medium">Al terminar una palabra</legend>
+                      {AFTER.map((a) => (
+                        <label key={a.value} className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-muted">
+                          <input
+                            type="radio"
+                            name="al-terminar"
+                            className="accent-primary"
+                            checked={prefs.after === a.value}
+                            onChange={() => prefsStore.set({ ...prefs, after: a.value })}
+                          />
+                          {a.label}
+                        </label>
+                      ))}
+                    </fieldset>
+                  </Popover.Popup>
+                </Popover.Positioner>
+              </Popover.Portal>
+            </Popover.Root>
+          </div>
+        </header>
+      ) : (
+        <header className="px-4 py-3 sm:px-6">
+          <Button variant="outline" onClick={() => setSide("front")}>
+            <ArrowLeft /> Volver a practicar
+          </Button>
+        </header>
+      )}
 
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 pb-4 sm:px-6">
         {side === "front" ? (
-          <section className="flex flex-1 flex-col items-center gap-6 rounded-3xl border border-border bg-card p-6 sm:p-8">
-            {/* El frente es solo práctica: no muestra significado ni pinyin. El
-                audio es lo único que identifica la palabra sin texto. */}
+          <section className="flex flex-1 flex-col items-center justify-center gap-4">
             <h1 className="sr-only">Practica la palabra {index + 1} de {count}</h1>
-            <Button variant="outline" onClick={() => speakChinese(item.word.hanzi)}>
-              <Volume2 /> Escuchar la palabra
-            </Button>
+            <StrokeCells
+              key={cellsKey}
+              ref={cells}
+              chars={chars}
+              guide={guide}
+              onProgress={(p) => setState({ key: cellsKey, progress: p })}
+            />
 
-            <div className="flex w-full flex-col items-center gap-6 lg:flex-row lg:justify-center">
-              <StrokeCells
-                key={cellsKey}
-                ref={cells}
-                chars={chars}
-                guide={guide}
-                onProgress={(p) => setState({ key: cellsKey, progress: p })}
-              />
-              <fieldset className="flex shrink-0 flex-row gap-1 rounded-xl border border-border p-1 lg:flex-col">
-                <legend className="sr-only">Modo de práctica</legend>
-                {MODES.map((m) => (
-                  <label
-                    key={m.value}
-                    className={cn(
-                      "flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm has-focus-visible:ring-2 has-focus-visible:ring-ring",
-                      prefs.mode === m.value ? "bg-primary/10 font-medium text-primary" : "hover:bg-muted",
-                    )}
-                  >
-                    <input
-                      type="radio"
-                      name="modo"
-                      className="accent-primary"
-                      checked={prefs.mode === m.value}
-                      onChange={() => {
-                        prefsStore.set({ ...prefs, mode: m.value });
-                        setRun((r) => r + 1);
-                      }}
-                    />
-                    {m.label}
-                  </label>
-                ))}
-              </fieldset>
+            {/* Puntos de progreso: uno por carácter. */}
+            <div className="flex gap-2" role="img" aria-label={`${current?.completed ?? 0} de ${chars.length} caracteres`}>
+              {chars.map((c, i) => (
+                <span key={`${i}-${c}`} className={cn("size-2.5 rounded-full", i < (current?.completed ?? 0) ? "bg-primary" : "bg-border")} />
+              ))}
             </div>
 
-            <div className="flex min-h-20 flex-col items-center gap-3" aria-live="polite">
-              {finished ? (
-                <p className="rounded-full bg-rating-3/25 px-4 py-1.5 font-medium">{feedback(current)}</p>
+            {/* Franja de acciones de alto fijo: al terminar cambia el contenido, no la posición. */}
+            <div className="flex min-h-28 flex-col items-center justify-start gap-3" aria-live="polite">
+              {!finished ? (
+                <>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <Button variant="secondary" onClick={restart}>
+                      <RotateCcw /> Reiniciar
+                    </Button>
+                    <Button variant="outline" onClick={() => cells.current?.reveal()}>
+                      <HelpCircle /> No me sale
+                    </Button>
+                  </div>
+                  <Button variant="link" onClick={() => setSide("back")}>Ver detalle</Button>
+                </>
+              ) : prefs.after === "detail" ? (
+                <>
+                  <p className="font-medium">{feedback(current)}</p>
+                  <div className="grid grid-cols-4 gap-2" role="group" aria-label="¿Cómo te fue? Toca para guardar y ver el detalle">
+                    {RATINGS.map((r) => (
+                      <button
+                        key={r.value}
+                        type="button"
+                        onClick={() => rate(r.value)}
+                        aria-label={`${r.label}${suggested === r.value ? " (sugerida)" : ""}`}
+                        className={cn(
+                          "flex min-w-24 items-center justify-center gap-2 rounded-xl border-2 px-3 py-2.5 text-sm font-medium transition-colors hover:bg-muted",
+                          suggested === r.value ? "border-primary" : "border-border",
+                        )}
+                      >
+                        <span className={cn("size-3 rounded-full", r.tone)} aria-hidden />
+                        {r.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex gap-1">
+                    <Button variant="ghost" size="sm" onClick={restart}>Reiniciar</Button>
+                    <Button variant="ghost" size="sm" onClick={() => setSide("back")}>Ver detalle sin valorar</Button>
+                  </div>
+                </>
               ) : (
-                <p className={cn("text-sm font-medium", (current?.mistakes ?? 0) > 0 ? "text-destructive" : "text-muted-foreground")}>
-                  Errores: {current?.mistakes ?? 0}
-                </p>
+                <>
+                  <p className="font-medium">{feedback(current)}</p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <Button variant="secondary" onClick={restart}>
+                      <RotateCcw /> Reiniciar
+                    </Button>
+                    {index < count - 1 && <Button onClick={() => go(index + 1)}>Siguiente palabra</Button>}
+                    <Button variant="link" onClick={() => setSide("back")}>Ver detalle</Button>
+                  </div>
+                </>
               )}
-            </div>
-
-            {finished && prefs.after === "detail" && (
-              <div className="flex w-full max-w-xl flex-col items-center gap-2">
-                <div className="grid w-full grid-cols-4 gap-2" role="radiogroup" aria-label="¿Cómo te fue?">
-                  {RATINGS.map((r) => (
-                    <button
-                      key={r.value}
-                      type="button"
-                      role="radio"
-                      aria-checked={selected === r.value}
-                      onClick={() => setChoice({ key: cellsKey, rating: r.value })}
-                      className={cn(
-                        "flex flex-col items-center gap-1 rounded-xl border-2 px-2 py-3 text-sm font-medium transition-colors",
-                        selected === r.value ? "border-primary bg-primary/10" : "border-border hover:bg-muted",
-                      )}
-                    >
-                      <span className={cn("size-3 rounded-full", r.tone)} aria-hidden />
-                      {r.label}
-                    </button>
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground">Elige cómo te fue para guardar tu avance.</p>
-                <Button onClick={rate}>Guardar y ver detalle</Button>
-              </div>
-            )}
-
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <Button variant="secondary" onClick={restart}>
-                <RotateCcw /> Reiniciar
-              </Button>
-              {!finished && (
-                <Button variant="outline" onClick={() => cells.current?.reveal()}>
-                  <HelpCircle /> No me sale
-                </Button>
-              )}
-              {finished && prefs.after === "practice" && index < count - 1 && (
-                <Button onClick={() => go(index + 1)}>Siguiente palabra</Button>
-              )}
-              <Button variant="link" onClick={() => setSide("back")}>Ver detalle</Button>
-            </div>
-
-            <div className="mt-auto flex items-center gap-3 border-t border-border pt-4 text-sm">
-              <span className="text-muted-foreground">Al terminar:</span>
-              <fieldset className="flex gap-1 rounded-xl border border-border p-1">
-                <legend className="sr-only">Al terminar la palabra</legend>
-                {AFTER.map((a) => (
-                  <label
-                    key={a.value}
-                    className={cn(
-                      "flex cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 has-focus-visible:ring-2 has-focus-visible:ring-ring",
-                      prefs.after === a.value ? "bg-primary/10 font-medium text-primary" : "hover:bg-muted",
-                    )}
-                  >
-                    <input
-                      type="radio"
-                      name="al-terminar"
-                      className="accent-primary"
-                      checked={prefs.after === a.value}
-                      onChange={() => prefsStore.set({ ...prefs, after: a.value })}
-                    />
-                    {a.label}
-                  </label>
-                ))}
-              </fieldset>
             </div>
           </section>
         ) : (
-          <div className="flex min-h-0 flex-1 flex-col gap-3">
-            <div>
-              <Button variant="outline" onClick={() => setSide("front")}>
-                <ArrowLeft /> Volver a practicar
-              </Button>
-            </div>
-            <div className="min-h-0 flex-1">
-              <CardBack
-                key={itemKey}
-                item={item}
-                showPinyin
-                showTranslations
-                lang="es"
-                noteTerms={lesson.noteTerms}
-              />
-            </div>
+          <div className="min-h-0 flex-1">
+            <CardBack key={itemKey} item={item} showPinyin showTranslations lang="es" noteTerms={lesson.noteTerms} />
           </div>
         )}
       </main>

@@ -113,7 +113,7 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
           showCharacter: false,
           showOutline: guide,
           strokeColor: dark ? "#efe6d6" : "#2b2420",
-          outlineColor: dark ? "#4a443d" : "#d9cfc2",
+          outlineColor: dark ? "#5a5249" : "#cbbfae",
           drawingColor: dark ? "#e6a08f" : "#b4533c",
           highlightColor: dark ? "#7fb0e6" : "#3d7cc9",
           drawingWidth: 6,
@@ -145,7 +145,7 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
   const n = chars.length;
 
   return (
-    <div lang="zh-Hans" className="flex flex-wrap justify-center gap-3">
+    <div lang="zh-Hans" className="flex flex-wrap justify-center gap-4">
       {chars.map((char, i) => (
         <CalligraphyGrid
           key={`${i}-${char}`}
@@ -154,7 +154,7 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
             i === active && "border-primary shadow-[0_0_0_2px_var(--primary)]",
           )}
         >
-          <div style={{ width: `min(17rem, calc(80vw / ${n}))` }} className="relative aspect-square touch-none">
+          <div style={{ width: `min(30rem, 55dvh, calc((100vw - 4rem) / ${n}))` }} className="relative aspect-square touch-none">
             <div ref={(el) => void (targets.current[i] = el)} className="absolute inset-0" aria-label={`Casilla ${i + 1}: ${char}`} />
             {done[i] && (
               <span className="absolute top-2 right-2 flex size-6 items-center justify-center rounded-full bg-rating-3 text-black">
