@@ -500,6 +500,13 @@
         "history": {
           "start": "First version: “Sentences in 中文 · ES · EN” (key L). In Chinese, the translation shows Spanish and English; in Spanish or English, the class says the sentence in Chinese, then reveals it."
         }
+      },
+      "estudiante": {
+        "title": "Student card",
+        "summary": "Practice the word stroke by stroke, rate how it went and open the full card, no account: progress stays on the device.",
+        "history": {
+          "start": "First pilot: front with stroke cells (guided, unguided or random), a 1–4 rating and the full card on the back. Progress is saved only on this device."
+        }
       }
     },
     "frasesStep1": "Open the sample class and flip the card (Space).",

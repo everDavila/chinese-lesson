@@ -500,6 +500,13 @@
         "history": {
           "start": "Primera versión: «Frases en 中文 · ES · EN» (tecla L). En chino, la traducción muestra español e inglés; en español o inglés, la clase dice la frase en chino y se revela."
         }
+      },
+      "estudiante": {
+        "title": "Tarjeta del alumno",
+        "summary": "Practicar la palabra trazo a trazo, valorar cómo te fue y ver la ficha, sin cuenta: el avance queda en el dispositivo.",
+        "history": {
+          "start": "Primer piloto: frente con casillas de trazos (con guía, sin guía o aleatorio), valoración de 1 a 4 y reverso con la ficha. El avance se guarda solo en este dispositivo."
+        }
       }
     },
     "frasesStep1": "Abre la clase de ejemplo y gira la tarjeta (Espacio).",
