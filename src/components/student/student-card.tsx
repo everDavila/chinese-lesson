@@ -156,15 +156,12 @@ export function StudentCard({ lesson }: { lesson: Lesson }) {
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 pb-4 sm:px-6">
         {side === "front" ? (
           <section className="flex flex-1 flex-col items-center gap-6 rounded-3xl border border-border bg-card p-6 sm:p-8">
-            <div className="flex flex-col items-center gap-1 text-center">
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="icon" aria-label="Escuchar la palabra" onClick={() => speakChinese(item.word.hanzi)}>
-                  <Volume2 />
-                </Button>
-                <h1 className="text-3xl font-semibold sm:text-4xl">{sense.meaning.es}</h1>
-              </div>
-              <p className="text-muted-foreground">Escribe la palabra</p>
-            </div>
+            {/* El frente es solo práctica: no muestra significado ni pinyin. El
+                audio es lo único que identifica la palabra sin texto. */}
+            <h1 className="sr-only">Practica la palabra {index + 1} de {count}</h1>
+            <Button variant="outline" onClick={() => speakChinese(item.word.hanzi)}>
+              <Volume2 /> Escuchar la palabra
+            </Button>
 
             <div className="flex w-full flex-col items-center gap-6 lg:flex-row lg:justify-center">
               <StrokeCells
@@ -202,15 +199,7 @@ export function StudentCard({ lesson }: { lesson: Lesson }) {
 
             <div className="flex min-h-20 flex-col items-center gap-3" aria-live="polite">
               {finished ? (
-                <>
-                  <p className="rounded-full bg-rating-3/25 px-4 py-1.5 font-medium">{feedback(current)}</p>
-                  <p className="flex items-center gap-2 text-xl text-muted-foreground">
-                    <span lang="zh-Latn">{sense.pinyin}</span>
-                    <Button variant="ghost" size="icon" aria-label="Escuchar la palabra" onClick={() => speakChinese(item.word.hanzi)}>
-                      <Volume2 />
-                    </Button>
-                  </p>
-                </>
+                <p className="rounded-full bg-rating-3/25 px-4 py-1.5 font-medium">{feedback(current)}</p>
               ) : (
                 <p className={cn("text-sm font-medium", (current?.mistakes ?? 0) > 0 ? "text-destructive" : "text-muted-foreground")}>
                   Errores: {current?.mistakes ?? 0}
