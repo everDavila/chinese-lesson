@@ -182,6 +182,7 @@ editorial en [contenido/POLITICA-DE-CONTENIDO.md](contenido/POLITICA-DE-CONTENID
 | [DECISIONES.md](DECISIONES.md) | Decisiones de producto y arquitectura |
 | [BITACORA.md](BITACORA.md) | Registro técnico día a día: qué cambió, por qué y qué quedó sin probar |
 | [IDEAS-POR-CONTRASTAR.md](IDEAS-POR-CONTRASTAR.md) | Ideas y hallazgos todavía sin decidir |
+| [docs/prioridades-renshi.html](docs/prioridades-renshi.html) | Prioridades con costo, tiempo y cuadrante (copia del artifact de Claude del 25-oct; ábrelo en el navegador) |
 | [DIAGNOSTICO-MODO-CLASE.md](DIAGNOSTICO-MODO-CLASE.md) | Diagnóstico del modo clase, evaluación grupal y votación anónima |
 | [BRIEF-DISENO.md](BRIEF-DISENO.md) | Brief del diseño visual |
 | [LECCIONES.md](LECCIONES.md) | Lecciones técnicas heredadas de otros proyectos |

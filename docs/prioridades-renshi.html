@@ -1,0 +1,225 @@
+<title>Prioridades Renshi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una columna de lectura (resumen, tabla de prioridades) y un cuadrante de ancho completo. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #14181f;
+  --ink-2: #454c57;
+  --muted: #646d79;
+  --line: #dde1e7;
+  --quad: #eef1f5;
+  --lead: #e6f0fb;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101216; --surface: #181b21; --ink: #eceef1; --ink-2: #c0c5cd; --muted: #98a0ab;
+    --line: #2b3038; --quad: #1d2128; --lead: #172433;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101216; --surface: #181b21; --ink: #eceef1; --ink-2: #c0c5cd; --muted: #98a0ab;
+  --line: #2b3038; --quad: #1d2128; --lead: #172433;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+  color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px; }
+h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 10px; text-wrap: balance; }
+h2 { font-size: 20px; letter-spacing: -0.01em; margin: 0 0 14px; text-wrap: balance; }
+.lede { color: var(--ink-2); max-width: 62ch; margin: 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px 40px; }
+.summary > div { min-width: 0; }
+.summary h3 { font-size: 13px; font-family: var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; font-weight: 500; }
+.summary ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; }
+.summary li { color: var(--ink-2); }
+.summary li b { color: var(--ink); font-weight: 600; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 820px; font-size: 14px; }
+th { text-align: left; font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 12px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+tr.band td { background: var(--quad); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-2); padding: 8px 14px; }
+td.name { font-weight: 600; min-width: 220px; }
+td.name small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; margin-top: 2px; }
+td.num { font-family: var(--font-mono); white-space: nowrap; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; vertical-align: baseline; }
+.meter { display: inline-flex; gap: 3px; vertical-align: middle; margin-right: 8px; }
+.meter i { width: 14px; height: 6px; border-radius: 2px; background: var(--line); }
+.meter i.on { background: var(--ink-2); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 14px; color: var(--ink-2); font-size: 14px; }
+.legend span { display: inline-flex; align-items: center; }
+.chart-box { padding: 14px 8px 8px; position: relative; }
+.chart-box svg { display: block; width: 100%; min-width: 680px; height: auto; }
+svg text { font-family: var(--font-body); fill: var(--ink); }
+svg .q-label { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
+svg .ax { font-size: 12px; fill: var(--ink-2); }
+svg .pt-label { font-size: 12.5px; }
+svg circle.pt { stroke: var(--surface); stroke-width: 2.5; cursor: pointer; }
+svg circle.pt:focus-visible, svg circle.pt.hot { stroke: var(--ink); outline: none; }
+#tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); border-radius: 6px; padding: 8px 10px; font-size: 12.5px; line-height: 1.4; max-width: 240px; opacity: 0; transition: opacity .1s; z-index: 5; }
+#tip b { display: block; font-weight: 600; }
+.note { color: var(--muted); font-size: 13px; max-width: 72ch; margin: 12px 0 0; }
+@media (prefers-reduced-motion: reduce) { #tip { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Renshi · 25 oct 2026</div>
+    <h1>Qué hacer primero, qué cuesta y cuánto tarda</h1>
+    <p class="lede">Resumen del feedback de la profesora, lo que ya acordamos, las piezas ordenadas por prioridad y un cuadrante para ver dónde están las apuestas fáciles y las caras.</p>
+  </header>
+
+  <section class="summary" aria-label="Resumen">
+    <div>
+      <h3>Acordado</h3>
+      <ul>
+        <li><b>Quiz en vivo</b> que reemplaza «no sé / me costó / bien / fácil»: la docente elige el tipo de ronda y el tiempo; el alumno responde.</li>
+        <li><b>Respuestas anónimas</b>, guardadas por sesión; promedio de la clase que sube a lección y colección.</li>
+        <li><b>Sin ranking por velocidad.</b> Se guarda el tiempo de cada respuesta, pero no se muestra. El podio queda apagado.</li>
+        <li><b>Tipo de carácter</b>: siempre visible para la docente; para el alumno, solo tras revelar.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Límites</h3>
+      <ul>
+        <li><b>Modo clase:</b> la docente marca el ritmo y el resultado es del grupo.</li>
+        <li><b>Autoestudio:</b> el alumno decide, o recibe una tarea. La tarea es autoestudio asignado.</li>
+        <li>Comparten una pieza: el <b>motor de preguntas</b> (genera y valida).</li>
+        <li><b>Gramática</b>: la genera un LLM fuera de la app; la profesora revisa y solo se ve lo aprobado.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Estado y pendientes</h3>
+      <ul>
+        <li>Las 10 instancias están en GitHub. <b>Decisiones e ideas de hoy</b> están escritas pero <b>sin commit</b>.</li>
+        <li>El laboratorio de radicales se subió <b>sin correr build ni pruebas</b>.</li>
+        <li>Falta una fuente para <b>hanzi parecidos</b> y para clasificar los <b>6 tipos</b> de carácter.</li>
+        <li>Corrección con LLM: solo para alumnos con código; requiere definir coste y privacidad.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-tabla">
+    <h2 id="t-tabla">Prioridades, costo y tiempo</h2>
+    <div class="panel scroll"><table id="tabla"></table></div>
+    <p class="note">Los tiempos son días de desarrollo y salen de mi estimación, no de una medición. Incluyen probar la migración en la base de desarrollo antes de producción. No incluyen la revisión de contenido por la profesora.</p>
+  </section>
+
+  <section aria-labelledby="t-cuad">
+    <h2 id="t-cuad">Cuadrante de prioridades</h2>
+    <div class="legend" id="legend"></div>
+    <div class="panel scroll chart-box" id="chartbox">
+      <svg id="chart" viewBox="0 0 760 600" role="img" aria-label="Cuadrante: valor para la clase frente a facilidad de implementar. La tabla de arriba trae los mismos datos."></svg>
+      <div id="tip" role="status"></div>
+    </div>
+    <p class="note">Estilo cuadrante mágico; no es un informe de Gartner. Horizontal: valor para la clase, según el pedido de la profesora y lo que mide. Vertical: facilidad, que junta costo y tiempo. Las posiciones son mi juicio.</p>
+  </section>
+</div>
+
+<script>
+const TRACKS = {
+  clase: { name: "Modo clase", css: "var(--s1)" },
+  auto: { name: "Autoestudio", css: "var(--s2)" },
+  id: { name: "Necesita identidad por alumno", css: "var(--s3)" }
+};
+// p = prioridad, v = valor 0-10, f = facilidad 0-10, costo 1-4, lx/ly/la = posición de etiqueta
+const ITEMS = [
+  { n: "Quiz en vivo con opciones", sub: "Motor de preguntas, ronda hanzi → español, vista de alumno y de docente", t: "clase", p: 1, costo: 3, dias: "6–8", v: 9.0, f: 5.0, dep: "—", lab: "end", dx: -14, dy: 4 },
+  { n: "Guardar respuestas y promedios", sub: "Por sesión, palabra y ronda; sube a lección y colección", t: "clase", p: 1, costo: 2, dias: "3–4", v: 8.2, f: 6.2, dep: "Quiz base", lab: "end", dx: 20, dy: -14 },
+  { n: "Tipo de carácter", sub: "Docente siempre, alumno tras revelar. La clasificación se carga por tandas", t: "clase", p: 1, costo: 2, dias: "2–3 + clasificar", v: 7.0, f: 7.6, dep: "Fuente de clasificación", lab: "start", dx: 14, dy: 4 },
+  { n: "Temporizador", sub: "El servidor guarda la hora de cierre; 20 s por defecto", t: "clase", p: 2, costo: 2, dias: "2–3", v: 7.2, f: 5.8, dep: "Quiz base", lab: "start", dx: 14, dy: 4 },
+  { n: "Selector de tipo de ronda", sub: "La docente elige por ronda, no por palabra", t: "clase", p: 2, costo: 1, dias: "1–2", v: 6.0, f: 8.2, dep: "Quiz base", lab: "start", dx: 14, dy: 4 },
+  { n: "Ronda de tonos", sub: "Elegir entre variantes de tono de la misma sílaba", t: "clase", p: 2, costo: 1, dias: "2", v: 6.4, f: 6.9, dep: "Quiz base", lab: "start", dx: 14, dy: 4 },
+  { n: "Ronda de ortografía del pinyin", sub: "Confundibles generados por reglas: zh/ch/sh, j/q/x, n/l…", t: "clase", p: 2, costo: 2, dias: "2–3", v: 5.6, f: 6.0, dep: "Quiz base", lab: "middle", dx: 0, dy: 24 },
+  { n: "Escribir pinyin o hanzi", sub: "Teclado chino; pinyin sin tono; validación de lo escrito", t: "clase", p: 3, costo: 3, dias: "4–5", v: 7.4, f: 4.2, dep: "Quiz base", lab: "start", dx: 14, dy: 4 },
+  { n: "Importar gramática", sub: "Formato con nivel, tipo y estado borrador/aprobado, más plantilla de prompt", t: "auto", p: 3, costo: 2, dias: "3–4", v: 5.4, f: 7.4, dep: "Ninguna", lab: "middle", dx: 0, dy: -14 },
+  { n: "Gramática: vista del alumno y tarea", sub: "Ejercicios cerrados autocorregidos, enlace con código y resultados para la docente", t: "auto", p: 4, costo: 4, dias: "10–15", v: 8.6, f: 3.2, dep: "Importar gramática", lab: "end", dx: -14, dy: 4 },
+  { n: "Hanzi parecidos", sub: "Elegir entre 己/已/巳; falta fuente y revisión", t: "clase", p: 4, costo: 3, dias: "5–7 + revisión", v: 6.2, f: 2.8, dep: "Lista revisada", lab: "start", dx: 14, dy: 4 },
+  { n: "Podio por persona", sub: "Por aciertos, no por velocidad; interruptor apagado", t: "id", p: 5, costo: 3, dias: "3–4", v: 3.8, f: 2.6, dep: "Códigos de alumno", lab: "start", dx: 14, dy: 4 },
+  { n: "Códigos de alumno y corrección con LLM", sub: "Identidad opt-in; define coste y qué se envía al modelo", t: "id", p: 5, costo: 4, dias: "15–25", v: 5.0, f: 1.4, dep: "Decisión de privacidad", lab: "start", dx: 14, dy: 4 }
+];
+const COSTO = ["", "Bajo", "Medio", "Alto", "Muy alto"];
+const BAND = { 1: "Prioridad 1 · cimientos y lo que pidió la profesora", 2: "Prioridad 2 · variantes sobre el motor", 3: "Prioridad 3 · requiere decisiones de validación o contenido", 4: "Prioridad 4 · apuestas grandes", 5: "Prioridad 5 · depende de identidad por alumno" };
+
+const esc = s => s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
+// Tabla
+(function () {
+  let html = "<thead><tr><th>Pieza</th><th>Costo</th><th>Tiempo (días)</th><th>Valor</th><th>Depende de</th></tr></thead><tbody>";
+  let last = 0;
+  ITEMS.forEach(it => {
+    if (it.p !== last) { html += `<tr class="band"><td colspan="5">${BAND[it.p]}</td></tr>`; last = it.p; }
+    const m = [1, 2, 3, 4].map(i => `<i class="${i <= it.costo ? "on" : ""}"></i>`).join("");
+    html += `<tr><td class="name"><span class="dot" style="background:${TRACKS[it.t].css}"></span>${esc(it.n)}<small>${esc(it.sub)}</small></td>` +
+      `<td><span class="meter" aria-hidden="true">${m}</span>${COSTO[it.costo]}</td>` +
+      `<td class="num">${it.dias}</td><td class="num">${it.v.toFixed(1)} / 10</td><td>${esc(it.dep)}</td></tr>`;
+  });
+  document.getElementById("tabla").innerHTML = html + "</tbody>";
+  document.getElementById("legend").innerHTML = Object.values(TRACKS)
+    .map(t => `<span><span class="dot" style="background:${t.css}"></span>${t.name}</span>`).join("");
+})();
+
+// Cuadrante
+(function () {
+  const X0 = 60, W = 684, Y0 = 16, H = 520;
+  const px = v => X0 + v * W / 10, py = f => Y0 + (10 - f) * H / 10;
+  const svg = document.getElementById("chart");
+  const mx = px(5), my = py(5);
+  let g = "";
+  g += `<rect x="${X0}" y="${Y0}" width="${W}" height="${H}" fill="var(--quad)" rx="4"/>`;
+  g += `<rect x="${mx}" y="${Y0}" width="${X0 + W - mx}" height="${my - Y0}" fill="var(--lead)"/>`;
+  g += `<line x1="${mx}" y1="${Y0}" x2="${mx}" y2="${Y0 + H}" stroke="var(--line)" stroke-width="1.5"/>`;
+  g += `<line x1="${X0}" y1="${my}" x2="${X0 + W}" y2="${my}" stroke="var(--line)" stroke-width="1.5"/>`;
+  g += `<text class="q-label" x="${X0 + 12}" y="${Y0 + 22}">Rápidos pero menores</text>`;
+  g += `<text class="q-label" x="${X0 + W - 12}" y="${Y0 + 22}" text-anchor="end">Hacer primero</text>`;
+  g += `<text class="q-label" x="${X0 + 12}" y="${Y0 + H - 12}">Esperar o descartar</text>`;
+  g += `<text class="q-label" x="${X0 + W - 12}" y="${Y0 + H - 12}" text-anchor="end">Apuestas grandes</text>`;
+  g += `<text class="ax" x="${X0 + W / 2}" y="${Y0 + H + 34}" text-anchor="middle">Valor para la clase →</text>`;
+  g += `<text class="ax" x="${X0}" y="${Y0 + H + 16}">menos</text><text class="ax" x="${X0 + W}" y="${Y0 + H + 16}" text-anchor="end">más</text>`;
+  g += `<text class="ax" transform="translate(16 ${Y0 + H / 2}) rotate(-90)" text-anchor="middle">Facilidad de implementar →</text>`;
+  g += `<text class="ax" x="${X0 - 8}" y="${Y0 + H}" text-anchor="end">difícil</text><text class="ax" x="${X0 - 8}" y="${Y0 + 10}" text-anchor="end">fácil</text>`;
+  ITEMS.forEach((it, i) => {
+    const x = px(it.v), y = py(it.f);
+    g += `<text class="pt-label" x="${x + it.dx}" y="${y + it.dy}" text-anchor="${it.lab}">${esc(it.n)}</text>`;
+  });
+  ITEMS.forEach((it, i) => {
+    g += `<circle class="pt" data-i="${i}" tabindex="0" cx="${px(it.v)}" cy="${py(it.f)}" r="8.5" fill="${TRACKS[it.t].css}" aria-label="${esc(it.n)}: valor ${it.v}, facilidad ${it.f}"/>`;
+  });
+  svg.innerHTML = g;
+
+  const tip = document.getElementById("tip"), box = document.getElementById("chartbox");
+  function show(c) {
+    const it = ITEMS[+c.dataset.i];
+    tip.innerHTML = `<b>${esc(it.n)}</b>${esc(it.sub)}<br>Valor ${it.v.toFixed(1)} · Facilidad ${it.f.toFixed(1)} · ${it.dias} días`;
+    const b = box.getBoundingClientRect(), r = c.getBoundingClientRect();
+    let left = r.left - b.left + box.scrollLeft + 16, top = r.top - b.top - 8;
+    tip.style.left = Math.min(left, box.clientWidth - 250) + "px";
+    tip.style.top = Math.max(top - 60, 4) + "px";
+    tip.style.opacity = 1; c.classList.add("hot");
+  }
+  function hide(c) { tip.style.opacity = 0; c.classList.remove("hot"); }
+  svg.querySelectorAll("circle.pt").forEach(c => {
+    c.addEventListener("pointerenter", () => show(c));
+    c.addEventListener("pointerleave", () => hide(c));
+    c.addEventListener("focus", () => show(c));
+    c.addEventListener("blur", () => hide(c));
+  });
+})();
+</script>
