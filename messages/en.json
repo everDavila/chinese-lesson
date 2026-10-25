@@ -500,6 +500,37 @@
         "history": {
           "start": "First version: “Sentences in 中文 · ES · EN” (key L). In Chinese, the translation shows Spanish and English; in Spanish or English, the class says the sentence in Chinese, then reveals it."
         }
+      },
+      "radicales": {
+        "title": "The 214 radicals",
+        "summary": "Table of the Kangxi radicals with search, an HSK-usage filter and sorting by frequency.",
+        "body": "All 214 radicals with meaning, strokes, how many HSK characters use each and examples. It opens on the 40 most used: the ones worth teaching first. Meanings are a first draft awaiting review.",
+        "history": {
+          "start": "First version: table of 214 radicals with search, usage filter and sorting."
+        },
+        "ui": {
+          "search": "Search by hanzi, pinyin or meaning",
+          "filterAll": "All",
+          "filterUsed": "Used in HSK",
+          "filterTop": "Top {n} most used",
+          "sortLabel": "Sort",
+          "sortNumber": "Number",
+          "sortFrequency": "Frequency",
+          "sortStrokes": "Strokes",
+          "colNumber": "No.",
+          "colRadical": "Radical",
+          "colPinyin": "Pinyin",
+          "colMeaning": "Meaning",
+          "colStrokes": "Strokes",
+          "colHsk": "HSK",
+          "colExamples": "Examples",
+          "empty": "No radical matches.",
+          "count": "{n} radicals",
+          "pagination": "Pagination",
+          "previous": "Previous",
+          "next": "Next",
+          "pageN": "Page {n}"
+        }
       }
     },
     "frasesStep1": "Open the sample class and flip the card (Space).",

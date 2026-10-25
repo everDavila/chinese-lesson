@@ -500,6 +500,37 @@
         "history": {
           "start": "Primera versión: «Frases en 中文 · ES · EN» (tecla L). En chino, la traducción muestra español e inglés; en español o inglés, la clase dice la frase en chino y se revela."
         }
+      },
+      "radicales": {
+        "title": "Los 214 radicales",
+        "summary": "Tabla de los radicales Kangxi con búsqueda, filtro por uso en HSK y orden por frecuencia.",
+        "body": "Los 214 radicales con su significado, trazos, cuántos caracteres HSK los usan y ejemplos. Empieza en los 40 más usados: son los que conviene enseñar primero. Los significados son una primera versión pendiente de revisión.",
+        "history": {
+          "start": "Primera versión: tabla de 214 radicales con búsqueda, filtro por uso y orden."
+        },
+        "ui": {
+          "search": "Buscar por hanzi, pinyin o significado",
+          "filterAll": "Todos",
+          "filterUsed": "Con uso en HSK",
+          "filterTop": "Los {n} más usados",
+          "sortLabel": "Orden",
+          "sortNumber": "Número",
+          "sortFrequency": "Frecuencia",
+          "sortStrokes": "Trazos",
+          "colNumber": "N.º",
+          "colRadical": "Radical",
+          "colPinyin": "Pinyin",
+          "colMeaning": "Significado",
+          "colStrokes": "Trazos",
+          "colHsk": "HSK",
+          "colExamples": "Ejemplos",
+          "empty": "Ningún radical coincide.",
+          "count": "{n} radicales",
+          "pagination": "Paginación",
+          "previous": "Anterior",
+          "next": "Siguiente",
+          "pageN": "Página {n}"
+        }
       }
     },
     "frasesStep1": "Abre la clase de ejemplo y gira la tarjeta (Espacio).",

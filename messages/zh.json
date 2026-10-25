@@ -500,6 +500,37 @@
         "history": {
           "start": "第一版：“例句语言 中文 · ES · EN”（按 L 键）。选中文时翻译显示西班牙语和英语；选西班牙语或英语时，学生先用中文说出句子，再显示。"
         }
+      },
+      "radicales": {
+        "title": "214 个部首",
+        "summary": "康熙部首表，可搜索，可按 HSK 使用情况筛选，也可按频率排序。",
+        "body": "214 个部首及其含义、笔画、HSK 汉字使用数量和例字。默认显示最常用的 40 个，这些最值得先教。含义为初稿，有待审核。",
+        "history": {
+          "start": "第一版：214 个部首表，支持搜索、按使用情况筛选和排序。"
+        },
+        "ui": {
+          "search": "按汉字、拼音或含义搜索",
+          "filterAll": "全部",
+          "filterUsed": "HSK 中出现",
+          "filterTop": "最常用的 {n} 个",
+          "sortLabel": "排序",
+          "sortNumber": "序号",
+          "sortFrequency": "频率",
+          "sortStrokes": "笔画",
+          "colNumber": "序号",
+          "colRadical": "部首",
+          "colPinyin": "拼音",
+          "colMeaning": "含义",
+          "colStrokes": "笔画",
+          "colHsk": "HSK",
+          "colExamples": "例字",
+          "empty": "没有匹配的部首。",
+          "count": "{n} 个部首",
+          "pagination": "分页",
+          "previous": "上一页",
+          "next": "下一页",
+          "pageN": "第 {n} 页"
+        }
       }
     },
     "frasesStep1": "打开示例课，翻到卡片背面（空格键）。",

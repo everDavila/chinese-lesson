@@ -3,7 +3,7 @@
 Ideas y hallazgos que todavía no son decisión. Cada una dice qué habría que
 comprobar antes de hacerla. Cuando se decida, pasa a la bitácora de
 [DECISIONES.md](DECISIONES.md) y sale de aquí. **No es un backlog aprobado.**
-Última revisión: 2026-10-16.
+Última revisión: 2026-10-24.
 
 ## Contenido
 
@@ -14,6 +14,20 @@ comprobar antes de hacerla. Cuando se decida, pasa a la bitácora de
 | **Nota general de fuentes en cada colección HSK** | El temario procede de [Chinese Test International](https://www.chinesetest.cn/syllabus) (`cti-hsk3-2026`) y los ejemplos abiertos mezclan [Gushi](https://gushichinese.com/es/hsk-3.0/downloads) (CC BY-SA 4.0) y [Tatoeba](https://tatoeba.org/es/downloads) (CC BY 2.0 FR). Las licencias requieren atribución, pero no hace falta mostrar la fuente de cada frase. | Mostrar en cada colección HSK una nota breve con esos tres enlaces y licencias; puede enlazar a una página común de créditos. No requiere cambiar el modelo de datos. Decisión de Ever: atribución general, no individual (2026-10-17). |
 | **Colección "Básico 1"** | La lista del libro de la profesora (lecciones 1–4) existe como referencia, pero no como plantilla en la base. | Confirmar que esa edición del libro sigue siendo la de la profesora y decidir si la plantilla será privada o común. |
 | **Pictogramas de origen** (oracular, bronce, sello) | Forma antigua de cada carácter en el reverso. | Fuente de imágenes y licencia (Wikimedia, falta OK de Ever). |
+
+## Feedback de la profesora (2026-10-24)
+
+Cinco puntos que trajo la docente tras probar la app. Siguen **sin decisión**;
+conservan la idea, no inician trabajo.
+
+| Idea | Por qué | Qué contrastar antes |
+|---|---|---|
+| **Explicar el tipo de carácter** (pictográfico, indicativo, asociativo, pictofonético, notativo, prestado) en "Cómo se forma" | La docente lo pide. La taxonomía y los términos en español ya están fijados (memoria del asistente `clasificacion-caracteres-liushu`, 6 tipos del libro fuente); **todavía no se muestra en la app**. | Dónde se guarda el tipo por carácter (`data/radicals.json` o campo nuevo) y de dónde sale la clasificación de cada hanzi; un carácter puede caber en más de un tipo según la fuente. |
+| **Reemplazar "no lo sé / me costó / bien / fácil" por práctica con respuesta**: escribir el pinyin, elegir el pinyin correcto o elegir el significado en español | La autoevaluación es subjetiva; responder da una señal real. Hoy la votación del alumno en vivo es esa escala de cuatro. | Cómo convive con la votación actual (de ella sale la comprensión del grupo); cómo se valida el pinyin escrito (tonos, con/sin marcas, variantes); cómo se generan distractores buenos en las opciones. |
+| **La docente elige el tipo de práctica** (escribir pinyin, elegir pinyin, elegir significado, español→chino, chino→español) | Un mismo hanzi se practica de varias formas según el momento de la clase. | Selector en la vista de la docente; qué tipos funcionan en el celular del alumno; relación con la producción de frases de "Autoestudio". |
+| **Temporizador estilo Kahoot**: la docente fija el tiempo que tiene el alumno por palabra | Hoy el hanzi cambia cuando la docente avanza. La idea es una dinámica más interactiva y con tiempo, que además permita responder (escribir o elegir). | Tiempo fijo por palabra vs. por tipo de práctica; qué pasa al vencer el tiempo; si hay puntaje o ranking (riesgo de presión en alumnos lentos); sincronía del reloj entre dispositivos; cambio en el modelo de sesión/votos. |
+| **Ejercicios de gramática por niveles** | La docente quiere separarlos por nivel (HSK u otro). | Qué niveles (¿los HSK 3.0 que ya usa el catálogo?); de dónde sale el contenido de gramática. |
+| **Gramática con contexto, para hacer de tarea** | Con contexto (frase, situación) el alumno puede practicar solo en casa. | Va por el lado del autoestudio, no del modo clase; formato de tarea (asignar, entregar, corregir); si se liga a repetición espaciada. |
 
 ## Interfaz
 

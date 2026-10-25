@@ -11,6 +11,8 @@ import { segmentHan } from "@/lib/note-terms";
 import { speakChinese } from "@/lib/speech";
 import type { SentenceMode } from "./sentence-mode-store";
 import { cn } from "@/lib/utils";
+import { RADICALS, radicalHint } from "@/lib/radicals";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 
 // Resalta la palabra clave (rojo suave, único uso del rojo) en frases, matices
@@ -245,18 +247,36 @@ export function buildFormula(char: string, info: LessonItem["characters"][number
   const parts = comps.flatMap((p): Part[] =>
     p.char.length > 1
       ? [...p.char.replace(IDC, "")].map((ch) => ({ char: ch, role: "other", pinyin: null }))
-      : [{ char: p.char, role: p.role, pinyin: p.pinyin }],
+      : [{ char: p.char, role: p.role, pinyin: p.role !== "phonetic" && RADICALS[p.char] ? null : p.pinyin }],
   );
   return [{ char, pinyin: info?.pinyin[0] ?? null, parts }];
 }
 
 /** Una pieza: el hanzi y, debajo, su pinyin chiquito (el nombre con que se dice en clase). */
 export function Piece({ char, pinyin, className }: { char: string; pinyin: string | null; className?: string }) {
-  return (
-    <span className="inline-flex flex-col items-center">
+  const hint = radicalHint(char);
+  const body = (
+    <>
       <span lang="zh-Hans" className={className}>{char}</span>
-      <span lang="zh-Latn" className="mt-1 font-sans text-[0.45em] text-muted-foreground">{pinyin ?? " "}</span>
-    </span>
+      <span lang="zh-Latn" className="mt-1 font-sans text-[0.45em] text-muted-foreground">{pinyin ?? " "}</span>
+    </>
+  );
+  if (!hint) return <span className="inline-flex flex-col items-center">{body}</span>;
+  // Radical sin significado propio: el tooltip explica qué es. Con foco de
+  // teclado también se abre; el hover sube el fondo para que se note que hay algo.
+  return (
+    <Tooltip>
+      <TooltipTrigger
+        render={<span tabIndex={0} />}
+        className="-mx-1 inline-flex cursor-help flex-col items-center rounded-md px-1 outline-none transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        {body}
+      </TooltipTrigger>
+      <TooltipContent className="font-sans">
+        <p className="font-medium">{hint.title}</p>
+        <p className="text-background/70">{hint.note}</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
