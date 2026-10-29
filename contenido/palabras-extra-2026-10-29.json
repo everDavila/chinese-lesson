@@ -1,0 +1,740 @@
+{
+  "nota": "Países y ciudades pedidos por Ever (2026-10-29) para la colección «Países y ciudades». No son entradas propias del temario HSK 3.0, así que van sin nivel. Contenido generado (origin ai) y sin revisar; las frases usan vocabulario de HSK 1-3 salvo el nombre propio. Se carga con scripts/cargar-palabras-extra.mjs.",
+  "palabras": [
+    {
+      "hanzi": "美国",
+      "pinyin": "Měiguó",
+      "category": "noun",
+      "es": "Estados Unidos (país)",
+      "en": "United States (country)",
+      "sentences": [
+        {
+          "zh": "他在美国工作。",
+          "pinyin": "Tā zài Měiguó gōngzuò.",
+          "es": "Él trabaja en Estados Unidos.",
+          "en": "He works in the United States."
+        },
+        {
+          "zh": "你去过美国吗？",
+          "pinyin": "Nǐ qù guo Měiguó ma?",
+          "es": "¿Has estado en Estados Unidos?",
+          "en": "Have you ever been to the United States?"
+        }
+      ]
+    },
+    {
+      "hanzi": "日本",
+      "pinyin": "Rìběn",
+      "category": "noun",
+      "es": "Japón (país)",
+      "en": "Japan (country)",
+      "sentences": [
+        {
+          "zh": "我想去日本旅游。",
+          "pinyin": "Wǒ xiǎng qù Rìběn lǚyóu.",
+          "es": "Quiero viajar a Japón.",
+          "en": "I want to travel to Japan."
+        },
+        {
+          "zh": "她是从日本来的。",
+          "pinyin": "Tā shì cóng Rìběn lái de.",
+          "es": "Ella viene de Japón.",
+          "en": "She is from Japan."
+        }
+      ]
+    },
+    {
+      "hanzi": "韩国",
+      "pinyin": "Hánguó",
+      "category": "noun",
+      "es": "Corea del Sur (país)",
+      "en": "South Korea (country)",
+      "sentences": [
+        {
+          "zh": "我朋友在韩国学习。",
+          "pinyin": "Wǒ péngyou zài Hánguó xuéxí.",
+          "es": "Mi amigo estudia en Corea del Sur.",
+          "en": "My friend studies in South Korea."
+        },
+        {
+          "zh": "你想去韩国吗？",
+          "pinyin": "Nǐ xiǎng qù Hánguó ma?",
+          "es": "¿Quieres ir a Corea del Sur?",
+          "en": "Do you want to go to South Korea?"
+        }
+      ]
+    },
+    {
+      "hanzi": "英国",
+      "pinyin": "Yīngguó",
+      "category": "noun",
+      "es": "Reino Unido (país)",
+      "en": "United Kingdom (country)",
+      "sentences": [
+        {
+          "zh": "他去年去了英国。",
+          "pinyin": "Tā qùnián qù le Yīngguó.",
+          "es": "Él fue al Reino Unido el año pasado.",
+          "en": "He went to the United Kingdom last year."
+        },
+        {
+          "zh": "英国的天气怎么样？",
+          "pinyin": "Yīngguó de tiānqì zěnmeyàng?",
+          "es": "¿Cómo es el clima en el Reino Unido?",
+          "en": "What is the weather like in the United Kingdom?"
+        }
+      ]
+    },
+    {
+      "hanzi": "法国",
+      "pinyin": "Fǎguó",
+      "category": "noun",
+      "es": "Francia (país)",
+      "en": "France (country)",
+      "sentences": [
+        {
+          "zh": "她在法国住了三年。",
+          "pinyin": "Tā zài Fǎguó zhù le sān nián.",
+          "es": "Ella vivió tres años en Francia.",
+          "en": "She lived in France for three years."
+        },
+        {
+          "zh": "我很想去法国。",
+          "pinyin": "Wǒ hěn xiǎng qù Fǎguó.",
+          "es": "Tengo muchas ganas de ir a Francia.",
+          "en": "I really want to go to France."
+        }
+      ]
+    },
+    {
+      "hanzi": "德国",
+      "pinyin": "Déguó",
+      "category": "noun",
+      "es": "Alemania (país)",
+      "en": "Germany (country)",
+      "sentences": [
+        {
+          "zh": "我哥哥在德国工作。",
+          "pinyin": "Wǒ gēge zài Déguó gōngzuò.",
+          "es": "Mi hermano mayor trabaja en Alemania.",
+          "en": "My older brother works in Germany."
+        },
+        {
+          "zh": "你坐飞机去德国吗？",
+          "pinyin": "Nǐ zuò fēijī qù Déguó ma?",
+          "es": "¿Vas a Alemania en avión?",
+          "en": "Are you flying to Germany?"
+        }
+      ]
+    },
+    {
+      "hanzi": "意大利",
+      "pinyin": "Yìdàlì",
+      "category": "noun",
+      "es": "Italia (país)",
+      "en": "Italy (country)",
+      "sentences": [
+        {
+          "zh": "我去过意大利。",
+          "pinyin": "Wǒ qù guo Yìdàlì.",
+          "es": "He estado en Italia.",
+          "en": "I have been to Italy."
+        },
+        {
+          "zh": "意大利的菜很好吃。",
+          "pinyin": "Yìdàlì de cài hěn hǎochī.",
+          "es": "La comida italiana es muy rica.",
+          "en": "Italian food is delicious."
+        }
+      ]
+    },
+    {
+      "hanzi": "俄罗斯",
+      "pinyin": "Éluósī",
+      "category": "noun",
+      "es": "Rusia (país)",
+      "en": "Russia (country)",
+      "sentences": [
+        {
+          "zh": "俄罗斯很大。",
+          "pinyin": "Éluósī hěn dà.",
+          "es": "Rusia es muy grande.",
+          "en": "Russia is very big."
+        },
+        {
+          "zh": "他想去俄罗斯学习。",
+          "pinyin": "Tā xiǎng qù Éluósī xuéxí.",
+          "es": "Él quiere ir a estudiar a Rusia.",
+          "en": "He wants to go to Russia to study."
+        }
+      ]
+    },
+    {
+      "hanzi": "印度",
+      "pinyin": "Yìndù",
+      "category": "noun",
+      "es": "India (país)",
+      "en": "India (country)",
+      "sentences": [
+        {
+          "zh": "她去年去了印度。",
+          "pinyin": "Tā qùnián qù le Yìndù.",
+          "es": "Ella fue a la India el año pasado.",
+          "en": "She went to India last year."
+        },
+        {
+          "zh": "印度的菜你喜欢吗？",
+          "pinyin": "Yìndù de cài nǐ xǐhuan ma?",
+          "es": "¿Te gusta la comida de la India?",
+          "en": "Do you like Indian food?"
+        }
+      ]
+    },
+    {
+      "hanzi": "加拿大",
+      "pinyin": "Jiānádà",
+      "category": "noun",
+      "es": "Canadá (país)",
+      "en": "Canada (country)",
+      "sentences": [
+        {
+          "zh": "我姐姐住在加拿大。",
+          "pinyin": "Wǒ jiějie zhù zài Jiānádà.",
+          "es": "Mi hermana mayor vive en Canadá.",
+          "en": "My older sister lives in Canada."
+        },
+        {
+          "zh": "加拿大的冬天很冷。",
+          "pinyin": "Jiānádà de dōngtiān hěn lěng.",
+          "es": "El invierno en Canadá es muy frío.",
+          "en": "Winter in Canada is very cold."
+        }
+      ]
+    },
+    {
+      "hanzi": "澳大利亚",
+      "pinyin": "Àodàlìyà",
+      "category": "noun",
+      "es": "Australia (país)",
+      "en": "Australia (country)",
+      "sentences": [
+        {
+          "zh": "他想去澳大利亚玩儿。",
+          "pinyin": "Tā xiǎng qù Àodàlìyà wánr.",
+          "es": "Él quiere ir a divertirse a Australia.",
+          "en": "He wants to go to Australia for fun."
+        },
+        {
+          "zh": "澳大利亚离中国很远。",
+          "pinyin": "Àodàlìyà lí Zhōngguó hěn yuǎn.",
+          "es": "Australia está muy lejos de China.",
+          "en": "Australia is very far from China."
+        }
+      ]
+    },
+    {
+      "hanzi": "巴西",
+      "pinyin": "Bāxī",
+      "category": "noun",
+      "es": "Brasil (país)",
+      "en": "Brazil (country)",
+      "sentences": [
+        {
+          "zh": "我朋友是从巴西来的。",
+          "pinyin": "Wǒ péngyou shì cóng Bāxī lái de.",
+          "es": "Mi amigo viene de Brasil.",
+          "en": "My friend is from Brazil."
+        },
+        {
+          "zh": "巴西的足球很有名。",
+          "pinyin": "Bāxī de zúqiú hěn yǒumíng.",
+          "es": "El fútbol de Brasil es muy famoso.",
+          "en": "Brazilian soccer is very famous."
+        }
+      ]
+    },
+    {
+      "hanzi": "墨西哥",
+      "pinyin": "Mòxīgē",
+      "category": "noun",
+      "es": "México (país)",
+      "en": "Mexico (country)",
+      "sentences": [
+        {
+          "zh": "我很想去墨西哥。",
+          "pinyin": "Wǒ hěn xiǎng qù Mòxīgē.",
+          "es": "Tengo muchas ganas de ir a México.",
+          "en": "I really want to go to Mexico."
+        },
+        {
+          "zh": "墨西哥在美国的南边。",
+          "pinyin": "Mòxīgē zài Měiguó de nánbian.",
+          "es": "México está al sur de Estados Unidos.",
+          "en": "Mexico is south of the United States."
+        }
+      ]
+    },
+    {
+      "hanzi": "秘鲁",
+      "pinyin": "Bìlǔ",
+      "category": "noun",
+      "es": "Perú (país)",
+      "en": "Peru (country)",
+      "sentences": [
+        {
+          "zh": "我的家人都在秘鲁。",
+          "pinyin": "Wǒ de jiārén dōu zài Bìlǔ.",
+          "es": "Toda mi familia está en Perú.",
+          "en": "My whole family is in Peru."
+        },
+        {
+          "zh": "你去过秘鲁吗？",
+          "pinyin": "Nǐ qù guo Bìlǔ ma?",
+          "es": "¿Has estado en Perú?",
+          "en": "Have you ever been to Peru?"
+        }
+      ]
+    },
+    {
+      "hanzi": "阿根廷",
+      "pinyin": "Āgēntíng",
+      "category": "noun",
+      "es": "Argentina (país)",
+      "en": "Argentina (country)",
+      "sentences": [
+        {
+          "zh": "他在阿根廷学西班牙语。",
+          "pinyin": "Tā zài Āgēntíng xué Xībānyáyǔ.",
+          "es": "Él estudia español en Argentina.",
+          "en": "He studies Spanish in Argentina."
+        },
+        {
+          "zh": "你喜欢阿根廷的足球吗？",
+          "pinyin": "Nǐ xǐhuan Āgēntíng de zúqiú ma?",
+          "es": "¿Te gusta el fútbol argentino?",
+          "en": "Do you like Argentine soccer?"
+        }
+      ]
+    },
+    {
+      "hanzi": "智利",
+      "pinyin": "Zhìlì",
+      "category": "noun",
+      "es": "Chile (país)",
+      "en": "Chile (country)",
+      "sentences": [
+        {
+          "zh": "我同学想去智利旅游。",
+          "pinyin": "Wǒ tóngxué xiǎng qù Zhìlì lǚyóu.",
+          "es": "Mi compañero de clase quiere viajar a Chile.",
+          "en": "My classmate wants to travel to Chile."
+        },
+        {
+          "zh": "智利和秘鲁很近。",
+          "pinyin": "Zhìlì hé Bìlǔ hěn jìn.",
+          "es": "Chile y Perú están muy cerca.",
+          "en": "Chile and Peru are very close."
+        }
+      ]
+    },
+    {
+      "hanzi": "哥伦比亚",
+      "pinyin": "Gēlúnbǐyà",
+      "category": "noun",
+      "es": "Colombia (país)",
+      "en": "Colombia (country)",
+      "sentences": [
+        {
+          "zh": "他的朋友在哥伦比亚工作。",
+          "pinyin": "Tā de péngyou zài Gēlúnbǐyà gōngzuò.",
+          "es": "Su amigo trabaja en Colombia.",
+          "en": "His friend works in Colombia."
+        },
+        {
+          "zh": "哥伦比亚的咖啡很好喝。",
+          "pinyin": "Gēlúnbǐyà de kāfēi hěn hǎohē.",
+          "es": "El café de Colombia es muy rico.",
+          "en": "Colombian coffee is delicious."
+        }
+      ]
+    },
+    {
+      "hanzi": "西班牙",
+      "pinyin": "Xībānyá",
+      "category": "noun",
+      "es": "España (país)",
+      "en": "Spain (country)",
+      "sentences": [
+        {
+          "zh": "她在西班牙学习。",
+          "pinyin": "Tā zài Xībānyá xuéxí.",
+          "es": "Ella estudia en España.",
+          "en": "She studies in Spain."
+        },
+        {
+          "zh": "我想去西班牙看足球比赛。",
+          "pinyin": "Wǒ xiǎng qù Xībānyá kàn zúqiú bǐsài.",
+          "es": "Quiero ir a España a ver un partido de fútbol.",
+          "en": "I want to go to Spain to watch a soccer match."
+        }
+      ]
+    },
+    {
+      "hanzi": "泰国",
+      "pinyin": "Tàiguó",
+      "category": "noun",
+      "es": "Tailandia (país)",
+      "en": "Thailand (country)",
+      "sentences": [
+        {
+          "zh": "我们明天去泰国。",
+          "pinyin": "Wǒmen míngtiān qù Tàiguó.",
+          "es": "Mañana vamos a Tailandia.",
+          "en": "We are going to Thailand tomorrow."
+        },
+        {
+          "zh": "泰国的水果很甜。",
+          "pinyin": "Tàiguó de shuǐguǒ hěn tián.",
+          "es": "Las frutas de Tailandia son muy dulces.",
+          "en": "The fruit in Thailand is very sweet."
+        }
+      ]
+    },
+    {
+      "hanzi": "北京",
+      "pinyin": "Běijīng",
+      "category": "noun",
+      "es": "Beijing (Pekín), capital de China",
+      "en": "Beijing, the capital of China",
+      "sentences": [
+        {
+          "zh": "我住在北京。",
+          "pinyin": "Wǒ zhù zài Běijīng.",
+          "es": "Vivo en Beijing.",
+          "en": "I live in Beijing."
+        },
+        {
+          "zh": "从上海到北京坐火车要几个小时？",
+          "pinyin": "Cóng Shànghǎi dào Běijīng zuò huǒchē yào jǐ ge xiǎoshí?",
+          "es": "¿Cuántas horas toma ir en tren de Shanghái a Beijing?",
+          "en": "How many hours does it take to get from Shanghai to Beijing by train?"
+        }
+      ]
+    },
+    {
+      "hanzi": "上海",
+      "pinyin": "Shànghǎi",
+      "category": "noun",
+      "es": "Shanghái (ciudad de China)",
+      "en": "Shanghai (city in China)",
+      "sentences": [
+        {
+          "zh": "他在上海工作。",
+          "pinyin": "Tā zài Shànghǎi gōngzuò.",
+          "es": "Él trabaja en Shanghái.",
+          "en": "He works in Shanghai."
+        },
+        {
+          "zh": "上海是一个大城市。",
+          "pinyin": "Shànghǎi shì yí ge dà chéngshì.",
+          "es": "Shanghái es una ciudad grande.",
+          "en": "Shanghai is a big city."
+        }
+      ]
+    },
+    {
+      "hanzi": "广州",
+      "pinyin": "Guǎngzhōu",
+      "category": "noun",
+      "es": "Guangzhou (ciudad de China)",
+      "en": "Guangzhou (city in China)",
+      "sentences": [
+        {
+          "zh": "我朋友住在广州。",
+          "pinyin": "Wǒ péngyou zhù zài Guǎngzhōu.",
+          "es": "Mi amigo vive en Guangzhou.",
+          "en": "My friend lives in Guangzhou."
+        },
+        {
+          "zh": "广州的天气很热。",
+          "pinyin": "Guǎngzhōu de tiānqì hěn rè.",
+          "es": "El clima de Guangzhou es muy caluroso.",
+          "en": "The weather in Guangzhou is very hot."
+        }
+      ]
+    },
+    {
+      "hanzi": "香港",
+      "pinyin": "Xiānggǎng",
+      "category": "noun",
+      "es": "Hong Kong (ciudad)",
+      "en": "Hong Kong (city)",
+      "sentences": [
+        {
+          "zh": "她去香港买东西。",
+          "pinyin": "Tā qù Xiānggǎng mǎi dōngxi.",
+          "es": "Ella va a Hong Kong a comprar cosas.",
+          "en": "She is going to Hong Kong to shop."
+        },
+        {
+          "zh": "你去过香港吗？",
+          "pinyin": "Nǐ qù guo Xiānggǎng ma?",
+          "es": "¿Has estado en Hong Kong?",
+          "en": "Have you ever been to Hong Kong?"
+        }
+      ]
+    },
+    {
+      "hanzi": "台北",
+      "pinyin": "Táiběi",
+      "category": "noun",
+      "es": "Taipéi (ciudad de Taiwán)",
+      "en": "Taipei (city in Taiwan)",
+      "sentences": [
+        {
+          "zh": "我想去台北玩儿。",
+          "pinyin": "Wǒ xiǎng qù Táiběi wánr.",
+          "es": "Quiero ir a divertirme a Taipéi.",
+          "en": "I want to go to Taipei for fun."
+        },
+        {
+          "zh": "他的朋友在台北学中文。",
+          "pinyin": "Tā de péngyou zài Táiběi xué Zhōngwén.",
+          "es": "Su amigo estudia chino en Taipéi.",
+          "en": "His friend studies Chinese in Taipei."
+        }
+      ]
+    },
+    {
+      "hanzi": "东京",
+      "pinyin": "Dōngjīng",
+      "category": "noun",
+      "es": "Tokio (ciudad de Japón)",
+      "en": "Tokyo (city in Japan)",
+      "sentences": [
+        {
+          "zh": "东京很大。",
+          "pinyin": "Dōngjīng hěn dà.",
+          "es": "Tokio es muy grande.",
+          "en": "Tokyo is very big."
+        },
+        {
+          "zh": "他坐飞机去东京。",
+          "pinyin": "Tā zuò fēijī qù Dōngjīng.",
+          "es": "Él va a Tokio en avión.",
+          "en": "He is flying to Tokyo."
+        }
+      ]
+    },
+    {
+      "hanzi": "首尔",
+      "pinyin": "Shǒu'ěr",
+      "category": "noun",
+      "es": "Seúl (ciudad de Corea del Sur)",
+      "en": "Seoul (city in South Korea)",
+      "sentences": [
+        {
+          "zh": "她在首尔学习。",
+          "pinyin": "Tā zài Shǒu'ěr xuéxí.",
+          "es": "Ella estudia en Seúl.",
+          "en": "She studies in Seoul."
+        },
+        {
+          "zh": "你想去首尔吗？",
+          "pinyin": "Nǐ xiǎng qù Shǒu'ěr ma?",
+          "es": "¿Quieres ir a Seúl?",
+          "en": "Do you want to go to Seoul?"
+        }
+      ]
+    },
+    {
+      "hanzi": "伦敦",
+      "pinyin": "Lúndūn",
+      "category": "noun",
+      "es": "Londres (ciudad del Reino Unido)",
+      "en": "London (city in the United Kingdom)",
+      "sentences": [
+        {
+          "zh": "他在伦敦工作。",
+          "pinyin": "Tā zài Lúndūn gōngzuò.",
+          "es": "Él trabaja en Londres.",
+          "en": "He works in London."
+        },
+        {
+          "zh": "伦敦今天下雨。",
+          "pinyin": "Lúndūn jīntiān xià yǔ.",
+          "es": "Hoy llueve en Londres.",
+          "en": "It is raining in London today."
+        }
+      ]
+    },
+    {
+      "hanzi": "巴黎",
+      "pinyin": "Bālí",
+      "category": "noun",
+      "es": "París (ciudad de Francia)",
+      "en": "Paris (city in France)",
+      "sentences": [
+        {
+          "zh": "我想去巴黎旅游。",
+          "pinyin": "Wǒ xiǎng qù Bālí lǚyóu.",
+          "es": "Quiero viajar a París.",
+          "en": "I want to travel to Paris."
+        },
+        {
+          "zh": "巴黎很漂亮。",
+          "pinyin": "Bālí hěn piàoliang.",
+          "es": "París es muy bonita.",
+          "en": "Paris is very beautiful."
+        }
+      ]
+    },
+    {
+      "hanzi": "纽约",
+      "pinyin": "Niǔyuē",
+      "category": "noun",
+      "es": "Nueva York (ciudad)",
+      "en": "New York (city)",
+      "sentences": [
+        {
+          "zh": "她住在纽约。",
+          "pinyin": "Tā zhù zài Niǔyuē.",
+          "es": "Ella vive en Nueva York.",
+          "en": "She lives in New York."
+        },
+        {
+          "zh": "纽约有很多人。",
+          "pinyin": "Niǔyuē yǒu hěn duō rén.",
+          "es": "Nueva York tiene mucha gente.",
+          "en": "New York has a lot of people."
+        }
+      ]
+    },
+    {
+      "hanzi": "利马",
+      "pinyin": "Lìmǎ",
+      "category": "noun",
+      "es": "Lima (capital de Perú)",
+      "en": "Lima, the capital of Peru",
+      "sentences": [
+        {
+          "zh": "利马是秘鲁的大城市。",
+          "pinyin": "Lìmǎ shì Bìlǔ de dà chéngshì.",
+          "es": "Lima es una ciudad grande de Perú.",
+          "en": "Lima is a big city in Peru."
+        },
+        {
+          "zh": "我的朋友在利马工作。",
+          "pinyin": "Wǒ de péngyou zài Lìmǎ gōngzuò.",
+          "es": "Mi amigo trabaja en Lima.",
+          "en": "My friend works in Lima."
+        }
+      ]
+    },
+    {
+      "hanzi": "马德里",
+      "pinyin": "Mǎdélǐ",
+      "category": "noun",
+      "es": "Madrid (capital de España)",
+      "en": "Madrid, the capital of Spain",
+      "sentences": [
+        {
+          "zh": "马德里是西班牙的大城市。",
+          "pinyin": "Mǎdélǐ shì Xībānyá de dà chéngshì.",
+          "es": "Madrid es una ciudad grande de España.",
+          "en": "Madrid is a big city in Spain."
+        },
+        {
+          "zh": "我明天去马德里。",
+          "pinyin": "Wǒ míngtiān qù Mǎdélǐ.",
+          "es": "Mañana voy a Madrid.",
+          "en": "I am going to Madrid tomorrow."
+        }
+      ]
+    },
+    {
+      "hanzi": "罗马",
+      "pinyin": "Luómǎ",
+      "category": "noun",
+      "es": "Roma (ciudad de Italia)",
+      "en": "Rome (city in Italy)",
+      "sentences": [
+        {
+          "zh": "罗马是意大利的城市。",
+          "pinyin": "Luómǎ shì Yìdàlì de chéngshì.",
+          "es": "Roma es una ciudad de Italia.",
+          "en": "Rome is a city in Italy."
+        },
+        {
+          "zh": "他们在罗马玩儿了三天。",
+          "pinyin": "Tāmen zài Luómǎ wánr le sān tiān.",
+          "es": "Ellos se divirtieron tres días en Roma.",
+          "en": "They spent three days having fun in Rome."
+        }
+      ]
+    },
+    {
+      "hanzi": "莫斯科",
+      "pinyin": "Mòsīkē",
+      "category": "noun",
+      "es": "Moscú (ciudad de Rusia)",
+      "en": "Moscow (city in Russia)",
+      "sentences": [
+        {
+          "zh": "他明年去莫斯科。",
+          "pinyin": "Tā míngnián qù Mòsīkē.",
+          "es": "Él va a Moscú el año que viene.",
+          "en": "He is going to Moscow next year."
+        },
+        {
+          "zh": "莫斯科的冬天很冷。",
+          "pinyin": "Mòsīkē de dōngtiān hěn lěng.",
+          "es": "El invierno en Moscú es muy frío.",
+          "en": "Winter in Moscow is very cold."
+        }
+      ]
+    },
+    {
+      "hanzi": "柏林",
+      "pinyin": "Bólín",
+      "category": "noun",
+      "es": "Berlín (ciudad de Alemania)",
+      "en": "Berlin (city in Germany)",
+      "sentences": [
+        {
+          "zh": "柏林是德国的大城市。",
+          "pinyin": "Bólín shì Déguó de dà chéngshì.",
+          "es": "Berlín es una ciudad grande de Alemania.",
+          "en": "Berlin is a big city in Germany."
+        },
+        {
+          "zh": "我明天坐火车去柏林。",
+          "pinyin": "Wǒ míngtiān zuò huǒchē qù Bólín.",
+          "es": "Mañana voy a Berlín en tren.",
+          "en": "I am taking the train to Berlin tomorrow."
+        }
+      ]
+    },
+    {
+      "hanzi": "悉尼",
+      "pinyin": "Xīní",
+      "category": "noun",
+      "es": "Sídney (ciudad de Australia)",
+      "en": "Sydney (city in Australia)",
+      "sentences": [
+        {
+          "zh": "悉尼在澳大利亚。",
+          "pinyin": "Xīní zài Àodàlìyà.",
+          "es": "Sídney está en Australia.",
+          "en": "Sydney is in Australia."
+        },
+        {
+          "zh": "他的姐姐住在悉尼。",
+          "pinyin": "Tā de jiějie zhù zài Xīní.",
+          "es": "Su hermana mayor vive en Sídney.",
+          "en": "His older sister lives in Sydney."
+        }
+      ]
+    }
+  ]
+}
