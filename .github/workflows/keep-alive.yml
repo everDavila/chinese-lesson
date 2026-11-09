@@ -1,12 +1,18 @@
-# Supabase pausa los proyectos gratuitos tras 7 días sin actividad. Dos veces
-# por semana se llama a una función pública (con la clave publicable, la misma
-# que va en el navegador) para que la base registre actividad real. El código
+# Supabase pausa los proyectos gratuitos tras 7 días sin actividad. Una vez al
+# día se llama a una función pública (con la clave publicable, la misma que va
+# en el navegador) para que la base registre actividad real. El código
 # "000000" no existe: la función responde "invalid" y no escribe nada.
+#
+# La URL de cada base va escrita aquí y no en un secreto: es pública (viaja en
+# el navegador) y así el workflow no puede apuntar a otro proyecto por un
+# secreto mal copiado. Solo la clave publicable sigue siendo secreto. Si una
+# base está pausada o no responde, el job se pone en rojo y GitHub avisa por
+# correo: es la alarma que antes no existía.
 name: keep-alive
 
 on:
   schedule:
-    - cron: "17 12 * * 1,4"
+    - cron: "17 12 * * *"
   workflow_dispatch:
 
 jobs:
@@ -15,13 +21,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: [prod, dev]
+        include:
+          - base: prod
+            url: https://lkcqvqzbjyuazpwaeiqq.supabase.co
+          - base: dev
+            url: https://pkroviobjnpripiomlxs.supabase.co
     steps:
       - name: Llama a student_vote_state
         env:
-          URL: ${{ matrix.base == 'prod' && secrets.SUPABASE_URL || secrets.SUPABASE_DEV_URL }}
+          URL: ${{ matrix.url }}
           KEY: ${{ matrix.base == 'prod' && secrets.SUPABASE_PUBLISHABLE_KEY || secrets.SUPABASE_DEV_PUBLISHABLE_KEY }}
         run: |
-          curl --fail-with-body -sS -X POST "$URL/rest/v1/rpc/student_vote_state" \
+          if [ -z "$KEY" ]; then
+            echo "::error::Falta el secreto de la clave publicable de ${{ matrix.base }}."
+            exit 1
+          fi
+          response=$(curl --fail-with-body --retry 3 --retry-delay 10 -sS -X POST "$URL/rest/v1/rpc/student_vote_state" \
             -H "apikey: $KEY" -H "Content-Type: application/json" \
-            -d '{"code":"000000"}'
+            -d '{"code":"000000"}')
+          echo "${{ matrix.base }}: $response"
+          # Que responda la función de verdad, no una página de error con 200.
+          echo "$response" | grep -q '"status"'

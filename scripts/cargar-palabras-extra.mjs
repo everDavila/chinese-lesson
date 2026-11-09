@@ -28,7 +28,13 @@ const { data: haveChars, error: charError } = await db.from("characters").select
 if (charError) throw charError;
 const have = new Set(haveChars.map((c) => c.char));
 const local = JSON.parse(readFileSync("data/characters.json", "utf8"));
-const MANUAL = { 韩: { pinyin: ["hán"] } };
+const MANUAL = {
+  韩: { pinyin: ["hán"] },
+  俄: { pinyin: ["é"] },
+  斯: { pinyin: ["sī"] },
+  澳: { pinyin: ["ào"] },
+  尼: { pinyin: ["ní"] },
+};
 const charRows = chars
   .filter((c) => !have.has(c))
   .map((c) => {

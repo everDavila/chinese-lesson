@@ -52,6 +52,20 @@
   231 de la curación HSK 1–3 (3 por palabra) y 86 apariciones cubiertas por
   85 frases originales nuevas (una por sentido, `政府` está en dos temas).
   Todas `unreviewed`, sin etiqueta visible en clase.
+- **Plantillas por categoría, función y tema (2026-10-29):** 21 colecciones
+  nuevas en producción y `hanzi-dev` (migraciones `20261028000000` a
+  `20261029020000`, respaldo `backups/supabase-2026-10-29T0528.json`).
+  Por categoría del temario: Pronombres, Números, Clasificadores, Partículas y
+  conectores, Adverbios, Adjetivos, Verbos. Por lista manual: Palabras
+  interrogativas, Verbos modales, Lugar y dirección, y por función a la manera
+  del inglés: Frecuencia, Grado, Gustos y preferencias, Opiniones y acuerdo,
+  Tiempo. Por tema: Animales, Deportes, Profesiones, Comidas, Familia y Países
+  y ciudades. Las lecciones «Ampliación» (HSK 4+) **no tienen frases**.
+  Los 19 países y 16 ciudades son palabras extra sin nivel
+  (`contenido/palabras-extra-2026-10-29.json`), con 70 frases generadas
+  `unreviewed`. Orden obligatorio en una base nueva: cargar las palabras extra
+  antes de la migración `20261029020000`, o las lecciones Países y Ciudades
+  quedan vacías.
 - **Frases de temas:** integradas en `master` desde `contenido-frases-temas` y
   cargadas en `hanzi-dev` y producción el 2026-10-13, con respaldo previo en
   cada base. Son 43 HSK 4, 37 HSK 5 y 5 HSK 6; una por sentido solo para esta

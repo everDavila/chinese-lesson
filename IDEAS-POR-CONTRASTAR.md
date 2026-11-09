@@ -3,7 +3,7 @@
 Ideas y hallazgos que todavía no son decisión. Cada una dice qué habría que
 comprobar antes de hacerla. Cuando se decida, pasa a la bitácora de
 [DECISIONES.md](DECISIONES.md) y sale de aquí. **No es un backlog aprobado.**
-Última revisión: 2026-10-16.
+Última revisión: 2026-10-25.
 
 ## Contenido
 
@@ -15,6 +15,43 @@ comprobar antes de hacerla. Cuando se decida, pasa a la bitácora de
 | **Colección "Básico 1"** | La lista del libro de la profesora (lecciones 1–4) existe como referencia, pero no como plantilla en la base. | Confirmar que esa edición del libro sigue siendo la de la profesora y decidir si la plantilla será privada o común. |
 | **Pictogramas de origen** (oracular, bronce, sello) | Forma antigua de cada carácter en el reverso. | Fuente de imágenes y licencia (Wikimedia, falta OK de Ever). |
 
+## Feedback de la profesora (2026-10-24)
+
+Puntos de la docente, afinados con Ever el 2026-10-25. Sin implementar. Los
+límites y la privacidad ya son decisión (ver DECISIONES.md, 2026-10-25); el
+resto sigue por contrastar.
+
+### Quiz en vivo (reemplaza «no sé / me costó / bien / fácil»)
+
+Una sola idea con varias piezas. La docente elige el **tipo de ronda** (por
+ronda, no por palabra) y fija el **tiempo**; el alumno responde en su celular.
+
+| Tipo de ronda | Cómo responde el alumno |
+|---|---|
+| hanzi → español | elige entre opciones |
+| hanzi → pinyin sin tono | escribe |
+| hanzi → tonos | elige entre variantes de tono de una sílaba (`zhīdào`, `zhídào`, `zhǐdào`…) |
+| ortografía del pinyin | elige entre confundibles (`zhidao`, `chidao`, `xidao`) |
+| español → hanzi | escribe con el teclado chino (todos lo tienen) |
+| español o pinyin → hanzi | elige entre hanzi parecidos (己/已/巳) |
+
+Qué contrastar antes:
+- **Distractores de pinyin** por reglas, no al azar ni con IA: zh/ch/sh/z/c/s, j/q/x, n/l, f/h, an/ang, en/eng, in/ing. Tono neutro y palabras de 3+ sílabas limitan cuántas variantes mostrar.
+- **Hanzi parecidos**: no hay fuente; LLM + revisión de la docente, o piezas compartidas de la tabla de radicales.
+- **Temporizador**: el servidor guarda `ends_at`; los celulares restan contra eso (no se sincroniza un contador). Por defecto 20 s, ajustable. Qué pasa al vencer.
+- **Coexistencia con la votación actual**: de ella sale la comprensión del grupo. Propuesta: la respuesta es la señal; «¿te costó?» opcional tras revelar.
+- **Validación de lo escrito**: hanzi exacto (el teclado ayuda a elegir entre homófonos); pinyin sin tono.
+- **Guardar por respuesta**: tipo de ronda, opción elegida, acierto y ms. La docente ve % de aciertos por palabra y **qué distractor eligieron**, no un podio. Podio por aciertos queda como interruptor apagado.
+- **Promedio de la clase**: se calcula por sesión y sube a lección y colección sin identificar alumnos.
+
+### Resto del feedback
+
+| Idea | Por qué | Qué contrastar antes |
+|---|---|---|
+| **Explicar el tipo de carácter** (6 tipos del libro fuente) en «Cómo se forma» | La docente lo pide. Términos en español fijados (memoria del asistente `clasificacion-caracteres-liushu`). **No se muestra todavía.** Regla: docente siempre; alumno solo tras revelar. | Dónde se guarda el tipo por carácter y quién lo clasifica (Make Me a Hanzi solo separa 3 de los 6); en pictofonéticos, resaltar qué pieza da el sonido y cuál el significado. |
+| **Gramática por niveles, con contexto, para tarea** | La docente quiere niveles y ejercicios que el alumno practique en casa. Es **autoestudio**, no modo clase. | Niveles HSK 3.0 del catálogo. Formato de importación: nivel, tipo (hueco, ordenar, elegir), contexto, enunciado, respuesta, explicación, estado borrador/aprobado. Yo escribo el formato y una plantilla de prompt para el LLM externo. Primero ejercicios cerrados (autocorregidos); los abiertos, a la docente. |
+| **Corrección con LLM para alumnos habilitados** | Más adelante, solo para quienes la docente agregue o reciban un código. | Coste, privacidad y qué se envía al LLM; depende de tener identidad por código. |
+
 ## Interfaz
 
 | Idea | Por qué | Qué contrastar antes |
@@ -24,6 +61,7 @@ comprobar antes de hacerla. Cuando se decida, pasa a la bitácora de
 | **Panda al mostrar u ocultar la contraseña** | El panda ya acompaña el ingreso del código del alumno; el acceso de la docente sigue siendo neutro. | Si aporta claridad o solo distracción; no reaccionar al contenido escrito, respetar privacidad y movimiento reducido. |
 | **Fijar una frase preferida** para que salga siempre | Complemento de la rotación de frases. | Si la docente lo necesita de verdad tras probar la rotación. |
 | **Pedir palabras al admin** desde "Pegar lista" | Hoy una palabra fuera del catálogo solo sale tachada. | Tabla de peticiones y bandeja en `/admin`. |
+| **Pista de contexto para adivinar el hanzi** («Mostrar pista») en la vista de la docente | Idea de Ever (2026-10-22), salida del diseño de la tarjeta del alumno: cuando el grupo intenta adivinar el hanzi, la docente podría mostrar una frase en contexto como pista. Sustituye al «Consejo» del diseño del alumno («empieza por el techo 宀»), descartado. | Qué frase se usa (¿la maestra?); si la pista aparece en el anverso del profesor sin romper el modo presentación; si la pista de componentes tiene sentido para la docente (no está claro de dónde saldría el texto). |
 | **Palabras para reforzar según la votación** en la lección de la docente | Desde el 2026-10-20 la comprensión del grupo sale solo de los votos de los alumnos (idea de Ever): con varias clases, la lección puede recomendar qué palabras repasar. | Cuántos votos y clases hacen falta para que la recomendación valga; si se cuenta la última clase o el acumulado; dónde se muestra (lista de la lección, inicio docente). Los votos ya se guardan por sesión y sentido. |
 
 ## Autoestudio del alumno (propuestas de Ever, 2026-10-13)
