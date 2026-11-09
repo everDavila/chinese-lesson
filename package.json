@@ -17,7 +17,7 @@
     "db:migrate": "node --env-file=.env.local scripts/db.mjs db push",
     "db:backup": "node --env-file=.env.local scripts/backup-db.mjs",
     "db:promover-admin": "node --env-file=.env.local scripts/promover-admin.mjs",
-    "db:crear-docente": "node --env-file=.env.local scripts/crear-docente.mjs",
+    "db:crear-usuario": "node --env-file=.env.local scripts/crear-usuario.mjs",
     "test:visual": "playwright test",
     "db:sync-content": "node --env-file=.env.local scripts/sync-content.mjs",
     "test:db": "node tests/db/permisos.mjs",

@@ -1,10 +1,10 @@
-// Crea una cuenta con correo y clave y le fija el rol (por defecto teacher; con
+// Crea una cuenta (docente o alumno) con correo y clave y le fija el rol (por defecto teacher; con
 // --rol student crea un alumno). Desde la migración 20261109000000 el rol por
 // defecto de un usuario nuevo es student, así que el rol se fija aquí.
 // La clave se pide dos veces sin mostrarla (no queda en el historial de la
 // terminal); en scripts sin terminal se puede pasar por DOCENTE_CLAVE. Uso:
-//   npm run db:crear-docente -- <correo> [--rol teacher|student]
-//   (base de desarrollo: node --env-file=.env.dev.local scripts/crear-docente.mjs <correo>)
+//   npm run db:crear-usuario -- <correo> [--rol teacher|student]
+//   (base de desarrollo: node --env-file=.env.dev.local scripts/crear-usuario.mjs <correo>)
 import { createClient } from "@supabase/supabase-js";
 import { askNewPassword } from "./lib/prompt.mjs";
 
@@ -17,7 +17,7 @@ if (!["teacher", "student"].includes(role)) {
 }
 const email = args.find((a, i) => !a.startsWith("--") && i !== rolIdx + 1)?.trim().toLowerCase();
 if (!email) {
-  console.error("Uso: npm run db:crear-docente -- <correo> [--rol teacher|student]");
+  console.error("Uso: npm run db:crear-usuario -- <correo> [--rol teacher|student]");
   process.exit(1);
 }
 const password = process.env.DOCENTE_CLAVE ?? (await askNewPassword(email));

@@ -363,7 +363,7 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   else { console.log("✗ el admin recibió copia"); process.exitCode = 1; }
   const T3 = "00000000-0000-0000-0000-0000000000b3";
   await db.exec(`insert into auth.users (id, email) values ('${T3}','t3@x')`);
-  await db.exec(`update profiles set role = 'teacher' where id = '${T3}'`); // las docentes se ascienden tras crearse (scripts/crear-docente.mjs)
+  await db.exec(`update profiles set role = 'teacher' where id = '${T3}'`); // las docentes se ascienden tras crearse (scripts/crear-usuario.mjs)
   const nuevas = (await as(T3, `select count(*)::int n from lessons where teacher_id = '${T3}'`)).rows[0].n;
   if (nuevas === 1) console.log("✓ una docente nueva la recibe al crearse");
   else { console.log("✗ la docente nueva tiene", nuevas, "lecciones"); process.exitCode = 1; }

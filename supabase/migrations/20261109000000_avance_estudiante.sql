@@ -5,7 +5,7 @@
 -- 1. Rol student. Un usuario nuevo ya NO nace docente: hasta hoy el rol por
 --    defecto era 'teacher', y con registro por enlace mágico cualquier alumno
 --    habría entrado como docente. Las docentes se crean con
---    scripts/crear-docente.mjs, que fija el rol explícitamente.
+--    scripts/crear-usuario.mjs, que fija el rol explícitamente.
 alter table profiles drop constraint if exists profiles_role_check;
 alter table profiles add constraint profiles_role_check
   check (role in ('student', 'teacher', 'reviewer', 'admin'));
