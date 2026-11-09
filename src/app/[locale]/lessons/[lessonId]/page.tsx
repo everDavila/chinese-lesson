@@ -5,7 +5,7 @@ import { LessonEditor } from "@/components/manage/lesson-editor";
 import { ManageLoading } from "@/components/manage/loading";
 import { redirect } from "@/i18n/navigation";
 import { getEditableLesson, listCollections } from "@/lib/content";
-import { requireProfile } from "@/lib/guard";
+import { requireTeacher } from "@/lib/guard";
 
 type Params = PageProps<"/[locale]/lessons/[lessonId]">["params"];
 
@@ -17,7 +17,7 @@ export default function Page({ params }: { params: Params }) {
 
 async function Content({ params }: { params: Params }) {
   const { lessonId } = await params;
-  const profile = await requireProfile();
+  const profile = await requireTeacher();
   const [lesson, mine] = await Promise.all([getEditableLesson(lessonId), listCollections("mine")]);
   if (!lesson || lesson.template) notFound();
   if (lesson.collectionId) {

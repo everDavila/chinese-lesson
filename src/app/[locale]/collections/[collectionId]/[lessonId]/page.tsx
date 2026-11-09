@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { LessonEditor } from "@/components/manage/lesson-editor";
 import { getCollection, getEditableLesson, listCollections } from "@/lib/content";
-import { requireProfile } from "@/lib/guard";
+import { requireTeacher } from "@/lib/guard";
 
 type Params = PageProps<"/[locale]/collections/[collectionId]/[lessonId]">["params"];
 
@@ -17,7 +17,7 @@ export default function Page({ params }: { params: Params }) {
 
 async function Content({ params }: { params: Params }) {
   const { collectionId, lessonId } = await params;
-  const profile = await requireProfile();
+  const profile = await requireTeacher();
   const [collection, lesson, mine] = await Promise.all([getCollection(collectionId), getEditableLesson(lessonId), listCollections("mine")]);
   if (!collection || collection.template || !lesson || lesson.collectionId !== collectionId) notFound();
   return (

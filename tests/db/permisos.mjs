@@ -451,4 +451,13 @@ for (const fn of [`give_example_lesson('${T2}')`, `lesson_payload('00000000-0000
   try { await db.query(`set role anon; select * from student_events`); console.log("✗ anon lee eventos"); process.exitCode = 1; }
   catch { console.log("✓ anon NO lee eventos"); }
   finally { await db.exec(`reset role;`); }
+  // ── El alumno no escribe en nada de docente (20261109010000) ──
+  await expectFail("el alumno NO crea colecciones", E1, `insert into collections (owner_id, title) values ('${E1}', 'mía') returning id`);
+  await expectFail("el alumno NO crea lecciones", E1, `insert into lessons (teacher_id, title) values ('${E1}', 'mía') returning id`);
+  await expectFail("el alumno NO crea sesiones de clase", E1, `insert into class_sessions (teacher_id) values ('${E1}') returning id`);
+  await expectFail("el alumno NO copia plantillas", E1, `select copy_collection('00000000-0000-0000-0000-0000000000c1')`);
+  await expectOk("el alumno SÍ lee las plantillas", E1, `select title from collections where owner_id is null`);
+  await expectOk("la docente SIGUE creando lecciones", T1, `insert into lessons (teacher_id, title) values ('${T1}', 'sigue funcionando') returning title`);
+  await expectOk("la docente SIGUE creando colecciones", T1, `insert into collections (owner_id, title) values ('${T1}', 'sigue') returning title`);
+  await expectOk("el admin SIGUE editando plantillas", A, `update collections set title = 'HSK 1' where owner_id is null returning title`);
 }

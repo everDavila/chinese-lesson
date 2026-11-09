@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocale } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
 import { getCollection } from "@/lib/content";
-import { requireProfile } from "@/lib/guard";
+import { requireTeacher } from "@/lib/guard";
 
 type Params = PageProps<"/[locale]/library/hsk/[collectionId]/[lessonId]">["params"];
 
@@ -15,7 +15,7 @@ export default function Page({ params }: { params: Params }) {
 
 async function Content({ params }: { params: Params }) {
   const { collectionId } = await params;
-  const [, collection] = await Promise.all([requireProfile(), getCollection(collectionId)]);
+  const [, collection] = await Promise.all([requireTeacher(), getCollection(collectionId)]);
   const level = collection?.template ? Number(collection.title.match(/^HSK\s+(\d)$/)?.[1]) : NaN;
   if (!level) notFound();
   redirect({ href: `/library/hsk/nivel/${level}`, locale: await getLocale() });

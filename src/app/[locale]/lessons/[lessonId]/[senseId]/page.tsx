@@ -5,7 +5,7 @@ import { ExamplesScreen } from "@/components/manage/examples";
 import { ManageLoading } from "@/components/manage/loading";
 import { redirect } from "@/i18n/navigation";
 import { getEditableLesson, getSenseExamples } from "@/lib/content";
-import { requireProfile } from "@/lib/guard";
+import { requireTeacher } from "@/lib/guard";
 
 type Params = PageProps<"/[locale]/lessons/[lessonId]/[senseId]">["params"];
 
@@ -16,7 +16,7 @@ export default function Page({ params }: { params: Params }) {
 
 async function Content({ params }: { params: Params }) {
   const { lessonId, senseId } = await params;
-  const profile = await requireProfile();
+  const profile = await requireTeacher();
   const [lesson, data] = await Promise.all([getEditableLesson(lessonId), getSenseExamples(senseId)]);
   if (!lesson || lesson.template || !data) notFound();
   if (lesson.collectionId) {

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { ExamplesScreen } from "@/components/manage/examples";
 import { getCollection, getEditableLesson, getSenseExamples } from "@/lib/content";
-import { requireProfile } from "@/lib/guard";
+import { requireTeacher } from "@/lib/guard";
 
 type Params = PageProps<"/[locale]/collections/[collectionId]/[lessonId]/[senseId]">["params"];
 
@@ -18,7 +18,7 @@ export default function Page({ params }: { params: Params }) {
 
 async function Content({ params }: { params: Params }) {
   const { collectionId, lessonId, senseId } = await params;
-  const profile = await requireProfile();
+  const profile = await requireTeacher();
   const [collection, lesson, data] = await Promise.all([
     getCollection(collectionId),
     getEditableLesson(lessonId),

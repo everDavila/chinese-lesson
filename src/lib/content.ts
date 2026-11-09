@@ -6,7 +6,7 @@ import { inChunks } from "./in-chunks";
 // Lecturas de las vistas de admin y docente: catálogo, colecciones y frases.
 // Las escrituras van en src/actions/manage.ts. RLS decide qué ve cada cuenta.
 
-export type Role = "teacher" | "reviewer" | "admin";
+export type Role = "student" | "teacher" | "reviewer" | "admin";
 export type Profile = { id: string; displayName: string; role: Role };
 
 /** Perfil con sesión iniciada, o null. */
@@ -16,7 +16,7 @@ export async function getProfile(): Promise<Profile | null> {
   const id = data?.claims.sub;
   if (!id) return null;
   const { data: p } = await supabase.from("profiles").select("display_name, role").eq("id", id).maybeSingle();
-  return { id, displayName: p?.display_name ?? "", role: (p?.role as Role) ?? "teacher" };
+  return { id, displayName: p?.display_name ?? "", role: (p?.role as Role) ?? "student" };
 }
 
 // ── Catálogo ────────────────────────────────────────────────────────────
