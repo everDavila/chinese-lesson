@@ -1,4 +1,5 @@
-// Crea la cuenta de una profesora (rol teacher, el de por defecto).
+// Crea la cuenta de una profesora y le fija el rol teacher (desde la migración
+// 20261109000000 el rol por defecto de un usuario nuevo es student).
 // La clave se pide dos veces sin mostrarla (no queda en el historial de la
 // terminal); en scripts sin terminal se puede pasar por DOCENTE_CLAVE. Uso:
 //   npm run db:crear-docente -- <correo>
@@ -30,6 +31,7 @@ if (error) {
 }
 console.log(`usuario creado: ${email} (${data.user.id})`);
 
-// El trigger on_auth_user_created debe haber creado el perfil con role teacher.
+// El trigger on_auth_user_created crea el perfil como student: se asciende aquí.
+await admin.from("profiles").update({ role: "teacher" }).eq("id", data.user.id);
 const { data: perfil } = await admin.from("profiles").select("display_name, role").eq("id", data.user.id).single();
 console.log(perfil ? `perfil: ${perfil.display_name} (${perfil.role})` : "OJO: no se creó el perfil (revisa el trigger)");

@@ -47,6 +47,7 @@ const T2 = "00000000-0000-0000-0000-0000000000b2";
 await run("datos de prueba", `
   insert into auth.users (id, email) values ('${A}','a@x'),('${T1}','t1@x'),('${T2}','t2@x');
   update profiles set role = 'admin' where id = '${A}';
+  update profiles set role = 'teacher' where id in ('${T1}','${T2}');
   insert into words (id, hanzi, hsk_level) values ('00000000-0000-0000-0000-00000000aaaa','测试词',1);
   insert into senses (id, word_id, position, pinyin) values ('00000000-0000-0000-0000-00000000bbbb','00000000-0000-0000-0000-00000000aaaa',1,'cèshìcí');
   grant select, insert, update, delete on all tables in schema public to authenticated;
@@ -362,6 +363,7 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
   else { console.log("✗ el admin recibió copia"); process.exitCode = 1; }
   const T3 = "00000000-0000-0000-0000-0000000000b3";
   await db.exec(`insert into auth.users (id, email) values ('${T3}','t3@x')`);
+  await db.exec(`update profiles set role = 'teacher' where id = '${T3}'`); // las docentes se ascienden tras crearse (scripts/crear-docente.mjs)
   const nuevas = (await as(T3, `select count(*)::int n from lessons where teacher_id = '${T3}'`)).rows[0].n;
   if (nuevas === 1) console.log("✓ una docente nueva la recibe al crearse");
   else { console.log("✗ la docente nueva tiene", nuevas, "lecciones"); process.exitCode = 1; }
@@ -408,4 +410,45 @@ await expectOk("la docente ve el voto en los resultados", T1, `select votes_tota
 for (const fn of [`give_example_lesson('${T2}')`, `lesson_payload('00000000-0000-0000-0000-000000000000')`]) {
   try { await asAnon(`select ${fn}`); console.log(`✗ anon pudo llamar a ${fn.split("(")[0]}`); process.exitCode = 1; }
   catch { console.log(`✓ anon NO llama a ${fn.split("(")[0]}`); }
+}
+
+// ── Cuenta y avance del estudiante (20261109000000) ─────────────────────
+{
+  const E1 = "00000000-0000-0000-0000-0000000000e1";
+  const E2 = "00000000-0000-0000-0000-0000000000e2";
+  const S = "00000000-0000-0000-0000-00000000bbbb";
+  console.log("\n— Estudiante (20261109000000) —");
+  await db.exec(`insert into auth.users (id, email) values ('${E1}','e1@x'),('${E2}','e2@x');`);
+  // Los datos de prueba conceden todo a authenticated; aquí se restablece lo que fija la migración.
+  await db.exec(`revoke update, delete on student_events from authenticated;
+    revoke update on profiles from authenticated;
+    grant update (display_name, reviews_languages) on profiles to authenticated;`);
+  const rol = (await db.query(`select role from profiles where id = '${E1}'`)).rows[0]?.role;
+  if (rol === "student") console.log("✓ un usuario nuevo nace como student, no como docente");
+  else { console.log(`✗ rol por defecto: ${rol}`); process.exitCode = 1; }
+
+  const ses = await expectOk("el alumno abre una sesión", E1,
+    `insert into student_sessions (student_id) values ('${E1}') returning id`);
+  const sid = ses?.rows?.[0]?.id;
+  await expectOk("el alumno registra un evento de escritura", E1,
+    `insert into student_events (student_id, session_id, sense_id, skill, exercise, outcome, mistakes, failed_strokes, ms_total)
+     values ('${E1}', '${sid}', '${S}', 'write', 'strokes', 'correct', 2, '{3,5}', 8000) returning outcome`);
+  await expectFail("el alumno NO registra eventos a nombre de otro", E1,
+    `insert into student_events (student_id, sense_id, skill, exercise, outcome) values ('${E2}', '${S}', 'write', 'strokes', 'correct')`);
+  await expectFail("el alumno NO cuelga un evento de la sesión de otro", E2,
+    `insert into student_events (student_id, session_id, sense_id, skill, exercise, outcome) values ('${E2}', '${sid}', '${S}', 'write', 'strokes', 'correct')`);
+  await expectFail("otro alumno NO ve los eventos ajenos", E2, `select * from student_events`);
+  await expectFail("los eventos no se editan", E1, `update student_events set outcome = 'wrong' where student_id = '${E1}'`);
+  await expectFail("los eventos no se borran", E1, `delete from student_events where student_id = '${E1}'`);
+  await expectFail("un docente NO ve el avance de un alumno", T1, `select * from student_events`);
+  await expectOk("el alumno guarda el estado de su palabra", E1,
+    `insert into student_word_state (student_id, sense_id, skill, stage, interval_days) values ('${E1}', '${S}', 'write', 'fragile', 1) returning stage`);
+  await expectFail("otro alumno NO toca el estado ajeno", E2, `update student_word_state set stage = 'mastered'`);
+  await expectOk("el alumno marca «ya la sé»", E1,
+    `insert into student_known_flags (student_id, sense_id, kind) values ('${E1}', '${S}', 'known') returning kind`);
+  await expectFail("rol inválido rechazado", A, `update profiles set role = 'alumno' where id = '${E1}'`);
+  await expectFail("el alumno NO se sube a admin", E1, `update profiles set role = 'admin' where id = '${E1}'`);
+  try { await db.query(`set role anon; select * from student_events`); console.log("✗ anon lee eventos"); process.exitCode = 1; }
+  catch { console.log("✓ anon NO lee eventos"); }
+  finally { await db.exec(`reset role;`); }
 }
