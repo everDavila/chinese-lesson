@@ -13,16 +13,16 @@ export async function requireProfile(): Promise<Profile> {
   return profile;
 }
 
-/** Vistas de docente y admin: el alumno no entra (va a su tarjeta). */
+/** Vistas de docente y admin: el alumno no entra (va a su inicio). */
 export async function requireTeacher(): Promise<Profile> {
   const profile = await requireProfile();
-  if (profile.role === "student") return redirect({ href: "/lab/estudiante", locale: await getLocale() });
+  if (profile.role === "student") return redirect({ href: "/", locale: await getLocale() });
   return profile;
 }
 
 export async function requireAdmin(): Promise<Profile> {
   const profile = await requireProfile();
-  if (profile.role === "student") return redirect({ href: "/lab/estudiante", locale: await getLocale() });
+  if (profile.role === "student") return redirect({ href: "/", locale: await getLocale() });
   if (profile.role !== "admin") return redirect({ href: "/collections", locale: await getLocale() });
   return profile;
 }

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { getLocale, setRequestLocale } from "next-intl/server";
 import { Landing } from "@/components/landing/landing";
+import { StudentHome } from "@/components/student/student-home";
 import { TeacherDashboard } from "@/components/manage/teacher-dashboard";
 import { redirect } from "@/i18n/navigation";
 import { getDemoLesson } from "@/lib/demo-lesson";
@@ -23,8 +24,8 @@ async function HomeContent() {
   // Con sesión: el admin a la base común; la docente prepara desde aquí.
   const profile = await getProfile();
   if (profile?.role === "admin") redirect({ href: "/admin", locale: await getLocale() });
-  // El alumno no tiene el panel de docente: su espacio es la tarjeta.
-  if (profile?.role === "student") redirect({ href: "/lab/estudiante", locale: await getLocale() });
+  // El alumno no tiene el panel de docente: tiene el suyo.
+  if (profile?.role === "student") return <StudentHome name={profile.displayName} />;
   if (profile) {
     const [lessons, pins] = await Promise.all([listTeacherLessons(), listTeacherPins()]);
     return <TeacherDashboard isAdmin={false} lessons={lessons} pins={pins} />;

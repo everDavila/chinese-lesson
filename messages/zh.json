@@ -551,5 +551,18 @@
     "filterImplemented": "已实现",
     "testingSince": "{date} 起",
     "implementedOn": "{date} 实现"
+  },
+  "StudentWorkspace": {
+    "home": "首页",
+    "practice": "练习",
+    "navLabel": "学生空间",
+    "role": "学生",
+    "greeting": "你好，{name}",
+    "intro": "这里是你练习汉字的空间。",
+    "practiceTitle": "练习笔画",
+    "practiceHint": "一笔一画地写每个词，可以有提示或没有，然后评价自己写得如何。",
+    "practiceCta": "开始练习",
+    "progressTitle": "你觉得难的词",
+    "progressEmpty": "这里会显示哪些词比较难、该复习什么。目前练习还没有保存到账号：即将推出。"
   }
 }

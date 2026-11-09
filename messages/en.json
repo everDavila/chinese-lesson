@@ -551,5 +551,18 @@
     "filterImplemented": "Implemented",
     "testingSince": "Since {date}",
     "implementedOn": "Implemented on {date}"
+  },
+  "StudentWorkspace": {
+    "home": "Home",
+    "practice": "Practice",
+    "navLabel": "Student space",
+    "role": "Student",
+    "greeting": "Hi, {name}",
+    "intro": "This is your space to practise characters.",
+    "practiceTitle": "Practise strokes",
+    "practiceHint": "Write each word stroke by stroke, with or without a guide, and rate how it went.",
+    "practiceCta": "Practise",
+    "progressTitle": "What you find hard",
+    "progressEmpty": "You will see which words are hard and what to review here. Your practice is not saved to your account yet: coming soon."
   }
 }

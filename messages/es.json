@@ -551,5 +551,18 @@
     "filterImplemented": "Implementados",
     "testingSince": "Desde el {date}",
     "implementedOn": "Implementado el {date}"
+  },
+  "StudentWorkspace": {
+    "home": "Inicio",
+    "practice": "Practicar",
+    "navLabel": "Espacio del alumno",
+    "role": "Alumno",
+    "greeting": "Hola, {name}",
+    "intro": "Este es tu espacio para practicar los caracteres.",
+    "practiceTitle": "Practicar trazos",
+    "practiceHint": "Escribe cada palabra trazo a trazo, con o sin guía, y valora cómo te fue.",
+    "practiceCta": "Practicar",
+    "progressTitle": "Lo que te cuesta",
+    "progressEmpty": "Aquí verás qué palabras te cuestan y qué te toca repasar. Todavía no se guarda tu práctica en la cuenta: llegará pronto."
   }
 }
