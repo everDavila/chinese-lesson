@@ -72,3 +72,35 @@ export async function getStudentStats(): Promise<StudentStats> {
     hard: hard.slice(0, 5),
   };
 }
+
+// ── Cola de repaso ──────────────────────────────────────────────────────
+export type DueWord = { senseId: string; hanzi: string; pinyin: string; meaningEs: string; dueAt: string; fragile: boolean };
+
+/** Palabras que toca repasar ya: vencidas y no descartadas, las más atrasadas primero. */
+export async function getDueWords(limit = 30): Promise<DueWord[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("student_word_state")
+    .select("sense_id, stage, due_at, senses(pinyin, meaning_es, words(hanzi))")
+    .eq("skill", "write")
+    .neq("stage", "dismissed")
+    .lte("due_at", new Date().toISOString())
+    .order("due_at", { ascending: true })
+    .limit(limit);
+  return ((data ?? []) as unknown as {
+    sense_id: string;
+    stage: string;
+    due_at: string;
+    senses: { pinyin: string; meaning_es: string | null; words: { hanzi: string } | { hanzi: string }[] | null } | null;
+  }[]).map((r) => {
+    const word = r.senses && (Array.isArray(r.senses.words) ? r.senses.words[0] : r.senses.words);
+    return {
+      senseId: r.sense_id,
+      hanzi: word?.hanzi ?? "?",
+      pinyin: r.senses?.pinyin ?? "",
+      meaningEs: r.senses?.meaning_es ?? "",
+      dueAt: r.due_at,
+      fragile: r.stage === "fragile",
+    };
+  });
+}

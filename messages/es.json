@@ -571,6 +571,10 @@
     "statKnown": "Palabras que ya sabes",
     "minutes": "{n} min",
     "hardMeta": "{wrong} de {attempts} intentos fallidos",
-    "hardNone": "Ninguna palabra te está costando ahora mismo."
+    "hardNone": "Ninguna palabra te está costando ahora mismo.",
+    "reviewTitle": "Para repasar",
+    "reviewDue": "Te toca repasar {n} palabras.",
+    "reviewNone": "Estás al día: no hay palabras por repasar ahora.",
+    "reviewCta": "Repasar ahora"
   }
 }

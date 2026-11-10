@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Popover } from "@base-ui/react/popover";
 import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Settings, Volume2 } from "lucide-react";
-import { importLocalProgress, recordPracticeEvent } from "@/actions/student";
+import { importLocalProgress, markKnown, recordPracticeEvent } from "@/actions/student";
 import { CardBack } from "@/components/present/card-back";
 import { Button } from "@/components/ui/button";
 import type { Lesson } from "@/lib/lesson-types";
@@ -61,6 +61,9 @@ const IDLE_MS = 3 * 60_000;
 const UPLOADED_KEY = "renshi:alumno:subido";
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+// Fuera del componente: el reloj no es parte del render.
+const clock = () => Date.now();
+
 type Pending = { key: string; senseId: string; progress: CellsProgress; guide: boolean };
 
 /**
@@ -86,7 +89,7 @@ export function StudentCard({ lesson, signedIn = false }: { lesson: Lesson; sign
   const activity = useRef({ activeMs: 0, last: 0 });
 
   const touch = () => {
-    const now = Date.now();
+    const now = clock();
     const a = activity.current;
     if (a.last && now - a.last <= IDLE_MS) a.activeMs += now - a.last;
     a.last = now;
@@ -116,6 +119,15 @@ export function StudentCard({ lesson, signedIn = false }: { lesson: Lesson; sign
       msTotal: p.progress.msTotal,
       activeMs: Math.round(activity.current.activeMs),
     });
+  };
+  // «Ya la sé» / «No me la preguntes más»: lo marca y pasa a la siguiente palabra.
+  const mark = (kind: "known" | "dismissed") => {
+    if (!signedIn || !item.senseId) return;
+    pending.current = null;
+    sessionId.current ??= crypto.randomUUID();
+    void markKnown(item.senseId, kind, sessionId.current);
+    if (index < count - 1) go(index + 1);
+    else setView("list");
   };
   const flushRef = useRef(flush);
   useEffect(() => {
@@ -341,7 +353,15 @@ export function StudentCard({ lesson, signedIn = false }: { lesson: Lesson; sign
                       <HelpCircle /> No me sale
                     </Button>
                   </div>
-                  <Button variant="link" onClick={() => setSide("back")}>Ver detalle</Button>
+                  <div className="flex flex-wrap items-center justify-center gap-1">
+                    <Button variant="link" onClick={() => setSide("back")}>Ver detalle</Button>
+                    {signedIn && item.senseId && (
+                      <>
+                        <Button variant="link" onClick={() => mark("known")}>Ya la sé</Button>
+                        <Button variant="link" className="text-muted-foreground" onClick={() => mark("dismissed")}>No me la preguntes más</Button>
+                      </>
+                    )}
+                  </div>
                 </>
               ) : prefs.after === "detail" ? (
                 <>

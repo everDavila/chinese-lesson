@@ -1,5 +1,6 @@
 "use server";
 
+import { dismissedState, nextState, type SrsNext, type SrsOutcome, type Stage } from "@/lib/srs";
 import { createClient } from "@/lib/supabase/server";
 
 // Avance del alumno con cuenta (docs/DISENO-AVANCE-ESTUDIANTE.md). Sin sesión
@@ -41,6 +42,40 @@ async function userId() {
   return { supabase, id: (data?.claims.sub as string | undefined) ?? null };
 }
 
+type Supabase = Awaited<ReturnType<typeof createClient>>;
+
+/** Recalcula y guarda el estado de repaso de una palabra tras un evento. */
+async function updateWordState(
+  supabase: Supabase,
+  studentId: string,
+  senseId: string,
+  lastOutcome: string | null,
+  compute: (prev: { stage: Stage; intervalDays: number } | null) => SrsNext,
+) {
+  const { data: row } = await supabase
+    .from("student_word_state")
+    .select("stage, interval_days")
+    .eq("student_id", studentId)
+    .eq("sense_id", senseId)
+    .eq("skill", "write")
+    .maybeSingle();
+  const next = compute(row ? { stage: row.stage as Stage, intervalDays: Number(row.interval_days) } : null);
+  const { error } = await supabase.from("student_word_state").upsert(
+    {
+      student_id: studentId,
+      sense_id: senseId,
+      skill: "write",
+      stage: next.stage,
+      interval_days: next.intervalDays,
+      due_at: next.dueAt?.toISOString() ?? null,
+      last_outcome: lastOutcome,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "student_id,sense_id,skill" },
+  );
+  if (error) console.error("Estado de repaso:", error.message);
+}
+
 /** Guarda un intento y actualiza la sesión de tiempo activo. Devuelve false si no hay sesión o falla. */
 export async function recordPracticeEvent(e: PracticeEventInput): Promise<boolean> {
   const bad = validate(e);
@@ -72,8 +107,48 @@ export async function recordPracticeEvent(e: PracticeEventInput): Promise<boolea
     ms_total: int(e.msTotal, 86_400_000),
     ...(e.at ? { at: e.at } : {}),
   });
-  if (error) console.error("Evento del alumno:", error.message);
-  return !error;
+  if (error) {
+    console.error("Evento del alumno:", error.message);
+    return false;
+  }
+  await updateWordState(supabase, id, e.senseId, e.outcome, (prev) => nextState(prev, e.outcome as SrsOutcome, e.rating, new Date()));
+  return true;
+}
+
+/**
+ * «Ya la sé» (sale de la cola diaria y vuelve en un chequeo esporádico) o «no
+ * me la preguntes más» (fuera de la cola del todo). Queda como evento y como
+ * marca; el estado de repaso se recalcula.
+ */
+export async function markKnown(senseId: string, kind: "known" | "dismissed", sessionId: string): Promise<boolean> {
+  if (!UUID.test(senseId) || !UUID.test(sessionId) || !["known", "dismissed"].includes(kind)) return false;
+  const { supabase, id } = await userId();
+  if (!id) return false;
+  const session = await supabase.from("student_sessions").upsert({ id: sessionId, student_id: id }, { onConflict: "id", ignoreDuplicates: true });
+  if (session.error) return false;
+  const flag = await supabase.from("student_known_flags").upsert({ student_id: id, sense_id: senseId, kind }, { onConflict: "student_id,sense_id" });
+  if (flag.error) {
+    console.error("Marca del alumno:", flag.error.message);
+    return false;
+  }
+  const ev = await supabase.from("student_events").insert({
+    student_id: id, session_id: sessionId, sense_id: senseId, skill: "write", exercise: "strokes", outcome: "known",
+  });
+  if (ev.error) console.error("Evento «ya la sé»:", ev.error.message);
+  await updateWordState(supabase, id, senseId, kind === "known" ? "known" : null, (prev) =>
+    kind === "known" ? nextState(prev, "known", null, new Date()) : dismissedState(prev),
+  );
+  return true;
+}
+
+/** Quita la marca y devuelve la palabra a la cola (se deshace «no me la preguntes»). */
+export async function clearKnown(senseId: string): Promise<boolean> {
+  if (!UUID.test(senseId)) return false;
+  const { supabase, id } = await userId();
+  if (!id) return false;
+  await supabase.from("student_known_flags").delete().eq("student_id", id).eq("sense_id", senseId);
+  await updateWordState(supabase, id, senseId, null, () => ({ stage: "fragile", intervalDays: 0, dueAt: new Date() }));
+  return true;
 }
 
 export type LocalRecord = { senseId: string; rating: 1 | 2 | 3 | 4; mistakes: number; mode: "guide" | "free"; gaveUp: boolean; at: string };

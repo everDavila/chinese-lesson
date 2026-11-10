@@ -571,6 +571,10 @@
     "statKnown": "已掌握的词",
     "minutes": "{n} 分钟",
     "hardMeta": "{attempts} 次中错 {wrong} 次",
-    "hardNone": "目前没有让你觉得难的词。"
+    "hardNone": "目前没有让你觉得难的词。",
+    "reviewTitle": "待复习",
+    "reviewDue": "你有 {n} 个词需要复习。",
+    "reviewNone": "已经复习完：现在没有需要复习的词。",
+    "reviewCta": "现在复习"
   }
 }

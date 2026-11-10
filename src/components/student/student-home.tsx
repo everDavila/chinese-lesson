@@ -1,5 +1,5 @@
-import { PenLine, TrendingUp } from "lucide-react";
-import type { StudentStats } from "@/lib/student-stats";
+import { PenLine, RotateCcw, TrendingUp } from "lucide-react";
+import type { DueWord, StudentStats } from "@/lib/student-stats";
 import { getTranslations } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -9,7 +9,7 @@ import { StudentShell } from "./student-shell";
 // Inicio del alumno. Hoy solo ofrece lo que existe: practicar y saber con qué
 // cuenta está. El resumen de lo que le cuesta se llena cuando la tarjeta
 // guarde eventos con sesión (docs/DISENO-AVANCE-ESTUDIANTE.md).
-export async function StudentHome({ name, stats }: { name: string; stats: StudentStats }) {
+export async function StudentHome({ name, stats, due }: { name: string; stats: StudentStats; due: DueWord[] }) {
   const t = await getTranslations("StudentWorkspace");
   const minutes = Math.round(stats.weekActiveMs / 60_000);
   return (
@@ -19,6 +19,20 @@ export async function StudentHome({ name, stats }: { name: string; stats: Studen
           <h1 className="text-3xl font-semibold">{t("greeting", { name })}</h1>
           <p className="mt-1 text-muted-foreground">{t("intro")}</p>
         </header>
+
+        <section aria-labelledby="review-title" className="rounded-xl border border-border bg-card p-5">
+          <div className="flex flex-wrap items-center gap-4">
+            <span className="flex size-14 shrink-0 items-center justify-center rounded-lg bg-muted text-primary"><RotateCcw className="size-6" aria-hidden /></span>
+            <div className="min-w-48 flex-1">
+              <h2 id="review-title" className="text-lg font-semibold">{t("reviewTitle")}</h2>
+              <p className="text-sm text-muted-foreground">{due.length ? t("reviewDue", { n: due.length }) : t("reviewNone")}</p>
+              {due.length > 0 && (
+                <p lang="zh-Hans" className="mt-2 font-hanzi text-2xl tracking-wider">{due.slice(0, 6).map((w) => w.hanzi).join(" ")}{due.length > 6 ? " …" : ""}</p>
+              )}
+            </div>
+            {due.length > 0 && <Link href="/estudiante?repaso=1" className={cn(buttonVariants())}>{t("reviewCta")}</Link>}
+          </div>
+        </section>
 
         <section aria-labelledby="practice-title" className="rounded-xl border border-border bg-card p-5">
           <div className="flex flex-wrap items-center gap-4">

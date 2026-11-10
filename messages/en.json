@@ -571,6 +571,10 @@
     "statKnown": "Words you know",
     "minutes": "{n} min",
     "hardMeta": "{wrong} of {attempts} attempts missed",
-    "hardNone": "No word is giving you trouble right now."
+    "hardNone": "No word is giving you trouble right now.",
+    "reviewTitle": "To review",
+    "reviewDue": "You have {n} words to review.",
+    "reviewNone": "You are up to date: nothing to review right now.",
+    "reviewCta": "Review now"
   }
 }
