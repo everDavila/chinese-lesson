@@ -31,7 +31,7 @@ async function Practice({ params }: { params: PageProps<"/[locale]/estudiante">[
   if (!lesson) notFound();
   return (
     <StudentShell name={profile.displayName}>
-      <StudentCard lesson={lesson} />
+      <StudentCard lesson={lesson} signedIn />
     </StudentShell>
   );
 }

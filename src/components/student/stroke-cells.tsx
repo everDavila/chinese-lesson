@@ -16,6 +16,14 @@ export type CellsProgress = {
   total: number;
   /** El alumno pidió ver la respuesta («No me sale»). */
   revealed: boolean;
+  /** Trazos de toda la palabra; null si falta algún dato de trazos. */
+  strokesTotal: number | null;
+  /** Posición (en toda la palabra) de cada trazo en el que se equivocó. */
+  failedStrokes: number[];
+  /** Ms desde que se mostró la palabra hasta el primer trazo; null si no hubo. */
+  msToFirstAction: number | null;
+  /** Ms desde que se mostró la palabra hasta este momento. */
+  msTotal: number;
 };
 
 export type StrokeCellsHandle = { reveal: () => void };
@@ -41,6 +49,10 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
   const mistakes = useRef<number[]>(chars.map(() => 0));
   const finished = useRef<boolean[]>(chars.map(() => false));
   const revealed = useRef(false);
+  const strokeCounts = useRef<(number | null)[]>(chars.map(() => null));
+  const failed = useRef<number[]>([]);
+  const shownAt = useRef(0);
+  const firstActionMs = useRef<number | null>(null);
   const [done, setDone] = useState<boolean[]>(() => chars.map(() => false));
   const onProgressRef = useRef(onProgress);
   useEffect(() => {
@@ -53,6 +65,10 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
       completed: finished.current.filter(Boolean).length,
       total: chars.length,
       revealed: revealed.current,
+      strokesTotal: strokeCounts.current.every((n) => n !== null) ? strokeCounts.current.reduce((a, b) => a! + b!, 0) : null,
+      failedStrokes: [...failed.current],
+      msToFirstAction: firstActionMs.current,
+      msTotal: Math.round(performance.now() - shownAt.current),
     });
 
   const markDone = (i: number) => {
@@ -78,6 +94,7 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
 
   useEffect(() => {
     let cancelled = false;
+    shownAt.current = performance.now();
     const list = writers.current;
     const dark = document.documentElement.classList.contains("dark");
     const { leniency, hint } = SETTINGS[guide ? "guide" : "free"];
@@ -88,9 +105,15 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
       writer.quiz({
         leniency,
         showHintAfterMisses: hint,
-        onMistake: () => {
+        onMistake: (stroke) => {
+          firstActionMs.current ??= Math.round(performance.now() - shownAt.current);
           mistakes.current[i] += 1;
+          const before = strokeCounts.current.slice(0, i).reduce<number>((a, n) => a + (n ?? 0), 0);
+          failed.current.push(before + stroke.strokeNum);
           report();
+        },
+        onCorrectStroke: () => {
+          firstActionMs.current ??= Math.round(performance.now() - shownAt.current);
         },
         onComplete: () => {
           markDone(i);
@@ -120,7 +143,10 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
           charDataLoader: (c, onLoad, onError) => {
             fetch(`/hanzi-writer/${encodeURIComponent(c)}.json`)
               .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-              .then(onLoad)
+              .then((data) => {
+                strokeCounts.current[i] = Array.isArray(data?.strokes) ? data.strokes.length : null;
+                onLoad(data);
+              })
               .catch((e) => {
                 // Sin datos de trazos no se puede practicar: se salta la casilla.
                 markDone(i);

@@ -5,6 +5,7 @@ import { StudentHome } from "@/components/student/student-home";
 import { TeacherDashboard } from "@/components/manage/teacher-dashboard";
 import { redirect } from "@/i18n/navigation";
 import { getDemoLesson } from "@/lib/demo-lesson";
+import { getStudentStats } from "@/lib/student-stats";
 import { getProfile, listTeacherLessons, listTeacherPins } from "@/lib/content";
 
 // Inicio. Sin sesión: la portada pública para profesoras (con la Lección de
@@ -25,7 +26,7 @@ async function HomeContent() {
   const profile = await getProfile();
   if (profile?.role === "admin") redirect({ href: "/admin", locale: await getLocale() });
   // El alumno no tiene el panel de docente: tiene el suyo.
-  if (profile?.role === "student") return <StudentHome name={profile.displayName} />;
+  if (profile?.role === "student") return <StudentHome name={profile.displayName} stats={await getStudentStats()} />;
   if (profile) {
     const [lessons, pins] = await Promise.all([listTeacherLessons(), listTeacherPins()]);
     return <TeacherDashboard isAdmin={false} lessons={lessons} pins={pins} />;

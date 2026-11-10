@@ -563,6 +563,14 @@
     "practiceHint": "Write each word stroke by stroke, with or without a guide, and rate how it went.",
     "practiceCta": "Practise",
     "progressTitle": "What you find hard",
-    "progressEmpty": "You will see which words are hard and what to review here. Your practice is not saved to your account yet: coming soon."
+    "progressEmpty": "You will see which words are hard and what to review here. Practise a word and it will show up.",
+    "progressHint": "Worked out from your practice over the last few days.",
+    "statTime": "Active time (7 days)",
+    "statAttempts": "Attempts (7 days)",
+    "statPracticed": "Words practised",
+    "statKnown": "Words you know",
+    "minutes": "{n} min",
+    "hardMeta": "{wrong} of {attempts} attempts missed",
+    "hardNone": "No word is giving you trouble right now."
   }
 }

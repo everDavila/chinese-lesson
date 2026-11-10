@@ -563,6 +563,14 @@
     "practiceHint": "Escribe cada palabra trazo a trazo, con o sin guía, y valora cómo te fue.",
     "practiceCta": "Practicar",
     "progressTitle": "Lo que te cuesta",
-    "progressEmpty": "Aquí verás qué palabras te cuestan y qué te toca repasar. Todavía no se guarda tu práctica en la cuenta: llegará pronto."
+    "progressEmpty": "Aquí verás qué palabras te cuestan y qué te toca repasar. Practica una palabra y aparecerá.",
+    "progressHint": "Se calcula con tu práctica de los últimos días.",
+    "statTime": "Tiempo activo (7 días)",
+    "statAttempts": "Intentos (7 días)",
+    "statPracticed": "Palabras practicadas",
+    "statKnown": "Palabras que ya sabes",
+    "minutes": "{n} min",
+    "hardMeta": "{wrong} de {attempts} intentos fallidos",
+    "hardNone": "Ninguna palabra te está costando ahora mismo."
   }
 }

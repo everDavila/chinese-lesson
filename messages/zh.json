@@ -563,6 +563,14 @@
     "practiceHint": "一笔一画地写每个词，可以有提示或没有，然后评价自己写得如何。",
     "practiceCta": "开始练习",
     "progressTitle": "你觉得难的词",
-    "progressEmpty": "这里会显示哪些词比较难、该复习什么。目前练习还没有保存到账号：即将推出。"
+    "progressEmpty": "这里会显示哪些词比较难、该复习什么。练习一个词后就会出现。",
+    "progressHint": "根据你最近几天的练习计算。",
+    "statTime": "活跃时间（7天）",
+    "statAttempts": "尝试次数（7天）",
+    "statPracticed": "已练习的词",
+    "statKnown": "已掌握的词",
+    "minutes": "{n} 分钟",
+    "hardMeta": "{attempts} 次中错 {wrong} 次",
+    "hardNone": "目前没有让你觉得难的词。"
   }
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Popover } from "@base-ui/react/popover";
 import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Settings, Volume2 } from "lucide-react";
+import { importLocalProgress, recordPracticeEvent } from "@/actions/student";
 import { CardBack } from "@/components/present/card-back";
 import { Button } from "@/components/ui/button";
 import type { Lesson } from "@/lib/lesson-types";
@@ -55,7 +56,19 @@ function feedback(progress: CellsProgress): string {
   return `Sigue practicando · ${errors}`;
 }
 
-export function StudentCard({ lesson }: { lesson: Lesson }) {
+// Sin tocar nada durante este tiempo, la espera no cuenta como tiempo activo.
+const IDLE_MS = 3 * 60_000;
+const UPLOADED_KEY = "renshi:alumno:subido";
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+type Pending = { key: string; senseId: string; progress: CellsProgress; guide: boolean };
+
+/**
+ * `signedIn`: el alumno tiene cuenta. Con cuenta, cada palabra practicada se
+ * guarda como evento (docs/DISENO-AVANCE-ESTUDIANTE.md); sin ella, solo
+ * queda el avance local, como en el piloto.
+ */
+export function StudentCard({ lesson, signedIn = false }: { lesson: Lesson; signedIn?: boolean }) {
   const prefs = useSyncExternalStore(prefsStore.subscribe, prefsStore.snapshot, prefsStore.serverSnapshot);
   const progress = useSyncExternalStore(progressStore.subscribe, progressStore.snapshot, progressStore.serverSnapshot);
   const cells = useRef<StrokeCellsHandle>(null);
@@ -66,6 +79,77 @@ export function StudentCard({ lesson }: { lesson: Lesson }) {
   const [run, setRun] = useState(0);
   const [listOpen, setListOpen] = useState(false);
   const [state, setState] = useState<{ key: string; progress: CellsProgress } | null>(null);
+
+  const pending = useRef<Pending | null>(null);
+  const flushedKey = useRef<string | null>(null);
+  const sessionId = useRef<string | null>(null);
+  const activity = useRef({ activeMs: 0, last: 0 });
+
+  const touch = () => {
+    const now = Date.now();
+    const a = activity.current;
+    if (a.last && now - a.last <= IDLE_MS) a.activeMs += now - a.last;
+    a.last = now;
+  };
+
+  // Guarda la palabra terminada (con su valoración si la hubo). Una por intento.
+  const flush = (rating: Rating | null) => {
+    const p = pending.current;
+    pending.current = null;
+    if (!p) return;
+    flushedKey.current = p.key; // un intento se guarda una sola vez
+    if (!signedIn || !p.senseId) return;
+    touch();
+    sessionId.current ??= crypto.randomUUID();
+    const suggestedRating = suggestRating(p.progress.mistakes, p.progress.total, p.progress.revealed);
+    const effective = rating ?? suggestedRating;
+    void recordPracticeEvent({
+      sessionId: sessionId.current,
+      senseId: p.senseId,
+      outcome: p.progress.revealed ? "gave_up" : effective >= 3 ? "correct" : "wrong",
+      rating,
+      mistakes: p.progress.mistakes,
+      strokesTotal: p.progress.strokesTotal,
+      failedStrokes: p.progress.failedStrokes,
+      usedHelp: p.guide,
+      msToFirstAction: p.progress.msToFirstAction,
+      msTotal: p.progress.msTotal,
+      activeMs: Math.round(activity.current.activeMs),
+    });
+  };
+  const flushRef = useRef(flush);
+  useEffect(() => {
+    flushRef.current = flush;
+  });
+
+  // Tiempo activo: cuenta mientras toca la pantalla. Al irse, guarda lo pendiente.
+  useEffect(() => {
+    const onActivity = () => touch();
+    const onLeave = () => flushRef.current(null);
+    window.addEventListener("pointerdown", onActivity);
+    window.addEventListener("keydown", onActivity);
+    window.addEventListener("pagehide", onLeave);
+    return () => {
+      window.removeEventListener("pointerdown", onActivity);
+      window.removeEventListener("keydown", onActivity);
+      window.removeEventListener("pagehide", onLeave);
+      onLeave();
+    };
+  }, []);
+
+  // Con cuenta, lo que ya había en el dispositivo se sube una sola vez.
+  useEffect(() => {
+    if (!signedIn) return;
+    try {
+      if (localStorage.getItem(UPLOADED_KEY)) return;
+      const records = Object.entries(progressStore.snapshot())
+        .filter(([key]) => UUID.test(key))
+        .map(([senseId, r]) => ({ senseId, rating: r.rating, mistakes: r.mistakes, mode: r.mode, gaveUp: r.gaveUp, at: r.at }));
+      void importLocalProgress(records).then((ok) => {
+        if (ok) localStorage.setItem(UPLOADED_KEY, new Date().toISOString());
+      });
+    } catch {}
+  }, [signedIn]);
 
   const count = lesson.items.length;
   const item = lesson.items[index];
@@ -78,17 +162,28 @@ export function StudentCard({ lesson }: { lesson: Lesson }) {
   const finished = current !== null && current.completed === current.total;
   const suggested = current ? suggestRating(current.mistakes, current.total, current.revealed) : 3;
 
+  // Al terminar la palabra queda pendiente su evento; sin valoración (modo
+  // «solo practicar») se guarda de una vez.
+  useEffect(() => {
+    if (!finished || !current || pending.current || flushedKey.current === cellsKey) return;
+    pending.current = { key: cellsKey, senseId: item.senseId ?? "", progress: current, guide };
+    if (prefs.after === "practice") flushRef.current(null);
+  }, [finished, current, cellsKey, item.senseId, guide, prefs.after]);
+
   const go = (next: number) => {
+    flush(null);
     setIndex(Math.min(Math.max(next, 0), count - 1));
     setSide("front");
     setRun(0);
     setListOpen(false);
   };
   const restart = () => {
+    flush(null);
     setRun((r) => r + 1);
     setSide("front");
   };
   const rate = (rating: Rating) => {
+    flush(rating);
     progressStore.save(itemKey, {
       rating,
       mistakes: current?.mistakes ?? 0,

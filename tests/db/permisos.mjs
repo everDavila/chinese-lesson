@@ -433,6 +433,10 @@ for (const fn of [`give_example_lesson('${T2}')`, `lesson_payload('00000000-0000
   await expectOk("el alumno registra un evento de escritura", E1,
     `insert into student_events (student_id, session_id, sense_id, skill, exercise, outcome, mistakes, failed_strokes, ms_total)
      values ('${E1}', '${sid}', '${S}', 'write', 'strokes', 'correct', 2, '{3,5}', 8000) returning outcome`);
+  await expectOk("el evento guarda la autovaloración", E1,
+    `insert into student_events (student_id, session_id, sense_id, skill, exercise, outcome, rating) values ('${E1}', '${sid}', '${S}', 'write', 'strokes', 'wrong', 2) returning rating`);
+  await expectFail("la valoración fuera de 1–4 se rechaza", E1,
+    `insert into student_events (student_id, sense_id, skill, exercise, outcome, rating) values ('${E1}', '${S}', 'write', 'strokes', 'wrong', 9)`);
   await expectFail("el alumno NO registra eventos a nombre de otro", E1,
     `insert into student_events (student_id, sense_id, skill, exercise, outcome) values ('${E2}', '${S}', 'write', 'strokes', 'correct')`);
   await expectFail("el alumno NO cuelga un evento de la sesión de otro", E2,
