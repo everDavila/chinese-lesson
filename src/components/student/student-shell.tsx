@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, CircleUserRound, Home, LogOut, PenLine } from "lucide-react";
+import { BarChart3, ChevronDown, CircleUserRound, Home, LogOut, PenLine } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { signOut } from "@/actions/auth";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -19,7 +19,8 @@ export function StudentShell({ name, children }: { name: string; children: React
   const pathname = usePathname();
   const nav = [
     { href: "/" as const, label: t("home"), icon: Home, active: pathname === "/" },
-    { href: "/estudiante" as const, label: t("practice"), icon: PenLine, active: pathname.startsWith("/estudiante") },
+    { href: "/estudiante" as const, label: t("practice"), icon: PenLine, active: pathname === "/estudiante" },
+    { href: "/estudiante/progreso" as const, label: t("progress"), icon: BarChart3, active: pathname.startsWith("/estudiante/progreso") },
   ];
 
   return (

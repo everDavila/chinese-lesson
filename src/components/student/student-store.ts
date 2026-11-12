@@ -20,6 +20,9 @@ export type Prefs = {
   mode: WritingMode | "random";
   /** Al valorar: girar a la ficha, o solo practicar (sin valorar ni girar). */
   after: "detail" | "practice";
+  /** Mientras escribe, mostrar el significado y/o el pinyin (con sus tonos) sobre la cuadrícula. */
+  showMeaning: boolean;
+  showPinyin: boolean;
 };
 
 function createStore<T>(key: string, fallback: T, valid: (value: unknown) => value is T) {
@@ -55,14 +58,18 @@ function createStore<T>(key: string, fallback: T, valid: (value: unknown) => val
   };
 }
 
-const DEFAULT_PREFS: Prefs = { mode: "guide", after: "detail" };
+const DEFAULT_PREFS: Prefs = { mode: "guide", after: "detail", showMeaning: true, showPinyin: true };
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null;
 
 export const prefsStore = createStore<Prefs>(
   "renshi:alumno:preferencias",
   DEFAULT_PREFS,
   (v): v is Prefs =>
-    isObject(v) && ["guide", "free", "random"].includes(v.mode as string) && ["detail", "practice"].includes(v.after as string),
+    isObject(v) &&
+    ["guide", "free", "random"].includes(v.mode as string) &&
+    ["detail", "practice"].includes(v.after as string) &&
+    typeof v.showMeaning === "boolean" &&
+    typeof v.showPinyin === "boolean",
 );
 
 const NO_PROGRESS: Record<string, PracticeRecord> = {};

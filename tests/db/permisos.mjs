@@ -455,6 +455,17 @@ for (const fn of [`give_example_lesson('${T2}')`, `lesson_payload('00000000-0000
   try { await db.query(`set role anon; select * from student_events`); console.log("✗ anon lee eventos"); process.exitCode = 1; }
   catch { console.log("✓ anon NO lee eventos"); }
   finally { await db.exec(`reset role;`); }
+  // ── Meta diaria y favoritas (20261109030000) ──
+  await expectOk("el alumno guarda su meta diaria", E1,
+    `insert into student_settings (student_id, daily_goal_minutes) values ('${E1}', 15) returning daily_goal_minutes`);
+  await expectFail("la meta fuera de rango se rechaza", E1, `update student_settings set daily_goal_minutes = 0 where student_id = '${E1}'`);
+  await expectFail("otro alumno NO ve la meta ajena", E2, `select * from student_settings`);
+  await expectFail("el alumno NO guarda la meta de otro", E2, `insert into student_settings (student_id) values ('${E1}')`);
+  await expectOk("el alumno marca una favorita", E1,
+    `insert into student_bookmarks (student_id, sense_id) values ('${E1}', '${S}') returning sense_id`);
+  await expectOk("la favorita convive con «ya la sé»", E1, `select 1 from student_known_flags where student_id = '${E1}'`);
+  await expectFail("otro alumno NO borra favoritas ajenas", E2, `delete from student_bookmarks`);
+  await expectFail("un docente NO ve favoritas de alumnos", T1, `select * from student_bookmarks`);
   // ── El alumno no escribe en nada de docente (20261109010000) ──
   await expectFail("el alumno NO crea colecciones", E1, `insert into collections (owner_id, title) values ('${E1}', 'mía') returning id`);
   await expectFail("el alumno NO crea lecciones", E1, `insert into lessons (teacher_id, title) values ('${E1}', 'mía') returning id`);

@@ -5,7 +5,8 @@ import { setRequestLocale } from "next-intl/server";
 import { StudentCard } from "@/components/student/student-card";
 import { StudentShell } from "@/components/student/student-shell";
 import { getDemoLesson } from "@/lib/demo-lesson";
-import { getDueWords } from "@/lib/student-stats";
+import { getBookmarkIds } from "@/lib/student-progress";
+import { getDueWords, getStudentStats } from "@/lib/student-stats";
 import { Link } from "@/i18n/navigation";
 import { requireProfile } from "@/lib/guard";
 
@@ -38,29 +39,47 @@ async function Practice({
   let lesson = await getDemoLesson();
   if (!lesson) notFound();
 
-  // ?repaso=1: solo las palabras que toca repasar. Hoy todas salen de la
-  // lección de ejemplo; cuando haya colecciones de estudio, aquí se arma la
-  // lección con los sentidos pendientes.
-  if ((await searchParams).repaso) {
-    const due = await getDueWords();
-    const order = new Map(due.map((d, i) => [d.senseId, i]));
+  // ?repaso=1 (vencidas), ?repaso=dificiles (las que más fallan) o
+  // ?repaso=favoritas: solo esas palabras. Hoy todas salen de la lección de
+  // ejemplo; cuando haya colecciones de estudio, aquí se arma la lección con
+  // los sentidos elegidos.
+  const bookmarks = await getBookmarkIds();
+  const mode = (await searchParams).repaso;
+  if (mode) {
+    let ids: string[];
+    let title: string;
+    let empty: { title: string; text: string };
+    if (mode === "dificiles") {
+      ids = (await getStudentStats()).hardIds;
+      title = "Palabras difíciles";
+      empty = { title: "Ninguna te está costando", text: "Cuando una palabra te siga fallando, aparecerá aquí para repasarla." };
+    } else if (mode === "favoritas") {
+      ids = bookmarks;
+      title = "Favoritas";
+      empty = { title: "Aún no tienes favoritas", text: "Toca el corazón mientras practicas para guardar una palabra." };
+    } else {
+      ids = (await getDueWords()).map((d) => d.senseId);
+      title = "Repaso de hoy";
+      empty = { title: "Estás al día", text: "No tienes palabras por repasar ahora. Vuelve más tarde o practica otras." };
+    }
+    const order = new Map(ids.map((id, i) => [id, i]));
     const items = lesson.items.filter((it) => it.senseId && order.has(it.senseId)).sort((a, b) => order.get(a.senseId!)! - order.get(b.senseId!)!);
     if (!items.length) {
       return (
         <StudentShell name={profile.displayName}>
           <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-4 px-4 py-16 text-center">
-            <h1 className="text-2xl font-semibold">Estás al día</h1>
-            <p className="text-muted-foreground">No tienes palabras por repasar ahora. Vuelve más tarde o practica otras.</p>
+            <h1 className="text-2xl font-semibold">{empty.title}</h1>
+            <p className="text-muted-foreground">{empty.text}</p>
             <Link href="/estudiante" className="text-primary hover:underline">Practicar la lección</Link>
           </main>
         </StudentShell>
       );
     }
-    lesson = { ...lesson, title: "Repaso de hoy", items };
+    lesson = { ...lesson, title, items };
   }
   return (
     <StudentShell name={profile.displayName}>
-      <StudentCard lesson={lesson} signedIn />
+      <StudentCard lesson={lesson} signedIn bookmarked={bookmarks} />
     </StudentShell>
   );
 }

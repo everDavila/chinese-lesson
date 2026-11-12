@@ -48,3 +48,10 @@ export function nextState(prev: SrsState | null, outcome: SrsOutcome, rating: nu
 export function dismissedState(prev: SrsState | null): SrsNext {
   return { stage: "dismissed", intervalDays: prev?.intervalDays ?? 0, dueAt: null };
 }
+
+/** Estrellas de dominio de una palabra, de 0 (sin empezar) a 3. Derivado de la etapa y el intervalo. */
+export function masteryStars(state: SrsState | null): 0 | 1 | 2 | 3 {
+  if (!state || state.stage === "dismissed") return 0;
+  if (state.stage !== "mastered") return 1;
+  return state.intervalDays >= 35 ? 3 : 2;
+}

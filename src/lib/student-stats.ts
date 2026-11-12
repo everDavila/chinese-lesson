@@ -1,12 +1,13 @@
 import "server-only";
 
 import { createClient } from "./supabase/server";
+import { getStars } from "./student-progress";
 
 // Resumen del avance del alumno, calculado al vuelo desde sus eventos (no hay
 // agregados guardados: si cambia una fórmula se recalcula todo). RLS ya limita
 // las filas a las del propio alumno.
 
-export type HardWord = { senseId: string; hanzi: string; pinyin: string; meaningEs: string; attempts: number; wrong: number; mistakes: number };
+export type HardWord = { senseId: string; hanzi: string; pinyin: string; meaningEs: string; attempts: number; wrong: number; mistakes: number; stars: 0 | 1 | 2 | 3 };
 export type StudentStats = {
   weekActiveMs: number;
   weekAttempts: number;
@@ -14,6 +15,10 @@ export type StudentStats = {
   /** Palabras cuyos dos últimos intentos fueron correctos. */
   wordsKnown: number;
   hard: HardWord[];
+  /** Cuántas palabras difíciles hay en total (la lista muestra solo las primeras). */
+  hardCount: number;
+  /** Todas las palabras difíciles, de la más a la menos difícil: alimentan el repaso de «leeches». */
+  hardIds: string[];
 };
 
 type Row = {
@@ -59,17 +64,24 @@ export async function getStudentStats(): Promise<StudentStats> {
         attempts: list.length,
         wrong,
         mistakes: list.reduce((a, r) => a + r.mistakes, 0),
+        stars: 0,
       });
     }
   }
   hard.sort((a, b) => b.wrong / b.attempts - a.wrong / a.attempts || b.mistakes - a.mistakes);
+
+  const top = hard.slice(0, 5);
+  const stars = await getStars(top.map((h) => h.senseId));
+  for (const h of top) h.stars = stars.get(h.senseId) ?? 0;
 
   return {
     weekActiveMs: (sessions.data ?? []).reduce((a, s) => a + (s.active_ms as number), 0),
     weekAttempts: rows.filter((r) => r.at >= since).length,
     wordsPracticed: bySense.size,
     wordsKnown: known,
-    hard: hard.slice(0, 5),
+    hard: top,
+    hardCount: hard.length,
+    hardIds: hard.map((h) => h.senseId),
   };
 }
 

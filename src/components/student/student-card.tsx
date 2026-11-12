@@ -5,6 +5,8 @@ import { Popover } from "@base-ui/react/popover";
 import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Settings, Volume2 } from "lucide-react";
 import { importLocalProgress, markKnown, recordPracticeEvent } from "@/actions/student";
 import { CardBack } from "@/components/present/card-back";
+import { BookmarkButton } from "./bookmark-button";
+import { ToneCurves } from "./tone-curves";
 import { Button } from "@/components/ui/button";
 import type { Lesson } from "@/lib/lesson-types";
 import { speakChinese } from "@/lib/speech";
@@ -71,7 +73,7 @@ type Pending = { key: string; senseId: string; progress: CellsProgress; guide: b
  * guarda como evento (docs/DISENO-AVANCE-ESTUDIANTE.md); sin ella, solo
  * queda el avance local, como en el piloto.
  */
-export function StudentCard({ lesson, signedIn = false }: { lesson: Lesson; signedIn?: boolean }) {
+export function StudentCard({ lesson, signedIn = false, bookmarked = [] }: { lesson: Lesson; signedIn?: boolean; bookmarked?: string[] }) {
   const prefs = useSyncExternalStore(prefsStore.subscribe, prefsStore.snapshot, prefsStore.serverSnapshot);
   const progress = useSyncExternalStore(progressStore.subscribe, progressStore.snapshot, progressStore.serverSnapshot);
   const cells = useRef<StrokeCellsHandle>(null);
@@ -280,6 +282,7 @@ export function StudentCard({ lesson, signedIn = false }: { lesson: Lesson; sign
             ))}
           </fieldset>
           <div className="flex justify-end gap-2">
+            {signedIn && item.senseId && <BookmarkButton key={item.senseId} senseId={item.senseId} initial={bookmarked.includes(item.senseId)} />}
             <Button variant="outline" size="icon" aria-label="Escuchar la palabra" onClick={() => speakChinese(item.word.hanzi)}>
               <Volume2 />
             </Button>
@@ -308,6 +311,15 @@ export function StudentCard({ lesson, signedIn = false }: { lesson: Lesson; sign
                         </label>
                       ))}
                     </fieldset>
+                    <fieldset className="mt-3 flex flex-col gap-1">
+                      <legend className="mb-1 text-sm font-medium">Mientras escribes, mostrar</legend>
+                      {([["showMeaning", "El significado"], ["showPinyin", "El pinyin y sus tonos"]] as const).map(([key, label]) => (
+                        <label key={key} className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-muted">
+                          <input type="checkbox" className="accent-primary" checked={prefs[key]} onChange={(e) => prefsStore.set({ ...prefs, [key]: e.target.checked })} />
+                          {label}
+                        </label>
+                      ))}
+                    </fieldset>
                   </Popover.Popup>
                 </Popover.Positioner>
               </Popover.Portal>
@@ -326,6 +338,17 @@ export function StudentCard({ lesson, signedIn = false }: { lesson: Lesson; sign
         {side === "front" ? (
           <section className="flex flex-1 flex-col items-center justify-center gap-4">
             <h1 className="sr-only">Practica la palabra {index + 1} de {count}</h1>
+            {(prefs.showMeaning || prefs.showPinyin) && (
+              <div className="text-center">
+                {prefs.showMeaning && <p className="text-xl font-medium">{item.word.senses[item.senseIndex].meaning.es}</p>}
+                {prefs.showPinyin && (
+                  <>
+                    <p lang="zh-Latn" className="text-muted-foreground">{item.word.senses[item.senseIndex].pinyin}</p>
+                    <ToneCurves pinyin={item.word.senses[item.senseIndex].pinyin} className="mt-1" />
+                  </>
+                )}
+              </div>
+            )}
             <StrokeCells
               key={cellsKey}
               ref={cells}

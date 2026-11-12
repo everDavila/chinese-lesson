@@ -175,3 +175,30 @@ export async function importLocalProgress(records: LocalRecord[]): Promise<boole
   if (error) console.error("Importar avance:", error.message);
   return !error;
 }
+
+/** Marca o desmarca una palabra como favorita. Devuelve el estado final, o null si no hay sesión. */
+export async function toggleBookmark(senseId: string): Promise<boolean | null> {
+  if (!UUID.test(senseId)) return null;
+  const { supabase, id } = await userId();
+  if (!id) return null;
+  const { data: existing } = await supabase.from("student_bookmarks").select("sense_id").eq("student_id", id).eq("sense_id", senseId).maybeSingle();
+  if (existing) {
+    const { error } = await supabase.from("student_bookmarks").delete().eq("student_id", id).eq("sense_id", senseId);
+    return error ? null : false;
+  }
+  const { error } = await supabase.from("student_bookmarks").insert({ student_id: id, sense_id: senseId });
+  return error ? null : true;
+}
+
+const GOALS = [5, 10, 15, 20, 30, 45, 60];
+
+/** Guarda la meta diaria en minutos activos. */
+export async function setDailyGoal(minutes: number): Promise<boolean> {
+  if (!GOALS.includes(minutes)) return false;
+  const { supabase, id } = await userId();
+  if (!id) return false;
+  const { error } = await supabase
+    .from("student_settings")
+    .upsert({ student_id: id, daily_goal_minutes: minutes, updated_at: new Date().toISOString() });
+  return !error;
+}
