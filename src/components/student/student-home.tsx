@@ -19,14 +19,16 @@ import { WeekStreak } from "./week-streak";
 export async function StudentHome({
   name,
   stats,
-  due,
+  dueCards,
+  dueWrite,
   streak,
   levels,
   favorites,
 }: {
   name: string;
   stats: StudentStats;
-  due: DueWord[];
+  dueCards: DueWord[];
+  dueWrite: DueWord[];
   streak: Streak;
   levels: LevelProgress[];
   favorites: number;
@@ -53,12 +55,22 @@ export async function StudentHome({
             <span className="flex size-14 shrink-0 items-center justify-center rounded-lg bg-muted text-primary"><RotateCcw className="size-6" aria-hidden /></span>
             <div className="min-w-48 flex-1">
               <h2 id="review-title" className="text-lg font-semibold">{t("reviewTitle")}</h2>
-              <p className="text-sm text-muted-foreground">{due.length ? t("reviewDue", { n: due.length }) : t("reviewNone")}</p>
-              {due.length > 0 && (
-                <p lang="zh-Hans" className="mt-2 font-hanzi text-2xl tracking-wider">{due.slice(0, 6).map((w) => w.hanzi).join(" ")}{due.length > 6 ? " …" : ""}</p>
+              {dueCards.length + dueWrite.length === 0 ? (
+                <p className="text-sm text-muted-foreground">{t("reviewNone")}</p>
+              ) : (
+                <>
+                  {dueCards.length > 0 && <p className="text-sm text-muted-foreground">{t("reviewDueCards", { n: dueCards.length })}</p>}
+                  {dueWrite.length > 0 && <p className="text-sm text-muted-foreground">{t("reviewDueWrite", { n: dueWrite.length })}</p>}
+                  <p lang="zh-Hans" className="mt-2 font-hanzi text-2xl tracking-wider">
+                    {[...new Map([...dueCards, ...dueWrite].map((w) => [w.senseId, w.hanzi])).values()].slice(0, 6).join(" ")}
+                  </p>
+                </>
               )}
             </div>
-            {due.length > 0 && <Link href="/estudiante?repaso=1" className={cn(buttonVariants())}>{t("reviewCta")}</Link>}
+            <div className="flex flex-wrap gap-2">
+              {dueCards.length > 0 && <Link href="/estudiante?repaso=1&ejercicio=tarjeta" className={cn(buttonVariants())}>{t("reviewCtaCards")}</Link>}
+              {dueWrite.length > 0 && <Link href="/estudiante?repaso=1&ejercicio=escribir" className={cn(buttonVariants({ variant: dueCards.length > 0 ? "outline" : "default" }))}>{t("reviewCtaWrite")}</Link>}
+            </div>
           </div>
         </section>
 

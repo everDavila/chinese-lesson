@@ -41,3 +41,30 @@ export function parseAmount(value: string | undefined): number {
   const n = Number(value);
   return (PRACTICE_AMOUNTS as readonly number[]).includes(n) ? n : DEFAULT_AMOUNT;
 }
+
+export type ThemeGroup = "situations" | "topics" | "wordTypes" | "functions" | "other";
+
+/**
+ * Agrupa una plantilla del sistema por su nota de origen (aún no hay una
+ * columna de tipo). null: las plantillas del temario oficial por nivel, que
+ * duplican los niveles HSK y no van entre los temas.
+ */
+export function themeGroup(sourceNote: string | null): ThemeGroup | null {
+  const note = sourceNote ?? "";
+  if (/^Temario oficial/i.test(note)) return null;
+  if (/por contexto/i.test(note)) return "situations";
+  if (/por funci[oó]n/i.test(note)) return "functions";
+  if (/por tema/i.test(note)) return "topics";
+  if (/categor[ií]a|Lista manual sobre el temario/i.test(note)) return "wordTypes";
+  return "other";
+}
+
+export type Exercise = "card" | "write";
+
+/** «tarjeta» (estudiar, por defecto) o «escribir». */
+export function parseExercise(value: string | undefined): Exercise {
+  return value === "escribir" ? "write" : "card";
+}
+
+/** Habilidad que entrena cada ejercicio: la tarjeta reconoce, escribir escribe. */
+export const skillOf = (exercise: Exercise) => (exercise === "card" ? "recognize" : "write") as "recognize" | "write";

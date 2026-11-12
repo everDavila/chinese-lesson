@@ -7,7 +7,11 @@ import { createClient } from "@/lib/supabase/server";
 // no se guarda nada y la tarjeta sigue funcionando con su avance local. RLS
 // obliga a que cada fila sea del propio alumno; aquí solo se valida la forma.
 
+export type Skill = "recognize" | "write";
+
 export type PracticeEventInput = {
+  /** Habilidad practicada; por defecto la escritura (el ejercicio de trazos). */
+  skill?: Skill;
   sessionId: string;
   senseId: string;
   outcome: "correct" | "wrong" | "gave_up" | "known";
@@ -25,10 +29,13 @@ export type PracticeEventInput = {
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const OUTCOMES = ["correct", "wrong", "gave_up", "known"];
+const SKILLS: Skill[] = ["recognize", "write"];
+const EXERCISE: Record<Skill, string> = { recognize: "card", write: "strokes" };
 const int = (v: unknown, max: number) => (Number.isInteger(v) && (v as number) >= 0 && (v as number) <= max ? (v as number) : null);
 
 function validate(e: PracticeEventInput): string | null {
   if (!UUID.test(e.sessionId) || !UUID.test(e.senseId)) return "id";
+  if (e.skill !== undefined && !SKILLS.includes(e.skill)) return "habilidad";
   if (!OUTCOMES.includes(e.outcome)) return "outcome";
   if (e.rating !== null && ![1, 2, 3, 4].includes(e.rating)) return "rating";
   if (int(e.mistakes, 10_000) === null || int(e.activeMs, 86_400_000) === null) return "números";
@@ -49,6 +56,7 @@ async function updateWordState(
   supabase: Supabase,
   studentId: string,
   senseId: string,
+  skill: Skill,
   lastOutcome: string | null,
   compute: (prev: { stage: Stage; intervalDays: number } | null) => SrsNext,
 ) {
@@ -57,14 +65,14 @@ async function updateWordState(
     .select("stage, interval_days")
     .eq("student_id", studentId)
     .eq("sense_id", senseId)
-    .eq("skill", "write")
+    .eq("skill", skill)
     .maybeSingle();
   const next = compute(row ? { stage: row.stage as Stage, intervalDays: Number(row.interval_days) } : null);
   const { error } = await supabase.from("student_word_state").upsert(
     {
       student_id: studentId,
       sense_id: senseId,
-      skill: "write",
+      skill,
       stage: next.stage,
       interval_days: next.intervalDays,
       due_at: next.dueAt?.toISOString() ?? null,
@@ -95,8 +103,8 @@ export async function recordPracticeEvent(e: PracticeEventInput): Promise<boolea
     student_id: id,
     session_id: e.sessionId,
     sense_id: e.senseId,
-    skill: "write",
-    exercise: "strokes",
+    skill: e.skill ?? "write",
+    exercise: EXERCISE[e.skill ?? "write"],
     outcome: e.outcome,
     rating: e.rating,
     mistakes: e.mistakes,
@@ -111,7 +119,7 @@ export async function recordPracticeEvent(e: PracticeEventInput): Promise<boolea
     console.error("Evento del alumno:", error.message);
     return false;
   }
-  await updateWordState(supabase, id, e.senseId, e.outcome, (prev) => nextState(prev, e.outcome as SrsOutcome, e.rating, new Date()));
+  await updateWordState(supabase, id, e.senseId, e.skill ?? "write", e.outcome, (prev) => nextState(prev, e.outcome as SrsOutcome, e.rating, new Date()));
   return true;
 }
 
@@ -120,8 +128,8 @@ export async function recordPracticeEvent(e: PracticeEventInput): Promise<boolea
  * me la preguntes más» (fuera de la cola del todo). Queda como evento y como
  * marca; el estado de repaso se recalcula.
  */
-export async function markKnown(senseId: string, kind: "known" | "dismissed", sessionId: string): Promise<boolean> {
-  if (!UUID.test(senseId) || !UUID.test(sessionId) || !["known", "dismissed"].includes(kind)) return false;
+export async function markKnown(senseId: string, kind: "known" | "dismissed", sessionId: string, skill: Skill = "write"): Promise<boolean> {
+  if (!UUID.test(senseId) || !UUID.test(sessionId) || !["known", "dismissed"].includes(kind) || !SKILLS.includes(skill)) return false;
   const { supabase, id } = await userId();
   if (!id) return false;
   const session = await supabase.from("student_sessions").upsert({ id: sessionId, student_id: id }, { onConflict: "id", ignoreDuplicates: true });
@@ -132,12 +140,16 @@ export async function markKnown(senseId: string, kind: "known" | "dismissed", se
     return false;
   }
   const ev = await supabase.from("student_events").insert({
-    student_id: id, session_id: sessionId, sense_id: senseId, skill: "write", exercise: "strokes", outcome: "known",
+    student_id: id, session_id: sessionId, sense_id: senseId, skill, exercise: EXERCISE[skill], outcome: "known",
   });
   if (ev.error) console.error("Evento «ya la sé»:", ev.error.message);
-  await updateWordState(supabase, id, senseId, kind === "known" ? "known" : null, (prev) =>
-    kind === "known" ? nextState(prev, "known", null, new Date()) : dismissedState(prev),
-  );
+  if (kind === "known") {
+    // «Ya la sé» vale para la habilidad que se estaba practicando.
+    await updateWordState(supabase, id, senseId, skill, "known", (prev) => nextState(prev, "known", null, new Date()));
+  } else {
+    // «No me la preguntes más» saca la palabra de todos los ejercicios.
+    for (const s of SKILLS) await updateWordState(supabase, id, senseId, s, null, (prev) => dismissedState(prev));
+  }
   return true;
 }
 
@@ -147,7 +159,7 @@ export async function clearKnown(senseId: string): Promise<boolean> {
   const { supabase, id } = await userId();
   if (!id) return false;
   await supabase.from("student_known_flags").delete().eq("student_id", id).eq("sense_id", senseId);
-  await updateWordState(supabase, id, senseId, null, () => ({ stage: "fragile", intervalDays: 0, dueAt: new Date() }));
+  for (const skill of SKILLS) await updateWordState(supabase, id, senseId, skill, null, () => ({ stage: "fragile", intervalDays: 0, dueAt: new Date() }));
   return true;
 }
 

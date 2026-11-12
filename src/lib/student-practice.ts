@@ -1,38 +1,36 @@
 import "server-only";
 
+import type { Skill } from "@/actions/student";
 import { allPages } from "./in-chunks";
-import { parseAmount, parseSource, pickForPractice, type PickState } from "./practice-pick";
+import { parseAmount, parseSource, pickForPractice, themeGroup, type PickState, type ThemeGroup } from "./practice-pick";
 import { createClient } from "./supabase/server";
 
 // Material de práctica del alumno: el del sistema (niveles HSK y temas). El
 // alumno elige la fuente y cuántas palabras; aquí se deciden cuáles.
 
-export type Theme = { id: string; title: string; description: string | null; words: number };
+/** Los temas son las plantillas del sistema (colecciones sin dueño), sin las de nivel HSK. */
+export type Theme = { id: string; title: string; description: string | null; words: number; group: ThemeGroup };
 
-/** Los temas son las plantillas del sistema (colecciones sin dueño). */
 export async function listThemes(): Promise<Theme[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("collections")
-    .select("id, title, description, lessons(archived_at, lesson_items(count))")
+    .select("id, title, description, source_note, lessons(archived_at, lesson_items(count))")
     .is("owner_id", null)
     .order("title");
   if (error) throw error;
-  type Row = { id: string; title: string; description: string | null; lessons: { archived_at: string | null; lesson_items: { count: number }[] }[] };
-  return (data as unknown as Row[])
-    .map((c) => ({
-      id: c.id,
-      title: c.title,
-      description: c.description,
-      words: c.lessons.filter((l) => !l.archived_at).reduce((n, l) => n + (l.lesson_items[0]?.count ?? 0), 0),
-    }))
-    .filter((t) => t.words > 0);
+  type Row = { id: string; title: string; description: string | null; source_note: string | null; lessons: { archived_at: string | null; lesson_items: { count: number }[] }[] };
+  return (data as unknown as Row[]).flatMap((c) => {
+    const group = themeGroup(c.source_note);
+    const words = c.lessons.filter((l) => !l.archived_at).reduce((n, l) => n + (l.lesson_items[0]?.count ?? 0), 0);
+    return group && words > 0 ? [{ id: c.id, title: c.title, description: c.description, words, group }] : [];
+  });
 }
 
-async function writeStates(): Promise<Map<string, PickState>> {
+async function skillStates(skill: Skill): Promise<Map<string, PickState>> {
   const supabase = await createClient();
   const rows = await allPages<{ sense_id: string; stage: string; due_at: string | null }>(
-    (from, to) => supabase.from("student_word_state").select("sense_id, stage, due_at").eq("skill", "write").range(from, to) as unknown as PromiseLike<{ data: { sense_id: string; stage: string; due_at: string | null }[] | null; error: unknown }>,
+    (from, to) => supabase.from("student_word_state").select("sense_id, stage, due_at").eq("skill", skill).range(from, to) as unknown as PromiseLike<{ data: { sense_id: string; stage: string; due_at: string | null }[] | null; error: unknown }>,
   );
   return new Map(rows.map((r) => [r.sense_id, { stage: r.stage, dueAt: r.due_at }]));
 }
@@ -40,12 +38,12 @@ async function writeStates(): Promise<Map<string, PickState>> {
 export type PracticePlan = { title: string; senseIds: string[]; /** La fuente no tiene palabras nuevas ni por repasar. */ done: boolean };
 
 /** Arma la práctica de `n` palabras de una fuente (`hsk-3`, `tema-<id>`). null si la fuente no es válida. */
-export async function planPractice(sourceParam: string | undefined, amountParam: string | undefined): Promise<PracticePlan | null> {
+export async function planPractice(sourceParam: string | undefined, amountParam: string | undefined, skill: Skill): Promise<PracticePlan | null> {
   const source = parseSource(sourceParam);
   if (!source) return null;
   const n = parseAmount(amountParam);
   const supabase = await createClient();
-  const states = await writeStates();
+  const states = await skillStates(skill);
   const now = new Date();
 
   if (source.kind === "hsk") {

@@ -23,9 +23,11 @@ export type Prefs = {
   /** Mientras escribe, mostrar el significado y/o el pinyin (con sus tonos) sobre la cuadrícula. */
   showMeaning: boolean;
   showPinyin: boolean;
+  /** En la tarjeta de estudio, mostrar el pinyin ya en el frente (por defecto no: se reconoce primero). */
+  studyPinyin: boolean;
 };
 
-function createStore<T>(key: string, fallback: T, valid: (value: unknown) => value is T) {
+function createStore<T>(key: string, fallback: T, valid: (value: unknown) => value is T, normalize?: (value: T) => T) {
   const listeners = new Set<() => void>();
   let cache: T | null = null;
   const read = (): T => {
@@ -35,7 +37,7 @@ function createStore<T>(key: string, fallback: T, valid: (value: unknown) => val
       const raw = localStorage.getItem(key);
       if (raw) {
         const parsed: unknown = JSON.parse(raw);
-        if (valid(parsed)) value = parsed;
+        if (valid(parsed)) value = normalize ? normalize(parsed) : parsed;
       }
     } catch {}
     cache = value;
@@ -58,7 +60,7 @@ function createStore<T>(key: string, fallback: T, valid: (value: unknown) => val
   };
 }
 
-const DEFAULT_PREFS: Prefs = { mode: "guide", after: "detail", showMeaning: true, showPinyin: true };
+const DEFAULT_PREFS: Prefs = { mode: "guide", after: "detail", showMeaning: true, showPinyin: true, studyPinyin: false };
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null;
 
 export const prefsStore = createStore<Prefs>(
@@ -67,9 +69,9 @@ export const prefsStore = createStore<Prefs>(
   (v): v is Prefs =>
     isObject(v) &&
     ["guide", "free", "random"].includes(v.mode as string) &&
-    ["detail", "practice"].includes(v.after as string) &&
-    typeof v.showMeaning === "boolean" &&
-    typeof v.showPinyin === "boolean",
+    ["detail", "practice"].includes(v.after as string),
+  // Ajustes guardados antes de que existieran los nuevos: se completan, no se pierden.
+  (v) => ({ ...DEFAULT_PREFS, ...v }),
 );
 
 const NO_PROGRESS: Record<string, PracticeRecord> = {};

@@ -16,6 +16,15 @@
 - Curvas de tono bajo el pinyin; mostrar significado y pinyin mientras escribe.
 - Exportar el avance en JSON (`/estudiante/exportar`).
 - Valoración de 4 botones (ya existía: columna `rating`).
+- **Practicar con el material del sistema** (2026-11-12): `/estudiante` elige
+  ejercicio, cantidad (10, 20 o 40) y fuente (nivel HSK o tema; los temas se
+  agrupan por la nota de origen y las plantillas «Temario oficial» no salen,
+  porque duplican los niveles).
+- **Ejercicio «Estudiar» (tarjeta):** el hanzi se dibuja trazo a trazo, el alumno
+  lo reconoce, muestra la respuesta (lecturas con frases) y se valora. Es la
+  habilidad `recognize` (ejercicio `card`); «Escribir» (trazos) es la habilidad
+  `write`. Cada una lleva su estado y su cola de repaso. «No me la preguntes
+  más» saca la palabra de las dos.
 
 ## Guardado, para después
 

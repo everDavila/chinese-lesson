@@ -1,6 +1,7 @@
 import "server-only";
 
 import { createClient } from "./supabase/server";
+import type { Skill } from "@/actions/student";
 import { getStars } from "./student-progress";
 
 // Resumen del avance del alumno, calculado al vuelo desde sus eventos (no hay
@@ -89,12 +90,12 @@ export async function getStudentStats(): Promise<StudentStats> {
 export type DueWord = { senseId: string; hanzi: string; pinyin: string; meaningEs: string; dueAt: string; fragile: boolean };
 
 /** Palabras que toca repasar ya: vencidas y no descartadas, las más atrasadas primero. */
-export async function getDueWords(limit = 30): Promise<DueWord[]> {
+export async function getDueWords(skill: Skill, limit = 30): Promise<DueWord[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("student_word_state")
     .select("sense_id, stage, due_at, senses(pinyin, meaning_es, words(hanzi))")
-    .eq("skill", "write")
+    .eq("skill", skill)
     .neq("stage", "dismissed")
     .lte("due_at", new Date().toISOString())
     .order("due_at", { ascending: true })

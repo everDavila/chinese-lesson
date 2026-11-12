@@ -48,9 +48,11 @@ async function Tracker({
   const sp = await searchParams;
   const level = LEVELS.find((l) => String(l) === sp.nivel) ?? 1;
   const dots = sp.vista === "puntos";
-  const words = await getLevelWords(level);
+  const skill = sp.habilidad === "escribir" ? "write" : "recognize";
+  const words = await getLevelWords(level, skill);
   const count = (s: WordStatus) => words.filter((w) => w.status === s).length;
-  const href = (nivel: number, vista: boolean) => `/estudiante/progreso?nivel=${nivel}${vista ? "&vista=puntos" : ""}`;
+  const habilidad = skill === "write" ? "&habilidad=escribir" : "";
+  const href = (nivel: number, vista: boolean, h = habilidad) => `/estudiante/progreso?nivel=${nivel}${vista ? "&vista=puntos" : ""}${h}`;
   const pill = "rounded-full px-4 py-1.5 text-sm font-medium transition-colors hover:bg-muted";
 
   return (
@@ -60,6 +62,11 @@ async function Tracker({
           <Link href="/" className="text-sm text-primary hover:underline">{t("trackerBack")}</Link>
           <h1 className="text-3xl font-semibold">{t("trackerTitle")}</h1>
         </header>
+
+        <nav aria-label={t("skillLabel")} className="flex w-fit gap-1 rounded-full border border-border p-1">
+          <Link href={href(level, dots, "")} aria-current={skill === "recognize" ? "page" : undefined} className={cn(pill, skill === "recognize" && "bg-primary text-primary-foreground hover:bg-primary")}>{t("skillRecognize")}</Link>
+          <Link href={href(level, dots, "&habilidad=escribir")} aria-current={skill === "write" ? "page" : undefined} className={cn(pill, skill === "write" && "bg-primary text-primary-foreground hover:bg-primary")}>{t("skillWrite")}</Link>
+        </nav>
 
         <nav aria-label={t("levelPicker")} className="flex flex-wrap gap-1">
           {LEVELS.map((l) => (

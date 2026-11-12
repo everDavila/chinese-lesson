@@ -1,5 +1,6 @@
 import "server-only";
 
+import type { Skill } from "@/actions/student";
 import { masteryStars, type Stage } from "./srs";
 import { createClient } from "./supabase/server";
 import { computeStreak, dayKey, lastDays } from "./student-time";
@@ -35,7 +36,7 @@ export type LevelProgress = { level: number; total: number; mastered: number; in
 
 type StateWithLevel = { sense_id: string; stage: Stage; senses: { word_levels: { level: number; standard: string }[] } | null };
 
-export async function getLevelProgress(): Promise<LevelProgress[]> {
+export async function getLevelProgress(skill: Skill): Promise<LevelProgress[]> {
   const supabase = await createClient();
   const [totals, states] = await Promise.all([
     Promise.all(
@@ -47,6 +48,7 @@ export async function getLevelProgress(): Promise<LevelProgress[]> {
       supabase
         .from("student_word_state")
         .select("sense_id, stage, senses(word_levels(level, standard))")
+        .eq("skill", skill)
         .range(from, to) as unknown as PromiseLike<{ data: StateWithLevel[] | null }>,
     ),
   ]);
@@ -80,7 +82,7 @@ export async function getLevelProgress(): Promise<LevelProgress[]> {
 // ── Rastreador de un nivel ──────────────────────────────────────────────
 export type TrackedWord = { senseId: string; hanzi: string; status: WordStatus };
 
-export async function getLevelWords(level: number): Promise<TrackedWord[]> {
+export async function getLevelWords(level: number, skill: Skill): Promise<TrackedWord[]> {
   const supabase = await createClient();
   const [words, states] = await Promise.all([
     pageAll<{ sense_id: string | null; words: { hanzi: string } | { hanzi: string }[] | null }>((from, to) =>
@@ -93,7 +95,7 @@ export async function getLevelWords(level: number): Promise<TrackedWord[]> {
         .range(from, to) as unknown as PromiseLike<{ data: { sense_id: string | null; words: { hanzi: string } | { hanzi: string }[] | null }[] | null }>,
     ),
     pageAll<{ sense_id: string; stage: Stage }>((from, to) =>
-      supabase.from("student_word_state").select("sense_id, stage").range(from, to) as unknown as PromiseLike<{ data: { sense_id: string; stage: Stage }[] | null }>,
+      supabase.from("student_word_state").select("sense_id, stage").eq("skill", skill).range(from, to) as unknown as PromiseLike<{ data: { sense_id: string; stage: Stage }[] | null }>,
     ),
   ]);
   const stages = new Map<string, Stage[]>();
@@ -152,7 +154,7 @@ export async function getBookmarkIds(supabase?: Supabase): Promise<string[]> {
   return rows.map((r) => r.sense_id);
 }
 
-/** Estrellas (0–3) de la habilidad de escritura para unas palabras. */
+/** Estrellas (0–3) de unas palabras: la mejor de sus habilidades. */
 export async function getStars(senseIds: string[]): Promise<Map<string, 0 | 1 | 2 | 3>> {
   const out = new Map<string, 0 | 1 | 2 | 3>();
   if (!senseIds.length) return out;
@@ -160,10 +162,10 @@ export async function getStars(senseIds: string[]): Promise<Map<string, 0 | 1 | 
   const { data } = await supabase
     .from("student_word_state")
     .select("sense_id, stage, interval_days")
-    .eq("skill", "write")
     .in("sense_id", senseIds);
   for (const r of (data ?? []) as { sense_id: string; stage: Stage; interval_days: number }[]) {
-    out.set(r.sense_id, masteryStars({ stage: r.stage, intervalDays: Number(r.interval_days) }));
+    const stars = masteryStars({ stage: r.stage, intervalDays: Number(r.interval_days) });
+    out.set(r.sense_id, Math.max(out.get(r.sense_id) ?? 0, stars) as 0 | 1 | 2 | 3);
   }
   return out;
 }

@@ -46,7 +46,7 @@ test("estrellas de dominio", () => {
   assert.equal(masteryStars({ stage: "dismissed", intervalDays: 80 }), 0);
 });
 
-import { parseAmount, parseSource, pickForPractice } from "../../src/lib/practice-pick.ts";
+import { parseAmount, parseExercise, parseSource, pickForPractice, skillOf, themeGroup } from "../../src/lib/practice-pick.ts";
 
 test("práctica: primero lo vencido, luego lo nuevo; sin programadas ni descartadas", () => {
   const now = new Date("2026-11-12T12:00:00Z");
@@ -73,4 +73,23 @@ test("práctica: fuente y cantidad válidas", () => {
   assert.equal(parseAmount("40"), 40);
   assert.equal(parseAmount("7"), 20);
   assert.equal(parseAmount(undefined), 20);
+});
+
+test("temas: se agrupan por la nota de origen y los niveles HSK no son temas", () => {
+  assert.equal(themeGroup("Temario oficial HSK 3.0, nivel 2, en lecciones de 20"), null);
+  assert.equal(themeGroup("Vocabulario HSK 3.0 por contexto (nivel 1–3)."), "situations");
+  assert.equal(themeGroup("Lista manual por tema, sobre el temario HSK 3.0"), "topics");
+  assert.equal(themeGroup("Lista manual por función, sobre el temario HSK 3.0"), "functions");
+  assert.equal(themeGroup("Generada por regla desde la categoría del temario"), "wordTypes");
+  assert.equal(themeGroup("Lista manual sobre el temario HSK 3.0 (niveles 1–3)"), "wordTypes");
+  assert.equal(themeGroup("Lista del libro de la profesora, dada por Ever"), "other");
+  assert.equal(themeGroup(null), "other");
+});
+
+test("ejercicio: tarjeta por defecto y su habilidad", () => {
+  assert.equal(parseExercise(undefined), "card");
+  assert.equal(parseExercise("escribir"), "write");
+  assert.equal(parseExercise("otra"), "card");
+  assert.equal(skillOf("card"), "recognize");
+  assert.equal(skillOf("write"), "write");
 });
