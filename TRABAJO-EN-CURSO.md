@@ -27,9 +27,10 @@ rastreador, meta y exportar): nada de eso se vio aún en navegador.
 la profesora: salud y cuerpo» (`contenido/colecciones/libro-salud-cuerpo.json`,
 `scripts/crear-coleccion.mjs`) y sus frases y palabras extra
 (`contenido/frases-extra-2026-11-11.json`, `contenido/palabras-extra-2026-11-11.json`).
-Falta `scripts/cargar-palabras-extra.mjs` (lo menciona el JSON y no existe) y no
-está comprobado que algo se haya cargado en `hanzi-dev` ni en producción.
-Frases y traducciones sin revisar.
+El cargador `scripts/cargar-palabras-extra.mjs` ya existe (corrección: una versión
+anterior de este aviso decía que faltaba). Lo que no está comprobado es si algo se
+cargó en `hanzi-dev` o en producción con estos archivos, ni si
+`scripts/crear-coleccion.mjs --apply` se corrió. Frases y traducciones sin revisar.
 
 ## Al empezar en una PC
 
