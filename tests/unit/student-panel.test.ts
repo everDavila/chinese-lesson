@@ -45,3 +45,32 @@ test("estrellas de dominio", () => {
   assert.equal(masteryStars({ stage: "mastered", intervalDays: 80 }), 3);
   assert.equal(masteryStars({ stage: "dismissed", intervalDays: 80 }), 0);
 });
+
+import { parseAmount, parseSource, pickForPractice } from "../../src/lib/practice-pick.ts";
+
+test("práctica: primero lo vencido, luego lo nuevo; sin programadas ni descartadas", () => {
+  const now = new Date("2026-11-12T12:00:00Z");
+  const states = new Map([
+    ["a", { stage: "mastered", dueAt: "2026-12-01T00:00:00Z" }], // programada: fuera
+    ["b", { stage: "fragile", dueAt: "2026-11-12T11:00:00Z" }], // vencida
+    ["c", { stage: "dismissed", dueAt: null }], // descartada: fuera
+    ["d", { stage: "fragile", dueAt: "2026-11-10T00:00:00Z" }], // vencida, más atrasada
+  ]);
+  const ids = ["a", "b", "c", "d", "e", "f", "g"];
+  assert.deepEqual(pickForPractice(ids, states, 10, now), ["d", "b", "e", "f", "g"]);
+  assert.deepEqual(pickForPractice(ids, states, 3, now), ["d", "b", "e"]);
+  assert.deepEqual(pickForPractice(["a", "c"], states, 5, now), []);
+  assert.deepEqual(pickForPractice(["e", "e", "f"], states, 5, now), ["e", "f"]);
+});
+
+test("práctica: fuente y cantidad válidas", () => {
+  assert.deepEqual(parseSource("hsk-3"), { kind: "hsk", level: 3 });
+  assert.deepEqual(parseSource("hsk-7"), { kind: "hsk", level: 7 });
+  assert.equal(parseSource("hsk-8"), null);
+  assert.equal(parseSource("tema-no-es-uuid"), null);
+  assert.deepEqual(parseSource("tema-3f2a1b4c-0000-4000-8000-000000000001"), { kind: "theme", id: "3f2a1b4c-0000-4000-8000-000000000001" });
+  assert.equal(parseSource(undefined), null);
+  assert.equal(parseAmount("40"), 40);
+  assert.equal(parseAmount("7"), 20);
+  assert.equal(parseAmount(undefined), 20);
+});

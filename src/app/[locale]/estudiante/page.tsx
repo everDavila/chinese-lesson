@@ -1,18 +1,23 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { PracticePicker } from "@/components/student/practice-picker";
 import { StudentCard } from "@/components/student/student-card";
 import { StudentShell } from "@/components/student/student-shell";
-import { getDemoLesson } from "@/lib/demo-lesson";
-import { getBookmarkIds } from "@/lib/student-progress";
-import { getDueWords, getStudentStats } from "@/lib/student-stats";
 import { Link } from "@/i18n/navigation";
+import { hskLevelCounts } from "@/lib/content";
 import { requireProfile } from "@/lib/guard";
+import { getPracticeLesson } from "@/lib/lessons";
+import { PRACTICE_AMOUNTS, DEFAULT_AMOUNT } from "@/lib/practice-pick";
+import { getBookmarkIds } from "@/lib/student-progress";
+import { listThemes, planPractice } from "@/lib/student-practice";
+import { getDueWords, getStudentStats } from "@/lib/student-stats";
 
-// Práctica del alumno: la tarjeta de trazos sobre la lección de ejemplo, ya
-// dentro del espacio del alumno (el piloto sigue en /lab/estudiante). Pide
-// sesión: sin ella, al login.
+// Práctica del alumno. Sin parámetros: elige qué practicar (nivel HSK o tema
+// del sistema) y cuántas palabras. Con ?fuente=hsk-1&n=20 o
+// ?fuente=tema-<id>&n=20 abre la tarjeta con esas palabras. ?repaso=1
+// (vencidas), ?repaso=dificiles o ?repaso=favoritas practican esas palabras,
+// vengan del nivel o tema que vengan. Pide sesión: sin ella, al login.
 export const metadata: Metadata = {
   title: "Practicar · Renshi",
   robots: { index: false },
@@ -36,50 +41,66 @@ async function Practice({
   const { locale } = await params;
   setRequestLocale(locale);
   const profile = await requireProfile();
-  let lesson = await getDemoLesson();
-  if (!lesson) notFound();
+  const t = await getTranslations("StudentWorkspace");
+  const sp = await searchParams;
+  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
+  const shell = (children: React.ReactNode) => <StudentShell name={profile.displayName}>{children}</StudentShell>;
+  const empty = (title: string, text: string) =>
+    shell(
+      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-4 px-4 py-16 text-center">
+        <h1 className="text-2xl font-semibold">{title}</h1>
+        <p className="text-muted-foreground">{text}</p>
+        <Link href="/estudiante" className="text-primary hover:underline">{t("pickBack")}</Link>
+      </main>,
+    );
 
-  // ?repaso=1 (vencidas), ?repaso=dificiles (las que más fallan) o
-  // ?repaso=favoritas: solo esas palabras. Hoy todas salen de la lección de
-  // ejemplo; cuando haya colecciones de estudio, aquí se arma la lección con
-  // los sentidos elegidos.
   const bookmarks = await getBookmarkIds();
-  const mode = (await searchParams).repaso;
-  if (mode) {
-    let ids: string[];
-    let title: string;
-    let empty: { title: string; text: string };
-    if (mode === "dificiles") {
-      ids = (await getStudentStats()).hardIds;
-      title = "Palabras difíciles";
-      empty = { title: "Ninguna te está costando", text: "Cuando una palabra te siga fallando, aparecerá aquí para repasarla." };
-    } else if (mode === "favoritas") {
-      ids = bookmarks;
-      title = "Favoritas";
-      empty = { title: "Aún no tienes favoritas", text: "Toca el corazón mientras practicas para guardar una palabra." };
+  let title: string | null = null;
+  let senseIds: string[] = [];
+
+  const repaso = one(sp.repaso);
+  if (repaso) {
+    if (repaso === "dificiles") {
+      senseIds = (await getStudentStats()).hardIds;
+      title = t("modeHard");
+      if (!senseIds.length) return empty(t("hardEmptyTitle"), t("hardEmptyText"));
+    } else if (repaso === "favoritas") {
+      senseIds = bookmarks;
+      title = t("favTitle");
+      if (!senseIds.length) return empty(t("favEmptyTitle"), t("favNone"));
     } else {
-      ids = (await getDueWords()).map((d) => d.senseId);
-      title = "Repaso de hoy";
-      empty = { title: "Estás al día", text: "No tienes palabras por repasar ahora. Vuelve más tarde o practica otras." };
+      senseIds = (await getDueWords()).map((d) => d.senseId);
+      title = t("modeDue");
+      if (!senseIds.length) return empty(t("reviewUpToDate"), t("reviewNone"));
     }
-    const order = new Map(ids.map((id, i) => [id, i]));
-    const items = lesson.items.filter((it) => it.senseId && order.has(it.senseId)).sort((a, b) => order.get(a.senseId!)! - order.get(b.senseId!)!);
-    if (!items.length) {
-      return (
-        <StudentShell name={profile.displayName}>
-          <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-4 px-4 py-16 text-center">
-            <h1 className="text-2xl font-semibold">{empty.title}</h1>
-            <p className="text-muted-foreground">{empty.text}</p>
-            <Link href="/estudiante" className="text-primary hover:underline">Practicar la lección</Link>
-          </main>
-        </StudentShell>
-      );
-    }
-    lesson = { ...lesson, title, items };
+  } else if (one(sp.fuente)) {
+    const plan = await planPractice(one(sp.fuente), one(sp.n));
+    if (!plan) return empty(t("pickInvalid"), t("pickInvalidText"));
+    if (plan.done) return empty(t("pickDoneTitle"), t("pickDoneText"));
+    title = plan.title;
+    senseIds = plan.senseIds;
   }
-  return (
-    <StudentShell name={profile.displayName}>
-      <StudentCard lesson={lesson} signedIn bookmarked={bookmarks} />
-    </StudentShell>
-  );
+
+  if (title === null) {
+    const [counts, themes] = await Promise.all([hskLevelCounts(), listThemes()]);
+    const levels = [1, 2, 3, 4, 5, 6, 7].map((l) => ({
+      value: `hsk-${l}`,
+      title: l === 7 ? t("levelBand") : t("levelName", { n: l }),
+      hint: t("pickWords", { n: counts[l] ?? 0 }),
+    }));
+    const themeOptions = themes.map((th) => ({ value: `tema-${th.id}`, title: th.title, hint: t("pickWords", { n: th.words }) }));
+    return shell(
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-8 sm:px-6">
+        <header>
+          <h1 className="text-3xl font-semibold">{t("pickTitle")}</h1>
+          <p className="mt-1 text-muted-foreground">{t("pickHint")}</p>
+        </header>
+        <PracticePicker levels={levels} themes={themeOptions} amounts={[...PRACTICE_AMOUNTS]} defaultAmount={DEFAULT_AMOUNT} />
+      </main>,
+    );
+  }
+
+  const lesson = await getPracticeLesson(title, senseIds);
+  if (!lesson) return empty(t("pickInvalid"), t("pickInvalidText"));
+  return shell(<StudentCard key={`${title}:${senseIds.join(",")}`} lesson={lesson} signedIn bookmarked={bookmarks} />);
 }

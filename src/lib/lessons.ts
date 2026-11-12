@@ -313,6 +313,25 @@ export async function getLesson(lessonId: string, opts: { sessionId?: string } =
   return buildLesson(lesson.title, items);
 }
 
+/**
+ * Lección de práctica del alumno: las palabras dadas, en ese orden, con las
+ * frases de la base (sin las de ninguna docente). null si no hay ninguna.
+ */
+export async function getPracticeLesson(title: string, senseIds: string[]): Promise<Lesson | null> {
+  const ids = [...new Set(senseIds)];
+  if (!ids.length) return null;
+  const supabase = await createClient();
+  const rows = await inChunks(ids, (part) => supabase.from("senses").select(`id, words(${WORD_SELECT})`).in("id", part));
+  const wordOf = new Map(
+    (rows as unknown as { id: string; words: WordRow | WordRow[] | null }[]).map((r) => [r.id, Array.isArray(r.words) ? r.words[0] : r.words]),
+  );
+  const items = ids.flatMap((senseId) => {
+    const word = wordOf.get(senseId);
+    return word ? [{ senseId, word }] : [];
+  });
+  return items.length ? buildLesson(title, items) : null;
+}
+
 const keyOf = (t: SentenceRow) => t.key ?? (t.id ? `s:${t.id}` : "");
 
 // En una clase en vivo, cada sentido muestra solo las frases elegidas al
