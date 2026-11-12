@@ -810,3 +810,28 @@ la barra que se oculta a los 3 s no se probó en una clase real.
 4. `04-editor-admin-antes.png` — Editor del admin antes: cajas dentro de cajas. / Admin editor before: boxes inside boxes.
 5. `05-editor-admin-despues-estrella-y-flechas.png` — Después: estrella de frase maestra y flechas de orden. / After: master-sentence star and order arrows.
 6. `06-tarjeta-con-frase-maestra.png` — 我想家 como frase maestra en la tarjeta. / 我想家 as the master sentence on the card.
+
+## 2026-11-12 · Panel del alumno a producción
+
+Integrada la rama `estudiante-tarjeta` (12 commits): eventos y sesiones del
+alumno con cuenta, cola de repaso con repetición espaciada («ya la sé» con
+chequeo esporádico, «no me la preguntes más»), panel con racha, meta diaria,
+favoritas, palabras difíciles, progreso por nivel HSK y rastreador, y exportar el
+avance. Ideas tomadas de capturas de tres apps de estudio: qué se hizo, qué se
+guarda y qué se descarta, en `docs/PANEL-ALUMNO-IDEAS.md`.
+
+**Producción.** Respaldo (`backups/supabase-2026-11-12T0446.json`) → `db push` de
+las 4 migraciones `20261109…` (lo corrió Ever: el clasificador bloqueó el paso a
+producción) → `migration list` sin pendientes → merge a `master` (`5d475e4`) →
+despliegue en Vercel en `success`. En producción, sin sesión: la exportación
+responde 401; `/es/estudiante/progreso` responde 200 (no se comprobó la
+redirección al login).
+
+**Decisiones del día.** Favoritas en tabla aparte de `student_known_flags` (su
+clave impide «sabida» y favorita a la vez). Meta diaria en `student_settings`, no
+en `profiles`, para no tocar sus permisos. El día de la racha se corta en
+`America/Lima`.
+
+**Sin probar / pendiente:** flujo en navegador (contraste, nivel 7 con ~5600
+casillas, meta, corazón, exportar), Playwright, y que un alumno nuevo entre por
+enlace mágico en producción. Colecciones de estudio sin empezar.

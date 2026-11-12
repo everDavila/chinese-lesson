@@ -1,0 +1,89 @@
+{
+  "nota": "Frases para completar 3 por palabra en el vocabulario del libro de la profesora (pedido de Ever, 2026-11-11). Salen de las que pegó Ever; el inglés es nuestro. Las palabras con 0 frases reciben 3; las que tenían 2 reciben 1. Origen ai, sin revisar. Se cargan con scripts/agregar-frases.mjs: solo se agregan frases que no existan y notas en campos vacíos.",
+  "palabras": [
+    {
+      "hanzi": "全",
+      "sentences": [
+        { "zh": "全家都来了。", "pinyin": "Quán jiā dōu lái le.", "es": "Toda la familia vino.", "en": "The whole family came." },
+        { "zh": "我的朋友全来了。", "pinyin": "Wǒ de péngyou quán lái le.", "es": "Todos mis amigos vinieron.", "en": "All my friends came." },
+        { "zh": "这些书全是我的。", "pinyin": "Zhèxiē shū quán shì wǒ de.", "es": "Todos estos libros son míos.", "en": "All these books are mine." }
+      ]
+    },
+    {
+      "hanzi": "心脏",
+      "sentences": [
+        { "zh": "他的心脏不好。", "pinyin": "Tā de xīnzàng bù hǎo.", "es": "Él tiene problemas del corazón.", "en": "His heart is not healthy." },
+        { "zh": "我的心脏跳得很快。", "pinyin": "Wǒ de xīnzàng tiào de hěn kuài.", "es": "Mi corazón late muy rápido.", "en": "My heart is beating very fast." },
+        { "zh": "医生检查了我的心脏。", "pinyin": "Yīshēng jiǎnchá le wǒ de xīnzàng.", "es": "El médico revisó mi corazón.", "en": "The doctor examined my heart." }
+      ]
+    },
+    {
+      "hanzi": "嗓子",
+      "sentences": [
+        { "zh": "我嗓子疼。", "pinyin": "Wǒ sǎngzi téng.", "es": "Me duele la garganta.", "en": "My throat hurts." },
+        { "zh": "她的嗓子不舒服。", "pinyin": "Tā de sǎngzi bù shūfu.", "es": "Ella tiene molestias en la garganta.", "en": "Her throat feels uncomfortable." },
+        { "zh": "我的嗓子好多了。", "pinyin": "Wǒ de sǎngzi hǎo duō le.", "es": "Mi garganta está mucho mejor.", "en": "My throat is much better." }
+      ]
+    },
+    {
+      "hanzi": "感觉",
+      "sentences": [
+        { "zh": "我感觉很好。", "pinyin": "Wǒ gǎnjué hěn hǎo.", "es": "Me siento muy bien.", "en": "I feel very good." },
+        { "zh": "你感觉怎么样？", "pinyin": "Nǐ gǎnjué zěnmeyàng?", "es": "¿Cómo te sientes?", "en": "How do you feel?" },
+        { "zh": "我感觉有点儿冷。", "pinyin": "Wǒ gǎnjué yǒudiǎnr lěng.", "es": "Siento un poco de frío.", "en": "I feel a bit cold." }
+      ]
+    },
+    {
+      "hanzi": "发炎",
+      "sentences": [
+        { "zh": "我的喉咙发炎了。", "pinyin": "Wǒ de hóulóng fāyán le.", "es": "Tengo la garganta inflamada.", "en": "My throat is inflamed." },
+        { "zh": "他的伤口发炎了。", "pinyin": "Tā de shāngkǒu fāyán le.", "es": "Su herida se ha inflamado.", "en": "His wound has become inflamed." },
+        { "zh": "我的眼睛发炎了。", "pinyin": "Wǒ de yǎnjing fāyán le.", "es": "Tengo el ojo inflamado.", "en": "My eye is inflamed." }
+      ]
+    },
+    {
+      "hanzi": "挂号",
+      "sentences": [
+        { "zh": "我要去医院挂号。", "pinyin": "Wǒ yào qù yīyuàn guàhào.", "es": "Voy al hospital a registrarme para una consulta.", "en": "I am going to the hospital to register for an appointment." },
+        { "zh": "我已经挂号了。", "pinyin": "Wǒ yǐjīng guàhào le.", "es": "Ya me registré para la consulta.", "en": "I have already registered." },
+        { "zh": "他在医院挂号。", "pinyin": "Tā zài yīyuàn guàhào.", "es": "Él se registra para una consulta en el hospital.", "en": "He is registering at the hospital." }
+      ]
+    },
+    {
+      "hanzi": "锻炼",
+      "sentences": [
+        { "zh": "我每天锻炼。", "pinyin": "Wǒ měitiān duànliàn.", "es": "Hago ejercicio todos los días.", "en": "I exercise every day." }
+      ]
+    },
+    {
+      "hanzi": "发烧",
+      "sentences": [
+        { "zh": "我发烧了。", "pinyin": "Wǒ fāshāo le.", "es": "Tengo fiebre.", "en": "I have a fever." }
+      ]
+    },
+    {
+      "hanzi": "生病",
+      "sentences": [
+        { "zh": "她生病了，在家休息。", "pinyin": "Tā shēngbìng le, zài jiā xiūxi.", "es": "Ella está enferma y descansa en casa.", "en": "She is ill and resting at home." }
+      ]
+    },
+    {
+      "hanzi": "看病",
+      "sentences": [
+        { "zh": "我去看病了。", "pinyin": "Wǒ qù kàn bìng le.", "es": "Fui al médico.", "en": "I went to see the doctor." }
+      ]
+    },
+    {
+      "hanzi": "住院",
+      "sentences": [
+        { "zh": "他住院了。", "pinyin": "Tā zhùyuàn le.", "es": "Él está hospitalizado.", "en": "He is in the hospital." }
+      ]
+    },
+    {
+      "hanzi": "感冒",
+      "nuance_es": "Para hablar específicamente de influenza, se usa 流感 (liúgǎn).",
+      "nuance_en": "For influenza specifically, use 流感 (liúgǎn).",
+      "sentences": []
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "collection": {
+    "title": "Libro de la profesora: salud y cuerpo",
+    "description": "Vocabulario de salud, dolores y rutina diaria de la lista de la profesora.",
+    "source_note": "Lista del libro de la profesora, dada por Ever el 2026-11-11. Solo la lista y su orden; las frases son generadas y sin revisar. Las expresiones fuera del temario van sin nivel HSK."
+  },
+  "lessons": [
+    {
+      "title": "Salud y malestares",
+      "words": ["全", "舒服", "腰疼", "腿疼", "头疼", "肩膀疼", "肚子疼", "心脏", "嗓子", "锻炼", "发烧", "生病", "医院", "看病", "穿衣服", "没问题", "给", "礼物", "感觉", "休息", "感冒", "发炎", "住院", "挂号", "有点儿", "起床"]
+    }
+  ]
+}

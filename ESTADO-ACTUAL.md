@@ -7,6 +7,17 @@
 - **Producción:** https://renshi.davila.uno (el producto se llama Renshi, 认识;
   https://hanzi.davila.uno redirige ahí y https://davila-hanzi.vercel.app sigue),
   desde `master`. Última versión estable etiquetada: `estable-2026-10-12`.
+- **En producción desde el 2026-11-12** (respaldo
+  `backups/supabase-2026-11-12T0446.json`; migraciones `20261109000000`–`20261109030000`
+  aplicadas antes del push): cuenta opcional del alumno (rol `student`, que ahora
+  es el rol por defecto: las docentes se crean con
+  `npm run db:crear-usuario -- --rol teacher`), restricciones RLS para que el alumno
+  no escriba en nada de docente, panel del alumno en `/` (racha, meta diaria, «Para
+  repasar», palabras difíciles, favoritas, progreso por nivel HSK), rastreador en
+  `/estudiante/progreso`, práctica con eventos y repetición espaciada, y exportar el
+  avance en JSON. Ideas guardadas y descartadas: `docs/PANEL-ALUMNO-IDEAS.md`. Sin
+  probar en navegador; el repaso solo cubre la lección de ejemplo hasta que existan
+  las colecciones de estudio.
 - **Funciona:** inicio docente en `/` para preparar la clase (lecciones y
   colecciones fijadas, lecciones recientes y acceso a edición; migración
   probada solo en `hanzi-dev`, pendiente de producción); docente en

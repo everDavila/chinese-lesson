@@ -4,13 +4,32 @@
 > repo**: al cambiar de PC, cada agente busca aquí su fila y sigue donde quedó.
 > Las carpetas (worktrees) no viajan con git; las ramas sí, si están subidas.
 
-## Aviso para la otra PC (2026-10-20)
+## Aviso para la otra PC (2026-11-12)
 
-**No hay nada pendiente: solo `git pull` en `chinese-lesson`.** Todo lo de hoy
-ya está en `master`, en producción (https://renshi.davila.uno) y con la
-migración `20261020000000_frase_maestra` aplicada en producción y en
-`hanzi-dev`. No apliques migraciones ni retomes `rediseno-tarjeta-profesor` ni
-`admin-editor-frases`: están integradas. No hace falta crear worktrees.
+**Haz `git pull` en `chinese-lesson`.** La rama `estudiante-tarjeta` está
+integrada en `master` y desplegada: cuenta y avance del alumno, panel (rastreador
+por nivel, racha, meta, favoritas, exportar) y las 4 migraciones
+`20261109000000`–`20261109030000`, aplicadas en producción (respaldo
+`backups/supabase-2026-11-12T0446.json`) y en `hanzi-dev`. No las reapliques ni
+retomes esa rama.
+
+**No viajan con git:** `.env.local` (producción) y `.env.dev.local` (dev), los
+respaldos de `backups/` y las carpetas de trabajo. Recrea los `.env` a mano;
+nunca los pegues en un chat.
+
+**Para retomar:** la lista de lo guardado y lo descartado está en
+[docs/PANEL-ALUMNO-IDEAS.md](docs/PANEL-ALUMNO-IDEAS.md); lo siguiente es
+**colecciones de estudio del alumno**. Antes, Ever prueba con un alumno en
+`npm run dev:base-dev` (practicar, fallar trazos, «Para repasar», favoritas,
+rastreador, meta y exportar): nada de eso se vio aún en navegador.
+
+**Trabajo de otra instancia, subido a medias (2026-11-12):** colección «Libro de
+la profesora: salud y cuerpo» (`contenido/colecciones/libro-salud-cuerpo.json`,
+`scripts/crear-coleccion.mjs`) y sus frases y palabras extra
+(`contenido/frases-extra-2026-11-11.json`, `contenido/palabras-extra-2026-11-11.json`).
+Falta `scripts/cargar-palabras-extra.mjs` (lo menciona el JSON y no existe) y no
+está comprobado que algo se haya cargado en `hanzi-dev` ni en producción.
+Frases y traducciones sin revisar.
 
 ## Al empezar en una PC
 
@@ -74,4 +93,3 @@ carpeta sí permite pisarse archivos, dependencias y cambios de rama.
 | Claude Code | `admin-editor-frases` | `claude-code-chinese-lesson-admin-editor-frases` | 3011 | Editor de palabra del admin: frase maestra con estrella (respetada por la rotación), reordenar frases, nombres iguales a la tarjeta y rediseño del formulario | Integrado a `master` y desplegado (2026-10-20): migración en producción, recorridos y suite visual en verde contra `hanzi-dev` |
 | Cline | `inicio-profesor` | `cline-chinese-lesson-inicio-profesor` | 3003 | Home del profesor previo a clase: pantalla donde ve sus recursos (colecciones, plantillas, lecciones) antes de presentar | Creado el worktree desde `master` (f79a28a), `.env`/sesiones copiados, `npm ci` OK (2026-10-16) |
 | Claude Code | `lab-gramatica` | `claude-code-chinese-lesson-lab-gramatica` | 3008 | Piloto `/lab/gramatica`: armar frases con 12 puntos de gramática HSK 1 (Gushi + consignas IA), revisión mínima y modo proyectar; sin base | Rama subida (`9e4be29`): piloto, franja de laboratorio para todo `/lab`, regla en `REGLAS-DESARROLLO.md` y bitácora. Consignas sin revisar; falta probarlo en celular y en clase (2026-10-19) |
-| Claude Code | `estudiante-tarjeta` | — | 3012 | Tarjeta del alumno en `/l/<código>` sin cuenta: frente con práctica de trazos (con guía, sin guía, aleatorio; varias celdas), autovaloración 1–4 y avance en `localStorage`; reverso como variante `student` de la tarjeta del profesor con pinyin y traducción reveladas por frase. Sin base de datos ni migraciones | Rama creada desde `master` (2026-10-23); diseño acordado con Ever, pendiente de ver mockups del frente. Segunda iteración: alternativas de pinyin con tonos |
