@@ -1,0 +1,89 @@
+{
+  "nota": "Expresiones del libro de la profesora (pedido de Ever, 2026-11-11) para la colección «Libro de la profesora: salud y cuerpo». No son entradas del temario HSK 3.0, así que van sin nivel. Frases y traducciones al español pegadas por Ever; el inglés es nuestro. Origen ai, sin revisar. Se carga con scripts/cargar-palabras-extra.mjs.",
+  "palabras": [
+    {
+      "hanzi": "腰疼",
+      "pinyin": "yāo téng",
+      "category": "set phrase",
+      "es": "dolor lumbar; dolor de cintura",
+      "en": "lower back pain",
+      "sentences": [
+        { "zh": "我腰疼。", "pinyin": "Wǒ yāo téng.", "es": "Me duele la parte baja de la espalda.", "en": "My lower back hurts." },
+        { "zh": "我妈妈腰疼。", "pinyin": "Wǒ māma yāo téng.", "es": "A mi mamá le duele la parte baja de la espalda.", "en": "My mom has lower back pain." },
+        { "zh": "我的腰有点儿疼。", "pinyin": "Wǒ de yāo yǒudiǎnr téng.", "es": "Me duele un poco la parte baja de la espalda.", "en": "My lower back hurts a little." }
+      ]
+    },
+    {
+      "hanzi": "腿疼",
+      "pinyin": "tuǐ téng",
+      "category": "set phrase",
+      "es": "dolor de pierna",
+      "en": "leg pain",
+      "sentences": [
+        { "zh": "我腿疼。", "pinyin": "Wǒ tuǐ téng.", "es": "Me duele la pierna.", "en": "My leg hurts." },
+        { "zh": "他的腿疼。", "pinyin": "Tā de tuǐ téng.", "es": "Le duele la pierna.", "en": "His leg hurts." },
+        { "zh": "我今天腿有点儿疼。", "pinyin": "Wǒ jīntiān tuǐ yǒudiǎnr téng.", "es": "Hoy me duele un poco la pierna.", "en": "My leg hurts a little today." }
+      ]
+    },
+    {
+      "hanzi": "头疼",
+      "pinyin": "tóu téng",
+      "category": "set phrase",
+      "es": "dolor de cabeza",
+      "en": "headache",
+      "sentences": [
+        { "zh": "我头疼。", "pinyin": "Wǒ tóu téng.", "es": "Me duele la cabeza.", "en": "I have a headache." },
+        { "zh": "她今天头疼。", "pinyin": "Tā jīntiān tóu téng.", "es": "A ella le duele la cabeza hoy.", "en": "She has a headache today." },
+        { "zh": "我有点儿头疼。", "pinyin": "Wǒ yǒudiǎnr tóu téng.", "es": "Me duele un poco la cabeza.", "en": "I have a bit of a headache." }
+      ]
+    },
+    {
+      "hanzi": "肩膀疼",
+      "pinyin": "jiānbǎng téng",
+      "category": "set phrase",
+      "es": "dolor de hombro",
+      "en": "shoulder pain",
+      "sentences": [
+        { "zh": "我肩膀疼。", "pinyin": "Wǒ jiānbǎng téng.", "es": "Me duele el hombro.", "en": "My shoulder hurts." },
+        { "zh": "爸爸的肩膀疼。", "pinyin": "Bàba de jiānbǎng téng.", "es": "A mi papá le duele el hombro.", "en": "Dad's shoulder hurts." },
+        { "zh": "我的肩膀有点儿疼。", "pinyin": "Wǒ de jiānbǎng yǒudiǎnr téng.", "es": "Me duele un poco el hombro.", "en": "My shoulder hurts a little." }
+      ]
+    },
+    {
+      "hanzi": "肚子疼",
+      "pinyin": "dùzi téng",
+      "category": "set phrase",
+      "es": "dolor de barriga; dolor de estómago",
+      "en": "stomachache",
+      "sentences": [
+        { "zh": "我肚子疼。", "pinyin": "Wǒ dùzi téng.", "es": "Me duele la barriga.", "en": "I have a stomachache." },
+        { "zh": "他今天肚子疼。", "pinyin": "Tā jīntiān dùzi téng.", "es": "Hoy a él le duele la barriga.", "en": "He has a stomachache today." },
+        { "zh": "我的肚子有点儿疼。", "pinyin": "Wǒ de dùzi yǒudiǎnr téng.", "es": "Me duele un poco la barriga.", "en": "My stomach hurts a little." }
+      ]
+    },
+    {
+      "hanzi": "穿衣服",
+      "pinyin": "chuān yīfu",
+      "category": "verb",
+      "es": "vestirse; ponerse la ropa",
+      "en": "to get dressed; to put on clothes",
+      "sentences": [
+        { "zh": "我早上七点穿衣服。", "pinyin": "Wǒ zǎoshang qī diǎn chuān yīfu.", "es": "Me visto a las siete de la mañana.", "en": "I get dressed at seven in the morning." },
+        { "zh": "他在穿衣服。", "pinyin": "Tā zài chuān yīfu.", "es": "Él se está vistiendo.", "en": "He is getting dressed." },
+        { "zh": "孩子自己穿衣服。", "pinyin": "Háizi zìjǐ chuān yīfu.", "es": "El niño se viste solo.", "en": "The child gets dressed by himself." }
+      ]
+    },
+    {
+      "hanzi": "没问题",
+      "pinyin": "méi wèntí",
+      "category": "set phrase",
+      "es": "no hay problema",
+      "en": "no problem",
+      "sentences": [
+        { "zh": "明天见，没问题。", "pinyin": "Míngtiān jiàn, méi wèntí.", "es": "Nos vemos mañana, no hay problema.", "en": "See you tomorrow, no problem." },
+        { "zh": "我可以帮你，没问题。", "pinyin": "Wǒ kěyǐ bāng nǐ, méi wèntí.", "es": "Puedo ayudarte, no hay problema.", "en": "I can help you, no problem." },
+        { "zh": "这样做没问题。", "pinyin": "Zhèyàng zuò méi wèntí.", "es": "No hay problema en hacerlo así.", "en": "There is no problem doing it this way." }
+      ]
+    }
+  ]
+}
