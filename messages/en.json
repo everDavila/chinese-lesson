@@ -33,7 +33,8 @@
     "createLesson": "Create lesson",
     "createCollection": "Create collection",
     "navLabel": "Preparation workspace",
-    "lab": "Lab"
+    "lab": "Lab",
+    "learn": "Learn"
   },
   "TeacherHome": {
     "eyebrow": "Your preparation workspace",
@@ -659,6 +660,26 @@
     "reviewDueCards": "{n, plural, one {# word to study.} other {# words to study.}}",
     "reviewDueWrite": "{n, plural, one {# word to write.} other {# words to write.}}",
     "reviewCtaCards": "Study now",
-    "reviewCtaWrite": "Write now"
+    "reviewCtaWrite": "Write now",
+    "learn": "Learn"
+  },
+  "Learn": {
+    "title": "Learn",
+    "intro": "How Chinese writing works: where characters come from and which rules they follow. Short readings, no quizzes. The text is in Spanish.",
+    "minutes": "{n} min read",
+    "chapters": "Chapters",
+    "previous": "Previous chapter",
+    "next": "Next chapter",
+    "signIn": "Sign in",
+    "publicInvite": "If you have a student account, sign in to practise these characters with your review queue.",
+    "listTitle": "HSK 1–3 pictogram list",
+    "listHint": "To review: clear, doubtful and dropped",
+    "listCounts": "Clear {clear} · doubtful {doubtful} · dropped {dropped}",
+    "colHanzi": "Hanzi",
+    "colPinyin": "Pinyin",
+    "colLevel": "Level",
+    "colClass": "Class",
+    "colNote": "Note",
+    "colHint": "Dataset hint (English)"
   }
 }

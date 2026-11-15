@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart3, ChevronDown, CircleUserRound, Home, LogOut, PenLine } from "lucide-react";
+import { BarChart3, ChevronDown, CircleUserRound, Home, LogOut, PenLine, ScrollText } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { signOut } from "@/actions/auth";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -21,6 +21,7 @@ export function StudentShell({ name, children }: { name: string; children: React
     { href: "/" as const, label: t("home"), icon: Home, active: pathname === "/" },
     { href: "/estudiante" as const, label: t("practice"), icon: PenLine, active: pathname === "/estudiante" },
     { href: "/estudiante/progreso" as const, label: t("progress"), icon: BarChart3, active: pathname.startsWith("/estudiante/progreso") },
+    { href: "/aprende" as const, label: t("learn"), icon: ScrollText, active: pathname.startsWith("/aprende") },
   ];
 
   return (

@@ -33,7 +33,8 @@
     "createLesson": "Crear lección",
     "createCollection": "Crear colección",
     "navLabel": "Espacio de preparación",
-    "lab": "Laboratorio"
+    "lab": "Laboratorio",
+    "learn": "Aprende"
   },
   "TeacherHome": {
     "eyebrow": "Tu espacio de preparación",
@@ -659,6 +660,26 @@
     "reviewDueCards": "{n, plural, one {# palabra para estudiar.} other {# palabras para estudiar.}}",
     "reviewDueWrite": "{n, plural, one {# palabra para escribir.} other {# palabras para escribir.}}",
     "reviewCtaCards": "Estudiar ahora",
-    "reviewCtaWrite": "Escribir ahora"
+    "reviewCtaWrite": "Escribir ahora",
+    "learn": "Aprende"
+  },
+  "Learn": {
+    "title": "Aprende",
+    "intro": "Cómo funciona la escritura china: de dónde salen los caracteres y qué reglas siguen. Lecturas cortas, sin preguntas; el texto está en español.",
+    "minutes": "{n} min de lectura",
+    "chapters": "Capítulos",
+    "previous": "Capítulo anterior",
+    "next": "Capítulo siguiente",
+    "signIn": "Iniciar sesión",
+    "publicInvite": "Si tienes cuenta de alumno, inicia sesión para practicar estos caracteres con tu cola de repaso.",
+    "listTitle": "Lista de pictogramas de HSK 1–3",
+    "listHint": "Para revisar: claros, dudosos y descartados",
+    "listCounts": "Claros {clear} · dudosos {doubtful} · descartados {dropped}",
+    "colHanzi": "Hanzi",
+    "colPinyin": "Pinyin",
+    "colLevel": "Nivel",
+    "colClass": "Clase",
+    "colNote": "Nota",
+    "colHint": "Pista del dataset (inglés)"
   }
 }

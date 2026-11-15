@@ -33,7 +33,8 @@
     "createLesson": "新建课程",
     "createCollection": "新建合集",
     "navLabel": "备课空间",
-    "lab": "实验室"
+    "lab": "实验室",
+    "learn": "学习"
   },
   "TeacherHome": {
     "eyebrow": "你的备课空间",
@@ -659,6 +660,26 @@
     "reviewDueCards": "有 {n} 个词需要学习。",
     "reviewDueWrite": "有 {n} 个词需要书写。",
     "reviewCtaCards": "现在学习",
-    "reviewCtaWrite": "现在书写"
+    "reviewCtaWrite": "现在书写",
+    "learn": "学习"
+  },
+  "Learn": {
+    "title": "学习",
+    "intro": "汉字是怎么形成的，遵循哪些规律。篇幅短小，没有测验。正文为西班牙语。",
+    "minutes": "阅读 {n} 分钟",
+    "chapters": "章节",
+    "previous": "上一章",
+    "next": "下一章",
+    "signIn": "登录",
+    "publicInvite": "如果你有学生账号，请登录，用你的复习队列练习这些汉字。",
+    "listTitle": "HSK 1–3 象形字清单",
+    "listHint": "待审核：明确、存疑、剔除",
+    "listCounts": "明确 {clear} · 存疑 {doubtful} · 剔除 {dropped}",
+    "colHanzi": "汉字",
+    "colPinyin": "拼音",
+    "colLevel": "级别",
+    "colClass": "分类",
+    "colNote": "备注",
+    "colHint": "数据集提示（英文）"
   }
 }
