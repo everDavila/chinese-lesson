@@ -95,7 +95,9 @@ Premium, límite de palabras y restaurar compras; XP total (los minutos activos
 ya responden esa pregunta); comunidad (rompe el límite clase/autoestudio);
 podcast (es producir contenido); «objetivo de aprendizaje: 6 veces» (lo
 reemplaza la repetición espaciada); HSK 2.0 (solo 3.0); lectura con historias
-(es producir contenido; ver Hanzio abajo; la etimología sí, ver «Guardado» 11). La biblioteca de gramática se
+(es producir contenido; ver Hanzio abajo; la etimología sí, ver «Guardado» 11).
+Descartado el 2026-11-14, tras ver Hanzio: teclado de pinyin con botones de tono
+y repaso «solo tonos»; búsqueda por cámara y por trazo. La biblioteca de gramática se
 reabrió el 2026-11-14: ver «Guardado» 10.
 
 ## Ventaja a cuidar

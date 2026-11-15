@@ -32,3 +32,20 @@ export function toneOf(syllable: string): 1 | 2 | 3 | 4 | 5 {
 export function tonesOf(word: string): (1 | 2 | 3 | 4 | 5)[] {
   return splitPinyin(word).map(toneOf);
 }
+
+/**
+ * Parte un pinyin en tramos conservando todo lo que no es sílaba (espacios,
+ * apóstrofos): "Xī'ān" → [Xī(1), '(null), ān(1)]. tone es null en los separadores.
+ */
+export function pinyinSegments(word: string): { text: string; tone: 1 | 2 | 3 | 4 | 5 | null }[] {
+  const out: { text: string; tone: 1 | 2 | 3 | 4 | 5 | null }[] = [];
+  let last = 0;
+  for (const m of word.matchAll(SYLLABLE)) {
+    const at = m.index ?? 0;
+    if (at > last) out.push({ text: word.slice(last, at), tone: null });
+    out.push({ text: m[0], tone: toneOf(m[0]) });
+    last = at + m[0].length;
+  }
+  if (last < word.length) out.push({ text: word.slice(last), tone: null });
+  return out;
+}
