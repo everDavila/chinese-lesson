@@ -7,6 +7,7 @@ import { importLocalProgress, markKnown, recordPracticeEvent } from "@/actions/s
 import { CardBack } from "@/components/present/card-back";
 import { BookmarkButton } from "./bookmark-button";
 import { ToneCurves } from "./tone-curves";
+import { ToneText } from "./tone-text";
 import { Button } from "@/components/ui/button";
 import type { Lesson } from "@/lib/lesson-types";
 import { speakChinese } from "@/lib/speech";
@@ -232,7 +233,7 @@ export function StudentCard({ lesson, signedIn = false, bookmarked = [] }: { les
                 >
                   <span lang="zh-Hans" className="font-hanzi text-3xl">{it.word.hanzi}</span>
                   <span className="flex min-w-0 flex-1 flex-col">
-                    <span lang="zh-Latn" className="text-sm text-muted-foreground">{s.pinyin}</span>
+                    <ToneText pinyin={s.pinyin} colored={prefs.toneColors} className="text-sm text-muted-foreground" />
                     <span className="truncate">{s.meaning.es}</span>
                   </span>
                   {record && (
@@ -320,6 +321,22 @@ export function StudentCard({ lesson, signedIn = false, bookmarked = [] }: { les
                         </label>
                       ))}
                     </fieldset>
+                    <fieldset className="mt-3 flex flex-col gap-1">
+                      <legend className="mb-1 text-sm font-medium">Pinyin</legend>
+                      <label className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-muted">
+                        <input type="checkbox" className="accent-primary" checked={prefs.toneColors} onChange={(e) => prefsStore.set({ ...prefs, toneColors: e.target.checked })} />
+                        Colores por tono
+                      </label>
+                    </fieldset>
+                    <fieldset className="mt-3 flex flex-col gap-1">
+                      <legend className="mb-1 text-sm font-medium">Velocidad del audio</legend>
+                      {([[0.6, "Lenta (0.6x)"], [0.8, "Normal (0.8x)"], [1, "Rápida (1x)"]] as const).map(([rate, label]) => (
+                        <label key={rate} className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-muted">
+                          <input type="radio" name="velocidad-audio" className="accent-primary" checked={prefs.audioRate === rate} onChange={() => prefsStore.set({ ...prefs, audioRate: rate })} />
+                          {label}
+                        </label>
+                      ))}
+                    </fieldset>
                   </Popover.Popup>
                 </Popover.Positioner>
               </Popover.Portal>
@@ -343,8 +360,8 @@ export function StudentCard({ lesson, signedIn = false, bookmarked = [] }: { les
                 {prefs.showMeaning && <p className="text-xl font-medium">{item.word.senses[item.senseIndex].meaning.es}</p>}
                 {prefs.showPinyin && (
                   <>
-                    <p lang="zh-Latn" className="text-muted-foreground">{item.word.senses[item.senseIndex].pinyin}</p>
-                    <ToneCurves pinyin={item.word.senses[item.senseIndex].pinyin} className="mt-1" />
+                    <p className="text-muted-foreground"><ToneText pinyin={item.word.senses[item.senseIndex].pinyin} colored={prefs.toneColors} /></p>
+                    <ToneCurves pinyin={item.word.senses[item.senseIndex].pinyin} colored={prefs.toneColors} className="mt-1" />
                   </>
                 )}
               </div>

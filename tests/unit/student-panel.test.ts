@@ -93,3 +93,14 @@ test("ejercicio: tarjeta por defecto y su habilidad", () => {
   assert.equal(skillOf("card"), "recognize");
   assert.equal(skillOf("write"), "write");
 });
+
+test("pinyinSegments conserva separadores y da el tono de cada sílaba", async () => {
+  const { pinyinSegments } = await import("../../src/lib/pinyin.ts");
+  assert.deepEqual(pinyinSegments("Xī'ān"), [
+    { text: "Xī", tone: 1 },
+    { text: "'", tone: null },
+    { text: "ān", tone: 1 },
+  ]);
+  assert.equal(pinyinSegments("nǐ hǎo").map((s) => s.text).join(""), "nǐ hǎo");
+  assert.deepEqual(pinyinSegments("péngyou").map((s) => s.tone), [2, 5]);
+});
