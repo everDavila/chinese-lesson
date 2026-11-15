@@ -26,6 +26,18 @@
   `write`. Cada una lleva su estado y su cola de repaso. «No me la preguntes
   más» saca la palabra de las dos.
 
+- **Aprende (2026-11-15):** apartado en el menú del alumno y de la docente, con ruta
+  pública `/aprende`. Capítulos desde `contenido/etimologia/*.md` (borradores sin
+  revisar por la docente); la lista de pictogramas de HSK 1–3 solo la ve la
+  docente. Falta el botón «Practicar estos caracteres» del capítulo: la colección
+  «Pictogramas» ya existe y sale en Practicar > Temas, así que basta enlazarlo.
+- **Velocidad del audio (0.6x, 0.8x, 1x) y colores por tono** en los ajustes de la
+  tarjeta del alumno; se guardan en el dispositivo.
+- **Siete colecciones nuevas** (migración `20261114000000`, en producción): Clima y
+  estaciones, Ropa, Emociones, Hogar, Entretenimiento, Cultura china y
+  Pictogramas. Las listas son mías, sin revisar por la docente. «Tecnología» ya
+  existía.
+
 ## Guardado, para después
 
 Orden propuesto: 1 es lo primero porque lo demás practica sobre ello.
@@ -160,3 +172,21 @@ Gramática, historias y funciones de IA. No las verifiqué en la app.
 | Gramática | Piloto `/lab/gramatica` (12 puntos HSK 1) | 4 | 4 | Reabierta: fichas ligadas a frases, no curso (Guardado 10). |
 | Historias (lectura) | No hay | 4 | 3 | Descartada: es producir contenido. Alternativa barata: mini lecturas con frases maestras. |
 | IA (tutor, corrección) | Guardada (Guardado 9) | 5 | 4 | Para después. Primer paso acotado: «explícame por qué falla esta frase». |
+
+### Daily Hanzi: onboarding y categorías (2026-11-14)
+
+Capturas de su onboarding: nivel actual, edad, simplificado o tradicional, hábitos,
+meta diaria, intereses, widget, notificación diaria y guardar progreso.
+
+- **Onboarding de personalización en 3 pasos** (nivel, intereses, meta), guardado en
+  `student_settings`, editable en el perfil, con una sugerencia al abrir Practicar.
+  Es lo que daría un perfil «propio» al alumno; hoy solo hay nombre, tema e idioma.
+- **Intereses:** sus 18 categorías son de uso (comida, viajes, trabajo, clima, ropa,
+  emociones…); las nuestras son más gramaticales. Faltaban clima, ropa, emociones y
+  hogar (ya creadas). Siguen sin existir: chengyu, jerga de internet, noticias,
+  muebles aparte de «Hogar». «Navegación de la app» no aplica.
+- **Descartado:** edad (pide datos sin razón), widget y notificación diaria
+  (requieren app nativa o PWA con push), su gráfico de «10 veces más exposición»
+  (marketing sin datos).
+- **Pendiente de decidir:** simplificado o tradicional (hoy solo simplificado; el
+  capítulo de pictogramas muestra formas tradicionales como ayuda).
