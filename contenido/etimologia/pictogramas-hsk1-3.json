@@ -1,0 +1,648 @@
+{
+ "metadata": {
+  "descripcion": "Caracteres marcados como pictográficos en data/characters.json que aparecen en palabras de HSK 3.0 niveles 1-3. La clasificación (claro/dudoso/descartar) es mía, a partir de conocimiento general; NO está contrastada con el Shuowen ni con un especialista. Pendiente de revisión por la docente.",
+  "generado": "2026-11-14",
+  "fuentes": [
+   "data/characters.json (Make Me a Hanzi)",
+   "data/hsk-catalogo-1-3.json"
+  ],
+  "total": 63,
+  "porClasificacion": {
+   "claro": 38,
+   "dudoso": 17,
+   "descartar": 8
+  }
+ },
+ "caracteres": [
+  {
+   "hanzi": "子",
+   "pinyin": "zi",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "(noun suffix)",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A child in a wrap, with outstretched arms but bundled legs"
+  },
+  {
+   "hanzi": "车",
+   "pinyin": "chē",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "car; vehicle; machine",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Simplified form of 車, a cart with two wheels, seen from above"
+  },
+  {
+   "hanzi": "儿",
+   "pinyin": "ér",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Simplified form of 兒, a picture of a child; compare 人"
+  },
+  {
+   "hanzi": "飞",
+   "pinyin": "fēi",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "to fly",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A bird flapping its wings"
+  },
+  {
+   "hanzi": "高",
+   "pinyin": "gāo",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "high; tall; above average",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A tall palace"
+  },
+  {
+   "hanzi": "火",
+   "pinyin": "huǒ",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Flames"
+  },
+  {
+   "hanzi": "人",
+   "pinyin": "rén",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "person; people",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "The legs of a human being"
+  },
+  {
+   "hanzi": "口",
+   "pinyin": "kǒu",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "mouth; classifier for things with mouths (people, domestic a",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "An open mouth"
+  },
+  {
+   "hanzi": "米",
+   "pinyin": "mǐ",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "meter (classifier); rice",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Grains of rice"
+  },
+  {
+   "hanzi": "面",
+   "pinyin": "miàn",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "face; side; surface",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A person's face"
+  },
+  {
+   "hanzi": "牛",
+   "pinyin": "niú",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "ox; cow; bull",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "An ox's horned head"
+  },
+  {
+   "hanzi": "女",
+   "pinyin": "nǚ",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "female; woman; daughter",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A woman turned to the side"
+  },
+  {
+   "hanzi": "日",
+   "pinyin": "rì",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "sun; day; date, day of the month",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "The sun"
+  },
+  {
+   "hanzi": "手",
+   "pinyin": "shǒu",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "hand; (formal) to hold; person engaged in certain types of w",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A hand with the fingers splayed"
+  },
+  {
+   "hanzi": "水",
+   "pinyin": "shuǐ",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "water; river; liquid",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A river running between two banks; compare 川"
+  },
+  {
+   "hanzi": "雨",
+   "pinyin": "yǔ",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "rain",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Rain drops falling from a cloud 帀"
+  },
+  {
+   "hanzi": "衣",
+   "pinyin": "yī",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A woman's dress"
+  },
+  {
+   "hanzi": "月",
+   "pinyin": "yuè",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "moon; month; monthly",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A crescent moon"
+  },
+  {
+   "hanzi": "门",
+   "pinyin": "mén",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": true,
+   "glosaEn": "gate; door; gateway",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "An open doorway or gate"
+  },
+  {
+   "hanzi": "鸟",
+   "pinyin": "niǎo",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": true,
+   "glosaEn": "bird; \"bird\" radical in Chinese characters (Kangxi radical 1",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Simplified form of 烏, a bird"
+  },
+  {
+   "hanzi": "肉",
+   "pinyin": "ròu",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": true,
+   "glosaEn": "meat; flesh; pulp (of a fruit)",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Meat on the ribs of an animal"
+  },
+  {
+   "hanzi": "网",
+   "pinyin": "wǎng",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A net for catching fish"
+  },
+  {
+   "hanzi": "身",
+   "pinyin": "shēn",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A pregnant woman"
+  },
+  {
+   "hanzi": "鱼",
+   "pinyin": "yú",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": true,
+   "glosaEn": "fish",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A fish swimming upwards"
+  },
+  {
+   "hanzi": "自",
+   "pinyin": "zì",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A nose; in China, people refer to themselves by pointing to their noses"
+  },
+  {
+   "hanzi": "足",
+   "pinyin": "zú",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "The leg 口 above the foot"
+  },
+  {
+   "hanzi": "心",
+   "pinyin": "xīn",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A heart"
+  },
+  {
+   "hanzi": "耳",
+   "pinyin": "ěr",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "An ear"
+  },
+  {
+   "hanzi": "角",
+   "pinyin": "jiǎo",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "angle; corner; horn",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A rhinoceros or other animal horn"
+  },
+  {
+   "hanzi": "目",
+   "pinyin": "mù",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "An eye drawn on its side"
+  },
+  {
+   "hanzi": "马",
+   "pinyin": "mǎ",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "horse; horse or cavalry piece in Chinese chess; knight in We",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Simplified form of 馬, a horse galloping to the left"
+  },
+  {
+   "hanzi": "伞",
+   "pinyin": "sǎn",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "umbrella; parasol",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "An umbrella"
+  },
+  {
+   "hanzi": "山",
+   "pinyin": "shān",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "mountain; hill; (coll.) small bundle of straw for silkworms ",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Three mountain peaks"
+  },
+  {
+   "hanzi": "瓜",
+   "pinyin": "guā",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Vines growing with a melon at their base"
+  },
+  {
+   "hanzi": "羊",
+   "pinyin": "yáng",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "sheep; goat",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A sheep's head with horns"
+  },
+  {
+   "hanzi": "页",
+   "pinyin": "yè",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "page; leaf",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A person's head"
+  },
+  {
+   "hanzi": "又",
+   "pinyin": "yòu",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "(once) again; also; both... and...",
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "A right hand, representing a pair; compare 左"
+  },
+  {
+   "hanzi": "羽",
+   "pinyin": "yǔ",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "claro",
+   "nota": "",
+   "pistaDatasetEn": "Two feathers or wings"
+  },
+  {
+   "hanzi": "东",
+   "pinyin": "dōng",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "east; host (i.e. sitting on east side of guest); landlord",
+   "clasificacion": "dudoso",
+   "nota": "La pista del dataset (sol tras un árbol) es etimología popular; el original 東 se suele explicar como un saco atado.",
+   "pistaDatasetEn": "Simplified form of 東, the sun 日 rising behind a tree 木"
+  },
+  {
+   "hanzi": "西",
+   "pinyin": "xī",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "the West; Spanish",
+   "clasificacion": "dudoso",
+   "nota": "Pictograma de nido/cesta prestado para «oeste» (假借).",
+   "pistaDatasetEn": "A bird settling into its nest, representing sunset; compare 東"
+  },
+  {
+   "hanzi": "工",
+   "pinyin": "gōng",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "dudoso",
+   "nota": "Herramienta de artesano; interpretaciones distintas.",
+   "pistaDatasetEn": "A spade or other workman's tool"
+  },
+  {
+   "hanzi": "几",
+   "pinyin": "jǐ",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "how much; how many; several",
+   "clasificacion": "dudoso",
+   "nota": "Mesita; poco claro.",
+   "pistaDatasetEn": "A small table; compare 丌"
+  },
+  {
+   "hanzi": "九",
+   "pinyin": "jiǔ",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "nine; 9",
+   "clasificacion": "dudoso",
+   "nota": "Origen discutido (brazo doblado).",
+   "pistaDatasetEn": "An elbow"
+  },
+  {
+   "hanzi": "能",
+   "pinyin": "néng",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "can; to be able to; might possibly",
+   "clasificacion": "dudoso",
+   "nota": "Un oso en origen; hoy no se reconoce el dibujo.",
+   "pistaDatasetEn": "A bear's head 厶, body ⺼, and claws 匕"
+  },
+  {
+   "hanzi": "再",
+   "pinyin": "zài",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "again; once more; re-; second; another; then (after sth, and",
+   "clasificacion": "dudoso",
+   "nota": "Origen discutido.",
+   "pistaDatasetEn": "Two fish 冉 caught on a line 一"
+  },
+  {
+   "hanzi": "文",
+   "pinyin": "wén",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "dudoso",
+   "nota": "Pictograma o compuesto según la fuente.",
+   "pistaDatasetEn": "A tattooed chest, representing writing"
+  },
+  {
+   "hanzi": "离",
+   "pinyin": "lí",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": true,
+   "glosaEn": "to leave; to part from; to be away from",
+   "clasificacion": "dudoso",
+   "nota": "Origen discutido.",
+   "pistaDatasetEn": "An animal standing straight; 亠 is the head"
+  },
+  {
+   "hanzi": "己",
+   "pinyin": "jǐ",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "dudoso",
+   "nota": "Origen discutido.",
+   "pistaDatasetEn": "A loom woven with thread"
+  },
+  {
+   "hanzi": "左",
+   "pinyin": "zuǒ",
+   "nivelMinimoHSK3": 2,
+   "esPalabraSola": true,
+   "glosaEn": "left; the Left (politics); east",
+   "clasificacion": "dudoso",
+   "nota": "Mano izquierda 又 + 工: la mayoría lo trata como compuesto.",
+   "pistaDatasetEn": "A left hand; compare 又"
+  },
+  {
+   "hanzi": "南",
+   "pinyin": "nán",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "south",
+   "clasificacion": "dudoso",
+   "nota": "Origen discutido (campana).",
+   "pistaDatasetEn": "A musical bell"
+  },
+  {
+   "hanzi": "且",
+   "pinyin": "qiě",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "dudoso",
+   "nota": "Altar; discutido.",
+   "pistaDatasetEn": "A stone altar"
+  },
+  {
+   "hanzi": "干",
+   "pinyin": "gàn",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "tree trunk; main part of sth; to manage",
+   "clasificacion": "dudoso",
+   "nota": "Origen discutido.",
+   "pistaDatasetEn": "A club or axe"
+  },
+  {
+   "hanzi": "世",
+   "pinyin": "shì",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "dudoso",
+   "nota": "Origen discutido.",
+   "pistaDatasetEn": "Three leaves on a branch"
+  },
+  {
+   "hanzi": "片",
+   "pinyin": "piàn",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "dudoso",
+   "nota": "Mitad de un tronco; también tratado como indicativo.",
+   "pistaDatasetEn": "Half of a tree trunk; compare 爿"
+  },
+  {
+   "hanzi": "主",
+   "pinyin": "zhǔ",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "dudoso",
+   "nota": "Lámpara con llama; discutido.",
+   "pistaDatasetEn": "A lamp 王 with a flame 丶"
+  },
+  {
+   "hanzi": "少",
+   "pinyin": "shǎo",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "few; less; to lack",
+   "clasificacion": "descartar",
+   "nota": "Indicativo/compuesto, no dibujo.",
+   "pistaDatasetEn": "Grains of sand; 小 provides the pronunciation and meaning"
+  },
+  {
+   "hanzi": "老",
+   "pinyin": "lǎo",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "prefix used before the surname of a person or a numeral indi",
+   "clasificacion": "descartar",
+   "nota": "Ejemplo clásico de 转注 (考老), no de pictograma.",
+   "pistaDatasetEn": "A person bent over with long hair 匕 and a crutch; compare 耂"
+  },
+  {
+   "hanzi": "了",
+   "pinyin": "le",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "(completed action marker); (modal particle indicating change",
+   "clasificacion": "descartar",
+   "nota": "Forma simplificada de uso gramatical; su origen pictográfico es incierto.",
+   "pistaDatasetEn": "A child swaddled in blanklets; compare 子"
+  },
+  {
+   "hanzi": "亮",
+   "pinyin": "liàng",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "descartar",
+   "nota": "Compuesto o fonético-semántico.",
+   "pistaDatasetEn": "A lit oil lamp"
+  },
+  {
+   "hanzi": "元",
+   "pinyin": "yuán",
+   "nivelMinimoHSK3": 1,
+   "esPalabraSola": true,
+   "glosaEn": "currency unit (esp. Chinese yuan); first; original",
+   "clasificacion": "descartar",
+   "nota": "Indicativo: una persona 儿 con el énfasis en la cabeza.",
+   "pistaDatasetEn": "A man 儿 with two lines emphasizing their head 二"
+  },
+  {
+   "hanzi": "北",
+   "pinyin": "běi",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": true,
+   "glosaEn": "north; (classical) to be defeated",
+   "clasificacion": "descartar",
+   "nota": "Dos personas de espaldas: compuesto (会意).",
+   "pistaDatasetEn": "Two people 匕 sitting back-to-back; phonetic loan for \"north\""
+  },
+  {
+   "hanzi": "黄",
+   "pinyin": "huáng",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "descartar",
+   "nota": "Origen discutido; hoy se trata como otro tipo.",
+   "pistaDatasetEn": "A jade pendant"
+  },
+  {
+   "hanzi": "平",
+   "pinyin": "píng",
+   "nivelMinimoHSK3": 3,
+   "esPalabraSola": false,
+   "glosaEn": null,
+   "clasificacion": "descartar",
+   "nota": "Indicativo/compuesto.",
+   "pistaDatasetEn": "A leveling scale"
+  }
+ ]
+}
