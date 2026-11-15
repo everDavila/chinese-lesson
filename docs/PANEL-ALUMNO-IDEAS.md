@@ -67,8 +67,17 @@ Orden propuesto: 1 es lo primero porque lo demás practica sobre ello.
     **no es problema** (esto lo separa del podcast descartado). **También lo ve
     la docente:** es una sección de contenido, no de avance, así que no rompe
     el límite clase/autoestudio; sirve para que explique desde ahí y diga a sus
-    alumnos dónde encontrarlo. Falta decidir dónde vive (¿ruta pública o
-    dentro de cada espacio?) y si la docente lo enlaza desde una lección. Orden: qué es un carácter, pictogramas,
+    alumnos dónde encontrarlo. **Dónde vive (decidido 2026-11-14):**
+    un solo contenido con dos entradas. Ruta **pública** para leer sin cuenta
+    (curiosidad, enlace que la docente comparte) y la misma lectura **dentro del
+    espacio del alumno**. El botón «Practicar estos caracteres» solo practica con
+    cuenta: sin sesión invita a entrar o crear cuenta; hoy las cuentas de alumno
+    las crea Ever con `db:crear-usuario`, así que por ahora el botón dice «inicia
+    sesión», y el registro abierto queda para cuando exista. **Dependencia:**
+    practicar «estos caracteres» pide una fuente propia de la práctica; hoy
+    `/estudiante` solo elige nivel HSK o tema. Eso es «Guardado» 1 (colecciones de
+    estudio del alumno), así que va antes. Falta decidir si la docente lo enlaza
+    desde una lección. Orden: qué es un carácter, pictogramas,
     indicativos y compuestos, fonético-semánticos (el más útil), radicales,
     derivados y préstamos, cambio de forma. Piloto: fonético-semánticos.
     Datos: `data/characters.json` trae `etymology.type` de 3088 caracteres
