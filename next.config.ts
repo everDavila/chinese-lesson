@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   // la red de casa (p. ej. el celular en http://192.168.x.x:3000).
   allowedDevOrigins: ["192.168.*.*"],
   partialPrefetching: true,
+  // «Aprende» lee los capítulos de contenido/etimologia en tiempo de ejecución:
+  // sin esto, Vercel no los incluye en la función.
+  outputFileTracingIncludes: { "/**/*": ["./contenido/etimologia/**/*"] },
   turbopack: {
     rules: {
       "*.css": {
