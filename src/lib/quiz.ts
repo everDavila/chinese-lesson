@@ -4,6 +4,14 @@
 // Una pregunta es un objeto con `kind`; una ronda es una lista mezclada de
 // esas preguntas. La interfaz decide su aspecto según `kind`.
 
+import { pinyinSegments, splitPinyin, toneless, withTone } from "./pinyin.ts";
+
+/** Frase de ejemplo de una palabra (la elige quiz-data.ts). */
+export type QuizExample = { zh: string; pinyin: string; es: string };
+
+/** Qué se practica: leer (reconocer), tonos o el oído. */
+export type QuizMode = "reconocer" | "tonos" | "escuchar";
+
 export type QuizWord = {
   hanzi: string;
   pinyin: string;
@@ -11,12 +19,16 @@ export type QuizWord = {
   es: string;
   /** Categoría gramatical principal (名, 动, 形…), para elegir distractores. */
   pos: string;
+  /** Nivel HSK (1–3) de la palabra. */
+  level?: number;
+  /** Frase corta con la palabra, para el reverso. */
+  example?: QuizExample;
 };
 
 export type ChooseQuestion = {
   kind: "choose";
-  /** hanzi→español o español→hanzi. */
-  direction: "hanzi-es" | "es-hanzi";
+  /** hanzi→español, español→hanzi, hanzi→pinyin con tonos o audio→hanzi. */
+  direction: "hanzi-es" | "es-hanzi" | "tone" | "listen";
   word: QuizWord;
   /** Cuatro opciones, ya mezcladas; `correct` es el índice de la buena. */
   options: string[];
@@ -69,9 +81,64 @@ function distractors(word: QuizWord, pool: readonly QuizWord[], n: number, rng: 
   return out;
 }
 
+/** Hanzi que se parecen a `word`: mismo sonido sin tono (3), un carácter en
+ *  común (2), misma categoría (1). Con `soundsDifferent`, nunca el mismo
+ *  pinyin exacto (sonaría idéntico y no habría respuesta justa de oído). */
+export function similarWords(
+  word: QuizWord,
+  pool: readonly QuizWord[],
+  n: number,
+  rng: Rng,
+  soundsDifferent = false,
+): QuizWord[] {
+  const soundOf = (p: string) => splitPinyin(p).map(toneless).join("");
+  const sound = soundOf(word.pinyin);
+  const chars = new Set([...word.hanzi]);
+  const scored = shuffle(
+    pool.filter((w) => w.hanzi !== word.hanzi && !(soundsDifferent && w.pinyin === word.pinyin)),
+    rng,
+  ).map((w) => ({
+    w,
+    score: (soundOf(w.pinyin) === sound ? 3 : 0) + ([...w.hanzi].some((c) => chars.has(c)) ? 2 : 0) + (w.pos === word.pos ? 1 : 0),
+  }));
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, n).map((x) => x.w);
+}
+
+/** Pinyin con otro tono en una sílaba (los distractores de «tonos»). Devuelve
+ *  tres variantes distintas de la correcta, o null si no se pueden formar. */
+export function toneVariants(pinyin: string, rng: Rng): string[] | null {
+  const segs = pinyinSegments(pinyin);
+  const plain = segs.every((s) => s.tone !== null || /^[\s'’]+$/.test(s.text));
+  if (segs.length === 0 || !plain) return null;
+  const candidates: string[] = [];
+  segs.forEach((seg, i) => {
+    if (seg.tone === null) return;
+    for (const t of [1, 2, 3, 4] as const) {
+      if (t === seg.tone) continue;
+      candidates.push(segs.map((s, j) => (j === i ? withTone(s.text, t) : s.text)).join(""));
+    }
+  });
+  const unique = [...new Set(candidates)].filter((c) => c !== pinyin);
+  return unique.length >= 3 ? shuffle(unique, rng).slice(0, 3) : null;
+}
+
+function makeTone(word: QuizWord, pool: readonly QuizWord[], rng: Rng): ChooseQuestion {
+  const wrong = toneVariants(word.pinyin, rng);
+  if (!wrong) return makeChoose(word, pool, rng);
+  const options = shuffle([word.pinyin, ...wrong], rng);
+  return { kind: "choose", direction: "tone", word, options, correct: options.indexOf(word.pinyin) };
+}
+
+function makeListen(word: QuizWord, pool: readonly QuizWord[], rng: Rng): ChooseQuestion {
+  const wrong = similarWords(word, pool, 3, rng, true);
+  const options = shuffle([word, ...wrong].map((w) => w.hanzi), rng);
+  return { kind: "choose", direction: "listen", word, options, correct: options.indexOf(word.hanzi) };
+}
+
 function makeChoose(word: QuizWord, pool: readonly QuizWord[], rng: Rng): ChooseQuestion {
   const direction = rng() < 0.7 ? "hanzi-es" : "es-hanzi";
-  const wrong = distractors(word, pool, 3, rng);
+  const wrong = direction === "es-hanzi" ? similarWords(word, pool, 3, rng) : distractors(word, pool, 3, rng);
   const pick = (w: QuizWord) => (direction === "hanzi-es" ? w.es : w.hanzi);
   const options = shuffle([word, ...wrong].map(pick), rng);
   return { kind: "choose", direction, word, options, correct: options.indexOf(pick(word)) };
@@ -107,8 +174,12 @@ export function buildRound(
   total = 10,
   rng: Rng = Math.random,
   from: readonly QuizWord[] = pool,
+  mode: QuizMode = "reconocer",
 ): QuizQuestion[] {
-  const chosen = shuffle(from, rng).slice(0, total);
+  const base = mode === "tonos" ? from.filter((w) => toneVariants(w.pinyin, () => 0) !== null) : from;
+  const chosen = shuffle(base, rng).slice(0, total);
+  if (mode === "tonos") return chosen.map((w) => makeTone(w, pool, rng));
+  if (mode === "escuchar") return chosen.map((w) => makeListen(w, pool, rng));
   const kinds = pickKinds(chosen.length, rng);
   return chosen.map((w, i) => (kinds[i] === "choose" ? makeChoose(w, pool, rng) : makeTrueFalse(w, pool, rng)));
 }

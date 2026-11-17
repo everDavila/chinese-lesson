@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { buildRound, RULES, score, type QuizQuestion, type QuizWord } from "@/lib/quiz";
+import { buildRound, RULES, score, type QuizMode, type QuizQuestion, type QuizWord } from "@/lib/quiz";
+import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 
 // Piloto: quiz mixto. Una misma ronda alterna «elegir entre 4» y «verdadero o
@@ -36,14 +38,19 @@ export function QuizLab({ words }: { words: QuizWord[] }) {
   const [picked, setPicked] = useState<Picked | null>(null);
   const [left, setLeft] = useState(0);
   const [results, setResults] = useState<Result[]>([]);
+  const [mode, setMode] = useState<QuizMode>("reconocer");
+  const [levels, setLevels] = useState<number[]>([1]);
+  const [autoplay, setAutoplay] = useState(true);
   const deadline = useRef(0);
 
+  const pool = useMemo(() => words.filter((w) => levels.includes(w.level ?? 1)), [words, levels]);
   const q = round?.[index] ?? null;
   const total = results.reduce((sum, r) => sum + r.points, 0);
   const done = round !== null && index >= round.length;
+  const revealed = picked !== null;
 
   const start = (from?: QuizWord[]) => {
-    setRound(buildRound(words, ROUND, Math.random, from ?? words));
+    setRound(buildRound(pool, ROUND, Math.random, from ?? pool, mode));
     setIndex(0);
     setPicked(null);
     setResults([]);
@@ -95,12 +102,40 @@ export function QuizLab({ words }: { words: QuizWord[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [q, answer, next]);
 
-  if (!round) return <Intro count={words.length} onStart={() => start()} />;
+  // Audio: en «escuchar» la pregunta suena al aparecer; en todos, la palabra
+  // suena al revelar. Siempre hay un botón para repetirlo.
+  useEffect(() => {
+    if (!q || !autoplay || revealed) return;
+    if (q.kind === "choose" && q.direction === "listen") speakChinese(q.word.hanzi);
+  }, [q, autoplay, revealed]);
+  useEffect(() => {
+    if (!q || !autoplay || !revealed) return;
+    speakChinese(q.word.hanzi);
+  }, [q, autoplay, revealed]);
+
+  if (!round) {
+    return (
+      <Intro
+        count={pool.length}
+        mode={mode}
+        onMode={setMode}
+        levels={levels}
+        onLevels={setLevels}
+        autoplay={autoplay}
+        onAutoplay={setAutoplay}
+        onStart={() => start()}
+      />
+    );
+  }
   if (done) return <Summary results={results} total={total} onAgain={() => start()} onRetry={(w) => start(w)} />;
   if (!q) return null;
 
-  const revealed = picked !== null;
   const seconds = RULES[q.kind].seconds;
+  const fraction = revealed ? 0 : left / seconds;
+  // Verde → ámbar → rojo al acabarse; el número lo dice también sin color.
+  const barColor = fraction > 0.5 ? "bg-green-500" : fraction > 0.25 ? "bg-amber-400" : "bg-red-500";
+  // Opciones cortas (hanzi, pinyin) van de a dos aun en celular; los significados, de a una.
+  const twoCols = q.kind === "truefalse" || (q.kind === "choose" && q.direction !== "hanzi-es");
   const last = results[results.length - 1];
   const options =
     q.kind === "choose" ? q.options.map((label, i) => ({ label, ...SHAPES[i] })) : TF_LABELS.map((label, i) => ({ label, ...TF_SHAPES[i] }));
@@ -115,25 +150,30 @@ export function QuizLab({ words }: { words: QuizWord[] }) {
         <span className="font-medium tabular-nums text-foreground">{total} puntos</span>
       </header>
 
-      <div
-        role="progressbar"
-        aria-label="Tiempo restante"
-        aria-valuemin={0}
-        aria-valuemax={seconds}
-        aria-valuenow={Math.ceil(revealed ? 0 : left)}
-        className="h-2 overflow-hidden rounded-full bg-muted"
-      >
+      <div className="flex items-center gap-3">
         <div
-          className="h-full bg-primary transition-[width] duration-100 ease-linear"
-          style={{ width: revealed ? "0%" : `${(left / seconds) * 100}%` }}
-        />
+          role="progressbar"
+          aria-label="Tiempo restante"
+          aria-valuemin={0}
+          aria-valuemax={seconds}
+          aria-valuenow={Math.ceil(revealed ? 0 : left)}
+          className="h-3 flex-1 overflow-hidden rounded-full bg-foreground/20 ring-1 ring-foreground/30"
+        >
+          <div
+            className={cn("h-full transition-[width] duration-100 ease-linear", barColor)}
+            style={{ width: `${fraction * 100}%` }}
+          />
+        </div>
+        <span className="w-10 text-right text-sm font-medium tabular-nums text-foreground" aria-hidden>
+          {Math.ceil(revealed ? 0 : left)} s
+        </span>
       </div>
 
       <section className="flex min-h-40 flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card p-5 text-center">
         <Prompt q={q} />
       </section>
 
-      <div className={cn("grid gap-3", q.kind === "choose" ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-2")}>
+      <div className={cn("grid gap-3", twoCols ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2")}>
         {options.map((o, i) => {
           const isRight = revealed && i === right;
           const faded = revealed && !isRight && i !== picked;
@@ -144,8 +184,9 @@ export function QuizLab({ words }: { words: QuizWord[] }) {
               disabled={revealed}
               onClick={() => answer(i)}
               className={cn(
-                "relative flex min-h-16 items-center justify-center rounded-lg px-10 py-3 text-lg font-semibold shadow-[0_3px_0_rgb(0_0_0/0.25)] transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                q.kind === "choose" && q.direction === "es-hanzi" && "font-hanzi text-3xl",
+                "relative flex min-h-16 items-center justify-center rounded-lg py-3 text-lg font-semibold break-words shadow-[0_3px_0_rgb(0_0_0/0.25)] transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                twoCols ? "px-4 pt-6" : "px-10",
+                q.kind === "choose" && (q.direction === "es-hanzi" || q.direction === "listen") && "font-hanzi text-3xl",
                 faded ? o.dim : o.cls,
                 isRight && "ring-4 ring-foreground",
                 revealed && i === picked && !isRight && "line-through",
@@ -173,16 +214,27 @@ export function QuizLab({ words }: { words: QuizWord[] }) {
             <p className="font-medium">
               {last.ok ? `Correcto · +${last.points}` : picked === "timeout" ? "Se acabó el tiempo" : "Incorrecto"}
             </p>
-            <p className="text-sm">
-              <span className="font-hanzi text-lg">{q.word.hanzi}</span> <span>{q.word.pinyin}</span> ={" "}
+            <p className="flex flex-wrap items-center gap-x-2 text-sm">
+              <span lang="zh-Hans" className="font-hanzi text-lg">{q.word.hanzi}</span> <span>{q.word.pinyin}</span> ={" "}
               <strong>{q.word.es}</strong>
+              <SpeakButton text={q.word.hanzi} label="Escuchar la palabra" />
             </p>
+            {q.word.example && (
+              <div className="mt-1 flex items-start gap-2 border-t border-foreground/15 pt-2">
+                <div className="flex-1">
+                  <p lang="zh-Hans" className="font-hanzi text-xl">{q.word.example.zh}</p>
+                  <p className="text-sm text-muted-foreground">{q.word.example.pinyin}</p>
+                  <p className="text-sm">{q.word.example.es}</p>
+                </div>
+                <SpeakButton text={q.word.example.zh} label="Escuchar la frase" />
+              </div>
+            )}
           </div>
         )}
       </div>
 
       {revealed && (
-        <Button size="lg" onClick={next} className="h-11 w-full">
+        <Button size="lg" onClick={next} className="sticky bottom-4 h-11 w-full shadow-lg">
           {index + 1 === round.length ? "Ver resultado" : "Siguiente"}
         </Button>
       )}
@@ -209,6 +261,24 @@ function Prompt({ q }: { q: QuizQuestion }) {
       </>
     );
   }
+  if (q.direction === "tone") {
+    return (
+      <>
+        <p className="text-sm text-muted-foreground">¿Con qué tonos se dice?</p>
+        <p lang="zh-Hans" className="font-hanzi text-5xl">{q.word.hanzi}</p>
+        <p className="text-sm text-muted-foreground">{q.word.es}</p>
+        <SpeakButton text={q.word.hanzi} label="Escuchar la palabra" />
+      </>
+    );
+  }
+  if (q.direction === "listen") {
+    return (
+      <>
+        <p className="text-sm text-muted-foreground">¿Qué palabra oyes?</p>
+        <SpeakButton text={q.word.hanzi} label="Escuchar otra vez" big />
+      </>
+    );
+  }
   return (
     <>
       <p className="text-sm text-muted-foreground">¿Cómo se escribe?</p>
@@ -217,25 +287,101 @@ function Prompt({ q }: { q: QuizQuestion }) {
   );
 }
 
-function Intro({ count, onStart }: { count: number; onStart: () => void }) {
+function SpeakButton({ text, label, big = false }: { text: string; label: string; big?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={() => speakChinese(text)}
+      aria-label={label}
+      className={cn(
+        "inline-flex items-center justify-center rounded-full border border-foreground/30 bg-background text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+        big ? "size-20" : "size-11 shrink-0",
+      )}
+    >
+      <Volume2 className={big ? "size-9" : "size-5"} aria-hidden />
+    </button>
+  );
+}
+
+const MODES: { id: QuizMode; title: string; hint: string }[] = [
+  { id: "reconocer", title: "Reconocer", hint: "Elegir entre cuatro y verdadero o falso: leer la palabra y su significado." },
+  { id: "tonos", title: "Tonos", hint: "Ves el hanzi y eliges el pinyin con los tonos correctos." },
+  { id: "escuchar", title: "Escuchar", hint: "Oyes la palabra y eliges el hanzi entre cuatro que se parecen." },
+];
+
+function Intro({
+  count,
+  mode,
+  onMode,
+  levels,
+  onLevels,
+  autoplay,
+  onAutoplay,
+  onStart,
+}: {
+  count: number;
+  mode: QuizMode;
+  onMode: (m: QuizMode) => void;
+  levels: number[];
+  onLevels: (l: number[]) => void;
+  autoplay: boolean;
+  onAutoplay: (v: boolean) => void;
+  onStart: () => void;
+}) {
+  const toggle = (n: number) => {
+    const next = levels.includes(n) ? levels.filter((l) => l !== n) : [...levels, n].sort();
+    if (next.length > 0) onLevels(next);
+  };
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-4 px-4 py-6">
-      <h1 className="text-2xl font-semibold">Quiz mixto · piloto</h1>
+      <h1 className="text-2xl font-semibold">Quiz · piloto</h1>
       <p className="text-muted-foreground">
-        {ROUND} preguntas de HSK 1 ({count} palabras en juego): unas de elegir entre cuatro y otras de verdadero o falso,
-        mezcladas. Más puntos cuanto más rápido aciertes.
+        {ROUND} preguntas con tiempo y puntos: cuanto más rápido aciertas, más puntos. Al revelar la respuesta ves la
+        palabra con su audio y una frase corta de su nivel.
       </p>
-      <ul className="list-disc pl-5 text-sm text-muted-foreground">
-        <li>Elegir: {RULES.choose.seconds} s, hasta {RULES.choose.maxPoints} puntos.</li>
-        <li>Verdadero o falso: {RULES.truefalse.seconds} s, hasta {RULES.truefalse.maxPoints} puntos (se acierta al azar la mitad de las veces).</li>
-        <li>Con el teclado: 1–4 responden y Enter pasa a la siguiente.</li>
-      </ul>
+
+      <fieldset className="flex flex-col gap-2">
+        <legend className="mb-1 text-sm font-medium">Qué practicar</legend>
+        {MODES.map((m) => (
+          <label
+            key={m.id}
+            className={cn(
+              "flex min-h-12 cursor-pointer items-start gap-3 rounded-lg border-2 px-3 py-2",
+              mode === m.id ? "border-primary bg-primary/10" : "border-border",
+            )}
+          >
+            <input type="radio" name="modo" className="mt-1.5" checked={mode === m.id} onChange={() => onMode(m.id)} />
+            <span>
+              <span className="block font-medium">{m.title}</span>
+              <span className="block text-sm text-muted-foreground">{m.hint}</span>
+            </span>
+          </label>
+        ))}
+      </fieldset>
+
+      <fieldset className="flex flex-wrap items-center gap-x-4 gap-y-1">
+        <legend className="mb-1 text-sm font-medium">Niveles</legend>
+        {[1, 2, 3].map((n) => (
+          <label key={n} className="flex min-h-11 items-center gap-2">
+            <input type="checkbox" checked={levels.includes(n)} onChange={() => toggle(n)} />
+            HSK {n}
+          </label>
+        ))}
+      </fieldset>
+
+      <label className="flex min-h-11 items-center gap-2">
+        <input type="checkbox" checked={autoplay} onChange={(e) => onAutoplay(e.target.checked)} />
+        Reproducir el audio solo
+      </label>
+
       <Button size="lg" className="h-11" onClick={onStart}>
-        Empezar
+        Empezar ({count} palabras en juego)
       </Button>
       <p className="text-xs text-muted-foreground">
-        Significados: borrador de Gushi (CC BY-SA 4.0), sin revisión humana. Los puntos se calculan en tu navegador y no se
-        guardan.
+        Si no oyes nada, tu teléfono quizá no tiene una voz en chino instalada. En «Reconocer»: elegir vale hasta{" "}
+        {RULES.choose.maxPoints} puntos en {RULES.choose.seconds} s; verdadero o falso, hasta {RULES.truefalse.maxPoints} en{" "}
+        {RULES.truefalse.seconds} s. Teclado: 1–4 responden y Enter sigue. Significados: borrador de Gushi (CC BY-SA 4.0),
+        frases de Tatoeba (CC BY 2.0 FR) y generadas por IA, todo sin revisión humana. Los puntos no se guardan.
       </p>
     </main>
   );

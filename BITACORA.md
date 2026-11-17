@@ -866,3 +866,24 @@ migración. Sin probar con un alumno ni en un celular real; las pruebas con
 cuenta (alumno y docente) no se corrieron porque no hay sesiones de prueba
 vigentes. Pendientes: colecciones de estudio del alumno, onboarding, gramática
 con fichas ligadas a frases, tutor con IA, y la auditoría UX.
+
+## 2026-11-17 · Quiz con contexto (`/lab/quiz`)
+
+Piloto ampliado, sin base de datos y sin migración: tres modos —**Reconocer**
+(elegir y verdadero/falso), **Tonos** (hanzi → pinyin con los 4 tonos) y
+**Escuchar** (audio → hanzi entre cuatro parecidos)— con HSK 1 a 3. Al revelar
+la respuesta: la palabra con audio, su significado y una frase corta de su
+nivel (3–14 caracteres chinos, solo caracteres del nivel o más fáciles; sale de
+`contenido/ejemplos-hsk*-curados-codex.json`, sin marca de «sin revisar»).
+Temporizador con color (verde, ámbar, rojo) y segundos; opciones de hanzi o
+pinyin de a dos en celular.
+
+Decidido con Ever: el quiz contará en el progreso solo como «reconocer»;
+«tonos» y «escuchar» necesitarán habilidades propias (migración) y **no se han
+hecho**. Código: `src/lib/quiz.ts`, `src/lib/quiz-data.ts`, `withTone` en
+`src/lib/pinyin.ts`; pruebas en `tests/unit/quiz.test.ts`. Se activó
+`allowImportingTsExtensions` en `tsconfig.json` para que `quiz.ts` importe
+`pinyin.ts` y siga corriendo con `node --test`.
+
+**Sin probar:** audio en un teléfono real (voz del navegador), y que la frase
+use el mismo sentido de la palabra (no se revisó palabra por palabra).

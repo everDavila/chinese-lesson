@@ -549,7 +549,8 @@
         "title": "Mixed quiz",
         "summary": "Multiple choice and true or false in the same round, with speed-based points and a retry of your mistakes.",
         "history": {
-          "start": "First pilot: 10 HSK 1 questions mixing multiple choice and true or false, with a timer, points and a round of only your mistakes. No database."
+          "start": "First pilot: 10 HSK 1 questions mixing multiple choice and true or false, with a timer, points and a round of only your mistakes. No database.",
+          "contexto": "Three modes (recognise, tones and listen) with HSK 1 to 3. On reveal: the word with audio, its meaning and a short sentence at its level. Timer with colour and seconds."
         }
       },
       "tarjetas": {

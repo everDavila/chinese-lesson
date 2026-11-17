@@ -28,6 +28,41 @@ export function toneOf(syllable: string): 1 | 2 | 3 | 4 | 5 {
   return 5;
 }
 
+const MARKED: Record<string, [string, string, string, string]> = {
+  a: ["ā", "á", "ǎ", "à"],
+  e: ["ē", "é", "ě", "è"],
+  i: ["ī", "í", "ǐ", "ì"],
+  o: ["ō", "ó", "ǒ", "ò"],
+  u: ["ū", "ú", "ǔ", "ù"],
+  ü: ["ǖ", "ǘ", "ǚ", "ǜ"],
+};
+const PLAIN_OF: Record<string, string> = {};
+for (const [plain, row] of Object.entries(MARKED)) for (const ch of row) PLAIN_OF[ch] = plain;
+
+/**
+ * Pone otro tono a una sílaba: ("hao", 3) → "hǎo", ("hǎo", 4) → "hào",
+ * ("lü", 3) → "lǚ". El tono 5 (neutro) quita la marca. La marca va en la «a» o
+ * la «e»; en «ou», en la «o»; si no, en la última vocal.
+ */
+export function withTone(syllable: string, tone: 1 | 2 | 3 | 4 | 5): string {
+  const base = [...syllable].map((ch) => PLAIN_OF[ch] ?? ch).join("");
+  if (tone === 5) return base;
+  const lower = base.toLowerCase();
+  let at = lower.search(/[ae]/);
+  if (at < 0 && lower.includes("ou")) at = lower.indexOf("ou");
+  if (at < 0) {
+    for (let i = lower.length - 1; i >= 0; i--) {
+      if ("iouü".includes(lower[i])) {
+        at = i;
+        break;
+      }
+    }
+  }
+  if (at < 0) return base;
+  const marked = MARKED[lower[at]][tone - 1];
+  return base.slice(0, at) + (base[at] !== lower[at] ? marked.toUpperCase() : marked) + base.slice(at + 1);
+}
+
 /** "péngyou" → [2, 5]: el tono de cada sílaba, en orden. */
 export function tonesOf(word: string): (1 | 2 | 3 | 4 | 5)[] {
   return splitPinyin(word).map(toneOf);

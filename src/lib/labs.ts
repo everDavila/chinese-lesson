@@ -32,6 +32,7 @@ const REGISTRY: Lab[] = [
     slug: "quiz",
     history: [
       { date: "2026-11-17", id: "start" },
+      { date: "2026-11-17", id: "contexto" },
     ],
   },
   {

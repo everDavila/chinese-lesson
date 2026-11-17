@@ -549,7 +549,8 @@
         "title": "Quiz mixto",
         "summary": "Elegir entre cuatro y verdadero o falso en una misma ronda, con puntos por rapidez y repaso de los fallos.",
         "history": {
-          "start": "Primer piloto: 10 preguntas de HSK 1 que mezclan elegir y verdadero o falso, con tiempo, puntos y una ronda solo con los fallos. Sin base de datos."
+          "start": "Primer piloto: 10 preguntas de HSK 1 que mezclan elegir y verdadero o falso, con tiempo, puntos y una ronda solo con los fallos. Sin base de datos.",
+          "contexto": "Tres modos (reconocer, tonos y escuchar) con HSK 1 a 3. Al revelar: la palabra con audio, su significado y una frase corta de su nivel. Temporizador con color y segundos."
         }
       },
       "tarjetas": {
