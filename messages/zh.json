@@ -665,6 +665,8 @@
     "pickByCount": "按数量",
     "minutesShort": "{n} 分钟",
     "pickMinutesHint": "约 {n} 个词；仅为估算，不是计时。",
+    "pickReviewOnly": "只复习，不学新词",
+    "pickReviewOnlyHint": "只练习这个来源中已到复习时间的词。",
     "pickAmount": "练习多少个词？",
     "pickStart": "开始",
     "pickWords": "{n} 个词",

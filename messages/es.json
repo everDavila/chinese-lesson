@@ -665,6 +665,8 @@
     "pickByCount": "Por cantidad",
     "minutesShort": "{n} min",
     "pickMinutesHint": "Son unas {n} palabras; es una estimación, no un cronómetro.",
+    "pickReviewOnly": "Solo repasar, sin palabras nuevas",
+    "pickReviewOnlyHint": "Practica únicamente lo que ya toca repasar de esta fuente.",
     "pickAmount": "¿Cuántas palabras?",
     "pickStart": "Empezar",
     "pickWords": "{n, plural, one {# palabra} other {# palabras}}",

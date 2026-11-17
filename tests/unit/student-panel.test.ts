@@ -175,3 +175,13 @@ test("precisión por habilidad: known cuenta, gave_up no, sin intentos es null",
   assert.deepEqual(r[1], { skill: "write", attempts: 4, correct: 2, percent: 50 });
   assert.deepEqual(r[0], { skill: "recognize", attempts: 0, correct: 0, percent: null });
 });
+
+test("solo repaso: sin palabras nuevas, solo lo vencido", () => {
+  const now = new Date("2026-11-17T12:00:00Z");
+  const states = new Map([
+    ["a", { stage: "fragile", dueAt: "2026-11-16T00:00:00Z" }],
+    ["b", { stage: "mastered", dueAt: "2026-12-30T00:00:00Z" }],
+  ]);
+  assert.deepEqual(pickForPractice(["a", "b", "c"], states, 5, now), ["a", "c"]);
+  assert.deepEqual(pickForPractice(["a", "b", "c"], states, 5, now, true), ["a"]);
+});

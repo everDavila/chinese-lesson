@@ -4,7 +4,8 @@
 // más adelante y lo descartado no entra.
 export type PickState = { stage: string; dueAt: string | null };
 
-export function pickForPractice(candidates: string[], states: Map<string, PickState>, n: number, now: Date): string[] {
+/** `reviewOnly`: sin palabras nuevas, solo lo vencido («pausar nuevas»). */
+export function pickForPractice(candidates: string[], states: Map<string, PickState>, n: number, now: Date, reviewOnly = false): string[] {
   const nowIso = now.toISOString();
   const overdue: { id: string; dueAt: string }[] = [];
   const fresh: string[] = [];
@@ -17,7 +18,7 @@ export function pickForPractice(candidates: string[], states: Map<string, PickSt
     else if (s.stage !== "dismissed" && s.dueAt && s.dueAt <= nowIso) overdue.push({ id, dueAt: s.dueAt });
   }
   overdue.sort((a, b) => a.dueAt.localeCompare(b.dueAt));
-  return [...overdue.map((o) => o.id), ...fresh].slice(0, n);
+  return [...overdue.map((o) => o.id), ...(reviewOnly ? [] : fresh)].slice(0, n);
 }
 
 export const PRACTICE_AMOUNTS = [10, 20, 40] as const;

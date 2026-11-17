@@ -81,7 +81,7 @@ async function Practice({
       if (!senseIds.length) return empty(t("reviewUpToDate"), t("reviewNone"));
     }
   } else if (one(sp.fuente)) {
-    const plan = await planPractice(one(sp.fuente), one(sp.n), skill);
+    const plan = await planPractice(one(sp.fuente), one(sp.n), skill, one(sp.nuevas) === "no");
     if (!plan) return empty(t("pickInvalid"), t("pickInvalidText"));
     if (plan.done) return empty(t("pickDoneTitle"), t("pickDoneText"));
     title = plan.title;

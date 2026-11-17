@@ -665,6 +665,8 @@
     "pickByCount": "By count",
     "minutesShort": "{n} min",
     "pickMinutesHint": "About {n} words; an estimate, not a timer.",
+    "pickReviewOnly": "Review only, no new words",
+    "pickReviewOnlyHint": "Practice only what is already due from this source.",
     "pickAmount": "How many words?",
     "pickStart": "Start",
     "pickWords": "{n, plural, one {# word} other {# words}}",

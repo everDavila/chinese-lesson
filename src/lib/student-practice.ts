@@ -63,7 +63,7 @@ async function skillStates(skill: Skill): Promise<Map<string, PickState>> {
 export type PracticePlan = { title: string; senseIds: string[]; /** La fuente no tiene palabras nuevas ni por repasar. */ done: boolean };
 
 /** Arma la práctica de `n` palabras de una fuente (`hsk-3`, `tema-<id>`, `frecuencia-<id de lección>`, `radicales-<id de lección>`). null si la fuente no es válida. */
-export async function planPractice(sourceParam: string | undefined, amountParam: string | undefined, skill: Skill): Promise<PracticePlan | null> {
+export async function planPractice(sourceParam: string | undefined, amountParam: string | undefined, skill: Skill, reviewOnly = false): Promise<PracticePlan | null> {
   const source = parseSource(sourceParam);
   if (!source) return null;
   const n = parseAmount(amountParam);
@@ -85,9 +85,13 @@ export async function planPractice(sourceParam: string | undefined, amountParam:
         .range(from, from + 199);
       if (error) throw error;
       seen.push(...(data ?? []).map((r) => r.sense_id as string));
-      const picked = pickForPractice(seen, states, n, now);
-      const freshCount = seen.filter((id) => !states.has(id)).length;
-      if (freshCount >= n || !data || data.length < 200) {
+      const picked = pickForPractice(seen, states, n, now, reviewOnly);
+      const nowIso = now.toISOString();
+      // Sin nuevas, lo que hay que juntar son las vencidas; con nuevas, las que aún no se han visto.
+      const enough = reviewOnly
+        ? seen.filter((id) => { const st = states.get(id); return !!st && st.stage !== "dismissed" && !!st.dueAt && st.dueAt <= nowIso; }).length
+        : seen.filter((id) => !states.has(id)).length;
+      if (enough >= n || !data || data.length < 200) {
         return { title: `${source.level === 7 ? "HSK 7–9" : `HSK ${source.level}`} · ${picked.length}`, senseIds: picked, done: picked.length === 0 };
       }
     }
@@ -105,7 +109,7 @@ export async function planPractice(sourceParam: string | undefined, amountParam:
     if (ce) throw ce;
     if (!col || !(source.kind === "frequency" ? isFrequencyCollection(col.title) : isRadicalCollection(col.title))) return null;
     const ordered = [...(lesson.lesson_items as { position: number; sense_id: string }[])].sort((a, b) => a.position - b.position).map((i) => i.sense_id);
-    const picked = pickForPractice(ordered, states, n, now);
+    const picked = pickForPractice(ordered, states, n, now, reviewOnly);
     return { title: `${lesson.title} · ${picked.length}`, senseIds: picked, done: picked.length === 0 };
   }
 
@@ -123,6 +127,6 @@ export async function planPractice(sourceParam: string | undefined, amountParam:
     .filter((l) => !l.archived_at)
     .sort((a, b) => a.position - b.position)
     .flatMap((l) => [...l.lesson_items].sort((a, b) => a.position - b.position).map((i) => i.sense_id));
-  const picked = pickForPractice(ordered, states, n, now);
+  const picked = pickForPractice(ordered, states, n, now, reviewOnly);
   return { title: `${row.title} · ${picked.length}`, senseIds: picked, done: picked.length === 0 };
 }

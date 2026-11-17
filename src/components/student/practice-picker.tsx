@@ -42,6 +42,7 @@ export function PracticePicker({
   // «Por tiempo»: el alumno elige minutos y la cantidad de palabras se calcula con una estimación por ejercicio.
   const [unit, setUnit] = useState<"words" | "minutes">("words");
   const [minutes, setMinutes] = useState<number>(PRACTICE_MINUTES[1]);
+  const [reviewOnly, setReviewOnly] = useState(false);
   const effective = unit === "minutes" ? wordsForMinutes(minutes, exercise) : amount;
   const [tab, setTab] = useState<Tab>("hsk");
   const [source, setSource] = useState(levels[0]?.value ?? "");
@@ -68,7 +69,7 @@ export function PracticePicker({
       className="flex flex-1 flex-col gap-6"
       onSubmit={(e) => {
         e.preventDefault();
-        if (source) router.push(`/estudiante?fuente=${encodeURIComponent(source)}&n=${effective}&ejercicio=${exercise}`);
+        if (source) router.push(`/estudiante?fuente=${encodeURIComponent(source)}&n=${effective}&ejercicio=${exercise}${reviewOnly ? "&nuevas=no" : ""}`);
       }}
     >
       <div className="grid gap-5 rounded-xl border border-border bg-card p-4 md:grid-cols-2">
@@ -94,6 +95,13 @@ export function PracticePicker({
             </button>
           </div>
           {unit === "minutes" && <p className="text-sm text-muted-foreground">{t("pickMinutesHint", { n: effective })}</p>}
+          <label className="flex cursor-pointer items-start gap-2 pt-1 text-sm">
+            <input type="checkbox" className="mt-0.5 accent-primary" checked={reviewOnly} onChange={(e) => setReviewOnly(e.target.checked)} />
+            <span>
+              <span className="font-medium">{t("pickReviewOnly")}</span>
+              <span className="block text-muted-foreground">{t("pickReviewOnlyHint")}</span>
+            </span>
+          </label>
         </fieldset>
       </div>
 
