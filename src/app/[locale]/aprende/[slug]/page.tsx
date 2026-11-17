@@ -52,6 +52,12 @@ async function Chapter({ params }: { params: PageProps<"/[locale]/aprende/[slug]
           <Link href={practiceCta} className={cn(buttonVariants(), "mt-3")}>{profile ? t("practiceCta") : t("signIn")}</Link>
         </div>
       )}
+      {found.chapter.labSlug && (
+        <div className="mt-8 rounded-xl border border-border bg-card p-5">
+          <p className="text-sm text-muted-foreground">{t(`labHint.${found.chapter.labSlug}`)}</p>
+          <Link href={`/lab/${found.chapter.labSlug}`} className={cn(buttonVariants({ variant: "outline" }), "mt-3")}>{t(`labCta.${found.chapter.labSlug}`)}</Link>
+        </div>
+      )}
       <nav className="mt-10 flex items-center justify-between gap-3 border-t border-border pt-4 text-sm" aria-label={t("chapters")}>
         {prev ? <Link href={`/aprende/${prev.slug}`} className="text-primary hover:underline">← {t("previous")}</Link> : <span />}
         {next ? <Link href={`/aprende/${next.slug}`} className="text-primary hover:underline">{t("next")} →</Link> : <span />}

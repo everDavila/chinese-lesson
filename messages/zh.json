@@ -693,6 +693,8 @@
     "colClass": "分类",
     "colNote": "备注",
     "colHint": "数据集提示（英文）",
+    "labCta": { "radicales": "查看全部 214 个部首" },
+    "labHint": { "radicales": "完整的部首表，可搜索并按使用频率排序。这是实验室中的试验功能：西班牙语释义仍待审核。" },
     "practiceCta": "练习这些汉字",
     "practiceHint": "用你的复习队列练习本章的汉字。",
     "practiceLogin": "需要学生账号才能练习这些汉字。"

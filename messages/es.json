@@ -693,6 +693,8 @@
     "colClass": "Clase",
     "colNote": "Nota",
     "colHint": "Pista del dataset (inglés)",
+    "labCta": { "radicales": "Ver los 214 radicales" },
+    "labHint": { "radicales": "La tabla completa, con búsqueda y orden por uso. Es un piloto del laboratorio: los significados en español están pendientes de revisión." },
     "practiceCta": "Practicar estos caracteres",
     "practiceHint": "Practica los caracteres de este capítulo con tu cola de repaso.",
     "practiceLogin": "Para practicar estos caracteres necesitas una cuenta de alumno."

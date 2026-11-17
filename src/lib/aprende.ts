@@ -13,6 +13,8 @@ export type Chapter = {
   minutes: number;
   /** Título de la colección del sistema que el capítulo propone practicar al final. */
   practiceTheme?: string;
+  /** Piloto del laboratorio que el capítulo enlaza al final (`/lab/<slug>`). */
+  labSlug?: string;
 };
 
 export const CHAPTERS: Chapter[] = [
@@ -20,7 +22,7 @@ export const CHAPTERS: Chapter[] = [
   { slug: "pictogramas", file: "cap-02-pictogramas.md", minutes: 3, practiceTheme: "Pictogramas" },
   { slug: "indicativos-compuestos", file: "cap-03-indicativos-y-compuestos.md", minutes: 4 },
   { slug: "fonetico-semanticos", file: "cap-04-fonetico-semanticos.md", minutes: 5 },
-  { slug: "radicales", file: "cap-05-radicales.md", minutes: 4 },
+  { slug: "radicales", file: "cap-05-radicales.md", minutes: 4, labSlug: "radicales" },
   { slug: "cambio-de-forma", file: "cap-06-cambio-de-forma.md", minutes: 3 },
 ];
 

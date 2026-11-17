@@ -693,6 +693,8 @@
     "colClass": "Class",
     "colNote": "Note",
     "colHint": "Dataset hint (English)",
+    "labCta": { "radicales": "See all 214 radicals" },
+    "labHint": { "radicales": "The full table, searchable and sortable by use. It is a lab pilot: the Spanish meanings are still awaiting review." },
     "practiceCta": "Practise these characters",
     "practiceHint": "Practise this chapter's characters with your review queue.",
     "practiceLogin": "You need a student account to practise these characters."
