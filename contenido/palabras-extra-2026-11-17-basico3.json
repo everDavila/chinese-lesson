@@ -1,0 +1,127 @@
+{
+  "nota": "Palabras de las lecciones 12 y 13 de la profesora (planillas que dio Ever el 2026-11-17) que no están en el catálogo HSK 3.0: compuestos, expresiones y un morfema. Van sin nivel. Los significados vienen de las planillas; las frases son cortas, nuestras (origen ai) y sin revisar; el inglés es nuestro. Se carga con scripts/cargar-palabras-extra.mjs.",
+  "palabras": [
+    {
+      "hanzi": "不舒服",
+      "pinyin": "bù shūfu",
+      "category": "adjective",
+      "es": "sentirse mal; no encontrarse bien",
+      "en": "to feel unwell",
+      "sentences": [
+        { "zh": "我今天不舒服。", "pinyin": "Wǒ jīntiān bù shūfu.", "es": "Hoy no me siento bien.", "en": "I don't feel well today." },
+        { "zh": "你哪儿不舒服？", "pinyin": "Nǐ nǎr bù shūfu?", "es": "¿Qué te molesta? ¿Dónde te sientes mal?", "en": "Where do you feel unwell?" }
+      ]
+    },
+    {
+      "hanzi": "吃药",
+      "pinyin": "chī yào",
+      "category": "set phrase",
+      "es": "tomar medicina",
+      "en": "to take medicine",
+      "sentences": [
+        { "zh": "你要吃药。", "pinyin": "Nǐ yào chī yào.", "es": "Tienes que tomar medicina.", "en": "You need to take medicine." },
+        { "zh": "他每天吃药。", "pinyin": "Tā měitiān chī yào.", "es": "Él toma medicina todos los días.", "en": "He takes medicine every day." }
+      ]
+    },
+    {
+      "hanzi": "西药",
+      "pinyin": "xīyào",
+      "category": "noun",
+      "es": "medicina occidental",
+      "en": "Western medicine",
+      "sentences": [
+        { "zh": "我不想吃西药。", "pinyin": "Wǒ bù xiǎng chī xīyào.", "es": "No quiero tomar medicina occidental.", "en": "I don't want to take Western medicine." },
+        { "zh": "你想吃中药还是西药？", "pinyin": "Nǐ xiǎng chī zhōngyào háishi xīyào?", "es": "¿Quieres medicina china u occidental?", "en": "Do you want Chinese or Western medicine?" }
+      ]
+    },
+    {
+      "hanzi": "每年",
+      "pinyin": "měinián",
+      "category": "noun",
+      "es": "todos los años; cada año",
+      "en": "every year",
+      "sentences": [
+        { "zh": "我每年去中国。", "pinyin": "Wǒ měinián qù Zhōngguó.", "es": "Todos los años voy a China.", "en": "I go to China every year." },
+        { "zh": "他每年都学汉语。", "pinyin": "Tā měinián dōu xué Hànyǔ.", "es": "Él estudia chino todos los años.", "en": "He studies Chinese every year." }
+      ]
+    },
+    {
+      "hanzi": "每个学生",
+      "pinyin": "měi ge xuésheng",
+      "category": "set phrase",
+      "es": "cada estudiante",
+      "en": "every student",
+      "sentences": [
+        { "zh": "每个学生都有书。", "pinyin": "Měi ge xuésheng dōu yǒu shū.", "es": "Cada estudiante tiene un libro.", "en": "Every student has a book." },
+        { "zh": "每个学生都很高兴。", "pinyin": "Měi ge xuésheng dōu hěn gāoxìng.", "es": "Cada estudiante está contento.", "en": "Every student is happy." }
+      ]
+    },
+    {
+      "hanzi": "好吧",
+      "pinyin": "hǎo ba",
+      "category": "set phrase",
+      "es": "está bien; de acuerdo",
+      "en": "all right; okay then",
+      "sentences": [
+        { "zh": "好吧，我们走。", "pinyin": "Hǎo ba, wǒmen zǒu.", "es": "Está bien, vámonos.", "en": "Okay then, let's go." },
+        { "zh": "好吧，你说得对。", "pinyin": "Hǎo ba, nǐ shuō de duì.", "es": "De acuerdo, tienes razón.", "en": "All right, you are right." }
+      ]
+    },
+    {
+      "hanzi": "多大",
+      "pinyin": "duō dà",
+      "category": "set phrase",
+      "es": "qué edad; cuántos años",
+      "en": "how old",
+      "sentences": [
+        { "zh": "你多大了？", "pinyin": "Nǐ duō dà le?", "es": "¿Cuántos años tienes?", "en": "How old are you?" },
+        { "zh": "你的孩子多大？", "pinyin": "Nǐ de háizi duō dà?", "es": "¿Qué edad tiene tu hijo?", "en": "How old is your child?" }
+      ]
+    },
+    {
+      "hanzi": "每天下午",
+      "pinyin": "měitiān xiàwǔ",
+      "category": "set phrase",
+      "es": "todas las tardes",
+      "en": "every afternoon",
+      "sentences": [
+        { "zh": "我每天下午锻炼。", "pinyin": "Wǒ měitiān xiàwǔ duànliàn.", "es": "Todas las tardes hago ejercicio.", "en": "I exercise every afternoon." },
+        { "zh": "他每天下午喝咖啡。", "pinyin": "Tā měitiān xiàwǔ hē kāfēi.", "es": "Él toma café todas las tardes.", "en": "He drinks coffee every afternoon." }
+      ]
+    },
+    {
+      "hanzi": "事儿",
+      "pinyin": "shìr",
+      "category": "noun",
+      "es": "asunto; cosa",
+      "en": "matter; thing",
+      "sentences": [
+        { "zh": "你有什么事儿？", "pinyin": "Nǐ yǒu shénme shìr?", "es": "¿Qué asunto tienes? ¿Qué pasa?", "en": "What's the matter?" },
+        { "zh": "我有一件事儿要告诉你。", "pinyin": "Wǒ yǒu yí jiàn shìr yào gàosu nǐ.", "es": "Tengo algo que decirte.", "en": "I have something to tell you." }
+      ]
+    },
+    {
+      "hanzi": "影",
+      "pinyin": "yǐng",
+      "category": "noun",
+      "es": "imagen; sombra (en 电影, «película»)",
+      "en": "image; shadow (as in 电影, “film”)",
+      "nuance_es": "Casi siempre aparece dentro de 电影; no se usa suelto en el chino de este nivel.",
+      "nuance_en": "Almost always appears inside 电影; it is not used on its own at this level.",
+      "sentences": [
+        { "zh": "电影很好看。", "pinyin": "Diànyǐng hěn hǎokàn.", "es": "La película está muy buena.", "en": "The film is very good." }
+      ]
+    },
+    {
+      "hanzi": "吃饭",
+      "pinyin": "chīfàn",
+      "category": "verb",
+      "es": "comer; tomar una comida",
+      "en": "to eat a meal",
+      "sentences": [
+        { "zh": "我们去吃饭吧。", "pinyin": "Wǒmen qù chīfàn ba.", "es": "Vamos a comer.", "en": "Let's go eat." },
+        { "zh": "你吃饭了吗？", "pinyin": "Nǐ chīfàn le ma?", "es": "¿Ya comiste?", "en": "Have you eaten?" }
+      ]
+    }
+  ]
+}
