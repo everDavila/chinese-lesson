@@ -19,11 +19,13 @@ const card =
 // nivel HSK o un tema del sistema) y, siempre a la vista, el botón de empezar.
 export function PracticePicker({
   levels,
+  frequency,
   themeGroups,
   amounts,
   defaultAmount,
 }: {
   levels: Option[];
+  frequency: Option[];
   themeGroups: Group[];
   amounts: number[];
   defaultAmount: number;
@@ -32,11 +34,11 @@ export function PracticePicker({
   const router = useRouter();
   const [exercise, setExercise] = useState<"tarjeta" | "escribir">("tarjeta");
   const [amount, setAmount] = useState(defaultAmount);
-  const [tab, setTab] = useState<"hsk" | "temas">("hsk");
+  const [tab, setTab] = useState<"hsk" | "frecuencia" | "temas">("hsk");
   const [source, setSource] = useState(levels[0]?.value ?? "");
   const [query, setQuery] = useState("");
 
-  const all = useMemo(() => [...levels, ...themeGroups.flatMap((g) => g.options)], [levels, themeGroups]);
+  const all = useMemo(() => [...levels, ...frequency, ...themeGroups.flatMap((g) => g.options)], [levels, frequency, themeGroups]);
   const selected = all.find((o) => o.value === source);
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -83,8 +85,9 @@ export function PracticePicker({
       <div className="space-y-4">
         <fieldset className="flex gap-2">
           <legend className="sr-only">{t("pickSource")}</legend>
-          {choice("vista", "hsk", tab, (v: "hsk" | "temas") => { setTab(v); if (v === "hsk") setSource(levels[0]?.value ?? ""); }, t("pickTabLevels"), segment)}
-          {choice("vista", "temas", tab, (v: "hsk" | "temas") => { setTab(v); setSource(""); }, t("pickTabThemes"), segment)}
+          {choice("vista", "hsk", tab, (v: "hsk" | "frecuencia" | "temas") => { setTab(v); if (v === "hsk") setSource(levels[0]?.value ?? ""); }, t("pickTabLevels"), segment)}
+          {frequency.length > 0 && choice("vista", "frecuencia", tab, (v: "hsk" | "frecuencia" | "temas") => { setTab(v); setSource(frequency[0]?.value ?? ""); }, t("pickTabFrequency"), segment)}
+          {choice("vista", "temas", tab, (v: "hsk" | "frecuencia" | "temas") => { setTab(v); setSource(""); }, t("pickTabThemes"), segment)}
         </fieldset>
 
         {tab === "hsk" ? (
@@ -92,6 +95,14 @@ export function PracticePicker({
             <legend className="sr-only">{t("pickLevels")}</legend>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
               {levels.map((o) => choice("fuente", o.value, source, setSource, <><span className="font-medium">{o.title}</span><span className="text-sm text-muted-foreground">{o.hint}</span></>, card))}
+            </div>
+          </fieldset>
+        ) : tab === "frecuencia" ? (
+          <fieldset className="space-y-2">
+            <legend className="sr-only">{t("pickTabFrequency")}</legend>
+            <p className="text-sm text-muted-foreground">{t("pickFrequencyHint")}</p>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+              {frequency.map((o) => choice("fuente", o.value, source, setSource, <><span className="font-medium">{o.title}</span><span className="text-sm text-muted-foreground">{o.hint}</span></>, card))}
             </div>
           </fieldset>
         ) : (

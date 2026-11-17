@@ -644,6 +644,8 @@
     "exerciseWriteHint": "Escribe cada palabra trazo a trazo con el dedo.",
     "pickTabLevels": "Nivel HSK",
     "pickTabThemes": "Temas",
+    "pickTabFrequency": "Alta frecuencia",
+    "pickFrequencyHint": "Las 1 000 palabras más útiles, de la más común a la menos común. Empieza por el primer bloque.",
     "pickSource": "Qué practicar",
     "groupSituations": "Situaciones",
     "groupTopics": "Temas",

@@ -644,6 +644,8 @@
     "exerciseWriteHint": "Write each word stroke by stroke with your finger.",
     "pickTabLevels": "HSK level",
     "pickTabThemes": "Topics",
+    "pickTabFrequency": "High frequency",
+    "pickFrequencyHint": "The 1,000 most useful words, from most to least common. Start with the first block.",
     "pickSource": "What to practise",
     "groupSituations": "Situations",
     "groupTopics": "Topics",

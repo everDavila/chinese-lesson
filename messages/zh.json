@@ -644,6 +644,8 @@
     "exerciseWriteHint": "用手指一笔一画地写每个词。",
     "pickTabLevels": "HSK 等级",
     "pickTabThemes": "主题",
+    "pickTabFrequency": "高频词",
+    "pickFrequencyHint": "最常用的 1000 个词，从最常见到较少见。先从第一组开始。",
     "pickSource": "练习什么",
     "groupSituations": "场景",
     "groupTopics": "主题",
