@@ -645,6 +645,8 @@
     "pickTabLevels": "HSK 等级",
     "pickTabThemes": "主题",
     "pickTabFrequency": "高频词",
+    "pickTabRadicals": "部首",
+    "pickRadicalsHint": "汉字里反复出现的构件：认出它们，就能猜到生字大概与什么有关。从最常用的开始。",
     "pickFrequencyHint": "最常用的 1000 个词，从最常见到较少见。先从第一组开始。",
     "pickSource": "练习什么",
     "groupSituations": "场景",

@@ -325,7 +325,8 @@ function DetailDisclosure({
 }
 
 export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "zh", lang, noteTerms, footer }: CardBackProps) {
-  const [detail, setDetail] = useState<Detail | null>(null);
+  // En un radical el matiz lleva los ejemplos: se muestra abierto.
+  const [detail, setDetail] = useState<Detail | null>(item.word.senses[item.senseIndex]?.category === "radical" ? "nuance" : null);
   const labels = studentLabels(lang);
   const { word, senseIndex } = item;
   const sense = word.senses[senseIndex];
@@ -416,12 +417,15 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
           <section data-testid="card-examples" aria-label={labels.examples} className="min-w-0 lg:col-start-1 lg:row-start-2 lg:overflow-y-auto lg:pr-1">
             <h2 className={cn("mb-2", SECTION_TITLE)}>{labels.examples}</h2>
             {sense.sentences.length === 0 ? (
-              <section className="rounded-xl border border-dashed border-border bg-background/60 px-5 py-4">
-                <p className="text-[clamp(1.125rem,1.8vw,1.5rem)] font-medium">
-                  {labels.inventTitle} <span lang="zh-Hans" className="font-hanzi text-keyword-text">{word.hanzi}</span>
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">{labels.inventHint}</p>
-              </section>
+              // Un radical no se usa en frases: sus ejemplos van en el matiz.
+              sense.category === "radical" ? null : (
+                <section className="rounded-xl border border-dashed border-border bg-background/60 px-5 py-4">
+                  <p className="text-[clamp(1.125rem,1.8vw,1.5rem)] font-medium">
+                    {labels.inventTitle} <span lang="zh-Hans" className="font-hanzi text-keyword-text">{word.hanzi}</span>
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">{labels.inventHint}</p>
+                </section>
+              )
             ) : (
               <ol className="overflow-hidden rounded-xl border border-border bg-background/60">
                 {sense.sentences.map((s, i) => (

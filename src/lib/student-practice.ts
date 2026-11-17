@@ -2,7 +2,7 @@ import "server-only";
 
 import type { Skill } from "@/actions/student";
 import { allPages } from "./in-chunks";
-import { isFrequencyCollection, parseAmount, parseSource, pickForPractice, themeGroup, type PickState, type ThemeGroup } from "./practice-pick";
+import { isFrequencyCollection, isRadicalCollection, parseAmount, parseSource, pickForPractice, themeGroup, type PickState, type ThemeGroup } from "./practice-pick";
 import { createClient } from "./supabase/server";
 
 // Material de práctica del alumno: el del sistema (niveles HSK y temas). El
@@ -23,20 +23,23 @@ export async function listThemes(): Promise<Theme[]> {
   return (data as unknown as Row[]).flatMap((c) => {
     const group = themeGroup(c.source_note);
     const words = c.lessons.filter((l) => !l.archived_at).reduce((n, l) => n + (l.lesson_items[0]?.count ?? 0), 0);
-    return group && words > 0 && !isFrequencyCollection(c.title) ? [{ id: c.id, title: c.title, description: c.description, words, group }] : [];
+    return group && words > 0 && !isFrequencyCollection(c.title) && !isRadicalCollection(c.title) ? [{ id: c.id, title: c.title, description: c.description, words, group }] : [];
   });
 }
 
-/** Bloques de la colección de alta frecuencia (cada lección es un tramo del ranking), en orden. */
+/** Bloques de una colección del sistema con pestaña propia (cada lección es un tramo), en orden. */
 export type FrequencyBlock = { id: string; title: string; words: number };
 
-export async function listFrequencyBlocks(): Promise<FrequencyBlock[]> {
+export const listFrequencyBlocks = () => listBlocks("Alta frecuencia%");
+export const listRadicalBlocks = () => listBlocks("Radicales%");
+
+async function listBlocks(titlePattern: string): Promise<FrequencyBlock[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("collections")
     .select("title, lessons(id, title, position, archived_at, lesson_items(count))")
     .is("owner_id", null)
-    .ilike("title", "Alta frecuencia%")
+    .ilike("title", titlePattern)
     .limit(1)
     .maybeSingle();
   if (error) throw error;
@@ -59,7 +62,7 @@ async function skillStates(skill: Skill): Promise<Map<string, PickState>> {
 
 export type PracticePlan = { title: string; senseIds: string[]; /** La fuente no tiene palabras nuevas ni por repasar. */ done: boolean };
 
-/** Arma la práctica de `n` palabras de una fuente (`hsk-3`, `tema-<id>`, `frecuencia-<id de lección>`). null si la fuente no es válida. */
+/** Arma la práctica de `n` palabras de una fuente (`hsk-3`, `tema-<id>`, `frecuencia-<id de lección>`, `radicales-<id de lección>`). null si la fuente no es válida. */
 export async function planPractice(sourceParam: string | undefined, amountParam: string | undefined, skill: Skill): Promise<PracticePlan | null> {
   const source = parseSource(sourceParam);
   if (!source) return null;
@@ -90,7 +93,7 @@ export async function planPractice(sourceParam: string | undefined, amountParam:
     }
   }
 
-  if (source.kind === "frequency") {
+  if (source.kind === "frequency" || source.kind === "radicals") {
     const { data: lesson, error: le } = await supabase
       .from("lessons")
       .select("title, archived_at, collection_id, lesson_items(position, sense_id)")
@@ -100,7 +103,7 @@ export async function planPractice(sourceParam: string | undefined, amountParam:
     if (!lesson || lesson.archived_at) return null;
     const { data: col, error: ce } = await supabase.from("collections").select("title").eq("id", lesson.collection_id).is("owner_id", null).maybeSingle();
     if (ce) throw ce;
-    if (!col || !isFrequencyCollection(col.title)) return null;
+    if (!col || !(source.kind === "frequency" ? isFrequencyCollection(col.title) : isRadicalCollection(col.title))) return null;
     const ordered = [...(lesson.lesson_items as { position: number; sense_id: string }[])].sort((a, b) => a.position - b.position).map((i) => i.sense_id);
     const picked = pickForPractice(ordered, states, n, now);
     return { title: `${lesson.title} · ${picked.length}`, senseIds: picked, done: picked.length === 0 };

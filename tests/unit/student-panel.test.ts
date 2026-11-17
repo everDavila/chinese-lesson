@@ -46,7 +46,7 @@ test("estrellas de dominio", () => {
   assert.equal(masteryStars({ stage: "dismissed", intervalDays: 80 }), 0);
 });
 
-import { parseAmount, parseExercise, isFrequencyCollection, parseSource, pickForPractice, skillOf, themeGroup } from "../../src/lib/practice-pick.ts";
+import { parseAmount, parseExercise, isFrequencyCollection, isRadicalCollection, parseSource, pickForPractice, skillOf, themeGroup } from "../../src/lib/practice-pick.ts";
 
 test("práctica: primero lo vencido, luego lo nuevo; sin programadas ni descartadas", () => {
   const now = new Date("2026-11-12T12:00:00Z");
@@ -74,6 +74,10 @@ test("práctica: fuente y cantidad válidas", () => {
   assert.equal(parseSource("frecuencia-no-es-uuid"), null);
   assert.equal(isFrequencyCollection("Alta frecuencia 1000"), true);
   assert.equal(isFrequencyCollection("Frecuencia y grado"), false);
+  assert.deepEqual(parseSource("radicales-3f2a1b4c-0000-4000-8000-000000000001"), { kind: "radicals", id: "3f2a1b4c-0000-4000-8000-000000000001" });
+  assert.equal(parseSource("radicales-no-es-uuid"), null);
+  assert.equal(isRadicalCollection("Radicales más usados"), true);
+  assert.equal(isRadicalCollection("Pictogramas"), false);
   assert.equal(parseAmount("40"), 40);
   assert.equal(parseAmount("7"), 20);
   assert.equal(parseAmount(undefined), 20);

@@ -87,9 +87,13 @@ for (const p of nuevas) {
     .select("id")
     .single();
   if (se) throw se;
-  const { error: te } = await db.from("sentences").insert(
-    p.sentences.map((t, i) => ({ sense_id: sense.id, position: i + 1, zh: t.zh, pinyin: t.pinyin, translation_es: t.es, translation_en: t.en, origin: "ai", status: "unreviewed" })),
-  );
-  if (te) throw te;
-  console.log(`✓ ${p.hanzi} · ${p.pinyin} · ${p.sentences.length} frases`);
+  // Hay palabras sin frases (los radicales llevan sus ejemplos en el matiz).
+  const sentences = p.sentences ?? [];
+  if (sentences.length) {
+    const { error: te } = await db.from("sentences").insert(
+      sentences.map((t, i) => ({ sense_id: sense.id, position: i + 1, zh: t.zh, pinyin: t.pinyin, translation_es: t.es, translation_en: t.en, origin: "ai", status: "unreviewed" })),
+    );
+    if (te) throw te;
+  }
+  console.log(`✓ ${p.hanzi} · ${p.pinyin} · ${sentences.length} frases`);
 }

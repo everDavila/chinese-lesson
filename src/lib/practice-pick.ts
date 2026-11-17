@@ -23,20 +23,25 @@ export function pickForPractice(candidates: string[], states: Map<string, PickSt
 export const PRACTICE_AMOUNTS = [10, 20, 40] as const;
 export const DEFAULT_AMOUNT = 20;
 
-export type PracticeSource = { kind: "hsk"; level: number } | { kind: "theme"; id: string } | { kind: "frequency"; id: string };
+export type PracticeSource = { kind: "hsk"; level: number } | { kind: "theme"; id: string } | { kind: "frequency"; id: string } | { kind: "radicals"; id: string };
 
 /** La colección de palabras de alta frecuencia del sistema: va en su propia pestaña, no entre los temas. */
 export const isFrequencyCollection = (title: string) => /^Alta frecuencia/i.test(title);
 
+/** La colección de radicales del sistema: también tiene su propia pestaña. */
+export const isRadicalCollection = (title: string) => /^Radicales/i.test(title);
+
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-/** «hsk-3», «tema-<uuid>» o «frecuencia-<uuid de lección>» → fuente; null si no es válida. */
+/** «hsk-3», «tema-<uuid>» o «frecuencia-<uuid de lección>» o «radicales-<uuid de lección>» → fuente; null si no es válida. */
 export function parseSource(value: string | undefined): PracticeSource | null {
   if (!value) return null;
   const hsk = /^hsk-([1-7])$/.exec(value);
   if (hsk) return { kind: "hsk", level: Number(hsk[1]) };
   const frequency = /^frecuencia-(.+)$/.exec(value);
   if (frequency && UUID.test(frequency[1])) return { kind: "frequency", id: frequency[1] };
+  const radicals = /^radicales-(.+)$/.exec(value);
+  if (radicals && UUID.test(radicals[1])) return { kind: "radicals", id: radicals[1] };
   const theme = /^tema-(.+)$/.exec(value);
   if (theme && UUID.test(theme[1])) return { kind: "theme", id: theme[1] };
   return null;

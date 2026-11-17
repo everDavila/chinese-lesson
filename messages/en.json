@@ -645,6 +645,8 @@
     "pickTabLevels": "HSK level",
     "pickTabThemes": "Topics",
     "pickTabFrequency": "High frequency",
+    "pickTabRadicals": "Radicals",
+    "pickRadicalsHint": "The building blocks that repeat inside characters: recognise them and you can guess what a new character is about. Most used first.",
     "pickFrequencyHint": "The 1,000 most useful words, from most to least common. Start with the first block.",
     "pickSource": "What to practise",
     "groupSituations": "Situations",

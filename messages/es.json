@@ -645,6 +645,8 @@
     "pickTabLevels": "Nivel HSK",
     "pickTabThemes": "Temas",
     "pickTabFrequency": "Alta frecuencia",
+    "pickTabRadicals": "Radicales",
+    "pickRadicalsHint": "Las piezas que se repiten dentro de los caracteres: si las reconoces, adivinas de qué trata un carácter nuevo. De los más usados a los menos.",
     "pickFrequencyHint": "Las 1 000 palabras más útiles, de la más común a la menos común. Empieza por el primer bloque.",
     "pickSource": "Qué practicar",
     "groupSituations": "Situaciones",

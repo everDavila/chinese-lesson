@@ -11,7 +11,7 @@ import { requireProfile } from "@/lib/guard";
 import { getPracticeLesson } from "@/lib/lessons";
 import { DEFAULT_AMOUNT, PRACTICE_AMOUNTS, parseExercise, skillOf, type ThemeGroup } from "@/lib/practice-pick";
 import { getBookmarkIds } from "@/lib/student-progress";
-import { listFrequencyBlocks, listThemes, planPractice } from "@/lib/student-practice";
+import { listFrequencyBlocks, listRadicalBlocks, listThemes, planPractice } from "@/lib/student-practice";
 import { getDueWords, getStudentStats } from "@/lib/student-stats";
 
 // Práctica del alumno. Sin parámetros: elige ejercicio, cantidad y fuente
@@ -89,13 +89,14 @@ async function Practice({
   }
 
   if (title === null) {
-    const [counts, themes, frequencyBlocks] = await Promise.all([hskLevelCounts(), listThemes(), listFrequencyBlocks()]);
+    const [counts, themes, frequencyBlocks, radicalBlocks] = await Promise.all([hskLevelCounts(), listThemes(), listFrequencyBlocks(), listRadicalBlocks()]);
     const levels = [1, 2, 3, 4, 5, 6, 7].map((l) => ({
       value: `hsk-${l}`,
       title: l === 7 ? t("levelBand") : t("levelName", { n: l }),
       hint: t("pickWords", { n: counts[l] ?? 0 }),
     }));
     const frequency = frequencyBlocks.map((b) => ({ value: `frecuencia-${b.id}`, title: b.title, hint: t("pickWords", { n: b.words }) }));
+    const radicals = radicalBlocks.map((b) => ({ value: `radicales-${b.id}`, title: b.title, hint: t("pickWords", { n: b.words }) }));
     const themeGroups = GROUP_ORDER.map((g) => ({
       key: g,
       title: t(GROUP_KEY[g]),
@@ -107,7 +108,7 @@ async function Practice({
           <h1 className="text-3xl font-semibold">{t("pickTitle")}</h1>
           <p className="mt-1 text-muted-foreground">{t("pickHint")}</p>
         </header>
-        <PracticePicker levels={levels} frequency={frequency} themeGroups={themeGroups} amounts={[...PRACTICE_AMOUNTS]} defaultAmount={DEFAULT_AMOUNT} />
+        <PracticePicker levels={levels} frequency={frequency} radicals={radicals} themeGroups={themeGroups} amounts={[...PRACTICE_AMOUNTS]} defaultAmount={DEFAULT_AMOUNT} />
       </main>,
     );
   }

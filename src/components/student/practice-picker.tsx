@@ -10,6 +10,8 @@ import { cn } from "@/lib/utils";
 type Option = { value: string; title: string; hint: string };
 type Group = { key: string; title: string; options: Option[] };
 
+type Tab = "hsk" | "frecuencia" | "radicales" | "temas";
+
 const segment =
   "flex cursor-pointer items-center justify-center rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted has-checked:border-primary has-checked:bg-primary has-checked:text-primary-foreground has-checked:hover:bg-primary has-focus-visible:ring-2 has-focus-visible:ring-ring";
 const card =
@@ -20,12 +22,14 @@ const card =
 export function PracticePicker({
   levels,
   frequency,
+  radicals,
   themeGroups,
   amounts,
   defaultAmount,
 }: {
   levels: Option[];
   frequency: Option[];
+  radicals: Option[];
   themeGroups: Group[];
   amounts: number[];
   defaultAmount: number;
@@ -34,11 +38,11 @@ export function PracticePicker({
   const router = useRouter();
   const [exercise, setExercise] = useState<"tarjeta" | "escribir">("tarjeta");
   const [amount, setAmount] = useState(defaultAmount);
-  const [tab, setTab] = useState<"hsk" | "frecuencia" | "temas">("hsk");
+  const [tab, setTab] = useState<Tab>("hsk");
   const [source, setSource] = useState(levels[0]?.value ?? "");
   const [query, setQuery] = useState("");
 
-  const all = useMemo(() => [...levels, ...frequency, ...themeGroups.flatMap((g) => g.options)], [levels, frequency, themeGroups]);
+  const all = useMemo(() => [...levels, ...frequency, ...radicals, ...themeGroups.flatMap((g) => g.options)], [levels, frequency, radicals, themeGroups]);
   const selected = all.find((o) => o.value === source);
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -85,9 +89,10 @@ export function PracticePicker({
       <div className="space-y-4">
         <fieldset className="flex gap-2">
           <legend className="sr-only">{t("pickSource")}</legend>
-          {choice("vista", "hsk", tab, (v: "hsk" | "frecuencia" | "temas") => { setTab(v); if (v === "hsk") setSource(levels[0]?.value ?? ""); }, t("pickTabLevels"), segment)}
-          {frequency.length > 0 && choice("vista", "frecuencia", tab, (v: "hsk" | "frecuencia" | "temas") => { setTab(v); setSource(frequency[0]?.value ?? ""); }, t("pickTabFrequency"), segment)}
-          {choice("vista", "temas", tab, (v: "hsk" | "frecuencia" | "temas") => { setTab(v); setSource(""); }, t("pickTabThemes"), segment)}
+          {choice("vista", "hsk", tab, (v: Tab) => { setTab(v); if (v === "hsk") setSource(levels[0]?.value ?? ""); }, t("pickTabLevels"), segment)}
+          {frequency.length > 0 && choice("vista", "frecuencia", tab, (v: Tab) => { setTab(v); setSource(frequency[0]?.value ?? ""); }, t("pickTabFrequency"), segment)}
+          {radicals.length > 0 && choice("vista", "radicales", tab, (v: Tab) => { setTab(v); setSource(radicals[0]?.value ?? ""); }, t("pickTabRadicals"), segment)}
+          {choice("vista", "temas", tab, (v: Tab) => { setTab(v); setSource(""); }, t("pickTabThemes"), segment)}
         </fieldset>
 
         {tab === "hsk" ? (
@@ -103,6 +108,14 @@ export function PracticePicker({
             <p className="text-sm text-muted-foreground">{t("pickFrequencyHint")}</p>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
               {frequency.map((o) => choice("fuente", o.value, source, setSource, <><span className="font-medium">{o.title}</span><span className="text-sm text-muted-foreground">{o.hint}</span></>, card))}
+            </div>
+          </fieldset>
+        ) : tab === "radicales" ? (
+          <fieldset className="space-y-2">
+            <legend className="sr-only">{t("pickTabRadicals")}</legend>
+            <p className="text-sm text-muted-foreground">{t("pickRadicalsHint")}</p>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+              {radicals.map((o) => choice("fuente", o.value, source, setSource, <><span className="font-medium">{o.title}</span><span className="text-sm text-muted-foreground">{o.hint}</span></>, card))}
             </div>
           </fieldset>
         ) : (
