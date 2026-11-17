@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Settings, Volu
 import { importLocalProgress, markKnown, recordPracticeEvent } from "@/actions/student";
 import { CardBack } from "@/components/present/card-back";
 import { BookmarkButton } from "./bookmark-button";
+import { RatingDot } from "./rating-dot";
 import { ToneCurves } from "./tone-curves";
 import { ToneText } from "./tone-text";
 import { Button } from "@/components/ui/button";
@@ -26,10 +27,10 @@ import { StrokeCells, type CellsProgress, type StrokeCellsHandle } from "./strok
 // Texto solo en español mientras sea piloto (como /lab/escritura).
 
 const RATINGS: { value: Rating; label: string; tone: string }[] = [
-  { value: 1, label: "No la sé", tone: "bg-rating-1" },
-  { value: 2, label: "Me costó", tone: "bg-rating-2" },
+  { value: 1, label: "Aún no la sé", tone: "bg-rating-1" },
+  { value: 2, label: "Difícil", tone: "bg-rating-2" },
   { value: 3, label: "Bien", tone: "bg-rating-3" },
-  { value: 4, label: "Fácil", tone: "bg-rating-4" },
+  { value: 4, label: "Lo sé", tone: "bg-rating-4" },
 ];
 
 const MODES: { value: Prefs["mode"]; label: string }[] = [
@@ -418,7 +419,7 @@ export function StudentCard({ lesson, signedIn = false, bookmarked = [] }: { les
                           suggested === r.value ? "border-primary" : "border-border",
                         )}
                       >
-                        <span className={cn("size-3 rounded-full", r.tone)} aria-hidden />
+                        <RatingDot value={r.value} tone={r.tone} />
                         {r.label}
                       </button>
                     ))}

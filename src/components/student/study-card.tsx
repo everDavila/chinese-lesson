@@ -11,6 +11,7 @@ import type { Lesson } from "@/lib/lesson-types";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 import { BookmarkButton } from "./bookmark-button";
+import { RatingDot } from "./rating-dot";
 import { prefsStore, type Rating } from "./student-store";
 import { clock, usePracticeClock } from "./use-practice-clock";
 
@@ -20,10 +21,10 @@ import { clock, usePracticeClock } from "./use-practice-clock";
 // (StudentCard). Texto en español mientras sea piloto, como la otra tarjeta.
 
 const RATINGS: { value: Rating; label: string; tone: string }[] = [
-  { value: 1, label: "Otra vez", tone: "bg-rating-1" },
+  { value: 1, label: "Aún no la sé", tone: "bg-rating-1" },
   { value: 2, label: "Difícil", tone: "bg-rating-2" },
   { value: 3, label: "Bien", tone: "bg-rating-3" },
-  { value: 4, label: "Fácil", tone: "bg-rating-4" },
+  { value: 4, label: "Lo sé", tone: "bg-rating-4" },
 ];
 
 export function StudyCard({ lesson, signedIn = false, bookmarked = [] }: { lesson: Lesson; signedIn?: boolean; bookmarked?: string[] }) {
@@ -146,7 +147,7 @@ export function StudyCard({ lesson, signedIn = false, bookmarked = [] }: { lesso
               onClick={() => rate(r.value)}
               className="flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-border px-2 py-2.5 text-sm font-medium transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring sm:flex-row sm:gap-2 sm:px-3"
             >
-              <span className={cn("size-3 rounded-full", r.tone)} aria-hidden />
+              <RatingDot value={r.value} tone={r.tone} />
               {r.label}
               <kbd className="hidden text-xs text-muted-foreground sm:inline" aria-hidden>{r.value}</kbd>
             </button>
