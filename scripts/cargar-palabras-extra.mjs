@@ -34,6 +34,12 @@ const MANUAL = {
   斯: { pinyin: ["sī"] },
   澳: { pinyin: ["ào"] },
   尼: { pinyin: ["ní"] },
+  莓: { pinyin: ["méi"] },
+  柠: { pinyin: ["níng"] },
+  檬: { pinyin: ["méng"] },
+  樱: { pinyin: ["yīng"] },
+  菠: { pinyin: ["bō"] },
+  荔: { pinyin: ["lì"] },
 };
 const charRows = chars
   .filter((c) => !have.has(c))

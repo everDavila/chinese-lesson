@@ -1,0 +1,311 @@
+{
+  "nota": "Frases para las palabras de HSK 4+ de las plantillas «Frutas» y «Colores» (2026-11-16). Generadas (origin ai) y sin revisar; vocabulario HSK 1-3. Se cargan con scripts/agregar-frases.mjs.",
+  "palabras": [
+    {
+      "hanzi": "葡萄",
+      "sentences": [
+        {
+          "zh": "这些葡萄很甜。",
+          "pinyin": "Zhèxiē pútao hěn tián.",
+          "es": "Estas uvas son muy dulces.",
+          "en": "These grapes are very sweet."
+        },
+        {
+          "zh": "我想买一公斤葡萄。",
+          "pinyin": "Wǒ xiǎng mǎi yì gōngjīn pútao.",
+          "es": "Quiero comprar un kilo de uvas.",
+          "en": "I want to buy a kilo of grapes."
+        }
+      ]
+    },
+    {
+      "hanzi": "橙子",
+      "sentences": [
+        {
+          "zh": "我每天早上吃一个橙子。",
+          "pinyin": "Wǒ měi tiān zǎoshang chī yí ge chéngzi.",
+          "es": "Todas las mañanas me como una naranja.",
+          "en": "I eat an orange every morning."
+        },
+        {
+          "zh": "这个橙子不太酸。",
+          "pinyin": "Zhè ge chéngzi bú tài suān.",
+          "es": "Esta naranja no es muy ácida.",
+          "en": "This orange is not very sour."
+        }
+      ]
+    },
+    {
+      "hanzi": "橘子",
+      "sentences": [
+        {
+          "zh": "桌子上有三个橘子。",
+          "pinyin": "Zhuōzi shang yǒu sān ge júzi.",
+          "es": "Hay tres mandarinas sobre la mesa.",
+          "en": "There are three tangerines on the table."
+        },
+        {
+          "zh": "冬天我喜欢吃橘子。",
+          "pinyin": "Dōngtiān wǒ xǐhuan chī júzi.",
+          "es": "En invierno me gusta comer mandarinas.",
+          "en": "In winter I like to eat tangerines."
+        }
+      ]
+    },
+    {
+      "hanzi": "梨",
+      "sentences": [
+        {
+          "zh": "这个梨又大又甜。",
+          "pinyin": "Zhè ge lí yòu dà yòu tián.",
+          "es": "Esta pera es grande y dulce.",
+          "en": "This pear is big and sweet."
+        },
+        {
+          "zh": "他给我买了两个梨。",
+          "pinyin": "Tā gěi wǒ mǎi le liǎng ge lí.",
+          "es": "Me compró dos peras.",
+          "en": "He bought me two pears."
+        }
+      ]
+    },
+    {
+      "hanzi": "桃",
+      "sentences": [
+        {
+          "zh": "桃很好吃，也很甜。",
+          "pinyin": "Táo hěn hǎochī, yě hěn tián.",
+          "es": "El durazno es muy rico y dulce.",
+          "en": "Peaches are tasty and sweet."
+        },
+        {
+          "zh": "她洗了几个桃。",
+          "pinyin": "Tā xǐ le jǐ ge táo.",
+          "es": "Ella lavó unos duraznos.",
+          "en": "She washed a few peaches."
+        }
+      ]
+    },
+    {
+      "hanzi": "椰子",
+      "sentences": [
+        {
+          "zh": "我在海边喝了椰子水。",
+          "pinyin": "Wǒ zài hǎibiān hē le yēzi shuǐ.",
+          "es": "Bebí agua de coco en la playa.",
+          "en": "I drank coconut water at the beach."
+        },
+        {
+          "zh": "椰子很大，也很重。",
+          "pinyin": "Yēzi hěn dà, yě hěn zhòng.",
+          "es": "El coco es grande y pesado.",
+          "en": "The coconut is big and heavy."
+        }
+      ]
+    },
+    {
+      "hanzi": "柿子",
+      "sentences": [
+        {
+          "zh": "秋天的柿子很甜。",
+          "pinyin": "Qiūtiān de shìzi hěn tián.",
+          "es": "Los caquis de otoño son muy dulces.",
+          "en": "Autumn persimmons are very sweet."
+        },
+        {
+          "zh": "奶奶家有一棵柿子树。",
+          "pinyin": "Nǎinai jiā yǒu yì kē shìzi shù.",
+          "es": "En casa de mi abuela hay un caqui.",
+          "en": "Grandma's house has a persimmon tree."
+        }
+      ]
+    },
+    {
+      "hanzi": "红",
+      "sentences": [
+        {
+          "zh": "她的脸很红。",
+          "pinyin": "Tā de liǎn hěn hóng.",
+          "es": "Tiene la cara muy roja.",
+          "en": "Her face is very red."
+        },
+        {
+          "zh": "我喜欢红苹果。",
+          "pinyin": "Wǒ xǐhuan hóng píngguǒ.",
+          "es": "Me gustan las manzanas rojas.",
+          "en": "I like red apples."
+        }
+      ]
+    },
+    {
+      "hanzi": "黄",
+      "sentences": [
+        {
+          "zh": "秋天，树叶黄了。",
+          "pinyin": "Qiūtiān, shùyè huáng le.",
+          "es": "En otoño las hojas se ponen amarillas.",
+          "en": "In autumn the leaves turn yellow."
+        },
+        {
+          "zh": "他买了一个黄书包。",
+          "pinyin": "Tā mǎi le yí ge huáng shūbāo.",
+          "es": "Compró una mochila amarilla.",
+          "en": "He bought a yellow school bag."
+        }
+      ]
+    },
+    {
+      "hanzi": "白",
+      "sentences": [
+        {
+          "zh": "这件衣服是白的。",
+          "pinyin": "Zhè jiàn yīfu shì bái de.",
+          "es": "Esta prenda es blanca.",
+          "en": "This piece of clothing is white."
+        },
+        {
+          "zh": "她喜欢白米饭。",
+          "pinyin": "Tā xǐhuan bái mǐfàn.",
+          "es": "A ella le gusta el arroz blanco.",
+          "en": "She likes plain white rice."
+        }
+      ]
+    },
+    {
+      "hanzi": "黑",
+      "sentences": [
+        {
+          "zh": "天黑了，我们回家吧。",
+          "pinyin": "Tiān hēi le, wǒmen huí jiā ba.",
+          "es": "Ya oscureció, volvamos a casa.",
+          "en": "It has gotten dark, let's go home."
+        },
+        {
+          "zh": "我的猫是黑的。",
+          "pinyin": "Wǒ de māo shì hēi de.",
+          "es": "Mi gato es negro.",
+          "en": "My cat is black."
+        }
+      ]
+    },
+    {
+      "hanzi": "紫",
+      "sentences": [
+        {
+          "zh": "这朵花是紫的。",
+          "pinyin": "Zhè duǒ huā shì zǐ de.",
+          "es": "Esta flor es morada.",
+          "en": "This flower is purple."
+        },
+        {
+          "zh": "葡萄是紫的。",
+          "pinyin": "Pútao shì zǐ de.",
+          "es": "Las uvas son moradas.",
+          "en": "The grapes are purple."
+        }
+      ]
+    },
+    {
+      "hanzi": "灰",
+      "sentences": [
+        {
+          "zh": "今天天是灰的，要下雨了。",
+          "pinyin": "Jīntiān tiān shì huī de, yào xià yǔ le.",
+          "es": "Hoy el cielo está gris, va a llover.",
+          "en": "The sky is gray today; it is going to rain."
+        },
+        {
+          "zh": "他穿了一件灰衣服。",
+          "pinyin": "Tā chuān le yí jiàn huī yīfu.",
+          "es": "Llevaba una prenda gris.",
+          "en": "He was wearing a gray piece of clothing."
+        }
+      ]
+    },
+    {
+      "hanzi": "粉",
+      "sentences": [
+        {
+          "zh": "她喜欢粉裙子。",
+          "pinyin": "Tā xǐhuan fěn qúnzi.",
+          "es": "A ella le gusta la falda rosa.",
+          "en": "She likes pink skirts."
+        },
+        {
+          "zh": "这朵花是粉的。",
+          "pinyin": "Zhè duǒ huā shì fěn de.",
+          "es": "Esta flor es rosa.",
+          "en": "This flower is pink."
+        }
+      ]
+    },
+    {
+      "hanzi": "银",
+      "sentences": [
+        {
+          "zh": "银的东西很贵。",
+          "pinyin": "Yín de dōngxi hěn guì.",
+          "es": "Las cosas de plata son muy caras.",
+          "en": "Things made of silver are expensive."
+        },
+        {
+          "zh": "她送给我一个银杯子。",
+          "pinyin": "Tā sòng gěi wǒ yí ge yín bēizi.",
+          "es": "Me regaló una taza de plata.",
+          "en": "She gave me a silver cup."
+        }
+      ]
+    },
+    {
+      "hanzi": "灰色",
+      "sentences": [
+        {
+          "zh": "天空是灰色的。",
+          "pinyin": "Tiānkōng shì huīsè de.",
+          "es": "El cielo es gris.",
+          "en": "The sky is gray."
+        },
+        {
+          "zh": "我想买一件灰色的大衣。",
+          "pinyin": "Wǒ xiǎng mǎi yí jiàn huīsè de dàyī.",
+          "es": "Quiero comprar un abrigo gris.",
+          "en": "I want to buy a gray coat."
+        }
+      ]
+    },
+    {
+      "hanzi": "棕色",
+      "sentences": [
+        {
+          "zh": "我的狗是棕色的。",
+          "pinyin": "Wǒ de gǒu shì zōngsè de.",
+          "es": "Mi perro es marrón.",
+          "en": "My dog is brown."
+        },
+        {
+          "zh": "他穿着棕色的鞋。",
+          "pinyin": "Tā chuān zhe zōngsè de xié.",
+          "es": "Lleva zapatos marrones.",
+          "en": "He is wearing brown shoes."
+        }
+      ]
+    },
+    {
+      "hanzi": "彩色",
+      "sentences": [
+        {
+          "zh": "孩子们喜欢彩色的画。",
+          "pinyin": "Háizimen xǐhuan cǎisè de huà.",
+          "es": "A los niños les gustan los dibujos de colores.",
+          "en": "Children like colorful pictures."
+        },
+        {
+          "zh": "这是一张彩色照片。",
+          "pinyin": "Zhè shì yì zhāng cǎisè zhàopiàn.",
+          "es": "Esta es una foto a color.",
+          "en": "This is a color photo."
+        }
+      ]
+    }
+  ]
+}

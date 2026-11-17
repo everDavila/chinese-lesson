@@ -1,0 +1,257 @@
+{
+  "nota": "Frutas y colores pedidos por Ever (2026-11-16) para las plantillas «Frutas» y «Colores». No son entradas del temario HSK 3.0 (o su nivel es mayor), así que van sin nivel. Contenido generado (origin ai) y sin revisar; las frases usan vocabulario de HSK 1-3. Se carga con scripts/cargar-palabras-extra.mjs.",
+  "palabras": [
+    {
+      "hanzi": "草莓",
+      "pinyin": "cǎoméi",
+      "category": "noun",
+      "es": "fresa",
+      "en": "strawberry",
+      "sentences": [
+        {
+          "zh": "我最喜欢吃草莓。",
+          "pinyin": "Wǒ zuì xǐhuan chī cǎoméi.",
+          "es": "Lo que más me gusta comer es la fresa.",
+          "en": "Strawberries are my favorite thing to eat."
+        },
+        {
+          "zh": "这些草莓很甜。",
+          "pinyin": "Zhèxiē cǎoméi hěn tián.",
+          "es": "Estas fresas son muy dulces.",
+          "en": "These strawberries are very sweet."
+        }
+      ]
+    },
+    {
+      "hanzi": "柠檬",
+      "pinyin": "níngméng",
+      "category": "noun",
+      "es": "limón",
+      "en": "lemon",
+      "sentences": [
+        {
+          "zh": "柠檬很酸。",
+          "pinyin": "Níngméng hěn suān.",
+          "es": "El limón es muy ácido.",
+          "en": "Lemons are very sour."
+        },
+        {
+          "zh": "请给我一杯柠檬水。",
+          "pinyin": "Qǐng gěi wǒ yì bēi níngméng shuǐ.",
+          "es": "Por favor, deme un vaso de agua de limón.",
+          "en": "Please give me a glass of lemon water."
+        }
+      ]
+    },
+    {
+      "hanzi": "芒果",
+      "pinyin": "mángguǒ",
+      "category": "noun",
+      "es": "mango",
+      "en": "mango",
+      "sentences": [
+        {
+          "zh": "我买了两个芒果。",
+          "pinyin": "Wǒ mǎi le liǎng ge mángguǒ.",
+          "es": "Compré dos mangos.",
+          "en": "I bought two mangoes."
+        },
+        {
+          "zh": "芒果又大又甜。",
+          "pinyin": "Mángguǒ yòu dà yòu tián.",
+          "es": "El mango es grande y dulce.",
+          "en": "The mango is big and sweet."
+        }
+      ]
+    },
+    {
+      "hanzi": "菠萝",
+      "pinyin": "bōluó",
+      "category": "noun",
+      "es": "piña",
+      "en": "pineapple",
+      "sentences": [
+        {
+          "zh": "她不喜欢吃菠萝。",
+          "pinyin": "Tā bù xǐhuan chī bōluó.",
+          "es": "A ella no le gusta comer piña.",
+          "en": "She doesn't like eating pineapple."
+        },
+        {
+          "zh": "这个菠萝多少钱？",
+          "pinyin": "Zhè ge bōluó duōshao qián?",
+          "es": "¿Cuánto cuesta esta piña?",
+          "en": "How much is this pineapple?"
+        }
+      ]
+    },
+    {
+      "hanzi": "樱桃",
+      "pinyin": "yīngtáo",
+      "category": "noun",
+      "es": "cereza",
+      "en": "cherry",
+      "sentences": [
+        {
+          "zh": "樱桃很小，也很好吃。",
+          "pinyin": "Yīngtáo hěn xiǎo, yě hěn hǎochī.",
+          "es": "Las cerezas son pequeñas y también muy ricas.",
+          "en": "Cherries are small and also very tasty."
+        },
+        {
+          "zh": "桌子上有一些樱桃。",
+          "pinyin": "Zhuōzi shang yǒu yìxiē yīngtáo.",
+          "es": "Hay algunas cerezas sobre la mesa.",
+          "en": "There are some cherries on the table."
+        }
+      ]
+    },
+    {
+      "hanzi": "荔枝",
+      "pinyin": "lìzhī",
+      "category": "noun",
+      "es": "lichi",
+      "en": "lychee",
+      "sentences": [
+        {
+          "zh": "荔枝是南方的水果。",
+          "pinyin": "Lìzhī shì nánfāng de shuǐguǒ.",
+          "es": "El lichi es una fruta del sur.",
+          "en": "Lychee is a fruit from the south."
+        },
+        {
+          "zh": "我哥哥很爱吃荔枝。",
+          "pinyin": "Wǒ gēge hěn ài chī lìzhī.",
+          "es": "A mi hermano mayor le encanta comer lichis.",
+          "en": "My older brother loves eating lychees."
+        }
+      ]
+    },
+    {
+      "hanzi": "蓝色",
+      "pinyin": "lánsè",
+      "category": "noun",
+      "es": "azul (color)",
+      "en": "blue (color)",
+      "sentences": [
+        {
+          "zh": "天空是蓝色的。",
+          "pinyin": "Tiānkōng shì lánsè de.",
+          "es": "El cielo es azul.",
+          "en": "The sky is blue."
+        },
+        {
+          "zh": "我喜欢蓝色的衣服。",
+          "pinyin": "Wǒ xǐhuan lánsè de yīfu.",
+          "es": "Me gusta la ropa azul.",
+          "en": "I like blue clothes."
+        }
+      ]
+    },
+    {
+      "hanzi": "紫色",
+      "pinyin": "zǐsè",
+      "category": "noun",
+      "es": "morado, violeta (color)",
+      "en": "purple (color)",
+      "sentences": [
+        {
+          "zh": "她买了一条紫色的裙子。",
+          "pinyin": "Tā mǎi le yì tiáo zǐsè de qúnzi.",
+          "es": "Ella compró una falda morada.",
+          "en": "She bought a purple skirt."
+        },
+        {
+          "zh": "紫色很漂亮。",
+          "pinyin": "Zǐsè hěn piàoliang.",
+          "es": "El morado es muy bonito.",
+          "en": "Purple is very pretty."
+        }
+      ]
+    },
+    {
+      "hanzi": "粉色",
+      "pinyin": "fěnsè",
+      "category": "noun",
+      "es": "rosa (color)",
+      "en": "pink (color)",
+      "sentences": [
+        {
+          "zh": "妹妹喜欢粉色。",
+          "pinyin": "Mèimei xǐhuan fěnsè.",
+          "es": "A mi hermana menor le gusta el rosa.",
+          "en": "My younger sister likes pink."
+        },
+        {
+          "zh": "这个粉色的包是她的。",
+          "pinyin": "Zhè ge fěnsè de bāo shì tā de.",
+          "es": "Este bolso rosa es de ella.",
+          "en": "This pink bag is hers."
+        }
+      ]
+    },
+    {
+      "hanzi": "橙色",
+      "pinyin": "chéngsè",
+      "category": "noun",
+      "es": "naranja (color)",
+      "en": "orange (color)",
+      "sentences": [
+        {
+          "zh": "他穿着橙色的衣服。",
+          "pinyin": "Tā chuān zhe chéngsè de yīfu.",
+          "es": "Lleva puesta ropa naranja.",
+          "en": "He is wearing orange clothes."
+        },
+        {
+          "zh": "橙色是我最喜欢的颜色。",
+          "pinyin": "Chéngsè shì wǒ zuì xǐhuan de yánsè.",
+          "es": "El naranja es mi color favorito.",
+          "en": "Orange is my favorite color."
+        }
+      ]
+    },
+    {
+      "hanzi": "金色",
+      "pinyin": "jīnsè",
+      "category": "noun",
+      "es": "dorado (color)",
+      "en": "golden (color)",
+      "sentences": [
+        {
+          "zh": "秋天，田里是金色的。",
+          "pinyin": "Qiūtiān, tián li shì jīnsè de.",
+          "es": "En otoño, los campos son dorados.",
+          "en": "In autumn, the fields are golden."
+        },
+        {
+          "zh": "她的手机是金色的。",
+          "pinyin": "Tā de shǒujī shì jīnsè de.",
+          "es": "Su teléfono es dorado.",
+          "en": "Her phone is gold."
+        }
+      ]
+    },
+    {
+      "hanzi": "银色",
+      "pinyin": "yínsè",
+      "category": "noun",
+      "es": "plateado (color)",
+      "en": "silver (color)",
+      "sentences": [
+        {
+          "zh": "他的车是银色的。",
+          "pinyin": "Tā de chē shì yínsè de.",
+          "es": "Su coche es plateado.",
+          "en": "His car is silver."
+        },
+        {
+          "zh": "我想买银色的电脑。",
+          "pinyin": "Wǒ xiǎng mǎi yínsè de diànnǎo.",
+          "es": "Quiero comprar una computadora plateada.",
+          "en": "I want to buy a silver computer."
+        }
+      ]
+    }
+  ]
+}
