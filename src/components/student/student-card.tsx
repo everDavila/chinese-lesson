@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Popover } from "@base-ui/react/popover";
 import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Settings, Volume2 } from "lucide-react";
 import { importLocalProgress, markKnown, recordPracticeEvent } from "@/actions/student";
@@ -75,10 +75,19 @@ type Pending = { key: string; senseId: string; progress: CellsProgress; guide: b
  * guarda como evento (docs/DISENO-AVANCE-ESTUDIANTE.md); sin ella, solo
  * queda el avance local, como en el piloto.
  */
-export function StudentCard({ lesson, signedIn = false, bookmarked = [] }: { lesson: Lesson; signedIn?: boolean; bookmarked?: string[] }) {
+export function StudentCard({ lesson: fullLesson, signedIn = false, bookmarked = [] }: { lesson: Lesson; signedIn?: boolean; bookmarked?: string[] }) {
   const prefs = useSyncExternalStore(prefsStore.subscribe, prefsStore.snapshot, prefsStore.serverSnapshot);
   const progress = useSyncExternalStore(progressStore.subscribe, progressStore.snapshot, progressStore.serverSnapshot);
   const cells = useRef<StrokeCellsHandle>(null);
+
+  // «Repasar solo las que faltan»: se congela al pulsar el botón la lista de las
+  // palabras sin acierto, para que las que aciertes no desaparezcan a mitad.
+  const [retryKeys, setRetryKeys] = useState<string[] | null>(null);
+  const keyOf = (it: Lesson["items"][number]) => it.senseId ?? `${it.word.hanzi}#${it.senseIndex}`;
+  const lesson = useMemo(
+    () => (retryKeys ? { ...fullLesson, items: fullLesson.items.filter((it) => retryKeys.includes(keyOf(it))) } : fullLesson),
+    [fullLesson, retryKeys],
+  );
 
   const [view, setView] = useState<"list" | "card">("list");
   const [index, setIndex] = useState(0);
@@ -210,12 +219,29 @@ export function StudentCard({ lesson, signedIn = false, bookmarked = [] }: { les
     if (prefs.after === "detail") setSide("back");
   };
 
+  const missing = fullLesson.items.filter((it) => (progress[keyOf(it)]?.rating ?? 0) < 3);
+  const hasHits = missing.length > 0 && missing.length < fullLesson.items.length;
+
   if (view === "list") {
     return (
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-6 px-4 py-8 sm:px-6">
         <header>
           <h1 className="text-2xl font-semibold">Las palabras que aprenderás en esta lección</h1>
-          <p className="text-sm text-muted-foreground">{lesson.title} · {count} palabras</p>
+          <p className="text-sm text-muted-foreground">{lesson.title} · {count} palabras{retryKeys ? " (solo las que faltan)" : ""}</p>
+          {retryKeys ? (
+            <Button variant="outline" size="sm" className="mt-3" onClick={() => { setRetryKeys(null); setIndex(0); }}>Ver toda la lección</Button>
+          ) : (
+            hasHits && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="mt-3"
+                onClick={() => { setRetryKeys(missing.map(keyOf)); setIndex(0); setSide("front"); setRun(0); }}
+              >
+                Repasar solo las que faltan ({missing.length})
+              </Button>
+            )
+          )}
         </header>
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {lesson.items.map((it, i) => {
