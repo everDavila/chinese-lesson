@@ -168,7 +168,7 @@ precisión y un gráfico ilegible cuando hay pocos datos.
 6 (insignia de nivel HSK), 7 (un día libre por semana, versión simple), 8 (precisión por
 habilidad), 9 (cálculo de «~N palabras» ya cubierto por «Tu ritmo»), 10 («solo repaso»), 11
 (práctica por tiempo, 5/10/15 min con estimación) y 13 (proyección, en «Tu ritmo»). Quedan 3
-(sonido y vibración: solo si hay efectos) y 12 (descartada: teclado de tonos y solo tonos).
+(sonido y vibración: solo si hay efectos); 12 y 14 están descartadas (teclado de tonos, búsqueda por cámara o trazo).
 
 ### Funciones premium de Hanzio (dicho por Ever; no salen en las capturas)
 
