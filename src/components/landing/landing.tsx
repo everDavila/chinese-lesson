@@ -51,7 +51,7 @@ export function Landing({ item, noteTerms }: { item: LessonItem | null; noteTerm
   return (
     <div className="flex flex-1 flex-col bg-background">
       <header className="mx-auto flex w-full max-w-6xl items-center gap-1 px-4 py-5 sm:gap-2 sm:px-6">
-        <Link href="/" className="mr-auto flex items-baseline gap-2">
+        <Link href="/" className="mr-auto flex shrink-0 items-baseline gap-2 whitespace-nowrap">
           <span lang="zh-Hans" className="font-hanzi text-2xl font-semibold">认识</span>
           <span className="hidden font-hanzi text-lg text-muted-foreground sm:inline">Renshi</span>
         </Link>
