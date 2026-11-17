@@ -34,7 +34,7 @@
     "createCollection": "新建合集",
     "navLabel": "备课空间",
     "lab": "实验室",
-    "learn": "学习"
+    "learn": "了解更多"
   },
   "TeacherHome": {
     "eyebrow": "你的备课空间",
@@ -555,12 +555,12 @@
   },
   "StudentWorkspace": {
     "home": "首页",
-    "practice": "练习",
+    "practice": "学习",
     "navLabel": "学生空间",
     "role": "学生",
     "greeting": "你好，{name}",
     "intro": "这里是你练习汉字的空间。",
-    "practiceTitle": "练习",
+    "practiceTitle": "学习",
     "practiceHint": "选择一个 HSK 等级或主题，决定练习多少个词（10、20 或 40），用卡片学习，或一笔一画地书写。",
     "practiceCta": "开始练习",
     "progressTitle": "你觉得难的词",
@@ -619,7 +619,7 @@
     "dataTitle": "你的数据",
     "dataHint": "你的进度属于你：随时可以下载。",
     "dataExport": "下载我的进度（JSON）",
-    "pickTitle": "选择要练习的内容",
+    "pickTitle": "选择要学习的内容",
     "pickHint": "用系统里的材料练习：一个 HSK 等级或一个主题。先出需要复习的词，再出新词。",
     "pickLevels": "HSK 等级",
     "pickThemes": "主题",
@@ -663,7 +663,7 @@
     "reviewDueWrite": "有 {n} 个词需要书写。",
     "reviewCtaCards": "现在学习",
     "reviewCtaWrite": "现在书写",
-    "learn": "学习",
+    "learn": "了解更多",
     "projTitle": "你的节奏",
     "projHint": "每周新开始的词数，以及距离当前级别还差多少。",
     "projEmpty": "练习满 2 周后会出现估算。目前 {days}/{need} 天。",
@@ -676,7 +676,7 @@
     "projCaveat": "这是估算：统计的是已开始的词，而不是已掌握的词，会随你的节奏变化。"
   },
   "Learn": {
-    "title": "学习",
+    "title": "了解更多",
     "intro": "汉字是怎么形成的，遵循哪些规律。篇幅短小，没有测验。正文为西班牙语。",
     "minutes": "阅读 {n} 分钟",
     "chapters": "章节",

@@ -12,7 +12,7 @@ import { listThemes } from "@/lib/student-practice";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Aprende · Renshi",
+  title: "Saber más · Renshi",
   robots: { index: false },
 };
 

@@ -21,7 +21,7 @@ import { getDueWords, getStudentStats } from "@/lib/student-stats";
 // ?repaso=favoritas practican esas palabras, vengan del nivel o tema que
 // vengan. Pide sesión: sin ella, al login.
 export const metadata: Metadata = {
-  title: "Practicar · Renshi",
+  title: "Aprender · Renshi",
   robots: { index: false },
 };
 

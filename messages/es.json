@@ -34,7 +34,7 @@
     "createCollection": "Crear colección",
     "navLabel": "Espacio de preparación",
     "lab": "Laboratorio",
-    "learn": "Aprende"
+    "learn": "Saber más"
   },
   "TeacherHome": {
     "eyebrow": "Tu espacio de preparación",
@@ -555,14 +555,14 @@
   },
   "StudentWorkspace": {
     "home": "Inicio",
-    "practice": "Practicar",
+    "practice": "Aprender",
     "navLabel": "Espacio del alumno",
     "role": "Alumno",
     "greeting": "Hola, {name}",
     "intro": "Este es tu espacio para practicar los caracteres.",
-    "practiceTitle": "Practicar",
+    "practiceTitle": "Aprender",
     "practiceHint": "Elige un nivel HSK o un tema, decide cuántas palabras (10, 20 o 40) y estúdialas con la tarjeta o escríbelas trazo a trazo.",
-    "practiceCta": "Practicar",
+    "practiceCta": "Aprender",
     "progressTitle": "Lo que te cuesta",
     "progressEmpty": "Aquí verás qué palabras te cuestan y qué te toca repasar. Practica una palabra y aparecerá.",
     "progressHint": "Se calcula con tu práctica de los últimos días.",
@@ -619,8 +619,8 @@
     "dataTitle": "Tus datos",
     "dataHint": "Todo tu avance es tuyo: bájalo cuando quieras.",
     "dataExport": "Descargar mi avance (JSON)",
-    "pickTitle": "Elige qué practicar",
-    "pickHint": "Practica con el material del sistema: un nivel HSK o un tema. Primero salen las palabras que toca repasar y luego las nuevas.",
+    "pickTitle": "Elige qué aprender",
+    "pickHint": "Aprende con el material del sistema: un nivel HSK o un tema. Primero salen las palabras que toca repasar y luego las nuevas.",
     "pickLevels": "Nivel HSK",
     "pickThemes": "Temas",
     "pickAmount": "¿Cuántas palabras?",
@@ -663,7 +663,7 @@
     "reviewDueWrite": "{n, plural, one {# palabra para escribir.} other {# palabras para escribir.}}",
     "reviewCtaCards": "Estudiar ahora",
     "reviewCtaWrite": "Escribir ahora",
-    "learn": "Aprende",
+    "learn": "Saber más",
     "projTitle": "Tu ritmo",
     "projHint": "Palabras nuevas que empezaste cada semana y cuánto falta para el nivel en el que vas.",
     "projEmpty": "La estimación aparece con 2 semanas de práctica. Llevas {days} de {need} días.",
@@ -676,7 +676,7 @@
     "projCaveat": "Es una estimación: cuenta palabras que empezaste, no dominadas, y cambia con tu ritmo."
   },
   "Learn": {
-    "title": "Aprende",
+    "title": "Saber más",
     "intro": "Cómo funciona la escritura china: de dónde salen los caracteres y qué reglas siguen. Lecturas cortas, sin preguntas; el texto está en español.",
     "minutes": "{n} min de lectura",
     "chapters": "Capítulos",

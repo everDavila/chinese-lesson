@@ -10,7 +10,7 @@ import { getProfile } from "@/lib/content";
 // entradas: pública (sin cuenta), dentro del espacio del alumno y dentro del
 // de la docente. Borrador: no se indexa hasta que la docente lo revise.
 export const metadata: Metadata = {
-  title: "Aprende · Renshi",
+  title: "Saber más · Renshi",
   robots: { index: false },
 };
 
