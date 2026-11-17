@@ -33,6 +33,8 @@ type Props = {
   /** Con contorno de guía (calcar) o de memoria. */
   guide: boolean;
   onProgress: (progress: CellsProgress) => void;
+  /** Piloto: atenúa las casillas que aún no tocan y avisa si las tocas. */
+  lockHint?: boolean;
   ref?: Ref<StrokeCellsHandle>;
 };
 
@@ -43,7 +45,7 @@ const SETTINGS = {
   free: { leniency: 1, hint: 3 },
 } as const;
 
-export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
+export function StrokeCells({ chars, guide, onProgress, lockHint = false, ref }: Props) {
   const targets = useRef<(HTMLDivElement | null)[]>([]);
   const writers = useRef<(HanziWriter | null)[]>([]);
   const mistakes = useRef<number[]>(chars.map(() => 0));
@@ -54,6 +56,7 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
   const shownAt = useRef(0);
   const firstActionMs = useRef<number | null>(null);
   const [done, setDone] = useState<boolean[]>(() => chars.map(() => false));
+  const [nudge, setNudge] = useState(0);
   const onProgressRef = useRef(onProgress);
   useEffect(() => {
     onProgressRef.current = onProgress;
@@ -178,9 +181,24 @@ export function StrokeCells({ chars, guide, onProgress, ref }: Props) {
           className={cn(
             "rounded-xl bg-card transition-shadow",
             i === active && "border-primary shadow-[0_0_0_2px_var(--primary)]",
+            i === active && nudge > 0 && "animate-pulse",
+            lockHint && i > active && active !== -1 && "opacity-40",
           )}
         >
-          <div style={{ width: `min(30rem, 55dvh, calc((100vw - 4rem) / ${n}))` }} className="relative aspect-square touch-none">
+          <div
+            style={{ width: `min(30rem, 55dvh, calc((100vw - 4rem) / ${n}))` }}
+            className="relative aspect-square touch-none"
+            onPointerDownCapture={() => {
+              if (!lockHint || active === -1 || i <= active) return;
+              setNudge((k) => k + 1);
+              setTimeout(() => setNudge(0), 900);
+            }}
+          >
+            {lockHint && i > active && active !== -1 && (
+              <span className="pointer-events-none absolute inset-x-2 top-2 z-10 rounded-full bg-foreground px-3 py-1 text-center text-xs font-medium text-background">
+                Empieza por el {active + 1 === 1 ? "primero" : `n.º ${active + 1}`}
+              </span>
+            )}
             <div ref={(el) => void (targets.current[i] = el)} className="absolute inset-0" aria-label={`Casilla ${i + 1}: ${char}`} />
             {done[i] && (
               <span className="absolute top-2 right-2 flex size-6 items-center justify-center rounded-full bg-rating-3 text-black">

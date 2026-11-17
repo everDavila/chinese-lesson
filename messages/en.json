@@ -533,6 +533,20 @@
           "pageN": "Page {n}"
         }
       },
+      "quiz": {
+        "title": "Mixed quiz",
+        "summary": "Multiple choice and true or false in the same round, with speed-based points and a retry of your mistakes.",
+        "history": {
+          "start": "First pilot: 10 HSK 1 questions mixing multiple choice and true or false, with a timer, points and a round of only your mistakes. No database."
+        }
+      },
+      "tarjetas": {
+        "title": "Student cards, new version",
+        "summary": "Study: see the word with its context and move on. Review: recall and rate only on the back. Write: locked cells with a hint and a big OK that moves on by itself.",
+        "history": {
+          "start": "First prototype: Study mode (no rating) separate from Review, labels 'Not yet / Hard / Good / I know it' and big feedback when you finish writing."
+        }
+      },
       "estudiante": {
         "title": "Student card",
         "summary": "Practice the word stroke by stroke, rate how it went and open the full card, no account: progress stays on the device.",

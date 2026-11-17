@@ -533,6 +533,20 @@
           "pageN": "Página {n}"
         }
       },
+      "quiz": {
+        "title": "Quiz mixto",
+        "summary": "Elegir entre cuatro y verdadero o falso en una misma ronda, con puntos por rapidez y repaso de los fallos.",
+        "history": {
+          "start": "Primer piloto: 10 preguntas de HSK 1 que mezclan elegir y verdadero o falso, con tiempo, puntos y una ronda solo con los fallos. Sin base de datos."
+        }
+      },
+      "tarjetas": {
+        "title": "Tarjetas del alumno, versión nueva",
+        "summary": "Estudiar: ver la palabra con todo su contexto y pasar. Repasar: recordar y valorar solo en el reverso. Escribir: casillas bloqueadas con aviso y un OK grande que pasa solo.",
+        "history": {
+          "start": "Primer prototipo: modo Estudiar (sin valorar) separado de Repasar, etiquetas «Aún no la sé / Difícil / Bien / Lo sé» y feedback grande al terminar de escribir."
+        }
+      },
       "estudiante": {
         "title": "Tarjeta del alumno",
         "summary": "Practicar la palabra trazo a trazo, valorar cómo te fue y ver la ficha, sin cuenta: el avance queda en el dispositivo.",
