@@ -39,7 +39,8 @@ const TONES = [
 ] as const;
 
 export function MatchingLab({ words }: { words: MatchWord[] }) {
-  const [pages, setPages] = useState<Page[]>(() => newPages(words));
+  // Las tandas se arman al pulsar «Empezar» (no al renderizar): `Math.random` en el render haría que el servidor y el cliente no coincidan.
+  const [pages, setPages] = useState<Page[] | null>(null);
   const [pageIndex, setPageIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [drag, setDrag] = useState<Drag | null>(null);
@@ -47,13 +48,22 @@ export function MatchingLab({ words }: { words: MatchWord[] }) {
   const moved = useRef(false);
 
   const [finished, setFinished] = useState(false);
+  if (!pages) {
+    return (
+      <main className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center gap-6 px-4 py-10 text-center">
+        <h1 className="text-3xl font-semibold">Empareja el hanzi con su pinyin</h1>
+        <p className="text-muted-foreground">Dos páginas de {PER_PAGE} palabras de HSK 1. Arrastra cada ficha a su hueco, o tócala y toca el hueco.</p>
+        <Button size="lg" onClick={() => setPages(newPages(words))}>Empezar</Button>
+      </main>
+    );
+  }
   const page = pages[pageIndex];
   const toneOf = (hanzi: string) => TONES[page.batch.findIndex((w) => w.hanzi === hanzi) % TONES.length];
   const free = remaining(page.bank, page.slots);
   const result = page.sent ? grade(page.batch, page.slots) : null;
   const complete = page.slots.every((s) => s !== null);
 
-  const update = (patch: Partial<Page>) => setPages((all) => all.map((p, i) => (i === pageIndex ? { ...p, ...patch } : p)));
+  const update = (patch: Partial<Page>) => setPages((all) => (all ?? []).map((p, i) => (i === pageIndex ? { ...p, ...patch } : p)));
   const putInSlot = (hanzi: string, slot: number) => update({ slots: place(page.slots, hanzi, slot) });
   const backToBank = (hanzi: string) => update({ slots: page.slots.map((s) => (s === hanzi ? null : s)) });
 

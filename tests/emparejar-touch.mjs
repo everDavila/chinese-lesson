@@ -8,6 +8,7 @@ const page = await ctx.newPage();
 const cdp = await ctx.newCDPSession(page);
 page.setDefaultTimeout(30000);
 await page.goto(url, { waitUntil: "networkidle" });
+await page.getByRole("button", { name: "Empezar" }).click();
 
 const slotsFilled = () => page.locator("[data-slot] [lang='zh-Hans']").count();
 const center = async (loc) => { const b = await loc.boundingBox(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; };
@@ -58,6 +59,7 @@ out.push(`enviar: huecos llenos ${full}/6, resultado "${status}"`);
 const ctx2 = await browser.newContext({ viewport: { width: 1280, height: 800 } });
 const p2 = await ctx2.newPage();
 await p2.goto(url, { waitUntil: "networkidle" });
+await p2.getByRole("button", { name: "Empezar" }).click();
 const c2 = p2.locator("section[data-bank] button").first();
 await c2.dragTo(p2.locator("[data-slot='2']"));
 out.push(`ratón: huecos llenos = ${await p2.locator("[data-slot] [lang='zh-Hans']").count()} (esperado 1)`);

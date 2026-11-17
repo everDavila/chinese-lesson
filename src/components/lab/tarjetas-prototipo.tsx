@@ -193,7 +193,8 @@ function Estudiar({ lesson }: { lesson: Lesson }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <header className="flex items-center gap-3 px-4 py-3 sm:px-6">
-        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-border" role="progressbar" aria-valuemin={0} aria-valuemax={count} aria-valuenow={index + 1}>
+        <h1 className="sr-only">Prototipo de tarjetas del alumno</h1>
+        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-border" role="progressbar" aria-label="Avance de la práctica" aria-valuemin={0} aria-valuemax={count} aria-valuenow={index + 1}>
           <div className="h-full bg-primary transition-[width]" style={{ width: `${((index + 1) / count) * 100}%` }} />
         </div>
         <span className="text-sm tabular-nums text-muted-foreground">{index + 1} / {count}</span>
@@ -249,7 +250,8 @@ function Repasar({ lesson }: { lesson: Lesson }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <header className="flex items-center gap-3 px-4 py-3 sm:px-6">
-        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-border" role="progressbar" aria-valuemin={0} aria-valuemax={count} aria-valuenow={index}>
+        <h1 className="sr-only">Prototipo de tarjetas del alumno</h1>
+        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-border" role="progressbar" aria-label="Avance de la práctica" aria-valuemin={0} aria-valuemax={count} aria-valuenow={index}>
           <div className="h-full bg-primary transition-[width]" style={{ width: `${((index + 1) / count) * 100}%` }} />
         </div>
         <span className="text-sm tabular-nums text-muted-foreground">{index + 1} / {count}</span>
