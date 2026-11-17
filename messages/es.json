@@ -595,6 +595,7 @@
     "streakTitle": "Tu racha",
     "streakDays": "{n, plural, one {# día seguido} other {# días seguidos}}",
     "streakBest": "Mejor racha: {n}",
+    "streakRested": "Incluye {n, plural, one {# día libre} other {# días libres}}: un día sin práctica por semana no rompe la racha.",
     "streakRestart": "Hoy empieza una racha nueva.",
     "streakDone": "Practicaste",
     "streakMissed": "Sin práctica",

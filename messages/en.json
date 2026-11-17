@@ -595,6 +595,7 @@
     "streakTitle": "Your streak",
     "streakDays": "{n, plural, one {# day in a row} other {# days in a row}}",
     "streakBest": "Best streak: {n}",
+    "streakRested": "Includes {n, plural, one {# rest day} other {# rest days}}: one day off per week does not break the streak.",
     "streakRestart": "A new streak starts today.",
     "streakDone": "Practised",
     "streakMissed": "No practice",

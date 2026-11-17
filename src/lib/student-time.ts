@@ -21,25 +21,42 @@ export function lastDays(today: string, n: number): string[] {
   return Array.from({ length: n }, (_, i) => addDays(today, i - (n - 1)));
 }
 
+function daysBetween(a: string, b: string): number {
+  return Math.round((Date.parse(`${a}T12:00:00Z`) - Date.parse(`${b}T12:00:00Z`)) / 86_400_000);
+}
+
 /**
- * Racha actual y mejor racha. Hoy sin práctica todavía no rompe la racha: se
- * cuenta desde ayer hasta que termine el día.
+ * Días seguidos que terminan en `from`, yendo hacia atrás. Un día libre por
+ * cada 7: un solo día sin práctica entre dos con práctica no rompe la racha
+ * (no suma al conteo). Dos días seguidos sin práctica sí la rompen.
  */
-export function computeStreak(days: Set<string>, today: string): { current: number; best: number } {
-  let current = 0;
-  let cursor = days.has(today) ? today : addDays(today, -1);
-  while (days.has(cursor)) {
-    current += 1;
+function runEndingAt(days: Set<string>, from: string): { length: number; rested: number } {
+  let length = 0;
+  let rested = 0;
+  let lastRest: string | null = null;
+  let cursor = from;
+  for (;;) {
+    if (days.has(cursor)) {
+      length += 1;
+    } else if (days.has(addDays(cursor, -1)) && (lastRest === null || daysBetween(lastRest, cursor) >= 7)) {
+      lastRest = cursor;
+      rested += 1;
+    } else {
+      return { length, rested };
+    }
     cursor = addDays(cursor, -1);
   }
-  const sorted = [...days].sort();
-  let best = 0;
-  let run = 0;
-  let prev: string | null = null;
-  for (const d of sorted) {
-    run = prev && addDays(prev, 1) === d ? run + 1 : 1;
-    best = Math.max(best, run);
-    prev = d;
-  }
-  return { current, best };
+}
+
+/**
+ * Racha actual y mejor racha, con un día libre por semana (ver `runEndingAt`).
+ * Hoy sin práctica todavía no rompe la racha: se cuenta desde ayer hasta que
+ * termine el día. `rested` = días libres usados en la racha actual.
+ */
+export function computeStreak(days: Set<string>, today: string): { current: number; best: number; rested: number } {
+  const start = days.has(today) ? today : addDays(today, -1);
+  const now = runEndingAt(days, start);
+  let best = now.length;
+  for (const d of days) best = Math.max(best, runEndingAt(days, d).length);
+  return { current: now.length, best, rested: now.rested };
 }

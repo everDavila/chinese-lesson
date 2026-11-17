@@ -112,6 +112,8 @@ export async function getLevelWords(level: number, skill: Skill): Promise<Tracke
 export type Streak = {
   current: number;
   best: number;
+  /** Días libres usados en la racha actual (uno por semana no la rompe). */
+  rested: number;
   week: { day: string; done: boolean; today: boolean }[];
   todayMs: number;
   goalMinutes: number;
@@ -135,10 +137,11 @@ export async function getStreak(): Promise<Streak> {
     days.add(key);
     if (key === today) todayMs += s.active_ms;
   }
-  const { current, best } = computeStreak(days, today);
+  const { current, best, rested } = computeStreak(days, today);
   return {
     current,
     best,
+    rested,
     week: lastDays(today, 7).map((day) => ({ day, done: days.has(day), today: day === today })),
     todayMs,
     goalMinutes: (settings.data?.daily_goal_minutes as number | undefined) ?? DEFAULT_GOAL_MINUTES,

@@ -18,6 +18,7 @@ export async function WeekStreak({ streak }: { streak: Streak }) {
         <div className="min-w-40 flex-1">
           <p className="text-2xl font-semibold tabular-nums">{t("streakDays", { n: streak.current })}</p>
           <p className="text-sm text-muted-foreground">{streak.current > 0 ? t("streakBest", { n: streak.best }) : t("streakRestart")}</p>
+          {streak.rested > 0 && <p className="text-xs text-muted-foreground">{t("streakRested", { n: streak.rested })}</p>}
         </div>
       </div>
       <ol className="mt-4 flex justify-between gap-1" lang={locale}>

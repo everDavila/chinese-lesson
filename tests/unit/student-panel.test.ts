@@ -24,17 +24,31 @@ test("fechas: sumar días y ventana de 7", () => {
   assert.deepEqual(lastDays("2026-11-09", 3), ["2026-11-07", "2026-11-08", "2026-11-09"]);
 });
 
-test("racha: hoy sin práctica no la rompe, un hueco sí", () => {
+test("racha: hoy sin práctica no la rompe, dos días seguidos sí", () => {
   const days = new Set(["2026-11-06", "2026-11-07", "2026-11-08"]);
-  assert.deepEqual(computeStreak(days, "2026-11-09"), { current: 3, best: 3 });
-  assert.deepEqual(computeStreak(days, "2026-11-10"), { current: 0, best: 3 });
+  assert.deepEqual(computeStreak(days, "2026-11-09"), { current: 3, best: 3, rested: 0 });
+  assert.deepEqual(computeStreak(days, "2026-11-11"), { current: 0, best: 3, rested: 0 });
   days.add("2026-11-09");
-  assert.deepEqual(computeStreak(days, "2026-11-09"), { current: 4, best: 4 });
+  assert.deepEqual(computeStreak(days, "2026-11-09"), { current: 4, best: 4, rested: 0 });
+});
+
+test("racha: un día libre por semana no la rompe", () => {
+  // 06, 07, (08 libre), 09: la racha sigue y el día libre no suma.
+  const days = new Set(["2026-11-06", "2026-11-07", "2026-11-09"]);
+  assert.deepEqual(computeStreak(days, "2026-11-09"), { current: 3, best: 3, rested: 1 });
+  // Ayer fue el día libre y hoy aún no practica: la racha se mantiene.
+  assert.deepEqual(computeStreak(new Set(["2026-11-07", "2026-11-08"]), "2026-11-10"), { current: 2, best: 2, rested: 1 });
+  // Dos libres en menos de 7 días: el segundo rompe.
+  const two = new Set(["2026-11-01", "2026-11-03", "2026-11-05"]);
+  assert.deepEqual(computeStreak(two, "2026-11-05"), { current: 2, best: 2, rested: 1 });
+  // Siete días después ya vuelve a haber un libre.
+  const spaced = new Set(["2026-11-01", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06", "2026-11-07", "2026-11-08", "2026-11-09", "2026-11-11"]);
+  assert.deepEqual(computeStreak(spaced, "2026-11-11"), { current: 9, best: 9, rested: 2 });
 });
 
 test("racha: la mejor puede estar en el pasado", () => {
   const days = new Set(["2026-10-01", "2026-10-02", "2026-10-03", "2026-11-09"]);
-  assert.deepEqual(computeStreak(days, "2026-11-09"), { current: 1, best: 3 });
+  assert.deepEqual(computeStreak(days, "2026-11-09"), { current: 1, best: 3, rested: 0 });
 });
 
 test("estrellas de dominio", () => {

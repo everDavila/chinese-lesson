@@ -595,6 +595,7 @@
     "streakTitle": "你的连续天数",
     "streakDays": "连续 {n} 天",
     "streakBest": "最长连续：{n} 天",
+    "streakRested": "含 {n} 个休息日：每周可休息一天，不会中断连续记录。",
     "streakRestart": "今天开始新的连续记录。",
     "streakDone": "已练习",
     "streakMissed": "未练习",
