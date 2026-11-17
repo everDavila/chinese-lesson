@@ -32,6 +32,8 @@ const DOT: Record<WordStatus, string> = {
   mastered: "bg-rating-3",
   dismissed: "border border-dashed border-muted-foreground",
 };
+const STATUSES = ["none", "progress", "mastered", "dismissed"] as const;
+const PENDING_RANK: Record<WordStatus, number> = { progress: 0, none: 1, mastered: 2, dismissed: 3 };
 const STATUS_KEY = { none: "statusNone", progress: "statusProgress", mastered: "statusMastered", dismissed: "statusDismissed" } as const;
 
 async function Tracker({
@@ -49,10 +51,18 @@ async function Tracker({
   const level = LEVELS.find((l) => String(l) === sp.nivel) ?? 1;
   const dots = sp.vista === "puntos";
   const skill = sp.habilidad === "escribir" ? "write" : "recognize";
-  const words = await getLevelWords(level, skill);
-  const count = (s: WordStatus) => words.filter((w) => w.status === s).length;
-  const habilidad = skill === "write" ? "&habilidad=escribir" : "";
-  const href = (nivel: number, vista: boolean, h = habilidad) => `/estudiante/progreso?nivel=${nivel}${vista ? "&vista=puntos" : ""}${h}`;
+  const all = await getLevelWords(level, skill);
+  const count = (s: WordStatus) => all.filter((w) => w.status === s).length;
+  const filter = STATUSES.find((x) => x === sp.estado) ?? null;
+  const byPending = sp.orden === "faltan";
+  // El orden por defecto es el del temario; «faltan» sube las que aún no sabe.
+  const words = (filter ? all.filter((w) => w.status === filter) : all).toSorted((a, b) => (byPending ? PENDING_RANK[a.status] - PENDING_RANK[b.status] : 0));
+  const base = { nivel: level, vista: dots ? "puntos" : "", habilidad: skill === "write" ? "escribir" : "", estado: filter ?? "", orden: byPending ? "faltan" : "" };
+  const href = (over: Partial<typeof base> = {}) => {
+    const q = new URLSearchParams();
+    for (const [k, v] of Object.entries({ ...base, ...over })) if (v !== "" && v !== undefined) q.set(k, String(v));
+    return `/estudiante/progreso?${q}`;
+  };
   const pill = "rounded-full px-4 py-1.5 text-sm font-medium transition-colors hover:bg-muted";
 
   return (
@@ -64,19 +74,19 @@ async function Tracker({
         </header>
 
         <nav aria-label={t("skillLabel")} className="flex w-fit gap-1 rounded-full border border-border p-1">
-          <Link href={href(level, dots, "")} aria-current={skill === "recognize" ? "page" : undefined} className={cn(pill, skill === "recognize" && "bg-primary text-primary-foreground hover:bg-primary")}>{t("skillRecognize")}</Link>
-          <Link href={href(level, dots, "&habilidad=escribir")} aria-current={skill === "write" ? "page" : undefined} className={cn(pill, skill === "write" && "bg-primary text-primary-foreground hover:bg-primary")}>{t("skillWrite")}</Link>
+          <Link href={href({ habilidad: "" })} aria-current={skill === "recognize" ? "page" : undefined} className={cn(pill, skill === "recognize" && "bg-primary text-primary-foreground hover:bg-primary")}>{t("skillRecognize")}</Link>
+          <Link href={href({ habilidad: "escribir" })} aria-current={skill === "write" ? "page" : undefined} className={cn(pill, skill === "write" && "bg-primary text-primary-foreground hover:bg-primary")}>{t("skillWrite")}</Link>
         </nav>
 
         <nav aria-label={t("levelPicker")} className="flex flex-wrap gap-1">
           {LEVELS.map((l) => (
-            <Link key={l} href={href(l, dots)} aria-current={l === level ? "page" : undefined} className={cn(pill, "border border-border", l === level && "border-primary bg-primary text-primary-foreground hover:bg-primary")}>
+            <Link key={l} href={href({ nivel: l })} aria-current={l === level ? "page" : undefined} className={cn(pill, "border border-border", l === level && "border-primary bg-primary text-primary-foreground hover:bg-primary")}>
               {l === 7 ? t("levelBand") : t("levelName", { n: l })}
             </Link>
           ))}
         </nav>
 
-        {words.length === 0 ? (
+        {all.length === 0 ? (
           <p className="rounded-xl border border-dashed border-border p-6 text-muted-foreground">{t("trackerEmpty")}</p>
         ) : (
           <>
@@ -93,10 +103,27 @@ async function Tracker({
                 ))}
               </ul>
               <nav aria-label={t("viewLabel")} className="flex gap-1 rounded-full border border-border p-1">
-                <Link href={href(level, false)} aria-current={!dots ? "page" : undefined} className={cn(pill, !dots && "bg-primary text-primary-foreground hover:bg-primary")}>{t("viewWords")}</Link>
-                <Link href={href(level, true)} aria-current={dots ? "page" : undefined} className={cn(pill, dots && "bg-primary text-primary-foreground hover:bg-primary")}>{t("viewDots")}</Link>
+                <Link href={href({ vista: "" })} aria-current={!dots ? "page" : undefined} className={cn(pill, !dots && "bg-primary text-primary-foreground hover:bg-primary")}>{t("viewWords")}</Link>
+                <Link href={href({ vista: "puntos" })} aria-current={dots ? "page" : undefined} className={cn(pill, dots && "bg-primary text-primary-foreground hover:bg-primary")}>{t("viewDots")}</Link>
               </nav>
             </div>
+
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+              <nav aria-label={t("filterLabel")} className="flex flex-wrap items-center gap-1">
+                <span className="mr-1 text-muted-foreground">{t("filterLabel")}</span>
+                <Link href={href({ estado: "" })} aria-current={!filter ? "page" : undefined} className={cn(pill, "border border-border", !filter && "border-primary bg-primary text-primary-foreground hover:bg-primary")}>{t("filterAll")}</Link>
+                {STATUSES.map((s) => (
+                  <Link key={s} href={href({ estado: s })} aria-current={filter === s ? "page" : undefined} className={cn(pill, "border border-border", filter === s && "border-primary bg-primary text-primary-foreground hover:bg-primary")}>{t(STATUS_KEY[s])}</Link>
+                ))}
+              </nav>
+              <nav aria-label={t("orderLabel")} className="flex items-center gap-1">
+                <span className="mr-1 text-muted-foreground">{t("orderLabel")}</span>
+                <Link href={href({ orden: "" })} aria-current={!byPending ? "page" : undefined} className={cn(pill, "border border-border", !byPending && "border-primary bg-primary text-primary-foreground hover:bg-primary")}>{t("orderSyllabus")}</Link>
+                <Link href={href({ orden: "faltan" })} aria-current={byPending ? "page" : undefined} className={cn(pill, "border border-border", byPending && "border-primary bg-primary text-primary-foreground hover:bg-primary")}>{t("orderPending")}</Link>
+              </nav>
+            </div>
+
+            {words.length === 0 && <p className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">{t("filterNone")}</p>}
 
             {dots ? (
               <ul className="flex flex-wrap gap-1.5" lang="zh-Hans">
