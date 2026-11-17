@@ -3,6 +3,7 @@ import "server-only";
 import { createClient } from "./supabase/server";
 import type { Skill } from "@/actions/student";
 import { getStars } from "./student-progress";
+import { accuracyBySkill, type SkillAccuracy } from "./student-accuracy";
 
 // Resumen del avance del alumno, calculado al vuelo desde sus eventos (no hay
 // agregados guardados: si cambia una fórmula se recalcula todo). RLS ya limita
@@ -12,6 +13,8 @@ export type HardWord = { senseId: string; hanzi: string; pinyin: string; meaning
 export type StudentStats = {
   weekActiveMs: number;
   weekAttempts: number;
+  /** Precisión por habilidad (reconocer, escribir) sobre los últimos intentos. */
+  accuracy: SkillAccuracy[];
   wordsPracticed: number;
   /** Palabras cuyos dos últimos intentos fueron correctos. */
   wordsKnown: number;
@@ -24,6 +27,7 @@ export type StudentStats = {
 
 type Row = {
   sense_id: string;
+  skill: string;
   outcome: string;
   mistakes: number;
   at: string;
@@ -38,7 +42,7 @@ export async function getStudentStats(): Promise<StudentStats> {
   const [events, sessions] = await Promise.all([
     supabase
       .from("student_events")
-      .select("sense_id, outcome, mistakes, at, senses(pinyin, meaning_es, words(hanzi))")
+      .select("sense_id, skill, outcome, mistakes, at, senses(pinyin, meaning_es, words(hanzi))")
       .order("at", { ascending: false })
       .limit(2000),
     supabase.from("student_sessions").select("active_ms").gte("started_at", since),
@@ -77,6 +81,7 @@ export async function getStudentStats(): Promise<StudentStats> {
 
   return {
     weekActiveMs: (sessions.data ?? []).reduce((a, s) => a + (s.active_ms as number), 0),
+    accuracy: accuracyBySkill(rows),
     weekAttempts: rows.filter((r) => r.at >= since).length,
     wordsPracticed: bySense.size,
     wordsKnown: known,

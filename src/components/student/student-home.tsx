@@ -104,6 +104,16 @@ export async function StudentHome({
                 <Stat label={t("statPracticed")} value={String(stats.wordsPracticed)} />
                 <Stat label={t("statKnown")} value={String(stats.wordsKnown)} />
               </dl>
+              <dl className="grid grid-cols-2 gap-3">
+                {stats.accuracy.map((a) => (
+                  <Stat
+                    key={a.skill}
+                    label={t(a.skill === "write" ? "accuracyWrite" : "accuracyRecognize")}
+                    value={a.percent === null ? t("accuracyNone") : `${a.percent} %`}
+                    hint={a.percent === null ? undefined : t("accuracyOf", { n: a.attempts })}
+                  />
+                ))}
+              </dl>
               {stats.hard.length > 0 ? (
                 <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-3">
@@ -174,11 +184,12 @@ export async function StudentHome({
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
     <div className="rounded-xl border border-border bg-card p-4">
       <dt className="text-xs text-muted-foreground">{label}</dt>
       <dd className="mt-1 text-2xl font-semibold tabular-nums">{value}</dd>
+      {hint && <dd className="text-xs text-muted-foreground">{hint}</dd>}
     </div>
   );
 }

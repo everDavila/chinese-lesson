@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { tonesOf } from "../../src/lib/pinyin.ts";
 import { masteryStars } from "../../src/lib/srs.ts";
+import { accuracyBySkill } from "../../src/lib/student-accuracy.ts";
 import { addDays, computeStreak, dayKey, lastDays } from "../../src/lib/student-time.ts";
 
 test("tonos por sílaba", () => {
@@ -156,4 +157,15 @@ test("proyección: nivel terminado y sin ritmo", async () => {
   const p = projectCompletion(old, 50, "2026-11-12");
   assert.equal(p.status, "ok");
   if (p.status === "ok") assert.equal(p.weeksMax, null);
+});
+
+test("precisión por habilidad: known cuenta, gave_up no, sin intentos es null", () => {
+  const r = accuracyBySkill([
+    { skill: "write", outcome: "correct" },
+    { skill: "write", outcome: "gave_up" },
+    { skill: "write", outcome: "known" },
+    { skill: "write", outcome: "wrong" },
+  ]);
+  assert.deepEqual(r[1], { skill: "write", attempts: 4, correct: 2, percent: 50 });
+  assert.deepEqual(r[0], { skill: "recognize", attempts: 0, correct: 0, percent: null });
 });
