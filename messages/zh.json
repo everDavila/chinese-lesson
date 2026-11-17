@@ -661,7 +661,17 @@
     "reviewDueWrite": "有 {n} 个词需要书写。",
     "reviewCtaCards": "现在学习",
     "reviewCtaWrite": "现在书写",
-    "learn": "学习"
+    "learn": "学习",
+    "projTitle": "你的节奏",
+    "projHint": "每周新开始的词数，以及距离当前级别还差多少。",
+    "projEmpty": "练习满 2 周后会出现估算。目前 {days}/{need} 天。",
+    "projChartLabel": "每周新词数（由早到晚）：{values}",
+    "projChartHint": "最近 8 周；最右边是本周。",
+    "projRange": "按最近的节奏，大约需要 {min} 到 {max} 周看完{level}的所有词。",
+    "projAtLeast": "按最近的节奏，至少需要 {min} 周看完{level}的所有词；近期练习不足以估计上限。",
+    "projDone": "当前级别的词你都已经开始学了。",
+    "projNoPace": "最近没有练习，无法估算。练几天再回来看看。",
+    "projCaveat": "这是估算：统计的是已开始的词，而不是已掌握的词，会随你的节奏变化。"
   },
   "Learn": {
     "title": "学习",
@@ -680,6 +690,9 @@
     "colLevel": "级别",
     "colClass": "分类",
     "colNote": "备注",
-    "colHint": "数据集提示（英文）"
+    "colHint": "数据集提示（英文）",
+    "practiceCta": "练习这些汉字",
+    "practiceHint": "用你的复习队列练习本章的汉字。",
+    "practiceLogin": "需要学生账号才能练习这些汉字。"
   }
 }

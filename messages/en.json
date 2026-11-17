@@ -661,7 +661,17 @@
     "reviewDueWrite": "{n, plural, one {# word to write.} other {# words to write.}}",
     "reviewCtaCards": "Study now",
     "reviewCtaWrite": "Write now",
-    "learn": "Learn"
+    "learn": "Learn",
+    "projTitle": "Your pace",
+    "projHint": "New words you started each week and how far you are from finishing your current level.",
+    "projEmpty": "The estimate appears after 2 weeks of practice. You are at {days} of {need} days.",
+    "projChartLabel": "New words per week, oldest to current: {values}",
+    "projChartHint": "Last 8 weeks; the right-hand bar is the current week.",
+    "projRange": "At your recent pace you would see all the words of {level} in {min} to {max} weeks.",
+    "projAtLeast": "At your recent pace you would see all the words of {level} in at least {min} weeks; a maximum can't be set from recent practice.",
+    "projDone": "You have already started every word of your current level.",
+    "projNoPace": "Without recent practice there is nothing to estimate. Practise for a few days and come back.",
+    "projCaveat": "This is an estimate: it counts words you started, not mastered ones, and changes with your pace."
   },
   "Learn": {
     "title": "Learn",
@@ -680,6 +690,9 @@
     "colLevel": "Level",
     "colClass": "Class",
     "colNote": "Note",
-    "colHint": "Dataset hint (English)"
+    "colHint": "Dataset hint (English)",
+    "practiceCta": "Practise these characters",
+    "practiceHint": "Practise this chapter's characters with your review queue.",
+    "practiceLogin": "You need a student account to practise these characters."
   }
 }

@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { DEFAULT_GOAL_MINUTES, GOAL_OPTIONS, type LevelProgress, type Streak } from "@/lib/student-progress";
 import { DailyGoal } from "./daily-goal";
 import { LevelProgressList } from "./level-progress";
+import { ProjectionCard } from "./projection-card";
 import { MasteryStars } from "./mastery-stars";
 import { StudentShell } from "./student-shell";
 import { ToneCurves } from "./tone-curves";
@@ -24,6 +25,7 @@ export async function StudentHome({
   streak,
   levels,
   favorites,
+  firstSeen,
 }: {
   name: string;
   stats: StudentStats;
@@ -32,6 +34,7 @@ export async function StudentHome({
   streak: Streak;
   levels: LevelProgress[];
   favorites: number;
+  firstSeen: string[];
 }) {
   const t = await getTranslations("StudentWorkspace");
   const locale = await getLocale();
@@ -156,6 +159,8 @@ export async function StudentHome({
           </div>
           <LevelProgressList levels={levels} />
         </section>
+
+        <ProjectionCard firstSeen={firstSeen} levels={levels} />
 
         <section aria-labelledby="data-title" className="flex flex-wrap items-center gap-4 border-t border-border pt-6">
           <div className="min-w-48 flex-1">

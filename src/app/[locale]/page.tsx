@@ -5,7 +5,7 @@ import { StudentHome } from "@/components/student/student-home";
 import { TeacherDashboard } from "@/components/manage/teacher-dashboard";
 import { redirect } from "@/i18n/navigation";
 import { getDemoLesson } from "@/lib/demo-lesson";
-import { getBookmarkIds, getLevelProgress, getStreak } from "@/lib/student-progress";
+import { getBookmarkIds, getFirstSeenDays, getLevelProgress, getStreak } from "@/lib/student-progress";
 import { getDueWords, getStudentStats } from "@/lib/student-stats";
 import { getProfile, listTeacherLessons, listTeacherPins } from "@/lib/content";
 
@@ -28,15 +28,16 @@ async function HomeContent() {
   if (profile?.role === "admin") redirect({ href: "/admin", locale: await getLocale() });
   // El alumno no tiene el panel de docente: tiene el suyo.
   if (profile?.role === "student") {
-    const [stats, dueCards, dueWrite, streak, levels, bookmarks] = await Promise.all([
+    const [stats, dueCards, dueWrite, streak, levels, bookmarks, firstSeen] = await Promise.all([
       getStudentStats(),
       getDueWords("recognize"),
       getDueWords("write"),
       getStreak(),
       getLevelProgress("recognize"),
       getBookmarkIds(),
+      getFirstSeenDays(),
     ]);
-    return <StudentHome name={profile.displayName} stats={stats} dueCards={dueCards} dueWrite={dueWrite} streak={streak} levels={levels} favorites={bookmarks.length} />;
+    return <StudentHome name={profile.displayName} stats={stats} dueCards={dueCards} dueWrite={dueWrite} streak={streak} levels={levels} favorites={bookmarks.length} firstSeen={firstSeen} />;
   }
   if (profile) {
     const [lessons, pins] = await Promise.all([listTeacherLessons(), listTeacherPins()]);

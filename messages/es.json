@@ -661,7 +661,17 @@
     "reviewDueWrite": "{n, plural, one {# palabra para escribir.} other {# palabras para escribir.}}",
     "reviewCtaCards": "Estudiar ahora",
     "reviewCtaWrite": "Escribir ahora",
-    "learn": "Aprende"
+    "learn": "Aprende",
+    "projTitle": "Tu ritmo",
+    "projHint": "Palabras nuevas que empezaste cada semana y cuánto falta para el nivel en el que vas.",
+    "projEmpty": "La estimación aparece con 2 semanas de práctica. Llevas {days} de {need} días.",
+    "projChartLabel": "Palabras nuevas por semana, de la más antigua a la actual: {values}",
+    "projChartHint": "Últimas 8 semanas; la barra de la derecha es la semana actual.",
+    "projRange": "Al ritmo de las últimas semanas, terminarías de ver las palabras de {level} en {min} a {max} semanas.",
+    "projAtLeast": "Al ritmo de las últimas semanas, terminarías de ver las palabras de {level} en {min} semanas como mínimo; con el ritmo reciente no se puede fijar un máximo.",
+    "projDone": "Ya empezaste todas las palabras del nivel en el que vas.",
+    "projNoPace": "Sin práctica reciente no se puede estimar. Practica unos días y vuelve.",
+    "projCaveat": "Es una estimación: cuenta palabras que empezaste, no dominadas, y cambia con tu ritmo."
   },
   "Learn": {
     "title": "Aprende",
@@ -680,6 +690,9 @@
     "colLevel": "Nivel",
     "colClass": "Clase",
     "colNote": "Nota",
-    "colHint": "Pista del dataset (inglés)"
+    "colHint": "Pista del dataset (inglés)",
+    "practiceCta": "Practicar estos caracteres",
+    "practiceHint": "Practica los caracteres de este capítulo con tu cola de repaso.",
+    "practiceLogin": "Para practicar estos caracteres necesitas una cuenta de alumno."
   }
 }

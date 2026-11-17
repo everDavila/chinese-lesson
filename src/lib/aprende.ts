@@ -7,11 +7,17 @@ import path from "node:path";
 // contenido/etimologia/*.md (se edita ahí, no en el código). Solo en español
 // por ahora; la interfaz sí cambia de idioma.
 
-export type Chapter = { slug: string; file: string; minutes: number };
+export type Chapter = {
+  slug: string;
+  file: string;
+  minutes: number;
+  /** Título de la colección del sistema que el capítulo propone practicar al final. */
+  practiceTheme?: string;
+};
 
 export const CHAPTERS: Chapter[] = [
   { slug: "seis-tipos", file: "cap-01-los-seis-tipos.md", minutes: 4 },
-  { slug: "pictogramas", file: "cap-02-pictogramas.md", minutes: 3 },
+  { slug: "pictogramas", file: "cap-02-pictogramas.md", minutes: 3, practiceTheme: "Pictogramas" },
 ];
 
 const DIR = path.join(process.cwd(), "contenido", "etimologia");

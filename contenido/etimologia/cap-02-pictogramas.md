@@ -68,9 +68,9 @@ descartados**, para que la docente decida.
 
 ## Para practicar
 
-Botón final del capítulo: **«Practicar estos caracteres»**, con la colección
-«Pictogramas» (los claros de la lista, ver `pictogramas-hsk1-3.json`). Requiere las
-colecciones de estudio del alumno, aún sin construir.
+Al final del capítulo, el botón **«Practicar estos caracteres»** abre la colección
+«Pictogramas» (23 palabras de HSK 1 a 3 que son un dibujo). Es para el alumno con
+cuenta; sin sesión, el botón lleva a iniciar sesión.
 
 ## Pendiente de verificar antes de publicar
 

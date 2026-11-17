@@ -169,3 +169,15 @@ export async function getStars(senseIds: string[]): Promise<Map<string, 0 | 1 | 
   }
   return out;
 }
+
+// ── Proyección ──────────────────────────────────────────────────────────
+/** Día (hora de Lima) en que el alumno empezó cada palabra: el de su primer evento. */
+export async function getFirstSeenDays(): Promise<string[]> {
+  const supabase = await createClient();
+  const rows = await pageAll<{ sense_id: string; at: string }>((from, to) =>
+    supabase.from("student_events").select("sense_id, at").order("at", { ascending: true }).range(from, to) as unknown as PromiseLike<{ data: { sense_id: string; at: string }[] | null }>,
+  );
+  const first = new Map<string, string>();
+  for (const r of rows) if (!first.has(r.sense_id)) first.set(r.sense_id, dayKey(r.at));
+  return [...first.values()];
+}

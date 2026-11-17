@@ -104,3 +104,34 @@ test("pinyinSegments conserva separadores y da el tono de cada sílaba", async (
   assert.equal(pinyinSegments("nǐ hǎo").map((s) => s.text).join(""), "nǐ hǎo");
   assert.deepEqual(pinyinSegments("péngyou").map((s) => s.tone), [2, 5]);
 });
+
+test("proyección: sin datos suficientes no estima", async () => {
+  const { projectCompletion } = await import("../../src/lib/student-projection.ts");
+  const days = Array.from({ length: 12 }, () => "2026-11-10");
+  const p = projectCompletion(days, 100, "2026-11-12");
+  assert.equal(p.status, "insufficient");
+});
+
+test("proyección: da un rango con ritmo estable", async () => {
+  const { projectCompletion, weeklyNewWords } = await import("../../src/lib/student-projection.ts");
+  // 4 semanas, 5 palabras nuevas por semana: 20 palabras en 28 días.
+  const seen: string[] = [];
+  for (let d = 0; d < 28; d += 7) for (let k = 0; k < 5; k++) seen.push(`2026-10-${String(1 + d).padStart(2, "0")}`);
+  const p = projectCompletion(seen, 100, "2026-10-28");
+  assert.equal(p.status, "ok");
+  if (p.status === "ok") {
+    assert.ok(p.weeksMin <= (p.weeksMax ?? Infinity));
+    assert.ok(p.weeksMin >= 10 && p.weeksMin <= 40);
+  }
+  assert.equal(weeklyNewWords(seen, "2026-10-28", 4).reduce((a, b) => a + b, 0), 20);
+});
+
+test("proyección: nivel terminado y sin ritmo", async () => {
+  const { projectCompletion } = await import("../../src/lib/student-projection.ts");
+  const old = Array.from({ length: 12 }, () => "2026-09-01");
+  assert.equal(projectCompletion(old, 0, "2026-11-12").status, "done");
+  // Mucha práctica antigua y nada reciente: el ritmo reciente es 0, el rango queda sin tope.
+  const p = projectCompletion(old, 50, "2026-11-12");
+  assert.equal(p.status, "ok");
+  if (p.status === "ok") assert.equal(p.weeksMax, null);
+});
