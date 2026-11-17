@@ -3,7 +3,7 @@
 Ideas y hallazgos que todavía no son decisión. Cada una dice qué habría que
 comprobar antes de hacerla. Cuando se decida, pasa a la bitácora de
 [DECISIONES.md](DECISIONES.md) y sale de aquí. **No es un backlog aprobado.**
-Última revisión: 2026-10-25.
+Última revisión: 2026-11-17.
 
 ## Contenido
 
@@ -34,8 +34,11 @@ ronda, no por palabra) y fija el **tiempo**; el alumno responde en su celular.
 | ortografía del pinyin | elige entre confundibles (`zhidao`, `chidao`, `xidao`) |
 | español → hanzi | escribe con el teclado chino (todos lo tienen) |
 | español o pinyin → hanzi | elige entre hanzi parecidos (己/已/巳) |
+| **emparejar hanzi ↔ pinyin** (arrastrar y soltar) | arrastra fichas de hanzi a los huecos junto a cada pinyin; corrige al pulsar «Enviar» |
 
 Qué contrastar antes:
+- **Modo «emparejar»** (idea de Ever, 2026-11-17, a partir de una captura de otra plataforma). Cómo es: una tanda de ~9 palabras en pantalla, fichas de hanzi de colores en un banco y una columna de pinyin con un hueco al lado de cada uno; el alumno arrastra cada ficha a su hueco; hay varias páginas («1 de 2») y no se corrige hasta «Enviar respuestas». Qué aporta: practica muchas palabras de golpe y entrena el reconocimiento hanzi↔sonido sin teclear. Qué contrastar: **arrastrar con el dedo en celular** (alternativa de tocar ficha y tocar hueco, que además es accesible por teclado); si el hueco admite el cambio de ficha; tamaño de tanda (8–10 palabras caben, en 390 px quizá 6); **homófonos** (si dos palabras comparten pinyin, el emparejamiento es ambiguo: excluirlos de la misma tanda); corregir al final o al soltar; qué se guarda (aciertos por palabra, igual que en el resto de tipos). Variante: pinyin ↔ español. No es un juego en vivo: es de práctica individual, sin servidor de sala.
+- **Mezcla de tipos en una misma ronda** (elegir, verdadero/falso, emparejar), como hace Kahoot: la pregunta es un objeto con `tipo` y un componente decide su aspecto; nunca dos del mismo tipo seguidas; los puntos varían por tipo (verdadero/falso acierta el 50 % al azar). Hoy la tabla de arriba asume un solo tipo por ronda.
 - **Distractores de pinyin** por reglas, no al azar ni con IA: zh/ch/sh/z/c/s, j/q/x, n/l, f/h, an/ang, en/eng, in/ing. Tono neutro y palabras de 3+ sílabas limitan cuántas variantes mostrar.
 - **Hanzi parecidos**: no hay fuente; LLM + revisión de la docente, o piezas compartidas de la tabla de radicales.
 - **Temporizador**: el servidor guarda `ends_at`; los celulares restan contra eso (no se sincroniza un contador). Por defecto 20 s, ajustable. Qué pasa al vencer.
@@ -49,7 +52,7 @@ Qué contrastar antes:
 | Idea | Por qué | Qué contrastar antes |
 |---|---|---|
 | **Explicar el tipo de carácter** (6 tipos del libro fuente) en «Cómo se forma» | La docente lo pide. Términos en español fijados (memoria del asistente `clasificacion-caracteres-liushu`). **No se muestra todavía.** Regla: docente siempre; alumno solo tras revelar. | Dónde se guarda el tipo por carácter y quién lo clasifica (Make Me a Hanzi solo separa 3 de los 6); en pictofonéticos, resaltar qué pieza da el sonido y cuál el significado. |
-| **Gramática por niveles, con contexto, para tarea** | La docente quiere niveles y ejercicios que el alumno practique en casa. Es **autoestudio**, no modo clase. | Niveles HSK 3.0 del catálogo. Formato de importación: nivel, tipo (hueco, ordenar, elegir), contexto, enunciado, respuesta, explicación, estado borrador/aprobado. Yo escribo el formato y una plantilla de prompt para el LLM externo. Primero ejercicios cerrados (autocorregidos); los abiertos, a la docente. |
+| **Gramática por niveles, con contexto, para tarea** | La docente quiere niveles y ejercicios que el alumno practique en casa. Es **autoestudio**, no modo clase. | Niveles HSK 3.0 del catálogo. Formato de importación: nivel, tipo (hueco, ordenar, elegir, **hueco con banco de palabras**: texto corto con varios huecos y un recuadro de palabras para rellenarlos, a veces con una palabra repetida; ejemplo de Ever, 2026-11-17: banco 八 / 能 / 外语 / 常常 sobre un párrafo de 5 huecos), contexto, enunciado, respuesta, explicación, estado borrador/aprobado. Yo escribo el formato y una plantilla de prompt para el LLM externo. Primero ejercicios cerrados (autocorregidos); los abiertos, a la docente. |
 | **Corrección con LLM para alumnos habilitados** | Más adelante, solo para quienes la docente agregue o reciban un código. | Coste, privacidad y qué se envía al LLM; depende de tener identidad por código. |
 
 ## Interfaz
