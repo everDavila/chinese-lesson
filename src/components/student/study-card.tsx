@@ -10,6 +10,7 @@ import { Link } from "@/i18n/navigation";
 import type { Lesson } from "@/lib/lesson-types";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
+import { HskBadge } from "./hsk-badge";
 import { BookmarkButton } from "./bookmark-button";
 import { RatingDot } from "./rating-dot";
 import { prefsStore, type Rating } from "./student-store";
@@ -171,6 +172,7 @@ export function StudyCard({ lesson, signedIn = false, bookmarked = [] }: { lesso
           </div>
         </div>
         <span className="text-sm tabular-nums text-muted-foreground">{index + 1} / {count}</span>
+        <HskBadge hsk={item.word.hsk} className="hidden sm:inline-flex" />
         <div className="flex gap-2">
           {signedIn && item.senseId && <BookmarkButton key={item.senseId} senseId={item.senseId} initial={bookmarked.includes(item.senseId)} />}
           <Button variant="outline" size="icon" aria-label="Escuchar la palabra" onClick={() => speakChinese(item.word.hanzi)}>

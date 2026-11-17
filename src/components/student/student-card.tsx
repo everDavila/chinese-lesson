@@ -5,6 +5,7 @@ import { Popover } from "@base-ui/react/popover";
 import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Settings, Volume2 } from "lucide-react";
 import { importLocalProgress, markKnown, recordPracticeEvent } from "@/actions/student";
 import { CardBack } from "@/components/present/card-back";
+import { HskBadge } from "./hsk-badge";
 import { BookmarkButton } from "./bookmark-button";
 import { RatingDot } from "./rating-dot";
 import { ToneCurves } from "./tone-curves";
@@ -382,6 +383,7 @@ export function StudentCard({ lesson: fullLesson, signedIn = false, bookmarked =
         {side === "front" ? (
           <section className="flex flex-1 flex-col items-center justify-center gap-4">
             <h1 className="sr-only">Practica la palabra {index + 1} de {count}</h1>
+            <HskBadge hsk={item.word.hsk} />
             {(prefs.showMeaning || prefs.showPinyin) && (
               <div className="text-center">
                 {prefs.showMeaning && <p className="text-xl font-medium">{item.word.senses[item.senseIndex].meaning.es}</p>}
