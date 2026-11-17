@@ -18,6 +18,10 @@ export type Chapter = {
 export const CHAPTERS: Chapter[] = [
   { slug: "seis-tipos", file: "cap-01-los-seis-tipos.md", minutes: 4 },
   { slug: "pictogramas", file: "cap-02-pictogramas.md", minutes: 3, practiceTheme: "Pictogramas" },
+  { slug: "indicativos-compuestos", file: "cap-03-indicativos-y-compuestos.md", minutes: 4 },
+  { slug: "fonetico-semanticos", file: "cap-04-fonetico-semanticos.md", minutes: 5 },
+  { slug: "radicales", file: "cap-05-radicales.md", minutes: 4 },
+  { slug: "cambio-de-forma", file: "cap-06-cambio-de-forma.md", minutes: 3 },
 ];
 
 const DIR = path.join(process.cwd(), "contenido", "etimologia");
