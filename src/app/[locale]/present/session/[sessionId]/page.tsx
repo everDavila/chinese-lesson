@@ -6,6 +6,7 @@ import { Presentation } from "@/components/present/presentation";
 import { redirect } from "@/i18n/navigation";
 import { currentUserId, getLesson } from "@/lib/lessons";
 import { getSession } from "@/lib/sessions";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Renshi" };
 
@@ -31,10 +32,15 @@ async function SessionContent({ params }: { params: Params }) {
   // Sin palabras con frases no hay tarjetas que mostrar.
   if (!lesson?.items.length) notFound();
 
+  // Una lección rápida (presentada desde el catálogo) se puede guardar sin salir de la clase.
+  const supabase = await createClient();
+  const { data: row } = await supabase.from("lessons").select("quick, title").eq("id", session.lessonId).maybeSingle();
+
   return (
     <Presentation
       lesson={lesson}
       session={{ id: session.id, joinCode: session.joinCode }}
+      saveQuick={row?.quick ? { lessonId: session.lessonId, title: row.title as string } : undefined}
     />
   );
 }

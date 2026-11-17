@@ -5,6 +5,8 @@ import {
   ArrowLeft,
   ArrowRight,
   Brush,
+  Bookmark,
+  Check,
   CopyCheck,
   Expand,
   Languages,
@@ -25,7 +27,7 @@ import { StudentVoting, VotingBar } from "./student-voting";
 import { advanceStore } from "./advance-store";
 import { inkStyleStore } from "./ink-style-store";
 import { SENTENCE_MODES, sentenceModeStore } from "./sentence-mode-store";
-import { endSessionAction } from "@/actions/class";
+import { endSessionAction, saveQuickLessonAction } from "@/actions/class";
 import { closeVotingAction, openVotingAction, votingLiveAction } from "@/actions/vote";
 import { Link } from "@/i18n/navigation";
 import { studentLabels, type ContentLanguage } from "@/lib/student-labels";
@@ -42,6 +44,7 @@ export function Presentation({
   session,
   contentLanguage = "es",
   exitHref = "/",
+  saveQuick,
 }: {
   lesson: Lesson;
   session?: LiveSession;
@@ -49,9 +52,13 @@ export function Presentation({
   contentLanguage?: ContentLanguage;
   /** Adónde lleva la X fuera de una clase en vivo (la vista previa del admin vuelve al editor). */
   exitHref?: string;
+  /** Lección rápida en clase: permite guardarla en «Mis lecciones» sin salir. */
+  saveQuick?: { lessonId: string; title: string };
 }) {
   const t = useTranslations("Controls");
   const labels = studentLabels(contentLanguage);
+  const [saveState, setSaveState] = useState<"idle" | "naming" | "saving" | "saved">("idle");
+  const [saveName, setSaveName] = useState(saveQuick?.title ?? "");
   const [index, setIndex] = useState(0);
   const [side, setSide] = useState<"front" | "back">("front");
   const [playing, setPlaying] = useState(true);
@@ -409,6 +416,37 @@ export function Presentation({
               />
             </>
           )}
+          {saveQuick && saveState === "saved" && (
+            <span className="flex items-center gap-1 px-2 text-sm text-muted-foreground" role="status"><Check className="size-4" aria-hidden /> {t("saved")}</span>
+          )}
+          {saveQuick && saveState !== "saved" && (saveState === "idle" ? (
+            <Button variant="ghost" onClick={() => setSaveState("naming")}><Bookmark /> {t("saveLesson")}</Button>
+          ) : (
+            <form
+              className="flex items-center gap-1"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setSaveState("saving");
+                const res = await saveQuickLessonAction(saveQuick.lessonId, saveName);
+                if (res.ok) setSaveState("saved");
+                else {
+                  setSaveState("naming");
+                  setSaveError(res.error);
+                }
+              }}
+            >
+              <input
+                autoFocus
+                value={saveName}
+                onChange={(e) => setSaveName(e.target.value)}
+                maxLength={120}
+                aria-label={t("saveLessonName")}
+                className="h-9 w-44 rounded-lg border border-border bg-background px-2 text-sm"
+              />
+              <Button type="submit" size="sm" disabled={saveState === "saving"}>{t("save")}</Button>
+              <Button type="button" size="sm" variant="ghost" onClick={() => setSaveState("idle")}>{t("cancel")}</Button>
+            </form>
+          ))}
           <ThemeToggle size="icon-lg" />
           <Button variant="ghost" size="icon-lg" aria-label={t("fullscreen")} onClick={toggleFullscreen}>
             <Expand />

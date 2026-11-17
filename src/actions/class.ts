@@ -90,3 +90,25 @@ async function createQuickLesson(teacherId: string, title: string, senseIds: str
   }
   return lesson.id;
 }
+
+/**
+ * Guarda como lección una lección rápida que se está presentando: deja de ser
+ * `quick` y pasa a «Mis lecciones», con el nombre que elija la docente. Sin
+ * colección, igual que «Guardar lección» desde el catálogo.
+ */
+export async function saveQuickLessonAction(lessonId: string, title: string): Promise<{ ok: true } | { ok: false; error: string }> {
+  const teacherId = await requireTeacher();
+  const name = title.trim().slice(0, 120);
+  if (!name) return { ok: false, error: "Escribe un nombre" };
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("lessons")
+    .update({ title: name, quick: false })
+    .eq("id", lessonId)
+    .eq("teacher_id", teacherId)
+    .eq("quick", true)
+    .select("id");
+  if (error) return { ok: false, error: "No se pudo guardar. Inténtalo otra vez." };
+  if (!data?.length) return { ok: false, error: "Esta lección ya no es rápida o no es tuya." };
+  return { ok: true };
+}
