@@ -14,15 +14,15 @@ export function HskNote() {
   // Enlaza la fuente oficial del temario (Chinese Test International).
   return (
     <footer className="px-4 py-3 text-center text-xs text-muted-foreground">
-      <a href="https://www.chinesetest.cn/syllabus" target="_blank" rel="noreferrer" className="underline-offset-2 hover:underline">
+      <a href="https://www.chinesetest.cn/syllabus" target="_blank" rel="noreferrer" className="inline-block py-2 underline-offset-2 hover:underline">
         {t("hskNote")}
       </a>
       {" · "}
-      <Link href="/creditos" className="underline-offset-2 hover:underline">
+      <Link href="/creditos" className="inline-block py-2 underline-offset-2 hover:underline">
         {t("credits")}
       </Link>
       {" · "}
-      <Link href="/lab" className="underline-offset-2 hover:underline">
+      <Link href="/lab" className="inline-block py-2 underline-offset-2 hover:underline">
         {t("lab")}
       </Link>
     </footer>
