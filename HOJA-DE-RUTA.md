@@ -30,11 +30,13 @@ revisión en desarrollo). Sigue la 4.
    en ~37 s desde un servidor local.
    Además: «Quitar» colecciones y lecciones (archivar o borrar definitivamente),
    con la página «Archivadas» para restaurar.
-4. *(en parte, en producción 2026-10-19: «Guardar lección» desde la selección
-   del catálogo; falta guardar una lección rápida durante la presentación)*
+4. ✅ *(«Guardar lección» desde el catálogo en producción 2026-10-19; guardar una
+   lección rápida durante la presentación hecho el 2026-11-17 en `mejoras-alumno`,
+   aún sin desplegar)*
    **Durante la presentación, "Guardar como lección"**, sin obligar a asignar
    colección.
-5. **Reorganizar "Mis lecciones" y "Mis colecciones"**, separando la biblioteca
+5. ✅ *(parece hecho: «Biblioteca Renshi» en `/library`, separada de Mis lecciones;
+   no se revisó en navegador, 2026-11-17)* **Reorganizar "Mis lecciones" y "Mis colecciones"**, separando la biblioteca
    oficial de lo que crea o copia la docente.
 
 ## Reglas que acompañan la hoja de ruta

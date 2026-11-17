@@ -163,6 +163,13 @@ nivel HSK, práctica por nivel o tema con 10/20/40 palabras.
 **Qué copiar de su perfil:** un buen estado vacío. Su pantalla muestra «--» en
 precisión y un gráfico ilegible cuando hay pocos datos.
 
+**Estado al 2026-11-17** (rama `mejoras-alumno`): hechas 1 (velocidad del audio, antes), 2
+(colores por tono, antes), 4 («Repasar solo las que faltan»), 5 (filtrar y ordenar el rastreador),
+6 (insignia de nivel HSK), 7 (un día libre por semana, versión simple), 8 (precisión por
+habilidad), 9 (cálculo de «~N palabras» ya cubierto por «Tu ritmo»), 10 («solo repaso»), 11
+(práctica por tiempo, 5/10/15 min con estimación) y 13 (proyección, en «Tu ritmo»). Quedan 3
+(sonido y vibración: solo si hay efectos) y 12 (descartada: teclado de tonos y solo tonos).
+
 ### Funciones premium de Hanzio (dicho por Ever; no salen en las capturas)
 
 Gramática, historias y funciones de IA. No las verifiqué en la app.

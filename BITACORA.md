@@ -835,3 +835,34 @@ en `profiles`, para no tocar sus permisos. El día de la racha se corta en
 **Sin probar / pendiente:** flujo en navegador (contraste, nivel 7 con ~5600
 casillas, meta, corazón, exportar), Playwright, y que un alumno nuevo entre por
 enlace mágico en producción. Colecciones de estudio sin empezar.
+
+## 2026-11-17 · Rama `mejoras-alumno`
+
+Ever dejó la lista de pendientes en marcha mientras descansaba: «construye todo,
+aprueba lo que haga falta, integra al final». Se verificó primero contra el
+historial qué ya estaba hecho (velocidad del audio, colores por tono, «Tu ritmo»
+con proyección) y qué se había descartado (teclado de tonos, repaso solo tonos,
+búsqueda por cámara o trazo).
+
+**Hecho en la rama** (sin migraciones; todo en navegador o en datos que ya
+existen): racha con **un día libre por semana** (Ever: la racha no es el núcleo,
+versión simple y no Duolingo); «Repasar solo las que faltan» en la lista de la
+lección; rastreador con filtro por estado y orden «primero las que faltan»;
+insignia de nivel HSK en las tarjetas; precisión por habilidad (reconocer y
+escribir) en el inicio del alumno; práctica **por tiempo** (5, 10 o 15 min, la
+cantidad de palabras es una estimación de 20 s por palabra en tarjeta y 45 s al
+escribir); «solo repaso» (sin palabras nuevas); «Guardar lección» desde la
+presentación de una lección rápida (cierra la prioridad 4 de la hoja de ruta);
+y el piloto `/lab/emparejar` (arrastrar o tocar cada hanzi al hueco de su
+pinyin), probado con toque real emulado y ratón.
+
+**Comprobado, sin cambios:** «Libro de la profesora: salud y cuerpo» está en
+`hanzi-dev` y en producción (1 lección, 26 palabras); no se revisaron sus frases.
+«Reorganizar Mis lecciones y colecciones» ya existe como «Biblioteca Renshi»
+(`/library`), separada de Mis lecciones.
+
+**Estado:** integrado en `master`, **sin push ni despliegue**. No requiere
+migración. Sin probar con un alumno ni en un celular real; las pruebas con
+cuenta (alumno y docente) no se corrieron porque no hay sesiones de prueba
+vigentes. Pendientes: colecciones de estudio del alumno, onboarding, gramática
+con fichas ligadas a frases, tutor con IA, y la auditoría UX.
