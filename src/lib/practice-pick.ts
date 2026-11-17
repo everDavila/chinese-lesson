@@ -47,9 +47,22 @@ export function parseSource(value: string | undefined): PracticeSource | null {
   return null;
 }
 
+/** Cantidad de palabras: un entero entre 5 y 60 (los botones ofrecen 10/20/40; «por tiempo» calcula otros). */
 export function parseAmount(value: string | undefined): number {
   const n = Number(value);
-  return (PRACTICE_AMOUNTS as readonly number[]).includes(n) ? n : DEFAULT_AMOUNT;
+  return Number.isInteger(n) && n >= MIN_AMOUNT && n <= MAX_AMOUNT ? n : DEFAULT_AMOUNT;
+}
+
+export const MIN_AMOUNT = 5;
+export const MAX_AMOUNT = 60;
+export const PRACTICE_MINUTES = [5, 10, 15] as const;
+
+/** Segundos estimados por palabra: una estimación, no una medición del alumno. */
+const SECONDS_PER_WORD = { tarjeta: 20, escribir: 45 } as const;
+
+/** Cuántas palabras caben en `minutes` minutos de un ejercicio, dentro de los límites. */
+export function wordsForMinutes(minutes: number, exercise: "tarjeta" | "escribir"): number {
+  return Math.min(MAX_AMOUNT, Math.max(MIN_AMOUNT, Math.round((minutes * 60) / SECONDS_PER_WORD[exercise])));
 }
 
 export type ThemeGroup = "situations" | "topics" | "wordTypes" | "functions" | "other";

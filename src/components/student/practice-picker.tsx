@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { PRACTICE_MINUTES, wordsForMinutes } from "@/lib/practice-pick";
 
 type Option = { value: string; title: string; hint: string };
 type Group = { key: string; title: string; options: Option[] };
@@ -38,6 +39,10 @@ export function PracticePicker({
   const router = useRouter();
   const [exercise, setExercise] = useState<"tarjeta" | "escribir">("tarjeta");
   const [amount, setAmount] = useState(defaultAmount);
+  // «Por tiempo»: el alumno elige minutos y la cantidad de palabras se calcula con una estimación por ejercicio.
+  const [unit, setUnit] = useState<"words" | "minutes">("words");
+  const [minutes, setMinutes] = useState<number>(PRACTICE_MINUTES[1]);
+  const effective = unit === "minutes" ? wordsForMinutes(minutes, exercise) : amount;
   const [tab, setTab] = useState<Tab>("hsk");
   const [source, setSource] = useState(levels[0]?.value ?? "");
   const [query, setQuery] = useState("");
@@ -63,7 +68,7 @@ export function PracticePicker({
       className="flex flex-1 flex-col gap-6"
       onSubmit={(e) => {
         e.preventDefault();
-        if (source) router.push(`/estudiante?fuente=${encodeURIComponent(source)}&n=${amount}&ejercicio=${exercise}`);
+        if (source) router.push(`/estudiante?fuente=${encodeURIComponent(source)}&n=${effective}&ejercicio=${exercise}`);
       }}
     >
       <div className="grid gap-5 rounded-xl border border-border bg-card p-4 md:grid-cols-2">
@@ -79,10 +84,16 @@ export function PracticePicker({
           </div>
         </fieldset>
         <fieldset className="space-y-2">
-          <legend className="mb-2 block text-sm font-medium text-muted-foreground">{t("pickAmount")}</legend>
-          <div className="flex flex-wrap gap-2">
-            {amounts.map((n) => choice("n", String(n), String(amount), (v: string) => setAmount(Number(v)), <span className="min-w-8 text-center tabular-nums">{n}</span>, segment))}
+          <legend className="mb-2 block text-sm font-medium text-muted-foreground">{unit === "words" ? t("pickAmount") : t("pickMinutes")}</legend>
+          <div className="flex flex-wrap items-center gap-2">
+            {unit === "words"
+              ? amounts.map((n) => choice("n", String(n), String(amount), (v: string) => setAmount(Number(v)), <span className="min-w-8 text-center tabular-nums">{n}</span>, segment))
+              : PRACTICE_MINUTES.map((m) => choice("min", String(m), String(minutes), (v: string) => setMinutes(Number(v)), <span className="min-w-8 text-center tabular-nums">{t("minutesShort", { n: m })}</span>, segment))}
+            <button type="button" onClick={() => setUnit(unit === "words" ? "minutes" : "words")} className="ml-1 text-sm text-primary underline-offset-4 hover:underline">
+              {unit === "words" ? t("pickByTime") : t("pickByCount")}
+            </button>
           </div>
+          {unit === "minutes" && <p className="text-sm text-muted-foreground">{t("pickMinutesHint", { n: effective })}</p>}
         </fieldset>
       </div>
 
@@ -149,7 +160,7 @@ export function PracticePicker({
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3">
           <p className={cn("min-w-48 flex-1 text-sm", !selected && "text-muted-foreground")} aria-live="polite">
             {selected
-              ? t("pickSummary", { exercise: exercise === "tarjeta" ? t("exerciseCard") : t("exerciseWrite"), source: selected.title, n: amount })
+              ? t("pickSummary", { exercise: exercise === "tarjeta" ? t("exerciseCard") : t("exerciseWrite"), source: selected.title, n: effective })
               : t("pickChooseSource")}
           </p>
           <Button type="submit" size="lg" disabled={!selected}>{t("pickStart")}</Button>

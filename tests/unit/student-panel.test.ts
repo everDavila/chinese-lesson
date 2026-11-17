@@ -61,7 +61,7 @@ test("estrellas de dominio", () => {
   assert.equal(masteryStars({ stage: "dismissed", intervalDays: 80 }), 0);
 });
 
-import { parseAmount, parseExercise, isFrequencyCollection, isRadicalCollection, parseSource, pickForPractice, skillOf, themeGroup } from "../../src/lib/practice-pick.ts";
+import { wordsForMinutes, parseAmount, parseExercise, isFrequencyCollection, isRadicalCollection, parseSource, pickForPractice, skillOf, themeGroup } from "../../src/lib/practice-pick.ts";
 
 test("práctica: primero lo vencido, luego lo nuevo; sin programadas ni descartadas", () => {
   const now = new Date("2026-11-12T12:00:00Z");
@@ -94,7 +94,13 @@ test("práctica: fuente y cantidad válidas", () => {
   assert.equal(isRadicalCollection("Radicales más usados"), true);
   assert.equal(isRadicalCollection("Pictogramas"), false);
   assert.equal(parseAmount("40"), 40);
-  assert.equal(parseAmount("7"), 20);
+  assert.equal(parseAmount("7"), 7);
+  assert.equal(parseAmount("3"), 20);
+  assert.equal(parseAmount("100"), 20);
+  assert.equal(parseAmount("7.5"), 20);
+  assert.equal(wordsForMinutes(5, "tarjeta"), 15);
+  assert.equal(wordsForMinutes(10, "escribir"), 13);
+  assert.equal(wordsForMinutes(1, "escribir"), 5);
   assert.equal(parseAmount(undefined), 20);
 });
 
