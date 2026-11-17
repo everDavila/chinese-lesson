@@ -23,6 +23,12 @@ export type Lab = {
 // Textos en messages/*.json → Lab.items.<slug>.{title,summary,history}.
 const REGISTRY: Lab[] = [
   {
+    slug: "emparejar",
+    history: [
+      { date: "2026-11-17", id: "start" },
+    ],
+  },
+  {
     slug: "quiz",
     history: [
       { date: "2026-11-17", id: "start" },

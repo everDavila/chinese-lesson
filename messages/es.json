@@ -538,6 +538,13 @@
           "pageN": "Página {n}"
         }
       },
+      "emparejar": {
+        "title": "Emparejar hanzi y pinyin",
+        "summary": "Arrastrar o tocar cada ficha de hanzi al hueco de su pinyin, en tandas de 6, con corrección al enviar.",
+        "history": {
+          "start": "Primer piloto: dos páginas de 6 palabras de HSK 1, arrastre con dedo o ratón y alternativa de tocar ficha y hueco (también con teclado). Sin homófonos en la misma tanda. Sin base de datos."
+        }
+      },
       "quiz": {
         "title": "Quiz mixto",
         "summary": "Elegir entre cuatro y verdadero o falso en una misma ronda, con puntos por rapidez y repaso de los fallos.",

@@ -538,6 +538,13 @@
           "pageN": "Page {n}"
         }
       },
+      "emparejar": {
+        "title": "Match hanzi and pinyin",
+        "summary": "Drag or tap each hanzi tile into the slot of its pinyin, in batches of 6, graded on submit.",
+        "history": {
+          "start": "First pilot: two pages of 6 HSK 1 words, drag with finger or mouse, or tap a tile then a slot (keyboard works too). No homophones in the same batch. No database."
+        }
+      },
       "quiz": {
         "title": "Mixed quiz",
         "summary": "Multiple choice and true or false in the same round, with speed-based points and a retry of your mistakes.",
