@@ -1,0 +1,233 @@
+{
+  "nota": "Palabras cotidianas de la lista de alta frecuencia de Ever (2026-11-16) que no son entradas del temario HSK 3.0 2025, así que van sin nivel. Necesarias para crear la colección «Alta frecuencia 1000». Significados, frases y traducciones generados por IA, sin revisar. Se carga con scripts/cargar-palabras-extra.mjs.",
+  "palabras": [
+    {
+      "hanzi": "不是",
+      "pinyin": "bú shì",
+      "category": "verb",
+      "es": "no es; no ser",
+      "en": "is not; to not be",
+      "sentences": [
+        { "zh": "他不是老师。", "pinyin": "Tā bú shì lǎoshī.", "es": "Él no es profesor.", "en": "He is not a teacher." },
+        { "zh": "这不是我的书。", "pinyin": "Zhè bú shì wǒ de shū.", "es": "Este no es mi libro.", "en": "This is not my book." },
+        { "zh": "你不是学生吗？", "pinyin": "Nǐ bú shì xuésheng ma?", "es": "¿Acaso no eres estudiante?", "en": "Aren't you a student?" }
+      ]
+    },
+    {
+      "hanzi": "没",
+      "pinyin": "méi",
+      "category": "adverb",
+      "es": "no (en pasado); no haber; no tener",
+      "en": "not (past); have not; there is not",
+      "sentences": [
+        { "zh": "我没吃饭。", "pinyin": "Wǒ méi chī fàn.", "es": "No he comido.", "en": "I haven't eaten." },
+        { "zh": "他昨天没来。", "pinyin": "Tā zuótiān méi lái.", "es": "Ayer él no vino.", "en": "He didn't come yesterday." },
+        { "zh": "我没去过北京。", "pinyin": "Wǒ méi qù guo Běijīng.", "es": "Nunca he ido a Beijing.", "en": "I have never been to Beijing." }
+      ]
+    },
+    {
+      "hanzi": "真的",
+      "pinyin": "zhēn de",
+      "category": "adverb",
+      "es": "de verdad; en serio",
+      "en": "really; truly",
+      "sentences": [
+        { "zh": "这是真的吗？", "pinyin": "Zhè shì zhēn de ma?", "es": "¿Es verdad?", "en": "Is this true?" },
+        { "zh": "我真的很喜欢这本书。", "pinyin": "Wǒ zhēn de hěn xǐhuan zhè běn shū.", "es": "De verdad me gusta mucho este libro.", "en": "I really like this book." },
+        { "zh": "他真的不知道。", "pinyin": "Tā zhēn de bù zhīdào.", "es": "De verdad él no lo sabe.", "en": "He really doesn't know." }
+      ]
+    },
+    {
+      "hanzi": "看到",
+      "pinyin": "kàndào",
+      "category": "verb",
+      "es": "ver; alcanzar a ver",
+      "en": "to see; to catch sight of",
+      "sentences": [
+        { "zh": "我看到他了。", "pinyin": "Wǒ kàndào tā le.", "es": "Lo vi.", "en": "I saw him." },
+        { "zh": "你看到我的手机了吗？", "pinyin": "Nǐ kàndào wǒ de shǒujī le ma?", "es": "¿Viste mi celular?", "en": "Did you see my phone?" },
+        { "zh": "我没看到老师。", "pinyin": "Wǒ méi kàndào lǎoshī.", "es": "No vi al profesor.", "en": "I didn't see the teacher." }
+      ]
+    },
+    {
+      "hanzi": "话",
+      "pinyin": "huà",
+      "category": "noun",
+      "es": "palabras; lo que se dice; habla",
+      "en": "words; speech; what is said",
+      "sentences": [
+        { "zh": "他说的话我听不懂。", "pinyin": "Tā shuō de huà wǒ tīng bu dǒng.", "es": "No entiendo lo que dice.", "en": "I can't understand what he says." },
+        { "zh": "请再说一句话。", "pinyin": "Qǐng zài shuō yí jù huà.", "es": "Por favor, di una frase más.", "en": "Please say one more sentence." },
+        { "zh": "你听我的话。", "pinyin": "Nǐ tīng wǒ de huà.", "es": "Hazme caso.", "en": "Listen to what I say." }
+      ]
+    },
+    {
+      "hanzi": "两个",
+      "pinyin": "liǎng gè",
+      "category": "number",
+      "es": "dos (de algo)",
+      "en": "two (of something)",
+      "sentences": [
+        { "zh": "我有两个哥哥。", "pinyin": "Wǒ yǒu liǎng gè gēge.", "es": "Tengo dos hermanos mayores.", "en": "I have two older brothers." },
+        { "zh": "请给我两个苹果。", "pinyin": "Qǐng gěi wǒ liǎng gè píngguǒ.", "es": "Por favor, dame dos manzanas.", "en": "Please give me two apples." },
+        { "zh": "教室里有两个人。", "pinyin": "Jiàoshì lǐ yǒu liǎng gè rén.", "es": "Hay dos personas en el salón.", "en": "There are two people in the classroom." }
+      ]
+    },
+    {
+      "hanzi": "很多",
+      "pinyin": "hěn duō",
+      "category": "adjective",
+      "es": "mucho; muchos",
+      "en": "many; a lot of",
+      "sentences": [
+        { "zh": "我有很多朋友。", "pinyin": "Wǒ yǒu hěn duō péngyou.", "es": "Tengo muchos amigos.", "en": "I have many friends." },
+        { "zh": "这里的人很多。", "pinyin": "Zhèlǐ de rén hěn duō.", "es": "Aquí hay mucha gente.", "en": "There are a lot of people here." },
+        { "zh": "他知道很多事情。", "pinyin": "Tā zhīdào hěn duō shìqing.", "es": "Él sabe muchas cosas.", "en": "He knows a lot of things." }
+      ]
+    },
+    {
+      "hanzi": "一点",
+      "pinyin": "yìdiǎn",
+      "category": "determiner",
+      "es": "un poco; algo de",
+      "en": "a little; a bit",
+      "sentences": [
+        { "zh": "我会说一点汉语。", "pinyin": "Wǒ huì shuō yìdiǎn Hànyǔ.", "es": "Hablo un poco de chino.", "en": "I can speak a little Chinese." },
+        { "zh": "请给我一点水。", "pinyin": "Qǐng gěi wǒ yìdiǎn shuǐ.", "es": "Por favor, dame un poco de agua.", "en": "Please give me a little water." },
+        { "zh": "请说慢一点。", "pinyin": "Qǐng shuō màn yìdiǎn.", "es": "Por favor, habla un poco más despacio.", "en": "Please speak a little slower." }
+      ]
+    },
+    {
+      "hanzi": "第一",
+      "pinyin": "dì-yī",
+      "category": "number",
+      "es": "primero; número uno",
+      "en": "first; number one",
+      "sentences": [
+        { "zh": "这是我第一次来中国。", "pinyin": "Zhè shì wǒ dì-yī cì lái Zhōngguó.", "es": "Esta es la primera vez que vengo a China.", "en": "This is my first time coming to China." },
+        { "zh": "他是我们班第一。", "pinyin": "Tā shì wǒmen bān dì-yī.", "es": "Él es el primero de nuestra clase.", "en": "He is first in our class." },
+        { "zh": "第一课很简单。", "pinyin": "Dì-yī kè hěn jiǎndān.", "es": "La primera lección es muy fácil.", "en": "The first lesson is very easy." }
+      ]
+    },
+    {
+      "hanzi": "每个",
+      "pinyin": "měi gè",
+      "category": "determiner",
+      "es": "cada uno; cada",
+      "en": "each; every one",
+      "sentences": [
+        { "zh": "每个人都有一本书。", "pinyin": "Měi gè rén dōu yǒu yì běn shū.", "es": "Cada persona tiene un libro.", "en": "Everyone has a book." },
+        { "zh": "每个学生都很努力。", "pinyin": "Měi gè xuésheng dōu hěn nǔlì.", "es": "Cada estudiante se esfuerza mucho.", "en": "Every student works hard." },
+        { "zh": "我们每个人都喝茶。", "pinyin": "Wǒmen měi gè rén dōu hē chá.", "es": "Cada uno de nosotros toma té.", "en": "Each of us drinks tea." }
+      ]
+    },
+    {
+      "hanzi": "几个",
+      "pinyin": "jǐ gè",
+      "category": "number",
+      "es": "cuántos; unos cuantos",
+      "en": "how many; a few",
+      "sentences": [
+        { "zh": "你有几个孩子？", "pinyin": "Nǐ yǒu jǐ gè háizi?", "es": "¿Cuántos hijos tienes?", "en": "How many children do you have?" },
+        { "zh": "桌子上有几个杯子。", "pinyin": "Zhuōzi shàng yǒu jǐ gè bēizi.", "es": "Hay unos cuantos vasos sobre la mesa.", "en": "There are a few cups on the table." },
+        { "zh": "我买了几个苹果。", "pinyin": "Wǒ mǎi le jǐ gè píngguǒ.", "es": "Compré unas cuantas manzanas.", "en": "I bought a few apples." }
+      ]
+    },
+    {
+      "hanzi": "找到",
+      "pinyin": "zhǎodào",
+      "category": "verb",
+      "es": "encontrar; dar con",
+      "en": "to find; to locate",
+      "sentences": [
+        { "zh": "我找到我的钱包了。", "pinyin": "Wǒ zhǎodào wǒ de qiánbāo le.", "es": "Encontré mi billetera.", "en": "I found my wallet." },
+        { "zh": "你找到工作了吗？", "pinyin": "Nǐ zhǎodào gōngzuò le ma?", "es": "¿Ya encontraste trabajo?", "en": "Have you found a job?" },
+        { "zh": "我没找到他。", "pinyin": "Wǒ méi zhǎodào tā.", "es": "No lo encontré.", "en": "I didn't find him." }
+      ]
+    },
+    {
+      "hanzi": "每天",
+      "pinyin": "měi tiān",
+      "category": "noun",
+      "es": "todos los días; cada día",
+      "en": "every day",
+      "sentences": [
+        { "zh": "我每天早上喝咖啡。", "pinyin": "Wǒ měi tiān zǎoshang hē kāfēi.", "es": "Todas las mañanas tomo café.", "en": "I drink coffee every morning." },
+        { "zh": "他每天都很忙。", "pinyin": "Tā měi tiān dōu hěn máng.", "es": "Él está ocupado todos los días.", "en": "He is busy every day." },
+        { "zh": "你每天学习汉语吗？", "pinyin": "Nǐ měi tiān xuéxí Hànyǔ ma?", "es": "¿Estudias chino todos los días?", "en": "Do you study Chinese every day?" }
+      ]
+    },
+    {
+      "hanzi": "有点",
+      "pinyin": "yǒudiǎn",
+      "category": "adverb",
+      "es": "un poco; algo (suele tener matiz negativo)",
+      "en": "a bit; somewhat (often negative)",
+      "sentences": [
+        { "zh": "我有点累。", "pinyin": "Wǒ yǒudiǎn lèi.", "es": "Estoy un poco cansado.", "en": "I am a bit tired." },
+        { "zh": "这个菜有点贵。", "pinyin": "Zhè ge cài yǒudiǎn guì.", "es": "Este plato es un poco caro.", "en": "This dish is a bit expensive." },
+        { "zh": "今天有点冷。", "pinyin": "Jīntiān yǒudiǎn lěng.", "es": "Hoy hace un poco de frío.", "en": "It is a bit cold today." }
+      ]
+    },
+    {
+      "hanzi": "越来越",
+      "pinyin": "yuè lái yuè",
+      "category": "adverb",
+      "es": "cada vez más",
+      "en": "more and more",
+      "sentences": [
+        { "zh": "天气越来越冷了。", "pinyin": "Tiānqì yuè lái yuè lěng le.", "es": "Cada vez hace más frío.", "en": "The weather is getting colder and colder." },
+        { "zh": "他的汉语越来越好。", "pinyin": "Tā de Hànyǔ yuè lái yuè hǎo.", "es": "Su chino es cada vez mejor.", "en": "His Chinese is getting better and better." },
+        { "zh": "我越来越喜欢这里。", "pinyin": "Wǒ yuè lái yuè xǐhuan zhèlǐ.", "es": "Cada vez me gusta más este lugar.", "en": "I like this place more and more." }
+      ]
+    },
+    {
+      "hanzi": "听到",
+      "pinyin": "tīngdào",
+      "category": "verb",
+      "es": "oír; llegar a escuchar",
+      "en": "to hear",
+      "sentences": [
+        { "zh": "我听到有人在唱歌。", "pinyin": "Wǒ tīngdào yǒu rén zài chàng gē.", "es": "Oí a alguien cantando.", "en": "I heard someone singing." },
+        { "zh": "你听到了吗？", "pinyin": "Nǐ tīngdào le ma?", "es": "¿Lo oíste?", "en": "Did you hear it?" },
+        { "zh": "我没听到电话响。", "pinyin": "Wǒ méi tīngdào diànhuà xiǎng.", "es": "No oí sonar el teléfono.", "en": "I didn't hear the phone ring." }
+      ]
+    },
+    {
+      "hanzi": "长大",
+      "pinyin": "zhǎng dà",
+      "category": "verb",
+      "es": "crecer; hacerse grande",
+      "en": "to grow up",
+      "sentences": [
+        { "zh": "我在北京长大。", "pinyin": "Wǒ zài Běijīng zhǎng dà.", "es": "Crecí en Beijing.", "en": "I grew up in Beijing." },
+        { "zh": "孩子们长大了。", "pinyin": "Háizimen zhǎng dà le.", "es": "Los niños ya crecieron.", "en": "The children have grown up." },
+        { "zh": "你长大以后想做什么？", "pinyin": "Nǐ zhǎng dà yǐhòu xiǎng zuò shénme?", "es": "¿Qué quieres hacer cuando seas grande?", "en": "What do you want to do when you grow up?" }
+      ]
+    },
+    {
+      "hanzi": "记住",
+      "pinyin": "jì zhù",
+      "category": "verb",
+      "es": "recordar; grabarse en la memoria",
+      "en": "to remember; to keep in mind",
+      "sentences": [
+        { "zh": "请记住我的名字。", "pinyin": "Qǐng jì zhù wǒ de míngzi.", "es": "Por favor, recuerda mi nombre.", "en": "Please remember my name." },
+        { "zh": "我记住了这个字。", "pinyin": "Wǒ jì zhù le zhè ge zì.", "es": "Ya me aprendí este carácter.", "en": "I've memorized this character." },
+        { "zh": "你记住电话号码了吗？", "pinyin": "Nǐ jì zhù diànhuà hàomǎ le ma?", "es": "¿Te acordaste del número de teléfono?", "en": "Did you remember the phone number?" }
+      ]
+    },
+    {
+      "hanzi": "几点",
+      "pinyin": "jǐ diǎn",
+      "category": "pronoun",
+      "es": "¿qué hora?; ¿a qué hora?",
+      "en": "what time; what o'clock",
+      "sentences": [
+        { "zh": "现在几点？", "pinyin": "Xiànzài jǐ diǎn?", "es": "¿Qué hora es?", "en": "What time is it now?" },
+        { "zh": "你几点起床？", "pinyin": "Nǐ jǐ diǎn qǐ chuáng?", "es": "¿A qué hora te levantas?", "en": "What time do you get up?" },
+        { "zh": "我们几点吃饭？", "pinyin": "Wǒmen jǐ diǎn chī fàn?", "es": "¿A qué hora comemos?", "en": "What time do we eat?" }
+      ]
+    }
+  ]
+}
