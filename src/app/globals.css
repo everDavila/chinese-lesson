@@ -64,6 +64,10 @@
  * papel en claro y oscuro. Valores provisionales hasta cerrar el estilo.
  */
 :root {
+  /* «only light»: el Chrome de algunos teléfonos oscurece a la fuerza las páginas
+     claras y mezcla los colores (el fondo sale marrón y el botón elegido pierde
+     contraste). El tema oscuro de verdad lo da la clase .dark, más abajo. */
+  color-scheme: only light;
   --background: oklch(0.905 0.018 80); /* papel de arroz, tenue para no deslumbrar */
   --foreground: oklch(0.2 0.01 60); /* tinta */
   --card: oklch(0.935 0.016 82);
@@ -122,6 +126,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   /* Paleta "dorada" (rama estetica/dark-dorado): negro carbón frío (no marrón),
      texto crema, botones y bordes dorados. */
   --background: oklch(0.17 0.012 240);
