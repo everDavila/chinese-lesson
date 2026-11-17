@@ -62,16 +62,28 @@ export function Markdown({ source }: { source: string }) {
       while (lines[i]?.startsWith("|")) rows.push(lines[i++]);
       const cells = (r: string) => r.replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
       const [head, , ...body] = rows;
+      const labels = cells(head);
+      // Sin barra de desplazamiento: en pantallas anchas la tabla ajusta el
+      // texto a varias líneas; en estrechas cada fila pasa a ser una tarjeta
+      // con el nombre de la columna sobre cada dato.
       blocks.push(
-        <div key={k} className="overflow-x-auto rounded-lg border border-border">
-          <table className="w-full min-w-max text-left text-sm">
-            <thead className="bg-muted/60">
-              <tr>{cells(head).map((c, j) => <th key={j} scope="col" className="px-3 py-2 font-medium">{inline(c, `${k}h${j}`)}</th>)}</tr>
+        <div key={k} className="rounded-lg border border-border">
+          <table className="w-full text-left text-sm max-sm:block">
+            <thead className="bg-muted/60 max-sm:sr-only">
+              <tr>{labels.map((c, j) => <th key={j} scope="col" className="px-3 py-2 font-medium">{inline(c, `${k}h${j}`)}</th>)}</tr>
             </thead>
-            <tbody>
+            <tbody className="max-sm:block">
               {body.map((r, ri) => (
-                <tr key={ri} className="border-t border-border align-top">
-                  {cells(r).map((c, j) => <td key={j} className="px-3 py-2">{inline(c, `${k}r${ri}c${j}`)}</td>)}
+                <tr key={ri} className="border-t border-border align-top first:border-t-0 max-sm:block max-sm:space-y-2 max-sm:px-3 max-sm:py-3 sm:first:border-t">
+                  {cells(r).map((c, j) => (
+                    <td
+                      key={j}
+                      data-label={labels[j]}
+                      className="px-3 py-2 max-sm:block max-sm:p-0 max-sm:before:mb-0.5 max-sm:before:block max-sm:before:text-xs max-sm:before:font-medium max-sm:before:text-muted-foreground max-sm:before:content-[attr(data-label)]"
+                    >
+                      {inline(c, `${k}r${ri}c${j}`)}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
