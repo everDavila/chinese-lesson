@@ -208,15 +208,21 @@ function SentenceRow({
         master && "bg-card before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-primary/70",
       )}
     >
-      <span className="mt-2 flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-sm text-muted-foreground">
-        {index + 1}
-      </span>
+      {/* Número y, debajo, el corazón de favorita: guardar es una marca de la frase, no una acción sobre su contenido. */}
+      <div className={cn("flex shrink-0 flex-col items-center gap-1", favoriteId ? "w-11" : "w-7")}>
+        <span className="mt-2 flex size-7 items-center justify-center rounded-full bg-muted text-sm text-muted-foreground">
+          {index + 1}
+        </span>
+        {favoriteId && (
+          <SentenceBookmarkButton sentenceId={favoriteId} initial={favorites?.includes(favoriteId) ?? false} className="border-transparent bg-transparent" />
+        )}
+      </div>
       <div className="min-w-0 flex-1">
         {master && <p className="mb-1 text-xs font-medium tracking-wide text-primary uppercase">{labels.masterSentence}</p>}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           {chineseFirst ? chinese : <p className="text-left text-[clamp(1.25rem,2.4vw,2rem)] leading-snug">{prompt}</p>}
           {/* Audio siempre primero. En 中文: pinyin y traducción; en ES/EN: chino y pinyin. */}
-          <div className={cn("grid gap-2 sm:flex sm:shrink-0", favoriteId ? "grid-cols-4" : "grid-cols-3")}>
+          <div className="grid grid-cols-3 gap-2 sm:flex sm:shrink-0">
             <Button variant="outline" className={btn} aria-label={labels.listenSentence} onClick={() => speakChinese(sentence.zh)}>
               <Volume2 className="size-5 sm:size-4" />
             </Button>
@@ -249,7 +255,6 @@ function SentenceRow({
                 {pinyinButton}
               </>
             )}
-            {favoriteId && <SentenceBookmarkButton sentenceId={favoriteId} initial={favorites?.includes(favoriteId) ?? false} className={btn} />}
           </div>
         </div>
         {chineseFirst ? (
