@@ -134,8 +134,16 @@ async function Tracker({
             ) : (
               <ul className="grid grid-cols-[repeat(auto-fill,minmax(4.5rem,1fr))] gap-2" lang="zh-Hans">
                 {words.map((w) => (
-                  <li key={w.senseId} title={t(STATUS_KEY[w.status])} aria-label={`${w.hanzi}: ${t(STATUS_KEY[w.status])}`} className={cn("flex min-h-12 items-center justify-center rounded-lg px-1 py-2 text-center font-hanzi text-lg leading-tight", TILE[w.status])}>
-                    {w.hanzi}
+                  <li key={w.senseId}>
+                    {/* Cada ficha abre la palabra; ?volver conserva el nivel, filtro y orden del rastreador. */}
+                    <Link
+                      href={`/estudiante/palabra/${w.senseId}?volver=${encodeURIComponent(href())}`}
+                      title={t(STATUS_KEY[w.status])}
+                      aria-label={`${w.hanzi}: ${t(STATUS_KEY[w.status])}`}
+                      className={cn("flex min-h-12 items-center justify-center rounded-lg px-1 py-2 text-center font-hanzi text-lg leading-tight transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring", TILE[w.status])}
+                    >
+                      {w.hanzi}
+                    </Link>
                   </li>
                 ))}
               </ul>

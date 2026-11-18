@@ -911,3 +911,10 @@ en «Mis frases» el pinyin de las frases empieza oculto: se lee el chino primer
 Un control general («Mostrar pinyin de las frases», preferencia `sentencePinyin`
 en el navegador) y el botón de cada frase lo revelan. No afecta a la presentación
 de la docente.
+
+**Ficha de palabra desde el rastreador.** Cada ficha de la vista por caracteres de
+`/estudiante/progreso` abre `/estudiante/palabra/<id>`: la ficha completa
+(significado, cómo se forma, frases con ayuda por palabra y corazones), solo de
+consulta, con las estrellas de dominio y un enlace de vuelta que conserva nivel,
+filtro y orden (`?volver=`, solo acepta rutas del rastreador). La vista por
+puntos no es tocable (16 px). Sin migración.
