@@ -28,7 +28,7 @@ const RATINGS: { value: Rating; label: string; tone: string }[] = [
   { value: 4, label: "Lo sé", tone: "bg-rating-4" },
 ];
 
-export function StudyCard({ lesson, signedIn = false, bookmarked = [] }: { lesson: Lesson; signedIn?: boolean; bookmarked?: string[] }) {
+export function StudyCard({ lesson, signedIn = false, bookmarked = [], favoriteSentences }: { lesson: Lesson; signedIn?: boolean; bookmarked?: string[]; favoriteSentences?: string[] }) {
   const prefs = useSyncExternalStore(prefsStore.subscribe, prefsStore.snapshot, prefsStore.serverSnapshot);
   const [index, setIndex] = useState(0);
   const [side, setSide] = useState<"front" | "back">("front");
@@ -213,7 +213,7 @@ export function StudyCard({ lesson, signedIn = false, bookmarked = [] }: { lesso
         ) : (
           <>
             <div className="min-h-0 flex-1">
-              <CardBack key={item.senseId ?? index} item={item} showPinyin showTranslations={false} lang="es" noteTerms={lesson.noteTerms} />
+              <CardBack key={item.senseId ?? index} item={item} showPinyin showTranslations={false} lang="es" noteTerms={lesson.noteTerms} favoriteSentences={signedIn ? favoriteSentences : undefined} />
             </div>
             {ratingBar}
           </>

@@ -157,6 +157,46 @@ export async function getBookmarkIds(supabase?: Supabase): Promise<string[]> {
   return rows.map((r) => r.sense_id);
 }
 
+/** Ids de las frases que el alumno marcó como favoritas. */
+export async function getSentenceBookmarkIds(supabase?: Supabase): Promise<string[]> {
+  const client = supabase ?? (await createClient());
+  const rows = await pageAll<{ sentence_id: string }>((from, to) =>
+    client.from("student_sentence_bookmarks").select("sentence_id").range(from, to) as unknown as PromiseLike<{ data: { sentence_id: string }[] | null }>,
+  );
+  return rows.map((r) => r.sentence_id);
+}
+
+export type FavoriteSentence = {
+  id: string;
+  zh: string;
+  pinyin: string;
+  es: string;
+  /** Palabra de la que sale la frase, para mostrarla como contexto. */
+  hanzi: string;
+  savedAt: string;
+};
+
+/** Las frases favoritas con su texto, de la más reciente a la más antigua. */
+export async function getFavoriteSentences(): Promise<FavoriteSentence[]> {
+  const supabase = await createClient();
+  const rows = await pageAll<{
+    created_at: string;
+    sentences: { id: string; zh: string; pinyin: string; translation_es: string | null; senses: { words: { hanzi: string } | { hanzi: string }[] } | null } | null;
+  }>((from, to) =>
+    supabase
+      .from("student_sentence_bookmarks")
+      .select("created_at, sentences(id, zh, pinyin, translation_es, senses(words(hanzi)))")
+      .order("created_at", { ascending: false })
+      .range(from, to) as unknown as PromiseLike<{ data: never[] | null }>,
+  );
+  return rows.flatMap((r) => {
+    const s = r.sentences;
+    if (!s) return [];
+    const word = Array.isArray(s.senses?.words) ? s.senses?.words[0] : s.senses?.words;
+    return [{ id: s.id, zh: s.zh, pinyin: s.pinyin, es: s.translation_es ?? "", hanzi: word?.hanzi ?? "", savedAt: r.created_at }];
+  });
+}
+
 /** Estrellas (0–3) de unas palabras: la mejor de sus habilidades. */
 export async function getStars(senseIds: string[]): Promise<Map<string, 0 | 1 | 2 | 3>> {
   const out = new Map<string, 0 | 1 | 2 | 3>();

@@ -10,7 +10,7 @@ import { hskLevelCounts } from "@/lib/content";
 import { requireProfile } from "@/lib/guard";
 import { getPracticeLesson } from "@/lib/lessons";
 import { DEFAULT_AMOUNT, PRACTICE_AMOUNTS, parseExercise, skillOf, type ThemeGroup } from "@/lib/practice-pick";
-import { getBookmarkIds } from "@/lib/student-progress";
+import { getBookmarkIds, getSentenceBookmarkIds } from "@/lib/student-progress";
 import { listFrequencyBlocks, listRadicalBlocks, listThemes, planPractice } from "@/lib/student-practice";
 import { getDueWords, getStudentStats } from "@/lib/student-stats";
 
@@ -61,7 +61,7 @@ async function Practice({
       </main>,
     );
 
-  const bookmarks = await getBookmarkIds();
+  const [bookmarks, favoriteSentences] = await Promise.all([getBookmarkIds(), getSentenceBookmarkIds()]);
   let title: string | null = null;
   let senseIds: string[] = [];
 
@@ -118,9 +118,9 @@ async function Practice({
   const key = `${exercise}:${title}:${senseIds.join(",")}`;
   return shell(
     exercise === "card" ? (
-      <StudyCard key={key} lesson={lesson} signedIn bookmarked={bookmarks} />
+      <StudyCard key={key} lesson={lesson} signedIn bookmarked={bookmarks} favoriteSentences={favoriteSentences} />
     ) : (
-      <StudentCard key={key} lesson={lesson} signedIn bookmarked={bookmarks} />
+      <StudentCard key={key} lesson={lesson} signedIn bookmarked={bookmarks} favoriteSentences={favoriteSentences} />
     ),
   );
 }

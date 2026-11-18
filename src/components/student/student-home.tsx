@@ -25,6 +25,7 @@ export async function StudentHome({
   streak,
   levels,
   favorites,
+  favoriteSentences,
   firstSeen,
 }: {
   name: string;
@@ -34,6 +35,7 @@ export async function StudentHome({
   streak: Streak;
   levels: LevelProgress[];
   favorites: number;
+  favoriteSentences: number;
   firstSeen: string[];
 }) {
   const t = await getTranslations("StudentWorkspace");
@@ -156,6 +158,10 @@ export async function StudentHome({
               <p className="text-sm text-muted-foreground">{favorites ? t("favCount", { n: favorites }) : t("favNone")}</p>
             </div>
             {favorites > 0 && <Link href="/estudiante?repaso=favoritas" className={cn(buttonVariants({ variant: "outline" }))}>{t("favCta")}</Link>}
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-border pt-4">
+            <p className="min-w-48 flex-1 text-sm text-muted-foreground">{favoriteSentences ? t("favSentencesCount", { n: favoriteSentences }) : t("favSentencesNone")}</p>
+            {favoriteSentences > 0 && <Link href="/estudiante/frases" className={cn(buttonVariants({ variant: "outline" }))}>{t("favSentencesCta")}</Link>}
           </div>
         </section>
 

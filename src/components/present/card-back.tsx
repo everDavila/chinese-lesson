@@ -10,6 +10,7 @@ import { categoryLabel, studentLabels, type ContentLanguage, type StudentLabels 
 import { segmentHan } from "@/lib/note-terms";
 import { speakChinese } from "@/lib/speech";
 import type { SentenceMode } from "./sentence-mode-store";
+import { SentenceBookmarkButton } from "@/components/student/sentence-bookmark-button";
 import { cn } from "@/lib/utils";
 import { RADICALS, radicalHint } from "@/lib/radicals";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -145,7 +146,10 @@ function SentenceRow({
   mode,
   master,
   noteTerms,
+  favorites,
 }: {
+  /** Ids de las frases favoritas del alumno; si viene, cada frase de la base lleva su corazón. */
+  favorites?: string[];
   sentence: Sentence;
   keyword: string;
   noteTerms?: Record<string, NoteTerm>;
@@ -171,6 +175,8 @@ function SentenceRow({
   const chineseFirst = mode === "zh" || !prompt;
   const other: ContentLanguage = lang === "es" ? "en" : "es";
   const btn = "h-12 w-full px-0 sm:size-9";
+  // Solo las frases de la base común (clave «s:<id>») se pueden guardar.
+  const favoriteId = favorites && sentence.key?.startsWith("s:") ? sentence.key.slice(2) : null;
   const pinyinButton = (
     <Button
       variant={pinyinVisible ? "secondary" : "outline"}
@@ -210,7 +216,7 @@ function SentenceRow({
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           {chineseFirst ? chinese : <p className="text-left text-[clamp(1.25rem,2.4vw,2rem)] leading-snug">{prompt}</p>}
           {/* Audio siempre primero. En 中文: pinyin y traducción; en ES/EN: chino y pinyin. */}
-          <div className="grid grid-cols-3 gap-2 sm:flex sm:shrink-0">
+          <div className={cn("grid gap-2 sm:flex sm:shrink-0", favoriteId ? "grid-cols-4" : "grid-cols-3")}>
             <Button variant="outline" className={btn} aria-label={labels.listenSentence} onClick={() => speakChinese(sentence.zh)}>
               <Volume2 className="size-5 sm:size-4" />
             </Button>
@@ -243,6 +249,7 @@ function SentenceRow({
                 {pinyinButton}
               </>
             )}
+            {favoriteId && <SentenceBookmarkButton sentenceId={favoriteId} initial={favorites?.includes(favoriteId) ?? false} className={btn} />}
           </div>
         </div>
         {chineseFirst ? (
@@ -327,6 +334,8 @@ type CardBackProps = {
   /** Idioma del contenido para los alumnos (no el de la interfaz). */
   lang: ContentLanguage;
   noteTerms?: Record<string, NoteTerm>;
+  /** Ids de las frases favoritas del alumno con cuenta; sin esto no hay corazón en las frases. */
+  favoriteSentences?: string[];
   footer?: React.ReactNode;
 };
 
@@ -362,7 +371,7 @@ function DetailDisclosure({
   );
 }
 
-export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "zh", lang, noteTerms, footer }: CardBackProps) {
+export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "zh", lang, noteTerms, favoriteSentences, footer }: CardBackProps) {
   // En un radical el matiz lleva los ejemplos: se muestra abierto.
   const [detail, setDetail] = useState<Detail | null>(item.word.senses[item.senseIndex]?.category === "radical" ? "nuance" : null);
   const labels = studentLabels(lang);
@@ -481,6 +490,7 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
                     lang={lang}
                     labels={labels}
                     noteTerms={noteTerms}
+                    favorites={favoriteSentences}
                   />
                 ))}
               </ol>

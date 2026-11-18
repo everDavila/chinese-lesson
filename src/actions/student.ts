@@ -202,6 +202,25 @@ export async function toggleBookmark(senseId: string): Promise<boolean | null> {
   return error ? null : true;
 }
 
+/** Marca o desmarca una frase como favorita. Devuelve el estado final, o null si no hay sesión. */
+export async function toggleSentenceBookmark(sentenceId: string): Promise<boolean | null> {
+  if (!UUID.test(sentenceId)) return null;
+  const { supabase, id } = await userId();
+  if (!id) return null;
+  const { data: existing } = await supabase
+    .from("student_sentence_bookmarks")
+    .select("sentence_id")
+    .eq("student_id", id)
+    .eq("sentence_id", sentenceId)
+    .maybeSingle();
+  if (existing) {
+    const { error } = await supabase.from("student_sentence_bookmarks").delete().eq("student_id", id).eq("sentence_id", sentenceId);
+    return error ? null : false;
+  }
+  const { error } = await supabase.from("student_sentence_bookmarks").insert({ student_id: id, sentence_id: sentenceId });
+  return error ? null : true;
+}
+
 const GOALS = [5, 10, 15, 20, 30, 45, 60];
 
 /** Guarda la meta diaria en minutos activos. */

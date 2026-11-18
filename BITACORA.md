@@ -887,3 +887,21 @@ hecho**. Código: `src/lib/quiz.ts`, `src/lib/quiz-data.ts`, `withTone` en
 
 **Sin probar:** audio en un teléfono real (voz del navegador), y que la frase
 use el mismo sentido de la palabra (no se revisó palabra por palabra).
+
+## 2026-11-17 · Frases con ayuda y frases favoritas
+
+**Frases con ayuda por palabra.** En las tarjetas del alumno y en el quiz piloto,
+cada palabra de una frase abre un globo (pinyin, significado, audio) con un toque
+o el cursor, el mismo de las notas. El servidor pide al catálogo las palabras de
+HSK 1–6 que aparecen en las frases (`src/lib/term-lexicon.ts`,
+`sentenceTermCandidates`). No cubre las rutas que arman la lección en SQL (clase
+en vivo, lección compartida, portada, `/lab/tarjetas`): ahí haría falta migración.
+
+**Frases favoritas.** Corazón en cada frase de la base común (las propias de la
+docente no, otra clave) en las tarjetas del alumno con cuenta; página
+`/estudiante/frases` («Mis frases») y resumen en el inicio. Migración
+`20261117000000_frases_favoritas.sql` (tabla `student_sentence_bookmarks`, RLS
+propia, `on delete cascade`). Probada en `hanzi-dev` con dos alumnos desechables
+(ya borrados): guardar, listar, quitar y que el otro alumno no vea nada.
+**Pendiente:** migración en producción (respaldo → `db push` → push) y el modo de
+repaso de las frases guardadas.

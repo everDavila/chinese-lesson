@@ -76,7 +76,7 @@ type Pending = { key: string; senseId: string; progress: CellsProgress; guide: b
  * guarda como evento (docs/DISENO-AVANCE-ESTUDIANTE.md); sin ella, solo
  * queda el avance local, como en el piloto.
  */
-export function StudentCard({ lesson: fullLesson, signedIn = false, bookmarked = [] }: { lesson: Lesson; signedIn?: boolean; bookmarked?: string[] }) {
+export function StudentCard({ lesson: fullLesson, signedIn = false, bookmarked = [], favoriteSentences }: { lesson: Lesson; signedIn?: boolean; bookmarked?: string[]; favoriteSentences?: string[] }) {
   const prefs = useSyncExternalStore(prefsStore.subscribe, prefsStore.snapshot, prefsStore.serverSnapshot);
   const progress = useSyncExternalStore(progressStore.subscribe, progressStore.snapshot, progressStore.serverSnapshot);
   const cells = useRef<StrokeCellsHandle>(null);
@@ -473,7 +473,7 @@ export function StudentCard({ lesson: fullLesson, signedIn = false, bookmarked =
           </section>
         ) : (
           <div className="min-h-0 flex-1">
-            <CardBack key={itemKey} item={item} showPinyin showTranslations lang="es" noteTerms={lesson.noteTerms} />
+            <CardBack key={itemKey} item={item} showPinyin showTranslations lang="es" noteTerms={lesson.noteTerms} favoriteSentences={signedIn ? favoriteSentences : undefined} />
           </div>
         )}
       </main>

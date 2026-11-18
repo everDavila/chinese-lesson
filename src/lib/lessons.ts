@@ -192,6 +192,21 @@ const sentenceCandidatesOf = (items: LessonItemInput[]) =>
     KNOWN_TERMS,
   );
 
+/** Ayuda por palabra para textos sueltos en chino (las frases favoritas): pinyin y significado de lo que está en el catálogo. */
+export async function getSentenceTerms(texts: string[]): Promise<Record<string, NoteTerm>> {
+  const candidates = sentenceTermCandidates(texts, KNOWN_TERMS);
+  const supabase = await createClient();
+  const rows = (await inChunks(candidates, (part) =>
+    supabase.from("words").select("hanzi, senses(position, pinyin, meaning_es, meaning_en)").in("hanzi", part),
+  )) as NoteWordRow[];
+  const out: Record<string, NoteTerm> = {};
+  for (const row of rows) {
+    const first = [...(row.senses ?? [])].sort((a, b) => a.position - b.position)[0];
+    if (first) out[row.hanzi] = { hanzi: row.hanzi, pinyin: first.pinyin, meaning: { es: first.meaning_es ?? "", en: first.meaning_en ?? "" } };
+  }
+  return out;
+}
+
 async function buildLesson(title: string, items: LessonItemInput[]): Promise<Lesson> {
   const supabase = await createClient();
   const noteCandidates = noteCandidatesOf(items);
