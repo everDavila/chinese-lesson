@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Eye, EyeOff, RotateCcw, Volume2 } from "lucide-react";
 import { markKnown, recordPracticeEvent } from "@/actions/student";
 import { CardBack } from "@/components/present/card-back";
+import { SentencePinyinToggle } from "./sentence-pinyin-toggle";
 import { CardFront } from "@/components/present/card-front";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -213,7 +214,8 @@ export function StudyCard({ lesson, signedIn = false, bookmarked = [], favoriteS
         ) : (
           <>
             <div className="min-h-0 flex-1">
-              <CardBack key={item.senseId ?? index} item={item} showPinyin showTranslations={false} lang="es" noteTerms={lesson.noteTerms} favoriteSentences={signedIn ? favoriteSentences : undefined} />
+              <SentencePinyinToggle />
+              <CardBack key={item.senseId ?? index} item={item} showPinyin={prefs.sentencePinyin} showTranslations={false} lang="es" noteTerms={lesson.noteTerms} favoriteSentences={signedIn ? favoriteSentences : undefined} />
             </div>
             {ratingBar}
           </>

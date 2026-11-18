@@ -25,6 +25,8 @@ export type Prefs = {
   showPinyin: boolean;
   /** En la tarjeta de estudio, mostrar el pinyin ya en el frente (por defecto no: se reconoce primero). */
   studyPinyin: boolean;
+  /** Pinyin de las frases de ejemplo en el reverso: por defecto oculto (se lee el chino primero); cada frase lo revela aparte. */
+  sentencePinyin: boolean;
   /** Pinta cada sílaba del pinyin (y su curva) del color de su tono. */
   toneColors: boolean;
   /** Velocidad de la voz: la lee `speakChinese` de esta misma clave. */
@@ -64,7 +66,7 @@ function createStore<T>(key: string, fallback: T, valid: (value: unknown) => val
   };
 }
 
-const DEFAULT_PREFS: Prefs = { mode: "guide", after: "detail", showMeaning: true, showPinyin: true, studyPinyin: false, toneColors: true, audioRate: 0.8 };
+const DEFAULT_PREFS: Prefs = { mode: "guide", after: "detail", showMeaning: true, showPinyin: true, studyPinyin: false, sentencePinyin: false, toneColors: true, audioRate: 0.8 };
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null;
 
 export const prefsStore = createStore<Prefs>(

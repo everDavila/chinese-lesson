@@ -905,3 +905,9 @@ propia, `on delete cascade`). Probada en `hanzi-dev` con dos alumnos desechables
 (ya borrados): guardar, listar, quitar y que el otro alumno no vea nada.
 **Pendiente:** migración en producción (respaldo → `db push` → push) y el modo de
 repaso de las frases guardadas.
+
+**Pinyin de las frases oculto por defecto (alumno).** En las tarjetas del alumno y
+en «Mis frases» el pinyin de las frases empieza oculto: se lee el chino primero.
+Un control general («Mostrar pinyin de las frases», preferencia `sentencePinyin`
+en el navegador) y el botón de cada frase lo revelan. No afecta a la presentación
+de la docente.

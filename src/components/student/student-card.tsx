@@ -5,6 +5,7 @@ import { Popover } from "@base-ui/react/popover";
 import { ArrowLeft, ArrowRight, ChevronUp, HelpCircle, RotateCcw, Settings, Volume2 } from "lucide-react";
 import { importLocalProgress, markKnown, recordPracticeEvent } from "@/actions/student";
 import { CardBack } from "@/components/present/card-back";
+import { SentencePinyinToggle } from "./sentence-pinyin-toggle";
 import { HskBadge } from "./hsk-badge";
 import { BookmarkButton } from "./bookmark-button";
 import { RatingDot } from "./rating-dot";
@@ -473,7 +474,8 @@ export function StudentCard({ lesson: fullLesson, signedIn = false, bookmarked =
           </section>
         ) : (
           <div className="min-h-0 flex-1">
-            <CardBack key={itemKey} item={item} showPinyin showTranslations lang="es" noteTerms={lesson.noteTerms} favoriteSentences={signedIn ? favoriteSentences : undefined} />
+            <SentencePinyinToggle />
+            <CardBack key={itemKey} item={item} showPinyin={prefs.sentencePinyin} showTranslations lang="es" noteTerms={lesson.noteTerms} favoriteSentences={signedIn ? favoriteSentences : undefined} />
           </div>
         )}
       </main>
