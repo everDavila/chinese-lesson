@@ -98,6 +98,42 @@ export function Highlighted({
   );
 }
 
+/**
+ * Frase en chino: la palabra clave resalta como siempre y las demás palabras
+ * (las que están en `noteTerms`) abren su ayuda con un toque o el cursor. Se
+ * parte primero por la palabra clave, así una palabra más larga que la
+ * contiene no le quita el resaltado.
+ */
+export function SentenceText({
+  text,
+  keyword,
+  noteTerms,
+  lang,
+  labels,
+}: {
+  text: string;
+  keyword: string;
+  noteTerms?: Record<string, NoteTerm>;
+  lang: ContentLanguage;
+  labels: StudentLabels;
+}) {
+  if (!noteTerms) return <Highlighted text={text} keyword={keyword} />;
+  const parts = text.split(keyword);
+  return (
+    <>
+      {parts.map((part, i) => (
+        <span key={i}>
+          {segmentHan(part, (piece) => piece in noteTerms).map((piece, j) => {
+            const term = piece.term ? noteTerms[piece.text] : undefined;
+            return term ? <NoteTermHelp key={j} term={term} lang={lang} labels={labels} /> : <span key={j}>{piece.text}</span>;
+          })}
+          {i < parts.length - 1 && <span lang="zh-Hans" className="whitespace-nowrap text-keyword">{keyword}</span>}
+        </span>
+      ))}
+    </>
+  );
+}
+
 function SentenceRow({
   sentence,
   keyword,
@@ -108,9 +144,11 @@ function SentenceRow({
   labels,
   mode,
   master,
+  noteTerms,
 }: {
   sentence: Sentence;
   keyword: string;
+  noteTerms?: Record<string, NoteTerm>;
   index: number;
   showPinyin: boolean;
   /** En modo 中文 revela las traducciones; en ES/EN, el chino. */
@@ -150,7 +188,7 @@ function SentenceRow({
   );
   const chinese = (
     <p lang="zh-Hans" className="text-left font-hanzi text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight">
-      <Highlighted text={sentence.zh} keyword={keyword} />
+      <SentenceText text={sentence.zh} keyword={keyword} noteTerms={noteTerms} lang={lang} labels={labels} />
     </p>
   );
   // El estado de revisión de la frase (sentences.status) no se muestra aquí:
@@ -442,6 +480,7 @@ export function CardBack({ item, showPinyin, showTranslations, sentenceMode = "z
                     showTranslations={showTranslations}
                     lang={lang}
                     labels={labels}
+                    noteTerms={noteTerms}
                   />
                 ))}
               </ol>

@@ -43,3 +43,11 @@ test("lo desconocido queda como texto, junto", () => {
   ]);
   assert.deepEqual(segmentHan("喜欢", (p) => p === "喜欢"), [{ text: "喜欢", term: true }]);
 });
+
+test("sentenceTermCandidates deja solo las piezas conocidas", async () => {
+  const { sentenceTermCandidates } = await import("../../src/lib/note-terms.ts");
+  const known = new Set(["我", "想", "和", "她", "说话", "说"]);
+  const out = sentenceTermCandidates(["我想和她说话。"], known);
+  assert.ok(out.includes("说话") && out.includes("她") && out.includes("说"));
+  assert.ok(!out.includes("和她") && !out.includes("我想和她说话"));
+});

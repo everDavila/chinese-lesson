@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { LabHistory } from "@/components/lab/lab-history";
 import { QuizLab } from "@/components/lab/quiz-lab";
+import type { NoteTerm } from "@/lib/lesson-types";
 import { shortMeaning, type QuizWord } from "@/lib/quiz";
 import { pickExample, type RawSentence } from "@/lib/quiz-data";
 import level1 from "../../../../../contenido/hsk3-level1.json";
@@ -69,12 +70,26 @@ function words(): QuizWord[] {
   return out;
 }
 
+// Ayuda por palabra en las frases: pinyin y significado corto de las 1000
+// palabras de HSK 1 a 3, para que al tocar una de la frase se vea qué es.
+function terms(): Record<string, NoteTerm> {
+  const out: Record<string, NoteTerm> = {};
+  for (const s of SOURCES) {
+    const es = new Map(s.meanings.map((m) => [m.hanzi, m.meaningEs]));
+    for (const w of s.words) {
+      const meaning = es.get(w.hanzi);
+      if (meaning && !out[w.hanzi]) out[w.hanzi] = { hanzi: w.hanzi, pinyin: w.pinyin, meaning: { es: shortMeaning(meaning), en: "" } };
+    }
+  }
+  return out;
+}
+
 export default async function Page({ params }: PageProps<"/[locale]/lab/quiz">) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
     <>
-      <QuizLab words={words()} />
+      <QuizLab words={words()} terms={terms()} />
       <LabHistory slug="quiz" />
     </>
   );

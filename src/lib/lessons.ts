@@ -2,7 +2,8 @@ import "server-only";
 
 import { componentMeanings, readStrokes } from "./hanzi-data";
 import type { CharacterInfo, Lesson, NoteTerm, Sense, Word } from "./lesson-types";
-import { noteTermCandidates } from "./note-terms";
+import { noteTermCandidates, sentenceTermCandidates } from "./note-terms";
+import { KNOWN_TERMS } from "./term-lexicon";
 import { pickSentences } from "./rotation";
 import { createClient } from "./supabase/server";
 import { allPages, inChunks } from "./in-chunks";
@@ -184,9 +185,17 @@ const noteCandidatesOf = (items: LessonItemInput[]) =>
     ...word.senses.flatMap((sense) => [sense.nuance_es, sense.nuance_en]),
   ]));
 
+// Palabras de las frases de ejemplo: cada una abre su ayuda al tocarla.
+const sentenceCandidatesOf = (items: LessonItemInput[]) =>
+  sentenceTermCandidates(
+    items.flatMap(({ word }) => word.senses.flatMap((sense) => sense.sentences.map((s) => s.zh))),
+    KNOWN_TERMS,
+  );
+
 async function buildLesson(title: string, items: LessonItemInput[]): Promise<Lesson> {
   const supabase = await createClient();
   const noteCandidates = noteCandidatesOf(items);
+  const termCandidates = [...new Set([...noteCandidates, ...sentenceCandidatesOf(items)])];
   // Caracteres de las palabras y, para las citas, los sueltos (su pinyin si no son palabra).
   const chars = [...new Set([...items.flatMap((it) => [...it.word.hanzi]), ...noteCandidates.filter((c) => c.length === 1)])];
   // En tandas: una clase de un nivel completo pasa del largo de URL de PostgREST.
@@ -194,7 +203,7 @@ async function buildLesson(title: string, items: LessonItemInput[]): Promise<Les
     inChunks(chars, (part) =>
       supabase.from("characters").select("char, pinyin, radical, decomposition, components, etymology, stroke_roles").in("char", part),
     ),
-    inChunks(noteCandidates, (part) =>
+    inChunks(termCandidates, (part) =>
       supabase.from("words").select("hanzi, senses(position, pinyin, meaning_es, meaning_en)").in("hanzi", part),
     ),
   ]);

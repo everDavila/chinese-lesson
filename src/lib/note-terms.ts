@@ -40,3 +40,13 @@ export function segmentHan(run: string, isTerm: (piece: string) => boolean): { t
   }
   return out;
 }
+
+/**
+ * Piezas de frases de ejemplo (una palabra por pieza, de hasta MAX_TERM
+ * caracteres) que son palabras conocidas. A diferencia de las notas, aquí no se
+ * piden al catálogo todas las subcadenas: solo las que están en `known`, para
+ * no consultar miles de trozos sin sentido por cada lección.
+ */
+export function sentenceTermCandidates(texts: Array<string | null | undefined>, known: ReadonlySet<string>): string[] {
+  return noteTermCandidates(texts).filter((piece) => known.has(piece));
+}

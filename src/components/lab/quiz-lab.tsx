@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Volume2 } from "lucide-react";
+import { SentenceText } from "@/components/present/card-back";
 import { Button } from "@/components/ui/button";
+import type { NoteTerm } from "@/lib/lesson-types";
+import { studentLabels } from "@/lib/student-labels";
 import { buildRound, RULES, score, type QuizMode, type QuizQuestion, type QuizWord } from "@/lib/quiz";
 import { speakChinese } from "@/lib/speech";
 import { cn } from "@/lib/utils";
@@ -32,7 +35,7 @@ function correctIndex(q: QuizQuestion): number {
   return q.kind === "choose" ? q.correct : q.truth ? 0 : 1;
 }
 
-export function QuizLab({ words }: { words: QuizWord[] }) {
+export function QuizLab({ words, terms }: { words: QuizWord[]; terms?: Record<string, NoteTerm> }) {
   const [round, setRound] = useState<QuizQuestion[] | null>(null);
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<Picked | null>(null);
@@ -222,7 +225,9 @@ export function QuizLab({ words }: { words: QuizWord[] }) {
             {q.word.example && (
               <div className="mt-1 flex items-start gap-2 border-t border-foreground/15 pt-2">
                 <div className="flex-1">
-                  <p lang="zh-Hans" className="font-hanzi text-xl">{q.word.example.zh}</p>
+                  <p lang="zh-Hans" className="font-hanzi text-xl">
+                    <SentenceText text={q.word.example.zh} keyword={q.word.hanzi} noteTerms={terms} lang="es" labels={studentLabels("es")} />
+                  </p>
                   <p className="text-sm text-muted-foreground">{q.word.example.pinyin}</p>
                   <p className="text-sm">{q.word.example.es}</p>
                 </div>
