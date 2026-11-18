@@ -37,7 +37,7 @@ export function PracticePicker({
 }) {
   const t = useTranslations("StudentWorkspace");
   const router = useRouter();
-  const [exercise, setExercise] = useState<"tarjeta" | "escribir">("tarjeta");
+  const [exercise, setExercise] = useState<"estudiar" | "tarjeta" | "escribir">("estudiar");
   const [amount, setAmount] = useState(defaultAmount);
   // «Por tiempo»: el alumno elige minutos y la cantidad de palabras se calcula con una estimación por ejercicio.
   const [unit, setUnit] = useState<"words" | "minutes">("words");
@@ -69,13 +69,16 @@ export function PracticePicker({
       className="flex flex-1 flex-col gap-6"
       onSubmit={(e) => {
         e.preventDefault();
-        if (source) router.push(`/estudiante?fuente=${encodeURIComponent(source)}&n=${effective}&ejercicio=${exercise}${reviewOnly ? "&nuevas=no" : ""}`);
+        if (source) router.push(`/estudiante?fuente=${encodeURIComponent(source)}&n=${effective}&ejercicio=${exercise}${reviewOnly && exercise !== "estudiar" ? "&nuevas=no" : ""}`);
       }}
     >
       <div className="grid gap-5 rounded-xl border border-border bg-card p-4 md:grid-cols-2">
         <fieldset className="space-y-2">
           <legend className="mb-2 block text-sm font-medium text-muted-foreground">{t("exerciseLabel")}</legend>
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid gap-2 sm:grid-cols-3">
+            {choice("ejercicio", "estudiar", exercise, setExercise, (
+              <><span className="font-medium">{t("exerciseStudy")}</span><span className="text-sm text-muted-foreground">{t("exerciseStudyHint")}</span></>
+            ), card)}
             {choice("ejercicio", "tarjeta", exercise, setExercise, (
               <><span className="font-medium">{t("exerciseCard")}</span><span className="text-sm text-muted-foreground">{t("exerciseCardHint")}</span></>
             ), card)}
@@ -96,7 +99,7 @@ export function PracticePicker({
           </div>
           {unit === "minutes" && <p className="text-sm text-muted-foreground">{t("pickMinutesHint", { n: effective })}</p>}
           <label className="flex cursor-pointer items-start gap-2 pt-1 text-sm">
-            <input type="checkbox" className="mt-0.5 accent-primary" checked={reviewOnly} onChange={(e) => setReviewOnly(e.target.checked)} />
+            <input type="checkbox" className="mt-0.5 accent-primary" checked={reviewOnly && exercise !== "estudiar"} disabled={exercise === "estudiar"} onChange={(e) => setReviewOnly(e.target.checked)} />
             <span>
               <span className="font-medium">{t("pickReviewOnly")}</span>
               <span className="block text-muted-foreground">{t("pickReviewOnlyHint")}</span>
@@ -168,7 +171,7 @@ export function PracticePicker({
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3">
           <p className={cn("min-w-48 flex-1 text-sm", !selected && "text-muted-foreground")} aria-live="polite">
             {selected
-              ? t("pickSummary", { exercise: exercise === "tarjeta" ? t("exerciseCard") : t("exerciseWrite"), source: selected.title, n: effective })
+              ? t("pickSummary", { exercise: exercise === "estudiar" ? t("exerciseStudy") : exercise === "tarjeta" ? t("exerciseCard") : t("exerciseWrite"), source: selected.title, n: effective })
               : t("pickChooseSource")}
           </p>
           <Button type="submit" size="lg" disabled={!selected}>{t("pickStart")}</Button>

@@ -588,7 +588,7 @@
     "greeting": "Hi, {name}",
     "intro": "This is your space to practise characters.",
     "practiceTitle": "Learn",
-    "practiceHint": "Choose an HSK level or a topic, decide how many words (10, 20 or 40) and study them with the card or write them stroke by stroke.",
+    "practiceHint": "Choose an HSK level or a topic and how many words: meet the new ones, review them with the card or write them stroke by stroke.",
     "practiceCta": "Learn",
     "progressTitle": "What you find hard",
     "progressEmpty": "You will see which words are hard and what to review here. Practise a word and it will show up.",
@@ -664,7 +664,7 @@
     "dataHint": "All your progress is yours: download it whenever you like.",
     "dataExport": "Download my progress (JSON)",
     "pickTitle": "Choose what to learn",
-    "pickHint": "Learn with the system's material: an HSK level or a topic. Words due for review come first, then new ones.",
+    "pickHint": "Practise with the system's material: an HSK level or a topic. Study teaches new words; Review and Write start with what is due.",
     "pickLevels": "HSK level",
     "pickThemes": "Topics",
     "pickMinutes": "How long?",
@@ -689,8 +689,8 @@
     "favEmptyTitle": "No favourites yet",
     "reviewUpToDate": "You are up to date",
     "exerciseLabel": "Exercise",
-    "exerciseCard": "Study",
-    "exerciseCardHint": "Watch how it is drawn, recall it, read its sentences and rate yourself.",
+    "exerciseCard": "Review",
+    "exerciseCardHint": "Watch how it is drawn, recall it and rate yourself.",
     "exerciseWrite": "Write",
     "exerciseWriteHint": "Write each word stroke by stroke with your finger.",
     "pickTabLevels": "HSK level",
@@ -712,9 +712,9 @@
     "skillLabel": "Skill",
     "skillRecognize": "Recognise",
     "skillWrite": "Write",
-    "reviewDueCards": "{n, plural, one {# word to study.} other {# words to study.}}",
+    "reviewDueCards": "{n, plural, one {# word to review.} other {# words to review.}}",
     "reviewDueWrite": "{n, plural, one {# word to write.} other {# words to write.}}",
-    "reviewCtaCards": "Study now",
+    "reviewCtaCards": "Review now",
     "reviewCtaWrite": "Write now",
     "learn": "Learn more",
     "projTitle": "Your pace",
@@ -726,7 +726,11 @@
     "projAtLeast": "At your recent pace you would see all the words of {level} in at least {min} weeks; a maximum can't be set from recent practice.",
     "projDone": "You have already started every word of your current level.",
     "projNoPace": "Without recent practice there is nothing to estimate. Practise for a few days and come back.",
-    "projCaveat": "This is an estimate: it counts words you started, not mastered ones, and changes with your pace."
+    "projCaveat": "This is an estimate: it counts words you started, not mastered ones, and changes with your pace.",
+    "exerciseStudy": "Study",
+    "exerciseStudyHint": "Get to know new words: the sheet with pinyin, meaning and sentences. No rating.",
+    "pickDoneStudyTitle": "No new words left here",
+    "pickDoneStudyText": "You already met every word in this source, or they are in your review. Pick another one, or review what you have seen."
   },
   "Learn": {
     "title": "Learn more",
@@ -746,8 +750,12 @@
     "colClass": "Class",
     "colNote": "Note",
     "colHint": "Dataset hint (English)",
-    "labCta": { "radicales": "See all 214 radicals" },
-    "labHint": { "radicales": "The full table, searchable and sortable by use. It is a lab pilot: the Spanish meanings are still awaiting review." },
+    "labCta": {
+      "radicales": "See all 214 radicals"
+    },
+    "labHint": {
+      "radicales": "The full table, searchable and sortable by use. It is a lab pilot: the Spanish meanings are still awaiting review."
+    },
     "practiceCta": "Practise these characters",
     "practiceHint": "Practise this chapter's characters with your review queue.",
     "practiceLogin": "You need a student account to practise these characters."

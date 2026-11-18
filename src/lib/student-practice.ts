@@ -2,7 +2,7 @@ import "server-only";
 
 import type { Skill } from "@/actions/student";
 import { allPages } from "./in-chunks";
-import { isFrequencyCollection, isRadicalCollection, parseAmount, parseSource, pickForPractice, themeGroup, type PickState, type ThemeGroup } from "./practice-pick";
+import { isFrequencyCollection, isRadicalCollection, parseAmount, parseSource, pickForPractice, pickNew, themeGroup, type PickState, type ThemeGroup } from "./practice-pick";
 import { createClient } from "./supabase/server";
 
 // Material de práctica del alumno: el del sistema (niveles HSK y temas). El
@@ -63,13 +63,15 @@ async function skillStates(skill: Skill): Promise<Map<string, PickState>> {
 export type PracticePlan = { title: string; senseIds: string[]; /** La fuente no tiene palabras nuevas ni por repasar. */ done: boolean };
 
 /** Arma la práctica de `n` palabras de una fuente (`hsk-3`, `tema-<id>`, `frecuencia-<id de lección>`, `radicales-<id de lección>`). null si la fuente no es válida. */
-export async function planPractice(sourceParam: string | undefined, amountParam: string | undefined, skill: Skill, reviewOnly = false): Promise<PracticePlan | null> {
+export async function planPractice(sourceParam: string | undefined, amountParam: string | undefined, skill: Skill, reviewOnly = false, newOnly = false): Promise<PracticePlan | null> {
   const source = parseSource(sourceParam);
   if (!source) return null;
   const n = parseAmount(amountParam);
   const supabase = await createClient();
   const states = await skillStates(skill);
   const now = new Date();
+  // «Estudiar» enseña solo lo nuevo; los demás ejercicios, primero lo vencido y luego lo nuevo.
+  const pick = (ids: string[]) => (newOnly ? pickNew(ids, states, n) : pickForPractice(ids, states, n, now, reviewOnly));
 
   if (source.kind === "hsk") {
     // En el orden oficial, página a página, hasta tener suficientes palabras nuevas.
@@ -85,7 +87,7 @@ export async function planPractice(sourceParam: string | undefined, amountParam:
         .range(from, from + 199);
       if (error) throw error;
       seen.push(...(data ?? []).map((r) => r.sense_id as string));
-      const picked = pickForPractice(seen, states, n, now, reviewOnly);
+      const picked = pick(seen);
       const nowIso = now.toISOString();
       // Sin nuevas, lo que hay que juntar son las vencidas; con nuevas, las que aún no se han visto.
       const enough = reviewOnly
@@ -109,7 +111,7 @@ export async function planPractice(sourceParam: string | undefined, amountParam:
     if (ce) throw ce;
     if (!col || !(source.kind === "frequency" ? isFrequencyCollection(col.title) : isRadicalCollection(col.title))) return null;
     const ordered = [...(lesson.lesson_items as { position: number; sense_id: string }[])].sort((a, b) => a.position - b.position).map((i) => i.sense_id);
-    const picked = pickForPractice(ordered, states, n, now, reviewOnly);
+    const picked = pick(ordered);
     return { title: `${lesson.title} · ${picked.length}`, senseIds: picked, done: picked.length === 0 };
   }
 
@@ -127,6 +129,6 @@ export async function planPractice(sourceParam: string | undefined, amountParam:
     .filter((l) => !l.archived_at)
     .sort((a, b) => a.position - b.position)
     .flatMap((l) => [...l.lesson_items].sort((a, b) => a.position - b.position).map((i) => i.sense_id));
-  const picked = pickForPractice(ordered, states, n, now, reviewOnly);
+  const picked = pick(ordered);
   return { title: `${row.title} · ${picked.length}`, senseIds: picked, done: picked.length === 0 };
 }

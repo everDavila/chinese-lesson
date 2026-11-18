@@ -21,6 +21,19 @@ export function pickForPractice(candidates: string[], states: Map<string, PickSt
   return [...overdue.map((o) => o.id), ...(reviewOnly ? [] : fresh)].slice(0, n);
 }
 
+/** Solo palabras nuevas (sin estado todavía), en el orden de la fuente: lo que el ejercicio «Estudiar» enseña. */
+export function pickNew(candidates: string[], states: Map<string, PickState>, n: number): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const id of candidates) {
+    if (seen.has(id)) continue;
+    seen.add(id);
+    if (!states.has(id)) out.push(id);
+    if (out.length >= n) break;
+  }
+  return out;
+}
+
 export const PRACTICE_AMOUNTS = [10, 20, 40] as const;
 export const DEFAULT_AMOUNT = 20;
 
@@ -59,10 +72,10 @@ export const MAX_AMOUNT = 60;
 export const PRACTICE_MINUTES = [5, 10, 15] as const;
 
 /** Segundos estimados por palabra: una estimación, no una medición del alumno. */
-const SECONDS_PER_WORD = { tarjeta: 20, escribir: 45 } as const;
+const SECONDS_PER_WORD = { estudiar: 40, tarjeta: 20, escribir: 45 } as const;
 
 /** Cuántas palabras caben en `minutes` minutos de un ejercicio, dentro de los límites. */
-export function wordsForMinutes(minutes: number, exercise: "tarjeta" | "escribir"): number {
+export function wordsForMinutes(minutes: number, exercise: "estudiar" | "tarjeta" | "escribir"): number {
   return Math.min(MAX_AMOUNT, Math.max(MIN_AMOUNT, Math.round((minutes * 60) / SECONDS_PER_WORD[exercise])));
 }
 
@@ -83,12 +96,14 @@ export function themeGroup(sourceNote: string | null): ThemeGroup | null {
   return "other";
 }
 
-export type Exercise = "card" | "write";
+/** «estudiar» (la ficha de una palabra nueva), «tarjeta» (repasar) o «escribir». */
+export type Exercise = "study" | "card" | "write";
 
-/** «tarjeta» (estudiar, por defecto) o «escribir». */
+/** «estudiar» y «escribir» como su nombre; cualquier otra cosa es «tarjeta» (repasar), el valor de los enlaces anteriores. */
 export function parseExercise(value: string | undefined): Exercise {
+  if (value === "estudiar") return "study";
   return value === "escribir" ? "write" : "card";
 }
 
-/** Habilidad que entrena cada ejercicio: la tarjeta reconoce, escribir escribe. */
-export const skillOf = (exercise: Exercise) => (exercise === "card" ? "recognize" : "write") as "recognize" | "write";
+/** Habilidad que entrena cada ejercicio: estudiar y repasar reconocen; escribir escribe. */
+export const skillOf = (exercise: Exercise) => (exercise === "write" ? "write" : "recognize") as "recognize" | "write";

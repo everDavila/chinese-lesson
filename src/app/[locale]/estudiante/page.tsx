@@ -5,6 +5,7 @@ import { PracticePicker } from "@/components/student/practice-picker";
 import { StudentCard } from "@/components/student/student-card";
 import { StudentShell } from "@/components/student/student-shell";
 import { StudyCard } from "@/components/student/study-card";
+import { StudySheet } from "@/components/student/study-sheet";
 import { Link } from "@/i18n/navigation";
 import { hskLevelCounts } from "@/lib/content";
 import { requireProfile } from "@/lib/guard";
@@ -16,8 +17,8 @@ import { getDueWords, getStudentStats } from "@/lib/student-stats";
 
 // Práctica del alumno. Sin parámetros: elige ejercicio, cantidad y fuente
 // (nivel HSK o tema del sistema). Con ?fuente=hsk-1&n=20&ejercicio=tarjeta
-// abre esa práctica: «tarjeta» (estudiar: ve cómo se dibuja, recuerda y se
-// valora) o «escribir» (trazos). ?repaso=1 (vencidas), ?repaso=dificiles o
+// abre esa práctica: «estudiar» (la ficha de palabras nuevas, sin valorar),
+// «tarjeta» (repasar: ve cómo se dibuja, recuerda y se valora) o «escribir» (trazos). ?repaso=1 (vencidas), ?repaso=dificiles o
 // ?repaso=favoritas practican esas palabras, vengan del nivel o tema que
 // vengan. Pide sesión: sin ella, al login.
 export const metadata: Metadata = {
@@ -49,7 +50,9 @@ async function Practice({
   const t = await getTranslations("StudentWorkspace");
   const sp = await searchParams;
   const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
-  const exercise = parseExercise(one(sp.ejercicio));
+  // «Estudiar» enseña palabras nuevas de una fuente; los repasos por lista (vencidas, difíciles, favoritas) se hacen con la tarjeta.
+  const requested = parseExercise(one(sp.ejercicio));
+  const exercise = one(sp.repaso) && requested === "study" ? "card" : requested;
   const skill = skillOf(exercise);
   const shell = (children: React.ReactNode) => <StudentShell name={profile.displayName}>{children}</StudentShell>;
   const empty = (title: string, text: string) =>
@@ -81,9 +84,9 @@ async function Practice({
       if (!senseIds.length) return empty(t("reviewUpToDate"), t("reviewNone"));
     }
   } else if (one(sp.fuente)) {
-    const plan = await planPractice(one(sp.fuente), one(sp.n), skill, one(sp.nuevas) === "no");
+    const plan = await planPractice(one(sp.fuente), one(sp.n), skill, one(sp.nuevas) === "no", exercise === "study");
     if (!plan) return empty(t("pickInvalid"), t("pickInvalidText"));
-    if (plan.done) return empty(t("pickDoneTitle"), t("pickDoneText"));
+    if (plan.done) return exercise === "study" ? empty(t("pickDoneStudyTitle"), t("pickDoneStudyText")) : empty(t("pickDoneTitle"), t("pickDoneText"));
     title = plan.title;
     senseIds = plan.senseIds;
   }
@@ -117,7 +120,9 @@ async function Practice({
   if (!lesson) return empty(t("pickInvalid"), t("pickInvalidText"));
   const key = `${exercise}:${title}:${senseIds.join(",")}`;
   return shell(
-    exercise === "card" ? (
+    exercise === "study" ? (
+      <StudySheet key={key} lesson={lesson} signedIn bookmarked={bookmarks} />
+    ) : exercise === "card" ? (
       <StudyCard key={key} lesson={lesson} signedIn bookmarked={bookmarks} favoriteSentences={favoriteSentences} />
     ) : (
       <StudentCard key={key} lesson={lesson} signedIn bookmarked={bookmarks} favoriteSentences={favoriteSentences} />
