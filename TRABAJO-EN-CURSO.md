@@ -4,33 +4,41 @@
 > repo**: al cambiar de PC, cada agente busca aquí su fila y sigue donde quedó.
 > Las carpetas (worktrees) no viajan con git; las ramas sí, si están subidas.
 
-## Aviso para la otra PC (2026-11-12)
+## Aviso para la otra PC (2026-11-19)
 
-**Haz `git pull` en `chinese-lesson`.** La rama `estudiante-tarjeta` está
-integrada en `master` y desplegada: cuenta y avance del alumno, panel (rastreador
-por nivel, racha, meta, favoritas, exportar) y las 4 migraciones
-`20261109000000`–`20261109030000`, aplicadas en producción (respaldo
-`backups/supabase-2026-11-12T0446.json`) y en `hanzi-dev`. No las reapliques ni
-retomes esa rama.
+**1. `git pull` en `chinese-lesson`.** Hoy llegó a `master` y se desplegó el modo
+**Estudiar** (la ficha de palabras nuevas, sin eventos): «Aprender» tiene tres
+ejercicios, Estudiar, Repasar y Escribir. No lleva migración.
+
+**2. Pendiente: Escritura en clase**, rama `escritura-en-clase` (subida y con
+`master` ya dentro, así que se integra con avance directo). Diseño:
+[docs/DISENO-ESCRITURA-EN-CLASE.md](docs/DISENO-ESCRITURA-EN-CLASE.md); decisión del
+2026-11-18 en [DECISIONES.md](DECISIONES.md). La fase 1 está construida y probada con
+alumnos simulados contra `hanzi-dev`, donde la migración `20261118000000` **ya está
+aplicada**. Falta producción, y **no se puede integrar antes**: el código pide
+columnas que producción no tiene y la profesora no podría abrir una votación.
+Desde la carpeta principal, con el `.env.local` de producción (el `db push` de
+producción lo corre Ever; un agente no puede):
+
+```
+npm run db:backup
+node --env-file=.env.local scripts/db.mjs migration list   # debe salir 1 pendiente: 20261118000000
+node --env-file=.env.local scripts/db.mjs db push --yes
+git fetch && git merge --ff-only origin/escritura-en-clase && git push origin master
+```
+
+Después, comprobar el despliegue en Vercel. **Sin probar:** el dedo real, muchos
+dispositivos a la vez y una clase real. La clase simulada se repite con
+`npm run test:clase:dev` (con `npm run dev:base-dev` en marcha).
+**Siguiente (fase 2):** el trazo que más falla el grupo, marcado sobre el carácter;
+«necesita ayuda»; resumen al terminar la clase. Fase 3: ejercicio a su ritmo.
 
 **No viajan con git:** `.env.local` (producción) y `.env.dev.local` (dev), los
-respaldos de `backups/` y las carpetas de trabajo. Recrea los `.env` a mano;
-nunca los pegues en un chat.
+respaldos de `backups/` y las carpetas de trabajo. Recrea los `.env` a mano; nunca
+los pegues en un chat.
 
-**Para retomar:** la lista de lo guardado y lo descartado está en
-[docs/PANEL-ALUMNO-IDEAS.md](docs/PANEL-ALUMNO-IDEAS.md); lo siguiente es
-**colecciones de estudio del alumno**. Antes, Ever prueba con un alumno en
-`npm run dev:base-dev` (practicar, fallar trazos, «Para repasar», favoritas,
-rastreador, meta y exportar): nada de eso se vio aún en navegador.
-
-**Trabajo de otra instancia, subido a medias (2026-11-12):** colección «Libro de
-la profesora: salud y cuerpo» (`contenido/colecciones/libro-salud-cuerpo.json`,
-`scripts/crear-coleccion.mjs`) y sus frases y palabras extra
-(`contenido/frases-extra-2026-11-11.json`, `contenido/palabras-extra-2026-11-11.json`).
-El cargador `scripts/cargar-palabras-extra.mjs` ya existe (corrección: una versión
-anterior de este aviso decía que faltaba). Lo que no está comprobado es si algo se
-cargó en `hanzi-dev` o en producción con estos archivos, ni si
-`scripts/crear-coleccion.mjs --apply` se corrió. Frases y traducciones sin revisar.
+**Otras ideas guardadas del alumno** (colecciones de estudio, ficha de palabra,
+ejercicios nuevos…): [docs/PANEL-ALUMNO-IDEAS.md](docs/PANEL-ALUMNO-IDEAS.md).
 
 ## Al empezar en una PC
 
@@ -94,3 +102,4 @@ carpeta sí permite pisarse archivos, dependencias y cambios de rama.
 | Claude Code | `admin-editor-frases` | `claude-code-chinese-lesson-admin-editor-frases` | 3011 | Editor de palabra del admin: frase maestra con estrella (respetada por la rotación), reordenar frases, nombres iguales a la tarjeta y rediseño del formulario | Integrado a `master` y desplegado (2026-10-20): migración en producción, recorridos y suite visual en verde contra `hanzi-dev` |
 | Cline | `inicio-profesor` | `cline-chinese-lesson-inicio-profesor` | 3003 | Home del profesor previo a clase: pantalla donde ve sus recursos (colecciones, plantillas, lecciones) antes de presentar | Creado el worktree desde `master` (f79a28a), `.env`/sesiones copiados, `npm ci` OK (2026-10-16) |
 | Claude Code | `lab-gramatica` | `claude-code-chinese-lesson-lab-gramatica` | 3008 | Piloto `/lab/gramatica`: armar frases con 12 puntos de gramática HSK 1 (Gushi + consignas IA), revisión mínima y modo proyectar; sin base | Rama subida (`9e4be29`): piloto, franja de laboratorio para todo `/lab`, regla en `REGLAS-DESARROLLO.md` y bitácora. Consignas sin revisar; falta probarlo en celular y en clase (2026-10-19) |
+| Claude Code | `escritura-en-clase` | `claude-code-chinese-lesson-estudiante-tarjeta` | 3001 | Escritura en clase: cada alumno escribe en su dispositivo y la profesora ve el resultado en vivo (cuenta o apodo, límites por carácter configurables, % de trazos acertados a la primera, mediana) | Fase 1 construida y probada con alumnos simulados en `hanzi-dev` (migración `20261118000000` aplicada solo en dev). Falta la migración en producción antes de integrar; sin probar con dedo ni clase real (2026-11-19) |
