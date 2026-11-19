@@ -26,6 +26,12 @@
   migración nueva. El rastreador y el progreso por nivel se leen por habilidad
   (por defecto reconocer). Probado en un navegador contra `hanzi-dev` con un
   alumno temporal; sin probar en un celular real.
+- **Escritura en clase (2026-11-19, sin integrar):** rama `escritura-en-clase`. En la
+  clase en vivo cada alumno escribe en su dispositivo y la profesora ve el resultado;
+  el alumno entra con su cuenta o con un apodo. Migración `20261118000000` aplicada
+  solo en `hanzi-dev`; **producción sin migrar**, así que la rama no puede ir a
+  `master` todavía. Probada con alumnos simulados; sin probar con dedo real ni una
+  clase real. Diseño: `docs/DISENO-ESCRITURA-EN-CLASE.md`.
 - **Funciona:** inicio docente en `/` para preparar la clase (lecciones y
   colecciones fijadas, lecciones recientes y acceso a edición; migración
   probada solo en `hanzi-dev`, pendiente de producción); docente en
