@@ -1,7 +1,8 @@
 # Diseño: Escritura en clase
 
-> Estado: **diseño acordado con Ever (2026-11-18); fase 1 en construcción** en la
-> rama `escritura-en-clase`. Decisiones en [DECISIONES.md](../DECISIONES.md).
+> Estado: **diseño acordado con Ever (2026-11-18); fase 1 construida** en la rama
+> `escritura-en-clase`, probada con alumnos simulados contra `hanzi-dev`; sin
+> aplicar en producción ni probar con una clase real. Decisiones en [DECISIONES.md](../DECISIONES.md).
 > Antecedentes: votación de la clase ([DIAGNOSTICO-MODO-CLASE.md](../DIAGNOSTICO-MODO-CLASE.md)),
 > escritura del alumno (`StrokeCells`) y [DISENO-AVANCE-ESTUDIANTE.md](DISENO-AVANCE-ESTUDIANTE.md).
 
@@ -92,12 +93,14 @@ abrir una palabra; no se cambian a mitad de ella. Valores iniciales:
 
 Además:
 
-- **Tope por trazo: 3 errores.** Al tercero el trazo se da por bueno y se
-  dibuja (Hanzi Writer, `markStrokeCorrectAfterMisses`), y cuenta como fallado.
+- **Tope por trazo: 3 errores.** Tras el tercero, el siguiente intento en ese
+  trazo se da por bueno y se dibuja (Hanzi Writer, `markStrokeCorrectAfterMisses`
+  = tope + 1), y el trazo cuenta como fallado.
 - **Umbral de «lo lograron»: 80 %** de trazos acertados a la primera.
 - **Con guía** (calcar) o **de memoria**: lo elige la profesora.
 
-Cuando un carácter llega a su límite se le **muestra** y el alumno sigue con el
+Hay tres juegos de valores ya hechos (estricto, equilibrado, generoso) para elegir
+de un clic. Cuando un carácter llega a su límite se le **muestra** y el alumno sigue con el
 siguiente. Los valores iniciales son una suposición razonable, no un dato:
 revisarlos tras las primeras clases. La profesora guarda sus valores por defecto
 en su navegador y se copian a cada palabra al abrirla. Validación: cada valor entre
@@ -113,7 +116,9 @@ Según cuántos alumnos terminaron la palabra:
 | **5 a 9** | Lo mismo y, además, **cada alumno** con su barra |
 | **Menos de 5** | Solo **cada alumno**; sin mediana ni cifras de grupo |
 
-Siempre el **n** («12 de 15») y, si la clase tiene alumnos esperados, «terminaron X
+El panel vive en el **reverso** de la tarjeta (donde ya están los votos); arriba,
+en la barra de la clase, siempre se ve «Escribieron X de Y» aunque la tarjeta
+esté de frente. Siempre el **n** («12 de 15») y, si la clase tiene alumnos esperados, «terminaron X
 de Y esperados». La **mediana** es la cifra principal porque un alumno que juega no
 la mueve; el promedio simple sí se deja arrastrar. Por alumno: precisión, tiempo
 activo, duda, dispositivo y si se le mostró algún carácter.
@@ -154,3 +159,15 @@ semáforo de la clase.
   verlo.
 - **La migración se aplica en producción antes de subir el código** (respaldo,
   `db push`, push): la corre Ever.
+
+## Cómo se prueba
+
+- Unitarias: `tests/unit/write-stats.test.ts` (límites, precisión, tiempo, resumen).
+- Base: `tests/db/permisos.mjs` (unirse con nombre, intento único, rondas cerradas,
+  quién lee qué).
+- Clase simulada: `npm run test:clase:dev` (con `npm run dev:base-dev` en marcha).
+  Una profesora y seis alumnos en navegadores distintos escriben a la vez con
+  trazos reales dibujados con el ratón, uno con cuenta y uno que garabatea; comprueba
+  lo guardado, el panel, los límites que no cambian a mitad de palabra, una palabra
+  de dos caracteres y un celular de 390 px. **No simula el dedo ni muchos
+  dispositivos reales.**

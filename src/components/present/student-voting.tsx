@@ -8,6 +8,7 @@ import { CONNECTION_WARNING_AFTER, nextConnectionFailures } from "@/lib/polling"
 import type { StudentLabels } from "@/lib/student-labels";
 import { cn } from "@/lib/utils";
 import { SECTION_TITLE } from "./card-back";
+import { useTranslations } from "next-intl";
 
 // Votación de los alumnos (fase 2). La docente la activa una vez por clase
 // con la barra de arriba (VotingBar, tecla V) y desde ahí sigue a la tarjeta:
@@ -30,12 +31,21 @@ export function VotingBar({
   live,
   onToggle,
   labels,
+  write,
 }: {
   joinCode: string;
   live: boolean;
   onToggle: () => void;
   labels: StudentLabels;
+  /** Escritura en clase: el tipo de ronda, cuántos terminaron y los límites. */
+  write?: {
+    mode: "vote" | "write";
+    onModeChange: (mode: "vote" | "write") => void;
+    counter: React.ReactNode;
+    limits: React.ReactNode;
+  };
 }) {
+  const tw = useTranslations("WriteClass");
   // El dominio donde entran los alumnos (el de esta misma página).
   const origin = useSyncExternalStore(
     () => () => {},
@@ -58,6 +68,34 @@ export function VotingBar({
         {live ? labels.votingClose : labels.votingOpen}
         <kbd className="hidden rounded bg-background/30 px-1.5 text-xs sm:inline">V</kbd>
       </Button>
+      {write && (
+        <>
+          <fieldset className="flex items-center gap-1 rounded-full border border-border p-0.5" title={tw("modeHint")}>
+            <legend className="sr-only">{tw("modeLabel")}</legend>
+            {(["vote", "write"] as const).map((m) => (
+              <label
+                key={m}
+                className="flex cursor-pointer items-center rounded-full px-3 py-1 text-xs font-medium transition-colors hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:hover:bg-primary has-focus-visible:ring-2 has-focus-visible:ring-ring"
+              >
+                <input
+                  type="radio"
+                  name="ronda"
+                  className="sr-only"
+                  checked={write.mode === m}
+                  onChange={(e) => {
+                    write.onModeChange(m);
+                    // Suelta el foco: con un campo enfocado, las teclas de la clase (V, flechas) no responden.
+                    e.currentTarget.blur();
+                  }}
+                />
+                {m === "vote" ? tw("modeVote") : tw("modeWrite")}
+              </label>
+            ))}
+          </fieldset>
+          {write.mode === "write" && write.limits}
+          {write.mode === "write" && live && write.counter}
+        </>
+      )}
     </div>
   );
 }
