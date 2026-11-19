@@ -476,3 +476,101 @@ for (const fn of [`give_example_lesson('${T2}')`, `lesson_payload('00000000-0000
   await expectOk("la docente SIGUE creando colecciones", T1, `insert into collections (owner_id, title) values ('${T1}', 'sigue') returning title`);
   await expectOk("el admin SIGUE editando plantillas", A, `update collections set title = 'HSK 1' where owner_id is null returning title`);
 }
+
+// ── Escritura en clase (20261118000000) ─────────────────────────────────
+{
+  console.log("\n— Escritura en clase (20261118000000) —");
+  const E3 = "00000000-0000-0000-0000-0000000000e3";
+  await db.exec(`insert into auth.users (id, email) values ('${E3}','e3@x');`);
+  await db.exec(`revoke update, delete on student_events from authenticated;`);
+  const ok = (cond, label, extra = "") => {
+    if (cond) console.log(`✓ ${label}`);
+    else { console.log(`✗ ${label} ${extra}`); process.exitCode = 1; }
+  };
+  const V = (c) => c.repeat(64);
+  const CODE = "WXTE22";
+  const wSes = (await as(T1, `insert into class_sessions (lesson_id, teacher_id, join_code, live_mode) values ('${vLesson}', '${T1}', '${CODE}', 'write') returning id`)).rows[0].id;
+  const CFG = `'{"limits":[{"upTo":null,"max":5}],"perStroke":3,"pass":80,"guide":true}'::jsonb`;
+  const wEv = (await as(T1, `insert into evaluations (session_id, sense_id, kind, write_config) values ('${wSes}', '${S}', 'write', ${CFG}) returning id`)).rows[0].id;
+
+  const state = (await asAnon(`select student_vote_state('${CODE}') as s`)).rows[0].s;
+  ok(state.status === "open" && state.kind === "write" && state.config?.perStroke === 3 && !("meaning_es" in state), "la ronda de escribir llega con su tipo y sus límites, sin significado", JSON.stringify(state));
+
+  const join = async (voter, nick, acct = false, code = CODE) =>
+    (await asAnon(`select join_class('${code}', '${voter}', '${nick}', ${acct}) as r`)).rows[0].r;
+  const j1 = await join(V("1"), "Ana");
+  ok(j1.status === "ok" && j1.name === "Ana", "un alumno entra con un apodo", JSON.stringify(j1));
+  const j2 = await join(V("2"), "ana");
+  ok(j2.status === "ok" && j2.name === "ana 2", "el mismo apodo de otro alumno recibe un número (sin distinguir mayúsculas)", JSON.stringify(j2));
+  const j3 = await join(V("3"), "  ANA  ");
+  ok(j3.name === "ANA 3", "los espacios se recortan y el número sigue", JSON.stringify(j3));
+  ok((await join(V("4"), "   ")).status === "name_required", "sin apodo ni cuenta pide un nombre");
+  ok((await join("zz", "Luz")).status === "invalid", "un hash de alumno inválido se rechaza");
+  ok((await join(V("4"), "Luz", false, "ZZZZZZ")).status === "invalid", "un código de otra clase se rechaza");
+  ok((await join(V("4"), "Luz", true)).name === "Luz", "pedir la cuenta sin haber iniciado sesión cae al apodo");
+  const j1b = await join(V("1"), "Ana B");
+  const cuenta = (await as(T1, `select count(*)::int as n from session_participants where session_id = '${wSes}' and voter_hash = '${V("1")}'`)).rows[0].n;
+  ok(j1b.name === "Ana B" && cuenta === 1, "volver a entrar cambia el nombre, no suma otro alumno", JSON.stringify(j1b));
+
+  // Con cuenta: el nombre es el de su perfil.
+  const perfil = (await db.query(`select display_name from profiles where id = '${E3}'`)).rows[0]?.display_name;
+  const jc = (await as(E3, `select join_class('${CODE}', '${V("5")}', '', true) as r`)).rows[0].r;
+  ok(jc.status === "ok" && jc.name === perfil, "con su cuenta, el nombre es el de su perfil", JSON.stringify({ jc, perfil }));
+  const stud = (await as(T1, `select student_id from session_participants where session_id = '${wSes}' and voter_hash = '${V("5")}'`)).rows[0]?.student_id;
+  ok(stud === E3, "queda la cuenta del alumno que eligió entrar con ella");
+  const jcAp = (await as(E3, `select join_class('${CODE}', '${V("6")}', 'Tito', false) as r`)).rows[0].r;
+  const stud2 = (await as(T1, `select student_id from session_participants where session_id = '${wSes}' and voter_hash = '${V("6")}'`)).rows[0]?.student_id;
+  ok(jcAp.name === "Tito" && stud2 === null, "con sesión iniciada pero eligiendo apodo, no se guarda su cuenta", JSON.stringify(jcAp));
+
+  const attemptOf = (mark) => `jsonb_build_object('v', 1, 'mark', '${mark}')`;
+  const send = async (voter, mark = "a", code = CODE, ev = wEv) =>
+    (await asAnon(`select submit_student_write('${code}', '${ev}', '${voter}', ${attemptOf(mark)}) as r`)).rows[0].r;
+  ok((await send(V("9"))) === "not_joined", "no entrega quien no entró a la clase");
+  ok((await send(V("1"), "primero")) === "ok", "un alumno que entró entrega su intento");
+  ok((await send(V("1"), "segundo")) === "duplicate", "un segundo intento no se acepta");
+  const guardado = (await as(T1, `select attempt ->> 'mark' as m from evaluation_writes where evaluation_id = '${wEv}' and voter_hash = '${V("1")}'`)).rows[0].m;
+  ok(guardado === "primero", "solo cuenta el primer intento", guardado);
+  ok((await send(V("1"), "x", "ZZZZZZ")) === "invalid", "un código inexistente se rechaza");
+  ok((await send("zz")) === "invalid", "un hash inválido se rechaza");
+  const grande = (await asAnon(`select submit_student_write('${CODE}', '${wEv}', '${V("2")}', jsonb_build_object('a', repeat('x', 21000))) as r`)).rows[0].r;
+  ok(grande === "invalid", "un intento enorme se rechaza");
+  const noObjeto = (await asAnon(`select submit_student_write('${CODE}', '${wEv}', '${V("2")}', '[1,2]'::jsonb) as r`)).rows[0].r;
+  ok(noObjeto === "invalid", "un intento que no es un objeto se rechaza");
+
+  // Una ronda de votar no recibe escritura, y una ronda de otra clase tampoco.
+  const vSes2 = (await as(T1, `insert into class_sessions (lesson_id, teacher_id, join_code) values ('${vLesson}', '${T1}', 'WXTE33') returning id`)).rows[0].id;
+  const vEv2 = (await as(T1, `insert into evaluations (session_id, sense_id) values ('${vSes2}', '${S}') returning id`)).rows[0].id;
+  const vState = (await asAnon(`select student_vote_state('WXTE33') as s`)).rows[0].s;
+  ok(vState.kind === "vote", "una ronda de votar llega como tipo «vote»", JSON.stringify(vState));
+  await join(V("7"), "Rosa", false, "WXTE33");
+  ok((await send(V("7"), "x", "WXTE33", vEv2)) === "invalid", "una ronda de votar no recibe escritura");
+  ok((await send(V("7"), "x", "WXTE33", wEv)) === "invalid", "una ronda de otra clase no recibe el intento");
+
+  // Ronda cerrada: 60 s de gracia, después no.
+  await as(T1, `update evaluations set status = 'closed', closed_at = now() - interval '10 seconds' where id = '${wEv}'`);
+  ok((await send(V("2"), "tarde")) === "ok", "quien termina justo al cerrarse la ronda todavía entrega (gracia de 60 s)");
+  await as(T1, `update evaluations set closed_at = now() - interval '5 minutes' where id = '${wEv}'`);
+  ok((await send(V("3"), "muy tarde")) === "closed", "pasada la gracia, la ronda cerrada no recibe intentos");
+
+  // Quién lee qué.
+  const n = async (user, table) => (await as(user, `select count(*)::int as n from ${table}`)).rows[0].n;
+  ok((await n(T1, "evaluation_writes")) === 2 && (await n(T1, "session_participants")) >= 5, "la docente ve los intentos y los participantes de su clase");
+  await expectFail("otra docente NO ve los intentos", T2, `select * from evaluation_writes`);
+  await expectFail("otra docente NO ve los participantes", T2, `select * from session_participants`);
+  await expectFail("un alumno con cuenta NO ve los intentos", E3, `select * from evaluation_writes`);
+  await expectFail("un alumno con cuenta NO ve los participantes", E3, `select * from session_participants`);
+  await expectFail("anon NO lee los intentos", "", `select * from evaluation_writes`);
+  for (const [tabla, vals] of [
+    ["evaluation_writes", `('${wEv}', '${V("8")}', '{}'::jsonb)`],
+    ["session_participants", `('${wSes}', '${V("8")}', 'Hack', null)`],
+  ]) {
+    try { await asAnon(`insert into ${tabla} values ${vals}`); console.log(`✗ anon insertó en ${tabla}`); process.exitCode = 1; }
+    catch { console.log(`✓ anon NO escribe en ${tabla} directamente`); }
+  }
+  await expectFail("la docente NO escribe intentos desde el cliente", T1, `insert into evaluation_writes (evaluation_id, voter_hash, attempt) values ('${wEv}', '${V("8")}', '{}'::jsonb)`);
+  await expectOk("la docente SÍ cambia el modo y los límites de su clase", T1, `update class_sessions set live_mode = 'vote', write_config = '{"perStroke":2}'::jsonb where id = '${wSes}' returning live_mode`);
+  await expectFail("el modo de la clase solo admite vote o write", T1, `update class_sessions set live_mode = 'otro' where id = '${wSes}'`);
+
+  await as(T1, `update class_sessions set status = 'ended' where id = '${wSes}'`);
+  ok((await join(V("a"), "Tarde")).status === "invalid", "con la clase terminada ya no se puede entrar");
+}
