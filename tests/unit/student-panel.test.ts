@@ -61,7 +61,7 @@ test("estrellas de dominio", () => {
   assert.equal(masteryStars({ stage: "dismissed", intervalDays: 80 }), 0);
 });
 
-import { wordsForMinutes, parseAmount, parseExercise, isFrequencyCollection, isRadicalCollection, parseSource, pickForPractice, skillOf, themeGroup } from "../../src/lib/practice-pick.ts";
+import { wordsForMinutes, parseAmount, parseExercise, isFrequencyCollection, isRadicalCollection, parseSource, pickForPractice, pickNew, skillOf, themeGroup } from "../../src/lib/practice-pick.ts";
 
 test("práctica: primero lo vencido, luego lo nuevo; sin programadas ni descartadas", () => {
   const now = new Date("2026-11-12T12:00:00Z");
@@ -115,12 +115,30 @@ test("temas: se agrupan por la nota de origen y los niveles HSK no son temas", (
   assert.equal(themeGroup(null), "other");
 });
 
-test("ejercicio: tarjeta por defecto y su habilidad", () => {
+test("ejercicio: estudiar, repasar (tarjeta) y escribir, con su habilidad", () => {
+  assert.equal(parseExercise("estudiar"), "study");
+  assert.equal(parseExercise("tarjeta"), "card");
   assert.equal(parseExercise(undefined), "card");
   assert.equal(parseExercise("escribir"), "write");
   assert.equal(parseExercise("otra"), "card");
+  assert.equal(skillOf("study"), "recognize");
   assert.equal(skillOf("card"), "recognize");
   assert.equal(skillOf("write"), "write");
+});
+
+test("estudiar: solo palabras nuevas, en orden, sin repetir", () => {
+  const states = new Map([
+    ["a", { stage: "seen", dueAt: "2026-11-01T00:00:00Z" }],
+    ["c", { stage: "dismissed", dueAt: null }],
+  ]);
+  assert.deepEqual(pickNew(["a", "b", "c", "d", "b", "e"], states, 10), ["b", "d", "e"]);
+  assert.deepEqual(pickNew(["a", "b", "c", "d", "e"], states, 2), ["b", "d"]);
+  assert.deepEqual(pickNew(["a", "c"], states, 5), []);
+});
+
+test("por tiempo: estudiar cuesta más por palabra que repasar", () => {
+  assert.ok(wordsForMinutes(10, "estudiar") < wordsForMinutes(10, "tarjeta"));
+  assert.ok(wordsForMinutes(10, "tarjeta") > wordsForMinutes(10, "escribir"));
 });
 
 test("pinyinSegments conserva separadores y da el tono de cada sílaba", async () => {

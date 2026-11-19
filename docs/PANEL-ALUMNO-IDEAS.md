@@ -20,11 +20,18 @@
   ejercicio, cantidad (10, 20 o 40) y fuente (nivel HSK o tema; los temas se
   agrupan por la nota de origen y las plantillas «Temario oficial» no salen,
   porque duplican los niveles).
-- **Ejercicio «Estudiar» (tarjeta):** el hanzi se dibuja trazo a trazo, el alumno
-  lo reconoce, muestra la respuesta (lecturas con frases) y se valora. Es la
-  habilidad `recognize` (ejercicio `card`); «Escribir» (trazos) es la habilidad
-  `write`. Cada una lleva su estado y su cola de repaso. «No me la preguntes
-  más» saca la palabra de las dos.
+- **Tres ejercicios** (como el laboratorio `/lab/tarjetas`, 2026-11-18):
+  - **Estudiar:** la ficha de una palabra nueva (palabra, pinyin con color de tono,
+    significado, una frase y lo demás plegado), sin giro ni valoración. **No guarda
+    eventos**: al pasar de palabra la marca como vista (`recognize`, etapa `seen`,
+    lista para repasar ya) y suma su tiempo activo a la sesión. Solo toma palabras
+    nuevas de la fuente.
+  - **Repasar** (`?ejercicio=tarjeta`): el hanzi se dibuja, el alumno lo reconoce,
+    muestra la respuesta y se valora. Guarda eventos `recognize`/`card`.
+  - **Escribir:** trazos. Guarda eventos `write`/`strokes`.
+  Cada habilidad lleva su estado y su cola. «No me la preguntes más» saca la
+  palabra de las dos. La ficha vive en `components/student/ficha-estudio.tsx` y la
+  comparten el ejercicio y el laboratorio.
 
 - **Aprende (2026-11-15):** apartado en el menú del alumno y de la docente, con ruta
   pública `/aprende`. Capítulos desde `contenido/etimologia/*.md` (borradores sin

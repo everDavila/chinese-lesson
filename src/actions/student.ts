@@ -233,3 +233,37 @@ export async function setDailyGoal(minutes: number): Promise<boolean> {
     .upsert({ student_id: id, daily_goal_minutes: minutes, updated_at: new Date().toISOString() });
   return !error;
 }
+
+/**
+ * «Estudiar»: el alumno conoció la palabra (vio su ficha). No guarda un evento:
+ * marca la palabra como vista en la habilidad de reconocer, lista para
+ * repasarla ya, y suma su tiempo activo a la sesión (cuenta para la racha y la
+ * meta). Si la palabra ya tenía estado, no lo toca.
+ */
+export async function markStudied(input: { sessionId: string; senseId: string; activeMs: number }): Promise<boolean> {
+  if (!UUID.test(input.sessionId) || !UUID.test(input.senseId) || int(input.activeMs, 86_400_000) === null) return false;
+  const { supabase, id } = await userId();
+  if (!id) return false;
+  const session = await supabase
+    .from("student_sessions")
+    .upsert({ id: input.sessionId, student_id: id, ended_at: new Date().toISOString(), active_ms: input.activeMs }, { onConflict: "id" });
+  if (session.error) {
+    console.error("Sesión del alumno:", session.error.message);
+    return false;
+  }
+  const { error } = await supabase.from("student_word_state").upsert(
+    {
+      student_id: id,
+      sense_id: input.senseId,
+      skill: "recognize",
+      stage: "seen",
+      interval_days: 0,
+      due_at: new Date().toISOString(),
+      last_outcome: null,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "student_id,sense_id,skill", ignoreDuplicates: true },
+  );
+  if (error) console.error("Estado de la palabra estudiada:", error.message);
+  return !error;
+}

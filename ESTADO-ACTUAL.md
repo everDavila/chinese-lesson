@@ -19,9 +19,10 @@
   probar en navegador; el repaso solo cubre la lección de ejemplo hasta que existan
   las colecciones de estudio.
 - **Práctica del alumno (2026-11-12):** el alumno practica con el material del
-  sistema (niveles HSK 1–7 y temas) eligiendo ejercicio, cantidad y fuente. Dos
-  ejercicios: «Estudiar» (tarjeta: ve dibujarse el hanzi, reconoce, ve sus frases y
-  se valora; habilidad `recognize`) y «Escribir» (trazos; habilidad `write`). Sin
+  sistema (niveles HSK 1–7 y temas) eligiendo ejercicio, cantidad y fuente. Tres
+  ejercicios: «Estudiar» (la ficha de palabras nuevas, sin eventos: las marca como
+  vistas), «Repasar» (tarjeta: ve dibujarse el hanzi, reconoce, ve sus frases y se
+  valora; habilidad `recognize`) y «Escribir» (trazos; habilidad `write`). Sin
   migración nueva. El rastreador y el progreso por nivel se leen por habilidad
   (por defecto reconocer). Probado en un navegador contra `hanzi-dev` con un
   alumno temporal; sin probar en un celular real.
