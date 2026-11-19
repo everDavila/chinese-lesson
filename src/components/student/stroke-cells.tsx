@@ -5,6 +5,7 @@ import type HanziWriter from "hanzi-writer";
 import { Check } from "lucide-react";
 import { CalligraphyGrid } from "@/components/hanzi/calligraphy-grid";
 import { cn } from "@/lib/utils";
+import { limitFor, type AttemptChar, type WriteConfig } from "@/lib/write-stats";
 
 // Práctica de trazos de una palabra: una casilla por carácter, con el modo
 // quiz de Hanzi Writer (valida cada trazo al dibujarlo; no hay «comprobar»).
@@ -24,6 +25,10 @@ export type CellsProgress = {
   msToFirstAction: number | null;
   /** Ms desde que se mostró la palabra hasta este momento. */
   msTotal: number;
+  /** Por carácter: trazos, completados, errores por trazo y si se le mostró (Escritura en clase). */
+  chars: AttemptChar[];
+  /** Instante (ms desde que se mostró la palabra) de cada acción de trazo, acertada o no. */
+  events: number[];
 };
 
 export type StrokeCellsHandle = { reveal: () => void };
@@ -35,6 +40,12 @@ type Props = {
   onProgress: (progress: CellsProgress) => void;
   /** Piloto: atenúa las casillas que aún no tocan y avisa si las tocas. */
   lockHint?: boolean;
+  /**
+   * Escritura en clase: límites de errores. Un carácter que llega a su límite
+   * (según sus trazos) se le muestra y se sigue con el siguiente; tras
+   * `perStroke` errores en un trazo, el siguiente intento se da por bueno.
+   */
+  config?: WriteConfig;
   ref?: Ref<StrokeCellsHandle>;
 };
 
@@ -45,7 +56,7 @@ const SETTINGS = {
   free: { leniency: 1, hint: 3 },
 } as const;
 
-export function StrokeCells({ chars, guide, onProgress, lockHint = false, ref }: Props) {
+export function StrokeCells({ chars, guide, onProgress, lockHint = false, config, ref }: Props) {
   const targets = useRef<(HTMLDivElement | null)[]>([]);
   const writers = useRef<(HanziWriter | null)[]>([]);
   const mistakes = useRef<number[]>(chars.map(() => 0));
@@ -53,6 +64,15 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, ref }:
   const revealed = useRef(false);
   const strokeCounts = useRef<(number | null)[]>(chars.map(() => null));
   const failed = useRef<number[]>([]);
+  // Por carácter: errores por trazo, trazos completados y si se le mostró (Escritura en clase).
+  const errorsBy = useRef<number[][]>(chars.map(() => []));
+  const doneBy = useRef<number[]>(chars.map(() => 0));
+  const shownBy = useRef<boolean[]>(chars.map(() => false));
+  const events = useRef<number[]>([]);
+  const configRef = useRef(config);
+  useEffect(() => {
+    configRef.current = config;
+  });
   const shownAt = useRef(0);
   const firstActionMs = useRef<number | null>(null);
   const [done, setDone] = useState<boolean[]>(() => chars.map(() => false));
@@ -72,6 +92,14 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, ref }:
       failedStrokes: [...failed.current],
       msToFirstAction: firstActionMs.current,
       msTotal: Math.round(performance.now() - shownAt.current),
+      chars: chars.map((char, i) => ({
+        char,
+        strokes: strokeCounts.current[i],
+        done: doneBy.current[i],
+        errors: errorsBy.current[i],
+        shown: shownBy.current[i],
+      })),
+      events: [...events.current],
     });
 
   const markDone = (i: number) => {
@@ -89,6 +117,7 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, ref }:
         w.cancelQuiz();
         void w.animateCharacter();
         finished.current[i] = true;
+        shownBy.current[i] = true;
       });
       setDone([...finished.current]);
       report();
@@ -105,18 +134,39 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, ref }:
     const startQuiz = (i: number) => {
       const writer = writers.current[i];
       if (!writer || finished.current[i]) return;
+      const cfg = configRef.current;
       writer.quiz({
         leniency,
         showHintAfterMisses: hint,
+        // Tras `perStroke` errores en un trazo, el siguiente intento se da por bueno.
+        ...(cfg ? { markStrokeCorrectAfterMisses: cfg.perStroke + 1 } : {}),
         onMistake: (stroke) => {
-          firstActionMs.current ??= Math.round(performance.now() - shownAt.current);
+          const at = Math.round(performance.now() - shownAt.current);
+          firstActionMs.current ??= at;
+          events.current.push(at);
           mistakes.current[i] += 1;
+          if (errorsBy.current[i][stroke.strokeNum] !== undefined) errorsBy.current[i][stroke.strokeNum] += 1;
           const before = strokeCounts.current.slice(0, i).reduce<number>((a, n) => a + (n ?? 0), 0);
           failed.current.push(before + stroke.strokeNum);
+          // Escritura en clase: al llegar al límite del carácter (según sus trazos) se le muestra y sigue el siguiente.
+          const total = strokeCounts.current[i];
+          if (cfg && total !== null && mistakes.current[i] >= limitFor(total, cfg)) {
+            writer.cancelQuiz();
+            void writer.animateCharacter();
+            shownBy.current[i] = true;
+            finished.current[i] = true;
+            setDone([...finished.current]);
+            report();
+            startQuiz(i + 1);
+            return;
+          }
           report();
         },
-        onCorrectStroke: () => {
-          firstActionMs.current ??= Math.round(performance.now() - shownAt.current);
+        onCorrectStroke: (stroke) => {
+          const at = Math.round(performance.now() - shownAt.current);
+          firstActionMs.current ??= at;
+          events.current.push(at);
+          doneBy.current[i] = Math.max(doneBy.current[i], stroke.strokeNum + 1);
         },
         onComplete: () => {
           markDone(i);
@@ -148,6 +198,7 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, ref }:
               .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
               .then((data) => {
                 strokeCounts.current[i] = Array.isArray(data?.strokes) ? data.strokes.length : null;
+                if (strokeCounts.current[i] !== null) errorsBy.current[i] = Array<number>(strokeCounts.current[i]!).fill(0);
                 onLoad(data);
               })
               .catch((e) => {

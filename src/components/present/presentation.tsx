@@ -28,7 +28,10 @@ import { advanceStore } from "./advance-store";
 import { inkStyleStore } from "./ink-style-store";
 import { SENTENCE_MODES, sentenceModeStore } from "./sentence-mode-store";
 import { endSessionAction, saveQuickLessonAction } from "@/actions/class";
-import { closeVotingAction, openVotingAction, votingLiveAction } from "@/actions/vote";
+import { closeVotingAction, liveStateAction, openVotingAction, setLiveModeAction } from "@/actions/vote";
+import { DEFAULT_WRITE_CONFIG, type WriteConfig } from "@/lib/write-stats";
+import { WriteLimitsDialog, savedLimits } from "./write-limits";
+import { WriteCounter, WriteResultsPanel, useWriteResults } from "./write-results";
 import { Link } from "@/i18n/navigation";
 import { studentLabels, type ContentLanguage } from "@/lib/student-labels";
 import { useTranslations } from "next-intl";
@@ -56,6 +59,7 @@ export function Presentation({
   saveQuick?: { lessonId: string; title: string };
 }) {
   const t = useTranslations("Controls");
+  const tw = useTranslations("WriteClass");
   const labels = studentLabels(contentLanguage);
   const [saveState, setSaveState] = useState<"idle" | "naming" | "saving" | "saved">("idle");
   const [saveName, setSaveName] = useState(saveQuick?.title ?? "");
@@ -90,15 +94,49 @@ export function Presentation({
   const votingTouched = useRef(false);
   const sessionId = session?.id;
   const senseId = item.senseId;
+  // Escritura en clase: el tipo de ronda y sus límites. Los límites se copian a la
+  // palabra al abrirla; cambiarlos vale desde la siguiente palabra.
+  const [roundMode, setRoundMode] = useState<"vote" | "write">("vote");
+  const [writeConfig, setWriteConfig] = useState<WriteConfig>(DEFAULT_WRITE_CONFIG);
   useEffect(() => {
     if (!sessionId) return;
-    votingLiveAction(sessionId).then((live) => !votingTouched.current && setVoting(live), () => {});
+    liveStateAction(sessionId).then(
+      (state) => {
+        if (!state) return;
+        if (!votingTouched.current) setVoting(state.live);
+        setRoundMode(state.mode);
+        // Una clase nueva empieza con los valores que la profesora guardó en este navegador.
+        setWriteConfig(savedLimits() ?? state.config);
+      },
+      () => {},
+    );
   }, [sessionId]);
   useEffect(() => {
     if (!sessionId || !voting || !senseId) return;
     openVotingAction(sessionId, senseId)
       .then(() => setSaveError(null), () => setSaveError(t("votingError")));
-  }, [sessionId, voting, senseId, t]);
+  }, [sessionId, voting, senseId, roundMode, t]);
+  const changeRoundMode = useCallback(
+    (mode: "vote" | "write") => {
+      if (!sessionId || mode === roundMode) return;
+      setLiveModeAction(sessionId, mode, writeConfig).then(
+        () => setRoundMode(mode),
+        () => setSaveError(t("votingError")),
+      );
+    },
+    [sessionId, roundMode, writeConfig, t],
+  );
+  const saveWriteConfig = useCallback(
+    (config: WriteConfig) => {
+      if (!sessionId) return;
+      setLiveModeAction(sessionId, roundMode, config).then(
+        () => setWriteConfig(config),
+        () => setSaveError(t("votingError")),
+      );
+    },
+    [sessionId, roundMode, t],
+  );
+  const write = useWriteResults(sessionId, senseId, !!sessionId && roundMode === "write", voting && roundMode === "write");
   const toggleVoting = useCallback(() => {
     if (!sessionId) return;
     votingTouched.current = true;
@@ -217,7 +255,25 @@ export function Presentation({
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
       {session && (
-        <VotingBar joinCode={session.joinCode} live={voting} onToggle={toggleVoting} labels={labels} />
+        <VotingBar
+          joinCode={session.joinCode}
+          live={voting}
+          onToggle={toggleVoting}
+          labels={labels}
+          write={{
+            mode: roundMode,
+            onModeChange: changeRoundMode,
+            counter: <WriteCounter results={write.results} />,
+            limits: (
+              <WriteLimitsDialog
+                config={writeConfig}
+                onSave={saveWriteConfig}
+                disabled={voting && roundMode === "write"}
+                disabledReason={tw("limitsLocked")}
+              />
+            ),
+          }}
+        />
       )}
       <main className="relative flex min-h-0 flex-1 items-center justify-center px-[3vw] pt-[3vh] pb-2">
         {/* Una tarjeta con dos caras. En el anverso, clic en cualquier zona la
@@ -278,11 +334,15 @@ export function Presentation({
                 footer={
                   // Comprensión del grupo: solo los votos de los alumnos. La
                   // docente ya no valora a mano (decisión de Ever, 2026-10-20).
-                  <StudentVoting
-                    session={session && item.senseId ? { id: session.id, senseId: item.senseId } : undefined}
-                    live={voting}
-                    labels={labels}
-                  />
+                  session && roundMode === "write" ? (
+                    <WriteResultsPanel results={write.results} failures={write.failures} />
+                  ) : (
+                    <StudentVoting
+                      session={session && item.senseId ? { id: session.id, senseId: item.senseId } : undefined}
+                      live={voting}
+                      labels={labels}
+                    />
+                  )
                 }
               />
             </section>

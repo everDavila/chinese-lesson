@@ -31,6 +31,7 @@
     "test:recorridos:dev": "playwright test --project=recorridos-dev",
     "test:unit": "node --experimental-strip-types --no-warnings --test tests/unit/*.test.ts",
     "test:sesion:dev": "node scripts/guardar-sesion.mjs --dev",
+    "test:clase:dev": "node --env-file=.env.dev.local tests/scripts/escritura-en-clase.mjs",
     "content:build-examples": "node scripts/build-hsk-examples.mjs",
     "db:sync-hsk-examples": "node --env-file=.env.local scripts/sync-hsk-examples.mjs",
     "content:build-characters": "node scripts/build-hsk-characters.mjs",

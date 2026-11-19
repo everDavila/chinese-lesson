@@ -14,6 +14,7 @@ import {
 import { useTranslations } from "next-intl";
 import { castVoteAction, studentStateAction, type StudentState } from "@/actions/vote";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ClassWrite } from "@/components/vote/class-write";
 import { PandaCodeMascot } from "@/components/vote/panda-code-mascot";
 import { Link, useRouter } from "@/i18n/navigation";
 import { CONNECTION_WARNING_AFTER, nextConnectionFailures } from "@/lib/polling";
@@ -78,9 +79,11 @@ export function StudentVote({ code }: { code: string }) {
     });
 
   const ratings = t.raw("ratings") as string[];
+  // Escritura en clase: la ronda abierta es de escribir (necesita más ancho y no es anónima).
+  const writing = state?.status === "open" && state.kind === "write";
 
   return (
-    <main className="mx-auto flex w-full flex-1 max-w-md flex-col gap-6 px-4 py-6">
+    <main className={cn("mx-auto flex w-full flex-1 flex-col gap-6 px-4 py-6", writing ? "max-w-3xl" : "max-w-md")}>
       <header className="flex items-center justify-between">
         <span lang="zh-Hans" className="font-hanzi text-2xl">认识</span>
         <div className="flex items-center gap-3">
@@ -112,6 +115,8 @@ export function StudentVote({ code }: { code: string }) {
         <p className="py-16 text-center text-lg text-muted-foreground" aria-live="polite">
           {t("waiting")}
         </p>
+      ) : state.kind === "write" && state.config ? (
+        <ClassWrite code={code} round={{ evaluation: state.evaluation, hanzi: state.hanzi, pinyin: state.pinyin, config: state.config }} />
       ) : (
         <section className="flex flex-col gap-5" aria-live="polite">
           <div className="text-center">
@@ -154,7 +159,7 @@ export function StudentVote({ code }: { code: string }) {
         </section>
       )}
 
-      <p className="mt-auto text-center text-xs text-muted-foreground">{t("anonymous")}</p>
+      {!writing && <p className="mt-auto text-center text-xs text-muted-foreground">{t("anonymous")}</p>}
     </main>
   );
 }
