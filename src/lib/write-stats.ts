@@ -132,21 +132,41 @@ export function parseAttempt(input: unknown): WriteAttempt | null {
 }
 
 // ── Medidas de un intento ───────────────────────────────────────────────
+export type StrokeSummary = {
+  /** Trazos de la palabra (los caracteres sin datos de trazos no cuentan). */
+  total: number;
+  /** Trazos completados sin ningún error. */
+  firstTry: number;
+  /** Por carácter: los trazos que costaron (numerados desde 1) y si se le mostró. */
+  chars: { char: string; strokes: number | null; failed: number[]; shown: boolean }[];
+};
+
 /**
- * % de trazos acertados a la primera (0–100): de los trazos de la palabra,
- * los completados sin ningún error. Un trazo fallado cuenta una sola vez; los
- * de un carácter que se mostró y no llegó a completar cuentan como no
- * acertados. null si no se conoce ningún carácter.
+ * Cuántos trazos salieron a la primera y cuáles costaron. Un trazo fallado
+ * cuenta una sola vez, aunque falle varias; los de un carácter que se mostró y
+ * no llegó a completar cuentan como no acertados.
  */
-export function precision(a: WriteAttempt): number | null {
+export function strokeSummary(a: WriteAttempt): StrokeSummary {
   let total = 0;
-  let good = 0;
-  for (const c of a.chars) {
-    if (c.strokes === null) continue;
-    total += c.strokes;
-    for (let i = 0; i < c.strokes; i++) if (i < c.done && c.errors[i] === 0) good += 1;
-  }
-  return total === 0 ? null : Math.round((good / total) * 100);
+  let firstTry = 0;
+  const chars = a.chars.map((c) => {
+    const failed: number[] = [];
+    if (c.strokes !== null) {
+      total += c.strokes;
+      for (let i = 0; i < c.strokes; i++) {
+        if (i < c.done && c.errors[i] === 0) firstTry += 1;
+        else failed.push(i + 1);
+      }
+    }
+    return { char: c.char, strokes: c.strokes, failed, shown: c.shown };
+  });
+  return { total, firstTry, chars };
+}
+
+/** % de trazos acertados a la primera (0–100); null si no se conoce ningún carácter. Es la cifra de la profesora. */
+export function precision(a: WriteAttempt): number | null {
+  const { total, firstTry } = strokeSummary(a);
+  return total === 0 ? null : Math.round((firstTry / total) * 100);
 }
 
 /** Una pausa más larga que esto no se suma al tiempo activo (se distrajo). */

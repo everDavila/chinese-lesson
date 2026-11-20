@@ -37,7 +37,7 @@
   probada solo en `hanzi-dev`, pendiente de producción); docente en
   `/collections` (colecciones, plantillas HSK 1–3,
   lecciones, frases propias, copias editadas, sugerencias, rotación de frases,
-  clase en vivo con valoración y votación anónima de alumnos en `/v`; el panda
+  clase en vivo con valoración y votación anónima de alumnos en `/live` (antes `/v`, que redirige); el panda
   guía y valida el código de acceso del alumno); admin en
   `/admin` (base común, editor de palabra, vista previa, plantillas, bandeja de
   sugerencias). Cuentas: Ever (`admin`) y la profesora (`teacher`).

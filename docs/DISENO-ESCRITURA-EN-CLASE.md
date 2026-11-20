@@ -19,16 +19,27 @@ El nombre en pantalla es **«Escritura en clase»**.
 ## Cómo se usa
 
 1. La profesora abre la clase como siempre y activa la clase en vivo (barra de
-   arriba, tecla V). Los alumnos entran en `/v` con el código.
+   arriba, tecla V). Los alumnos entran en `/live` con el código (antes `/v`, que sigue funcionando y redirige).
 2. En la barra elige **Votar** o **Escritura en clase**. El cambio vale **desde la
    siguiente palabra**: la ronda abierta conserva su tipo.
 3. Cada palabra que muestra abre una ronda. En modo escritura, el celular del
    alumno muestra el pinyin y las casillas de la palabra (un carácter por casilla).
-   El alumno escribe; al terminar ve cómo le fue.
+   El alumno escribe; al terminar ve cómo le fue (ver «Lo que ve el alumno»).
 4. Bajo la tarjeta, la profesora ve en vivo quiénes terminaron y cómo les fue.
 
 **Un ejercicio es una palabra completa** (todos sus caracteres). Cada ronda
 guarda **una copia de los límites** con los que se abrió.
+
+## Lo que ve el alumno al terminar
+
+No ve el % de la profesora: ve **«7 de 13 trazos a la primera»** y **los trazos que
+le costaron, marcados en rojo sobre el carácter** y listados («trazos 3, 5, 8»), que es
+lo que le sirve para repasar. Si llegó al límite de errores, se le dice claro («te lo
+mostramos») y el carácter lleva un ojo, no la palomita verde. No se anuncia
+«enviado a tu profesora» (sonaba a reporte): solo «Esperando la siguiente palabra…»,
+y un aviso si la entrega falla, con botón de reintentar. Repetir la palabra es
+«Practicar otra vez (no cuenta)». Abajo queda la nota «Tu profesora ve tu nombre y
+cómo te fue».
 
 ## Quién es cada alumno
 

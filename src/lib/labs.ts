@@ -82,7 +82,7 @@ const REGISTRY: Lab[] = [
   },
   {
     slug: "votacion",
-    usedIn: "/v",
+    usedIn: "/live",
     history: [
       { date: "2026-10-11", id: "start", implemented: true },
       { date: "2026-10-12", id: "follows" },

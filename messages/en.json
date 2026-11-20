@@ -358,7 +358,7 @@
     "noHsk": "Not in HSK"
   },
   "Vote": {
-    "title": "Vote",
+    "title": "Live class",
     "enterCode": "Type the code your teacher gives you.",
     "codeLabel": "Class code",
     "go": "Join",
@@ -395,17 +395,21 @@
     "giveUp": "I can't",
     "retry": "Try again",
     "resultTitle": "Your result",
-    "resultPrecision": "{n} % of strokes right the first time",
-    "resultShown": "We showed you {n, plural, one {# character} other {# characters}}.",
     "resultTime": "Active time: {s} s",
-    "sent": "Sent to your teacher.",
     "duplicateNote": "You already sent this word: this attempt is only practice.",
     "closedNote": "The round is closed: this attempt was not sent.",
     "practiceNote": "Practice: this attempt is not sent.",
     "sendError": "Could not send.",
     "sendRetry": "Retry sending",
     "notJoinedNote": "Join the class with your name to send the result.",
-    "visibleNotice": "Your teacher sees your name and how you did."
+    "visibleNotice": "Your teacher sees your name and how you did.",
+    "resultStrokes": "{good} of {total} strokes first try",
+    "failedTitle": "The strokes that gave you trouble",
+    "failedLabel": "{char}: strokes {list}",
+    "noFails": "No stroke failed. Well done!",
+    "limitReached": "{n, plural, one {You reached the error limit on # character and we showed it to you.} other {You reached the error limit on # characters and we showed them to you.}} Try again to practise.",
+    "waitingNext": "Waiting for the next word…",
+    "retryPractice": "Practise again (does not count)"
   },
   "Landing": {
     "howItWorks": "How it works",

@@ -10,13 +10,13 @@ for (const path of ["/es/collections", "/es/admin", "/es/admin/suggestions", "/z
 }
 
 test("alumno: un código inválido conserva el formulario y permite corregirlo", async ({ page }) => {
-  await page.goto("/es/v");
+  await page.goto("/es/live");
   // Escribir antes de que la página se hidrate pierde el texto.
   await page.waitForLoadState("networkidle");
   const input = page.getByRole("textbox");
   await input.fill("IIIIII"); // I no forma parte del alfabeto de códigos generados.
   await page.getByRole("button").filter({ hasText: /Entrar/ }).click();
-  await expect(page).toHaveURL(/\/es\/v$/);
+  await expect(page).toHaveURL(/\/es\/live$/);
   await expect(input).toHaveValue("IIIIII");
   await expect(input).toBeFocused();
   await expect(page.locator("#code-error")).toContainText("No encontramos una clase activa");
@@ -24,7 +24,7 @@ test("alumno: un código inválido conserva el formulario y permite corregirlo",
 });
 
 test("alumno: el panda mira la casilla activa del código", async ({ page }) => {
-  await page.goto("/es/v");
+  await page.goto("/es/live");
   await page.waitForLoadState("networkidle");
 
   const input = page.getByRole("textbox");
@@ -40,7 +40,7 @@ test("alumno: el panda mira la casilla activa del código", async ({ page }) => 
 });
 
 test("alumno: corregir una casilla permite seguir con las siguientes", async ({ page }) => {
-  await page.goto("/es/v");
+  await page.goto("/es/live");
   await page.waitForLoadState("networkidle");
 
   const input = page.getByRole("textbox");

@@ -27,7 +27,7 @@ test("foco de teclado visible en los botones hechos a mano", async ({ page }) =>
   // botones hechos a mano que quedan en el reverso son los de cada detalle.
   await expectFocusRing(page, page.getByRole("button", { name: "Matiz", exact: true }), "botón de detalle");
 
-  await page.goto("/es/v");
+  await page.goto("/es/live");
   await page.getByRole("textbox").fill("ABC234");
   await expectFocusRing(page, page.getByRole("button").filter({ hasText: /Entrar/ }), "entrar con el código (alumno)");
 });

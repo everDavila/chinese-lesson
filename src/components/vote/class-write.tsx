@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 import { joinClassAction, submitWriteAction, whoAmIAction, type WriteSubmitStatus } from "@/actions/vote";
 import { StrokeCells, type CellsProgress, type StrokeCellsHandle } from "@/components/student/stroke-cells";
 import { Button } from "@/components/ui/button";
-import { activeMs, precision, shownCount, type Pointer, type WriteAttempt, type WriteConfig } from "@/lib/write-stats";
+import { activeMs, shownCount, strokeSummary, type Pointer, type WriteAttempt, type WriteConfig } from "@/lib/write-stats";
+import { FailedStrokes } from "./failed-strokes";
 
 // Escritura en clase, lado del alumno (docs/DISENO-ESCRITURA-EN-CLASE.md): la
 // profesora abrió una palabra para escribir. El alumno elige cómo lo ve ella
@@ -174,13 +175,18 @@ function Writer({ code, round }: { code: string; round: Open }) {
   const [attempt, setAttempt] = useState<WriteAttempt | null>(null);
   const [sent, setSent] = useState<Sent>("idle");
   const everSent = useRef(false); // solo el primer intento de la palabra se envía
+  const [counted, setCounted] = useState(false); // lo mismo, para mostrarlo en pantalla
+  const resultRef = useRef<HTMLDivElement>(null);
   const finished = useRef(false); // el mismo intento no se entrega dos veces aunque el aviso llegue repetido
 
   const send = async (a: WriteAttempt) => {
     setSent("sending");
     try {
       const status = await submitWriteAction(code, round.evaluation, a);
-      if (status === "ok" || status === "duplicate") everSent.current = true;
+      if (status === "ok" || status === "duplicate") {
+        everSent.current = true;
+        setCounted(true);
+      }
       setSent(status);
     } catch {
       setSent("error");
@@ -213,8 +219,14 @@ function Writer({ code, round }: { code: string; round: Open }) {
     setRun((r) => r + 1);
   };
 
+  // El resultado queda bajo el carácter: en el celular baja solo para que no se pierda.
+  useEffect(() => {
+    if (attempt) resultRef.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
+  }, [attempt]);
+
   const chars = [...round.hanzi];
-  const pct = attempt ? precision(attempt) : null;
+  const summary = attempt ? strokeSummary(attempt) : null;
+  const shown = attempt ? shownCount(attempt) : 0;
 
   return (
     <section className="flex flex-col gap-4" aria-live="polite">
@@ -233,14 +245,24 @@ function Writer({ code, round }: { code: string; round: Open }) {
           <Button variant="outline" onClick={() => cells.current?.reveal()}>{t("giveUp")}</Button>
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card p-4 text-center">
+        <div ref={resultRef} className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card p-4 text-center">
           <h2 className="text-sm font-medium text-muted-foreground">{t("resultTitle")}</h2>
-          {pct !== null && <p className="text-3xl font-semibold tabular-nums">{t("resultPrecision", { n: pct })}</p>}
-          {shownCount(attempt) > 0 && <p className="text-sm">{t("resultShown", { n: shownCount(attempt) })}</p>}
+          {summary && summary.total > 0 && (
+            <p className="text-3xl font-semibold tabular-nums">{t("resultStrokes", { good: summary.firstTry, total: summary.total })}</p>
+          )}
+          {summary && summary.chars.some((c) => c.failed.length > 0) ? (
+            <>
+              <h3 className="text-sm text-muted-foreground">{t("failedTitle")}</h3>
+              <FailedStrokes chars={summary.chars} label={({ char, list }) => t("failedLabel", { char, list })} />
+            </>
+          ) : (
+            summary && summary.total > 0 && <p className="text-sm">{t("noFails")}</p>
+          )}
+          {shown > 0 && <p className="text-sm">{t("limitReached", { n: shown })}</p>}
           <p className="text-sm text-muted-foreground">{t("resultTime", { s: Math.round(activeMs(attempt) / 1000) })}</p>
           <p className="text-sm" role="status">
             {sent === "sending" && "…"}
-            {sent === "ok" && t("sent")}
+            {sent === "ok" && <span className="text-muted-foreground">{t("waitingNext")}</span>}
             {sent === "duplicate" && t("duplicateNote")}
             {sent === "closed" && t("closedNote")}
             {sent === "not_joined" && t("notJoinedNote")}
@@ -252,7 +274,7 @@ function Writer({ code, round }: { code: string; round: Open }) {
               </span>
             )}
           </p>
-          <Button variant="outline" onClick={retry}>{t("retry")}</Button>
+          <Button variant="outline" onClick={retry}>{counted ? t("retryPractice") : t("retry")}</Button>
         </div>
       )}
     </section>

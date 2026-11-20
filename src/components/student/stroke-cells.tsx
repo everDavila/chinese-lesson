@@ -2,7 +2,7 @@
 
 import { useEffect, useImperativeHandle, useRef, useState, type Ref } from "react";
 import type HanziWriter from "hanzi-writer";
-import { Check } from "lucide-react";
+import { Check, Eye } from "lucide-react";
 import { CalligraphyGrid } from "@/components/hanzi/calligraphy-grid";
 import { cn } from "@/lib/utils";
 import { limitFor, type AttemptChar, type WriteConfig } from "@/lib/write-stats";
@@ -76,6 +76,8 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, config
   const shownAt = useRef(0);
   const firstActionMs = useRef<number | null>(null);
   const [done, setDone] = useState<boolean[]>(() => chars.map(() => false));
+  // Caracteres que se le mostraron (límite o «No me sale»): se marcan distinto de los que escribió.
+  const [shown, setShown] = useState<boolean[]>(() => chars.map(() => false));
   const [nudge, setNudge] = useState(0);
   const onProgressRef = useRef(onProgress);
   useEffect(() => {
@@ -119,6 +121,7 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, config
         finished.current[i] = true;
         shownBy.current[i] = true;
       });
+      setShown([...shownBy.current]);
       setDone([...finished.current]);
       report();
     },
@@ -155,6 +158,7 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, config
             void writer.animateCharacter();
             shownBy.current[i] = true;
             finished.current[i] = true;
+            setShown([...shownBy.current]);
             setDone([...finished.current]);
             report();
             startQuiz(i + 1);
@@ -251,9 +255,14 @@ export function StrokeCells({ chars, guide, onProgress, lockHint = false, config
               </span>
             )}
             <div ref={(el) => void (targets.current[i] = el)} className="absolute inset-0" aria-label={`Casilla ${i + 1}: ${char}`} />
-            {done[i] && (
+            {done[i] && !shown[i] && (
               <span className="absolute top-2 right-2 flex size-6 items-center justify-center rounded-full bg-rating-3 text-black">
                 <Check className="size-4" aria-hidden />
+              </span>
+            )}
+            {done[i] && shown[i] && (
+              <span className="absolute top-2 right-2 flex size-6 items-center justify-center rounded-full bg-muted text-muted-foreground" title="Te lo mostramos">
+                <Eye className="size-4" aria-hidden />
               </span>
             )}
           </div>

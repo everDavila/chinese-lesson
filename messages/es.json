@@ -358,7 +358,7 @@
     "noHsk": "Sin HSK"
   },
   "Vote": {
-    "title": "Votar",
+    "title": "Clase en vivo",
     "enterCode": "Escribe el código que te da tu profesora.",
     "codeLabel": "Código de la clase",
     "go": "Entrar",
@@ -395,17 +395,21 @@
     "giveUp": "No me sale",
     "retry": "Probar otra vez",
     "resultTitle": "Tu resultado",
-    "resultPrecision": "{n} % de los trazos, a la primera",
-    "resultShown": "Te mostramos {n, plural, one {# carácter} other {# caracteres}}.",
     "resultTime": "Tiempo activo: {s} s",
-    "sent": "Enviado a tu profesora.",
     "duplicateNote": "Ya habías enviado esta palabra: este intento es solo práctica.",
     "closedNote": "La ronda ya se cerró: este intento no se envió.",
     "practiceNote": "Práctica: este intento no se envía.",
     "sendError": "No se pudo enviar.",
     "sendRetry": "Reintentar el envío",
     "notJoinedNote": "Entra a la clase con tu nombre para enviar el resultado.",
-    "visibleNotice": "Tu profesora ve tu nombre y cómo te fue."
+    "visibleNotice": "Tu profesora ve tu nombre y cómo te fue.",
+    "resultStrokes": "{good} de {total} trazos a la primera",
+    "failedTitle": "Los trazos que te costaron",
+    "failedLabel": "{char}: trazos {list}",
+    "noFails": "Ningún trazo te falló. ¡Muy bien!",
+    "limitReached": "{n, plural, one {Llegaste al límite de errores en # carácter y te lo mostramos.} other {Llegaste al límite de errores en # caracteres y te los mostramos.}} Inténtalo otra vez para practicar.",
+    "waitingNext": "Esperando la siguiente palabra…",
+    "retryPractice": "Practicar otra vez (no cuenta)"
   },
   "Landing": {
     "howItWorks": "Cómo funciona",

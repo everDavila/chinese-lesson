@@ -51,7 +51,7 @@ sequenceDiagram
     participant R as Renshi (pantalla compartida)
     actor A as Alumnos (celular)
     P->>R: Empieza la clase con una lección
-    R-->>A: Código de 6 letras en renshi.davila.uno/v
+    R-->>A: Código de 6 letras en renshi.davila.uno/live
     loop Cada palabra
         R->>R: Anverso: el carácter se dibuja trazo a trazo
         R->>R: Reverso: pinyin, significado, cómo se forma y frases

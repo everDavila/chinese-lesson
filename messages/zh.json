@@ -358,7 +358,7 @@
     "noHsk": "非 HSK"
   },
   "Vote": {
-    "title": "投票",
+    "title": "实时课堂",
     "enterCode": "输入老师给你的代码。",
     "codeLabel": "课堂代码",
     "go": "进入",
@@ -395,17 +395,21 @@
     "giveUp": "写不出来",
     "retry": "再试一次",
     "resultTitle": "你的结果",
-    "resultPrecision": "{n} % 的笔画一次写对",
-    "resultShown": "已向你展示 {n} 个字。",
     "resultTime": "有效用时：{s} 秒",
-    "sent": "已发送给老师。",
     "duplicateNote": "你已经提交过这个词：这次只是练习。",
     "closedNote": "这一轮已结束：这次没有发送。",
     "practiceNote": "练习：这次不会发送。",
     "sendError": "发送失败。",
     "sendRetry": "重新发送",
     "notJoinedNote": "请先用你的名字加入课堂再发送结果。",
-    "visibleNotice": "老师能看到你的名字和你的表现。"
+    "visibleNotice": "老师能看到你的名字和你的表现。",
+    "resultStrokes": "{total} 笔中有 {good} 笔一次写对",
+    "failedTitle": "让你费劲的笔画",
+    "failedLabel": "{char}：第 {list} 笔",
+    "noFails": "没有写错的笔画，太棒了！",
+    "limitReached": "有 {n} 个字达到错误上限，我们已向你展示。再试一次来练习。",
+    "waitingNext": "等待下一个词…",
+    "retryPractice": "再练一次（不计入）"
   },
   "Landing": {
     "howItWorks": "使用方式",

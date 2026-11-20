@@ -56,7 +56,7 @@ export function VotingBar({
     <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 px-[3vw] pt-2 text-sm">
       {live ? (
         <p>
-          {labels.votingJoin} <strong className="whitespace-nowrap">{origin}/v</strong> · {labels.votingCode}{" "}
+          {labels.votingJoin} <strong className="whitespace-nowrap">{origin}/live</strong> · {labels.votingCode}{" "}
           <strong className="font-mono text-xl tracking-widest" data-testid="join-code">
             {joinCode}
           </strong>

@@ -134,7 +134,7 @@ try {
     page.on("pageerror", (e) => errors.push(`alumno pageerror: ${e.message}`));
     page.on("console", (m) => m.type() === "error" && errors.push(`alumno console: ${m.text().slice(0, 140)}`));
     if (user) await login(page, user);
-    await page.goto(`${BASE}/es/v/${code}`);
+    await page.goto(`${BASE}/es/live/${code}`);
     return page;
   };
   const join = async (page, nick) => {
@@ -163,6 +163,17 @@ try {
   ok(anas.length === 2 && anas.some((n) => / 2$/.test(n)), "dos alumnos con el mismo apodo: el segundo queda con «2»", anas.join(","));
   const nameAna = real[0], nameLuis = real[2], nameMia = real[3], nameJug = real[4];
 
+  // La ruta vieja sigue funcionando: /v/<código> redirige a /live/<código>.
+  const viejo = await browser.newContext({ viewport: { width: 900, height: 700 } });
+  const vp = await viejo.newPage();
+  await vp.goto(`${BASE}/es/v/${code}`);
+  await vp.waitForURL(new RegExp(`/es/live/${code}$`), { timeout: 30_000 });
+  ok(true, "/v/<código> redirige a /live/<código>");
+  await vp.goto(`${BASE}/es/v`);
+  await vp.waitForURL(/\/es\/live$/, { timeout: 30_000 });
+  ok(true, "/v redirige a /live");
+  await viejo.close();
+
   // ── Todos escriben a la vez ──
   await Promise.all([
     writeWord(pages[0], chars),
@@ -175,11 +186,32 @@ try {
   for (const p of [...pages, pAccount]) await p.getByText("Tu resultado").waitFor({ timeout: 60_000 });
   await pages[0].waitForTimeout(1200);
   await pages[0].screenshot({ path: `${OUT}/22-alumno-resultado.png` });
-  ok(await pages[0].getByText("Enviado a tu profesora").isVisible(), "el alumno ve que su resultado se envió");
-  ok(/100 %/.test(await pages[0].getByText(/de los trazos, a la primera/).textContent()), "un alumno sin errores ve 100 %");
+  const espera = await pages[0].getByText("Esperando la siguiente palabra").waitFor({ timeout: 15_000 }).then(() => true, () => false);
+  ok(espera, "tras entregar, el alumno ve que espera la siguiente palabra (sin «enviado a tu profesora»)");
+  ok((await pages[0].getByText("Enviado a tu profesora").count()) === 0, "ya no dice «Enviado a tu profesora»");
+  const frase = await pages[0].getByText(/trazos a la primera/).textContent();
+  const m = frase.match(/(\d+) de (\d+) trazos/);
+  ok(m && m[1] === m[2], `un alumno sin errores ve «${frase}»`);
+  ok(await pages[0].getByText("Ningún trazo te falló").isVisible(), "y se le felicita");
+  // Quien falló el primer trazo ve cuáles le costaron, marcados sobre el carácter.
+  await pages[2].getByText("Tu resultado").waitFor();
+  await pages[2].getByTestId("failed-strokes").waitFor({ timeout: 20_000 });
+  ok(/trazos 1\b/.test(await pages[2].getByTestId("failed-strokes").innerText()), "quien falló el primer trazo ve «trazos 1» entre los que le costaron");
+  ok((await pages[2].getByTestId("failed-strokes").locator("svg path").count()) > 3, "los trazos se dibujan con los fallados marcados");
+  await pages[2].screenshot({ path: `${OUT}/26-alumno-trazos-que-costaron.png` });
+  // Quien llegó al límite: mensaje claro y sin palomita verde.
+  await pages[4].getByText(/Llegaste al límite de errores/).waitFor({ timeout: 20_000 });
+  ok(true, "a quien llegó al límite se le dice claro que se le mostró el carácter");
+  ok((await pages[4].locator("svg.lucide-eye").count()) >= 1 && (await pages[4].locator("svg.lucide-check").count()) === 0, "el carácter mostrado lleva un ojo, no la palomita verde");
+  await pages[4].screenshot({ path: `${OUT}/27-alumno-limite.png` });
 
   // ── Lo que quedó guardado ──
-  const writes = await rest(`/evaluation_writes?select=voter_hash,attempt&evaluation_id=eq.${ev1.id}`);
+  let writes = [];
+  for (let i = 0; i < 15; i++) {
+    writes = await rest(`/evaluation_writes?select=voter_hash,attempt&evaluation_id=eq.${ev1.id}`);
+    if (writes.length >= 6) break;
+    await tp.waitForTimeout(1000);
+  }
   const parts = await rest(`/session_participants?select=voter_hash,display_name,student_id&session_id=eq.${sess.id}`);
   ok(writes.length === 6, `6 intentos guardados (${writes.length})`);
   const nameOf = Object.fromEntries(parts.map((p) => [p.voter_hash, p.display_name]));
@@ -213,7 +245,8 @@ try {
   ok(firstName === nameJug, `arriba de la lista, quien más necesita ayuda: ${firstName}`);
 
   // ── Segundo intento del mismo alumno: solo práctica ──
-  await pages[0].getByRole("button", { name: "Probar otra vez" }).click();
+  ok(await pages[0].getByRole("button", { name: "Practicar otra vez (no cuenta)" }).isVisible(), "el botón de repetir avisa que no cuenta");
+  await pages[0].getByRole("button", { name: "Practicar otra vez (no cuenta)" }).click();
   await writeWord(pages[0], chars, { errorsFirst: 3 });
   await pages[0].getByText("este intento no se envía").waitFor({ timeout: 30_000 });
   ok(true, "repetir la palabra es práctica y no se envía");
@@ -248,7 +281,7 @@ try {
   console.log(`  segunda palabra: ${word2} (${chars2.length} caracteres)`);
   const phone = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const mp = await phone.newPage();
-  await mp.goto(`${BASE}/es/v/${code}`);
+  await mp.goto(`${BASE}/es/live/${code}`);
   await join(mp, "Celu");
   await mp.getByText("Escribe esta palabra").waitFor({ timeout: 60_000 });
   await mp.waitForTimeout(1500);

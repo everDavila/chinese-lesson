@@ -4,9 +4,9 @@ import { StudentVote } from "@/components/vote/student-vote";
 
 export const metadata: Metadata = { title: "Renshi" };
 
-type Params = PageProps<"/[locale]/v/[code]">["params"];
+type Params = PageProps<"/[locale]/live/[code]">["params"];
 
-// Votación del alumno: hanzi.davila.uno/v/K7M2QX, sin login. El código sale
+// Clase en vivo del alumno (votar, escribir): renshi.davila.uno/live/K7M2QX, sin login. El código sale
 // de la URL (dato de la petición: va dentro de <Suspense>); lo que cambia lo
 // pide el cliente cada pocos segundos.
 export default function Page({ params }: { params: Params }) {

@@ -107,7 +107,7 @@ export function StudentVote({ code }: { code: string }) {
           <p role="alert" className="text-lg">
             {t("invalid")}
           </p>
-          <Link href="/v" className="self-start underline underline-offset-4">
+          <Link href="/live" className="self-start underline underline-offset-4">
             {t("tryAnother")}
           </Link>
         </div>
@@ -235,7 +235,7 @@ export function CodeForm() {
           setMascotReaction("success");
           setReactionKey((current) => current + 1);
           await new Promise((resolve) => window.setTimeout(resolve, SUCCESS_REACTION_MS));
-          router.push(`/v/${encodeURIComponent(clean)}`);
+          router.push(`/live/${encodeURIComponent(clean)}`);
           return;
         }
         setCodeError("invalid");

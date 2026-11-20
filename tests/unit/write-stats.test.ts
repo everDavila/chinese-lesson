@@ -10,6 +10,7 @@ import {
   parseConfig,
   precision,
   shownCount,
+  strokeSummary,
   summarize,
   summaryMode,
   type WriteAttempt,
@@ -132,4 +133,19 @@ test("intento de fuera: se acepta el válido y se rechaza lo raro", () => {
   assert.equal(parseAttempt({ ...good, events: [-1] }), null);
   assert.equal(parseAttempt({ ...good, pointer: "laser" }), null);
   assert.equal(parseAttempt({ ...good, msTotal: "x" }), null);
+});
+
+test("resumen de trazos: cuántos salieron a la primera y cuáles costaron", () => {
+  // 想 de 13 trazos: fallaron el 3, el 5 y el 8 (varias veces); se mostró a partir del 9.
+  const errors = [0, 0, 4, 0, 2, 0, 0, 3, 0, 0, 0, 0, 0];
+  const s = strokeSummary(attempt([char("想", 13, errors, 8, true)]));
+  assert.equal(s.total, 13);
+  assert.equal(s.firstTry, 5); // 1, 2, 4, 6 y 7
+  assert.deepEqual(s.chars[0].failed, [3, 5, 8, 9, 10, 11, 12, 13]);
+  assert.equal(s.chars[0].shown, true);
+  // sin fallos
+  const ok = strokeSummary(attempt([char("一", 1, [0]), char("二", 2, [0, 0])]));
+  assert.deepEqual([ok.total, ok.firstTry, ok.chars.flatMap((c) => c.failed)], [3, 3, []]);
+  // la precisión sale de este mismo conteo
+  assert.equal(precision(attempt([char("想", 13, errors, 8, true)])), 38);
 });

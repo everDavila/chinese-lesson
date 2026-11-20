@@ -257,7 +257,7 @@ test.describe("votación de alumnos", () => {
     // Un alumno: otro navegador, sin sesión ni cookies.
     const student = await browser.newContext({ storageState: { cookies: [], origins: [] }, viewport: { width: 390, height: 844 } });
     const phone = await student.newPage();
-    await phone.goto(`/es/v/${code}`);
+    await phone.goto(`/es/live/${code}`);
     await expect(phone.getByText("爱").first()).toBeVisible();
     await phone.getByRole("radio", { name: es.Vote.ratings[2] }).click();
     await expect(phone.getByText(es.Vote.saved)).toBeVisible();
