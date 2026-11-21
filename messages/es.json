@@ -122,6 +122,8 @@
     "presentLevel": "Presentar el nivel",
     "presentLevelConfirm": "¿Presentar HSK {level} completo? Son {count} palabras en una sola clase.",
     "presentSelection": "Presentar selección ({count})",
+    "presentWrite": "Escribir selección ({count})",
+    "presentWriteHint": "Clase en vivo donde los alumnos escriben cada palabra en su dispositivo.",
     "presentTooMany": "Se pueden presentar hasta {max} palabras a la vez.",
     "cancel": "Cancelar",
     "presentSelectionConfirm": "¿Presentar {count} palabras en una sola clase? Es mucho más de lo que se aprende en una clase.",

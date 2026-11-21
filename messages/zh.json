@@ -122,6 +122,8 @@
     "presentLevel": "演示整个等级",
     "presentLevelConfirm": "要演示整个 HSK {level} 吗？一节课共 {count} 个词。",
     "presentSelection": "演示已选（{count}）",
+    "presentWrite": "书写练习（{count}）",
+    "presentWriteHint": "在课堂上让学生在自己的设备上书写每个词。",
     "presentTooMany": "一次最多演示 {max} 个词。",
     "cancel": "取消",
     "presentSelectionConfirm": "要在一节课里演示 {count} 个词吗？这远远超过一节课能学的量。",

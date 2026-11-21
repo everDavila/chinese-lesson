@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
 import { usePathname, useRouter as useNextRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Bookmark, Copy, Play, X } from "lucide-react";
+import { Bookmark, Copy, PenLine, Play, X } from "lucide-react";
 import { addItemsAction, addLessonAction, copyTemplateAction } from "@/actions/manage";
-import { presentLevelAction, presentSelectionAction } from "@/actions/class";
+import { presentLevelAction, presentSelectionAction, presentWriteSelectionAction } from "@/actions/class";
 import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox, checkboxIndeterminateCls } from "@/components/ui/checkbox";
@@ -397,6 +397,15 @@ export function HskCatalogScreen({
                 }}
               >
                 <Play /> {t("presentSelection", { count: selection.length })}
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={presenting || selection.length > MAX_PRESENT}
+                title={t("presentWriteHint")}
+                onClick={() => startPresenting(() => presentWriteSelectionAction(selection.map((e) => e.senseId)))}
+              >
+                <PenLine /> {t("presentWrite", { count: selection.length })}
               </Button>
               <NewTitleForm
                 variant="outline"

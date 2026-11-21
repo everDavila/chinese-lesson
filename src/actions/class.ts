@@ -13,9 +13,16 @@ async function requireTeacher() {
 }
 
 /** Empieza una clase con la lección y abre la presentación. */
-export async function startSessionAction(lessonId: string) {
+export async function startSessionAction(lessonId: string, mode: "vote" | "write" = "vote") {
   const teacherId = await requireTeacher();
   const sessionId = await createSession(lessonId, teacherId);
+  // Clase de escritura: las rondas nacen de escribir (con los límites por defecto). La
+  // profesora puede volver a votar desde la clase, como siempre.
+  if (mode === "write") {
+    const supabase = await createClient();
+    const { error } = await supabase.from("class_sessions").update({ live_mode: "write" }).eq("id", sessionId);
+    if (error) console.error("Modo escribir:", error);
+  }
   // Si la elección de frases falla, la clase se da igual con todas.
   await chooseSessionSentences(sessionId, lessonId).catch((e) => console.error("Rotación de frases:", e));
   redirect({ href: `/present/session/${sessionId}`, locale: await getLocale() });
@@ -42,11 +49,21 @@ const MAX_SELECTION = 1000;
 
 /** Presenta las palabras seleccionadas en el catálogo (por sense_id, en ese orden). */
 export async function presentSelectionAction(senseIds: string[]) {
+  await presentSelection(senseIds, "vote");
+}
+
+/** Clase de escritura: las mismas palabras, pero la clase arranca en modo escribir. */
+export async function presentWriteSelectionAction(senseIds: string[]) {
+  await presentSelection(senseIds, "write");
+}
+
+async function presentSelection(senseIds: string[], mode: "vote" | "write") {
   const teacherId = await requireTeacher();
   const ids = [...new Set(senseIds.filter((id) => /^[0-9a-f-]{36}$/i.test(id)))].slice(0, MAX_SELECTION);
   if (!ids.length) throw new Error("No hay palabras seleccionadas");
-  const lessonId = await createQuickLesson(teacherId, `Selección · ${ids.length}`, ids);
-  await startSessionAction(lessonId);
+  const title = mode === "write" ? `Escritura · ${ids.length}` : `Selección · ${ids.length}`;
+  const lessonId = await createQuickLesson(teacherId, title, ids);
+  await startSessionAction(lessonId, mode);
 }
 
 /** Presenta un nivel HSK completo (7 = banda 7–9), en orden oficial. */
