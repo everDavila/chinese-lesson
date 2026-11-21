@@ -14,16 +14,20 @@ type Params = PageProps<"/[locale]/present/session/[sessionId]">["params"];
 
 // Clase en vivo: la lección viene de Supabase y la votación de los alumnos
 // se guarda en la sesión. RLS garantiza que solo su docente la ve.
-export default function SessionPage({ params }: { params: Params }) {
+type SearchParams = PageProps<"/[locale]/present/session/[sessionId]">["searchParams"];
+
+export default function SessionPage({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
   return (
     <Suspense fallback={<div className="h-dvh" aria-busy />}>
-      <SessionContent params={params} />
+      <SessionContent params={params} searchParams={searchParams} />
     </Suspense>
   );
 }
 
-async function SessionContent({ params }: { params: Params }) {
+async function SessionContent({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
   const { sessionId } = await params;
+  // «Escribir selección» abre la clase con ?modo=escritura: sin selector Votar/Escribir.
+  const writeOnly = (await searchParams).modo === "escritura";
   if (!(await currentUserId())) redirect({ href: "/login", locale: await getLocale() });
 
   const session = await getSession(sessionId);
@@ -40,6 +44,7 @@ async function SessionContent({ params }: { params: Params }) {
     <Presentation
       lesson={lesson}
       session={{ id: session.id, joinCode: session.joinCode }}
+      writeOnly={writeOnly}
       saveQuick={row?.quick ? { lessonId: session.lessonId, title: row.title as string } : undefined}
     />
   );

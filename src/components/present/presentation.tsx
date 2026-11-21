@@ -48,6 +48,7 @@ export function Presentation({
   contentLanguage = "es",
   exitHref = "/",
   saveQuick,
+  writeOnly = false,
 }: {
   lesson: Lesson;
   session?: LiveSession;
@@ -57,6 +58,8 @@ export function Presentation({
   exitHref?: string;
   /** Lección rápida en clase: permite guardarla en «Mis lecciones» sin salir. */
   saveQuick?: { lessonId: string; title: string };
+  /** Clase de escritura (desde «Escribir selección»): todas las rondas son de escribir, sin selector. */
+  writeOnly?: boolean;
 }) {
   const t = useTranslations("Controls");
   const tw = useTranslations("WriteClass");
@@ -96,7 +99,7 @@ export function Presentation({
   const senseId = item.senseId;
   // Escritura en clase: el tipo de ronda y sus límites. Los límites se copian a la
   // palabra al abrirla; cambiarlos vale desde la siguiente palabra.
-  const [roundMode, setRoundMode] = useState<"vote" | "write">("vote");
+  const [roundMode, setRoundMode] = useState<"vote" | "write">(writeOnly ? "write" : "vote");
   const [writeConfig, setWriteConfig] = useState<WriteConfig>(DEFAULT_WRITE_CONFIG);
   useEffect(() => {
     if (!sessionId) return;
@@ -104,13 +107,13 @@ export function Presentation({
       (state) => {
         if (!state) return;
         if (!votingTouched.current) setVoting(state.live);
-        setRoundMode(state.mode);
+        setRoundMode(writeOnly ? "write" : state.mode);
         // Una clase nueva empieza con los valores que la profesora guardó en este navegador.
         setWriteConfig(savedLimits() ?? state.config);
       },
       () => {},
     );
-  }, [sessionId]);
+  }, [sessionId, writeOnly]);
   useEffect(() => {
     if (!sessionId || !voting || !senseId) return;
     openVotingAction(sessionId, senseId)
@@ -262,6 +265,7 @@ export function Presentation({
           labels={labels}
           write={{
             mode: roundMode,
+            onlyWrite: writeOnly,
             onModeChange: changeRoundMode,
             counter: <WriteCounter results={write.results} />,
             limits: (

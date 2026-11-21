@@ -13,7 +13,11 @@ async function requireTeacher() {
 }
 
 /** Empieza una clase con la lección y abre la presentación. */
-export async function startSessionAction(lessonId: string, mode: "vote" | "write" = "vote") {
+export async function startSessionAction(lessonId: string) {
+  await startSession(lessonId, "vote");
+}
+
+async function startSession(lessonId: string, mode: "vote" | "write") {
   const teacherId = await requireTeacher();
   const sessionId = await createSession(lessonId, teacherId);
   // Clase de escritura: las rondas nacen de escribir (con los límites por defecto). La
@@ -25,7 +29,7 @@ export async function startSessionAction(lessonId: string, mode: "vote" | "write
   }
   // Si la elección de frases falla, la clase se da igual con todas.
   await chooseSessionSentences(sessionId, lessonId).catch((e) => console.error("Rotación de frases:", e));
-  redirect({ href: `/present/session/${sessionId}`, locale: await getLocale() });
+  redirect({ href: `/present/session/${sessionId}${mode === "write" ? "?modo=escritura" : ""}`, locale: await getLocale() });
 }
 
 export async function rateSenseAction(sessionId: string, senseId: string, rating: number | null) {
@@ -63,7 +67,7 @@ async function presentSelection(senseIds: string[], mode: "vote" | "write") {
   if (!ids.length) throw new Error("No hay palabras seleccionadas");
   const title = mode === "write" ? `Escritura · ${ids.length}` : `Selección · ${ids.length}`;
   const lessonId = await createQuickLesson(teacherId, title, ids);
-  await startSessionAction(lessonId, mode);
+  await startSession(lessonId, mode);
 }
 
 /** Presenta un nivel HSK completo (7 = banda 7–9), en orden oficial. */

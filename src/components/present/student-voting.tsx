@@ -40,6 +40,8 @@ export function VotingBar({
   /** Escritura en clase: el tipo de ronda, cuántos terminaron y los límites. */
   write?: {
     mode: "vote" | "write";
+    /** Clase de escritura: no hay selector Votar/Escribir, todo es escribir. */
+    onlyWrite?: boolean;
     onModeChange: (mode: "vote" | "write") => void;
     counter: React.ReactNode;
     limits: React.ReactNode;
@@ -62,14 +64,15 @@ export function VotingBar({
           </strong>
         </p>
       ) : (
-        <p className="text-muted-foreground">{labels.votingHint}</p>
+        <p className="text-muted-foreground">{write?.mode === "write" ? tw("hintWrite") : labels.votingHint}</p>
       )}
       <Button size="sm" variant={live ? "outline" : "default"} onClick={onToggle} aria-pressed={live}>
-        {live ? labels.votingClose : labels.votingOpen}
+        {write?.mode === "write" ? (live ? tw("closeWrite") : tw("openWrite")) : live ? labels.votingClose : labels.votingOpen}
         <kbd className="hidden rounded bg-background/30 px-1.5 text-xs sm:inline">V</kbd>
       </Button>
       {write && (
         <>
+          {!write.onlyWrite && (
           <fieldset className="flex items-center gap-1 rounded-full border border-border p-0.5" title={tw("modeHint")}>
             <legend className="sr-only">{tw("modeLabel")}</legend>
             {(["vote", "write"] as const).map((m) => (
@@ -92,6 +95,7 @@ export function VotingBar({
               </label>
             ))}
           </fieldset>
+          )}
           {write.mode === "write" && write.limits}
           {write.mode === "write" && live && write.counter}
         </>
