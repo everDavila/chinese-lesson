@@ -17,8 +17,11 @@
 - **Clase de escritura** (rama `escritura-desde-busqueda`, sin migración): «Escribir
   selección» en el catálogo HSK abre una clase que nace en modo escribir, sin selector.
   **Siguiente (fase B):** añadir palabras a una clase ya iniciada.
-- **«Saber más», capítulo 7 «Los trazos»** (rama `saber-mas-trazos`): borrador sin
-  fuente; falta cotejar los ejemplos con la animación de la tarjeta.
+- **«Saber más», capítulo 7 «Los trazos»** (ramas `saber-mas-trazos` y
+  `trazos-dibujados`, ya en `master`): 25 trazos dibujados como esquemas SVG propios
+  (`src/components/aprende/stroke-icons.tsx`, token `{{trazo:nombre}}` en el markdown).
+  Borrador sin fuente: las formas son aproximadas y los ejemplos no se cotejaron con la
+  animación de la tarjeta. Idea siguiente: marcar el trazo sobre el carácter del ejemplo.
 - **Fase 2 de Escritura en clase** (sin empezar): el trazo que más falla el grupo,
   marcado sobre el carácter; «necesita ayuda»; resumen al terminar. Fase 3: ejercicio
   a su ritmo.
