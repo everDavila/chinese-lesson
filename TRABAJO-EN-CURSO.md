@@ -23,8 +23,11 @@
   marcado sobre el carácter; «necesita ayuda»; resumen al terminar. Fase 3: ejercicio
   a su ritmo.
 
-**Sigue sin integrar:** `ux-voto-alumno` (4 commits, rediseño de la votación del
-alumno), con `master` 207 commits por delante: hay que traer `master` antes.
+**No integrar `ux-voto-alumno`** (4 commits, rediseño de la votación del alumno, del
+2026-10-12): Ever quiere verla con sus ojos antes de decidir. Choca con 4 archivos
+(`student-vote.tsx`, `hsk-note.tsx`, textos) y `master` va 207 commits por delante, así
+que integrarla es **portar el diseño**, no un merge. Cambia el pinyin, el tamaño del
+hanzi, el verde al confirmar y los textos de los alumnos. La rama se conserva.
 
 **No viajan con git:** `.env.local` (producción) y `.env.dev.local` (dev), los
 respaldos de `backups/` y las carpetas de trabajo. Recrea los `.env` a mano; nunca
@@ -89,7 +92,7 @@ carpeta sí permite pisarse archivos, dependencias y cambios de rama.
 
 | Agente | Rama | Carpeta | Puerto | Tarea | Estado (fecha) |
 |---|---|---|---|---|---|
-| Codex | `ux-voto-alumno` | `codex-chinese-lesson-ux-voto-alumno` | — | Rediseño de la votación del alumno (4 commits: responder sin interrupciones, nota HSK ocultada, verde al confirmar) con `design-qa.md` y capturas | Descartada por ahora (Ever, 2026-10-17): choca con el aviso de conexión de `pendientes-prioritarios` en el mismo componente |
+| Codex | `ux-voto-alumno` | `codex-chinese-lesson-ux-voto-alumno` | — | Rediseño de la votación del alumno (4 commits: responder sin interrupciones, nota HSK ocultada, verde al confirmar) con `design-qa.md` y capturas | No integrar (2026-11-20): Ever la revisa en pantalla antes de decidir; integrarla exige portar el diseño al componente actual (2026-10-17 ya chocaba con el aviso de conexión) |
 | Codex | `landing-publica` | — | 3006 | Portada pública de Renshi basada en la propuesta visual elegida, con una sección 3 menos densa | En construcción desde `master` (2026-10-18) |
 | Codex | `rediseno-tarjeta-profesor` | `codex-chinese-lesson-rediseno-tarjeta-profesor` | 3009 | Rediseño visual del reverso en modo profesor: cabecera palabra/composición, ejemplos con frase maestra y panel docente; comprensión del grupo solo con votos | Integrado a `master` (2026-10-20): suite visual y recorridos en verde. Pendiente de Ever: barra que se oculta a los 3 s y «frase maestra» = primera frase |
 | Claude Code | `admin-editor-frases` | `claude-code-chinese-lesson-admin-editor-frases` | 3011 | Editor de palabra del admin: frase maestra con estrella (respetada por la rotación), reordenar frases, nombres iguales a la tarjeta y rediseño del formulario | Integrado a `master` y desplegado (2026-10-20): migración en producción, recorridos y suite visual en verde contra `hanzi-dev` |
