@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { StrokeIcon } from "./stroke-icons";
 
 // Renderizador mínimo del markdown de los capítulos: títulos, citas, tablas,
 // listas, párrafos y, en línea, negrita, cursiva, código y enlaces. Devuelve
@@ -15,7 +16,7 @@ function cjk(text: string, key: string): ReactNode[] {
 
 function inline(text: string, key = "i"): ReactNode[] {
   const out: ReactNode[] = [];
-  const re = /\*\*(.+?)\*\*|`(.+?)`|\[(.+?)\]\((https?:\/\/.+?)\)|(?<![*\w])\*(?!\*)(.+?)\*(?![*\w])/g;
+  const re = /\*\*(.+?)\*\*|`(.+?)`|\[(.+?)\]\((https?:\/\/.+?)\)|(?<![*\w])\*(?!\*)(.+?)\*(?![*\w])|\{\{trazo:([a-z]+)\}\}/g;
   let last = 0;
   let n = 0;
   for (const m of text.matchAll(re)) {
@@ -25,6 +26,7 @@ function inline(text: string, key = "i"): ReactNode[] {
     if (m[1] !== undefined) out.push(<strong key={k}>{inline(m[1], k)}</strong>);
     else if (m[2] !== undefined) out.push(<code key={k} className="rounded bg-muted px-1 py-0.5 text-[0.9em]">{m[2]}</code>);
     else if (m[3] !== undefined) out.push(<a key={k} href={m[4]} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-2">{m[3]}</a>);
+    else if (m[6] !== undefined) out.push(<StrokeIcon key={k} name={m[6]} />);
     else out.push(<em key={k}>{inline(m[5], k)}</em>);
     last = at + m[0].length;
   }
