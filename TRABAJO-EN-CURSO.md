@@ -4,34 +4,27 @@
 > repo**: al cambiar de PC, cada agente busca aquí su fila y sigue donde quedó.
 > Las carpetas (worktrees) no viajan con git; las ramas sí, si están subidas.
 
-## Aviso para la otra PC (2026-11-19)
+## Aviso para la otra PC (2026-11-20)
 
-**1. `git pull` en `chinese-lesson`.** Hoy llegó a `master` y se desplegó el modo
-**Estudiar** (la ficha de palabras nuevas, sin eventos): «Aprender» tiene tres
-ejercicios, Estudiar, Repasar y Escribir. No lleva migración.
+**`git pull` en `chinese-lesson`.** Llegó a `master` y se despliega solo:
 
-**2. Pendiente: Escritura en clase**, rama `escritura-en-clase` (subida y con
-`master` ya dentro, así que se integra con avance directo). Diseño:
-[docs/DISENO-ESCRITURA-EN-CLASE.md](docs/DISENO-ESCRITURA-EN-CLASE.md); decisión del
-2026-11-18 en [DECISIONES.md](DECISIONES.md). La fase 1 está construida y probada con
-alumnos simulados contra `hanzi-dev`, donde la migración `20261118000000` **ya está
-aplicada**. Falta producción, y **no se puede integrar antes**: el código pide
-columnas que producción no tiene y la profesora no podría abrir una votación.
-Desde la carpeta principal, con el `.env.local` de producción (el `db push` de
-producción lo corre Ever; un agente no puede):
+- **Escritura en clase** (rama `escritura-en-clase`, integrada el 2026-11-18). La
+  migración `20261118000000` **figura aplicada en producción** (`migration list`,
+  2026-11-20); no consta quién ni con qué respaldo. No la reapliques ni retomes esa
+  rama. **Sin probar:** dedo real, muchos dispositivos a la vez y una clase real. La
+  clase simulada se repite con `npm run test:clase:dev` (con `npm run dev:base-dev`
+  en marcha). Diseño: [docs/DISENO-ESCRITURA-EN-CLASE.md](docs/DISENO-ESCRITURA-EN-CLASE.md).
+- **Clase de escritura** (rama `escritura-desde-busqueda`, sin migración): «Escribir
+  selección» en el catálogo HSK abre una clase que nace en modo escribir, sin selector.
+  **Siguiente (fase B):** añadir palabras a una clase ya iniciada.
+- **«Saber más», capítulo 7 «Los trazos»** (rama `saber-mas-trazos`): borrador sin
+  fuente; falta cotejar los ejemplos con la animación de la tarjeta.
+- **Fase 2 de Escritura en clase** (sin empezar): el trazo que más falla el grupo,
+  marcado sobre el carácter; «necesita ayuda»; resumen al terminar. Fase 3: ejercicio
+  a su ritmo.
 
-```
-npm run db:backup
-node --env-file=.env.local scripts/db.mjs migration list   # debe salir 1 pendiente: 20261118000000
-node --env-file=.env.local scripts/db.mjs db push --yes
-git fetch && git merge --ff-only origin/escritura-en-clase && git push origin master
-```
-
-Después, comprobar el despliegue en Vercel. **Sin probar:** el dedo real, muchos
-dispositivos a la vez y una clase real. La clase simulada se repite con
-`npm run test:clase:dev` (con `npm run dev:base-dev` en marcha).
-**Siguiente (fase 2):** el trazo que más falla el grupo, marcado sobre el carácter;
-«necesita ayuda»; resumen al terminar la clase. Fase 3: ejercicio a su ritmo.
+**Sigue sin integrar:** `ux-voto-alumno` (4 commits, rediseño de la votación del
+alumno), con `master` 207 commits por delante: hay que traer `master` antes.
 
 **No viajan con git:** `.env.local` (producción) y `.env.dev.local` (dev), los
 respaldos de `backups/` y las carpetas de trabajo. Recrea los `.env` a mano; nunca
@@ -102,4 +95,6 @@ carpeta sí permite pisarse archivos, dependencias y cambios de rama.
 | Claude Code | `admin-editor-frases` | `claude-code-chinese-lesson-admin-editor-frases` | 3011 | Editor de palabra del admin: frase maestra con estrella (respetada por la rotación), reordenar frases, nombres iguales a la tarjeta y rediseño del formulario | Integrado a `master` y desplegado (2026-10-20): migración en producción, recorridos y suite visual en verde contra `hanzi-dev` |
 | Cline | `inicio-profesor` | `cline-chinese-lesson-inicio-profesor` | 3003 | Home del profesor previo a clase: pantalla donde ve sus recursos (colecciones, plantillas, lecciones) antes de presentar | Creado el worktree desde `master` (f79a28a), `.env`/sesiones copiados, `npm ci` OK (2026-10-16) |
 | Claude Code | `lab-gramatica` | `claude-code-chinese-lesson-lab-gramatica` | 3008 | Piloto `/lab/gramatica`: armar frases con 12 puntos de gramática HSK 1 (Gushi + consignas IA), revisión mínima y modo proyectar; sin base | Rama subida (`9e4be29`): piloto, franja de laboratorio para todo `/lab`, regla en `REGLAS-DESARROLLO.md` y bitácora. Consignas sin revisar; falta probarlo en celular y en clase (2026-10-19) |
-| Claude Code | `escritura-en-clase` | `claude-code-chinese-lesson-estudiante-tarjeta` | 3001 | Escritura en clase: cada alumno escribe en su dispositivo y la profesora ve el resultado en vivo (cuenta o apodo, límites por carácter configurables, % de trazos acertados a la primera, mediana) | Fase 1 construida y probada con alumnos simulados en `hanzi-dev` (migración `20261118000000` aplicada solo en dev). Falta la migración en producción antes de integrar; sin probar con dedo ni clase real (2026-11-19) |
+| Claude Code | `escritura-en-clase` | `claude-code-chinese-lesson-estudiante-tarjeta` | 3001 | Escritura en clase: cada alumno escribe en su dispositivo y la profesora ve el resultado en vivo (cuenta o apodo, límites por carácter configurables, % de trazos acertados a la primera, mediana) | Integrada a `master` (2026-11-18); migración `20261118000000` figura aplicada en producción (2026-11-20). Sin probar con dedo ni clase real. Fase 2 sin empezar |
+| Claude Code | `escritura-desde-busqueda` | — | — | Clase de escritura: «Escribir selección» abre una clase en modo escribir, sin selector | Integrada a `master` (2026-11-20). Fase B (añadir palabras a una clase en marcha) sin empezar |
+| Claude Code | `saber-mas-trazos` | — | — | «Saber más», capítulo 7 sobre los trazos | Integrada a `master` (2026-11-20) como borrador; ejemplos sin cotejar |

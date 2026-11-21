@@ -26,12 +26,23 @@
   migración nueva. El rastreador y el progreso por nivel se leen por habilidad
   (por defecto reconocer). Probado en un navegador contra `hanzi-dev` con un
   alumno temporal; sin probar en un celular real.
-- **Escritura en clase (2026-11-19, sin integrar):** rama `escritura-en-clase`. En la
-  clase en vivo cada alumno escribe en su dispositivo y la profesora ve el resultado;
-  el alumno entra con su cuenta o con un apodo. Migración `20261118000000` aplicada
-  solo en `hanzi-dev`; **producción sin migrar**, así que la rama no puede ir a
-  `master` todavía. Probada con alumnos simulados; sin probar con dedo real ni una
-  clase real. Diseño: `docs/DISENO-ESCRITURA-EN-CLASE.md`.
+- **Escritura en clase (en `master` desde 2026-11-18):** en la clase en vivo cada
+  alumno escribe en su dispositivo y la profesora ve el resultado; el alumno entra con
+  su cuenta o con un apodo. La migración `20261118000000` **figura aplicada en
+  producción** (`migration list`, 2026-11-20); no consta quién la aplicó ni su
+  respaldo. Probada con alumnos simulados contra `hanzi-dev`; **sin probar con dedo
+  real, muchos dispositivos ni una clase real**. Diseño:
+  `docs/DISENO-ESCRITURA-EN-CLASE.md`.
+- **Clase de escritura (2026-11-20, en `master`, sin migración):** en el catálogo HSK,
+  «Escribir selección (N)» crea una lección rápida y abre una clase que nace en modo
+  escribir (`?modo=escritura`): sin selector Votar/Escribir y con la barra hablando de
+  escribir. «Presentar selección» conserva el selector y permite mezclar. Probada solo
+  en `hanzi-dev` con una profesora temporal; sin probar el lado del alumno en esa
+  clase. Pendiente (fase B): añadir palabras a una clase ya iniciada.
+- **«Saber más», capítulo 7 «Los trazos» (2026-11-20, en `master`, borrador):** 5 trazos
+  básicos, los 3 extra de 永 y 17 compuestos con ejemplo, y reglas de orden. Escrito
+  sin fuente; ejemplos sin cotejar con la animación de la tarjeta. La cifra de «18
+  trazos» que se mencionó no se pudo respaldar.
 - **Funciona:** inicio docente en `/` para preparar la clase (lecciones y
   colecciones fijadas, lecciones recientes y acceso a edición; migración
   probada solo en `hanzi-dev`, pendiente de producción); docente en

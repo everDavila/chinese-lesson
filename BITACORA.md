@@ -918,3 +918,17 @@ de la docente.
 consulta, con las estrellas de dominio y un enlace de vuelta que conserva nivel,
 filtro y orden (`?volver=`, solo acepta rutas del rastreador). La vista por
 puntos no es tocable (16 px). Sin migración.
+
+## 2026-11-20 · Clase de escritura y capítulo de trazos
+
+- **Clase de escritura.** «Escribir selección (N)» en el catálogo HSK crea una lección
+  rápida y abre una clase que nace en modo escribir, sin selector Votar/Escribir
+  (`?modo=escritura`); la barra habla de escribir, no de votar. La presentación normal
+  conserva el selector, para mezclar. Sin migración. Probada en `hanzi-dev`.
+  Idea de Ever: escribir también desde buscar un hanzi, no solo desde una lista.
+- **«Saber más» cap. 7, «Los trazos».** Borrador de memoria, sin fuente. Ever
+  mencionó 18 tipos de trazo; no se pudo respaldar esa cifra (la norma habla de 5
+  básicos y unos 25 compuestos).
+- **Comprobado:** `migration list` contra producción no deja nada pendiente
+  (incluida `20261118000000`). No consta quién la aplicó ni su respaldo.
+
