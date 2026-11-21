@@ -29,6 +29,21 @@
 que integrarla es **portar el diseño**, no un merge. Cambia el pinyin, el tamaño del
 hanzi, el verde al confirmar y los textos de los alumnos. La rama se conserva.
 
+## Pendiente de Ever (en casa): revisar las ramas sin integrar
+
+Ever pidió (2026-11-20) revisar **todas las ramas que no se integraron por algún
+motivo**. Revisión del día: de todas las ramas de GitHub, solo dos tienen commits que
+`master` no tiene:
+
+| Rama | Commits | Por qué no se integró |
+|---|---|---|
+| `ux-voto-alumno` | 4 (2026-10-12) | Rediseño de la votación del alumno. Choca con 4 archivos y `master` va 207 commits por delante: integrarla es portar el diseño. Ever quiere verla en pantalla antes de decidir (capturas en `reports/design-qa-voto/` de la propia rama) |
+| `documentacion-producto` | 1 (2026-10-15) | «Consolida la especificación operativa de Renshi en seis documentos». **No revisé por qué quedó fuera**; hay que ver si sigue vigente o ya está recogida en `docs/especificacion-2026-10-15/` |
+
+El resto de las ramas, locales y remotas, ya está dentro de `master`. Al revisar, decidir
+por rama: integrar, portar, archivar (conservarla) o borrarla; **nunca borrar sin
+preguntar**.
+
 **No viajan con git:** `.env.local` (producción) y `.env.dev.local` (dev), los
 respaldos de `backups/` y las carpetas de trabajo. Recrea los `.env` a mano; nunca
 los pegues en un chat.
