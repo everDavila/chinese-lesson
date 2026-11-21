@@ -1,3 +1,8 @@
+import "server-only";
+
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 // Esquemas de los trazos del capítulo «Los trazos» (Saber más). Dibujos propios,
 // hechos a mano como líneas: no son glifos de ninguna fuente. El punto marca dónde
 // empieza el trazo y la línea sigue el recorrido. Se pintan con `{{trazo:nombre}}`
@@ -52,6 +57,35 @@ export function StrokeIcon({ name }: { name: string }) {
       </g>
       <path d={s.d} fill="none" stroke="currentColor" strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" className="text-foreground" />
       <circle cx={s.start[0]} cy={s.start[1]} r={6} className="fill-emerald-500" />
+    </svg>
+  );
+}
+
+// El carácter de un ejemplo con UN trazo marcado: `{{ej:口:1}}` es el 口 con su
+// segundo trazo (se cuenta desde 0) en verde y los demás en gris. Los contornos vienen de
+// contenido/etimologia/trazos-ejemplos.json (scripts/build-trazos-ejemplos.mjs), que
+// sale de hanzi-writer-data (Arphic PL, ver /creditos).
+let examples: Record<string, string[]> | null = null;
+function strokesOf(char: string): string[] | null {
+  examples ??= JSON.parse(readFileSync(path.join(process.cwd(), "contenido", "etimologia", "trazos-ejemplos.json"), "utf8"));
+  return examples?.[char] ?? null;
+}
+
+export function ExampleChar({ char, index }: { char: string; index: number }) {
+  const strokes = strokesOf(char);
+  if (!strokes || !strokes[index]) return null;
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      role="img"
+      aria-label={`${char} con su trazo ${index + 1} de ${strokes.length} marcado`}
+      className="inline-block size-14 shrink-0 rounded-md border border-border bg-background align-middle"
+    >
+      <g transform="scale(1,-1) translate(0,-900)">
+        {strokes.map((d, i) => (
+          <path key={i} d={d} className={i === index ? "fill-emerald-500" : "fill-foreground/20"} />
+        ))}
+      </g>
     </svg>
   );
 }
