@@ -21,7 +21,11 @@
   `trazos-dibujados`, ya en `master`): 25 trazos dibujados como esquemas SVG propios
   (`src/components/aprende/stroke-icons.tsx`, token `{{trazo:nombre}}` en el markdown).
   Borrador sin fuente: las formas son aproximadas y los ejemplos no se cotejaron con la
-  animación de la tarjeta. Idea siguiente: marcar el trazo sobre el carácter del ejemplo.
+  animación de la tarjeta.
+  **Sin integrar:** rama `trazos-sobre-caracter` (subida): la columna «Ejemplo» marca en
+  verde el trazo sobre el carácter (`{{ej:口:1}}`, contornos de `hanzi-writer-data` en
+  `contenido/etimologia/trazos-ejemplos.json`, script `scripts/build-trazos-ejemplos.mjs`).
+  Ever aún no la ha visto en su pantalla; integrar con `git merge origin/trazos-sobre-caracter`.
 - **Fase 2 de Escritura en clase** (sin empezar): el trazo que más falla el grupo,
   marcado sobre el carácter; «necesita ayuda»; resumen al terminar. Fase 3: ejercicio
   a su ritmo.
