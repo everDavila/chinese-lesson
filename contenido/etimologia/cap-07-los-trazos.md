@@ -13,26 +13,27 @@ Aprender a reconocerlos tiene dos usos prácticos: **escribir con el orden corre
 
 ## Los cinco trazos básicos
 
-La norma china parte de cinco, que se distinguen por su dirección:
+La norma china parte de cinco, que se distinguen por su dirección. En cada dibujo, el
+**punto verde marca dónde empieza** el trazo.
 
-| Trazo | Pinyin | Cómo es | Ejemplo |
+| Trazo | Dibujo | Pinyin | Ejemplo |
 |---|---|---|---|
-| 横 | héng | horizontal, de izquierda a derecha | 一, 二, 三 |
-| 竖 | shù | vertical, de arriba abajo | 十 |
-| 撇 | piě | diagonal que baja hacia la izquierda | 人 (la pata izquierda) |
-| 点 | diǎn | un punto corto | 六 (el de arriba) |
-| 折 | zhé | línea con un **quiebre** (cambia de dirección) | 口 |
+| 横 | {{trazo:heng}} | héng | 一, 二, 三 |
+| 竖 | {{trazo:shu}} | shù | 十 |
+| 撇 | {{trazo:pie}} | piě | 人 (la pata izquierda) |
+| 点 | {{trazo:dian}} | diǎn | 六 (el de arriba) |
+| 折 | {{trazo:zhe}} | zhé | 口 |
 
 ## Los ocho de «永»
 
 La enseñanza tradicional usa el carácter 永 como muestra de ocho trazos. Además de los
 cinco anteriores, separa tres:
 
-| Trazo | Pinyin | Cómo es | Ejemplo |
+| Trazo | Dibujo | Pinyin | Ejemplo |
 |---|---|---|---|
-| 捺 | nà | diagonal que baja hacia la derecha, termina gruesa | 人 (la pata derecha) |
-| 提 | tí | línea corta que **sube** hacia la derecha | 地 (el último trazo de 土) |
-| 钩 | gōu | un **gancho** al final de otro trazo | 小 |
+| 捺 | {{trazo:na}} | nà | 人 (la pata derecha) |
+| 提 | {{trazo:ti}} | tí | 地 (el último trazo de 土) |
+| 钩 | {{trazo:gou}} | gōu | 小 |
 
 ## Los trazos compuestos
 
@@ -40,25 +41,25 @@ Muchos trazos son la suma de dos o más de los anteriores, **escritos sin levant
 pincel**. El nombre dice los pasos en orden: 横折钩 es *héng* + *zhé* + *gōu*
 (horizontal, quiebre, gancho).
 
-| Trazo | Pinyin | Ejemplo |
-|---|---|---|
-| 横折 | héngzhé | 口 |
-| 横撇 | héngpiě | 又 |
-| 横钩 | hénggōu | 家 (el 宀 de arriba) |
-| 横折钩 | héngzhégōu | 月 |
-| 横折提 | héngzhétí | 说 (el 讠) |
-| 横折弯钩 | héngzhéwāngōu | 九 |
-| 横折折撇 | héngzhézhépiě | 及 |
-| 横折折折钩 | héngzhézhézhégōu | 乃 |
-| 竖钩 | shùgōu | 小 |
-| 竖提 | shùtí | 比 (el primer trazo de la izquierda) |
-| 竖折 | shùzhé | 山 |
-| 竖弯 | shùwān | 四 |
-| 竖弯钩 | shùwāngōu | 儿 |
-| 撇折 | piězhé | 云 |
-| 撇点 | piědiǎn | 女 |
-| 斜钩 | xiégōu | 戈 |
-| 卧钩 | wògōu | 心 |
+| Trazo | Dibujo | Pinyin | Ejemplo |
+|---|---|---|---|
+| 横折 | {{trazo:hengzhe}} | héngzhé | 口 |
+| 横撇 | {{trazo:hengpie}} | héngpiě | 又 |
+| 横钩 | {{trazo:henggou}} | hénggōu | 家 (el 宀 de arriba) |
+| 横折钩 | {{trazo:hengzhegou}} | héngzhégōu | 月 |
+| 横折提 | {{trazo:hengzheti}} | héngzhétí | 说 (el 讠) |
+| 横折弯钩 | {{trazo:hengzhewangou}} | héngzhéwāngōu | 九 |
+| 横折折撇 | {{trazo:hengzhezhepie}} | héngzhézhépiě | 及 |
+| 横折折折钩 | {{trazo:hengzhezhezhegou}} | héngzhézhézhégōu | 乃 |
+| 竖钩 | {{trazo:shugou}} | shùgōu | 小 |
+| 竖提 | {{trazo:shuti}} | shùtí | 比 (el primer trazo de la izquierda) |
+| 竖折 | {{trazo:shuzhe}} | shùzhé | 山 |
+| 竖弯 | {{trazo:shuwan}} | shùwān | 四 |
+| 竖弯钩 | {{trazo:shuwangou}} | shùwāngōu | 儿 |
+| 撇折 | {{trazo:piezhe}} | piězhé | 云 |
+| 撇点 | {{trazo:piedian}} | piědiǎn | 女 |
+| 斜钩 | {{trazo:xiegou}} | xiégōu | 戈 |
+| 卧钩 | {{trazo:wogou}} | wògōu | 心 |
 
 La lista es **de muestra**, no completa: según la norma que se siga, los trazos
 distintos son unos 25.
@@ -86,7 +87,9 @@ Hay excepciones; ante la duda, la animación de la tarjeta muestra el orden corr
 - Los nombres en español de cada trazo: no hay uno fijado; hoy se usa el pinyin.
 - Los ejemplos: comprobar cada uno contra la animación de trazos de la tarjeta.
 - Cuántos trazos se muestran: la norma consultada y la cifra (8, 25…).
-- Si se quiere dibujar cada trazo, necesita imágenes o un componente propio.
+- Los dibujos son **esquemas propios** (líneas), no el trazo real de una fuente: la
+  curvatura y las proporciones son aproximadas. Falta cotejarlos con una fuente
+  caligráfica y, si se quiere, marcar cada trazo sobre el carácter de su ejemplo.
 
 ## Fuentes consultadas
 
